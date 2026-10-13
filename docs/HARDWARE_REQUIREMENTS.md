@@ -143,6 +143,16 @@
 | STO-32 | **Festgelegt – A: vollständige CSV-Telemetrie** | CSV enthält standardmäßig **UTC-Zeitstempel**, Koordinaten, Geschwindigkeit, Höhe, Kurs, GNSS-Qualität, Distanzzähler (Gesamt, Trip A/B, LEG), aktive Messquelle (GNSS/Radsensor) und relevante Tasten-/Korrektur- sowie Quellwechselereignisse. GPX bleibt paralleles Trackformat. | Einheitliche Spalten-/Einheiten-/Zeitzonendefinition und Kennzeichnung ungültiger Felder festlegen; Event-Zeilen/-Spalten sinnvoll modellieren; fehlende GNSS-Koordinaten nicht erfinden. Tatsächliche Datenmenge neu messen: 300 B/Punkt ist bisher nur Planungsannahme. |
 | STO-33 | **Festgelegt – A: etwa 1 s persistenter Flush** | GNSS bleibt bei **5 Hz**; Logdaten werden zunächst gepuffert und im Normalbetrieb **ungefähr einmal pro Sekunde** gebündelt auf microSD geschrieben bzw. synchronisiert. ACC-Aus erzwingt geordnetes Schließen mittels dimensioniertem Energiepuffer. | Puffertiefe und Taskprioritäten garantieren störungsfreie Distanzmessung; reale maximale SD-Write-/fsync-Latenzen, Verschleiß und Energiepuffer dimensionieren. Ein ungefähr sekündlicher Flush ist keine Garantie gegen vollständigen Datenverlust bei abrupten Ausfällen außerhalb des Auslegungsprofils. |
 
+
+### C.5 Wiederanlauf und Bedienung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| STO-34 | **Festgelegt – A: automatische Wiederherstellung nach Stromausfall** | Bei unerwartetem Spannungsausfall stellt TripTracer beim nächsten M8-Start kritische Zähler aus FRAM wieder her, überprüft die zuletzt geöffneten GPX-/CSV-Dateien auf Konsistenz, repariert sie **soweit sicher möglich** und setzt danach das reguläre Tageslogging automatisch fort. | Niemals beschädigte Daten stillschweigend überschreiben oder vollständige Recovery versprechen; begrenzte Prüfung/Reparatur, Backup/Quarantäne unrettbarer Dateien, FAT32-Integrität, Zeitstempel, Stromausfall während Reparatur und ggf. neue fortlaufend benannte Logdateien testen. GNSS-/Rad-Distanzmessung darf nicht durch lange Reparatur blockiert werden. |
+| UI-29 | **Festgelegt – A: SD-Fehleranzeige** | Bei fehlender, voller oder fehlerhafter SD zunächst eine **kurze gut sichtbare Warnmeldung** und anschließend **dauerhaftes SD-Warnsymbol** in der Statuszeile, bis Fehler behoben ist. | Haupt-Distanzanzeige nicht dauerhaft verdecken; Fehlermeldung auch bei aktivem Warnstatus erneut abrufbar; Prioritäten weiterer kritischer Warnungen und Dauer der Einblendung später abstimmen. |
+| UI-30 | **Festgelegt – A: Speicherinformation im Diagnosemenü** | Freier microSD-Speicher, Füllgrad, geschätzte verbleibende Aufzeichnungsdauer und Kartenzustand **nur im Diagnosemenü**; im Fahrdisplay ausschließlich Logging-/Fehlersymbole, keine permanente Kapazitätsanzeige. | Bereits vereinbarte unter-10-%-Warnung bleibt als kurz sichtbare Meldung und Statussymbol bestehen (STO-21/31). Schätzung anhand gemessener Datenrate statt garantierter Kapazität. |
+| STO-35 | **Festgelegt – A: manuelle neue Logdatei ohne Rückfrage** | Menüpunkt **„Neue Logdatei starten“** schließt sofort und sicher das aktive GPX-/CSV-Dateipaar und eröffnet ohne Bestätigungsdialog ein neues eindeutig benanntes Paar am gleichen Tag (z. B. Tagesname mit laufender Sequenz). **Distanzzählung läuft ununterbrochen.** | SD-Operationen asynchron/nicht blockierend, GNSS-Pufferung bei Dateirotation, Fehlerzustand wenn SD nicht verfügbar oder USB-MSC aktiv, keine Datei überschreiben, UI-Feedback über Erfolg/Fehler. |
+
 ### C.2 Controller und nichtflüchtiger Speicher (MCU)
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -316,6 +326,8 @@
 | 13.10.2026 | STO-25–29 | **Viererrunde komplett A bestätigt:** RTC mit austauschbarer Knopfzellen-Backupversorgung; ohne valide Zeit kurzfristig im RAM puffern und nur rekonstruierbar zeitstempeln; USB-MSC Lesen/Schreiben; einstellbare lokale Zeitzone mit Standard Europa/Berlin. **Zusätzlich RTC-Batteriespannungs-/Zeitgültigkeitsdiagnose als Entwicklungsziel.** | RTC/CR1220 vorläufiger Kandidat, keine endgültige elektrische/automotive Freigabe; Batteriewarnschwellen und Pufferbudget noch auszulegen. |
 
 | 13.10.2026 | STO-30–33 | **Viererrunde A/A/A/A bestätigt:** automatische begrenzte SD-Fehlerwiederherstellung; bei unter 10 % frei warnen, bis zur Sicherheitsreserve weiterloggen; CSV mit vollständiger Telemetrie; GNSS 5 Hz mit gebündeltem SD-Flush etwa jede Sekunde. | Endgültige Reserve, Retry-Logik, CSV-Schema und worst-case fsync-/Energiepuffer-Messung bleiben technische Entwicklungsaufgaben. |
+
+| 13.10.2026 | STO-34/35, UI-29/30 | **Viererrunde A/A/A/A bestätigt:** Automatische FRAM-/GPX-/CSV-Wiederherstellung nach Stromausfall soweit sicher möglich; kurze SD-Fehlermeldung plus persistentes Statussymbol; Speicherdetails ausschließlich im Diagnosemenü; neue Logdatei über Menü sofort ohne Rückfrage bei durchlaufender Distanzmessung. | Recovery-Grenzen, UI-Einblenddauer und Datei-Rotationsverhalten technisch zu validieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
