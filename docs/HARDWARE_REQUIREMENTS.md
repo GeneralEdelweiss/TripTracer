@@ -54,10 +54,15 @@
 | PWR-19 | **Festgelegt** | **Automatischer Start mit anliegender M8-Fahrzeugspannung**; kein zusätzlicher Einschaltknopf erforderlich. | Verhalten beim Anschluss an dauerhaft spannungsführende Fahrzeugklemmen beachten: Solange M8 Spannung liefert, bleibt das Gerät regulär eingeschaltet. USB-only startet ausschließlich Flash-/Servicemodus gemäß PWR-06. |
 | PWR-20 | **Festgelegt** | **Kontrollierter Nachlauf mit lokalem Energiepuffer**, wenn die M8-Spannung wegfällt: kritische Betriebsdaten sichern, eine offene Streckenaufzeichnung/Datei konsistent abschließen und erst danach abschalten. | Pufferenergie, Abschaltschwelle, Reservierung für Dateisystem-Schreibspitzen sowie maximaler Nachlauf erst anhand Lastprofil festlegen; auch bei 0-V-Eingang sicher speichern, soweit innerhalb des dimensionierten Abschaltprofils. Keine fortgesetzte GPS-Messung im Nachlauf vorgeschrieben. |
 | PWR-21 | **Festgelegt** | **Bordnetzspannung vor der Spannungswandlung überwachen und im Menü anzeigen**, für 12-V- und 24-V-Systeme. | Messpunkt/Messbereich, Schutz des ADC vor Transienten, Eingangsimpedanz, Filterung, Kalibrierung und Anzeigeauflösung später festlegen; keine ungeprüften Direktverbindungen zum ESP32-ADC. |
-| PWR-22 | **Offen** | Anschluss der M8-Fahrzeugleitung: geschaltetes Plus (Zündung/ACC) oder dauerhaftes Batterieplus mit eigenem Standby-Konzept? | Mit PWR-19 und Ruhestromanforderungen abstimmen. |
-| PWR-23 | **Offen** | Ziel-Nachlaufdauer nach Wegfall von M8 | Zeit und Puffergröße erst anhand sicherer Schreib-/Shutdown-Zeiten und Leistungsbedarf bestimmen. |
-| PWR-24 | **Offen** | Verbraucherprioritäten während des gepufferten Nachlaufs | Nur MCU + Speicher-/Dateiverwaltung weiter versorgen oder zusätzlich Anzeige/GNSS? |
-| PWR-25 | **Offen** | Darstellung/Umfang der Bordnetzspannungsmessung | Nur Menüanzeige, permanente Anzeige oder zusätzlich Spannungsverlauf/Logging? |
+| PWR-22 | **Festgelegt** | **Variante A – geschaltetes Zündungsplus/ACC:** Die M8-Versorgung wird an einen fahrzeugseitig abgesicherten, mit Zündung geschalteten Stromkreis angeschlossen. Mit anliegender Spannung startet TripTracer automatisch (PWR-19); beim Ausschalten kontrollierter Nachlauf (PWR-20). | Für jedes 12-/24-V-Fahrzeug geeigneten, zulässig belastbaren und abgesicherten ACC-Abgriff wählen; keine zusätzliche Dauerplus-/Standby-Anforderung. |
+| PWR-23 | **Festgelegt** | **Variante A – kürzestmöglicher kontrollierter Nachlauf:** nur so lange gepuffert weiterlaufen, wie zum konsistenten Speichern der Tripdaten und zum Abschluss offener Dateisystemoperationen notwendig. | Keine pauschale Mindestdauer von 5 oder 10 Sekunden; benötigte Energie und Sicherheitsreserve anhand realer Stromaufnahme, Speichermedien, Schreibzeiten und Spannungseinbrüchen bestimmen und testen. |
+| PWR-24 | **Festgelegt** | **Variante A – im Nachlauf nur notwendige Elektronik versorgen:** ESP32 und für sichere Speicherung erforderliches FRAM/SD-/Dateisystem weiter betreiben; GNSS, Displaybeleuchtung und entbehrliche Verbraucher ausschalten. | Sichere Erkennung des M8-Spannungsverlusts und priorisiertes Abschalten der Verbraucher sicherstellen; Reserve für SD-Schreibspitzen vorsehen; keine Messfortsetzung im Nachlauf erforderlich. |
+| PWR-25 | **Festgelegt** | **Variante A – Bordnetzspannung nur im Diagnosemenü anzeigen**, nicht permanent auf dem Hauptdisplay; Messung weiterhin für die Versorgungsüberwachung nutzbar (PWR-21). | Für 12-/24-V-Systeme korrekt skalieren/kalibrieren; Anzeigeauflösung, Aktualisierungsrate und Messschaltung später festlegen. |
+
+| STO-01 | **Offen** | Dauerhafter Track-Speicher: entnehmbare microSD oder fest verlöteter größerer Speicher | Langstrecken-Logging, Dateiformate und Datenexport ermöglichen; bestehender FRAM nur für kurze Einstell-/Zählerdaten. |
+| STO-02 | **Offen** | Falls microSD: Entnahme von außen oder nur nach Öffnen des Gehäuses | Gehäuseabdichtung, SD-Hotplug, Zugänglichkeit in der Fahrzeughalterung und Datenintegrität beachten. |
+| STO-03 | **Offen** | Externe GNSS-Antenne am Fahrzeug oder integrierte GNSS-Antenne im TripTracer | GNSS-Sicht, HF-Anbindung, Montage und universellen Fahrzeugwechsel abwägen; V0.3 sieht U.FL-Anschluss vor. |
+| STO-04 | **Offen** | Optionalen Anschluss für einen Radimpulssensor als spätere Erweiterung vorsehen oder GPS-only | Geschützter Eingang und freie GPIOs bei optionaler Sensoranbindung einkalkulieren. |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -126,17 +131,18 @@
 | 13.10.2026 | PWR-16 | **Variante B: Unterbrechungsfrei bei Start-Spannungseinbrüchen; Neustart bei 0 V M8 zulässig** | Ergänzt PWR-15; kein Bedarf für vollständige Nullvolt-Überbrückung |
 | 13.10.2026 | PWR-17 | **Variante A: auch ausgeprägte Kaltstart-Spannungseinbrüche überstehen** | Vorläufig: 12 V → 3 V/ca. 15 ms und 6 V/mehrere Sekunden; 24 V → 6 V kurzzeitig und 10 V/mehrere Sekunden. Exakte Prüfprofile noch festzulegen. |
 | 13.10.2026 | PWR-18/19/20/21 | **Gebündelte 4er-Runde:** Display bei Motorstart dimmbar; Start automatisch mit M8; kontrollierter gepufferter Nachlauf; Bordnetzspannung im Menü messen/anzeigen | PWR-16 bleibt bestehen: vollständiger 0-V-Ausfall muss keinen laufenden Messbetrieb garantieren; der Nachlaufpuffer ist stattdessen für gesichertes Herunterfahren zu dimensionieren. |
+| 13.10.2026 | PWR-22/23/24/25 | **Gebündelte 4er-Runde:** geschaltetes Zündungsplus; minimal notwendiger Speichernachlauf; nur notwendige Elektronik im Nachlauf; Spannungsanzeige nur im Diagnosemenü | Keine feste Nachlaufdauer; Pufferung und Datensicherheit vor PCB-Layout dimensionieren und testen. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächste Vierer-Runde – Ausschalten, Fahrzeuganschluss und Diagnose (PWR-22 bis PWR-25):**
+**Nächste Vierer-Runde – GNSS und Streckenspeicherung (STO-01 bis STO-04):**
 
-1. **PWR-22 – Fahrzeugklemme:** A: Zündungs-/ACC-geschaltete, fahrzeugseitig abgesicherte Plusleitung (Empfehlung). B: Dauerplus; setzt noch zu definierenden Standby-/Abschaltmechanismus voraus, da PWR-19 automatisches Einschalten bei M8-Spannung vorgibt.
-2. **PWR-23 – Gepufferter Nachlauf:** A: So kurz wie möglich, bis Daten sauber gesichert sind (Zeitwert aus Tests). B: Mindestens 5 Sekunden reservieren. C: Mindestens 10 Sekunden reservieren. In jedem Fall dimensionieren nach realem Stromverbrauch und Schreibspitzen.
-3. **PWR-24 – Verbraucher beim Nachlauf:** A: MCU, FRAM und gegebenenfalls SD-Schreib-/Dateisystem-Funktionen priorisieren; Anzeige-Beleuchtung und GNSS abschalten (Empfehlung). B: Anzeige und GNSS sollen während des Nachlaufs ebenfalls weiterlaufen.
-4. **PWR-25 – Bordnetzspannungsanzeige:** A: Anzeige nur in Diagnose-/Menüseite (Empfehlung). B: Permanent kleines Spannungsfeld auf dem Hauptbildschirm. C: Menüanzeige plus Verlaufserfassung/Logging.
+1. **STO-01 – Streckenspeicher:** A: microSD-Kartensteckplatz für lange GPS-Tracks und spätere Exportfunktionen (Empfehlung). B: Nur fest verlöteter Speicher; keine entnehmbare Karte. Der vorhandene kleine FRAM ist allein kein ausreichender Langzeit-Track-Speicher.
+2. **STO-02 – Kartenzugang (falls microSD):** A: Von außen über einen geschützten Gehäusezugang entnehmbar (Empfehlung für schnellen Export); B: microSD nur nach Öffnen des Gehäuses zugänglich (bessere Abdichtung). Bei Entscheidung STO-01 B bleibt dies gegenstandslos.
+3. **STO-03 – GNSS-Antenne:** A: Externe GNSS-Antenne über die bereits in V0.3 vorgesehene HF-Verbindung; Montage z. B. gut sichtbar am Fahrzeug (Empfehlung für freie Sicht). B: GNSS-Antenne ins TripTracer-Gehäuse integrieren; auf HF-Konstruktion, Abschattung und Gehäusematerial achten. Die mechanische HF-Buchse wird später gewählt.
+4. **STO-04 – Radsensor-Erweiterung:** A: Reservierten, geschützten Eingang/Anschluss für optionalen Radimpulssensor vorsehen (Empfehlung als Zukunftsreserve, noch kein Sensor selbst). B: Reiner GNSS-Tripmaster ohne externen Radsensoranschluss. Für beide Varianten bleiben die GNSS-Grenzen in Tunneln zu beachten.
 
-**Auslegungshinweis:** Ein gepufferter, kontrollierter Nachlauf darf die bestehende PWR-16-Anforderung nicht fälschlich in einen dauerhaft unterbrechungsfreien Betrieb bei 0 V verwandeln. Nachlaufdauer und Pufferenergie sind getrennt von der Kaltstart-Überbrückung zu verifizieren.
+**Keine der vier Fragen legt jetzt bereits konkrete Bauteile fest.** Mögliche Kosten, Einbauöffnungen, GPIO-Budget und Abdichtung bei der Wahl mitberücksichtigen.
 
 ## Quellen / Verbindlichkeit
 
