@@ -769,6 +769,15 @@
 | HW-51 | **Festgelegt – A: gemeinsamer I²C-Bus** | **RTC, FRAM, digitaler Helligkeitssensor und digitaler PCB-Temperatursensor** verwenden grundsätzlich **einen gemeinsamen 3,3-V-I²C-Bus** mit passenden Pull-ups und eindeutigen Geräteadressen. | I²C-Adresskollisionen, Gesamtbuskapazität, Pull-up-Dimensionierung, Bus-Ausfallverhalten und Pegel beim Teilabschalten (insbesondere RTC-Backup) testen. |
 | HW-52 | **Festgelegt – A: elektronisch geschaltete 5-V-M8-Sensorversorgung** | Den gemeinsamen **5-V-Versorgungskontakt des M8-Radsensoranschlusses** über einen **strombegrenzten, elektronisch abschaltbaren Lastschalter** versorgen; Fehlerstatus und softwaregesteuerten Wiederanlauf gemäß bisherigen GPS-Vorgaben unterstützen. | Stromlimit nach Sensorlasten bestimmen; Kurzschluss, automatischen begrenzten Retry, thermische Abschaltung, Rückspeisung über Impulsleitungen und Strombudget des 5-V-Hauptzweigs überprüfen. |
 
+### Hardwareprototyp – I²C, Radgeber-Pull-ups, Temperatur und GPIO (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-53 | **Festgelegt – A: ein gemeinsamer I²C-Bus ohne Zusatzschalter** | RTC, FRAM, Helligkeits- und PCB-Temperatursensor **auf einem 3,3-V-I²C-Bus ohne zusätzliche Hardware-Multiplexer/-Schalter** belassen (HW-51). Firmwareseitige Bus-Recovery soweit physikalisch möglich vorsehen; dauerhaft kurzgeschlossene SDA/SCL-Leitungen können dadurch nicht garantiert repariert werden. | Adress-/Pull-up-Budget, Leckströme bei ausgeschalteten Teilnehmern und Fehlerverhalten bei klemmendem SDA/SCL prüfen. |
+| HW-54 | **Festgelegt – A: einzeln schaltbare Radgeber-Pull-ups** | Für beide unabhängigen Radimpulseingänge **jeweils separat aktivierbare/entfernbare Pull-ups als Hardware-Bestückungsoptionen oder zugängliche Jumper** vorsehen; die Pull-ups samt Eingangsschutz und Pegelaufbereitung für Reed, Hall und Open Collector auslegen. **Keine zusätzliche Software-gesteuerte Pull-up-Elektronik beschlossen.** | Definierte Pegel bei offenem Eingang, Pull-up-Strom, 1-kHz-Eingangssignal, ESD/Fehlverdrahtung sowie jeweilige Sensor-Kompatibilität überprüfen. |
+| HW-55 | **Festgelegt – A: Temperatursensor am DC/DC-Wandler** | Den digitalen I²C-PCB-Temperatursensor **im thermisch aussagekräftigen Bereich nahe der 5-V-DC/DC-Wandlerstufe** platzieren; nicht direkt an einem elektrisch störenden Schaltknoten und mit geeigneter thermischer Kopplung/Abschirmung. | PCB-/Regler-Temperatur an Referenzpunkten vergleichen; Messwert als lokale Boardtemperatur und nicht ungeprüft als Regler-Sperrschichttemperatur interpretieren. |
+| HW-56 | **Festgelegt – A: GPIO-Belegung nach Riverdi-Verifikation** | Die **endgültige ESP32-S3-GPIO-Zuordnung erst nach Identifikation und Datenblattprüfung des konkreten Riverdi-Displays** freigeben. Zuvor vollständiges Pinbudget für USB, GNSS-UART/TIMEPULSE, Display, getrennte SD-SPI, I²C, zwei Radsensoren, sechs Tasten, LED-Treiber, SD-/Sensor-Power, BOOT/Strapping, Diagnose und JST-GH-Erweiterung prüfen. | Pin-/Strapping-/USB-Konflikte und freie Erweiterungsleitungen dokumentieren; hierarchischen Schaltplan erst mit validiertem Pinmapping elektrisch freigeben. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -953,6 +962,8 @@
 | 13.10.2026 | HW-45–48 | **Hardware-Viererrunde C/A/A/A bestätigt:** Riverdi-Displayschnittstelle erst anhand konkreter Artikelnummer festlegen, lösbare FFC/FPC-Verbindung als hardwareseitiges Ziel vorbehaltlich Modulkompatibilität, U.FL-auf-PCB zu SMA-Gehäusedurchführung für GNSS, digitaler I²C-Helligkeitssensor. | Exakte Riverdi- und MAX-M10N-Datenblätter vor Schaltplanabschluss prüfen; FFC-Kompatibilität nicht voraussetzen. |
 
 | 13.10.2026 | HW-49–52 | **Hardware-Viererrunde A/A/A/A bestätigt:** digitaler I²C-PCB-Temperatursensor, unabhängig geschützte/gefilterte Radimpulseingänge, gemeinsamer 3,3-V-I²C-Bus für RTC/FRAM/Licht/Temperatur und strombegrenzter elektronischer 5-V-Lastschalter für M8-Radsensorversorgung. | Adressen/Buslast, Sensorfehler-Isolation, Signalpegel/ESD und Stromlimit/Retry vor Layout nachweisen. |
+
+| 13.10.2026 | HW-53–56 | **Hardware-Viererrunde A/A/A/A bestätigt:** I²C ohne zusätzliche Isolationsschalter, je Radsensor bestückungs-/jumperseitig schaltbare Pull-ups, I²C-Temperatursensor nahe dem DC/DC-Wandler und finale ESP32-S3-Pinzuordnung nach konkreter Riverdi-Displayverifikation. | Displaymodell beschaffen/verifizieren, vollständiges GPIO-Budget sowie Pull-up-Sensorkompatibilität nachweisen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
