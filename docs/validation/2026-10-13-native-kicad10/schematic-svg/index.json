@@ -1,0 +1,15 @@
+{
+  "sheet-02.svg": "TripTracer_V1-5-V-Synchronbuck (elektrischer Entwurf).svg",
+  "sheet-09.svg": "TripTracer_V1-MAX-M10N _ RF _ Bias.svg",
+  "sheet-12.svg": "TripTracer_V1-Riverdi _ Backlight _ Tasten.svg",
+  "sheet-10.svg": "TripTracer_V1-microSD _ FRAM _ RTC.svg",
+  "sheet-01.svg": "TripTracer_V1-3,3-V-LDO _ USB- und Laboreinspeisung.svg",
+  "sheet-13.svg": "TripTracer_V1.svg",
+  "sheet-07.svg": "TripTracer_V1-Eingangsschutz _ eFuse _ HV-Puffer.svg",
+  "sheet-05.svg": "TripTracer_V1-Eingangsschutz _ eFuse _ HV-Puffer-01C Hardware-Nachlaufbegrenzer (vorlaeufig).svg",
+  "sheet-04.svg": "TripTracer_V1-Eingangsschutz _ eFuse _ HV-Puffer-01B ACC-Start und HOLD-OR (vorlaeufig).svg",
+  "sheet-03.svg": "TripTracer_V1-Eingangsschutz _ eFuse _ HV-Puffer-01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig).svg",
+  "sheet-11.svg": "TripTracer_V1-Radsensoren _ JST-GH _ I2C.svg",
+  "sheet-06.svg": "TripTracer_V1-Eingangsschutz _ eFuse _ HV-Puffer-01D Kfz-Eingangsschutz_eFuse (Entwurf_GATE OFFEN).svg",
+  "sheet-08.svg": "TripTracer_V1-ESP32-S3 _ USB-Daten _ Boot.svg"
+}
