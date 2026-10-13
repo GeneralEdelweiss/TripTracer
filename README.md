@@ -20,6 +20,7 @@ Privates Entwicklungsprojekt eines selbstgebauten GPS-Tripmasters, universell fu
 - `catalog/`: V0.3-BOM, Pin-/Netztabellen, Strukturpruefberichte, Modellinventar
 - `mechanics/prototype_v0.1/`: mechanischer Prototyp (STEP/STL)
 - `firmware/prototype_v0.1/`: PlatformIO-Prototyp
+- `docs/HARDWARE_REQUIREMENTS.md`: zentrale Hardware-Anforderungen, Entscheidungen und offene Fragen fuer die naechste Revision
 - `docs/`: Architektur, Datenblatt-URLs, Preview und offene Punkte
 - `tools/legacy_generation/`: reproduzierbare Skripte der V0.3, **nicht ungefragt erneut ausfuehren**, da UUIDs neu vergeben werden koennen
 - `integration/`: Bibliothekseinbindung auf weiteren Rechnern
