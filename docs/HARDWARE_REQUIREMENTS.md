@@ -370,6 +370,15 @@
 | GPS-65 | **Festgelegt – A: separat kalibrieren** | Für **jeden Radimpulseingang** innerhalb jedes Fahrzeugprofils eigenen Radumfang, Impulse/Umdrehung und bestätigten GNSS-Referenzkalibrierwert speichern. Die bestehende Mindest-Referenzstrecke von 1 km gilt auch hier. | Sensorweise persistente Parameter, unabhängige Kalibriervorgänge, atomare Übernahme nur nach Bestätigung, Plausibilitäts- und Bereichsprüfungen. |
 | GPS-66 | **Festgelegt – A: bevorzugten plausiblen Sensor nutzen und warnen** | Liefern zwei aktive Radgeber bei ausgefallenem GNSS deutlich widersprüchliche Geschwindigkeiten, **bevorzugten Sensor weiter zur Distanzmessung nutzen, sofern dieser weiterhin plausibel ist**; Abweichung durch Warnsymbol und Diagnose-/CSV-Ereignis protokollieren. | Differenzschwelle und Zeitfilter definieren; bei zusätzlichen Fehlerindikatoren des bevorzugten Sensors andere Quelle prüfen. Sind beide unplausibel, keine erfundene Strecke zählen; kein Mittelwert als Ersatz. |
 
+### D.15 Radgeber-Umschaltung und Abweichungsdiagnose – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-67 | **Festgelegt – C: Grenzwert je Fahrzeugprofil** | Grenzwert für die zulässige prozentuale **Geschwindigkeitsabweichung zwischen beiden kalibrierten Radgebern je Fahrzeugprofil einstellbar** halten. Eine Warnung erst bei länger anhaltender Abweichung auslösen; Standardwert, Einstellbereich und Verzögerung technisch festlegen. | Bei niedriger Geschwindigkeit absoluten Mindestschwellwert zusätzlich zur Prozentabweichung berücksichtigen; Kurvenfahrt, Raddurchmesser, Reifenverschleiß und Schlupf nicht als Fehler fehlinterpretieren. |
+| GPS-68 | **Festgelegt – A: Fallback nach ca. 1 s** | Wenn der bevorzugte Radgeber als unbrauchbar erkannt wird, nach **ungefähr 1 Sekunde bestätigter Störung** auf den zweiten **plausiblen** Radgeber umschalten, sofern gerade kein zuverlässiges GNSS als übergeordnete Quelle genutzt wird. | Ein Sekunden-Timeout darf einen stehenden Radsensor bei Stillstand nicht als defekt klassifizieren; keine Doppelzählung oder Zählersprünge beim Quellenwechsel. |
+| GPS-69 | **Festgelegt – A: automatische Rückkehr nach 5 s** | Nach Wiederherstellung des bevorzugten Radgebers **automatisch erst nach fünf Sekunden stabiler, plausibler Messung** von der Ersatzquelle zurückwechseln. | Umschalthysterese gegen Flattern, ausbleibende Flanken im Stand und Priorität gültiger GNSS-Messung beachten. |
+| GPS-70 | **Festgelegt – A: diagnostische Abweichungsereignisse** | Bei Abweichungswarnungen **Impulsfrequenzen beider Eingänge, berechnete Geschwindigkeiten, prozentuale Abweichung, aktive Quelle und Zeitstempel** als Diagnose-/CSV-Ereignis speichern. | Werte mit Einheiten und Gültigkeitsflags erfassen; bei fehlender/ungültiger zweiter Quelle keine künstliche Prozentabweichung errechnen. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -670,6 +679,8 @@
 | 13.10.2026 | GPS-60–62, UI-47 | **Viererrunde B/A/A/A bestätigt:** vierter M8-Kontakt wird zweiter Impulseingang, automatische strombegrenzte Wiederholversuche bei Sensorversorgungskurzschluss, Sensorart manuell pro Fahrzeugprofil, kompakter Status bereit/aktiv/gestört in der Fahrtanzeige. | Sichere Doppelkanal-Pegelauslegung, Zuordnung im Profil, Versuchstakt und Statusanzeige prüfen. |
 
 | 13.10.2026 | GPS-63–66 | **Viererrunde A/A/A/A bestätigt:** zwei unabhängig pro Profil konfigurierbare Radgeber, je Profil priorisierter Eingang mit automatischem Fehler-Fallback, getrennte Kalibrierung je Eingang, bei widersprüchlichen Messungen bevorzugte plausible Quelle plus Warnung/Protokollierung. | Umschalthysterese, GNSS-Priorität, Widerspruchsschwellen und Doppelerfassung verifizieren. |
+
+| 13.10.2026 | GPS-67–70 | **Viererrunde C/A/A/A bestätigt:** pro Fahrzeugprofil einstellbarer Radgeber-Abweichungsgrenzwert, Wechsel zur plausiblen Ersatzquelle nach ungefähr 1 s bestätigtem Fehler, Rückkehr zur bevorzugten Quelle nach 5 s stabiler Messung, Ereignisprotokoll mit Frequenzen/Geschwindigkeiten/Differenz/aktiver Quelle. | Grenzwertbereich, Zeitfilter bei Abweichung, Niedriggeschwindigkeits-Sonderfall und Vermeidung von Distanzsprüngen konkretisieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
