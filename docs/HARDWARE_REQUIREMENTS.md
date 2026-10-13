@@ -91,6 +91,15 @@
 | PWR-29 | **Offen – Zustandsautomat technisch auslegen** | Zustände für M8-Normalbetrieb, USB-only-MSC, expliziten MSC-Service bei M8+USB, Firmware-Bootmodus, SD-Exklusivzugriff, Host-Eject, ACC-Aus-Flush/Unmount und RTC-/Zeitvalidität festlegen. | USB-Stack, ROM-Boot, Power-Source-Priorität, Schreibrechte des PC, fehlerhafte USB-Abbrüche und sichere Übergänge real testen. |
 
 
+### B.3 Bordnetzbereich und Wiederanlauf – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| PWR-30 | **Festgelegt – A: 9–36 V** | **Regulärer M8-Dauerbetriebsbereich 9 bis 36 V DC** für 12-/24-V-Fahrzeuge; kurzzeitige Transienten, Load-Dump und Verpolung sind **separat** zu beherrschen. | Schutz- und Wandler-Datenblätter inklusive Derating, geeignete Automotive-Transientenprüfung, Über-/Unterspannungsschwellen. |
+| PWR-31 | **Festgelegt – A: Messbetrieb bei kurzen Einbrüchen erhalten** | Bei kurzen Spannungseinbrüchen **Distanzmessung, GNSS/Radsensor und Zähler nach Möglichkeit unterbrechungsfrei fortsetzen**; bei Bedarf zuerst Display und Tasten-LEDs dimmen. Bei zu langem Einbruch Daten sichern und kontrolliert abschalten. | Pufferenergie aus tatsächlicher Leistungsaufnahme und Einbruchprofil berechnen, Startversuche am 12-/24-V-Prüfstand, keine falschen Distanzsprünge. |
+| PWR-32 | **Festgelegt – A: Bordnetzspannung und Unterspannungswarnung** | Gemessene M8-Eingangsspannung im **Diagnosemenü** anzeigen; bei kritischem Spannungszustand **Warnsymbol** in der Fahranzeige. | Skalierung/ADC-Schutz, Filter und Unterspannungsgrenzen passend für 12-/24-V-Profile definieren; USB-only klar unterscheiden. |
+| PWR-33 | **Festgelegt – A: automatischer Wiederanlauf** | Nach Wiederkehr gültiger M8-Bordnetzversorgung **ohne Tastendruck automatisch neu starten**; zuletzt aktives Fahrzeugprofil, dauerhaft gespeicherte Zähler und relevante Einstellungen wiederherstellen. | FRAM-Atomarität, Power-Cycle-Tests, sichere SD-Dateiwiederaufnahme und Wiederanlaufsperre bei anhaltender thermischer Störung gemäß ENV-02. |
+
 ## C. Steuerung, Kommunikation und Speicher
 
 ### C.1 Externe Anschlüsse, microSD und Track-Aufzeichnung (STO)
@@ -468,6 +477,8 @@
 | 13.10.2026 | PCB-01–04 | **B/A/A/A (historische Ausgangsentscheidung):** 2-Lagen-PCB, beidseitig bestückbar, JLCPCB/LCSC bevorzugt, umfangreiche Testpunkte. | USB-/GNSS-/EMV-Layout sowie Montage und Testpad-Zugang prüfen. |
 
 | 13.10.2026 | PCB-01 | **PCB-Lagenzahl aktualisiert:** 2 Lagen aus Kostengründen bevorzugt, **4 Lagen bei technischem Bedarf freigegeben**; Entscheidung anhand Routing, Masseführung, EMV, USB, GNSS und Kosten treffen. | Hebt starre Zweilagenfestlegung aus der vorherigen Viererrunde auf; PCB-02–04 unverändert. |
+
+| 13.10.2026 | PWR-30–33 | **Viererrunde A/A/A/A bestätigt:** Dauerbetrieb 9–36 V DC, kurzer Spannungseinbruch möglichst ohne Unterbrechung der Distanzmessung, Bordnetzspannung im Diagnosemenü samt Unterspannungswarnung, automatischer Wiederanlauf mit gespeicherten Profil-/Zählerständen. | Automotive-Transientenschutz, Pufferzeit, Schwellen für 12/24 V und Wiederanlaufsicherheit prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
