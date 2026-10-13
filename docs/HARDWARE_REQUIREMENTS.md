@@ -150,6 +150,15 @@
 | DIA-07 | **Festgelegt – A: Konfigurationsdatei auf microSD** | Alle relevanten Geräteeinstellungen und bis zu zehn Fahrzeugprofile **als lesbare Datei auf microSD exportieren**; später über Menü **wieder importieren**. | Schema-/Firmwareversion, Prüfsumme, Eingabevalidierung, sichere atomare Übernahme, Backup vor Überschreiben, Umgang mit fehlender SD und Zuordnung profilgebundener Zähler klar festlegen; keine USB-/SD-Zugriffskollision. |
 | DIA-08 | **Festgelegt – A: Versorgung und Resetgrund protokollieren** | Bei Start-/Versorgungsproblemen **gemessene Bordnetzspannung, ESP32-Resetursache, Fehlercode und wenn gültig Zeitstempel** im nichtflüchtigen FRAM-Fehlerprotokoll speichern. | Resetursache möglichst früh sichern; Spannungswert eindeutig als vor dem Ausfall, beim Start oder beim Ereignis gemessen kennzeichnen, um keine rückwirkend ungemessene Spannung vorzutäuschen. **Keine zusätzliche Spannungsverlaufshistorie beschlossen.** |
 
+### C.8 Konfigurationssicherung und Import – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| CFG-01 | **Festgelegt – A: JSON** | Geräteeinstellungen und bis zu zehn Fahrzeugprofile als **menschenlesbare, versionierte JSON-Datei** auf microSD exportieren; klare Feldnamen und dokumentiertes Schema. | JSON-Schema-/Formatversion, Plausibilitätsprüfung, UTF-8, Dateigröße und Prüfsumme festlegen; unbekannte und fehlende Felder kontrolliert behandeln. |
+| CFG-02 | **Festgelegt – A: Import ohne Distanzzähler** | Beim Import **nur Geräteeinstellungen, Fahrzeugprofilnamen und Kalibrier-/Profileinstellungen** wiederherstellen. **Gesamt-, Trip-A-, Trip-B- und LEG-Zähler sowie deren Undo-/Korrekturstände nicht überschreiben**. | Profil-IDs und Zuordnung der unveränderten Zähler bei Profiländerungen eindeutig und migrationssicher erhalten; vor Import warnen, falls Zuordnung nicht eindeutig ist. |
+| CFG-03 | **Festgelegt – A: nur manuell sichern** | JSON-Konfigurationsbackup auf die microSD **ausschließlich auf ausdrücklichen Nutzerbefehl im Menü** schreiben; keine automatischen Exporte nach jeder Änderung oder täglich. | Laufende persistente Gerätekonfiguration intern weiterhin zuverlässig sichern; Export-Dateiname, Fehlerbehandlung und Speicherplatzprüfung festlegen. |
+| CFG-04 | **Festgelegt – A: defekte Importe vollständig ablehnen** | Beschädigte, ungültige oder inkompatible JSON-Dateien **vollständig zurückweisen**, Fehlermeldung anzeigen und **sämtliche bisherigen Einstellungen und Profile unverändert lassen**; keine Teilimporte oder Werksrücksetzung. | Vollständige Validierung vor Übernahme, atomarer Commit mit Power-Loss-Sicherheit, Rollback, Versionsprüfung und negative Tests mit unvollständigen/korrupten Dateien. |
+
 ### C.2 Controller und nichtflüchtiger Speicher (MCU)
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -501,6 +510,8 @@
 | 13.10.2026 | PWR-34–37 | **Viererrunde A/A/A/A bestätigt:** 3 s Shutdown-Energiepuffer als Entwicklungsziel bei sofort abgeschalteten Nebenverbrauchern; nach M8 AUS ohne absichtlichen Nachlauf sichern und herunterfahren; wiederholte Starteinbrüche stabil abfangen und bei gültiger Versorgung automatisch neu starten; Spannungswarnung als Symbol plus kurzer Hinweis. | Erkennung kurzer Einbrüche versus echtes AUS, SD-Schreibspitzen und Kondensator-Derating testen. |
 
 | 13.10.2026 | DIA-05–08 | **Viererrunde A/A/A/A bestätigt:** nicht blockierender erweiterter Start-Selbsttest, Radsensor-Livediagnose mit Pegel/Impulszähler/Frequenz, lesbarer Konfigurationsexport und -import über microSD, Ereignisprotokoll aus Bordnetzspannung und ESP32-Resetursache. | Selbsttest-Timeouts, importsichere Dateivalidierung und korrekte Zeitzuordnung von Spannungsmesswerten prüfen; keine zusätzliche Spannungshistorie beschlossen. |
+
+| 13.10.2026 | CFG-01–04 | **Viererrunde A/A/A/A bestätigt:** Konfigurationsbackup als lesbare versionierte JSON-Datei; Import nur von Einstellungen und Fahrzeugprofilen, niemals Distanzzähler/Undo; Export ausschließlich auf Nutzerbefehl; beschädigte oder inkompatible Importdateien vollständig und ohne Änderungen ablehnen. | Schema, Validierung vor Übernahme, atomare Speicherung und Profil-ID-Zuordnung prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
