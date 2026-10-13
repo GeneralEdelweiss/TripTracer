@@ -543,6 +543,15 @@
 | UI-51 | **Festgelegt – A: dezentes Symbol bei Einzelsensorfehler** | Bei Ausfall eines einzelnen Radgebers **einmaligen kurzen Hinweis und anschließend kleines Warnsymbol** zeigen, solange eine andere zuverlässige Quelle (GNSS oder zweiter Radgeber) die Messung fortsetzen kann. | Fehler bei späterem Quellenwechsel korrekt priorisieren; kein wiederkehrendes Pop-up und keine Verdeckung der Rallye-Anzeige. |
 | UI-52 | **Festgelegt – A: quittierte Warnungen im Fehlerprotokoll behalten** | Das **Quittieren entfernt nur die Anzeige**, nicht den persistenten Fehlerdatensatz. Ursache, Zeitstempel, Dauer und soweit verfügbar der Quittierungsstatus bleiben im bestehenden begrenzten FRAM-/CSV-Fehlerprotokoll nachvollziehbar. | Ringpuffer-/Speichergrenzen, erneute Warnungen nach neuen Fehlerereignissen und Export konsistent behandeln. |
 
+### E.11 Quittierung und Warnungsdarstellung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| UI-53 | **Festgelegt – A: Plus und Minus gleichzeitig 2 s** | Gespeicherte Messlückenwarnung aus der Fahrtanzeige durch **gleichzeitiges Halten von Plus- und Minus-Korrekturtaste für 2 Sekunden** quittieren. Während einer erkannten Kombination **keine einzelnen ±10-m-Korrekturschritte** ausführen; die Tastenerkennung muss Korrekturimpulse auch beim zeitlich leicht versetzten Betätigen zuverlässig verhindern. | Priorisierte Tastenerkennung, Simultanitätsfenster, Entprellung, Beschleunigungslogik, Loslassen und Handschuhbedienung in UI-Tests prüfen; keine versehentlichen Distanzänderungen. |
+| UI-54 | **Festgelegt – A: Quittierung erst nach Messwiederherstellung** | Eine vollständige Messlückenwarnung darf **erst quittiert werden, nachdem mindestens eine zuverlässige Distanzquelle wieder verfügbar ist**. Solange der Ausfall besteht, bleibt der aktive Fehler sichtbar und nicht quittierbar. | Unterschied zwischen aktiver Störung und nachträglich unquittiertem Ereignis eindeutig verwalten; Tastenkombination bei aktivem Ausfall ohne Wirkung auf Zähler. |
+| UI-55 | **Festgelegt – A: erneuter Ausfall, erneuter Einzelton** | Jeder **neue vollständige Ausfall aller Distanzquellen** nach zwischenzeitlicher Wiederherstellung erzeugt **neues Warnereignis mit erneutem einmaligem kurzen Warnton**. Keine wiederholten Töne während desselben Ausfalls. | Ereignistrennung/Hysterese gegen rasches Signalflattern; Tonregeln mit UI-49 abstimmen, Fehler einzeln gemäß GPS-88 speichern. |
+| UI-56 | **Festgelegt – A: Warnsymbol mit Anzahl** | Sind mehrere **unquittierte Warnereignisse** vorhanden, in der Fahranzeige **ein kompaktes Warnsymbol mit Zähler der offenen Meldungen** darstellen. Einzelheiten sind im Diagnose-/Warnungsmenü abrufbar. | Aktive Fehler und unquittierte historische Warnungen korrekt zählen, Überlaufanzeige und Lesbarkeit bei Tag/Nacht prüfen; Quittierung nur für zulässige Meldungen, keine Löschung der Historie. |
+
 ## F. Gehäuse, Stecker und Montage
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -767,6 +776,8 @@
 | 13.10.2026 | GPS-85–87, UI-49 | **Viererrunde A/A/A/A bestätigt:** Messlücken-Warnsymbol bis zur ausdrücklichen Quittierung, keine automatische oder vorgeschlagene Distanzschätzung, Fahrtstatistik mit fortlaufender Zeit und unvollständiger Distanz kennzeichnen, einmaliger kurzer Warnton bei Beginn vollständigen Quellenausfalls. | Quittierung und Fehlerpersistenz, CSV-Gültigkeitsstatus und Warnton-Hysterese verifizieren. |
 
 | 13.10.2026 | GPS-88, UI-50–52 | **Viererrunde B/A/A/A bestätigt:** Messlücken per bewusster Tastenkombination quittieren; jeden Ausfall einzeln mit Zeit/Dauer speichern; bei einzelnem defekten Radgeber kurzen Hinweis und kleines Warnsymbol zeigen; quittierte Warnungen im persistenten Fehlerprotokoll behalten. | Tastenkombination/Haltedauer konfliktfrei definieren; Fehler-/Quittierungsstatus auch nach Neustart konsistent. |
+
+| 13.10.2026 | UI-53–56 | **Viererrunde A/A/A/A bestätigt:** Messlückenwarnungen per Plus+Minus 2 s ohne auslösende ±10-m-Korrektur quittieren, erst nach Wiederherstellung einer Distanzquelle; bei neuer Messlücke wieder einmaliger Warnton, gemeinsames Warnsymbol mit Anzahl unquittierter Meldungen. | Tastenerkennungs-Priorität, Quittierbarkeit aktiver Fehler und Warnzähler-Hysterese testen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
