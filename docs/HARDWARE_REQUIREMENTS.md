@@ -116,10 +116,14 @@
 | Q-03 | **Festgelegt** | ERC/DRC und Datenblatt-/Pinprüfung vor Bestellung; Fahrzeugschutz und reale Funktion zusätzlich testen | Prüfberichte revisionsbezogen speichern |
 | Q-04 | **Offen** | Wartbarkeit, Prüfanschlüsse, Debug-/Firmware-Recovery | Zugang ohne Zerstörung des Gehäuses |
 
-| MEC-08 | **Offen** | HF-Gehäuseanschluss für externe GNSS-Antenne oder fest ausgeführtes Antennenkabel | Bei häufigem Fahrzeugwechsel trennbar, HF-tauglich und im unbenutzten Zustand mit Staubschutz versehen. |
-| MEC-09 | **Offen** | Staubdichter äußerer microSD-Zugang: flexible Schutzkappe oder feste Klappe | Kappenbefestigung, Freiraum zum Kartenauswurf und Abrieb klären. |
-| MEC-10 | **Offen** | Steckbarer optionaler Radimpulseingang oder festes Sensorkabel | Nicht verwechselbar mit der 12-/24-V-M8-Stromversorgung, geeigneter ESD-/Eingangsschutz. |
-| MEC-11 | **Offen** | Ausführung der USB-C-Staubabdeckung | Befestigte oder lose Gummikappe; Berücksichtigung von Zugänglichkeit und Ersatzteilbedarf. |
+| MEC-08 | **Festgelegt** | **Variante A – verschraubte SMA-Gehäusebuchse** für die externe GNSS-Antenne; trennbares Antennenkabel und passende Staubschutzkappe bei Nichtbenutzung. | Konkrete SMA-Polarität, Antennenkabel, HF-Impedanz (50 Ω), mechanische Wandmontage, interne Verbindung zum GNSS-Modul und ESD-Schutz vor Bauteilauswahl prüfen. |
+| MEC-09 | **Festgelegt** | **Variante A – unverlierbar am Gehäuse befestigte Gummi-/Silikon-Staubschutzkappe** für den außen zugänglichen microSD-Steckplatz. | Dichtender Sitz im geschlossenen Zustand (Staubschutz), Auswurf-/Entnahmefreiraum, Haltbarkeit der Befestigung und Bedienbarkeit bei montiertem TripTracer prüfen. |
+| MEC-10 | **Festgelegt** | **Variante A – eigener, kleiner, steckbarer Anschluss für den optionalen Radimpulssensor**, bei Nichtbenutzung mit Staubschutzkappe versehen. | Steckgeometrie eindeutig verschieden vom M8-Versorgungsanschluss; erforderliche Kontakte, Sensor-Versorgung, Schutz und mechanische Robustheit erst nach Definition des Sensors festlegen. |
+| MEC-11 | **Festgelegt** | **Variante A – unverlierbar befestigte Gummi-/Silikon-Staubschutzkappe** für USB-C, im normalen Fahrzeugbetrieb geschlossen. | Staubdichter Verschluss im unbenutzten Zustand, USB-Steckerfreiraum beim Flashen, Befestigung und mechanische Beständigkeit prüfen. |
+| MEC-12 | **Offen** | Schnellwechselhalterung: Schiebeaufnahme mit Rastverriegelung oder Bajonettverschluss | Vibrationssicherheit, Werkzeuglosigkeit und Montage in mehreren Fahrzeugen prüfen. |
+| MEC-13 | **Offen** | Gehäusefertigung: 3D-Druck (z. B. ASA) oder anderes Verfahren/Material | Mechanische Robustheit, Temperatur, Alterung, Gewindeeinsätze und Fertigungskosten beurteilen. |
+| MEC-14 | **Offen** | Gehäuse wiederholt servicefähig zu öffnen oder dauerhaft geschlossen zu fertigen | Staubdichte Fuge, Wartbarkeit von Platine/Anschlüssen und Verschraubung. |
+| MEC-15 | **Offen** | Haptisches Bedienkonzept: gut fühlbare Handschuhtaster oder flache Membrantasten | Staubschutz und zuverlässige Betätigung unter Vibration; fünf Tasten im V0.3 nur Bestandsinformation. |
 
 ## Entscheidungsprotokoll
 
@@ -141,17 +145,18 @@
 | 13.10.2026 | PWR-22/23/24/25 | **Gebündelte 4er-Runde:** geschaltetes Zündungsplus; minimal notwendiger Speichernachlauf; nur notwendige Elektronik im Nachlauf; Spannungsanzeige nur im Diagnosemenü | Keine feste Nachlaufdauer; Pufferung und Datensicherheit vor PCB-Layout dimensionieren und testen. |
 | 13.10.2026 | STO-01/02/03/04 | **Gebündelte 4er-Runde:** microSD, von außen zugänglich; externe GNSS-Antenne; Anschluss für optionalen Radsensor | Bauteile, geeignete HF-Stecker, Abdichtung und GPIOs noch offen. |
 | 13.10.2026 | SYS-04, MEC-04/05/06/07 | **Gehäuse staubdicht, aber nicht wasserdicht gefordert; Staubschutzkappen für optionale Anschlüsse/Öffnungen** | Schutz bei verschlossenen Öffnungen; IP6X nur als Entwicklungsziel, kein nachgewiesener Prüfstatus. |
+| 13.10.2026 | MEC-08/09/10/11 | **Gebündelte 4er-Runde:** SMA-Gehäusebuchse mit Staubkappe, außen liegende microSD mit unverlierbarer Gummikappe, separater steckbarer Radsensoranschluss, USB-C mit unverlierbarer Gummikappe | Hersteller-/Bauteilnummern und mechanische Prüfung stehen aus. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächste Vierer-Runde – Anschluss- und Staubschutzkonzept (MEC-08 bis MEC-11):**
+**Nächste Vierer-Runde – Gehäuse und Bedienbarkeit (MEC-12 bis MEC-15):**
 
-1. **MEC-08 – Externe GPS-Antenne:** A: fest am Gehäuse verschraubte HF-Buchse (z. B. SMA) mit abnehmbarer Antennenleitung, unbenutzt mit Staubkappe (Empfehlung). B: fest austretendes GNSS-Kabel mit Zugentlastung, keine trennbare Gehäuse-HF-Buchse; schlechter für den Fahrzeugwechsel.
-2. **MEC-09 – microSD-Schutzöffnung:** A: bündige, möglichst unverlierbar befestigte Gummi-/Silikonkappe (Empfehlung). B: starre, abnehmbare Schutzklappe mit Dichtlippe. In beiden Fällen staubdicht bei geschlossenem Zugang.
-3. **MEC-10 – Radimpuls-Anschluss:** A: kleiner separater, steckbarer und staubgeschützter Anschluss mit **anderer Steckgeometrie als M8-Strom** (Empfehlung). B: festes separates Sensorkabel mit Zugentlastung; weniger kompakt, aber weniger Steckkontakte.
-4. **MEC-11 – USB-C-Abdeckung:** A: befestigte Gummi-/Silikon-Staubkappe (Empfehlung). B: separate, abnehmbare Staubkappe. USB-C bleibt ausschließlich Flash-/Serviceanschluss; keine zusätzliche Wasserdichtigkeit nötig.
+1. **MEC-12 – Schnellwechselhalterung:** A: universelle Schiebeaufnahme mit mechanischer Rastverriegelung und separatem Lösen des M8-/SMA-Kabels (Empfehlung). B: Bajonett-/Vierteldrehverschluss mit mechanischer Rastung. Beide Varianten sollen das Gerät sicher gegen Vibration halten.
+2. **MEC-13 – Gehäusefertigung:** A: 3D-druckbares ASA-Gehäuse für Prototyp und kleine Stückzahlen, bei Bedarf mit Einpressgewinden (Empfehlung). B: zunächst anderes Fertigungsverfahren/Material, z. B. CNC-Gehäuse; thermische und mechanische Anforderungen bleiben zu prüfen.
+3. **MEC-14 – Gehäuseservice:** A: geschraubter, wiederholt zu öffnender Deckel mit Staubdichtung (Empfehlung). B: dauerhaft verklebtes/verschweißtes Gehäuse ohne reguläre Öffnung. Der äußere microSD-Zugang bleibt in beiden Varianten bestehen.
+4. **MEC-15 – Tastenbedienung:** A: große mechanisch klar fühlbare Tasten, auch mit Handschuhen nutzbar, gegen Staub abgedichtet (Empfehlung). B: besonders flache Tasten/Membranbedienung zugunsten einer glatten Front. Anzahl/Funktionen bleiben bis zur Bedienkonzeptentscheidung offen.
 
-**Wichtig:** Die genannten Ausführungen sind Entscheidungsvorschläge, noch keine ausgewählten Bauteile. Die Staubdichtheit muss am gesamten Gehäuse und den verschlossenen Öffnungen überprüft werden.
+**Noch keine Auswahl getroffen:** Diese Optionen sind Vorschläge für die nächste gemeinsame Entscheidungsrunde; sie beeinflussen Gehäuseabmessungen, Staubschutz, Haptik und mechanische Stückliste.
 
 ## Quellen / Verbindlichkeit
 
