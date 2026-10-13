@@ -102,6 +102,15 @@ Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine op
 - Bei tatsächlich umgesetzten Ideen den Status in `docs/IDEAS.md` mit Version oder Commit aktualisieren; nur getestete Ergebnisse als getestet kennzeichnen.
 - Verbindliche Projektentscheidungen separat in den Anforderungs- und Architekturdateien festhalten. Die Wunschliste ersetzt diese Dokumente nicht.
 
+## Pflege der Hardwareanforderungen: keine doppelten Entscheidungssammlungen
+
+- **Eine eindeutige, thematisch geordnete Quelle:** `docs/HARDWARE_REQUIREMENTS.md` ist der **aktuelle verbindliche Stand** der Hardware-/Systemvorgaben. Einzelanforderungen behalten ihre ursprüngliche ID. Bei Korrekturen auf die **bestehende ID** verweisen bzw. sie nach Freigabe inhaltlich korrigieren, statt denselben Beschluss immer wieder unter einer neuen Nummer/Überschrift zu duplizieren.
+- **Chronologie separat archivieren:** `docs/HARDWARE_DECISION_HISTORY.md` enthält die historische Entscheidungsübersicht und ältere Zusammenfassungen. Neue Beschlüsse, soweit für die Nachverfolgung notwendig, dort knapp mit Datum/IDs protokollieren, **nicht das gesamte Protokoll erneut im Hauptdokument aufbauen**.
+- **Neue Entwurfsentscheidungen nach Themen einordnen:** Neu bestätigte Vorgaben im passenden Kapitel A–H ergänzen; neu angelegte HW-IDs im thematischen Abschnitt G führen, vorhandene technisch bezogene IDs nicht blind erneut beschreiben. Abhängigkeiten als **ID-Verweis** notieren. Technische Freigabe-Gates in Abschnitt J aktualisieren.
+- **Status und Widersprüche aktuell halten:** Wenn jüngere Beschlüsse ältere Ansätze ersetzen (beispielsweise microSD intern statt externer Slot, gewählte RTC-Zelle statt noch offener Zelltyp), ältere Aussagen präzise als **überholt/historisch** kennzeichnen und die Kurzübersicht anpassen. Niemals stillschweigend freigegebene Funktionen, Prüfungspflichten oder ursprüngliche IDs löschen. Bei tatsächlich widersprüchlicher Bedeutung Nutzervorgaben nach Priorität klären.
+- **Konservatives Refactoring:** Vor umfangreicher Umstrukturierung eine nachvollziehbare Git-Historie/Archivkopie sicherstellen. Nachher **IDs und vollständige Anforderungszeilen gegen den Ausgangsstand** vergleichen; fehlende oder veränderte Anforderungen explizit melden. Bei Dokumentaufteilung alle relative Links und die Navigation prüfen. Eine sauberere Gliederung ist keine inhaltliche Entwicklungsfreigabe.
+- **Keine künstlichen Viererrunden oder Fortschrittsduplikate:** Bereits bestätigte Entscheidungen nicht erneut abfragen, nur um weitere Tabellen oder Logs zu füllen. Im nächsten Entwicklungsschritt die tatsächlichen Schaltplan-/Baugruppenprüfungen priorisieren.
+
 ## Hardware-Anforderungen vor Bauteilauswahl
 
 - Bei Schaltplan-, PCB-, Versorgungs- und Mechanikarbeiten zuerst `docs/HARDWARE_REQUIREMENTS.md` lesen und Anforderungen mit dem aktuellen KiCad-Bestand abgleichen.
