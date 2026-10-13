@@ -111,6 +111,15 @@ Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine op
 - **Konservatives Refactoring:** Vor umfangreicher Umstrukturierung eine nachvollziehbare Git-Historie/Archivkopie sicherstellen. Nachher **IDs und vollständige Anforderungszeilen gegen den Ausgangsstand** vergleichen; fehlende oder veränderte Anforderungen explizit melden. Bei Dokumentaufteilung alle relative Links und die Navigation prüfen. Eine sauberere Gliederung ist keine inhaltliche Entwicklungsfreigabe.
 - **Keine künstlichen Viererrunden oder Fortschrittsduplikate:** Bereits bestätigte Entscheidungen nicht erneut abfragen, nur um weitere Tabellen oder Logs zu füllen. Im nächsten Entwicklungsschritt die tatsächlichen Schaltplan-/Baugruppenprüfungen priorisieren.
 
+## Zündplus, Dauerplus und Mikrorelais (TripTracer V1, 13.10.2026)
+
+- **Verbindliche Architektur:** Dreipoliger M8 mit **Pin 1 = geschaltetes Zündplus/ACC**, **Pin 3 = Masse** und **Pin 4 = separat fahrzeugseitig abgesichertes Dauerplus/BAT+** (Kontaktnummern am exakten M8-Datenblatt verifizieren). Die frühere NC-/ACC-only-Pinbelegung ist überholt.
+- **Normales Ausschalten:** ACC-AUS löst bei weiterhin vorhandenem BAT+ den **Datei- und FRAM-Abschluss mit einem kleinen, durch MCU-HOLD selbstgehaltenen Mikrorelais** aus. Das Relais darf erst abfallen, nachdem SD/Dateisystem geschlossen ist; hängende MCU/SD-Fälle und sichere Timeout-Strategie bei der Schaltung berücksichtigen.
+- **Explizit NICHT absichern:** Das Abziehen des gesamten M8-Steckers bzw. BAT+/GND-Leitungsabriss **bei laufender Aufzeichnung gilt als akzeptierter Bedienfehler**. Dafür sind **keine garantierten drei Sekunden Notenergie und keine große Supercap-/Aluminium-Elkobank** zu dimensionieren. Ein Verlust ungesicherter Daten oder der letzten noch offenen Datei ist hierbei akzeptiert. Regelmäßige checkpoints können Schäden reduzieren, begründen aber keine neue Garantie.
+- **Motorstart ist etwas anderes:** Normale 12-/24-V-Motorstart-Einbrüche, Brownout-Verhalten, Automotive-Surges, Relaiskontakt-Prellen und funktional notwendige Glättung/Kondensatoren **weiterhin** dimensionieren. Keine nicht geprüften „mit Batterie passt schon“-Annahmen.
+- **Manueller Standby:** über einen vorhandenen Taster, MCU-Deep-Sleep und Abschaltung unnötiger Verbraucher. **Wenn das Relais in ACC-Standby bestromt bleibt, fließt dessen Spulenstrom weiter**; unrealistische <1-mA-Gesamtstandbybehauptungen vermeiden.
+- Das Mikrorelais ist **konzeptionell gewählt, nicht bereits elektrisch verifiziert**: Relais-/Treiberwahl, 9–36-V-Wirkbereich, Spulenversorgung für 12/24-V-Fahrzeuge, Schutz der beiden Pluszweige, Hardware-Failsafe, eFuse- und USB-Strompfad sowie LCSC/JLCPCB-Kosten und Lieferbarkeit nach Herstellerdatenblatt prüfen. **Keine KiCad-ERC/DRC- oder Automotive-Freigabe behaupten**, solange Schaltung und Messungen fehlen.
+
 ## Hardware-Anforderungen vor Bauteilauswahl
 
 - Bei Schaltplan-, PCB-, Versorgungs- und Mechanikarbeiten zuerst `docs/HARDWARE_REQUIREMENTS.md` lesen und Anforderungen mit dem aktuellen KiCad-Bestand abgleichen.

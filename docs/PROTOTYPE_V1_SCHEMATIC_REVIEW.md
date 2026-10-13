@@ -2,7 +2,7 @@
 
 **Datum:** 13.10.2026  
 **Status:** Ingenieurmäßiger Vorab-Review; **KEINE ERC-/DRC-, Schaltplan-, PCB-, Schutz- oder Fertigungsfreigabe**.  
-**Verbindliche Vorgaben:** [HARDWARE_REQUIREMENTS.md](HARDWARE_REQUIREMENTS.md), insbesondere HW-01–72.  
+**Verbindliche Vorgaben:** [HARDWARE_REQUIREMENTS.md](HARDWARE_REQUIREMENTS.md), insbesondere HW-01–86.  
 **Quelle des bisherigen KiCad-Standes:** [Tripmaster_V0_3.kicad_sch](../hardware/kicad/Tripmaster_V0_3.kicad_sch), [V0.3-BOM](../catalog/Bauteilliste_V0_3.csv).
 
 ## 1. Festgelegte erste Fertigung (HW-69–72)
@@ -19,7 +19,7 @@ Geprüft wurden der tatsächliche Dateikopf und die vorhandenen Symbole im **ein
 |---|---|---|---|
 | MCU | ESP32-S3-MINI-1-N8 | Beibehalten, USB/BOOT/EN und GPIO-Budget neu prüfen | Weiterverwendbar, **nicht freigegeben** |
 | GNSS | MAX-M10N-00B, U.FL und Entwurf eines Bias-T | Beibehalten, UART/TIMEPULSE, Antennenversorgung/-schutz und SMA-Pigtail finalisieren | RF-Prüfung offen |
-| Versorgung | TI LMR36510A, **3,3-V-Buck / max. 1 A**; 12-V-Vorentwurf mit einfacher Schutzbeschaltung | **9–36 V → geschützter 5-V-/2-A-Synchronbuck** (IC mindestens 60 V), 3,3-V-LDO, eFuse mit nachgewiesenem Verpolschutz, TVS, HV-Puffer und Lastschalter | **Neu entwerfen** |
+| Versorgung | TI LMR36510A, **3,3-V-Buck / max. 1 A**; 12-V-Vorentwurf mit einfacher Schutzbeschaltung | **9–36 V → geschützter 5-V-/2-A-Synchronbuck** (IC mindestens 60 V), 3,3-V-LDO, eFuse mit nachgewiesenem Verpolschutz, TVS, **ACC/BAT+-Mikrorelais mit MCU-Selbsthaltung** und nur noch funktionsnotwendiger Glättung/Startstützung | **Neu entwerfen** |
 | Display | EA DOGL128W-6, 128 × 64 monochrom | **Riverdi RVT35HITNWC00-B** einschließlich 50-poligem FPC, SPI und Backlight-Boost | **Ersetzen** |
 | Tasten | Fünf Omron-Taster auf der PCB | Sechs externe FILN-Taster mit **je eigenem JST-Anschluss und GPIO**, gemeinsamer LED-Dimmkanal | **Ersetzen** |
 | USB | USB4105 mit CC- und ESD-Beschaltung, nicht als Betriebsversorgung nutzbar | Native USB-Daten inkl. USB-only 5-V-Serviceversorgung, MSC, Firmware-Flash, Quellenentkopplung | **Strompfad neu entwerfen** |
@@ -74,20 +74,22 @@ Quelle: [u-blox MAX-M10N-00B Datenblatt](https://content.u-blox.com/sites/defaul
 - `VCC_RF` liefert eine antennenbezogene Versorgung abhängig von `VCC` mit **50 mA spezifiziertem Betriebsstrom**; `LNA_EN` kann externe aktive Antenne/LNA schalten. Antennenstromverbrauch, Bias-T, Überspannung/ESD am SMA-Eingang, U.FL-Pigtail und geschütztes Ein-/Ausschalten konkret auslegen.
 - Eine feste Bias-Spannung ist beschlossen, ihr tatsächlicher Wert noch **nicht** ohne Auswahl einer aktiven Antenne nachgewiesen.
 
-## 4. Kritischer Machbarkeitscheck: HV-Elko-Puffer für ≥3 Sekunden
+## 4. Geänderte Versorgungsarchitektur: ACC + BAT+ und Mikrorelais-Selbsthaltung (Stand 13.10.2026)
 
-Bei einem Ausgangsverbrauch `P` im Abschaltzustand und angenommenem Wirkungsgrad `η` ist der ideale Mindestwert grob
+**Aktuelle Nutzerentscheidung (PWR-10/16/20/22/34, HW-84):** M8 Pin 1 geschaltetes ACC, Pin 3 GND, Pin 4 separat abgesichertes BAT+. ACC schaltet ein kleines Mikrorelais ein; das Relais leitet BAT+ in den geschützten 9–36-V-Eingang des TripTracer. Die MCU hält das Relais nach Zündung AUS über HOLD bestromt, sichert FRAM/GPX/CSV/SD/FAT32 und lässt es danach abfallen. **Keine garantierte Aufzeichnungssicherung bei vollständigem Abziehen des M8 oder BAT+/GND-Ausfall.** Das wird als akzeptierter Bedienfehler behandelt.
 
-`C ≥ 2 · P · t / [η · (U_start² − U_min²)]`.
+**Früherer 3-s-Elko-Pufferentwurf ist damit überholt.** Die zuvor errechneten 185.000 µF (12→6 V, 3 W) bzw. 444.000 µF (9→6 V) waren ausschließlich illustrative Rechnungen zur vollständigen Drei-Sekunden-Überbrückung aus Kondensatoren. Sie sind **keine V1-Designanforderung oder BOM-Position** mehr und dürfen nicht wieder ungefragt eingeplant werden.
 
-**Illustration, keine finale Dimensionierung:** `P = 3 W`, `t = 3 s`, `η = 0,9`, nutzbarer Zwischenkreis `12 → 6 V` ergibt **C ≈ 0,185 F = 185.000 µF**; bei `9 → 6 V` ca. **0,444 F = 444.000 µF**. Toleranzen, gealterte Elkos, UVLO, ESR, Ladestrom und Thermik erhöhen die nötige Reserve.
+**Weiter erforderlich:** stabile und definierte Relais-/HOLD-Beschaltung über das 12-/24-V-Bordnetz (9–36 V normal, Startprofile separat), Schutz/Entkopplung von beiden Plusadern, M8-Fahrzeug-Kabelsicherungen, eFuse samt Verpol-/Transientenschutz, Relaiskontakt-Stoßstrom und Spulen-Freilauf, Ruhestrom bei BAT+ im OFF, SD-/FRAM-Flush und ein Watchdog-/Hardware-Timeout gegen endlose Selbsthaltung. Kleine/reguläre Eingangs- und Ausgangskondensatoren sowie ggf. Startspannungsstützung bleiben erforderliche Auslegungsaufgabe.
 
-**Konsequenz:** Der bereits bestätigte Hochvolt-Aluminiumelko-Puffer kann für eine kompakte PCB ein entscheidender Bauraum-/Kostenengpass sein. Vor Layout **Worst-Case-Abschaltlast durch frühzeitiges Abschalten von TFT/Backlight/Funk und SD-Schreibkonzept reduzieren**, realistische Ausgangsspannung/UVLO festlegen und den Puffer quantitativ neu bewerten. **Bestehende Pufferentscheidungen nicht eigenmächtig ändern**; falls unpraktikabel, eine gezielte Entscheidung mit Zahlen herbeiführen.
+**Manueller Standby:** eine vorhandene Fronttaste lässt MCU in Deep-Sleep gehen bzw. weckt sie wieder; unnötige Peripherie aus. Bei weiterhin eingeschaltetem ACC bleibt das monostabile Relais voraussichtlich angezogen: Relais-Spulenstrom ist **Teil des Standby-Stroms**, kein <1-mA-Versprechen. Ein stromloser OFF-Zustand nach ACC AUS ist ein anderer Betriebszustand.
+
+**Prüfstatus:** Das Blatt `01_Eingangsschutz.kicad_sch` ist weiterhin ein Planungsblatt ohne echte Relais-Verdrahtung, Hersteller-Pinout-Prüfung oder natives KiCad-ERC. Vor PCB-/BOM-Freigabe zuerst vollständigen elektrisch prüfbaren Relais-/Bordnetzschutz-Schaltplan entwickeln.
 
 ## 5. Priorisierte, derzeit offene elektrische Freigabepunkte
 
 1. **Display-FPC**: exakt richtige Connector-Kontaktseite/Typ, Stromversorgung 2,8/3,3 V, 4-Draht-SPI und Boost-LED-Treiber samt PWM.
-2. **Eingangsschutz**: passend spezifizierte eFuse-Variante inklusive externem Verpol-FET; TVS/Lastabwurf, 9–36-V-Dauerbereich, Hochvolt-Puffer-Ladebegrenzung und Quellen-Entkopplung.
+2. **Eingangsschutz**: passend spezifizierte eFuse-Variante inklusive externem Verpol-FET; TVS/Lastabwurf, 9–36-V-Dauerbereich, Relais-HOLD/Freilauf/Kontaktstoßstrom und Quellen-Entkopplung.
 3. **Buck/3,3-V-LDO**: 5 V/2 A inklusive tatsächlicher Spitzenströme, Wirkungsgrad bei Volllast, Spule, Kondensatoren und 3,3-V-Verlustwärme.
 4. **RTC/CR1220, microSD und I²C**: Datenblätter, Busadressen, separate SD-SPI-Signale, geschaltete SD-Versorgung sowie SPI-/Boot-Pinbudget.
 5. **JST-/M8-/SMA-Steckverbinder**: Kontaktbelegung, Lieferartikel, mechanische Zugangsmöglichkeit, Zugentlastung, Schutz- und Testeinspeisepfade.
