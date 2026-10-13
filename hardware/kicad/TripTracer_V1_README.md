@@ -8,6 +8,17 @@ Im Repository den kompletten Ordner `hardware/kicad/` herunterladen bzw. klonen.
 
 Projektlokale Bibliotheken über `sym-lib-table`/`fp-lib-table`: `Tripmaster_Sym.kicad_sym`, `TripTracer_V1.kicad_sym`, `Tripmaster.pretty/`, `Tripmaster_3dmodels.3dshapes/`. **Keiner der Symbol-/Footprint-/3D-Pfade benötigt ein festes Windows-Laufwerk.** Die V1 greift teilweise noch auf die alte Projektbibliothek zu; bei Umzug beide Bibliotheken mitkopieren.
 
+## Alle Schaltplanseiten in einem Fenster durchblättern
+
+**Nicht die acht einzelnen Baugruppendateien öffnen.** Einmal in KiCad 10 `TripTracer_V1.kicad_pro` öffnen und im Projektmanager den **Schaltplaneditor** starten (alternativ `TripTracer_V1.kicad_sch` öffnen). Dieses Root-Dokument referenziert alle acht Unterseiten über hierarchische Sheet-Symbole. Damit sind **9 Seiten insgesamt** in **einem** Schaltplanprojekt erreichbar.
+
+- **Hierarchie-Navigator:** Im Schaltplaneditor über das Hierarchie-Navigator-Symbol links einschalten. Die Liste zeigt das Hauptblatt und alle acht Baugruppen. Ein Klick auf einen Seitennamen wechselt direkt dorthin.
+- **Vorherige/nächste Seite:** Die Pfeile der oberen Symbolleiste verwenden. Alternativ auf dem Hauptblatt einen Block doppelt anklicken, um in ihn zu wechseln; mit dem Aufwärtspfeil zum Hauptblatt zurück.
+- **Dateien müssen zusammenbleiben:** `TripTracer_V1.kicad_sch` und `01_Eingangsschutz.kicad_sch` bis `08_Radsensoren.kicad_sch` im `hardware/kicad/`-Ordner belassen. Bei GitHub-Desktop-Pull wird das gesamte Projekt synchronisiert.
+- **Abnahme jeder Änderung:** Neue oder umbenannte Seiten müssen im Navigator sichtbar sein, ohne Datei-suchen-Dialog oder fehlende Unterseiten. Root-Hierarchie, elektrische Blatt-Verknüpfungen und Seitennummern prüfen; ein funktionierender Navigationsbaum belegt noch **keine** korrekte elektrische Verbindung.
+
+Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation zwischen Schaltplanseiten](https://docs.kicad.org/10.0/en/eeschema/eeschema.html#navigating-between-sheets). Dieser Punkt ist in `AGENTS.md` dauerhaft als Pflicht festgelegt.
+
 ## Baugruppenstatus
 
 | Blatt | Inhalt | Stand |
