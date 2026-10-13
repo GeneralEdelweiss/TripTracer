@@ -1,0 +1,1 @@
+Hier wird nach dem Import der original editierbare KiCad-10-Schaltplan `Tripmaster_V0_3.kicad_sch` mit lokalen Symbolen, Footprints und STEP-Modellen liegen. **Noch nicht ERC-geprüft; kein geroutetes PCB.**
