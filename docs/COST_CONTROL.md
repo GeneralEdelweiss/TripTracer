@@ -18,6 +18,8 @@
 
 **Kostenentscheidung:** Den Schutz pro Prüfprofil nur einmal dort einbauen, wo er technisch wirksam ist; Mehrkosten für redundante/zusätzliche ICs nur bei nachgewiesenem Fehlerfall-Nutzen freigeben. Preisvergleiche weiterhin **auf identischem Funktions- und Prüfumfang** anstellen. Fehlende Messungen und fehlende Einzel-BOM-Preise kennzeichnen. ISO 16750-2:2023 umfasst keine EMC-Prüfung und gilt nicht direkt für Motorräder/Mopeds; Tests dieser Fahrzeuge gesondert definieren.
 
+**Neue IC-Auswahlprüfung 13.10.2026:** Der **LM74930-Q1** bringt den bislang in einer zweiten TPS26631 gesuchten Überstrom-/Kurzschlussschutz **integriert** mit und unterstützt den TI-200-V-Load-Dump-Aufbau mit externen MOSFETs. Netto Mouser Deutschland: **5,39 €/1, 4,13 €/10, 3,47 €/100** gegenüber den früheren **6,80 / 5,15 / 4,26 €** für LM74800-Q1 + TPS26631 zusammen (nur ICs). **Betriebs-/Shunt-/R/C-/VQFN-Bestückungs- und Sicherungskosten noch NICHT enthalten**; siehe [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md). LCSC/JLC PCB C22428070, **Extended**. Sicherheitsvorteil gegen unkontrollierten Kurzschluss ist plausibel, aber noch nicht nachgewiesen. Keine fertige Gesamt-BOM.
+
 ## Systemstatus der Kalkulation
 
 - Bestehendes `hardware/kicad/TripTracer_V1_BOM_DRAFT.csv` umfasst derzeit **21 vorläufige Positionen** und unvollständige Hardware; die Felder `Einzelpreis_1/10/50/100` sind noch leer. **Eine gesamte V1-Stückkostensumme ist dadurch derzeit nicht seriös berechenbar.**
