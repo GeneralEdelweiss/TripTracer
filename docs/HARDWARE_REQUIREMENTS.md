@@ -724,6 +724,15 @@
 | HW-31 | **Festgelegt – A: Bordnetz vor Puffer messen** | **ACC-/Bordnetzspannung vor dem Energiepuffer** über einen ausreichend hochspannungs- und transientenfesten Erkennungspfad überwachen. So wird ACC-Aus trotz weiter gespeistem Zwischenkreis unmittelbar erkannt und der geordnete Shutdown eingeleitet. | Eingangsteiler, Filter/Hysterese, ADC-/Comparator-Schutz, Wake-/Brownout-Pfade, 12-/24-V-Grenzen und Fehltrigger beim Motorstart prüfen. |
 | HW-32 | **Festgelegt – A: mindestens 105 °C** | Für Puffer-Aluminium-Elektrolytkondensatoren **Bauteile mit mindestens 105-°C-Nenntemperatur** vorsehen, mit Spannungs-/Ripple-Derating und Lebensdauerabschätzung für den Fahrzeugeinbau. | Maximaltemperatur des Einbauorts, Gehäuselüftung, Eigenwärme, Temperatur- und Vibrationseignung sowie Hersteller-Lebensdauerdaten prüfen. |
 
+### Hardwareprototyp – Pufferdimensionierung und Leistungsbauteile (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-33 | **Festgelegt – A: Abschaltlast messen, danach final dimensionieren** | Die **tatsächliche Last während geordnetem SD-/FRAM-Abschluss** im Hardwareprototyp messen und die **endgültige Kapazität des Hochvolt-Puffers anhand dieser Worst-Case-Messwerte** freigeben. Vor der ersten PCB-Version eine **konservative vorläufige Energie- und Kapazitätsrechnung** mit Reserve durchführen; die Messung ersetzt keine notwendige Erst-Auslegung. | Leistungsprofil inklusive SD-Schreibspitzen, TFT-/LED-Abschaltung, Buck-Wirkungsgrad und mindestens 3 s Shutdownzeit im ungünstigsten 12-/24-V-Betriebsfall aufnehmen; Nachbestückungs-/Kapazitätsreserve vorsehen. |
+| HW-34 | **Festgelegt – A: Puffer bis zu belastbarer Buck-UVLO-Untergrenze nutzen** | Nutzbares Puffer-Spannungsfenster **bis zur nachgewiesenen zuverlässigen Unterspannungsgrenze der gewählten Buck- und Steuerungsversorgung** ausnutzen. Die Mindestspannung nicht pauschal auf 9 oder 12 V fixieren; UVLO, notwendige Reserven und stabile 5-/3,3-V-Ausgangsspannungen gemeinsam auslegen. | Datenblatt-Minimum, UVLO-Hysterese, Spannungsabfälle, Lastspitzen und geregeltes Abschalten prüfen; Kondensatorenergie E = 0,5 × C × (U_start² − U_min²) konservativ abschätzen. |
+| HW-35 | **Festgelegt – A: kontrollierter Ladestrom** | Das Laden des hinter der eFuse angeordneten Hochvolt-Aluminiumelko-Puffers **mit geeigneter Strombegrenzung bzw. kontrollierter Anlauf-/Ladeschaltung** realisieren. | eFuse-SOA, Einschaltenergie, Startzeit, Kurzschluss-/Fehlerfall, Rückspeisung und Wiederanlauf bei häufigem ACC-Schalten testen. |
+| HW-36 | **Festgelegt – A: datenblattgestützte Leistungsbauteilfreigabe vor Routing** | **eFuse mit belegtem Verpolschutz, TVS, integrierten synchronen Buck-IC (mindestens 60 V spezifiziert), Spule, Puffer-Elkos und erforderliche Schutz-/Ladebauteile** vor dem PCB-Routing konkret anhand von Herstellerdatenblättern, realer Beschaffbarkeit und möglichst LCSC/JLCPCB-kompatiblen Teilenummern auswählen und elektrisch dimensionieren. | Spannungs-/Strom-/Thermik- und Transientenlimits, Footprints und Ersatzteiloptionen dokumentieren; keine bloße Schätzung als Datenblattfreigabe ausgeben. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -898,6 +907,8 @@
 | 13.10.2026 | HW-25–28 | **Hardware-Viererrunde A/C/B/A bestätigt:** TVS-Eingangsschutz, Verpolschutz in dafür nachweislich geeigneter eFuse, Hochvolt-Energiepuffer vor 5-V-Buck und gemeinsamer Puffer für Motorstart-Spannungseinbrüche und mindestens 3 s kontrollierten Shutdown. | eFuse-Verpolschutz datenblattbasiert nachweisen; TVS-Klemmung und Pufferenergie inklusive ungünstigstem Start-/Shutdown-Fall berechnen. |
 
 | 13.10.2026 | HW-29–32 | **Hardware-Viererrunde A/A/A/A bestätigt:** Hochvolt-Puffer aus Aluminium-Elkos hinter Eingangsschutz/eFuse und vor Buck, ACC-Spannung separat vor Puffer überwachen, Elkos mindestens 105 °C spezifiziert. | 12-V-Worst-Case-Pufferkapazität, eFuse-Inrush, Rückspeiseentkopplung und Elko-Lebensdauer vor Schaltplanfreigabe berechnen. |
+
+| 13.10.2026 | HW-33–36 | **Hardware-Viererrunde A/A/A/A bestätigt:** endgültige Puffergröße nach Messung der Abschaltlast (vorläufige Berechnung für Erstprototyp erforderlich), Puffer bis zur belastbaren Buck-UVLO-Untergrenze nutzbar, kontrollierter Ladestrom und datenblattgestützte Auswahl aller Leistungsbauteile vor PCB-Routing. | Worst-Case-Leistungsprofil und Erstpuffer rechnen, UVLO/Startpfade prüfen, eFuse-Verpolschutz und LCSC/JLCPCB-Eignung nachweisen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
