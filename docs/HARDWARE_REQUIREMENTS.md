@@ -214,6 +214,16 @@
 | GPS-21 | **Festgelegt – A: GPS-gestützte Referenzfahrt** | Kalibrierung eines angeschlossenen Radsensors über **ausreichend lange Referenzstrecke**: bei zuverlässigem GNSS-Empfang gefahrene Referenzdistanz und erfasste Radimpulse vergleichen, Ergebnis vor Speichern anzeigen und vom Nutzer bestätigen lassen. | Minimale Strecke, GNSS-Qualität, Schwellwerte für Schlupf/Stillstand und Ausreißer sowie Plausibilitätsprüfung festlegen; keine ungeprüfte kontinuierliche automatische Kalibrierung. Manuelle Kalibrierung bleibt gemäß GPS-10/11 erhalten. |
 | GPS-22 | **Festgelegt – A: eigene Distanzzähler je Profil** | Jedes der 10 Fahrzeugprofile führt **eigene persistente Zählerstände für Gesamt, Trip A, Trip B und LEG**. Beim bestätigten Profilwechsel die alten Zähler sichern und die zum Zielprofil gehörenden Werte wiederherstellen; vorhandene Undo-/Korrekturlogik profilgebunden halten. | FRAM-Bereich, Schreibatomarität, Wiederanlauf nach Stromverlust und Ereignis-Logging prüfen. GPX-/CSV-Trackdistanz nicht mit den gerätespezifischen korrigierbaren Zählern verwechseln. |
 
+
+### D.3 Kalibrierung und Messgenauigkeit – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| GPS-23 | **Festgelegt – A: Referenzstrecke mindestens 1 km** | Für die GNSS-gestützte Kalibrierung des Radsensors **mindestens 1,0 km** gültige Referenzfahrt voraussetzen; längere Strecken zulassen. Ermittelten Impuls-/Distanz-Kalibrierwert erst nach Nutzerbestätigung dauerhaft speichern. | Nur hinreichend genaue GNSS-Abschnitte werten; Qualität, Impulszahl, Schlupf, Unterbrechungen und Plausibilität prüfen. Bei unzureichender Datenqualität trotz 1 km keine Kalibrierung freigeben. |
+| GPS-24 | **Festgelegt – A: schlechte GNSS-Messwerte verwerfen** | GNSS-Positionen mit unzureichender Genauigkeit, unplausiblen Positions-/Geschwindigkeitssprüngen oder unbrauchbarem Fix **nicht** für die Distanzintegration benutzen; falls angeschlossen und kalibriert, auf den Radsensor wechseln, sonst Distanz anhalten und Warnstatus anzeigen. | Empfänger-Qualitätsindikatoren, Grenzwerte, Ausreißerfilter und Hysterese vor Umsetzung definieren und durch Fahrtests verifizieren. Ungültige GNSS-Positionen weder als echte GPX-Trackpunkte noch als erfundene Strecke ausgeben. |
+| GPS-25 | **Festgelegt – A: kein Distanzsprung bei GNSS-Rückkehr** | Bei Rückkehr stabiler, ausreichend genauer GNSS-Messwerte vom Radsensor auf GNSS zurückschalten, **ohne den bisherigen Zählerstand rückwirkend anzupassen oder schlagartig zu korrigieren**. Zukünftige Distanzinkremente aus der neuen gültigen Quelle beziehen. | Kontinuität, Doppelzählung, Wechselzeitpunkt und stabile GNSS-Wiederaufnahme testen; Messquellenwechsel im CSV protokollieren. |
+| UI-32 | **Festgelegt – A: 10-m-Anzeigeauflösung** | Gesamt-, Trip-A-, Trip-B- und LEG-Distanzzähler standardmäßig mit **0,01 km (10 m)** Auflösung anzeigen, z. B. 12,34 km. **Keine zusätzliche Umschaltung auf 1-m-Anzeige als Pflicht.** | Interne Berechnung und Speicherung dürfen feiner auflösen als die Anzeige; Rundungsverhalten und ±10-m-Korrekturschritte konsistent halten. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -366,6 +376,8 @@
 | 13.10.2026 | GPS-16–18, UI-31 | **Viererrunde A/A/A/A bestätigt:** Tripanzeige direkt nach M8-Start mit GNSS-Wartestatus, kurzer Hinweis und dauerhaftes Quellensymbol bei GNSS-/Radsensor-Wechsel, mehrere gespeicherte benennbare Fahrzeugprofile, Satellitenzahl und GNSS-Qualität im Fahrdisplay. | Ohne gültige Quelle keine erfundene Distanz; Qualitätsschwellen, Profilanzahl und Wechselverhalten technisch zu definieren. |
 
 | 13.10.2026 | GPS-19–22 | **Viererrunde A/B/A/A bestätigt:** bis zu zehn Fahrzeugprofile; Profilwechsel auch während Fahrt, aber nur nach ausdrücklicher Bestätigung; GNSS-basierte Radsensorkalibrierung über längere Referenzfahrt mit Bestätigung; eigene Gesamt-/Trip-A-/Trip-B-/LEG-Zähler je Profil. | Atomarer Profilwechsel, Speicherbudget, Referenzstrecken-/GNSS-Gütekriterien und Logsegmentierung vor Firmwarefreigabe prüfen. |
+
+| 13.10.2026 | GPS-23–25, UI-32 | **Viererrunde A/A/A/A bestätigt:** GNSS-Referenzkalibrierfahrt mindestens 1 km; GNSS-Distanz nur bei ausreichender Qualität; keine rückwirkenden Distanzsprünge bei GNSS-Rückkehr; Zähleranzeige standardmäßig fest 10 m / 0,01 km. | Güteschwellen, Hysterese, Rundung und Fahrtests bleiben offene technische Auslegung. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
