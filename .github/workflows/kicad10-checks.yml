@@ -1,0 +1,77 @@
+name: KiCad 10 electrical and PCB checks
+
+on:
+  push:
+    branches: [design/solid-state-power-v1]
+    paths:
+      - 'hardware/kicad/**'
+      - '.github/workflows/kicad10-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kicad10-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kicad:
+    # No hosted runs once the temporary public development phase ends.
+    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/solid-state-power-v1' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Record environment
+        run: |
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/kicad-version.txt
+          git rev-parse HEAD | tee reports/commit.txt
+          printf 'NO manufacturing or vehicle approval.\n' > reports/STATUS.txt
+      - name: ERC on complete root hierarchy
+        id: erc
+        continue-on-error: true
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/erc.json hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/erc.log
+      - name: DRC including schematic parity
+        id: drc
+        continue-on-error: true
+        run: |
+          kicad-cli pcb drc --severity-all --all-track-errors --schematic-parity \
+            --refill-zones --exit-code-violations --format json \
+            -o reports/drc.json hardware/kicad/TripTracer_V1.kicad_pcb 2>&1 | tee reports/drc.log
+      - name: Export native netlist
+        id: netlist
+        continue-on-error: true
+        run: |
+          kicad-cli sch export netlist -o reports/TripTracer.net \
+            hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/netlist.log
+      - name: Preserve reports even when checks fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kicad10-${{ github.sha }}
+          path: reports/
+          retention-days: 1
+          if-no-files-found: error
+      - name: Enforce failed checks
+        if: always()
+        env:
+          ERC: ${{ steps.erc.outcome }}
+          DRC: ${{ steps.drc.outcome }}
+          NETLIST: ${{ steps.netlist.outcome }}
+        run: |
+          printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
+            "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
+          test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
