@@ -1,0 +1,330 @@
+﻿2026-10-13T22:06:26.3829025Z Current runner version: '2.337.0'
+2026-10-13T22:06:26.3856681Z ##[group]Runner Image Provisioner
+2026-10-13T22:06:26.3857576Z Hosted Compute Agent
+2026-10-13T22:06:26.3858262Z Version: 20261002.596
+2026-10-13T22:06:26.3858923Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-13T22:06:26.3859667Z Build Date: 2026-10-02T22:28:27Z
+2026-10-13T22:06:26.3860507Z Worker ID: {8d1318f9-0fec-4288-a045-3bd0755baf92}
+2026-10-13T22:06:26.3861577Z Region: westus2
+2026-10-13T22:06:26.3862555Z Cloud: Azure
+2026-10-13T22:06:26.3863126Z ##[endgroup]
+2026-10-13T22:06:26.3864736Z ##[group]Operating System
+2026-10-13T22:06:26.3865485Z Ubuntu
+2026-10-13T22:06:26.3866039Z 24.04.5
+2026-10-13T22:06:26.3866610Z LTS
+2026-10-13T22:06:26.3867163Z ##[endgroup]
+2026-10-13T22:06:26.3867770Z ##[group]Runner Image
+2026-10-13T22:06:26.3868485Z Image: ubuntu-24.04
+2026-10-13T22:06:26.3869126Z Version: 20261004.327.1
+2026-10-13T22:06:26.3870438Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-13T22:06:26.3872345Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-13T22:06:26.3873374Z ##[endgroup]
+2026-10-13T22:06:26.3874527Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T22:06:26.3876850Z Contents: read
+2026-10-13T22:06:26.3877515Z Metadata: read
+2026-10-13T22:06:26.3878163Z ##[endgroup]
+2026-10-13T22:06:26.3880309Z Secret source: Actions
+2026-10-13T22:06:26.3881632Z Cache mode: write
+2026-10-13T22:06:26.3882372Z Prepare workflow directory
+2026-10-13T22:06:26.4425223Z Prepare all required actions
+2026-10-13T22:06:26.4473788Z Getting action download info
+2026-10-13T22:06:26.7798804Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T22:06:26.8988151Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-13T22:06:27.1214137Z Complete job name: kicad
+2026-10-13T22:06:27.1745524Z ##[group]Checking docker version
+2026-10-13T22:06:27.1759023Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-10-13T22:06:27.2492654Z '1.48'
+2026-10-13T22:06:27.2504030Z Docker daemon API version: '1.48'
+2026-10-13T22:06:27.2504828Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-10-13T22:06:27.2683991Z '1.48'
+2026-10-13T22:06:27.2698517Z Docker client API version: '1.48'
+2026-10-13T22:06:27.2704775Z ##[endgroup]
+2026-10-13T22:06:27.2707531Z ##[group]Clean up resources from previous jobs
+2026-10-13T22:06:27.2714453Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=7696c3"
+2026-10-13T22:06:27.2872836Z ##[command]/usr/bin/docker network prune --force --filter "label=7696c3"
+2026-10-13T22:06:27.3019143Z ##[endgroup]
+2026-10-13T22:06:27.3019709Z ##[group]Create local container network
+2026-10-13T22:06:27.3030059Z ##[command]/usr/bin/docker network create --label 7696c3 github_network_0b3e68e3cc0b46c4ab36b61ec882e7a2
+2026-10-13T22:06:27.3574585Z f2346eb3db400905b1160260eca9366bd5c6621cbe6bb3b5a225f037d009e99f
+2026-10-13T22:06:27.3606499Z ##[endgroup]
+2026-10-13T22:06:27.3636176Z ##[group]Starting job container
+2026-10-13T22:06:27.3659049Z ##[command]/usr/bin/docker pull kicad/kicad:10.0
+2026-10-13T22:06:28.2576052Z 10.0: Pulling from kicad/kicad
+2026-10-13T22:06:28.5208348Z f072f58012e5: Pulling fs layer
+2026-10-13T22:06:28.5208908Z 7a697221ed08: Pulling fs layer
+2026-10-13T22:06:28.5209233Z 2a725967b0c1: Pulling fs layer
+2026-10-13T22:06:28.5209555Z d59c8d6b4ee3: Pulling fs layer
+2026-10-13T22:06:28.5209862Z 06396e02790e: Pulling fs layer
+2026-10-13T22:06:28.5210193Z 2378ea4a3f01: Pulling fs layer
+2026-10-13T22:06:28.5210508Z a5fac0bcdf2f: Pulling fs layer
+2026-10-13T22:06:28.5211040Z 2a4cad830bcc: Pulling fs layer
+2026-10-13T22:06:28.5211350Z 247e0200b7e4: Pulling fs layer
+2026-10-13T22:06:28.5211648Z 9a99e09d41bb: Pulling fs layer
+2026-10-13T22:06:28.5211949Z 51707baaa5e0: Pulling fs layer
+2026-10-13T22:06:28.5212343Z b5ecfc164241: Pulling fs layer
+2026-10-13T22:06:28.5213030Z 2c012cda8801: Pulling fs layer
+2026-10-13T22:06:28.5213348Z d59c8d6b4ee3: Waiting
+2026-10-13T22:06:28.5213664Z 06396e02790e: Waiting
+2026-10-13T22:06:28.5213955Z 2378ea4a3f01: Waiting
+2026-10-13T22:06:28.5214232Z a5fac0bcdf2f: Waiting
+2026-10-13T22:06:28.5214495Z 2a4cad830bcc: Waiting
+2026-10-13T22:06:28.5214772Z 247e0200b7e4: Waiting
+2026-10-13T22:06:28.5215037Z 9a99e09d41bb: Waiting
+2026-10-13T22:06:28.5215296Z 51707baaa5e0: Waiting
+2026-10-13T22:06:28.5215559Z b5ecfc164241: Waiting
+2026-10-13T22:06:28.5215819Z 2c012cda8801: Waiting
+2026-10-13T22:06:28.9283567Z f072f58012e5: Verifying Checksum
+2026-10-13T22:06:28.9284432Z f072f58012e5: Download complete
+2026-10-13T22:06:29.0551046Z 2a725967b0c1: Download complete
+2026-10-13T22:06:29.4178640Z 06396e02790e: Verifying Checksum
+2026-10-13T22:06:29.4192423Z 06396e02790e: Download complete
+2026-10-13T22:06:29.4213158Z d59c8d6b4ee3: Verifying Checksum
+2026-10-13T22:06:29.4214206Z d59c8d6b4ee3: Download complete
+2026-10-13T22:06:29.6485494Z a5fac0bcdf2f: Verifying Checksum
+2026-10-13T22:06:29.6486788Z a5fac0bcdf2f: Download complete
+2026-10-13T22:06:29.8855334Z 2a4cad830bcc: Verifying Checksum
+2026-10-13T22:06:29.8879895Z 2a4cad830bcc: Download complete
+2026-10-13T22:06:30.0719908Z 2378ea4a3f01: Verifying Checksum
+2026-10-13T22:06:30.0720590Z 2378ea4a3f01: Download complete
+2026-10-13T22:06:30.1520207Z 247e0200b7e4: Verifying Checksum
+2026-10-13T22:06:30.1521322Z 247e0200b7e4: Download complete
+2026-10-13T22:06:30.3078233Z 9a99e09d41bb: Verifying Checksum
+2026-10-13T22:06:30.3079261Z 9a99e09d41bb: Download complete
+2026-10-13T22:06:30.3205483Z f072f58012e5: Pull complete
+2026-10-13T22:06:30.4115792Z 51707baaa5e0: Verifying Checksum
+2026-10-13T22:06:30.4122129Z 51707baaa5e0: Download complete
+2026-10-13T22:06:30.5590566Z b5ecfc164241: Verifying Checksum
+2026-10-13T22:06:30.5591274Z b5ecfc164241: Download complete
+2026-10-13T22:06:30.6374375Z 7a697221ed08: Download complete
+2026-10-13T22:06:30.6438371Z 2c012cda8801: Verifying Checksum
+2026-10-13T22:06:30.6439522Z 2c012cda8801: Download complete
+2026-10-13T22:06:43.2779286Z 7a697221ed08: Pull complete
+2026-10-13T22:06:44.2849307Z 2a725967b0c1: Pull complete
+2026-10-13T22:06:50.4338643Z d59c8d6b4ee3: Pull complete
+2026-10-13T22:06:50.5883068Z 06396e02790e: Pull complete
+2026-10-13T22:06:52.6312372Z 2378ea4a3f01: Pull complete
+2026-10-13T22:06:52.6425380Z a5fac0bcdf2f: Pull complete
+2026-10-13T22:06:52.6576154Z 2a4cad830bcc: Pull complete
+2026-10-13T22:06:52.6849584Z 247e0200b7e4: Pull complete
+2026-10-13T22:06:52.6965394Z 9a99e09d41bb: Pull complete
+2026-10-13T22:06:52.7076191Z 51707baaa5e0: Pull complete
+2026-10-13T22:06:52.7161251Z b5ecfc164241: Pull complete
+2026-10-13T22:06:52.7232169Z 2c012cda8801: Pull complete
+2026-10-13T22:06:52.7267094Z Digest: sha256:18693567392b80da435f9fa952ce3a3e534c66eb5a6033f5b9c80aa3b19dd3ec
+2026-10-13T22:06:52.7279389Z Status: Downloaded newer image for kicad/kicad:10.0
+2026-10-13T22:06:52.7289386Z docker.io/kicad/kicad:10.0
+2026-10-13T22:06:52.7370059Z ##[command]/usr/bin/docker create --name e18f9ff875374944a6d007f80a82472d_kicadkicad100_d199ce --label 7696c3 --workdir /__w/TripTracer/TripTracer --network github_network_0b3e68e3cc0b46c4ab36b61ec882e7a2 --user root -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.337.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" kicad/kicad:10.0 "-f" "/dev/null"
+2026-10-13T22:06:52.7609517Z 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda
+2026-10-13T22:06:52.7633866Z ##[command]/usr/bin/docker start 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda
+2026-10-13T22:06:52.9351848Z 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda
+2026-10-13T22:06:52.9366488Z ##[command]/usr/bin/docker ps --all --filter id=1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-13T22:06:52.9494992Z 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda Up Less than a second
+2026-10-13T22:06:52.9517031Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda
+2026-10-13T22:06:52.9650650Z HOME=/github/home
+2026-10-13T22:06:52.9651417Z GITHUB_ACTIONS=true
+2026-10-13T22:06:52.9651675Z CI=true
+2026-10-13T22:06:52.9652031Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+2026-10-13T22:06:52.9652436Z LANG=C.UTF-8
+2026-10-13T22:06:52.9652645Z LANGUAGE=C.UTF-8
+2026-10-13T22:06:52.9652864Z LC_ALL=C.UTF-8
+2026-10-13T22:06:52.9675672Z ##[endgroup]
+2026-10-13T22:06:52.9685452Z ##[group]Waiting for all services to be ready
+2026-10-13T22:06:52.9687084Z ##[endgroup]
+2026-10-13T22:06:52.9990720Z ##[group]Run actions/checkout@v4
+2026-10-13T22:06:52.9991481Z with:
+2026-10-13T22:06:52.9991744Z   persist-credentials: false
+2026-10-13T22:06:52.9992049Z   repository: GeneralEdelweiss/TripTracer
+2026-10-13T22:06:52.9994580Z   token: ***
+2026-10-13T22:06:52.9994807Z   ssh-strict: true
+2026-10-13T22:06:52.9995026Z   ssh-user: git
+2026-10-13T22:06:52.9995230Z   clean: true
+2026-10-13T22:06:52.9995460Z   sparse-checkout-cone-mode: true
+2026-10-13T22:06:52.9995742Z   fetch-depth: 1
+2026-10-13T22:06:52.9995955Z   fetch-tags: false
+2026-10-13T22:06:52.9996180Z   show-progress: true
+2026-10-13T22:06:52.9996396Z   lfs: false
+2026-10-13T22:06:52.9996593Z   submodules: false
+2026-10-13T22:06:52.9996812Z   set-safe-directory: true
+2026-10-13T22:06:52.9997063Z   allow-unsafe-pr-checkout: false
+2026-10-13T22:06:52.9997486Z ##[endgroup]
+2026-10-13T22:06:53.0143490Z ##[command]/usr/bin/docker exec  1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda sh -c "cat /etc/*release | grep ^ID"
+2026-10-13T22:06:53.2196605Z Syncing repository: GeneralEdelweiss/TripTracer
+2026-10-13T22:06:53.2198807Z ##[group]Getting Git version info
+2026-10-13T22:06:53.2199358Z Working directory is '/__w/TripTracer/TripTracer'
+2026-10-13T22:06:53.2200111Z [command]/usr/bin/git version
+2026-10-13T22:06:53.2203069Z git version 2.47.3
+2026-10-13T22:06:53.2222667Z ##[endgroup]
+2026-10-13T22:06:53.2239748Z Temporarily overriding HOME='/__w/_temp/d97afa75-5b7a-434c-9b3c-ef74e13367a7' before making global git config changes
+2026-10-13T22:06:53.2242570Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T22:06:53.2245240Z [command]/usr/bin/git config --global --add safe.directory /__w/TripTracer/TripTracer
+2026-10-13T22:06:53.2285132Z Deleting the contents of '/__w/TripTracer/TripTracer'
+2026-10-13T22:06:53.2288644Z ##[group]Initializing the repository
+2026-10-13T22:06:53.2292454Z [command]/usr/bin/git init /__w/TripTracer/TripTracer
+2026-10-13T22:06:53.2351268Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T22:06:53.2352258Z hint: is subject to change. To configure the initial branch name to use in all
+2026-10-13T22:06:53.2353028Z hint: of your new repositories, which will suppress this warning, call:
+2026-10-13T22:06:53.2353637Z hint:
+2026-10-13T22:06:53.2354186Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T22:06:53.2354676Z hint:
+2026-10-13T22:06:53.2355165Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T22:06:53.2355967Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T22:06:53.2356588Z hint:
+2026-10-13T22:06:53.2356898Z hint: 	git branch -m <name>
+2026-10-13T22:06:53.2357775Z Initialized empty Git repository in /__w/TripTracer/TripTracer/.git/
+2026-10-13T22:06:53.2368084Z [command]/usr/bin/git remote add origin https://github.com/GeneralEdelweiss/TripTracer
+2026-10-13T22:06:53.2406881Z ##[endgroup]
+2026-10-13T22:06:53.2407532Z ##[group]Disabling automatic garbage collection
+2026-10-13T22:06:53.2410348Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-13T22:06:53.2446314Z ##[endgroup]
+2026-10-13T22:06:53.2453677Z ##[group]Setting up auth
+2026-10-13T22:06:53.2454130Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T22:06:53.2489920Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T22:06:53.2793304Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T22:06:53.2834660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T22:06:53.3138250Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T22:06:53.3176424Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T22:06:53.3455635Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T22:06:53.3500115Z ##[endgroup]
+2026-10-13T22:06:53.3500584Z ##[group]Fetching the repository
+2026-10-13T22:06:53.3510040Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ee121f1b0a2673c3258a3865c458360ff04b5260:refs/remotes/origin/design/solid-state-power-v1
+2026-10-13T22:06:53.9220529Z From https://github.com/GeneralEdelweiss/TripTracer
+2026-10-13T22:06:53.9221839Z  * [new ref]         ee121f1b0a2673c3258a3865c458360ff04b5260 -> origin/design/solid-state-power-v1
+2026-10-13T22:06:53.9244042Z ##[endgroup]
+2026-10-13T22:06:53.9244473Z ##[group]Determining the checkout info
+2026-10-13T22:06:53.9246963Z ##[endgroup]
+2026-10-13T22:06:53.9253444Z [command]/usr/bin/git sparse-checkout disable
+2026-10-13T22:06:53.9298205Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T22:06:53.9332877Z ##[group]Checking out the ref
+2026-10-13T22:06:53.9338346Z [command]/usr/bin/git checkout --progress --force -B design/solid-state-power-v1 refs/remotes/origin/design/solid-state-power-v1
+2026-10-13T22:06:53.9951196Z Switched to a new branch 'design/solid-state-power-v1'
+2026-10-13T22:06:53.9952072Z branch 'design/solid-state-power-v1' set up to track 'origin/design/solid-state-power-v1'.
+2026-10-13T22:06:53.9953983Z ##[endgroup]
+2026-10-13T22:06:53.9999523Z [command]/usr/bin/git log -1 --format=%H
+2026-10-13T22:06:54.0031308Z ee121f1b0a2673c3258a3865c458360ff04b5260
+2026-10-13T22:06:54.0042634Z ##[group]Removing auth
+2026-10-13T22:06:54.0047235Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T22:06:54.0082872Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T22:06:54.0362118Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T22:06:54.0392101Z http.https://github.com/.extraheader
+2026-10-13T22:06:54.0398755Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T22:06:54.0437495Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T22:06:54.0705933Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T22:06:54.0741911Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T22:06:54.1006348Z ##[endgroup]
+2026-10-13T22:06:54.1254732Z ##[group]Run mkdir -p reports "$HOME/.config"
+2026-10-13T22:06:54.1255333Z [36;1mmkdir -p reports "$HOME/.config"[0m
+2026-10-13T22:06:54.1255717Z [36;1mcp -r /home/kicad/.config/kicad "$HOME/.config/"[0m
+2026-10-13T22:06:54.1256130Z [36;1mkicad-cli version | tee reports/kicad-version.txt[0m
+2026-10-13T22:06:54.1256522Z [36;1mprintf '%s\n' "$GITHUB_SHA" | tee reports/commit.txt[0m
+2026-10-13T22:06:54.1256976Z [36;1mprintf 'NO manufacturing or vehicle approval.\n' > reports/STATUS.txt[0m
+2026-10-13T22:06:54.1261283Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-10-13T22:06:54.1261620Z ##[endgroup]
+2026-10-13T22:06:54.3103938Z 10.0.6
+2026-10-13T22:06:54.3152866Z ee121f1b0a2673c3258a3865c458360ff04b5260
+2026-10-13T22:06:54.3224514Z ##[group]Run python3 tools/check_kicad_hierarchy.py hardware/kicad/TripTracer_V1.kicad_sch | tee reports/hierarchy.json
+2026-10-13T22:06:54.3225356Z [36;1mpython3 tools/check_kicad_hierarchy.py hardware/kicad/TripTracer_V1.kicad_sch | tee reports/hierarchy.json[0m
+2026-10-13T22:06:54.3226068Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-10-13T22:06:54.3226441Z ##[endgroup]
+2026-10-13T22:06:54.4195464Z {
+2026-10-13T22:06:54.4195792Z   "pages": [
+2026-10-13T22:06:54.4196153Z     "/__w/TripTracer/TripTracer/hardware/kicad/TripTracer_V1.kicad_sch",
+2026-10-13T22:06:54.4196659Z     "/__w/TripTracer/TripTracer/hardware/kicad/01_Eingangsschutz.kicad_sch",
+2026-10-13T22:06:54.4197121Z     "/__w/TripTracer/TripTracer/hardware/kicad/01A_AUX_5V.kicad_sch",
+2026-10-13T22:06:54.4197565Z     "/__w/TripTracer/TripTracer/hardware/kicad/01B_ACC_WAKE.kicad_sch",
+2026-10-13T22:06:54.4198018Z     "/__w/TripTracer/TripTracer/hardware/kicad/01C_HOLD_TIMER.kicad_sch",
+2026-10-13T22:06:54.4198573Z     "/__w/TripTracer/TripTracer/hardware/kicad/01D_INPUT_PROTECTION.kicad_sch",
+2026-10-13T22:06:54.4199036Z     "/__w/TripTracer/TripTracer/hardware/kicad/02_5V_Buck.kicad_sch",
+2026-10-13T22:06:54.4199448Z     "/__w/TripTracer/TripTracer/hardware/kicad/03_3V3_USB.kicad_sch",
+2026-10-13T22:06:54.4199889Z     "/__w/TripTracer/TripTracer/hardware/kicad/04_ESP32_USB.kicad_sch",
+2026-10-13T22:06:54.4200322Z     "/__w/TripTracer/TripTracer/hardware/kicad/05_GNSS.kicad_sch",
+2026-10-13T22:06:54.4200761Z     "/__w/TripTracer/TripTracer/hardware/kicad/06_Display_Tasten.kicad_sch",
+2026-10-13T22:06:54.4201393Z     "/__w/TripTracer/TripTracer/hardware/kicad/07_Speicher_RTC.kicad_sch",
+2026-10-13T22:06:54.4201846Z     "/__w/TripTracer/TripTracer/hardware/kicad/08_Radsensoren.kicad_sch"
+2026-10-13T22:06:54.4202184Z   ],
+2026-10-13T22:06:54.4202388Z   "symbol_instances": 64,
+2026-10-13T22:06:54.4202624Z   "errors": []
+2026-10-13T22:06:54.4202824Z }
+2026-10-13T22:06:54.4301831Z ##[group]Run kicad-cli sch erc --severity-all --exit-code-violations --format json \
+2026-10-13T22:06:54.4302439Z [36;1mkicad-cli sch erc --severity-all --exit-code-violations --format json \[0m
+2026-10-13T22:06:54.4303036Z [36;1m  -o reports/erc.json hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/erc.log[0m
+2026-10-13T22:06:54.4303681Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-10-13T22:06:54.4304003Z ##[endgroup]
+2026-10-13T22:06:58.1716232Z Found 304 violations
+2026-10-13T22:06:58.1822756Z Saved ERC Report to reports/erc.json
+2026-10-13T22:06:58.3004434Z ##[error]Process completed with exit code 5.
+2026-10-13T22:06:58.3057673Z ##[group]Run kicad-cli pcb drc --severity-all --all-track-errors --schematic-parity \
+2026-10-13T22:06:58.3058278Z [36;1mkicad-cli pcb drc --severity-all --all-track-errors --schematic-parity \[0m
+2026-10-13T22:06:58.3058752Z [36;1m  --refill-zones --exit-code-violations --format json \[0m
+2026-10-13T22:06:58.3059260Z [36;1m  -o reports/drc.json hardware/kicad/TripTracer_V1.kicad_pcb 2>&1 | tee reports/drc.log[0m
+2026-10-13T22:06:58.3059877Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-10-13T22:06:58.3060180Z ##[endgroup]
+2026-10-13T22:07:02.5238097Z Found 14 violations
+2026-10-13T22:07:02.5238549Z Found 0 unconnected items
+2026-10-13T22:07:02.5238981Z Found 207 schematic parity issues
+2026-10-13T22:07:02.5255673Z Saved DRC Report to reports/drc.json
+2026-10-13T22:07:02.6489230Z ##[error]Process completed with exit code 5.
+2026-10-13T22:07:02.6523926Z ##[group]Run kicad-cli sch export netlist -o reports/TripTracer.net \
+2026-10-13T22:07:02.6524431Z [36;1mkicad-cli sch export netlist -o reports/TripTracer.net \[0m
+2026-10-13T22:07:02.6524914Z [36;1m  hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/netlist.log[0m
+2026-10-13T22:07:02.6525489Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-10-13T22:07:02.6525793Z ##[endgroup]
+2026-10-13T22:07:03.1372951Z ##[group]Run actions/upload-artifact@v4
+2026-10-13T22:07:03.1373242Z with:
+2026-10-13T22:07:03.1373509Z   name: kicad10-ee121f1b0a2673c3258a3865c458360ff04b5260
+2026-10-13T22:07:03.1373833Z   path: reports/
+2026-10-13T22:07:03.1374052Z   retention-days: 1
+2026-10-13T22:07:03.1374283Z   if-no-files-found: error
+2026-10-13T22:07:03.1374524Z   compression-level: 6
+2026-10-13T22:07:03.1374748Z   overwrite: false
+2026-10-13T22:07:03.1374973Z   include-hidden-files: false
+2026-10-13T22:07:03.1375238Z ##[endgroup]
+2026-10-13T22:07:03.1378962Z ##[command]/usr/bin/docker exec  1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda sh -c "cat /etc/*release | grep ^ID"
+2026-10-13T22:07:03.4079502Z (node:295) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-13T22:07:03.4080636Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T22:07:03.4244003Z With the provided path, there will be 10 files uploaded
+2026-10-13T22:07:03.4244782Z Artifact name is valid!
+2026-10-13T22:07:03.4245171Z Root directory input is valid!
+2026-10-13T22:07:03.8048774Z Beginning upload of artifact content to blob storage
+2026-10-13T22:07:03.8391726Z (node:295) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-13T22:07:04.1631868Z Uploaded bytes 26531
+2026-10-13T22:07:04.2376792Z Finished uploading artifact content to blob storage!
+2026-10-13T22:07:04.2378306Z SHA256 digest of uploaded artifact zip is 139b7b7def8b8991d0981f0eebd88948d9ed0112a5776127ab3d57fcc380adad
+2026-10-13T22:07:04.2403103Z Finalizing artifact upload
+2026-10-13T22:07:04.4941978Z Artifact kicad10-ee121f1b0a2673c3258a3865c458360ff04b5260.zip successfully finalized. Artifact ID 11854195466
+2026-10-13T22:07:04.4943687Z Artifact kicad10-ee121f1b0a2673c3258a3865c458360ff04b5260 has been successfully uploaded! Final size is 26531 bytes. Artifact ID is 11854195466
+2026-10-13T22:07:04.4950074Z Artifact download URL: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38475460659/artifacts/11854195466
+2026-10-13T22:07:04.5129984Z ##[group]Run printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
+2026-10-13T22:07:04.5130972Z [36;1mprintf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \[0m
+2026-10-13T22:07:04.5131584Z [36;1m  "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"[0m
+2026-10-13T22:07:04.5132055Z [36;1mprintf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"[0m
+2026-10-13T22:07:04.5132672Z [36;1mtest "$HIERARCHY" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success[0m
+2026-10-13T22:07:04.5133305Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-10-13T22:07:04.5133623Z env:
+2026-10-13T22:07:04.5133822Z   ERC: failure
+2026-10-13T22:07:04.5134035Z   DRC: failure
+2026-10-13T22:07:04.5134236Z   NETLIST: success
+2026-10-13T22:07:04.5134447Z   HIERARCHY: success
+2026-10-13T22:07:04.5134663Z ##[endgroup]
+2026-10-13T22:07:04.5737385Z ##[error]Process completed with exit code 1.
+2026-10-13T22:07:04.5843455Z Post job cleanup.
+2026-10-13T22:07:04.5851022Z ##[command]/usr/bin/docker exec  1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda sh -c "cat /etc/*release | grep ^ID"
+2026-10-13T22:07:04.7729834Z [command]/usr/bin/git version
+2026-10-13T22:07:04.7771788Z git version 2.47.3
+2026-10-13T22:07:04.7896316Z Temporarily overriding HOME='/__w/_temp/54a0b2ae-881b-4964-89f0-40f426719781' before making global git config changes
+2026-10-13T22:07:04.7916370Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T22:07:04.7917423Z [command]/usr/bin/git config --global --add safe.directory /__w/TripTracer/TripTracer
+2026-10-13T22:07:04.7918933Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T22:07:04.7921169Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T22:07:04.8254837Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T22:07:04.8296500Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T22:07:04.8599882Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T22:07:04.8634505Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T22:07:04.9091822Z Stop and remove container: e18f9ff875374944a6d007f80a82472d_kicadkicad100_d199ce
+2026-10-13T22:07:04.9097220Z ##[command]/usr/bin/docker rm --force 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda
+2026-10-13T22:07:05.0476541Z 1a8a7b3cb67d56f877e32879634d88e7efab27b07d9ba8b8bcfc1efe3588adda
+2026-10-13T22:07:05.0504974Z Remove container network: github_network_0b3e68e3cc0b46c4ab36b61ec882e7a2
+2026-10-13T22:07:05.0509078Z ##[command]/usr/bin/docker network rm github_network_0b3e68e3cc0b46c4ab36b61ec882e7a2
+2026-10-13T22:07:05.1582228Z github_network_0b3e68e3cc0b46c4ab36b61ec882e7a2
+2026-10-13T22:07:05.1656877Z Cleaning up orphan processes
+2026-10-13T22:07:05.2011716Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

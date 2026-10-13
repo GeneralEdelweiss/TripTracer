@@ -24,3 +24,7 @@ Schemafeld-Namen/Größen folgen dem [offiziellen KiCad-Hierarchie-Demoprojekt](
 Keine PWR_FLAGs, NC-Markierungen oder Warnungsunterdrückung hinzugefügt. BUCK_ENABLE und geschützter VIN-Eingang bleiben ohne echten Treiber/Speisung; dadurch weiterhin ungetrieben. LM74930-Frontend/ACC-HOLD sind noch nicht integriert. Kein Funktions-/Labor-/Transientennachweis. Kosten/BOM unverändert, keine neuen Bauteile.
 
 Die Originalausgaben liegen in before.net, after.net, erc-after.json, drc-after.json und verification.json. buck-after.svg ist der native Buck-Export. Das mechanische PCB und sämtliche anderen Bibliotheksgeometrien wurden durch diese Symbol-/Darstellungskorrektur nicht freigegeben.
+
+## GitHub-Bestätigung
+
+[Run 38475460659](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38475460659) am Commit ee121f1b0a2673c3258a3865c458360ff04b5260: KiCad 10.0.6 bestätigt ERC 304, DRC 14, Parität 207; Hierarchie und Netliste erfolgreich. Gesamtprüfung bleibt fehlgeschlagen. Tatsächliches Rohlog in github-run.log.

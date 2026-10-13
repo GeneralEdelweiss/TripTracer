@@ -53,6 +53,8 @@ Der **LM74800-Q1** ist aufgrund seiner **TI-Referenzschaltung Abschnitt 10.3** f
 
 **Entwicklungsempfehlung:** LM74800-basierte 200-V-Referenz **als kostengünstigen Erstkandidaten** genauer untersuchen. Erst die vollständige Schutzfunktions-/Fehlerfall-Matrix und den realen Gesamtpreis einschließlich einer etwaigen eFuse/independent OFF bestimmen. Danach entscheiden, ob eine teure doppelte Surge-Stopper-Kette tatsächlich gebraucht wird; bei gleichwertiger Funktion klare Präferenz für geringere BOM.
 
+**Weiterführender Kandidat (14.10.2026):** [HOLD aus Fahrzeug-5-V mit 72 DC-Fällen](ACC_HOLD_VEHICLE_SOURCE_REVIEW.md). Kein ständig aus BAT gespeister Enable-Pull-up; reale Transienten, USB-Isolation und Hardware-Deadline noch offen.
+
 **Aktuelle ACC/HOLD-Untersuchung:** [96 DC-Simulationsfälle und verworfene Bias-Kandidaten](ACC_HOLD_DC_REVIEW.md). USB-only-Qualifikation ist im vereinfachten Modell wirksam; Temperatur-/Ruhestrom-Gates sind noch offen.
 
 ## 1. Beschluss, Ziel, Einschränkungen
