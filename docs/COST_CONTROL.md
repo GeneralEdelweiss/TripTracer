@@ -2,6 +2,8 @@
 
 **Stand: 13.10.2026 · Status: KEINE belastbare Gesamt-BOM oder Fertigungspreiskalkulation.** Ziel ist der **günstigste nachweislich taugliche** Rallye-Tripmaster, nicht ein möglichst teures Automotive-Elektronikprojekt. Kein verbindliches Gerätebudget oder Verkaufspreis vom Nutzer festgelegt; **keine künstliche Budgetobergrenze** annehmen.
 
+**Neuer Komponenten-Preischeck (13.10.2026):** [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md) vergleicht die **OV-Cut-off-Variante** mit Ti LM74800 (2,58 €/1) und lieferbarem **onsemi 250-V-FET FQD16N25CTM (0,9493 USD/1 bei LCSC)**. Im Unterschied zur teuren Altstudie ist keine aktive lineare 200-V-Ausgangsklemme vorgesehen. **Keine gemischten USD-/EUR-Summierungen, keinen angeblichen fertigen BOM-Preis**; relevante Zener-/TVS-/Fuse-/ACC-Logik und Prüfkosten sind noch offen. Die preisgünstigen 250-V-FETs sind **noch nicht 6-V-Gate-/Temperatur-/SOA-freigegeben**.
+
 ## Übergeordnete 80/20-Sicherheitsentscheidung (13.10.2026)
 
 **Gefahr vor Verfügbarkeit:** Ein Tripmaster darf bei seltenen Extremtransienten ausgehen, neu starten oder im Einzelfall einen laufenden GPX-/CSV-Datensatz verlieren; diese Folgen sind akzeptabel, wenn der Zustand **elektrisch und thermisch sicher** bleibt. **Nicht akzeptabel:** Fahrzeugkabelbrand/-überlast, dauernder gefährlicher Kurzschluss, thermisch überlastete Leistungsteile oder unkontrollierter Dauerbetrieb unter einem Fehler. Für Schutzmaßnahmen nur dann zusätzliche Bauteile vorsehen, wenn sie **erforderliche elektrische Sicherheit**, normale Funktion oder einen erheblichen Nutzwert belegen.
