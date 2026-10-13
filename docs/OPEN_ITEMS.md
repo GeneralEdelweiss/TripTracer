@@ -10,6 +10,8 @@
 
 **Neue Reihenfolge nach MegaSquirt-Versorgungsvergleich (13.10.2026):** **Zuerst** günstigen 9–36-V-/5-V-/2-A-Buck **LMR36520** mit 6-V-Kaltstart und einfacherer **ACC OR MCU_HOLD → Buck_EN**-Selbsthaltung komplett elektrisch auslegen; verifizierbaren Kurzschluss-/Brandschutz sowie getrennt abgesicherte BAT+/ACC-Zuleitungen dimensionieren. **Dann** den 200-V-ungedämpften ISO-16750-2-Load-Dump über geeignete vorgeschaltete, stromsparende Abschaltstufe **vor jedem Fahrzeugeinsatz** nachweisen. Einkaufsreihenfolge: tatsächliche Verfügbarkeit/Herstellerqualität/Preis/Handlötbarkeit, **JLCPCB-PCBA optional und nachrangig**. Vollständige Argumentation: [MEGASQUIRT_POWER_BENCHMARK.md](MEGASQUIRT_POWER_BENCHMARK.md). Ursprüngliches 18-V-MOV/26-V-Linearregler-MegaSquirt-Design NICHT einfach kopieren.
 
+**Tatsächlich im KiCad geändert (Buck a1, 13.10.2026):** U101-TI-Referenz mit R101/R102=100k/24.9k, L101=10µH Bourns SRP6030VA-100M, zwei 4.7µF + 220nF Eingang und zwei 22µF Ausgang, separate `BUCK_ENABLE`-Steuerleitung. Provisorischer Bourns-Land-Pattern-Footprint und vorläufige BOM/Preispositionen hinzugefügt. **Offen:** LMR36520-Pad9/thermisches Kupfer, Drossel-5A-Isat/Temperatur und Footprint-GUI-Prüfung, MLCC-DC-Bias, tatsächliche 6V-Regelung, EN-Driver/ACC-HOLD, LM74930-Versorgungsanbindung, KiCad-CLI-ERC/DRC/Realtest.
+
 ## Priorität A – Stromversorgung V1, Variante 3 (relaislos)
 
 Maßgebliche Analyse: [SOLID_STATE_POWER_ARCHITECTURE.md](SOLID_STATE_POWER_ARCHITECTURE.md). Die Entscheidung für Variante 3 ist **eine Entwicklungsrichtung, keine Sicherheits- oder Fertigungsfreigabe**.
