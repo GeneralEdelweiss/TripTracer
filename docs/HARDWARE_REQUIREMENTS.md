@@ -796,6 +796,15 @@
 | HW-63 | **Festgelegt – A: SMA-Buchse am Gehäuse** | Die externe GNSS-Antenne wird an eine **normale SMA-Buchse an der Gehäuseaußenseite** angeschlossen (kein RP-SMA); im Inneren führt ein geeignetes Koax-Pigtail zum U.FL-Anschluss der Hauptplatine. | SMA-Geschlecht und Innenkontakt, Antennenstecker, Gehäusedurchführung, Dichtung, mechanische Fixierung, 50-Ω-Koaxleitung und Kabellänge prüfen. |
 | HW-64 | **Festgelegt – A: gleichwertige Alternativbauteile dokumentieren** | Für kritische und potenziell schwer verfügbare Komponenten in der Stückliste **nach Möglichkeit datenblattgestützt elektrisch, thermisch, mechanisch und footprint-kompatible Ersatztypen** dokumentieren. **Keine zusätzlichen Alternativ-Footprints auf dem PCB als allgemeine Pflicht**; Ersatztypen nur nach Kompatibilitätsprüfung freigeben. | LCSC/JLCPCB-Bestand, Hersteller-Datenblätter, Footprint/Pinout, elektrische Grenzwerte und Firmware-relevante Abweichungen bei jeder Alternative überprüfen. |
 
+### Hardwareprototyp – Erste PCB-Revision und Inbetriebnahme (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-65 | **Festgelegt – A: alle Funktionen auf einer Hauptplatine** | Die **erste PCB-Revision enthält sämtliche vorgesehenen Hardwarefunktionen auf einer einzigen Hauptplatine**. Riverdi-Display und sechs Taster bleiben wie beschlossen extern kabelgebunden; keine separate Versorgungs-Testplatine als Pflicht und keine gestaffelten funktional unvollständigen PCB-Revisionen. | Vor Bestellung eine vollständige Funktions-/Steckerprüfung, KiCad-10-Schaltplan mit ERC und Layout mit DRC; Bring-up baugruppenweise auch auf vollständig bestückter Platine ermöglichen. |
+| HW-66 | **Festgelegt – A: JLCPCB-SMD plus manuelle Sonderteile** | **Geeignete verfügbare SMD-Bauteile durch JLCPCB bestücken lassen**; mechanische Steckverbinder, größere Pufferelkos und nicht unterstützte bzw. unverhältnismäßig teure Spezialteile bei Bedarf **manuell nachbestücken**. | BOM/CPL, JLCPCB-Basic/Extended-Verfügbarkeit, 2-seitige Bestückung, Lötbarkeit der Sonderteile und Zugänglichkeit der Lötstellen vorher prüfen. |
+| HW-67 | **Festgelegt – A: getrennte Testeinspeisemöglichkeit** | Für den ersten Bring-up **zusätzlich zum regulären geschützten 9–36-V-M8-Bordnetzeingang einen abgesicherten 5-V-Testeinspeisepfad hinter dem Buck** vorsehen. Testversorgung so entkoppeln bzw. nur nach bewusstem Trennen/Umstecken zuschalten, dass **weder der Buck-Ausgang noch Bordnetz/USB rückgespeist** werden und 5-V-Quellen nicht gegeneinander arbeiten. | Fehler- und Verpolschutz, Spannungs-/Stromfestigkeit, eindeutige Testpunktkennzeichnung, Abschalt-/USB-Zustände und sichere Reihenfolge bei Labornetzteilbetrieb testen; Testeinspeisung nicht als ungeschützte Betriebsversorgung deklarieren. |
+| HW-68 | **Festgelegt – A: fünf Erstprototyp-PCBs** | **Fünf Hauptplatinen** der ersten PCB-Revision für Bring-up, Aufbauvarianten, Fehlersuche und Reserve fertigen lassen. Die Stückzahl der **vollständig oder teilbestückten** Platinen und der manuellen Sonderteile ist separat anhand der Bestellung/BOM festzulegen; fünf Leiterplatten bedeuten nicht automatisch fünf vollständig bestückte Geräte. | Fertigungs- und Bestückungskosten, Baugruppenaufteilung und Reserveteile auf fünf PCB-Rohlinge beziehen; Produktionsfreigabe erst nach Gerber-/BOM-/CPL-Prüfung. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -986,6 +995,8 @@
 | 13.10.2026 | HW-57–60 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Modell anhand Artikelnummer verifizieren; aktive und passive GNSS-Antennen per geschützter zuschaltbarer Biasversorgung unterstützen; verriegelnder ZIF samt FFC-Zugentlastung; kritische Display-/GNSS-/Versorgungsbauteile vor Schaltplanfreigabe priorisiert prüfen. | Herstellerdatenblätter, Kontakt-/Antennen-Bias-Plan und reale Bezugsquellen verifizieren. |
 
 | 13.10.2026 | HW-61–64 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Display behalten und ggf. Kabelanschluss anpassen; feste, geeignete abschaltbare GNSS-Antennen-Biasversorgung; normale SMA-Buchse am Gehäuse; geprüfte kompatible Ersatzteile in der BOM dokumentieren. | Display-/Antennen-Artikelnummer, Pigtail-Steckergeschlecht, tatsächliche Bias-Spannung und Ersatzteilkompatibilität vor Schaltplanfreigabe prüfen. |
+
+| 13.10.2026 | HW-65–68 | **Hardware-Viererrunde A/A/A/A bestätigt:** erste Revision mit allen Hardwarefunktionen auf einer Hauptplatine, JLCPCB-SMD-Bestückung plus manuelle Sonderteile, abgesicherte/entkoppelte 5-V-Laboreinspeisung hinter Buck zusätzlich zu M8 und fünf Erstprototyp-PCBs. | Testversorgung gegen Rückspeisung und Fehlbedienung sichern; Zahl maschinell bestückter PCBs separat kalkulieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
