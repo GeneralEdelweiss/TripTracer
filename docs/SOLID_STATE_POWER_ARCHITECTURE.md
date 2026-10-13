@@ -2,6 +2,30 @@
 
 **Stand:** 13.10.2026, **elektrische Vorstudie ohne Fertigungsfreigabe**. Ausgangsstand unveränderlich gesichert: `07b6ae6c82a02aa866dadd50f507025a7d0c8587` (`snapshot/2026-10-13-before-solid-state`); der vorangegangene 01D-Designreview separat unter `snapshot/2026-10-13-with-01d-review`. Diese Studie **ersetzt keinen KiCad-Schaltplan**, keinen Schaltungs-/Pincheck, kein ERC/DRC und keinen Fahrzeugtest.
 
+## Preisrevision nach Kostenkritik (13.10.2026) – vor der 22-€-Variante lesen
+
+**Korrektur:** Die bisherige 21,92-€/Gerät-Robust-BOM in Kapitel 7 beruht auf einer sehr teuren **LTC4380 + TPS26631**-Doppelarchitektur mit **zwei** 250-V-Leistungs-FETs. Diese Auslegung ist **nicht die günstigste Lösung** für den Nachweis eines 200-V-Load-Dumps. Ihre hohe Kostenposition ist kein allgemeiner Mindestpreis für einen hinreichend robusten TripTracer.
+
+**Besserer Kandidat: TI LM74800QDRRRQ1** (Automotive AEC-Q100), etwa **2,58 € einzeln / 1,94 € ab 10 / 1,59 € ab 100**, [Mouser](https://www.mouser.de/de/ProductDetail/Texas-Instruments/LM74800QDRRRQ1). **TI-Datenblatt Kapitel 10.3** zeigt explizit einen Schutz gegen **200-V-ungedämpften 24-V-Load-Dump** mit zwei N-MOSFETs in *Common-Source*-Konfiguration, Zener-/TVS-Netzwerk und Abschaltung/Klemmung, bei **25 W Beispiel-Ausgangsleistung**. [LM7480-Q1, Datasheet Rev. C](https://www.ti.com/product/LM7480-Q1), [HTML](https://www.ti.com/document-viewer/LM7480-Q1/datasheet). Dies ist eine **Referenz**, keine generelle Freigabe eines billigeren beliebigen 200-V-FETs.
+
+### Neu kalkulierter vorläufiger Einkaufsszenario-Ansatz, NETTO
+
+| Teil / Anzahl pro Gerät | Einzelpreis € | Ab 10 € | Ab 100 € | Datenlage |
+|---|---:|---:|---:|---|
+| **LM74800QDRRRQ1** / 1 | 2,58 | 1,94 | 1,59 | Mouser, siehe oben; IC für Reverse Polarity, Overvoltage und FET-Power-Path |
+| **FDD18N20LZ 200-V-N-MOSFET** / 1 | 2,47 | 1,60 | 1,10 | [Mouser](https://www.mouser.de/c/semiconductors/discrete-semiconductors/transistors/?mounting+style=SMD%2FSMT&number+of+channels=1+Channel&vds+-+drain-source+breakdown+voltage=200+V), 200-V-/16-A-DPAK; **SOA/Automotive-Qualifikation erst prüfen** |
+| **ROHM RD3L080SNFRATL 60-V-N-MOSFET** / 1 | 1,88 | 0,912 | 0,813 | [Mouser](https://www.mouser.de/de/c/semiconductors/discrete-semiconductors/transistors/?mounting+style=SMD%2FSMT&package+%2F+case=TO-252-3&technology=Si&vds+-+drain-source+breakdown+voltage=60+V), AEC-Q101, **Pin/SOA/Überspannungsisolierung prüfen** |
+| **SMBJ150A** / 1 | 0,353 | 0,219 | 0,170 | [Mouser](https://www.mouser.de/de/ProductDetail/Littelfuse/SMBJ150A), **Einzeldiode allein kann langen Load-Dump nicht gegen GND auf ~36 V klemmen** |
+| **Yageo SMBJ33CA/TR13** / 1 | 0,344 | 0,212 | 0,134 | [Mouser](https://www.mouser.de/ProductDetail/YAGEO/SMBJ33CA-TR13), zusätzliche Transienten-/Negative-Pulse-Klemme |
+| Zener 60/85 V, MLCC, Widerstände, weitere Kleinteile / Satz | **1,50–2,50** | **0,85–1,50** | **0,55–1,00** | **nur Budgetannahme, keine geprüften MPNs/Netzliste** |
+| **SUMME – möglicher Basis-Surge-Schutz** | **9,13–10,13** | **5,73–6,38** | **4,36–4,81** | **NICHT freigegebene BOM; ohne externe Sicherung, ACC-Frontend, gewünschte separate Strombegrenzung, MCU-HOLD und USB-Schutz** |
+
+**Technischer Haken, ausdrücklich:** Anders als TPS26631 besitzt **LM74800-Q1 keine vollwertige einstellbare elektronische Überstrombegrenzung/eFuse mit Auto-Retry**. Seine FET-Auswahl, Load-Dump-Abschaltreaktion, Gates und die externe Leitungsabsicherung müssen die vollständige Schaltung schützen. **PWR-03 verlangt bislang ausdrücklich eine SMD-eFuse mit Auto-Retry**; diese Funktion ist mit obiger günstigster BOM **nicht vollständig erfüllt**. Ein nachgeschalteter passender preiswerter eFuse oder Controller mit integriertem Circuit Breaker (z. B. LM74910-Q1, wenn die 200-V-Surge-Topologie neu geprüft ist) wäre ein zusätzlicher Kostenblock. **Kein freigegebener Ersatz ohne Nutzerentscheidung.**
+
+**Zudem:** Die zwei vom *gleichen* LM74800 gesteuerten FETs bieten noch **keine unabhängig fehlersicheren Abschaltkanäle**. Ein echter zweiter Schaltpfad mit eigenständiger Timeout-/OFF-Steuerung und Schutz gegen Common-Cause-Fehler benötigt ggf. zusätzliche Teile. Eine nominelle 200-V-Rating-Angabe ersetzt **nicht** MOSFET-Puls-SOA-, Kaltstart- oder ISO-16750-2-Test. Unabhängig von der Schutzkostenfrage muss weiterhin das 3-V-/15-ms-Kaltstartprofil für MCU/GNSS/SD über den geeigneten Wandler-/Pufferpfad gelöst werden.
+
+**Entwicklungsempfehlung:** LM74800-basierte 200-V-Referenz **als kostengünstigen Erstkandidaten** genauer untersuchen. Erst die vollständige Schutzfunktions-/Fehlerfall-Matrix und den realen Gesamtpreis einschließlich einer etwaigen eFuse/independent OFF bestimmen. Danach entscheiden, ob eine teure doppelte Surge-Stopper-Kette tatsächlich gebraucht wird; bei gleichwertiger Funktion klare Präferenz für geringere BOM.
+
 ## 1. Beschluss, Ziel, Einschränkungen
 
 Nach Vergleich der relaisgesteuerten Variante 2 mit der elektronischen Variante 3 soll **Variante 3 prioritär entwickelt werden**. Entscheidung gilt für die **Entwicklungsrichtung**, **nicht** als elektrische, Automotive-, funktionale oder fertigungstechnische Freigabe. Bei Versagen wichtiger Sicherheitstests darf auf Variante 2 mit kleinem monostabilem Signalrelais zurückgegriffen werden.
