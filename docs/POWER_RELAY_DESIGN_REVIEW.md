@@ -84,6 +84,19 @@ Die Teilbeschaltung besitzt absichtlich **offene Schnittstellen**: `5V_AUX_COIL`
 
 **Nächster qualitätskritischer Schritt:** LM5164-Q1 als vollständigen 5V-AUX-Buck mit Feedback-/Ripple-Injektionsnetzwerk nach TI auslegen, dann 9–36-V-ACC-Detektor und HARDWARE-HOLD-Timer dimensionieren und in dasselbe Blatt einfügen; anschließend Schnittstellen, Footprints und **echten** KiCad-10-ERC prüfen. Derzeit **keine native KiCad-10-Öffnungs-, ERC- oder DRC-Prüfung**, kein getesteter 36-V-Inrush-/Kontaktlebensdauernachweis.
 
+### AUX-Regler als hierarchisches KiCad-Schaltplanblatt – Vorentwurf a1.1
+
+Die neue Unterseite `01A_AUX_5V.kicad_sch` ist **über das bestehende 01_Eingangsschutz-Blatt verlinkt**, also in KiCad 10 als Teil desselben Gesamtprojekts navigierbar. `U201` ist der LM5164-Q1, mit Pin 1 GND, 2 VIN, 3 EN, 4 RON, 5 FB, 6 PGOOD (absichtlich offen), 7 BST, 8 SW, **9 Exposed Pad** (im Symbol elektrisch auf GND). Das EP-Symbol wurde von `EP` auf padnummerierbares `9` korrigiert; **das finale thermische Pad und sein Land Pattern sind noch anhand der konkreten TI-DD[A] Zeichnung zu bestimmen**.
+
+**Berechnete Vorabwerte** (TI SNVSB51C, 2025):
+- `R203` 43,2 kΩ zwischen RON und GND: `f≈ 5×2500/43,2 = 289 kHz`, ideale Gleichung (15), tatsächliches Minimum-On-Time und VIN beachten.
+- `R201` 316 kΩ / `R202` 100 kΩ: `VOUT≈1,2×(1+316/100)=4,992 V`, Gleichung des FB-Teilers. **Erst nach Ripple-/Last-Simulation als Sollwert freigeben.**
+- `L201` **68 µH ausschließlich als Kandidat**, Saturationsstrom >=1,75 A des LM5164-Q1 Peak-Limits erforderlich, und DCR/Temperatur/Bauhöhe/Gehäuse noch offen. Ohne freigegebenen Footprint.
+- `C201/C202` je 2,2 µF 100 V X7R (1210), `C204/C205` je 22 µF 16 V X7R (1210), `C203` Bootstrap 2,2 nF 50 V, R204/C206/C207 als **Type-3-Ripple-Injection**: SW→180 kΩ→AUX_RAMP→3,3 nF→5V_OUT; AUX_RAMP→100 pF (C0G)→FB. Elektrolyt-/Dämpfungspflicht erst aus Leitungslängen/EMV bewerten; das ist **kein großer 3-s-Shutdown-Puffer**.
+- **Rechnerische Rippleabschätzung nur grob:** `tON≈VOUT/(VIN×f)`. `ΔV_FB≈tON×(VIN−VOUT)/(R204×C206)`: bei 9 V etwa 12,8 mV und bei 24 V etwa 22 mV; TI empfiehlt typ. 20 mV, mindestens 12 mV bei minimalem VIN. Teiletoleranzen und DCM/Light-Load-Verhalten bei lediglich 28 mA Spulenstrom bleiben offen.
+- **Hardware-Schnittstelle:** `BAT_PROTECTED_BEFORE_RELAY` von vorgeschaltetem KFZ-Schutz → V_IN AUX (immer aktiv). `5V_AUX_COIL` → K101-Spule; keinerlei USB-Rückspeisung. `AUX_SW`, `AUX_RON`, `AUX_BST`, `AUX_FB` und `AUX_RAMP` sind innerhalb dieser Teilseite benannte elektrische Netze mit symbolischen Pads und Wire-Stubs. Die Haupt-GND-Netze sind gemeinsam.
+- **NICHT fertig:** Vollständige Verpol-/TVS-geschützte BAT+-Quelle, ACC-Erkennung, HOLD-/Hardware-Timeout, eFuse/Relaiskontakt-Stoßstrom, Bauteil-Footprints U201/L201, nativer ERC, mechanischer/thermischer Layoutnachweis und Messungen fehlen. Die Vorgabe für <=100 µA gesamten BAT+-Ruhestrom ist ein **Wunschziel**, kein gemessener Wert. PGOOD und USB-Pfade sind separat zu prüfen.
+
 ## 5. Abnahme-Gates – vor dem nächsten Baugruppenblatt
 
 1. **Kontakt-/Relaisdaten**: G6S-2F DC5 **Schaltkurven**, Pin-Nummern/SMD-Footprint, Spulen- und Kontaktbelastung bei −40 bis +85 °C, Vibration, Real-Inrush, Dauerstrom und 36-V-Öffnen anhand Herstellervorgaben prüfen.

@@ -44,6 +44,8 @@ Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt 
 
 ## Baugruppe 01: Relais-Vorprüfung (13.10.2026)
 
+**KiCad-Fortschritt a1.1 (5-V-AUX-Unterseite):** Das Relais-Eingangsblatt verlinkt nun die hierarchische [01A_AUX_5V.kicad_sch](01A_AUX_5V.kicad_sch). Dort ist der **LM5164-Q1-Hilfsbuck mit 13 Symbolinstanzen** als gekennzeichneter vorläufiger Schaltungsentwurf verdrahtet (5 V aus geschütztem BAT+, RON/FB, Type-3-Ripple, Bootstrap, Ein-/Ausgangsfilter). **U201 und L201 ohne freigegebene Footprints, ACC-Start/HOLD-Timer und vorgelagerter Kfz-Schutz fehlen; KiCad ERC/DRC nicht durchgeführt.**
+
 **KiCad-Fortschritt a1:** [01_Eingangsschutz.kicad_sch](01_Eingangsschutz.kicad_sch) enthält jetzt die erste real gezeichnete **Teilbeschaltung aus K101, Q111, D111, R111** und globale Schnittstellennetze. Die Relaisschaltung allein ist **nicht vollständig selbstversorgend**: die Hilfs-5V, gültige ACC/HOLD-Logik, eFuse/Schutz und Power-On-Interlock fehlen noch. Neues [portables Relaissymbol](TripTracer_V1.kicad_sym) und [Projektfootprint](Tripmaster.pretty/RLY101_Omron_G6S_2F.kicad_mod) laut Omron-Maßzeichnung, **ohne 3D-Modell** und ohne native KiCad-Freigabe. **Noch nicht** als fertiges/DRC-geprüftes PCB-Bauteil platziert.
 
 [Technischer Designreview mit Bauteilkandidaten, Spulenrechnung, Kosten- und Kompatibilitäts-Gates](../../docs/POWER_RELAY_DESIGN_REVIEW.md). **Omron G6S-2F DC5 (C16707, Extended)** und **TI LM5164QDDARQ1 (C2072225, Kategorie offen)** sind **Kandidaten**, keine freigegebenen/platzierten KiCad-Bauteile. Aktuelle KiCad-Seite 01 enthält **noch keine realen elektrischen Verbindungen**. Keine ERC-/DRC-/Fertigungsfreigabe erfolgt.
