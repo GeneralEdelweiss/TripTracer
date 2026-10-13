@@ -49,6 +49,18 @@ Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine op
 
 **Entscheidungskriterium:** **Preis-Leistung und reproduzierbare Gesamtstückkosten**, nicht blind die niedrigste BOM-Zeile. Wenn die derzeitige Komponentenwahl die Budget-Positionierung stark gefährdet, Kostenkonflikt früh mit technisch belastbaren Alternativen benennen und um konkrete Freigabe bitten statt Entscheidungen heimlich umzuwerfen.
 
+### Verbindliches Kostengate vor einer technischen Festlegung (13.10.2026)
+
+**Neue Eskalationsregel nach der 22-€-Eingangsschutz-Fehlkalkulation:** Eine bessere Datenblatt-Schutzklasse oder zusätzliche Redundanz ist **allein** keine ausreichende Begründung für eine teurere Baugruppe. **Vor jeder teuren Architekturentscheidung und jedem neuen kostenrelevanten Feature** zuerst die *einfachste nachweisbar geeignete* Schaltung identifizieren, vollständige Schaltungs-BOM kalkulieren und ausweisen:
+
+1. **Bisher / günstigste zulässige Alternative / vorgeschlagene Alternative** mit sämtlichen wirklich erforderlichen Begleitteilen und entfallenden Bauteilen. Keine Doppelzählung oder willkürliche Pufferposition ohne Kennzeichnung.
+2. **Stückpreis bei 2, 10 und 100 Geräten** sofern Quellen existieren, mit MwSt.-/Versand-/PCB-/PCBA-Abgrenzung; reale Einkaufsangebote strikt von vorläufigen Annahmen trennen.
+3. **Delta pro Gerät und aufsummiertes Delta zur gesamten TripTracer-BOM**, einschließlich Leiterplattenlagen/-fläche, Extended-Feeder-Kosten, mechanischer Montage und Mehrlieferanten-Versand.
+4. **Technisch konkrete Gegenleistung und verbleibende Risiken** (welchen Test/Fehlerfall schafft nur die teurere Option?). Kein pauschales „robuster = besser“.
+5. **Kostenwarnung vor Umsetzung**, sobald die Summe ohne deutliche funktionale/technische Rechtfertigung ansteigt. Bei übertriebenen Schutz- oder Doppel-IC-Konzepten die Auswahl vereinfachen **bevor** weitere KiCad-Baugruppen angelegt werden.
+
+Die aktuelle [laufende Kostenkontrolle](docs/COST_CONTROL.md) fortschreiben. **Noch kein verbindliches Gesamtbudget festgelegt – keine künstliche Euro-Obergrenze oder frei erfundenen Einsparungen behaupten.** Wenn mangels vollständiger BOM keine echte Gesamtsumme bekannt ist, **sichtbar „NICHT BELASTBAR“** schreiben. Safety, Last- und Temperaturgrenzen weiterhin datenblatt- und testgestützt absichern; Kostensenkung bedeutet nicht, diese Anforderungen stillschweigend fallen zu lassen.
+
 ## Bauteil-Auswahl: JLCPCB Basic und Handloetbarkeit (TripTracer V1)
 
 **Verbindliche Projektpraeferenz (HW-73 bis HW-76):** Wenn technisch gleichwertig, so viele Komponenten wie moeglich als **JLCPCB Basic Parts** und **von Hand gut loetbare SMD-Pakete** auswaehlen. **Elektrische Funktion und Langzeitzuverlaessigkeit gehen immer vor Basic-Status und Gehaeusegroesse.**
