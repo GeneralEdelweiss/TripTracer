@@ -287,10 +287,19 @@
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
-| GPS-34 | **Festgelegt – A mit Ergänzung: einstellbare Pause, Standard 15 min** | Eine längere Pause erzeugt beim nächsten Fahrtbeginn eine neue Statistik, wenn die Pausendauer die im Menü **einstellbare Schwelle** erreicht. **Werkseinstellung 15 Minuten**, nicht fest verdrahtet; der Wert bleibt über Neustarts erhalten. Kurze Tank- und Zündungsstopps unterhalb dieser Schwelle setzen die Statistik nicht zurück. | Einstellbereich/Schrittweite im nächsten Designschritt festlegen, plausible Werte validieren; Uhrzeit aus RTC bei M8 AUS, bei ungültiger Uhrzeit keine vorgetäuschte Pausendauer. |
+| GPS-34 | **Festgelegt – A mit Ergänzung: einstellbare Pause, Standard 15 min** | Eine längere Pause erzeugt beim nächsten Fahrtbeginn eine neue Statistik, wenn die Pausendauer die im Menü **einstellbare Schwelle** erreicht. **Werkseinstellung 15 Minuten**, nicht fest verdrahtet; der Wert bleibt über Neustarts erhalten. Kurze Tank- und Zündungsstopps unterhalb dieser Schwelle setzen die Statistik nicht zurück. | Einstellbereich **1–120 Minuten in 1-Minuten-Schritten** gemäß GPS-38, plausible Werte validieren; Uhrzeit aus RTC bei M8 AUS, bei ungültiger Uhrzeit keine vorgetäuschte Pausendauer. |
 | GPS-35 | **Festgelegt – A: Pause durch Stillstand oder Zündung AUS** | Sowohl **erkannter Fahrzeugstillstand bei weiter aktiver M8-Versorgung** als auch **ausgeschaltete M8-Versorgung** zählen zur Pausenzeit. Sobald gültige Bewegung wieder erkannt wird, endet die Pause. Erreicht die Pause die Schwelle aus GPS-34, startet die Fahrtstatistik bei Wiederaufnahme neu. | Stillstandshysterese gemäß GPS-27, verlässliche RTC-Zeiten über Power-off sowie Verhalten bei GNSS-/Radsensor-Ausfall prüfen; kein ständiges Neuanlegen von Fahrten im Stand. |
 | GPS-36 | **Festgelegt – A: manueller Logdateiwechsel ohne Statistikreset** | Der bereits beschlossene Menüpunkt **„Neue Logdatei starten“ (STO-35)** erzeugt ausschließlich ein neues GPX-/CSV-Dateipaar; **die laufende Fahrt, die Fahrtstatistik und die profilgebundenen Distanzzähler werden nicht zurückgesetzt**. | Log-Ereignis/Segmentierung sichern; weiterhin ohne zusätzliche Bestätigungsabfrage gemäß STO-35. |
 | GPS-37 | **Festgelegt – A: ausgeschaltete Zeit separat erfassen** | **Pausenzeit bei ausgeschalteter M8-Versorgung separat dokumentieren**, aber **nicht als aktive Fahrtdauer** bei der Berechnung des Gesamtdurchschnitts verwenden. Stillstand bei eingeschaltetem Gerät bleibt im Gesamtdurchschnitt enthalten, jedoch nicht im Bewegungsdurchschnitt (GPS-31). | Zeitquellenvalidierung/RTC-Backup, Unterscheidung von Pause bei M8 AN und AUS, korrekte Durchschnittsnenner und Export mit expliziten Zeitfeldern prüfen. |
+
+### D.7 Pauseneinstellungen und Fahrthistorie – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-38 | **Festgelegt – A: 1–120 min in 1-min-Schritten** | Automatische Pausenschwelle im Menü **von 1 bis 120 Minuten in Schritten von einer Minute** einstellbar; **Werkseinstellung 15 Minuten**, dauerhaft gespeichert, gemäß GPS-34. | Eingabegrenzen, Persistenz und RTC-basierte Pausenermittlung nach M8 AUS prüfen. |
+| GPS-39 | **Festgelegt – A: manuelle neue Fahrt mit Bestätigung** | Eigener Menüpunkt **„Neue Fahrt beginnen“** mit eindeutiger Bestätigung; schließt die aktuelle Fahrtstatistik ab und beginnt eine neue, **ohne automatisch das Tages-GPX-/CSV-Dateipaar zu wechseln**. | Statistikabschluss samt Start-/Endereignis in Tages-CSV und Fahrtenübersicht dokumentieren; keine Verwechslung mit „Neue Logdatei starten“ (STO-35/GPS-36). |
+| GPS-40 | **Festgelegt – A: Fahrt über Mitternacht fortsetzen** | **Tageswechsel um 00:00 Uhr** beginnt ein neues GPX-/CSV-Dateipaar, **setzt aber die laufende Fahrtstatistik nicht zurück**; eine Fahrt darf sich über mehrere Tagesdateien erstrecken. | Konsistente Fahrt-ID und Start-/Endzeit über Dateigrenzen, Mitternacht bei Zeitzonenwechsel und Stromausfall testen. |
+| GPS-41 | **Festgelegt – A: zusätzliche Fahrtenübersicht als CSV** | Zusätzlich zu tagesweisen GPX-/CSV-Tracks eine **separate, lesbare CSV-Fahrtenübersicht** mit mindestens Fahrt-ID, Start/Ende, Profil-ID/-Name, Strecke, Pausenzeiten, Gesamtdurchschnitt, Bewegungsdurchschnitt und Höchstgeschwindigkeit erzeugen. | Abschlüsse nach Pause, manuellem Neustart und Profilwechsel ohne Dubletten schreiben; FRAM-/SD-Power-Loss-Recovery, UTF-8, UTC-Zeitstempel und lokale Anzeigezeiten eindeutig festlegen. |
 
 ## E. Anzeige und Bedienelemente
 
@@ -556,6 +565,8 @@
 | 13.10.2026 | GPS-30–33 | **Viererrunde C/C/A/A bestätigt:** neue Fahrt erst nach längerer Pause (Standard 15 min, einstellbar gemäß späterer Entscheidung GPS-34), Durchschnitt mit und ohne Stillstand, Höchstwert nur aus plausiblen Geschwindigkeiten, neue Fahrtstatistik bei bestätigtem Profilwechsel. | Einstellbereich, abgeschaltete Zeit, Uhrzeitgültigkeit und Log-Ereignisgrenzen konkretisieren. |
 
 | 13.10.2026 | GPS-34–37 | **Viererrunde A/A/A/A mit Ergänzung bestätigt:** Pausenschwelle **einstellbar, Standard 15 min**; Stillstand bei M8 AN und Zeit mit M8 AUS gelten als Pause; manuelle neue Logdatei setzt Fahrtstatistik nicht zurück; ausgeschaltete Zeit separat erfassen und nicht als aktive Fahrtdauer für den Durchschnitt rechnen. | Einstellbereich/Schrittweite, RTC-Ausfälle und Pausengrenzen bei GNSS-Fehlern konkretisieren. |
+
+| 13.10.2026 | GPS-38–41 | **Viererrunde A/A/A/A bestätigt:** Pausenschwelle 1–120 Minuten in 1-Minuten-Schritten (Standard 15 min), manueller Fahrtbeginn über Menü mit Bestätigung ohne Dateipaarwechsel, Fahrtstatistik läuft über Mitternacht weiter, separate CSV-Fahrtenübersicht je abgeschlossener Fahrt. | Fahrt-ID, robuste CSV-Anfügung, Mitternacht und Abschlusserkennung validieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
