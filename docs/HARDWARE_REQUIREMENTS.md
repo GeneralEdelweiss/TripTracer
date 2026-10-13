@@ -760,6 +760,15 @@
 | HW-47 | **Festgelegt – A: U.FL auf PCB und externe SMA-Durchführung** | **MAX-M10N-GNSS-Antennensignal über einen geeigneten U.FL-Koaxanschluss auf der Hauptplatine und eine kurze interne Koaxleitung zur SMA-Gehäusedurchführung** führen. | 50-Ω-RF-Führung, Masse-Rückstrom, ESD, mechanische Kabelzugentlastung, aktiver/passiver Antennentyp, GNSS-Modul-Antennenversorgung und Koax-/SMA-Geschlecht verbindlich prüfen. |
 | HW-48 | **Festgelegt – A: digitaler I²C-Helligkeitssensor** | Die Umgebungshelligkeit über einen **digitalen I²C-Lichtsensor** erfassen und für die bereits beschlossene automatische Displayhelligkeitsregelung verwenden. Sensor so anordnen, dass er Umgebungslicht misst und nicht überwiegend die eigene Tasten-/Displaybeleuchtung. | Bauteil-/I²C-Adressauswahl, 3,3-V-Pegel, Bus-Pull-ups, Platzierung mit optischer Öffnung, Temperatur-/Messbereich und GPIO-Budget prüfen. |
 
+### Hardwareprototyp – Sensorik und elektrische Schnittstellen (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-49 | **Festgelegt – A: digitaler I²C-Temperatursensor** | Die **Temperatur der Hauptplatine** mit einem zusätzlichen **digitalen I²C-Temperatursensor** überwachen; die interne ESP32-S3-Chiptemperatur ersetzt die PCB-Messstelle nicht. | Geeigneten Sensor mit verträglicher I²C-Adresse, Temperaturbereich und 3,3-V-Versorgung auswählen; Lage nahe thermisch relevanten Baugruppen mit Interpretation der lokalen Temperatur festlegen. |
+| HW-50 | **Festgelegt – A: separate Schutz-/Filterstufe pro Radsensoreingang** | Die beiden über den gemeinsamen 4-poligen M8-Anschluss geführten **Radimpulseingänge elektrisch unabhängig mit je eigener ESD-/Überspannungsbegrenzung und passender Eingangsfilter-/Pegelaufbereitung** ausführen. Kompatibilität mit Reed, Hall und Open-Collector gemäß bestehenden GPS-Anforderungen; keine ungeschützte direkte Anbindung der Außenleitungen an MCU-GPIOs. | Fehlanschluss, ESD/Transienten, Kurzschluss eines Kanals bei weiter funktionsfähigem anderen Kanal, Flanken bis 1 kHz und Entprellung prüfen; 12-V-Pegel nicht als reguläre Eingangsanforderung interpretieren. |
+| HW-51 | **Festgelegt – A: gemeinsamer I²C-Bus** | **RTC, FRAM, digitaler Helligkeitssensor und digitaler PCB-Temperatursensor** verwenden grundsätzlich **einen gemeinsamen 3,3-V-I²C-Bus** mit passenden Pull-ups und eindeutigen Geräteadressen. | I²C-Adresskollisionen, Gesamtbuskapazität, Pull-up-Dimensionierung, Bus-Ausfallverhalten und Pegel beim Teilabschalten (insbesondere RTC-Backup) testen. |
+| HW-52 | **Festgelegt – A: elektronisch geschaltete 5-V-M8-Sensorversorgung** | Den gemeinsamen **5-V-Versorgungskontakt des M8-Radsensoranschlusses** über einen **strombegrenzten, elektronisch abschaltbaren Lastschalter** versorgen; Fehlerstatus und softwaregesteuerten Wiederanlauf gemäß bisherigen GPS-Vorgaben unterstützen. | Stromlimit nach Sensorlasten bestimmen; Kurzschluss, automatischen begrenzten Retry, thermische Abschaltung, Rückspeisung über Impulsleitungen und Strombudget des 5-V-Hauptzweigs überprüfen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -942,6 +951,8 @@
 | 13.10.2026 | HW-41–44 | **Hardware-Viererrunde A/A/A/A bestätigt:** hierarchischer KiCad-10-Schaltplan, MAX-M10N primär über UART mit optionalem TIMEPULSE-/Statussignal, je Taster ein dedizierter ESP32-GPIO und gemeinsamer Schalt-/Dimmkanal für sechs Tasten-LED-Ringe mit je geeigneter Strombegrenzung. | MCU-GPIO-Budget, MAX-M10N-Pinout, FILN-LED-Varianten und LED-Treiberlast vor Routing prüfen. |
 
 | 13.10.2026 | HW-45–48 | **Hardware-Viererrunde C/A/A/A bestätigt:** Riverdi-Displayschnittstelle erst anhand konkreter Artikelnummer festlegen, lösbare FFC/FPC-Verbindung als hardwareseitiges Ziel vorbehaltlich Modulkompatibilität, U.FL-auf-PCB zu SMA-Gehäusedurchführung für GNSS, digitaler I²C-Helligkeitssensor. | Exakte Riverdi- und MAX-M10N-Datenblätter vor Schaltplanabschluss prüfen; FFC-Kompatibilität nicht voraussetzen. |
+
+| 13.10.2026 | HW-49–52 | **Hardware-Viererrunde A/A/A/A bestätigt:** digitaler I²C-PCB-Temperatursensor, unabhängig geschützte/gefilterte Radimpulseingänge, gemeinsamer 3,3-V-I²C-Bus für RTC/FRAM/Licht/Temperatur und strombegrenzter elektronischer 5-V-Lastschalter für M8-Radsensorversorgung. | Adressen/Buslast, Sensorfehler-Isolation, Signalpegel/ESD und Stromlimit/Retry vor Layout nachweisen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
