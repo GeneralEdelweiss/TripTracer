@@ -23,6 +23,17 @@
 
 Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine optional zu erfüllende Schönheitsmaßnahme. Sie gilt zusätzlich zu den strikten Baugruppen- und Kompatibilitäts-Gates.
 
+## Projektleitlinie – gefährliche Fehler statt harmlose Ausfälle priorisieren (13.10.2026)
+
+**Letzte ausdrückliche Nutzerentscheidung:** TripTracer ist ein **nicht sicherheitskritischer Tripmaster**. Ein seltener Neustart, vorübergehender Funktionsverlust oder sogar ein beschädigter aktueller GPX-/CSV-Datensatz ist wesentlich weniger kritisch als **Brand, überhitzte Leiterplatte, gefährlicher Kurzschluss oder Beschädigung des Fahrzeugkabelbaums**. 80/20 bedeutet: **zuerst elektrische/thermische Gefahren mit möglichst wenigen Teilen sicher begrenzen**, erst danach Betriebsverfügbarkeit und Datenkomfort optimieren. **Nicht** für theoretische seltene Datenfehler mehrere Schutz-ICs, doppelte unabhängige MOSFET-Serienpfade, Supercaps oder große Hold-up-Kondensatoren zur Pflicht erklären.
+
+- Die nach ISO 16750-2:2023 gewählten elektrischen Prüfprofile beibehalten, aber dokumentieren, wo **kontrollierter Neustart/Abschaltung und Verlust der aktuellen Aufzeichnung als akzeptierter Funktionsstatus** gelten; gefährliche Zustände sind dabei nie akzeptabel. Keine normkonforme Klassifikation ohne Test behaupten.
+- **Normales ACC AUS bei BAT+ vorhanden:** zügig und nach Möglichkeit sauber Datei schließen; kostengünstige Hardware-HOLD-/Deadline-Funktion evaluieren. Keine Garantie für alle Stromausfälle/Crash-Fälle und keine Pflicht für mehrfach redundante SD-Schluss-Kanäle. **USB-only und Fahrzeug-Strompfad dürfen weiterhin nicht rückspeisen.**
+- **6-V-Motorstartuntergrenze und 9–36-V-Dauerbereich gelten weiterhin.** Verhalten darunter darf Brownout/Reset sein; keine dauernde sichere SD-Aufzeichnung bei fehlender Versorgung versprechen.
+- **Brand-/Leitungsschutz:** fahrzeugseitige Sicherung, Schutz von ACC/BAT+, Leiterbahn-/Steckerströme, thermische Fehlerfälle, Lastkurzschluss, Power-FET-Fehler und die Behandlung von Dauerfehlern/Auto-Retry prüfen und dokumentieren. Abschalten ist einem gefährlichen Weiterlaufen vorzuziehen.
+- Vor **jedem** zusätzlichen Controller, Schalter oder Energiespeicher fragen: Verhindert er tatsächlich eine *gefährliche* Einzelstörung, oder rettet er nur einen seltenen Datensatz? Letzteres ist ohne überzeugende Kosten-Nutzen-Rechnung kein hinreichender Grund.
+- **Bisherige Doppelabschalter-/zweiter-MOSFET-Konzepte sind Prüfoptionen, keine automatisch freigegebenen Pflichtteile.** Beschlossene PWR-12-eFuse-Auto-Retry-Funktion und andere frühere Kernmerkmale erst nach ausdrücklicher sicherheits-/kostenbewusster Bewertung ändern, nicht stillschweigend streichen.
+
 ## Verbindlicher Kfz-Elektrik-Prüfmaßstab (13.10.2026)
 
 - **ISO 16750-2:2023** ist verbindlicher **Entwicklungs- und Prüfmaßstab für die relevanten elektrischen Fahrzeugbelastungen**, bei Nutzung des TripTracers in **12-/24-V-Straßenfahrzeugen**. Die passenden Einzelprüfungen, Parameter, Betriebs-/Funktionsstatusklassen und Pass-/Fail-Kriterien **vor** der Hardwarefreigabe dokumentieren.
