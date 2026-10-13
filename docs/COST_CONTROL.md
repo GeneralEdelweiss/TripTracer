@@ -2,6 +2,12 @@
 
 **Stand: 13.10.2026 · Status: KEINE belastbare Gesamt-BOM oder Fertigungspreiskalkulation.** Ziel ist der **günstigste nachweislich taugliche** Rallye-Tripmaster, nicht ein möglichst teures Automotive-Elektronikprojekt. Kein verbindliches Gerätebudget oder Verkaufspreis vom Nutzer festgelegt; **keine künstliche Budgetobergrenze** annehmen.
 
+## Neue Anforderung: ISO-16750-2:2023-Testziele wirtschaftlich abdecken
+
+**Entscheidung 13.10.2026:** Elektrische Belastungsprüfungen für 12-/24-V-Straßenfahrzeuge nach den relevanten Teilen von **ISO 16750-2:2023** als Designmaßstab; für schnelle Spannungspulse zusätzlich die relevante **ISO 7637-2** prüfen. Die Ausführung des **TI LM74800-Q1-Referenzdesigns für 200 V ungedämpften 24-V-Load-Dump** hat Vorrang als **kostensparender technischer Ausgangspunkt** vor einer unbegründeten zweiten Surge-Stufe. Es ist keine fertige Normfreigabe und ersetzt keine getrennte Überstromschutz-/eFuse-Funktionsbewertung.
+
+**Kostenentscheidung:** Den Schutz pro Prüfprofil nur einmal dort einbauen, wo er technisch wirksam ist; Mehrkosten für redundante/zusätzliche ICs nur bei nachgewiesenem Fehlerfall-Nutzen freigeben. Preisvergleiche weiterhin **auf identischem Funktions- und Prüfumfang** anstellen. Fehlende Messungen und fehlende Einzel-BOM-Preise kennzeichnen. ISO 16750-2:2023 umfasst keine EMC-Prüfung und gilt nicht direkt für Motorräder/Mopeds; Tests dieser Fahrzeuge gesondert definieren.
+
 ## Systemstatus der Kalkulation
 
 - Bestehendes `hardware/kicad/TripTracer_V1_BOM_DRAFT.csv` umfasst derzeit **21 vorläufige Positionen** und unvollständige Hardware; die Felder `Einzelpreis_1/10/50/100` sind noch leer. **Eine gesamte V1-Stückkostensumme ist dadurch derzeit nicht seriös berechenbar.**
