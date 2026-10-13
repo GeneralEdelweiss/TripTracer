@@ -419,6 +419,14 @@
 | GPS-83 | **Festgelegt – A: dynamische Radimpuls-Timeouts** | Fehlende Radimpulse **nur bei plausibel erwarteter Fahrzeugbewegung** als Aussetzer bewerten; Timeout-/Fehlererkennung abhängig von Fahrzeuggeschwindigkeit und erwarteter Impulsfrequenz statt starrem Timer. | Stillstand, Schritttempo, unterschiedliche Impulse/Umdrehung, GNSS-Ausfall und ausbleibende Flanken auseinanderhalten; elektrische Kurzschlüsse weiterhin separat erkennen. |
 | GPS-84 | **Festgelegt – A: automatische Wiederaufnahme ohne Nachberechnung** | Sobald wieder mindestens eine nach bestehenden Kriterien gültige Quelle verfügbar ist, **automatische Distanzmessung ohne Fahrerbestätigung fortsetzen**, aber **keine während des Ausfalls unbekannte Strecke rekonstruieren, rückwirkend nachtragen oder einen Distanzsprung erzeugen**. | GNSS-Positionsanker nach Empfangslücke neu setzen, Radimpulszähler ohne Doppelzählung übernehmen, Quellenwechsel und Messlücke im Log markieren. |
 
+### D.20 Messlücken und Korrekturen – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-85 | **Festgelegt – A: Messlückenwarnung bis Quittierung** | Bei vollständig fehlender zuverlässiger Distanzquelle eine **Messlücke als Warnzustand speichern**. Nach Wiederaufnahme bleibt ein kleines Warnsymbol sichtbar, **bis der Fahrer die Messlücke ausdrücklich quittiert**; die Quittierung korrigiert keine Strecke und löscht nicht das Fehlerprotokoll. | Warnzustand über Neustart/Profilwechsel eindeutig einer Fahrt zuordnen; Bestätigung im Menü oder klarer Tastenaktion, ohne versehentliche Korrektur. |
+| GPS-86 | **Festgelegt – A: keine Korrekturschätzung** | Bei Messlücken **keinen automatischen oder vorgeschlagenen Nachtrag von Strecken anhand späterer GNSS-Koordinaten** vornehmen. Ausschließlich die bereits festgelegten **manuellen ±10-m-Korrekturen** ermöglichen einen durch den Fahrer ausgelösten Zählerabgleich. | Keine unsichere Luftlinien- oder Bewegungsmodell-Schätzung; tatsächliche Korrekturschritte als Ereignisse protokollieren. |
+| GPS-87 | **Festgelegt – A: unvollständige Fahrtstatistik kenntlich machen** | Während eines vollständigen Distanzquellenausfalls die **Zeit weiterhin fortschreiben**, aber **keine unbekannte Distanz ergänzen**. Die betroffene Fahrtstatistik deutlich **als wegen Messlücke unvollständig** kennzeichnen, auch wenn später wieder gültig gemessen wird. | Anteil/Zeitdauer der Lücke und Validitätsflags in CSV und zentraler Fahrtenübersicht abbilden; Durchschnittsgeschwindigkeit aus nur nachweislich erfasster Distanz nicht als vollständige Fahrtstatistik ausgeben. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -514,6 +522,12 @@
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-48 | **Festgelegt – A: kurzer Hinweis und Statussymbol** | Bei erkanntem Schlupf einmalig einen **kurzen Hinweis** anzeigen und danach ein **kompaktes, dauerhaftes Statussymbol** mit tatsächlich aktiver Distanzquelle führen; keine periodischen Pop-ups erforderlich. | Bei kurzfristigem Grenzwertflattern Hinweise entprellen; Warnung/Ende als Ereignis in CSV erfassen, Rallye-Hauptzähler nicht verdecken. |
+
+### E.9 Akustik bei vollständigem Messausfall – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| UI-49 | **Festgelegt – A: einmaliger kurzer Warnton** | **Einmaligen kurzen Warnton beim Beginn eines vollständigen Distanzquellenausfalls** ausgeben, nicht periodisch wiederholen. Zusätzlich gilt die sichtbare Messlückenwarnung gemäß GPS-85. | Warnton von normalem Tastenklick unterscheidbar, Tonpriorität und Stummschaltungsregel mit UI-40 abstimmen; kein Dauerton, keine Warntonflut bei flackerndem Empfang. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -735,6 +749,8 @@
 | 13.10.2026 | GPS-78–80, UI-48 | **Viererrunde A/A/A/A bestätigt:** Profilpriorität über einfache Auswahl GNSS/Radsensor, Schlupfverdacht bei 15 % Abweichung über mindestens 2 s gegen zuverlässiges GNSS, Rückkehr zur bevorzugten Radquelle nach 5 s stabilen Messwerten, kurzer Hinweis plus dauerhaftes Statussymbol. | Schlupfverdacht nicht mit sicherem Fehlernachweis verwechseln; Quellenwechsel nur bei plausibler Zuordnung. |
 
 | 13.10.2026 | GPS-81–84 | **Viererrunde A/A/A/A bestätigt:** bei Ausfall aller Distanzquellen automatische Zähler anhalten und warnen (manuelle ±10-m-Korrektur bleibt), strengere GNSS-Qualität zur Schlupferkennung, geschwindigkeits- und impulserwartungsabhängige Radgeber-Ausfallerkennung, automatische Wiederaufnahme ohne Nachberechnung unbekannter Ausfallstrecke. | Qualitätsgates, Timeout bei langsamer Fahrt, neuer GNSS-Anker und ereignisgenaue CSV-Dokumentation prüfen. |
+
+| 13.10.2026 | GPS-85–87, UI-49 | **Viererrunde A/A/A/A bestätigt:** Messlücken-Warnsymbol bis zur ausdrücklichen Quittierung, keine automatische oder vorgeschlagene Distanzschätzung, Fahrtstatistik mit fortlaufender Zeit und unvollständiger Distanz kennzeichnen, einmaliger kurzer Warnton bei Beginn vollständigen Quellenausfalls. | Quittierung und Fehlerpersistenz, CSV-Gültigkeitsstatus und Warnton-Hysterese verifizieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
