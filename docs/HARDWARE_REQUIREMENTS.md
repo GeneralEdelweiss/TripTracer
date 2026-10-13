@@ -32,20 +32,21 @@
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
 |---|---|---|---|
-| PWR-01 | **Festgelegt** | Regulärer Betrieb an einem **12-V-Fahrzeugbordnetz** | Mindest-/Höchstspannung im realen Betrieb, Startunterspannung und Transienten noch festlegen |
+| PWR-01 | **Festgelegt** | Regulärer Betrieb sowohl an **12-V- als auch an 24-V-Fahrzeugbordnetzen**, ohne manuellen Spannungswahlschalter | Durchgängigen zulässigen Eingangsspannungsbereich, Motorstart-Unterspannung, Ladespannung und Transienten für beide Netze spezifizieren |
 | PWR-02 | **Festgelegt** | **M8, 3-polig, A-codiert, Schraubverriegelung** als normaler Fahrzeug-Stromanschluss; keine einfache DC-Hohlbuchse | Einbaustecker am Gerät, Kabelbuchse fahrzeugseitig; Strombelastbarkeit, Orientierung und Schutzart prüfen |
-| PWR-03 | **Festgelegt** | **Gerätesicherung direkt auf der TripTracer-Platine** im 12-V-Eingangsstrompfad | Sicherungsart, Nennstrom, Baugröße, Zugang/Austauschbarkeit und Lage noch bestimmen |
+| PWR-03 | **Festgelegt** | **Gerätesicherung direkt auf der TripTracer-Platine** im Fahrzeug-Bordnetz-Eingangsstrompfad (12 V und 24 V) | Sicherungsart, Nennstrom, Baugröße, Zugang/Austauschbarkeit und Lage noch bestimmen |
 | PWR-04 | **Festgelegt** | Ein **einfaches, selbst angefertigtes M8-Anschlusskabel** soll ausreichen; möglichst kein zusätzlicher Sicherungshalter im gerätespezifischen Kabel | Anschluss an einen bereits fahrzeugseitig abgesicherten Stromkreis vorsehen; geeigneten Leitungsquerschnitt und Länge definieren |
 | PWR-05 | **Sicherheitsanforderung** | **Die Platinensicherung schützt nicht die Leitung vor ihr.** Bei direktem Batterieanschluss ist eine zusätzliche Sicherung **nahe der Quelle** notwendig; alternativ einen bereits abgesicherten Fahrzeugabgriff nutzen | Zuleitung auch bei Kurzschluss vor dem TripTracer absichern; Schutzkonzept gemeinsam festlegen |
 | PWR-06 | **Festgelegt** | **USB-C** dient sowohl für USB-Daten/Firmwareupdates als auch zur alternativen Versorgung mit **5 V** (PC oder externer Zigarettenanzünder-auf-USB-C-Adapter) | Gerät muss zum Flashen über USB allein funktionieren; 5-V-Strombudget prüfen |
-| PWR-07 | **Festgelegt** | **Keine rohen 12 V auf USB-C.** Ein selbst gebautes Adapterkabel muss außerhalb des TripTracers von Bordnetzspannung auf normgerechte USB-5-V-Versorgung wandeln | USB-Geräte-/Host-Schutz und CC-Beschaltung prüfen |
+| PWR-07 | **Festgelegt** | **Keine rohe 12-V- oder 24-V-Bordnetzspannung auf USB-C.** Externe Fahrzeugadapter müssen das Bordnetz außerhalb des TripTracers auf normgerechte USB-5-V-Versorgung wandeln | USB-Geräte-/Host-Schutz und CC-Beschaltung prüfen |
 | PWR-08 | **Festgelegt** | Sichere Entkopplung von USB-5-V- und Bordnetz-Eingang; keine Rückspeisung bei gleichzeitigem Anschluss | Umschalt-/Prioritätsverhalten und Ausfallfälle festlegen |
-| PWR-09 | **Festgelegt** | Bordnetzschutz auf der Platine: Verpolung, Transienten/ESD, Spannungswandlung und sichere Masseführung | Schutzmaßnahmen anhand Fahrzeugnormen und realen Spannungsereignissen dimensionieren |
-| PWR-10 | **Festgelegt** | Vorläufige M8-Belegung: **Pin 1 = +12 V, Pin 3 = GND, Pin 4 = Reserve/NC** | Konkreten Gegenstecker und Kontaktansicht anhand Datenblatt verifizieren; keine 24-V-Freigabe aus M8-Kompatibilität ableiten |
-| PWR-11 | **Offen** | Nur nominell 12-V-Fahrzeuge oder zusätzlich 24-V-Fahrzeuge? | **Erste gemeinsame Entscheidung**; bestimmt Schutz, DC/DC und Bauteilauswahl |
+| PWR-09 | **Festgelegt** | Bordnetzschutz auf der Platine für **12-V- und 24-V-Fahrzeuge**: Verpolung, Transienten/ESD, Spannungswandlung und sichere Masseführung | Bauteile anhand beider Bordnetze einschließlich erhöhten Ladespannungen, Motorstart und Load-Dump-Ereignissen dimensionieren; keine ungeprüfte 24-V-Freigabe |
+| PWR-10 | **Festgelegt** | Vorläufige M8-Belegung: **Pin 1 = +12/24 V Bordnetz, Pin 3 = GND, Pin 4 = Reserve/NC** | Konkreten Gegenstecker und Kontaktansicht anhand Datenblatt verifizieren; 24-V-Tauglichkeit ergibt sich aus der gesamten Schaltung und nicht allein dem Steckertyp |
+| PWR-11 | **Festgelegt** | **12-V- und 24-V-Fahrzeuge** unterstützen; automatisch nutzbar am selben M8-Eingang ohne Umschalten oder Umbau | Eingangsspannungsbereich und Schutz/Regler für beide Fahrzeugklassen erst auslegen und prüfen; die bisherige V0.3-Hardware erfüllt diese Vorgabe noch nicht nachweislich |
 | PWR-12 | **Offen** | Soll die Sicherung von außen wechselbar sein oder darf das Gehäuse dafür geöffnet werden? | Anforderungen an Abdichtung, Sicherheit, Service und Bauraum |
 | PWR-13 | **Offen** | Was passiert bei gleichzeitig eingestecktem USB und M8? | Versorgungsvorrang und Umschaltunterbrechung |
-| PWR-14 | **Bestand V0.3** | 12-V-Eingang J1 → Eingangsabsicherung/-schutz → 3,3-V-DC/DC; USB bisher nur Daten | Bei nächster Revision an PWR-02/03/06/08 anpassen; vorhandene Schaltung nicht als erfüllt ausgeben |
+| PWR-14 | **Bestand V0.3** | 12-V-Eingang J1 → Eingangsabsicherung/-schutz → 3,3-V-DC/DC; USB bisher nur Daten | Bei nächster Revision auch für 24-V-Fahrzeuge neu auslegen (PWR-01/09/11); an PWR-02/03/06/08 anpassen. Vorhandene V0.3-Schaltung nicht als 24-V-tauglich ausgeben |
+| PWR-15 | **Offen** | Verhalten bei starkem Spannungseinbruch während des Anlassens (insbesondere 12-V-Fahrzeuge) | Ohne Unterbrechung weiterlaufen oder automatischen Neustart erlauben? Danach Mindest-Betriebsspannung/Pufferung ableiten |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -106,12 +107,13 @@
 | 13.10.2026 | PWR-06/07/08 | USB-C: 5 V + Firmware; separater 12-V-Eingang | Bei V0.3 noch nicht umgesetzt |
 | 13.10.2026 | PWR-03/04 | **Sicherung auf der Platine**; einfach selbst anzufertigendes Fahrzeugkabel | Zuleitung braucht dennoch quellseitigen Kurzschlussschutz |
 | 13.10.2026 | MCU-01 | ESP32-S3 beibehalten; kein CH32X035 im TripTracer | Prozessor bereits im V0.3-Projekt |
+| 13.10.2026 | PWR-01/09/10/11 | **12 V und 24 V gleichermaßen unterstützen**, ohne Umstecken oder Spannungswahlschalter | Nachträgliche verbindliche Anforderung; Eingangsschutz, DC/DC und Sicherung neu dimensionieren |
 
 ## Nächste gemeinsame Entscheidung
 
-**Block B – Stromversorgung, Frage 1:** Soll der TripTracer ausschließlich in **12-V-Fahrzeugen** laufen oder möchtest du auch **24-V-Bordnetze** (z. B. Lkw) unterstützen?
+**Block B – Stromversorgung, Frage 2 (PWR-15):** Soll der TripTracer auch bei einem **starken Spannungseinbruch während des Motorstarts** ohne Unterbrechung weiterlaufen, oder ist ein kurzer automatischer Neustart akzeptabel? Das bestimmt die untere Eingangsspannungsgrenze und gegebenenfalls eine Pufferung.
 
-Danach klären wir in diesem Block nacheinander den zulässigen Spannungsbereich, die Zugänglichkeit der Platinensicherung, den Kabelanschluss und den Versorgungsvorrang. Erst anschließend legen wir dafür konkrete Bauteile fest.
+Danach bestimmen wir den numerischen Dauerbetriebs-Spannungsbereich, die Zugänglichkeit der Platinensicherung, den Kabelanschluss und den Versorgungsvorrang. Erst anschließend legen wir konkrete Bauteile fest.
 
 ## Quellen / Verbindlichkeit
 
