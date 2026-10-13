@@ -8,6 +8,8 @@ Die neu bevorzugte Entwicklungsrichtung ist **Variante 3: elektronische, MCU-una
 
 Der Stand in `main` ist als [GitHub-Commit 07b6ae6](https://github.com/GeneralEdelweiss/TripTracer/commit/07b6ae6c82a02aa866dadd50f507025a7d0c8587) und [Snapshot-Branch](https://github.com/GeneralEdelweiss/TripTracer/tree/snapshot/2026-10-13-before-solid-state) fixiert; auch der 01D-Designreview liegt auf [einem gesonderten Snapshot](https://github.com/GeneralEdelweiss/TripTracer/tree/snapshot/2026-10-13-with-01d-review). **Noch keine vollständige Relaisschaltungs- oder relaislose Verdrahtung; weiterhin keine ERC-/DRC-/Automotive-/Fertigungsfreigabe.**
 
+**Bibliotheksstand 13.10.2026:** In `TripTracer_V1.kicad_sym` ist **LM74930_Q1** als **Bauteilkandidat** hinzugefügt. Die 24 Signalpins stammen aus [TI-Datenblatt Abschnitt 5](https://www.ti.com/document-viewer/LM74930-Q1/datasheet/GUID-B6643230-1306-4331-B855-7D8E87758ADB); dabei sind 8/17/21 NC. **Der physische Exposed Pad `RTN` muss laut Hersteller floating bleiben** und ist erst nach Prüfung der padmäßigen Footprint-Abbildung abzubilden. **Kein Footprint und keine Schaltplanplatzierung zugewiesen.** Das bloße Symbol zählt ausdrücklich **nicht als fertig entworfene Eingangsversorgung, keine ERC/DRC-Freigabe**. [Preis-/Sicherheitsentscheidung](../../docs/POWER_INPUT_80_20_DECISION.md).
+
 ## Projekt in KiCad 10 öffnen
 
 Im Repository den kompletten Ordner `hardware/kicad/` herunterladen bzw. klonen. **`TripTracer_V1.kicad_pro`** öffnen; die gleichnamige **`TripTracer_V1.kicad_sch`** (Hauptschaltplan) und **`TripTracer_V1.kicad_pcb`** (PCB-Dokument) gehören dazu.
