@@ -204,6 +204,16 @@
 | GPS-18 | **Festgelegt – A: mehrere Fahrzeugprofile** | Mehrere **nichtflüchtig gespeicherte, benennbare Fahrzeugprofile** (z. B. Motorrad/Pkw/Lkw) mit individuellen Radsensor-Kalibrierwerten und fahrzeugspezifischen Einstellungen; Profilwechsel im Menü. | FRAM-/NVS-Budget, Profilzahl, Eingabeverfahren, gültige Kalibrierung und Wechsel während der Fahrt prüfen; keine automatische Fahrzeugerkennung vorgeschrieben. |
 | UI-31 | **Festgelegt – A: Satellitenzahl + Empfangsqualität** | Im regulären Fahrdisplay **kompakte Anzahl verwendeter GNSS-Satelliten plus symbolisch/farbig dargestellten Qualitätsstatus** anzeigen; auch Zustand ohne Fix sichtbar halten. | Qualitätsstufen anhand GNSS-Fix-Typ, Genauigkeitsindikatoren und Satellitenzahl belastbar definieren; Farbe niemals als einziges Unterscheidungsmerkmal nutzen, Statuszeile darf Distanzanzeige nicht verdrängen. |
 
+
+### D.2 Fahrzeugprofil- und Kalibrierverhalten – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| GPS-19 | **Festgelegt – A: zehn Profile** | TripTracer speichert **bis zu 10 benennbare Fahrzeugprofile** dauerhaft, einschließlich individueller Kalibrierung und zugeordneter Zähler. | FRAM-/NVS-Speicherbudget und Integrität bei Power-Loss prüfen; Profilnummern/Bezeichnungen eindeutig halten. |
+| GPS-20 | **Festgelegt – B: Wechsel jederzeit mit Bestätigung** | Das aktive Fahrzeugprofil darf **auch während der Fahrt** gewechselt werden, jedoch **ausschließlich nach einer ausdrücklichen Bestätigung**. Die Messung bleibt während des Vorgangs bedienbar; Zählerstand des bisherigen Profils sicher speichern und gewähltes Profil atomar aktivieren. | Keine unbeabsichtigte Distanzaddition auf falschem Profil bei Umschaltung; Zeit-/Distanzquelle, laufende Logdateien und Ereignis „Profilwechsel“ eindeutig behandeln. |
+| GPS-21 | **Festgelegt – A: GPS-gestützte Referenzfahrt** | Kalibrierung eines angeschlossenen Radsensors über **ausreichend lange Referenzstrecke**: bei zuverlässigem GNSS-Empfang gefahrene Referenzdistanz und erfasste Radimpulse vergleichen, Ergebnis vor Speichern anzeigen und vom Nutzer bestätigen lassen. | Minimale Strecke, GNSS-Qualität, Schwellwerte für Schlupf/Stillstand und Ausreißer sowie Plausibilitätsprüfung festlegen; keine ungeprüfte kontinuierliche automatische Kalibrierung. Manuelle Kalibrierung bleibt gemäß GPS-10/11 erhalten. |
+| GPS-22 | **Festgelegt – A: eigene Distanzzähler je Profil** | Jedes der 10 Fahrzeugprofile führt **eigene persistente Zählerstände für Gesamt, Trip A, Trip B und LEG**. Beim bestätigten Profilwechsel die alten Zähler sichern und die zum Zielprofil gehörenden Werte wiederherstellen; vorhandene Undo-/Korrekturlogik profilgebunden halten. | FRAM-Bereich, Schreibatomarität, Wiederanlauf nach Stromverlust und Ereignis-Logging prüfen. GPX-/CSV-Trackdistanz nicht mit den gerätespezifischen korrigierbaren Zählern verwechseln. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -354,6 +364,8 @@
 | 13.10.2026 | DIA-03, STO-16 | **Interne Firmware-Recovery konkretisiert:** aufsteckbarer Jumper auf zweipoliger BOOT/GND-Stiftleiste (2,54 mm), GPIO0 bei Reset/Start low; keine externe Boot-Taste. | Pull-up/Strapping und interner Reset-/Power-Cycle-Pfad vor Schaltplanfreigabe prüfen. |
 
 | 13.10.2026 | GPS-16–18, UI-31 | **Viererrunde A/A/A/A bestätigt:** Tripanzeige direkt nach M8-Start mit GNSS-Wartestatus, kurzer Hinweis und dauerhaftes Quellensymbol bei GNSS-/Radsensor-Wechsel, mehrere gespeicherte benennbare Fahrzeugprofile, Satellitenzahl und GNSS-Qualität im Fahrdisplay. | Ohne gültige Quelle keine erfundene Distanz; Qualitätsschwellen, Profilanzahl und Wechselverhalten technisch zu definieren. |
+
+| 13.10.2026 | GPS-19–22 | **Viererrunde A/B/A/A bestätigt:** bis zu zehn Fahrzeugprofile; Profilwechsel auch während Fahrt, aber nur nach ausdrücklicher Bestätigung; GNSS-basierte Radsensorkalibrierung über längere Referenzfahrt mit Bestätigung; eigene Gesamt-/Trip-A-/Trip-B-/LEG-Zähler je Profil. | Atomarer Profilwechsel, Speicherbudget, Referenzstrecken-/GNSS-Gütekriterien und Logsegmentierung vor Firmwarefreigabe prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
