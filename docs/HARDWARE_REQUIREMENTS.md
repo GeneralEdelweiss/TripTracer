@@ -679,6 +679,15 @@
 | HW-11 | **Festgelegt – A: beidseitige SMD-Bestückung** | Die **Hauptplatine darf auf beiden PCB-Seiten mit SMD-Komponenten bestückt werden**. Die Freigabe gilt im Rahmen des bislang bevorzugten 2-Lagen-PCB mit technisch begründeter 4-Lagen-Option; keine strikte Einseitenbestückung. | Bauteilhöhen, Gehäusefreiheit, JLCPCB-Bestückbarkeit und Prüf-/Reparaturzugänglichkeit auf beiden Seiten sicherstellen. |
 | HW-12 | **Festgelegt – B: kleiner interner Erweiterungsstecker** | **Freie, nach GPIO-/Boot-Budget verfügbare ESP32-S3-Pins** sowie **GND und geeignete Versorgung** auf einen **kleinen internen Erweiterungssteckverbinder** führen. Strombegrenzung/Schutz und Pegel (3,3 V) spezifizieren; nur tatsächlich sichere, nicht von Pflichtfunktionen benötigte Pins verwenden. **Ersetzt die vorher lediglich vorgeschlagene Lösung mit Reserve-GPIO-Testpads**; bereits verpflichtende allgemeine Testpunkte (HW-08) bleiben. | GPIO-Matrix/Strapping prüfen, mechanischen Steckplatz und eindeutig dokumentierte Pinbelegung definieren; keine GPIOs mit USB-, Flash- oder Boot-Funktion versehentlich belegen. |
 
+### Hardwareprototyp – Erweiterungsstecker und PCB-Geometrie (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-13 | **Festgelegt – A: JST-GH** | Der interne Erweiterungsanschluss verwendet einen **kompakten verriegelnden JST-GH-Steckverbinder**; Kontaktzahl gemäß GPIO-Budget und notwendigen Versorgungs-/Massekontakten festlegen. | Gegenstecker und Crimpkontakte, Bauhöhe, Kabelabgang, mechanischen Freiraum und Polarität vor Layout prüfen. |
+| HW-14 | **Festgelegt – B: 3,3 V, 5 V und GND** | Am internen Erweiterungsstecker **beide Versorgungsschienen 3,3 V und 5 V sowie GND** bereitstellen. Ausgangsströme und Sicherung/Strombegrenzung nach finaler Leistungsbilanz dimensionieren; Spannungen gegen Rückspeisung und Überlast schützen. | Strombudget mit zentralem 5-V-/2-A-Ziel und 3,3-V-LDO abgleichen; Verpolung, Kurzschluss, Fremdspannung und Power-Sequencing testen. |
+| HW-15 | **Festgelegt – C: kompakte PCB zuerst** | Die Hauptplatine **unter Einhaltung sämtlicher elektrischer, thermischer, Antennen-, Service- und Steckverbinder-Abstände möglichst kompakt** auslegen. Die genaue ASA-Gehäusegeometrie wird **anschließend an das PCB** angepasst; bereits festgelegte Schnittstellenpositionen/Funktionsanforderungen bleiben gültig, soweit nicht ausdrücklich geändert. | Mechanischer 3D-Fit, Montage, Kabel-/Steckerzugang, GNSS-Antennenführung, M8/USB und Kühlflächen prüfen; keine Kompaktheit zulasten von Fertigbarkeit und Wartung. |
+| HW-16 | **Festgelegt – A: Serienwiderstände und ESD-Grundschutz** | Freie Erweiterungs-GPIOs mit **geeigneten Serienwiderständen und ESD-Schutz** auslegen, verträglich mit den vorgesehenen Signalfunktionen. **Keine zugesicherte 12-V-Toleranz** an GPIOs; Erweiterungsstecker bleibt eine 3,3-V-Logikschnittstelle. | ESD-Kapazität, Widerstandswerte, zulässige Signalgeschwindigkeit und GPIO-Bootstrapping prüfen; 5-V-Versorgungspin nicht mit 5-V-toleranten GPIO-Pegeln verwechseln. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -841,6 +850,8 @@
 | 13.10.2026 | HW-05–08 | **Hardware-Viererrunde A/B/A/A bestätigt:** 3,3-V-LDO ab zentralen 5 V (thermisch zu dimensionieren), sechs Fronttasten jeweils einzeln steckbar, 5-V-Wandler auf 2 A Dauerstrom als vorläufiges Ziel, umfangreiche Testpunkte ohne zusätzlichen Debuganschluss. | Strom- und Verlustleistungsbilanz, Steckerplatz und Testzugänglichkeit vor KiCad-Layout freigeben. |
 
 | 13.10.2026 | HW-09–12 | **Hardware-Viererrunde A/A/A/B (korrigierte Nutzerentscheidung):** sechs einzeln verriegelnde JST-Tastenstecker, 3,3-V-LDO SOT-223 oder vergleichbares Power-SMD, beidseitige SMD-Bestückung, kleiner interner Erweiterungsstecker mit freien GPIOs und Versorgung anstelle bloßer Reserve-GPIO-Testpads. | Steckertypen, Reglerwärme, beidseitige Fertigbarkeit, GPIO-/Bootbudget prüfen. |
+
+| 13.10.2026 | HW-13–16 | **Hardware-Viererrunde A/B/C/A bestätigt:** Erweiterung über verriegelnden JST-GH-Stecker mit 3,3 V, 5 V und GND; kompakte PCB als primäre Geometrie, Gehäuse danach; GPIO-Grundschutz aus Serienwiderständen und ESD. | Kontaktzahl, Schutz-/Strombudget, Steckplatz und mechanischen Freiraum bei PCB-Layout nachweisen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
