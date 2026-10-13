@@ -1,5 +1,8 @@
 # TripTracer V1 – Baugruppe 01, 80/20-Vorentscheid: Eingangsschutz mit LM74800-Q1
 
+**Jüngste bindende Nutzerentscheidung (13.10.2026):** Die Projektversorgung wird als **Variante C mit LM74930-Q1 + LMR36520 und relaisloser ACC-/MCU-HOLD-Selbsthaltung** umgesetzt; die in dieser früheren Studie diskutierten **LM74800-/LTC4380-/MegaSquirt-Mindestvarianten sind nur Vergleiche**, keine aktuelle Teileauswahl. **Keine zusätzliche TPS26631 und keine auf der Platine verlöteten Schmelzsicherungen, deren Tausch Auslöten erfordert.** Die Fahrzeugzuleitungen ACC und BAT+ bleiben separat quellseitig abgesichert; gegebenenfalls mit **ohne Löten tauschbaren** Sicherungen. Bei der Beschaffung **Reichelt und andere deutsche Lieferanten bei wirtschaftlichem Gesamtpreis bevorzugen**; Mouser/DigiKey/LCSC weiterhin nach Preis/Verfügbarkeit möglich. **Keine Fertigungs-/ISO-/ERC-/DRC-Freigabe**. Verbindliche Details in [HARDWARE_REQUIREMENTS.md](HARDWARE_REQUIREMENTS.md).
+
+
 **Stand: 13.10.2026. Status: überprüfter Konzept-/Beschaffungsvergleich, KEINE elektrische/ISO-/KiCad-/Fertigungsfreigabe.** Ausgangspunkt: [HARDWARE_REQUIREMENTS.md](HARDWARE_REQUIREMENTS.md), [COST_CONTROL.md](COST_CONTROL.md), [SOLID_STATE_POWER_ARCHITECTURE.md](SOLID_STATE_POWER_ARCHITECTURE.md). Die ursprünglichen Relais- und TPS26631-Schaltbilder bleiben vorerst unberührt; diese Datei ist die **bevorzugte neue Auslegungsrichtung**, nicht ein als fertig markiertes Schaltplanblatt.
 
 ## 1. Entscheidung: Fehler *sicher abschalten*, nicht bei 200 V zwanghaft weiterloggen
