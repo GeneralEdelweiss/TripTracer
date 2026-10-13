@@ -111,6 +111,18 @@ Die neue Unterseite `01A_AUX_5V.kicad_sch` ist **über das bestehende 01_Eingang
 
 **Elektrischer/Prüfstatus:** Zeichnung plus statische Symbol-/Netz-/S-Expression-Prüfung, **kein KiCad-ERC/DRC, keine SPICE-Simulation und kein Hardware-Nachweis**; Eingangsschutz, Interlock, Wake-up-/Timeout-Baustein, Batterieleitungs-/Spannungs-Priorisierung und Hauptkontakt-Inrush weiterhin offen.
 
+### 01C – Hardware-Timeout als unabhängige maximale Relais-Nachlaufzeit (Teilstand a3, 13.10.2026)
+
+**Neue KiCad-Seite:** `hardware/kicad/01C_HOLD_TIMER.kicad_sch`, als Unterblatt der Eingangsschutz-Seite neben `01A` und `01B`. Bauteile `U501` **TI TLC555-Q1 SOIC-8** (GND 1, TRIG 2, OUT 3, RESET 4, CONT 5, THRES 6, DISCH 7, VDD 8), `U502` **TI SN74LVC1G08-Q1 SOT-23-5** (A1/B2/GND3/Y4/VCC5), `R501`–`R504`, `C501`–`C505`, `D501/D502` Klemm-Schottkys. Die Symbole sind in der portablen Projektbibliothek, zwei lokale (vorläufige) Footprints sind vorhanden. `R305=100 kΩ` auf Seite 01B zieht den ACC-Treiber-Ausgang bei Zündung AUS nieder, damit die Flankenkopplung einen eindeutigen Zustand sieht.
+
+**Hardware-Funktion:** `ACC_DRIVE_5V` fällt bei Zündung AUS → `C502=10 nF` koppelt eine **kurze negative TRIG-Flanke** ein, `R502=100 kΩ` zieht TRIG innerhalb ~1 ms wieder auf 3,3 V. `D501/D502` begrenzen Überschwinger auf die Logikschienen. **TRIG MUSS wieder High werden**, sonst kann ein 555-Monoflop die nominelle Zeit unbegrenzt verlängern. `TLC555-Q1` wird **nur aus geschalteten `3V3_MAIN` gespeist**, damit im Fahrzeug-OFF kein 555-Ruhestrom fließt. `RESET` mit R503/C503 hat eine Startup-Entprellung. `THRES/DISCH` am Timing-Netz `TIMER_RC`; `R501=2,2 MΩ` nach 3,3 V und `C501=10 µF/16V X7R` nach Masse. Zeitformel `t=1,1·R·C=24,2 s NOMINAL`; **MLCC-Kapazitätsverlust durch DC-Bias, Toleranz und Temperatur** kann das Zeitfenster bedeutend verkürzen, Leckstrom bei 2,2 MΩ verlängern/verfälschen. Erst nach Messung der minimalen/ maximalen Dauer ist der Timer eine belastbare Schutzschaltung.
+
+`U502` bildet `HOLD_TIMER_GRANTED_3V3 = HOLD_TIME_WINDOW AND MCU_HOLD_REQ` und speist über die bereits vorhandene Diode D302 von 01B die Relay-Freigabe Q111. MCU muss **HOLD_REQ bereits während des regulären ACC-Betriebs HIGH setzen**, damit die Schaltflanke schnell überbrückt wird; nach erfolgreichem FRAM-/FAT32-/SD-Abschluss zieht sie HOLD_REQ LOW. Bei festhängendem HIGH begrenzt das Monoflop die Nachlaufzeit. **Das ist ein Hardware-Maximalzeitgeber, kein heartbeat-basierter Watchdog**. Vorteile gegenüber TPS3431-Q1 mit latch-basiertem Fehlergedächtnis: SOIC-8 handlötbar, weniger Logik-/Reset-Sonderfälle, bei ACC-Fahrbetrieb selbst stromlos abschaltbar.
+
+**Status / Risiken:** Vor PCB-Freigabe **native KiCad/ERC**, echte Hersteller-Pad-/Thermalprüfungen, SW-/MCU-HOLD-GPIO, Reset-, ACC-Flatter- und USB-Stromquellenfälle sowie TRIG-Clamp-/Spannungsreihenfolge testen. BJT-Transistoren, Timer, Gate und Relais sind nur Teilschaltung; **der Schutz von ACC/BAT+ (TVS, Reverse Polarity, eFuse) fehlt weiterhin**. Schaltung ist derzeit nicht in hardware gemessen. Bauteilvarianten LCSC/JLCPCB Basic/Extended **nicht verifiziert**; keine geschätzten Preise als Beschaffungsfreigabe.
+ 
+Quelle: [TI TLC555-Q1 Produkt und Datenblatt](https://www.ti.com/product/TLC555-Q1), [TI SN74LVC1G08-Q1](https://www.ti.com/product/SN74LVC1G08-Q1).
+
 ## 5. Abnahme-Gates – vor dem nächsten Baugruppenblatt
 
 1. **Kontakt-/Relaisdaten**: G6S-2F DC5 **Schaltkurven**, Pin-Nummern/SMD-Footprint, Spulen- und Kontaktbelastung bei −40 bis +85 °C, Vibration, Real-Inrush, Dauerstrom und 36-V-Öffnen anhand Herstellervorgaben prüfen.

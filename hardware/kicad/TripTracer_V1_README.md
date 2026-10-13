@@ -42,7 +42,11 @@ Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation 
 
 Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt zwei Kupferlagen; DRC-Mindestabstände sind **vorläufig** und bei JLCPCB mit dem tatsächlichen Stack-up abzugleichen. 35 µm/1 oz bleibt verbindliches Konstruktionsziel (HW-71).
 
-## Baugruppe 01: Relais-Vorprüfung (13.10.2026)
+## Baugruppe 01: Relais-Vorprüfung
+
+**KiCad-Teilstand a3 – 01C max. Nachlauf-Timer:** Die neue hierarchische Unterseite [01C_HOLD_TIMER.kicad_sch](01C_HOLD_TIMER.kicad_sch) ergänzt einen **automotive-TLC555-Q1-Monoflop mit UND-Gatter SN74LVC1G08-Q1**. Der Monoflop wird vom fallenden ACC_DRIVER-Pegel angestoßen; seine Ausgangsfreigabe wird mit `MCU_HOLD_REQ` verundet. `R501=2,2 MΩ, C501=10 µF`: **24,2 s nur nominal**, Keramikkondensator-Toleranz/-DC-Bias und Trigger-/Reset-Übergänge noch ungetestet. `R305` in 01B fixiert den Low-Pegel beim ACC-Abfall. **Die ECU-/GPIO-Zuordnung, realer AC-Eingangsschutz, KiCad-ERC/DRC, Anlauf-/Abschaltmessung und Footprint-Freigabe fehlen.** Nur Architektur/Teilschaltung, nicht funktions- oder serienfreigegeben.
+
+ (13.10.2026)
 
 **KiCad-Fortschritt a2 (ACC-Start und vorbereiteter HOLD-Eingang):** Auf der neuen, hierarchischen [01B_ACC_WAKE.kicad_sch](01B_ACC_WAKE.kicad_sch) sind Q301 MMBT5551 (C408396), Q302 MMBT5401 (C408397), R301–304, C301 und D301/D302 BAT54WS (C5251553) als ein **ACCsparender Einschaltpfad** verdrahtet. Q301 steuert bei vorhandenem geschütztem Zündplus Q302 an; über D301 wird der bestehende Q111-Gate-Eingang `RELAY_ENABLE_5V` eingeschaltet. D302 ist ein **noch nicht gültig gespeister** Ausgang des späteren `HOLD_TIMER_GRANTED_3V3`-Watchdog-/Interlock-Blocks; **direkte MCU-GPIO-Selbsthaltung ist ausdrücklich nicht freigegeben**. Symbole plus vorläufige SOT23/SOD323-Footprints liegen projektlokal, Geometrie/Pin 1 noch endgültig gegen Fertiger prüfen. **Nicht elektrisch vollständig, ERC/DRC nicht ausgeführt.**
 
