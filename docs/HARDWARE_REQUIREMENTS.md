@@ -277,6 +277,16 @@
 | UI-39 | **Festgelegt – A: 30-s-Menütimeout** | Nach **30 Sekunden ohne Bedieneingabe** aus regulären Menüs automatisch zur Fahranzeige zurückkehren. Änderungen müssen zuvor entweder ausdrücklich übernommen oder nachvollziehbar verworfen werden; keine unbemerkten Parameteränderungen. | Kritische Bestätigungsdialoge, Firmwareupdate/Diagnose und laufende Kalibrierung nicht unkontrolliert abbrechen; Ausnahmen und Timeout-Verhalten pro Menü definieren. |
 | UI-40 | **Festgelegt – A: Tastentöne** | Standardmäßig **kurzer Signalton für jeden gültigen Tastendruck**; Warnmeldungen erhalten klar unterscheidbare Tonmuster. Die bereits beschlossene Menüoption zum Stummschalten von Tastentönen bleibt erhalten. | Lautstärke, Dauer, Verhalten bei Haltewiederholungen, Nachtbetrieb und Priorität kritischer Warnungen festlegen; keine permanenten Töne bei beschleunigten ±10-m-Wiederholungen erzeugen. |
 
+
+### E.3 Anzeigehelligkeit und Nachtmodus – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| UI-41 | **Festgelegt – A: sanfte automatische Regelung** | Displayhintergrundbeleuchtung und LED-Tastenringe reagieren auf Helligkeitsänderungen des gemeinsamen Umgebungslichtsensors **sanft über ungefähr 2–3 Sekunden**, statt bei Schatten und Straßenlaternen abrupt zu springen. | Filter-/Rampenzeiten, Hysterese und schnelle Schutzreaktion bei starker Blendung/Unterspannung getrennt abstimmen; insbesondere Tunnelein- und -ausfahrt testen. |
+| UI-42 | **Festgelegt – A: gedämpfter Nachtmodus** | Nachtmodus mit **dunklem Hintergrund, gut lesbaren Ziffern und gedämpften Statusfarben**. Die bereits beschlossene automatische Tag-/Nachtumschaltung sowie manuelle Auswahl bleiben bestehen. | Lesbarkeit bei minimaler Beleuchtung, Warnfarben/Kontrast, Fehlzustände auch ohne Farberkennung und Übergang bei wechselndem Umgebungslicht prüfen. |
+| UI-43 | **Festgelegt – A: persistente manuelle Helligkeit** | Wird die Helligkeitsautomatik manuell deaktiviert, bleibt die **manuell gewählte Helligkeit auch über Neustarts hinweg erhalten**, bis der Nutzer die Automatik ausdrücklich wieder aktiviert. | Modus und Helligkeitswert nichtflüchtig sichern; sichere Min-/Max-Grenzen und Schutzmaßnahmen bei Unterspannung/Temperatur haben Vorrang. |
+| UI-44 | **Festgelegt – A: getrennte Beleuchtungskennlinien** | Display und Tasten-LED-Ringe verwenden **denselben Lichtsensor und denselben Automatik-/Manuellmodus**, besitzen aber **getrennt einstellbare minimale/maximale Helligkeiten und Kennlinien**. Die beleuchteten Tastenringe bleiben bei regulärem M8-Betrieb ständig sichtbar, auch ohne Tastendruck. | Unterschiedliche Grün-/Rot-LED-Wahrnehmung und Strombegrenzung berücksichtigen, PWM/Regelung ohne sichtbares Flackern auslegen; gemeinsame zeitliche Regelung gemäß UI-41. |
+
 ## F. Gehäuse, Stecker und Montage
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -402,6 +412,8 @@
 | 13.10.2026 | UI-33–36 | **Viererrunde A/A/A/A bestätigt:** aktiven ±10-m-Korrekturzähler farblich markieren; sanfte Tastenwiederholung nach ca. 0,5 s bis ca. 5 Schritte/s; profilgebundenes LEG-0-Undo bis zur nächsten Nullung auch über Neustart/Profilwechsel; Gesamt-/Trip-Reset nur per Langdruck plus Bestätigung. | genaue Bedienkennlinie, Kontrast und FRAM-Atomarität technisch prüfen. |
 
 | 13.10.2026 | UI-37–40 | **Viererrunde A/B/A/A bestätigt:** bestehende Fronttasten im Menü kontextabhängig doppelt nutzen, Standard-Fahrdisplay mit zwei gleich großen Distanzzählern, nach 30 s Inaktivität zurück zur Fahrtanzeige, kurzer Tastenton bei jeder gültigen Eingabe (abschaltbar) und unterscheidbare Warnsignale. | Sichere Menüfunktionsbelegung, Layoutpaarung, Timeout-Ausnahmen und akustische Wiederholraten noch konkretisieren. |
+
+| 13.10.2026 | UI-41–44 | **Viererrunde A/A/A/A bestätigt:** sanfte automatische Helligkeitsanpassung über ca. 2–3 s, Nachtmodus mit dunklem Hintergrund und gedämpften Farben, manuelle Helligkeit bleibt bis zum erneuten Einschalten der Automatik auch nach Neustart erhalten, separate Display-/LED-Ring-Helligkeitskennlinien mit gemeinsamen Sensor und Modus. | Hysterese, Kontrast, PWM und getrennte Min-/Max-Werte bei Prototypen validieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
