@@ -46,7 +46,7 @@
 | PWR-12 | **Offen** | Soll die Sicherung von außen wechselbar sein oder darf das Gehäuse dafür geöffnet werden? | Anforderungen an Abdichtung, Sicherheit, Service und Bauraum |
 | PWR-13 | **Offen** | Was passiert bei gleichzeitig eingestecktem USB und M8? | Versorgungsvorrang und Umschaltunterbrechung |
 | PWR-14 | **Bestand V0.3** | 12-V-Eingang J1 → Eingangsabsicherung/-schutz → 3,3-V-DC/DC; USB bisher nur Daten | Bei nächster Revision auch für 24-V-Fahrzeuge neu auslegen (PWR-01/09/11); an PWR-02/03/06/08 anpassen. Vorhandene V0.3-Schaltung nicht als 24-V-tauglich ausgeben |
-| PWR-15 | **Offen** | Verhalten bei starkem Spannungseinbruch während des Anlassens (insbesondere 12-V-Fahrzeuge) | Ohne Unterbrechung weiterlaufen oder automatischen Neustart erlauben? Danach Mindest-Betriebsspannung/Pufferung ableiten |
+| PWR-15 | **Festgelegt** | **Unterbrechungsfreier Betrieb beim Motorstart** in 12-V- und 24-V-Fahrzeugen: kein MCU-/GNSS-Neustart, keine Unterbrechung von Anzeige, Distanzzählung oder Streckenaufzeichnung durch den Startvorgang | Kritischen Spannungs-/Zeitverlauf beim Anlassvorgang, Mindest-Eingangsspannung und erforderliche Überbrückungszeit/Pufferenergie messen und festlegen; Funktionstest noch offen |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -108,12 +108,17 @@
 | 13.10.2026 | PWR-03/04 | **Sicherung auf der Platine**; einfach selbst anzufertigendes Fahrzeugkabel | Zuleitung braucht dennoch quellseitigen Kurzschlussschutz |
 | 13.10.2026 | MCU-01 | ESP32-S3 beibehalten; kein CH32X035 im TripTracer | Prozessor bereits im V0.3-Projekt |
 | 13.10.2026 | PWR-01/09/10/11 | **12 V und 24 V gleichermaßen unterstützen**, ohne Umstecken oder Spannungswahlschalter | Nachträgliche verbindliche Anforderung; Eingangsschutz, DC/DC und Sicherung neu dimensionieren |
+| 13.10.2026 | PWR-15 | **Variante A: unterbrechungsfreier Motorstart** | Gilt für beide Bordnetze; Spannungs-/Zeitgrenzen und Pufferung sind noch auszulegen und zu prüfen |
 
 ## Nächste gemeinsame Entscheidung
 
-**Block B – Stromversorgung, Frage 2 (PWR-15):** Soll der TripTracer auch bei einem **starken Spannungseinbruch während des Motorstarts** ohne Unterbrechung weiterlaufen, oder ist ein kurzer automatischer Neustart akzeptabel? Das bestimmt die untere Eingangsspannungsgrenze und gegebenenfalls eine Pufferung.
+**Block B – Stromversorgung, Frage 3 (PWR-12):** Wie soll die **Sicherung auf der Platine** bei einem Defekt erreichbar sein?
 
-Danach bestimmen wir den numerischen Dauerbetriebs-Spannungsbereich, die Zugänglichkeit der Platinensicherung, den Kabelanschluss und den Versorgungsvorrang. Erst anschließend legen wir konkrete Bauteile fest.
+- **A (Vorschlag):** Austauschbare Sicherung **innen**, nach Öffnen des Gehäuses erreichbar. Einfache Abdichtung.
+- **B:** Austauschbare Sicherung **von außen** über einen geschützten Deckel. Komfortabler, aber größerer Dichtungsaufwand.
+- **C:** Fest eingelötete Sicherung, bei Defekt nur mit Lötarbeiten austauschbar. Kompakter, aber schlechter wartbar.
+
+Danach definieren wir den Spannungs-/Zeitverlauf beim Motorstart und den Versorgungsvorrang zwischen USB-C und M8. Konkrete Bauteile wählen wir erst später.
 
 ## Quellen / Verbindlichkeit
 
