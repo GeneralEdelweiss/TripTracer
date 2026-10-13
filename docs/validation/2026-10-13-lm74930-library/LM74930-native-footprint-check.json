@@ -1,0 +1,274 @@
+{
+  "native_loader": "KiCad pcbnew 10.0.6",
+  "numbered_pads": 25,
+  "pin1_top_left": true,
+  "ep25_unassigned": true,
+  "paste_only_apertures": 4,
+  "copper_clearance_signal_adjacent_mm": 0.25,
+  "copper_clearance_ep_signal_mm": 0.55,
+  "mask_web_signal_adjacent_mm": 0.2,
+  "status": "geometry check only, no PCB/thermal/manufacturing approval",
+  "pads": [
+    {
+      "number": "1",
+      "x_mm": -1.9,
+      "y_mm": -1.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "2",
+      "x_mm": -1.9,
+      "y_mm": -0.75,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "3",
+      "x_mm": -1.9,
+      "y_mm": -0.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "4",
+      "x_mm": -1.9,
+      "y_mm": 0.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "5",
+      "x_mm": -1.9,
+      "y_mm": 0.75,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "6",
+      "x_mm": -1.9,
+      "y_mm": 1.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "7",
+      "x_mm": -1.25,
+      "y_mm": 1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "8",
+      "x_mm": -0.75,
+      "y_mm": 1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "9",
+      "x_mm": -0.25,
+      "y_mm": 1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "10",
+      "x_mm": 0.25,
+      "y_mm": 1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "11",
+      "x_mm": 0.75,
+      "y_mm": 1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "12",
+      "x_mm": 1.25,
+      "y_mm": 1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "13",
+      "x_mm": 1.9,
+      "y_mm": 1.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "14",
+      "x_mm": 1.9,
+      "y_mm": 0.75,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "15",
+      "x_mm": 1.9,
+      "y_mm": 0.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "16",
+      "x_mm": 1.9,
+      "y_mm": -0.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "17",
+      "x_mm": 1.9,
+      "y_mm": -0.75,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "18",
+      "x_mm": 1.9,
+      "y_mm": -1.25,
+      "w_mm": 0.6,
+      "h_mm": 0.25,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "19",
+      "x_mm": 1.25,
+      "y_mm": -1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "20",
+      "x_mm": 0.75,
+      "y_mm": -1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "21",
+      "x_mm": 0.25,
+      "y_mm": -1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "22",
+      "x_mm": -0.25,
+      "y_mm": -1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "23",
+      "x_mm": -0.75,
+      "y_mm": -1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "24",
+      "x_mm": -1.25,
+      "y_mm": -1.9,
+      "w_mm": 0.25,
+      "h_mm": 0.6,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "25",
+      "x_mm": 0.0,
+      "y_mm": 0.0,
+      "w_mm": 2.1,
+      "h_mm": 2.1,
+      "copper": true,
+      "net": ""
+    },
+    {
+      "number": "",
+      "x_mm": -0.5,
+      "y_mm": -0.5,
+      "w_mm": 0.9,
+      "h_mm": 0.9,
+      "copper": false,
+      "net": ""
+    },
+    {
+      "number": "",
+      "x_mm": -0.5,
+      "y_mm": 0.5,
+      "w_mm": 0.9,
+      "h_mm": 0.9,
+      "copper": false,
+      "net": ""
+    },
+    {
+      "number": "",
+      "x_mm": 0.5,
+      "y_mm": -0.5,
+      "w_mm": 0.9,
+      "h_mm": 0.9,
+      "copper": false,
+      "net": ""
+    },
+    {
+      "number": "",
+      "x_mm": 0.5,
+      "y_mm": 0.5,
+      "w_mm": 0.9,
+      "h_mm": 0.9,
+      "copper": false,
+      "net": ""
+    }
+  ]
+}
