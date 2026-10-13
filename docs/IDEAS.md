@@ -24,8 +24,8 @@ Diese Datei ist dein **freier Ideenspeicher** für TripTracer. Schreibe hier jed
 
 - **USB-C:** Firmwareupdates/Flashen und alternative Stromversorgung mit **5 V** (z. B. vom PC oder über einen externen 12-V-Zigarettenanzünder-auf-5-V-USB-C-Adapter); kein externer 12-V-Direkteingang über USB-C.
 - **Hauptversorgung:** separate **M8-A-codierte, 3-polige Schraubsteckverbindung** für den normalen 12-V-Fahrzeugbetrieb anstelle einer DC-Hohlbuchse. Der Geräteanschluss wird mechanisch im Gehäuse montiert.
-- **Fahrzeugwechsel:** TripTracer soll einfach zwischen mehreren Fahrzeugen umgesteckt werden können; pro Fahrzeug eine vorinstallierte, nahe der Spannungsquelle abgesicherte Leitung mit passender M8-Kabelbuchse.
-- **Versorgungsschutz:** Fahrzeug-Bordnetzschutz auf der Trägerplatine; USB-5-V- und Fahrzeug-12-V-Eingang sicher entkoppeln, auch wenn beide gleichzeitig angeschlossen sind. Keine Rückspeisung zu PC/USB oder in den Fahrzeugkabelbaum.
+- **Fahrzeugwechsel:** TripTracer soll einfach zwischen mehreren Fahrzeugen umgesteckt werden können. Pro Fahrzeug ein selbst angefertigtes, unkompliziertes M8-Kabel ohne zusätzlichen gerätespezifischen Sicherungshalter. Anschluss an einen bereits abgesicherten Fahrzeugstromkreis; bei direkter Batterieverbindung muss die Zuleitung separat nahe der Batterie abgesichert werden.
+- **Versorgungsschutz:** **Gerätesicherung auf der Trägerplatine**, dazu Schutz gegen Fahrzeug-Bordnetztransienten; USB-5-V- und Fahrzeug-12-V-Eingang sicher entkoppeln, auch wenn beide gleichzeitig angeschlossen sind. Keine Rückspeisung zu PC/USB oder in den Fahrzeugkabelbaum.
 - **Geplante M8-Belegung:** Pin 1 = abgesichertes +12 V, Pin 3 = Masse, Pin 4 = Reserve (vorerst unbeschaltet); endgültige Kontaktansicht und Belegung vor der PCB-Freigabe am Steckerdatenblatt prüfen.
 
 ### Gehäuse & Mechanik
@@ -57,5 +57,7 @@ Du kannst auch nur eine Zeile schreiben, z. B.:
 `- [ ] Wunsch: ...`
 
 Optional dazu `Priorität: hoch/mittel/niedrig`, Rahmenbedingungen oder Bilder/Links ergänzen. Struktur ist **keine Pflicht**.
+
+**Hardware-Anforderungsliste:** Bestätigte Vorgaben und offene Entscheidungen werden in [HARDWARE_REQUIREMENTS.md](HARDWARE_REQUIREMENTS.md) gesammelt.
 
 **Abgrenzung:** Verbindliche technische Vorgaben bleiben in den bestehenden Anforderungs-/Architekturdateien und in `AGENTS.md`. Ideen dürfen diesen Vorgaben nicht stillschweigend widersprechen oder sie ersetzen.
