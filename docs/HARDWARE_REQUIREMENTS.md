@@ -159,6 +159,15 @@
 | CFG-03 | **Festgelegt – A: nur manuell sichern** | JSON-Konfigurationsbackup auf die microSD **ausschließlich auf ausdrücklichen Nutzerbefehl im Menü** schreiben; keine automatischen Exporte nach jeder Änderung oder täglich. | Laufende persistente Gerätekonfiguration intern weiterhin zuverlässig sichern; Export-Dateiname, Fehlerbehandlung und Speicherplatzprüfung festlegen. |
 | CFG-04 | **Festgelegt – A: defekte Importe vollständig ablehnen** | Beschädigte, ungültige oder inkompatible JSON-Dateien **vollständig zurückweisen**, Fehlermeldung anzeigen und **sämtliche bisherigen Einstellungen und Profile unverändert lassen**; keine Teilimporte oder Werksrücksetzung. | Vollständige Validierung vor Übernahme, atomarer Commit mit Power-Loss-Sicherheit, Rollback, Versionsprüfung und negative Tests mit unvollständigen/korrupten Dateien. |
 
+### C.9 GNSS-Trackdaten und Loggingdetails – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| STO-36 | **Festgelegt – A: dynamische Trackaufzeichnungsrate** | Bei Fahrt **5 Trackpunkte/s**, bei erkanntem Stillstand ungefähr **1 Trackpunkt/s** in GPX/CSV speichern. Ereignisse und relevante Zustandswechsel unabhängig davon protokollieren. **GNSS-Empfänger- und Distanzmessrate von 5 Hz unverändert**; nur die Speicherung der regulären Samples wird ausgedünnt. | Hysterese, Geschwindigkeitsschwellen, beginnende/aufhebende Bewegung und 5-Hz-Wiederaufnahme prüfen; Stillstand nicht aus verrauschter GNSS-Geschwindigkeit allein ableiten. |
+| STO-37 | **Festgelegt – A: schlechte GNSS-Rohwerte als CSV-Diagnose** | GNSS-Messungen mit unbrauchbarem Fix oder schlechter Genauigkeit **nicht als gültige GPX-Trackpunkte** und nicht als Distanzschritte verwenden. Qualitäts- und Fehlermesswerte einschließlich Verwerfungsgrund **in CSV dokumentieren**, damit Empfangsprobleme rückverfolgbar bleiben. | Diagnosesamples bei schlechter GNSS-Qualität mit eigenem Status/Flag klar kennzeichnen; keine fiktiven oder ungültigen Koordinaten als gültig ausgeben; reguläre CSV-Abtastrate im Stillstand gemäß STO-36, wichtige Ereignisse zusätzlich. |
+| STO-38 | **Festgelegt – A: Fahrzeugprofil in CSV** | Jeden regulären CSV-Datensatz mit **aktiver stabiler Profil-ID und Profilname** ergänzen; jeden bestätigten Profilwechsel zusätzlich als Ereignis mit alter/neuer Profil-ID protokollieren. | Eindeutige Zuordnung von Zählern/Dateisamples, auch bei Namensänderung und Profilwechsel während der Fahrt; Logdatei nicht allein wegen Profilwechsel aufteilen. |
+| STO-39 | **Festgelegt – A: 7 Dezimalstellen** | Breitengrad und Längengrad in **GPX und CSV mit 7 Dezimalstellen** in Dezimalgrad speichern. Diese numerische Auflösung **nicht als reale GNSS-Ortsgenauigkeit ausgeben**. | Rundung, Vorzeichen, WGS84-Konvention, Punkt als Dezimaltrennzeichen und konsistente Darstellung in CSV/GPX testen. |
+
 ### C.2 Controller und nichtflüchtiger Speicher (MCU)
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -512,6 +521,8 @@
 | 13.10.2026 | DIA-05–08 | **Viererrunde A/A/A/A bestätigt:** nicht blockierender erweiterter Start-Selbsttest, Radsensor-Livediagnose mit Pegel/Impulszähler/Frequenz, lesbarer Konfigurationsexport und -import über microSD, Ereignisprotokoll aus Bordnetzspannung und ESP32-Resetursache. | Selbsttest-Timeouts, importsichere Dateivalidierung und korrekte Zeitzuordnung von Spannungsmesswerten prüfen; keine zusätzliche Spannungshistorie beschlossen. |
 
 | 13.10.2026 | CFG-01–04 | **Viererrunde A/A/A/A bestätigt:** Konfigurationsbackup als lesbare versionierte JSON-Datei; Import nur von Einstellungen und Fahrzeugprofilen, niemals Distanzzähler/Undo; Export ausschließlich auf Nutzerbefehl; beschädigte oder inkompatible Importdateien vollständig und ohne Änderungen ablehnen. | Schema, Validierung vor Übernahme, atomare Speicherung und Profil-ID-Zuordnung prüfen. |
+
+| 13.10.2026 | STO-36–39 | **Viererrunde A/A/A/A bestätigt:** Tracking-Lograte 5 Hz in Fahrt, ca. 1 Hz im Stand (GNSS-Messung unverändert); schlechte GNSS-Messwerte diagnostisch in CSV statt als gültige GPX-Punkte; Profil-ID/-Name je CSV-Zeile mit Wechselereignis; WGS84-Koordinaten auf 7 Dezimalstellen. | Stillstandshysterese, Fehlerkennzeichnung, Profil-ID-Stabilität und Koordinatenformat prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
