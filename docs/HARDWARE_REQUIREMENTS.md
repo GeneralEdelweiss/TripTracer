@@ -331,6 +331,16 @@
 | MEC-38 | **Historische Alternative – nicht mehr erforderlich** | Früher geprüfte externe IP68-Panel-SD-Halter sind wegen des ausschließlich internen microSD-Konzepts **kein aktueller Beschaffungskandidat**. | Keine Panel-SD-Schnittstelle vorsehen; historische Referenzen bleiben nur im Entscheidungsprotokoll. |
 | MEC-39 | **Erledigt durch Konzeptwechsel** | Die Suche nach einer Staubschutzkappe für die rechte microSD-Öffnung ist beendet: **Es wird keine äußere SD-Öffnung geben.** | Geschlossenes ASA-Gehäuse und USB-C-Staubschutz bleiben relevant. |
 
+
+### F.1 Gehäuse und Wartbarkeit – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| MEC-40 | **Festgelegt – A: Servicekomponenten gemeinsam zugänglich** | **microSD, CR1220-Backup-Knopfzelle und interner BOOT-Jumper müssen nach Abnehmen des Gehäuserückdeckels von derselben Seite aus erreichbar sein**, ohne Ausbau der Hauptplatine oder Abstecken von Display-/Tastenanschlüssen. | Mechanischen Freiraum, Steck-/Entnahmewege, Isolierung und Zugänglichkeit von Haltern, Jumper und Batteriekontakten im CAD prüfen; nur stromlos warten. |
+| MEC-41 | **Festgelegt – B: sechs M3-Schrauben** | Rückdeckel mit **sechs M3-Schrauben** in Messing-Gewindeeinsätzen im ASA-Gehäuse befestigen; umlaufende Staubdichtung vorsehen. | Position und Gleichmäßigkeit der Dichtungsanpressung, Schraubenabstände, Wandstärken, Gewindeeinsatz-Auszugskräfte, thermische Ausdehnung und reproduzierbare Montage überprüfen. |
+| MEC-42 | **Festgelegt – A: federnde Rastnase** | Werkzeuglose Schiebehalterung mit **automatisch einrastender federnder Rastnase**; Lösen über gut erreichbaren Druckhebel. | Fahrzeugvibration, Fehlbedienung, Ermüdung, Handschuhbedienbarkeit und Verliersicherheit prüfen; ausreichender Abstand zu Anschlüssen und Rückdeckel. |
+| MEC-43 | **Festgelegt – A: Anschlüsse zugänglich** | **M8, USB-C, GNSS-SMA und optionaler Radsensoranschluss** müssen auch bei vollständig in die Schiebehalterung eingesetztem TripTracer zugänglich und bedienbar bleiben. | Stecker-, Kabel-, Schraub-/Dreh- und Biegeradien sowie Staubkappenzugang im maßstäblichen CAD und am Gehäuseprototyp nachweisen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -414,6 +424,8 @@
 | 13.10.2026 | UI-37–40 | **Viererrunde A/B/A/A bestätigt:** bestehende Fronttasten im Menü kontextabhängig doppelt nutzen, Standard-Fahrdisplay mit zwei gleich großen Distanzzählern, nach 30 s Inaktivität zurück zur Fahrtanzeige, kurzer Tastenton bei jeder gültigen Eingabe (abschaltbar) und unterscheidbare Warnsignale. | Sichere Menüfunktionsbelegung, Layoutpaarung, Timeout-Ausnahmen und akustische Wiederholraten noch konkretisieren. |
 
 | 13.10.2026 | UI-41–44 | **Viererrunde A/A/A/A bestätigt:** sanfte automatische Helligkeitsanpassung über ca. 2–3 s, Nachtmodus mit dunklem Hintergrund und gedämpften Farben, manuelle Helligkeit bleibt bis zum erneuten Einschalten der Automatik auch nach Neustart erhalten, separate Display-/LED-Ring-Helligkeitskennlinien mit gemeinsamen Sensor und Modus. | Hysterese, Kontrast, PWM und getrennte Min-/Max-Werte bei Prototypen validieren. |
+
+| 13.10.2026 | MEC-40–43 | **Viererrunde A/B/A/A bestätigt:** microSD, CR1220 und BOOT-Jumper nach Abnahme des Rückdeckels gemeinsam ohne PCB-Ausbau zugänglich; **sechs M3-Schrauben** in Messing-Einsätzen; federnde Rastnase mit Druckhebel; sämtliche Außenanschlüsse auch in eingesetzter Schiebehalterung erreichbar. | Dichtungspressung, Servicefreiräume, Rastfestigkeit und Kabel-/Steckerzugang vor mechanischer Freigabe nachweisen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
