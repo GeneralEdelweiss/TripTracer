@@ -36,7 +36,7 @@ jobs:
           mkdir -p reports "$HOME/.config"
           cp -r /home/kicad/.config/kicad "$HOME/.config/"
           kicad-cli version | tee reports/kicad-version.txt
-          git rev-parse HEAD | tee reports/commit.txt
+          printf '%s\n' "$GITHUB_SHA" | tee reports/commit.txt
           printf 'NO manufacturing or vehicle approval.\n' > reports/STATUS.txt
       - name: ERC on complete root hierarchy
         id: erc
