@@ -18,7 +18,7 @@ Diese Datei ist dein **freier Ideenspeicher** für TripTracer. Schreibe hier jed
 
 ### GPS, Streckenmessung & Navigation
 
-- Aufzeichnung von Strecken und Export in typischen formaten soll möglich sein (SD-Karte? Kann der CH32X035 das?)
+- Aufzeichnung von Strecken und Export in typischen formaten soll möglich sein (SD-Karte?)
 
 ### Firmware, Schnittstellen & Extras
 
