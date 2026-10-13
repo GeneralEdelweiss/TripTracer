@@ -23,6 +23,22 @@
 
 Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine optional zu erfüllende Schönheitsmaßnahme. Sie gilt zusätzlich zu den strikten Baugruppen- und Kompatibilitäts-Gates.
 
+## Produktziel: Budget-Tripmaster – DIY heute, Kleinserie morgen
+
+**Verbindliche oberste Entwicklungsprämisse (HW-77–80):** TripTracer ist ein **preisbewusster DIY-Tripmaster mit Potenzial zur Kleinserie/Serienfertigung**, nicht ein unbegrenzt teures Entwicklungsprojekt. Bei **jeder** Hardware-, Bauteil-, Schaltungs-, PCB- und Mechanikentscheidung die **realen Gesamtkosten** mitdenken – ohne sicherheitskritische Kompromisse und ohne beschlossene Kernfunktionen zu streichen. **Es gibt noch keinen verbindlich genannten Preisdeckel oder Ziel-Verkaufspreis: keine Budgets erfinden.**
+
+### Kostendisziplin bei jeder Baugruppe
+
+1. **Kosten vor der Bauteilfestlegung prüfen, nicht erst nach dem Layout:** Wo praktikabel mindestens zwei technisch gleichwertige Optionen hinsichtlich Funktion, Thermik, Langzeitverfügbarkeit, Stückpreis, Beschaffungsnebenkosten, LCSC/JLCPCB-Kategorie, Package, Löt-/Bestückungsaufwand und nötigen Zusatzbauteilen vergleichen. Nicht unnötig überdimensionieren, aber ausreichende Reserve vorsehen.
+2. **JLCPCB Basic / handlötbare 1206 bevorzugen:** Die Präferenzen aus HW-73–76 verfolgen; bei erheblichem Vorteil durch andere Bauform, QFN/DFN/kleinere Passivbauteile oder Extended-Teile technisch begründet abweichen. **Die günstigste Teilnummer ist nicht automatisch die günstigste vollständige Schaltung.**
+3. **BOM aktuell halten:** Hersteller-MPN, LCSC-C-Nummer, Basic/Extended/anderer Lieferant, Package, tatsächlichen Preis je Menge mit Währung/Quelle/Prüfdatum, Handlötverfahren und mögliche Ersatztypen erfassen. Bei noch nicht geprüften Preisen/Fertigergebühren explizit `ungeprüft` bzw. leer – **niemals 0 € oder frei erfundene Preise einsetzen.**
+4. **Systemkosten kalkulieren:** Nicht nur ICs und 1206-Bauteile zählen, sondern **PCB-Lagen, JLCPCB-PCBA-Setup/Extended-Fees, Mindestmengen, Versand, Steuern, selbst zu lötende Teile/Zeit, mechanische Teile, ASA-Gehäuse/alternative Seriengehäuse, Display, sechs FILN-Taster, Stecker/Kabel, Befestigung, Test, Rework und Ausschuss**. Einmalige Werkzeuge/Entwicklung separat von wiederkehrenden Stückkosten darstellen.
+5. **DIY und Kleinserie getrennt bewerten:** Ein individuell handbestückter Prototyp hat andere Kostentreiber als 10, 50 oder 100 Stück. Sobald echte Angebote vorliegen, Kosten in diesen oder vergleichbaren Mengenstufen gegenüberstellen. Keine nicht nachgewiesenen Mengenrabatte oder Serienpreise behaupten. Die derzeit beschlossene Erstfertigung **5 PCB / 2 maschinell bestückt, 3 unbestückt** nur auf ausdrückliche Nutzeranweisung ändern.
+6. **Pro Baugruppen-Commit Kosten-Check dokumentieren:** Aktuelle Kostentreiber, geprüfte/ungeprüfte Preise, günstigere geeignete Varianten und Grund für teurere Varianten aufführen. Für die nächste Baugruppe den bereits entstandenen Kostenstand und Schnittstellenkompatibilität berücksichtigen.
+7. **Safety/Funktion vor Centbeträgen:** **Kein billiger Ersatz für Verpolschutz, Automotive-Transientenschutz, zuverlässige USB-/Speicherschaltung, EMV, vernünftige Strom- und thermische Reserven oder zuverlässige Steckverbindungen.** Keine durch billigere Hardware erzwungenen Software-Workarounds.
+
+**Entscheidungskriterium:** **Preis-Leistung und reproduzierbare Gesamtstückkosten**, nicht blind die niedrigste BOM-Zeile. Wenn die derzeitige Komponentenwahl die Budget-Positionierung stark gefährdet, Kostenkonflikt früh mit technisch belastbaren Alternativen benennen und um konkrete Freigabe bitten statt Entscheidungen heimlich umzuwerfen.
+
 ## Bauteil-Auswahl: JLCPCB Basic und Handloetbarkeit (TripTracer V1)
 
 **Verbindliche Projektpraeferenz (HW-73 bis HW-76):** Wenn technisch gleichwertig, so viele Komponenten wie moeglich als **JLCPCB Basic Parts** und **von Hand gut loetbare SMD-Pakete** auswaehlen. **Elektrische Funktion und Langzeitzuverlaessigkeit gehen immer vor Basic-Status und Gehaeusegroesse.**
