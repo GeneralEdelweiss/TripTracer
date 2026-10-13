@@ -23,6 +23,18 @@
 
 Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine optional zu erfüllende Schönheitsmaßnahme. Sie gilt zusätzlich zu den strikten Baugruppen- und Kompatibilitäts-Gates.
 
+## Bauteil-Auswahl: JLCPCB Basic und Handloetbarkeit (TripTracer V1)
+
+**Verbindliche Projektpraeferenz (HW-73 bis HW-76):** Wenn technisch gleichwertig, so viele Komponenten wie moeglich als **JLCPCB Basic Parts** und **von Hand gut loetbare SMD-Pakete** auswaehlen. **Elektrische Funktion und Langzeitzuverlaessigkeit gehen immer vor Basic-Status und Gehaeusegroesse.**
+
+- **Beschaffungs-Reihenfolge:** (1) passendes JLCPCB **Basic**-Teil, (2) JLCPCB **Extended** bzw. bei LCSC verfuegbares Teil, (3) sonstige geeignete Bezugsquelle. Bei technisch besseren Varianten darf der Agent jederzeit von Basic abweichen – die Wahl muss begruendet werden. Basic/Extended ist kein unveraenderliches Bauteilmerkmal; bei der finalen BOM und vor Bestellung aktuell pruefen.
+- **Handloeten – Passivbauteile:** Widerstaende und Kondensatoren soweit sinnvoll in **1206 imperial / 3216 metrisch** oder groesser auslegen. **Kein blindes 1206-Dogma**: ausreichend Spannungsfestigkeit, Derating, HF-Verhalten, Ausgangskapazitaet unter DC-Bias, parasitaere Induktivitaet, Strom-/Waermebelastung und Platzbedarf haben Vorrang. Kleinere 0805/0603 oder andere Bauformen bei klaren technischen Vorteilen.
+- **Handloeten – Halbleiter/ICs:** Wenn technisch vergleichbar, gut loetbare SOT-23, SOIC, TSSOP, SOT-223 oder vergleichbare gehaeuseseitige Optionen bevorzugen. QFN, DFN, Fine-Pitch, Thermal-Pads und andere schwierige SMD-Formen ausdruecklich **erlaubt**, wenn es deutliche technische/funktionale/thermische Vorteile oder keine sinnvolle Alternative gibt. Dann geeignetes Handloetverfahren oder externe Bestueckung einplanen.
+- **Ausnahmen nicht ueberoptimieren:** Insbesondere GNSS/RF, USB-/ESD-Schutz, schnelle Regler-Schaltknoten, Antennen-Bias, Schaltregler-Layout, Thermalpads und spezialisierte Sensor-/Modulbausteine erfordern teils kleine oder spezielle Gehaeuse. **Keine HF-/EMV-/Thermik-Verschlechterung zur Erzielung von 1206/Basic**.
+- **Bei JEDER neu konstruierten oder geaenderten Baugruppe** echte Hersteller-Teilenummer, **LCSC-C-Nummer** (soweit vorhanden), aktuelle JLCPCB-Kategorie (Basic/Extended/nicht verfuegbar/**ungeprueft**), exakten Footprint, Handloetbarkeit/Loetmethode und Grund fuer Abweichungen dokumentieren. Nicht verifizierte JLCPCB-Kategorien **niemals als Basic behaupten**.
+- **BOM und Design-Gates:** BOM nach Bauteilentscheidung sofort aktualisieren, vor ERC/DRC/Fertigungsfreigabe Package/Pin-Mapping und Loetzugaenglichkeit erneut pruefen; bei Ersatztypen die Kompatibilitaet mit allen frueheren Baugruppen testen. **Eigene Handbestueckung soll moeglich sein**, ohne bestehende separate Entscheidungen zu PCB-/PCBA-Bestellmenge automatisch zu ueberschreiben.
+- Bei mehreren geeigneten Alternativen darf der Agent sich bewusst fuer eine teurere/kleinere/nicht-Basic-Variante entscheiden, wenn ein **wesentlicher und dokumentierter** Vorteil fuer Sicherheit, Leistung, Signalqualitaet, Thermik, Kompaktheit oder Ersatzteilverfuegbarkeit entsteht.
+
 ## Vorsichtige, baugruppenweise Hardware-Entwicklung (verbindliche Arbeitsweise)
 
 **Grundprinzip: Hardware zuerst korrekt, danach Software daran anpassen.** Eine fehlerhafte, bereits gefertigte Platine ist wesentlich teurer und aufwendiger zu korrigieren als eine Firmware-Anpassung. Deshalb konsequent **schrittweise, risikobewusst und ohne vorschnelle Fertigmeldungen** entwickeln.
