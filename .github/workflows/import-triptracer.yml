@@ -1,0 +1,93 @@
+name: Import TripTracer project bundle
+
+on:
+  push:
+    paths:
+      - 'imports/TripTracer-Project-Bundle.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Validate and unpack exact TripTracer archive
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path, PurePosixPath
+          from zipfile import ZipFile
+          import hashlib, stat, sys, re
+          src=Path('imports/TripTracer-Project-Bundle.zip')
+          if not src.is_file():
+              sys.exit('Bundle missing at imports/TripTracer-Project-Bundle.zip')
+          required_hash='b0ef13386672abc6d48d367d3f10f16c543bee3a39ab97f3c8bc9fa65d0e1831'
+          digest=hashlib.sha256(src.read_bytes()).hexdigest()
+          if digest!=required_hash:
+              sys.exit('Wrong or altered ZIP: '+digest)
+          roots={'hardware','footprints','symbols','3dmodels','catalog','mechanics','firmware','docs','tools','integration','datasheets','releases'}
+          singleton={'README.md','AGENTS.md'}
+          required={'hardware/kicad/Tripmaster_V0_3.kicad_sch',
+                    'hardware/kicad/Tripmaster_Sym.kicad_sym',
+                    'hardware/kicad/Tripmaster_V0_3.kicad_pro',
+                    'mechanics/prototype_v0.1/Tripmaster_V0_1_frontschale.step',
+                    'firmware/prototype_v0.1/src/main.cpp',
+                    'catalog/v0.3/Bauteilliste.csv'}
+          with ZipFile(src) as z:
+              info=[x for x in z.infolist() if not x.is_dir()]
+              names={x.filename for x in info}
+              if len(info)<120 or not required<=names or len(names)!=len(info):
+                  sys.exit('Missing expected project contents or duplicate ZIP filenames')
+              for item in info:
+                  raw=item.filename
+                  p=PurePosixPath(raw)
+                  if not raw or '\\' in raw or p.is_absolute() or '..' in p.parts or p.parts[0] not in roots|singleton:
+                      sys.exit('Unsafe archive path: '+raw)
+                  if p.parts[0] in singleton and len(p.parts)>1:
+                      sys.exit('Unexpected nested single file: '+raw)
+                  if stat.S_ISLNK(item.external_attr>>16):
+                      sys.exit('Symlinks not accepted: '+raw)
+                  if 'BTN9990' in raw.upper() or 'BTN9900' in raw.upper():
+                      sys.exit('Unrelated controller file in project archive: '+raw)
+                  if item.file_size>12*1024*1024:
+                      sys.exit('Oversized member: '+raw)
+              for item in info:
+                  dest=Path(item.filename)
+                  dest.parent.mkdir(parents=True,exist_ok=True)
+                  dest.write_bytes(z.read(item))
+          # Static presence test for the project-local and central 3D references
+          def assert_models(fp_root, prefix, model_root):
+              bad=[]
+              for footprint in Path(fp_root).glob('*.kicad_mod'):
+                  text=footprint.read_text(encoding='utf-8')
+                  for suffix in re.findall(r'\\(model\\s+"'+re.escape(prefix)+r'([^"]+)"',text):
+                      ref=Path(model_root)/suffix
+                      if not ref.exists():
+                          bad.append(str(footprint)+': '+str(ref))
+              if bad:
+                  sys.exit('Missing 3D model paths:\\n'+'\\n'.join(bad[:20]))
+          assert_models('hardware/kicad/Tripmaster.pretty',
+                        '${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/',
+                        'hardware/kicad/Tripmaster_3dmodels.3dshapes')
+          assert_models('footprints/TripTracer.pretty',
+                        '${TRIPTRACER_LIB}/3dmodels/',
+                        '3dmodels')
+          print('Unpacked',len(info),'curated project and library files')
+          print('KiCad ERC/DRC and automotive validation NOT performed')
+          PY
+      - name: Commit imported files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md AGENTS.md hardware footprints symbols 3dmodels catalog mechanics firmware docs tools integration datasheets releases
+          if git diff --cached --quiet; then
+            echo 'Bundle already imported (no file changes).'
+          else
+            git commit -m 'Import existing TripTracer KiCad v0.3, mechanics and firmware'
+            git push
+          fi
