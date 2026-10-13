@@ -787,6 +787,15 @@
 | HW-59 | **Festgelegt – A: verriegelnder ZIF-Stecker mit Kabelsicherung** | Lösbare **FFC/FPC-Displayverbindung über verriegelnden ZIF-Stecker und zusätzliche mechanische Kabelsicherung/Zugentlastung** vorsehen, soweit das verifizierte Riverdi-Modul diese Anbindung ermöglicht. | FFC-Pitch/Kontaktseite, Verriegelungs- und Biegeradien, Schwingungsfestigkeit, Montagezugang und Platzbedarf vor Layout bestätigen. |
 | HW-60 | **Festgelegt – A: kritische Teile zuerst prüfen** | Vor der finalen Schaltplan- und GPIO-Freigabe **zuerst Riverdi-Display, MAX-M10N/GNSS-Antennenpfad und Bordnetz-/5-V-Versorgung samt eFuse/Schutz** mit tatsächlichen Herstellerunterlagen und Beschaffbarkeit verifizieren; übrige Bauteile parallel weiter konkretisieren. | Datenblattgestützte Stückliste/Anschlussliste und Schnittstellen- sowie Spannungsbilanz; keine Freigabe von Platzhaltern als fertige Lösung. |
 
+### Hardwareprototyp – Bauteilfreigabe und Antennenanschluss (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-61 | **Festgelegt – A: Riverdi beibehalten, Anschluss anpassen** | Wenn das bisher festgelegte Riverdi-Modell keine direkt kompatible **FFC/FPC-Verbindung** bietet, **das bestehende Display beibehalten** und stattdessen einen technisch geeigneten **lösbaren Kabel-/Adapteranschluss** vorsehen. Die frühere FFC-Präferenz (HW-46/59) gilt nur bei tatsächlicher Modulkompatibilität; kein Displaywechsel allein wegen des Steckers. | Exakte Riverdi-Artikelnummer, elektrische Schnittstelle, Kontaktbelegung, Ersatzkabel/Adapter, Signalpegel, Montage- und Vibrationssicherheit sowie GPIO-Budget prüfen. |
+| HW-62 | **Festgelegt – A: feste datenblattgerechte aktive GNSS-Antennen-Biasspannung** | Für eine ausgewählte aktive GNSS-Antenne **eine feste, aus Datenblatt und Antennen-Spezifikation abgeleitete Bias-Spannung** bereitstellen; Antennenversorgung **abschaltbar und strombegrenzt**. Passive Antennen ohne eingespeiste Gleichspannung verwenden; **keine verpflichtende 3,3-/5-V-Umschaltung**. | Ausgewählte aktive Antenne und MAX-M10N-Antennenpfad auf Versorgung, Stromaufnahme, Bias-T, RF-Entkopplung, ESD und Schutz testen; konkrete Spannung erst nach Antennenwahl freigeben. |
+| HW-63 | **Festgelegt – A: SMA-Buchse am Gehäuse** | Die externe GNSS-Antenne wird an eine **normale SMA-Buchse an der Gehäuseaußenseite** angeschlossen (kein RP-SMA); im Inneren führt ein geeignetes Koax-Pigtail zum U.FL-Anschluss der Hauptplatine. | SMA-Geschlecht und Innenkontakt, Antennenstecker, Gehäusedurchführung, Dichtung, mechanische Fixierung, 50-Ω-Koaxleitung und Kabellänge prüfen. |
+| HW-64 | **Festgelegt – A: gleichwertige Alternativbauteile dokumentieren** | Für kritische und potenziell schwer verfügbare Komponenten in der Stückliste **nach Möglichkeit datenblattgestützt elektrisch, thermisch, mechanisch und footprint-kompatible Ersatztypen** dokumentieren. **Keine zusätzlichen Alternativ-Footprints auf dem PCB als allgemeine Pflicht**; Ersatztypen nur nach Kompatibilitätsprüfung freigeben. | LCSC/JLCPCB-Bestand, Hersteller-Datenblätter, Footprint/Pinout, elektrische Grenzwerte und Firmware-relevante Abweichungen bei jeder Alternative überprüfen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -975,6 +984,8 @@
 | 13.10.2026 | HW-53–56 | **Hardware-Viererrunde A/A/A/A bestätigt:** I²C ohne zusätzliche Isolationsschalter, je Radsensor bestückungs-/jumperseitig schaltbare Pull-ups, I²C-Temperatursensor nahe dem DC/DC-Wandler und finale ESP32-S3-Pinzuordnung nach konkreter Riverdi-Displayverifikation. | Displaymodell beschaffen/verifizieren, vollständiges GPIO-Budget sowie Pull-up-Sensorkompatibilität nachweisen. |
 
 | 13.10.2026 | HW-57–60 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Modell anhand Artikelnummer verifizieren; aktive und passive GNSS-Antennen per geschützter zuschaltbarer Biasversorgung unterstützen; verriegelnder ZIF samt FFC-Zugentlastung; kritische Display-/GNSS-/Versorgungsbauteile vor Schaltplanfreigabe priorisiert prüfen. | Herstellerdatenblätter, Kontakt-/Antennen-Bias-Plan und reale Bezugsquellen verifizieren. |
+
+| 13.10.2026 | HW-61–64 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Display behalten und ggf. Kabelanschluss anpassen; feste, geeignete abschaltbare GNSS-Antennen-Biasversorgung; normale SMA-Buchse am Gehäuse; geprüfte kompatible Ersatzteile in der BOM dokumentieren. | Display-/Antennen-Artikelnummer, Pigtail-Steckergeschlecht, tatsächliche Bias-Spannung und Ersatzteilkompatibilität vor Schaltplanfreigabe prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
