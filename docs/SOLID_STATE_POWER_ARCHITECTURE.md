@@ -53,6 +53,8 @@ Der **LM74800-Q1** ist aufgrund seiner **TI-Referenzschaltung Abschnitt 10.3** f
 
 **Entwicklungsempfehlung:** LM74800-basierte 200-V-Referenz **als kostengünstigen Erstkandidaten** genauer untersuchen. Erst die vollständige Schutzfunktions-/Fehlerfall-Matrix und den realen Gesamtpreis einschließlich einer etwaigen eFuse/independent OFF bestimmen. Danach entscheiden, ob eine teure doppelte Surge-Stopper-Kette tatsächlich gebraucht wird; bei gleichwertiger Funktion klare Präferenz für geringere BOM.
 
+**Aktuelle ACC/HOLD-Untersuchung:** [96 DC-Simulationsfälle und verworfene Bias-Kandidaten](ACC_HOLD_DC_REVIEW.md). USB-only-Qualifikation ist im vereinfachten Modell wirksam; Temperatur-/Ruhestrom-Gates sind noch offen.
+
 ## 1. Beschluss, Ziel, Einschränkungen
 
 Nach Vergleich der relaisgesteuerten Variante 2 mit der elektronischen Variante 3 soll **Variante 3 prioritär entwickelt werden**. Entscheidung gilt für die **Entwicklungsrichtung**, **nicht** als elektrische, Automotive-, funktionale oder fertigungstechnische Freigabe. Bei Versagen wichtiger Sicherheitstests darf auf Variante 2 mit kleinem monostabilem Signalrelais zurückgegriffen werden.

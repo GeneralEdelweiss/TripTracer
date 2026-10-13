@@ -1,0 +1,32 @@
+ACC HOLD candidate nominal 6V 010
+Vbat vs 0 6
+Vacc acc 0 0
+Vhold hold 0 3.3
+Vqual raw5 0 0
+Ren vs en 4.7meg
+Cen en 0 10n
+Rkill vs kill 330k
+Ckill kill 0 1n
+Dkill 0 kill DZ
+Mkill en kill 0 0 MKILL
+Racc1 acc accmid 220k
+Racc2 accmid ag 220k
+Raccpd ag 0 1meg
+Dacc 0 ag DZ
+Macc kill ag 0 0 MLOW
+Rhold hold hg 10k
+Rholdpd hg 0 100k
+Mhold kill hg mid mid MLOW
+Rqual raw5 qg 33k
+Rqualpd qg 0 100k
+Mqual mid qg 0 0 MLOW
+.model MKILL NMOS(VTO=1.7 KP=0.1 RD=5 RS=5)
+.model MLOW NMOS(VTO=1.3 KP=0.1 RD=3 RS=3)
+.model DZ D(IS=1e-14 BV=4.7 IBV=10u)
+Bkillleak en 0 I=0*min(1,max(v(en)/0.1,0))
+Baccleak kill 0 I=0*min(1,max(v(kill)/0.1,0))
+Bholdleak kill mid I=0*min(1,max(v(kill,mid)/0.1,0))
+Bqualleak mid 0 I=0*min(1,max(v(mid)/0.1,0))
+Benleak en 0 I=200n*min(1,max(v(en)/0.1,0))
+.op
+.end
