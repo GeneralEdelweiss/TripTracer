@@ -356,6 +356,16 @@
 | MEC-46 | **Festgelegt – A: universelle Schraubhalterung** | Fahrzeugseitig **standardisierte verschraubbare Grundplatte mit mehreren Befestigungslochbildern** vorsehen; fahrzeugspezifische Adapter (z. B. Motorrad-/Kfz-Träger) separat. | Lochbilder, Schraubengrößen, Adaptergeometrie und Einbauraum vor CAD-Freigabe definieren; Zugänglichkeit der M8-/USB-/SMA-/Radsensoranschlüsse gemäß MEC-43 bewahren. |
 | MEC-47 | **Festgelegt – A: zusätzliche Sicherungsposition** | Zusätzlich zur automatisch einrastenden federnden Rastnase eine **optional aktivierbare mechanische Sicherungs-/Sperrposition am Druckhebel** vorsehen, damit sich der Schiebeverschluss bei besonders starken Vibrationen nicht versehentlich entriegeln lässt. | Betätigung mit Handschuhen, eindeutige Sperr-/Offenstellung, Verliersicherheit, Materialermüdung und Lösen im Wartungsfall prüfen; nur Rastnase genügt dann nicht als alleinige konstruktive Verriegelung. |
 
+
+### F.3 Temperatur und Umgebungsbedingungen – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| ENV-01 | **Festgelegt – A: Temperatur-Entwicklungsziel** | **TripTracer soll bei Umgebungstemperaturen von −20 °C bis +70 °C funktionieren.** Dies ist ein **Ziel**, keine bereits nachgewiesene Bauteil-, Display-, Knopfzellen- oder Systemfreigabe. | Riverdi-Display samt Betriebs- und Lagertemperatur, ESP32-S3, RTC/CR1220, SD, Kondensatoren, Verbinder, Elastomere und DC/DC-Leistungsderating jeweils gegen Datenblatt verifizieren; Kälte-, Hitze- und Sonnenlasttests am vollständigen Gerät. Bei nicht erfüllbarer Spanne Zielkonflikt vor Bauteilfreigabe offenlegen. |
+| ENV-02 | **Festgelegt – A: stufenweiser Übertemperaturschutz** | Bei kritischer Innenraumtemperatur zunächst Display-Backlight und Tastenringe dimmen bzw. nicht erforderliche Verbraucher reduzieren; bei weiterhin steigender/gefährlicher Temperatur Warnung, kritische Zähler sichern, offene GPX-/CSV-Dateien geordnet abschließen und kontrolliert abschalten. | Temperaturgrenzen und Hysterese bauteil-/messwertabhängig festlegen; Abschaltung benötigt verfügbare Pufferenergie und darf Grenzwerte der SD/RTC/Batterie nicht überfahren. Für anhaltendes ACC definierten sicheren Sperr-/Wiederanlaufzustand auslegen. |
+| ENV-03 | **Festgelegt – A: zusätzlicher Temperatursensor** | Auf der Hauptplatine **separaten digitalen Temperatursensor** zur Überwachung der Innentemperatur vorsehen; Messwert im (Entwickler-)Diagnosemenü und über Fehler-/Statusereignisse verfügbar. | Temperaturmessort außerhalb unmittelbarer MCU-/Wandler-Hotspots für repräsentativen Gehäusewert auswählen, Genauigkeit/I²C-Adresse und GPIO-/Busbudget prüfen; Sensorfehler erkennen. ESP32-interne Temperatur ist kein Ersatz für den festgelegten externen Sensor. |
+| ENV-04 | **Festgelegt – A: Druckausgleichsmembran** | Staubdichte, für das Gehäuse geeignete **Druckausgleichsmembran** in der ASA-Gehäusewand vorsehen, um Druckunterschiede bei Temperaturwechseln zu begrenzen; keine Behauptung, damit Kondenswasser vollständig zu vermeiden. | Membran mit nachgewiesenem Staubrückhalt passend zum Entwicklungsziel IP6X, Montage/Schutzlage, Wassereintritt bei Spritzwasser, Vibration, UV/Alterung, Luftdurchsatz und Klebe-/Einpressverfahren prüfen; tatsächliche Staubdichtheit des Gesamtsystems validieren. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -443,6 +453,8 @@
 | 13.10.2026 | MEC-40–43 | **Viererrunde A/B/A/A bestätigt:** microSD, CR1220 und BOOT-Jumper nach Abnahme des Rückdeckels gemeinsam ohne PCB-Ausbau zugänglich; **sechs M3-Schrauben** in Messing-Einsätzen; federnde Rastnase mit Druckhebel; sämtliche Außenanschlüsse auch in eingesetzter Schiebehalterung erreichbar. | Dichtungspressung, Servicefreiräume, Rastfestigkeit und Kabel-/Steckerzugang vor mechanischer Freigabe nachweisen. |
 
 | 13.10.2026 | MEC-44–47 | **Viererrunde C/A/A/A bestätigt:** austauschbare Führungseinsätze als Verschleißteile, elastisch gelagerte Fahrzeughalterung mit Gummipuffern, universelle Schraubgrundplatte mit mehreren Lochbildern, zusätzliche zuschaltbare Hebelsperre gegen unbeabsichtigtes Entriegeln. | Frühere Auswahl „nur Rastnase“ als Vorschlag überholt; federnde Rastnase MEC-42 bleibt plus zusätzliche Sicherungsposition. Einbau- und Vibrationsversuche vor Freigabe. |
+
+| 13.10.2026 | ENV-01–04 | **Viererrunde A/A/A/A bestätigt:** Betriebs-Entwicklungsziel −20 bis +70 °C; abgestufter Übertemperaturschutz bis kontrollierter Abschaltung; zusätzlicher digitaler PCB-Innentemperatursensor; staubschutzgeeignete Druckausgleichsmembran. | Komponentenratings, Schaltschwellen, Abschaltenergie, Membran-/Dichtheitsvalidierung und Hitze-/Kältetests bleiben offen; keine voreilige Temperatur- oder IP-Freigabe. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
