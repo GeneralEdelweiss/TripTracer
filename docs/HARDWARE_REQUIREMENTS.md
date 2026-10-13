@@ -697,6 +697,15 @@
 | HW-19 | **Festgelegt – A: getrennte Funktionsbereiche** | PCB-Layout räumlich gliedern: **Bordnetzeingang, Schutz und Schaltregler als zusammenhängenden Leistungsteil**, mit kontrollierten kurzen Stromschleifen; **GNSS/RF und empfindliche digitale/analoge Eingänge räumlich getrennt**. Durchgängige niederimpedante Masse-Rückstromführung statt unbedachter Masseschlitze. | Schaltknotenflächen und Rückstromwege, GNSS-Antennen-/RF-Freiraum, ESD-Ableitung und Temperaturpfade im Layout prüfen; EMV beim Bring-up messen. |
 | HW-20 | **Festgelegt – A: zwei PCB-Lagen bevorzugt, vier bei Bedarf** | Für den ersten Prototyp **2-Lagen-PCB bevorzugen**; auf **4 Lagen wechseln, wenn Routing, stabile Masse-/Rückstromführung, USB-/GNSS-Signalintegrität, Thermik oder EMV technisch einen deutlichen Vorteil erfordern**. Vorherige PCB-01–04-Regeln bleiben gültig. | Layout-Review dokumentiert die Lagenentscheidung; keine starren 2-Lagen-Vorgaben zulasten der Funktionssicherheit. |
 
+### Hardwareprototyp – 5-V-Buck-Reglerauslegung (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-21 | **Festgelegt – A: synchroner Buck** | Den zentralen **5-V-/2-A-Abwärtswandler mit synchroner Buck-Topologie und integriertem Schaltregler-IC samt externem Induktor** aufbauen. Dies präzisiert HW-17; ein fertiges DC/DC-Modul oder eine obligatorische externe MOSFET-Halbbrücke ist nicht vorgesehen. | Controller mit passenden integrierten Schaltern, Kompensations-/Stabilitätsanforderungen, Lastsprung- und Kurzschlussverhalten auswählen. |
+| HW-22 | **Festgelegt – A: mindestens 60-V-Eingangsfestigkeit** | Der gewählte Buck-IC muss eine **im Datenblatt spezifizierte zulässige Eingangsspannung von mindestens 60 V** besitzen; **9–36 V** bleiben der normale Dauerbetriebsbereich. Vorgeschalteter Automotive-Transientenschutz bleibt erforderlich. | Absolute-Maximum- und empfohlene Betriebsgrenzen unterscheiden; Überspannungsklemme/Load-Dump-/Surge-Konzept und Eingangskondensatoren separat abstimmen, einschließlich Derating und Reaktionszeit. |
+| HW-23 | **Festgelegt – A: mindestens 90 % Wirkungsgrad als Entwicklungsziel** | Für die **gesamte 24-V-auf-5-V-Wandlerstufe bei 2 A Ausgangsstrom** einen Wirkungsgrad von **mindestens 90 %** anstreben (10 W Ausgang, rechnerisch höchstens ca. 1,11 W Wandlerverlust bei genau 90 %). Kein ungemessener Leistungsnachweis. | Datenblattkurven für 24 V/2 A prüfen und am Prototyp Ein-/Ausgangsleistung sowie Bauteiltemperaturen messen; Schutz- und weitere 3,3-V-Stufen nicht irreführend in den reinen Buck-Wirkungsgrad einrechnen. |
+| HW-24 | **Festgelegt – C: Frequenz anhand konkretem Regler** | **Keine feste Schaltfrequenz vorgeben**. Schaltfrequenz bei Auswahl des konkreten Buck-IC anhand Induktorgröße, Wirkungsgrad, Ripple, EMV, GNSS-Empfindlichkeit und PCB-Routing bestimmen. | Vorgesehene Frequenz und Designentscheid dokumentieren; Schaltknoten-Störungen im GNSS-Frequenzband und Leitungs-/Strahlungsemissionen praktisch bewerten. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -865,6 +874,8 @@
 | 13.10.2026 | HW-17–20 | **Hardware-Viererrunde C/A/A/A bestätigt:** individuell ausgelegte diskrete 9–36-V-/5-V-Schaltreglerstufe statt DC/DC-Modul, getrennte strombegrenzte 3,3-V- und 5-V-Erweiterungsversorgung, räumliche Leistung/GNSS-Trennung und 2 PCB-Lagen bevorzugt mit 4-Lagen-Option. | Strom-/EMV-/Thermik-Auslegung und Lagenentscheid vor Layoutfreigabe prüfen. |
 
 | 13.10.2026 | HW-17 (Korrektur) | **Aktuelle bestätigte Auswahl A/A/A/A ersetzt C/A/A/A:** HW-17 nun integrierter Buck-Schaltregler mit externer Spule (kein fertiges DC/DC-Modul); HW-18–20 bleiben unverändert: separate Strombegrenzungen, getrennte Funktionsbereiche, 2 Lagen bevorzugt/4 bei Bedarf. | Frühere C-Festlegung ist historisch und nicht mehr gültig; LDO-/Lastbudget vor Schaltplanfreigabe prüfen. |
+
+| 13.10.2026 | HW-21–24 | **Hardware-Viererrunde A/A/A/C bestätigt:** synchroner integrierter Buck mit externer Spule, mindestens 60 V zulässige Eingangsspannung des Regler-IC, mindestens 90 % Wirkungsgrad als Entwicklungsziel bei 24 V auf 5 V/2 A, Frequenz erst mit konkretem Regler bestimmen. | Reglerdatenblatt, Eingangs-Transientenschutz, Induktordimensionierung und Effizienzmessung vor Layoutfreigabe. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
