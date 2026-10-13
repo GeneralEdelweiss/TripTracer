@@ -103,6 +103,31 @@ Der TPS26631 verlangt mindestens **4,5 V**, die beschlossene Startannahme erreic
 
 **Architekturstatus:** Die explizite PWR-03-eFuse-Bauteilvorgabe bleibt gültig; **LTC4380 wird nicht in die KiCad-Hauptschaltung eingefügt oder bestellt**, solange keine gesonderte Freigabe für eine Bauteil-/Architekturänderung vorliegt. Priorität: zuerst S1 mit TPS26631 sinnvoll dimensionieren; bei ungelöster Surge-/SOA-/Ruhestrom-Problematik diesen Vergleich auf der Basis des vollständigen Fahrzeug-Prüfprofils durchführen.
 
+## 3.6 Erste Lastabschätzung aus Herstellerdaten (noch **kein** gemessener Gesamtstrom)
+
+Das konkrete Riverdi-Modul **RVT35HITNWC00-B** verlangt für seine LED-Hintergrundbeleuchtung **15 V / 100 mA = 1,5 W typisch** (13,5–17 V LED-Betriebsspannung): ein **dedizierter geregelter Konstantstrom-Boost-Treiber** aus 5 V/anderer geeigneter Schiene ist erforderlich; bloßer Anschluss an 5 V ist unzulässig. Beim rechnerisch angenommenen Treiberwirkungsgrad von **85 %** sind allein dafür rund **1,76 W**, also **353 mA aus 5 V** einzuplanen; Wirkungsgrad und Startstrom sind bis zur Treiberwahl **nicht spezifiziert**. [Riverdi Modul-Datenblatt Rev. 1.1, Abschnitt 7](https://download.riverdi.com/RVT35HITNWC00-B/DS_RVT35HITNWC00-B_Rev.1.1.pdf).
+
+Das u-blox **MAX-M10N-00B** benötigt bei nomineller 3-V-Versorgung und Standard-GPS/Galileo/BeiDou-Tracking laut Datenblatt **7 mA am VCC + 3,7 mA am V_IO** (zusammen **10,7 mA typ. bei 1 Hz**, d. h. rund 32 mW bei 3 V), besitzt aber beim Start laut Hersteller **bis 100 mA Inrush**. **Bei den projektierten 5 Hz kann der Mittelwert abweichen**. [u-blox MAX-M10N-00B, Abschn. 4](https://content.u-blox.com/sites/default/files/documents/MAX-M10N-00B_DataSheet_UBXDOC-963802114-13143.pdf).
+
+Espressif verlangt für das **ESP32-S3-MINI-1-N8** eine Versorgung mit der Fähigkeit, **mindestens 500 mA bei 3,3 V** bereitstellen zu können (Leistungsreserve **1,65 W**); **dies ist ausdrücklich keine garantierte dauerhafte CPU-Leistungsaufnahme**. [ESP32-S3-MINI-1, elektr. Bedingungen](https://documentation.espressif.com/esp32-s3-mini-1_mini-1u_datasheet_en.html).
+
+Eine **nicht-bestellfähige Szenariorechnung** für den Hauptpfad lautet:
+
+| Lastpunkt | Angenommene elektrische Last | Status |
+|---|---:|---|
+| Riverdi-Backlight inkl. angenommener 85-%-Boost-Wirkung | 1,765 W am Boost-Eingang | Backlight 1,5 W laut Hersteller; 85 % reine Annahme |
+| ESP32-S3 Versorgungsauslegung 3,3 V × 0,5 A | 1,650 W | Versorgungsauslegungsreserve, nicht gemessener Dauerwert |
+| GNSS, 3,3-V-Schätzung aus 10,7 mA | 0,035 W | Herstellertracking bei 3 V/1 Hz, 5 Hz noch offen |
+| Sechs beleuchtete Tastenringe mit hypothetischen 20 mA × 3 V | 0,360 W | **nur hypothetischer Maximalfall**, LED-Treiberspezifikation fehlt |
+| microSD 3,3 V × angenommene 100 mA | 0,330 W | **nur Szenario**, kartenabhängige Schreibspitzen offen |
+| Zwei 5-V-Geber mit angenommenen je 100 mA | 1,000 W | **nur Szenario**, Kurzschlussgrenzen noch unbekannt |
+| Sonstige Verbraucher | 0,100 W | ungemessene Reserve |
+| **Summe** | **ca. 5,24 W** | **keine endgültige Worst-Case-Freigabe** |
+
+Bei hypothetisch **80 % Gesamt-Wirkungsgrad ab BAT+** entspräche das etwa **0,73 A bei 9 V**, **0,55 A bei 12 V**, **0,27 A bei 24 V**, **0,18 A bei 36 V**. Hieraus folgt **nicht**, dass wir 2,4 A ILIM benötigen: Stromschwellwert erst nach Messung/Peak-Verteilung einschließlich angeschlossener Radgeber und Worst-Case-Kondensatorladung festlegen. Möglicherweise ist **TPS26630 (nur 1× Strombegrenzung statt der 2×-Pulsvariante TPS26631)** für eine vorteilhaftere Fehlerschutzcharakteristik geeignet, jedoch **nicht** ohne Last- und Lieferfähigkeitsvergleich ersetzen.
+
+**Wichtige Lastabwurf-Folgerung für Kaltstart:** Sobald der Fahrer den Motor startet, kann das zeitweise Abschalten des Backlights die Core-Hold-up-Energie erheblich reduzieren. Bei 15 ms würde die Hintergrundbeleuchtung allein **22,5 mJ am LED-Ausgang** verbrauchen (plus Treiberverluste); diese Last muss nicht gepuffert werden, wenn das Backlight rechtzeitig abgeschaltet ist. Die für 15-ms-Überbrückung entscheidende **CPU/SD/GNSS-Kernlast bleibt zu messen**. Für einen idealen 5-V-Puffer zwischen 5 und 4 V gilt `C = 2·P·t / (5²−4²)`; bei **0,6 W** und **15 ms** z. B. **2,0 mF ideal**, ohne ESR/Toleranzen/Temperatur/Restwirkungsgrad. Die Schaltung muss schon **vor** dem Spannungseinbruch schnell genug auf Lastabwurf umschalten.
+
 ## 4. Zustandsautomat und Einschalt-Selbsthaltung
 
 | Zustand | ACC | M8 BAT+ | USB | U401/Q601 | Nachweis |
