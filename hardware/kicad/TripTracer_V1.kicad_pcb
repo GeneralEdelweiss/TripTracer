@@ -245,31 +245,31 @@
 			)
 		)
 	)
-	(footprint "Tripmaster:L1_Bourns_SRN6045_220M"
+	(footprint "Tripmaster:L_Bourns_SRP6030VA_100M"
 		(layer "F.Cu")
 		(uuid "a1c93062-5725-4f5b-bd3f-00000000791d")
 		(at 74 52)
-		(descr "Bourns SRN6045-100M 22uH; current rating verify, layout: two 2x6mm pads, gap 2.3mm | Status: HERSTELLER_LANDMASS_ELEKTRIK_PRUEFEN")
-		(tags "Tripmaster")
+		(descr "Bourns SRP6030VA-100M 10uH Irms/Isat typ 5A AEC-Q200; land-pattern per Bourns PDF 8.0mm outside, 3.7mm gap, 3.4mm height. Preliminary footprint, 3D model not included.")
+		(tags "SRP6030VA 10uH 5A")
 		(property "Reference" "L101"
-			(at 0 -4.4 0)
+			(at 0 -4.3 0)
 			(layer "F.SilkS")
-			(uuid "a1dfd537-c363-4d2d-9a7f-64b4a796316c")
+			(uuid "d5b8358b-043c-43ac-bf2d-4b25ba2026fa")
 			(effects
 				(font
-					(size 0.9 0.9)
-					(thickness 0.13)
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
-		(property "Value" "L1_Bourns_SRN6045_220M"
-			(at 0 4.4 0)
+		(property "Value" "10uH Bourns SRP6030VA-100M (Isat typ 5A)"
+			(at 0 4.3 0)
 			(layer "F.Fab")
-			(uuid "0846fcff-be36-451a-999b-5050d7b0ca41")
+			(uuid "9e74db82-3bb4-48f0-95b1-ae6a4156128c")
 			(effects
 				(font
-					(size 0.7 0.7)
-					(thickness 0.1)
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -277,7 +277,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "cec28559-3f2d-4661-a96e-c915d13ff50e")
+			(uuid "fbae42ae-7f20-4db7-987f-74b782569370")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -288,7 +288,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2c81314b-a7a2-4c79-a20d-bae47a3430d2")
+			(uuid "ded3d50f-9a37-4cca-ae61-ef31a3272726")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -298,54 +298,74 @@
 		(path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000071")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -3.6 -3.35)
+			(end 3.6 -3.35)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "F.SilkS")
+			(uuid "e3761539-24a0-4d80-8767-bb1a785941ca")
+		)
+		(fp_line
+			(start -3.6 3.35)
+			(end 3.6 3.35)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "F.SilkS")
+			(uuid "efea674c-6e7b-4c76-bdaa-509c996591b3")
+		)
 		(fp_rect
-			(start -3.55 -3.55)
-			(end 3.55 3.55)
+			(start -4.25 -3.8)
+			(end 4.25 3.8)
 			(stroke
 				(width 0.05)
 				(type default)
 			)
 			(fill no)
 			(layer "F.CrtYd")
-			(uuid "be399fef-7aa3-46a9-9fef-68843fc1a581")
+			(uuid "81bc9a98-067c-4556-b81d-1ba804bf0518")
 		)
 		(fp_rect
-			(start -3 -3)
-			(end 3 3)
+			(start -3.55 -3.3)
+			(end 3.55 3.3)
 			(stroke
 				(width 0.1)
 				(type default)
 			)
 			(fill no)
 			(layer "F.Fab")
-			(uuid "e6d4e2a5-9a12-4297-920b-4fcb9a0abb5a")
+			(uuid "01dd0030-11ae-4f10-bc8e-e685eaba91ca")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "4096f7ac-b382-4669-84ae-438e88029cbd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
 		)
 		(pad "1" smd rect
-			(at -2.15 0)
-			(size 2 6)
+			(at -2.925 0)
+			(size 2.15 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "Net-(U101-SW)")
-			(uuid "2f3cf0c2-c984-4338-a62f-c9678824869f")
+			(uuid "e46ef625-7d86-4754-9878-f4a3dfc16772")
 		)
 		(pad "2" smd rect
-			(at 2.15 0)
-			(size 2 6)
+			(at 2.925 0)
+			(size 2.15 3.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "V5_BUCK_RAW")
-			(uuid "3302b0d0-b2e6-41aa-956f-b2748d76cc5d")
+			(uuid "13aa3d0f-9b54-4bd2-b9fc-60efeb4525fd")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/Bourns_SRN6045_100M.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
 	)
 	(footprint "Tripmaster:C_1210_3225"
 		(layer "F.Cu")

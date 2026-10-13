@@ -13,6 +13,14 @@ def calculate():
     power=10.0
     current=[{'vin_V':v,'assumed_efficiency':eta,'input_current_A':power/(v*eta)}
              for v in [6,9,12,24,30] for eta in [0.8,0.85,0.9]]
+    buck=[]
+    for vin in [6,9,12,24,30]:
+        for inductance,frequency,label in [(10e-6,400e3,'nominal'),(8e-6,340e3,'initial tolerance only'),(6e-6,340e3,'assumed DC-bias sensitivity; not guaranteed')]:
+            ripple=5*(1-5/vin)/(inductance*frequency)
+            rms=(2**2+ripple**2/12)**0.5
+            buck.append({'vin_V':vin,'load_A':2,'inductance_H':inductance,'frequency_Hz':frequency,
+                         'scenario':label,'ripple_pp_A':ripple,'peak_A':2+ripple/2,
+                         'rms_A':rms,'DCR_68mOhm_loss_25C_W':rms**2*0.068})
     shunts=[]
     for r in [0.002,0.005,0.01,0.02]:
         shunts.append({'shunt_ohm':r,'ocp_3A_RLIM_ohm':12*50/(3*r),
@@ -29,6 +37,8 @@ def calculate():
     return {'status':'design scenarios only; no lab/ISO or circuit release',
             'power_assumption_W':power,'input_current_scenarios':current,
             'shunt_tradeoffs':shunts,
+            'buck_inductor_scenarios':buck,
+            'buck_inductor_limitations':'CCM ideal ripple only; no guaranteed DC-bias/temperature inductance, core losses, short-circuit/loop/thermal or 6V dropout validation',
             'uv_candidate_fall_V':[min(uv),max(uv)],
             'uv_candidate_rise_V':[min(uv_on),max(uv_on)],
             'ov_TI_reference_100k_1k65_rise_V':[min(ov_reference),max(ov_reference)],

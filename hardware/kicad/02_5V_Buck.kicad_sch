@@ -17,7 +17,7 @@
  (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066" (reference "U101") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:L") (at 187.96 90.17 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a26d9b0c-7f10-4e5a-a65f-000000000071")
  (property "Reference" "L101" (at 191 72.06 0) (effects (font (size 1.27 1.27))))
- (property "Value" "10uH Bourns SRP6030VA-100M (5A Isat)" (at 191 74.6 0) (effects (font (size 1.27 1.27))))
+ (property "Value" "10uH Bourns SRP6030VA-100M (Isat typ 5A)" (at 191 74.6 0) (effects (font (size 1.27 1.27))))
  (property "Footprint" "Tripmaster:L_Bourns_SRP6030VA_100M" (at 188 89.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
  (pin "1" (uuid "db602d6f-e2b0-42de-8b2c-0000000080f1")) (pin "2" (uuid "db602d6f-e2b0-42de-8b2c-0000000080f2"))
  (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066" (reference "L101") (unit 1)))))

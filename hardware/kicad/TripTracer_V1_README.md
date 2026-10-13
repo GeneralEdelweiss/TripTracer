@@ -1,5 +1,7 @@
 # TripTracer V1 – eigenständige KiCad-Projektdateien und Entwicklungsstand
 
+**Spule synchronisiert (14.10.2026):** [L101-Herstellergeometrie und Grenzen](../../docs/validation/2026-10-14-inductor-sync/README.md). DRC weiterhin 6, unverbundene Verbindungen 79, Parität nun 43 fehlende Footprints. Keine Freigabe.
+
 **Aktueller PCB-Stand 14.10.2026:** [142 vorhandene Pads den Root-Netzen zugeordnet](../../docs/validation/2026-10-14-pcb-net-sync/README.md): 6 DRC-Meldungen, 79 unverbundene Verbindungen und 45 Paritätsabweichungen. Kein Routing-/Freigabenachweis; ERC weiterhin 304 Meldungen.
 
 **Prüfstand 14.10.2026:** [Buck-Raster und Darstellung nativ korrigiert](../../docs/validation/2026-10-14-buck-grid/README.md): 304 ERC-Meldungen, 14 DRC-Meldungen und 207 Paritätsabweichungen bleiben; keine Freigabe. Alle 260 Pin-Netz-Zuordnungen unverändert.

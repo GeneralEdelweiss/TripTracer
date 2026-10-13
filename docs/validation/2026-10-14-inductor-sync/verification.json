@@ -1,0 +1,18 @@
+{
+  "reference": "L101",
+  "previous_footprint": "Tripmaster:L1_Bourns_SRN6045_220M",
+  "new_footprint": "Tripmaster:L_Bourns_SRP6030VA_100M",
+  "manufacturer": "Bourns SRP6030VA-100M",
+  "land_pattern_source": "https://www.bourns.com/docs/product-datasheets/SRP6030VA.pdf",
+  "pad_size_mm": [
+    2.15,
+    3.4
+  ],
+  "outer_span_mm": 8.0,
+  "inner_gap_mm": 3.6999999999999997,
+  "position_preserved": true,
+  "all_existing_pad_nets_unchanged": true,
+  "courtyard_min_pad_edge_margin_mm": 0.25,
+  "3D_model": "not provided; no fabricated model",
+  "status": "Footprint/source geometry checked, no mechanical/thermal/fabrication release"
+}

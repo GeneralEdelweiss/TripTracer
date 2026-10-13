@@ -24,3 +24,7 @@ Native pcbnew-API prüfte nach Speichern/Neuladen alle Pad-Netznamen gegen die N
 Parität aktuell: 43 fehlende Footprints und zwei L101-Abweichungen (Wert/Footprint). Alle vorhandenen nummerierten Pad-Netze stimmen mit der geprüften Root-Netzliste überein. Der aktuelle Schaltplan selbst ist noch unvollständig; richtige Übernahme seiner Netze macht die Gesamtversorgung nicht funktionsfähig. U201-Library-Geometrieabweichung, USB-Bohrungen, Spulen-Footprint, sämtliche fehlenden Bauteile, Routing und Mechanik bleiben offen.
 
 Datenblatt-/Pinoutfreigaben aller Bauteile, Thermik, Last-/Transiententests und die LM74930-Migration stehen weiter aus. Keine Bauteile gekauft oder neu hinzugefügt; BOM-Kosten unverändert. DRC gesamt fehlgeschlagen. Reale JSON-Ausgabe und vollständige 142-Pad-Zuordnung in drc-after.json/verification.json.
+
+## GitHub-Gegenprüfung
+
+[Run 38477207257](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38477207257), Commit 530e04f7244c2a355e90ea32f8cef7c683316c96: KiCad 10.0.6 bestätigt ERC 304, DRC 6, unverbundene Verbindungen 79 und Parität 45. Hierarchie und Netlistenexport erfolgreich; Gesamtprüfung fehlgeschlagen. Rohlog in github-run.log. Die nachfolgende L101-Synchronisierung gehört zu einem separaten Stand.
