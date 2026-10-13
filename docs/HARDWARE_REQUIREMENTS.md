@@ -344,6 +344,15 @@
 | GPS-54 | **Festgelegt – A: fehlerhaften Eingang sperren** | Bei anhaltend gestörtem oder unplausiblem Radimpulssignal **Radsensor als ungültig markieren**, Warnsymbol und Diagnoseereignis anzeigen/speichern. Wenn GNSS brauchbar, auf GNSS wechseln; andernfalls keine erfundene Distanz oder Geschwindigkeit aus Radimpulsen berechnen. | Fehlerkriterien mit GPS-49, Rückkehrbedingungen und Hysterese festlegen; Fehlfunktion des Radsensors darf GNSS-Messung nicht blockieren. |
 | GPS-55 | **Festgelegt – A: Radumfang und Impulse/Umdrehung** | Manuelle Kalibrierung im Menü über **Radumfang und Impulse pro Radumdrehung**; daraus die **Impulse/km berechnen und zur Kontrolle anzeigen**. GPS-Referenzkalibrierung gemäß GPS-21/23 bleibt möglich. **Keine zusätzliche direkte manuelle Eingabe von Impulsen/km beschlossen.** | Wertebereiche, Darstellung der Einheiten, Null-/Fehleingaben, Profilzuordnung und Änderungsbestätigung verifizieren; bestehenden fixen Kalibrierwert gemäß GPS-51 erhalten, bis Änderung bestätigt ist. |
 
+### D.12 Elektrischer Radsensoranschluss – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-56 | **Festgelegt – B: M8, 4-polig** | Optionaler Radsensoranschluss als **separater vierpoliger M8-Rundsteckverbinder**. Funktionen: geschützte +5-V-Sensorversorgung, Sensormasse, Impulseingang und **ein vierter Kontakt als Reserve**; verbindliche Pin-Nummerierung und Verwendung der Reserve noch nicht festgelegt. | Steckercodierung, Geschlecht, mechanische Zugänglichkeit, M8-Stromeingang eindeutig gegen Verwechslung unterscheiden; elektrische Belegung vor Schaltplan-/Kabelbaumfreigabe finalisieren. |
+| GPS-57 | **Festgelegt – A: ESD-, Verpol- und Überspannungsschutz** | Radimpulseingang mit **ESD-Schutz, geeigneter Begrenzung gegen Überspannung und Schutz gegen Fehlverdrahtung/Verpolung** sowie Pegelanpassung auf sichere MCU-Logikspannung auslegen. | Fahrzeugnahe Transienten, Kurzschluss auf Masse/+5 V/Bordnetz, Leckströme und 1-kHz-Signaltreue testen. Diese Schutzvorgabe ist **keine Freigabe zum normalen Betrieb mit 12-V-Sensorsignalen**. |
+| GPS-58 | **Festgelegt – A: sensortypabhängige Software-Entprellung** | **Reedkontakte mit einstellbarer Entprellzeit** im jeweiligen Fahrzeugprofil verarbeiten; bei Hall-/Open-Collector-Gebern deutlich kürzere Filterzeiten anwenden, sodass die bereits festgelegte Erfassung **bis 1 kHz** möglich bleibt. | Einstellgrenzen, Flanken-/Periodenfilter und maximale reale Fahrzeugimpulsrate validieren; keine Mehrfachzählungen oder Unterdrückung echter 1-kHz-Impulse. |
+| GPS-59 | **Festgelegt – A: Sensorversorgung begrenzen und abschalten** | Externe 5-V-Sensorversorgung erhält eine **eigene elektronische Strombegrenzung und automatische Abschaltung bei Überlast/Kurzschluss** mit auswertbarem Fehlerstatus. GNSS, Zähler, SD und Hauptversorgung laufen unabhängig weiter. | Stromlimit, Fehlererkennung, Wiederanlaufstrategie, thermische Grenzen und Kurzschluss nach Bordnetz/GND prüfen; Warn-/Fehlerereignis protokollieren. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -632,6 +641,8 @@
 | 13.10.2026 | GPS-48–51 | **Viererrunde A/A/A/A bestätigt:** Impulse/Radumdrehung und Radumfang je Fahrzeug frei einstellbar; Radimpulse bei gültigem GNSS auf Plausibilität prüfen; Eingang für Reed, Hall und Open-Collector; Kalibrierwert nur nach bestätigter Neukalibrierung ändern. | Eingangspegel, Entprellung, Fehlergrenzen und profilgebundene Persistenz technisch validieren; keine pauschale 12-V-Pegelfreigabe. |
 
 | 13.10.2026 | GPS-52–55 | **Viererrunde A/A/A/A bestätigt:** geschützte strombegrenzte 5-V-Sensorversorgung, Radimpulserfassung bis 1 kHz, bei dauerhaft fehlerhafter Sensorleitung Radmessquelle sperren und wenn möglich GNSS verwenden, manuelle Kalibrierung über Radumfang plus Impulse/Umdrehung mit abgeleiteter Impulse/km-Anzeige. | Eingangsfilter/Entprellung, 5-V-Strombudget, Fehlerhysterese und Profilkalibrierung prüfen; keine direkte Impulse/km-Eingabe hinzugefügt. |
+
+| 13.10.2026 | GPS-56–59 | **Viererrunde B/A/A/A bestätigt:** separater M8-Radsensoranschluss mit vier Polen (+5 V, GND, Signal, Reserve), Eingangsschutz gegen ESD/Verpolung/Überspannung, Software-Entprellung abhängig von Reed/Hall/Open-Collector, eigene elektronische Strombegrenzung/Abschaltung der 5-V-Sensorversorgung bei Fehler. | Pinbelegung, Steckerverwechslung, 1-kHz-Filterverhalten und Kurzschlussentkopplung festlegen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
