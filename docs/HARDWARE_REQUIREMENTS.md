@@ -4,6 +4,14 @@
 **Erstellt:** 13.10.2026  
 **Ziel:** Erst Funktionen, Betriebsbedingungen, Randbedingungen und Prüfkriterien festlegen; **danach** geeignete Bauteile, Schaltung und PCB-Layout auswählen.
 
+### Prototyp-Fokus – Entwicklungspriorität ab 13.10.2026
+
+**Verbindliche Vorgehensweise:** Bis zum funktionsfähigen Hardwareprototyp nur noch Entscheidungen aktiv abfragen, die **Bauteilauswahl, elektrische Schnittstellen, Schaltplan, PCB-Layout, Fertigung, thermische Auslegung oder Gehäuse** beeinflussen. Die bereits beschlossenen Firmware-/UI-Anforderungen bleiben als spätere Implementierungsanforderungen erhalten, werden aber **nicht** in weiteren Detail-Viererrunden vertieft, solange kein unmittelbarer Hardwareeinfluss besteht.
+
+**Prototyp-Ziel:** ESP32-S3 und Firmwareflash über USB-C, Riverdi-Display, sechs beleuchtete Tasten, MAX-M10N samt externem GNSS-Antennenanschluss, zwei getrennte geschützte Radimpulseingänge über M8 4-polig mit 5-V-Sensorversorgung, 9–36-V-Eingang mit Bordnetzschutz, FRAM, RTC/Backupzelle, interne microSD, Helligkeits- und Temperatursensor sowie kontrollierte Abschaltstützung. Ersthardware in KiCad elektrisch prüfen, ERC/DRC und Fertigungsdaten verifizieren und durch grundlegende Bring-up-Tests nachweisen.
+
+**Nächste Entscheidungsrunden:** Ausschließlich bislang offene Hardwarefragen; Softwaredetails (z. B. Fehlerpuffergrößen, CSV-Aufbau und Diagnosemenü-Interaktion) ausdrücklich zurückstellen. Bereits getroffene Entscheidungen nicht erneut als offene Frage behandeln.
+
 ## Vorgehensweise
 
 1. Wir besprechen Entscheidungen üblicherweise **in Blöcken von drei bis vier Punkten** und übernehmen sie gesammelt, sofern der Nutzer nichts davon ausdrücklich offenlassen möchte.
