@@ -87,6 +87,29 @@ Die erste Kostenprobe war noch zu pessimistisch: Bei LCSC finden sich **lagernde
 
 Quellen: [LCSC TSD16N25M C2829043](https://www.lcsc.com/product-detail/C2829043.html), [LCSC onsemi FQD16N25CTM C415866](https://www.lcsc.com/product-detail/C415866.html), [onsemi FQD16N25C-Datenblatt](https://www.onsemi.com/pdf/datasheet/fqd16n25c-d.pdf), [Infineon AUIRFR4292-Datenblatt](https://www.infineon.com/assets/row/public/documents/10/49/auirfr4292.pdf?fileId=5546d462533600a4015355b59f38148b).
 
+## 4.2 Neuer starker 80/20-Kandidat: **LM74930-Q1 integriert Circuit Breaker**
+
+**Wichtiger Fund bei der Überprüfung der Zusatz-eFuse:** TI hat mit dem **LM74930-Q1** bereits einen für den **200-V-ungedämpften 24-V-Load-Dump** vorgesehenen Automotive-Controller, der im **gleichen einen IC** Verpol-/Rückstromschutz, OVP/UVLO, elektronische Lastabschaltung **sowie einstellbaren Überstrom- und Kurzschlussschutz** einschließlich Fault-Signal und **Auto-Retry oder Latch-Off** bietet. Anders als beim **LM74800-Q1** ist eine separate TPS26631 möglicherweise nicht nötig. [TI-Bauteil](https://www.ti.com/product/LM74930-Q1), [TI-Anwendungsbeschreibung](https://www.ti.com/lit/ab/snoaaa1/snoaaa1.pdf), [Abschn. 7.3.4/7.3.5 Auto-Retry/Latch](https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf).
+
+**Plausible Systemvorteile:** 4–65-V-nomineller Vin-Bereich, 6-V-Motorstart prinzipiell möglich, AEC-Q100, **OV cut-off** statt erzwungener linearer Clamp, 200-V-Load-Dump-HV-FET-Topologie; Sensestromwiderstand zwischen MOSFET und VOUT ermöglicht näher am Eingang einen definierten Überstromschutz. Die TI-Referenz dimensioniert **45 W und 3 A nominal / 5 A Peak**; das ist **nicht** unser automatisch richtiges Stromlimit. TripTracer nach echtem Lastbudget und den Folgen von USB-/5-V-Abzweigen **deutlich kleiner** dimensionieren. Q1/Q2, OVP-/UVLO-R und TVS sind weiterhin notwendig; zusätzlich Rsense sowie TMR/ILIM/ISCP-Beschaltung; weniger ICs heißt nicht null externe Bauteile.
+
+### Nur die IC-Einkaufskosten (netto, Mouser DE, unverbindlicher Stand 13.10.2026)
+
+| Variante | 1 Gerät | 10 Geräte | 100 Geräte | Funktionsabgrenzung |
+|---|---:|---:|---:|---|
+| **LM74800-Q1 + TPS26631** | **6,80 €** | **5,15 €** | **4,26 €** | zwei ICs, zusätzlichen eFuse-Blocking-FET und weitere R/Cs prüfen |
+| **LM74930-Q1** | **5,39 €** | **4,13 €** | **3,47 €** | ein IC, **zusätzlicher Shunt und Timer-/Limiter-R/C**, 24-QFN- statt 12-WSON-IC |
+| **Reine IC-Ersparnis** | **1,41 €** | **1,02 €** | **0,79 €** | *keine komplette Stückkosteneinsparung*: Shunt, Layout, PCBA/Extended-Fees, Kabelsicherung, Lieferanten und Test können das Delta verändern |
+| LM74800-Q1 **ohne** eFuse | 2,58 € | 1,94 € | 1,59 € | auf Stückpreis günstiger, **Überstrom-/Kurzschluss-Risiko muss dann durch externe Sicherung/Buck- und Leiterbahnschutz nachgewiesen sein** |
+
+[LM74930 QRGERQ1 bei Mouser](https://www.mouser.de/de/ProductDetail/Texas-Instruments/LM74930QRGERQ1), [LM74800 QDRRRQ1 bei Mouser](https://www.mouser.de/de/ProductDetail/Texas-Instruments/LM74800QDRRRQ1), [TPS26631 bei DigiKey](https://www.digikey.de/de/products/detail/texas-instruments/TPS26631PWPT/12165640).
+
+**Beschaffung:** LM74930QRGERQ1 = **LCSC/JLC C22428070, Extended**, VQFN-24-EP **4×4 mm**, LCSC derzeit als vorrätig gemeldet (Einzelpreis **4,4426 USD**, ab 100 **3,2765 USD**). [LCSC](https://www.lcsc.com/product-detail/C22428070.html), [JLCPCB](https://jlcpcb.com/partdetail/TexasInstruments-LM74930QRGERQ1/C22428070). Einbau/Handlötbarkeit **schwieriger** als SOT/SOIC, aber 12-WSON-LM74800 ebenfalls mit Unterseitenpad; JLC-SMT-Bestückung bevorzugt und bei Kostenvergleich mitrechnen. Das zusätzliche Shunt-Layout muss eine verlässliche Kelvin-Anbindung bieten.
+
+**Auto-Retry vs. Latch-Off:** Der LM74930 unterstützt beides. Wegen Nutzerpriorität **Brand vermeiden, Datenverlust tolerieren** ist **Latch-Off bei dauerhaftem Überstrom** als sicherheitsorientierte Voreinstellung zu prüfen; normaler Neustart über ACC-Zyklus. Ein automatisches Retry im dauerhaften Kurzschluss könnte dagegen thermische Pulsbelastungen wiederholen; Betriebsmodus erst aus Temperatur-/Fehlerprüfung freigeben. [TI-Datenblatt 7.3.4–7.3.5](https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf). Wegen der **bestehenden PWR-12-Anforderung (Auto-Retry)** ist dies **noch keine stillschweigende Änderung**, sondern ein zu entscheidender Trade-off.
+
+**Stand nach der neuen Suche:** **LM74930-Q1 als priorisierter Schaltungs-Kandidat** für Eingangsschutz *mit explizitem Kurzschlussschutz*. **LM74800-Q1 als kostenarme Vergleichsvariante** bei nachgewiesener Sicherheit ohne eigene eFuse. Vor Bevorzugung einer Variante die vollständige R/C-/Shunt-/FET-/Fuse-/PCBA-BOM und die fatalen Fehlerfälle rechnen; kein „LM74930 löst alles“ behaupten. Insbesondere ist die **~100-µA-OFF-Zielvorgabe** mit jeder immer-verbundenen HV-/OV-Teilerstufe zu verifizieren und 200-V-Gate-/FET-/Sicherungsstress zu messen.
+
 ## 5. Nächste Baugruppenschritte in sinnvoller Reihenfolge
 
 1. **Brand-/Kurzschluss-FMEA** mit BAT+-Kurzschluss vor/nach Q1/Q2, FET D-S stuck ON, Buck-Eingang kurz, 5-V- und externe Sensorleitung kurz, 24-V-Transient, TVS selbst kurz, Masseausfall und USB-Rückspeisung. Leiter-/Sicherungskette zuerst freigeben; konkret Sicherung und Leiterbahnen gemeinsam festlegen.
