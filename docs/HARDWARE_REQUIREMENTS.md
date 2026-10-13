@@ -410,6 +410,15 @@
 | GPS-79 | **Festgelegt – A: Schlupfverdacht ab 15 % für 2 s** | Ein **möglicher Radschlupf** wird erkannt, wenn die plausible Radgeschwindigkeit über **mindestens zwei Sekunden um mindestens 15 %** von einer **ausreichend zuverlässigen GNSS-Geschwindigkeit** abweicht. Der Verdacht alleine ist noch kein eindeutiger Defektnachweis. | Kombination der beiden Radgeber gemäß GPS-76 zur Plausibilisierung verwenden; zeitliche Synchronisierung, Beschleunigung, Kurvenfahrt, niedrige Geschwindigkeiten und GNSS-Qualität berücksichtigen. 15 %/2 s sind feste Sollwerte dieser Runde, keine profilabhängige Einstelloption. |
 | GPS-80 | **Festgelegt – A: Rückkehr nach 5 s Plausibilität** | Nach einer bestätigten schlupfbedingten Umschaltung auf GNSS erst dann automatisch zum gemäß Fahrzeugprofil bevorzugten Radgeber zurückkehren, wenn dessen Messwerte **fünf Sekunden stabil und plausibel** sind. | Hysterese und erneutes Auftreten von Schlupf testen; kein Distanzsprung oder doppelt integrierter Weg beim Quellenwechsel. |
 
+### D.19 Vollständiger Quellenausfall und Wiederaufnahme – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-81 | **Festgelegt – A: automatische Distanzzählung anhalten** | Wenn **GNSS und beide Radimpulseingänge keine verlässliche Distanzquelle** liefern, automatische Distanzintegration **anhalten**, bisherige Zählerstände bewahren und Warnstatus anzeigen; **keine erfundene Strecke** addieren. Die ausdrücklich vom Nutzer betätigten **±10-m-Korrekturtasten** bleiben funktionsfähig. | Keine verdeckten automatischen Inkremente; Ausfallbeginn und -ende sowie weiterhin mögliche manuelle Korrekturen in Diagnose/CSV korrekt zuordnen. |
+| GPS-82 | **Festgelegt – A: strengeres GNSS-Gütekriterium für Schlupf** | GNSS-Werte dürfen als **Referenz für Schlupferkennung** nur bei **strengeren Qualitäts- und Plausibilitätskriterien** als für die normale GNSS-Distanzintegration verwendet werden. | Separater Qualitätsstatus mit horizontaler Genauigkeit, Fixstabilität, Geschwindigkeitssicherheit und Ausreißerprüfung; keine Schlupfwarnungen aus unzuverlässigen GNSS-Daten. |
+| GPS-83 | **Festgelegt – A: dynamische Radimpuls-Timeouts** | Fehlende Radimpulse **nur bei plausibel erwarteter Fahrzeugbewegung** als Aussetzer bewerten; Timeout-/Fehlererkennung abhängig von Fahrzeuggeschwindigkeit und erwarteter Impulsfrequenz statt starrem Timer. | Stillstand, Schritttempo, unterschiedliche Impulse/Umdrehung, GNSS-Ausfall und ausbleibende Flanken auseinanderhalten; elektrische Kurzschlüsse weiterhin separat erkennen. |
+| GPS-84 | **Festgelegt – A: automatische Wiederaufnahme ohne Nachberechnung** | Sobald wieder mindestens eine nach bestehenden Kriterien gültige Quelle verfügbar ist, **automatische Distanzmessung ohne Fahrerbestätigung fortsetzen**, aber **keine während des Ausfalls unbekannte Strecke rekonstruieren, rückwirkend nachtragen oder einen Distanzsprung erzeugen**. | GNSS-Positionsanker nach Empfangslücke neu setzen, Radimpulszähler ohne Doppelzählung übernehmen, Quellenwechsel und Messlücke im Log markieren. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -724,6 +733,8 @@
 | 13.10.2026 | GPS-75–77, STO-44 | **Viererrunde B/C/A/C bestätigt:** GNSS-/Radsensor-Priorität je Fahrzeugprofil statt festem GNSS-Vorrang; Schlupferkennung aus GNSS- und Radgeber-Vergleich kombiniert; bei verlässlich erkanntem Radschlupf zuverlässiges GNSS als Distanzquelle; in jedem CSV-Datensatz Messquelle und quellenspezifischer Qualitätsindikator. | Früheren GNSS-Vorrang als überholt behandeln, Abgrenzung reine Differenz/Schlupfnachweis und konsistente Quellendefinition verifizieren. |
 
 | 13.10.2026 | GPS-78–80, UI-48 | **Viererrunde A/A/A/A bestätigt:** Profilpriorität über einfache Auswahl GNSS/Radsensor, Schlupfverdacht bei 15 % Abweichung über mindestens 2 s gegen zuverlässiges GNSS, Rückkehr zur bevorzugten Radquelle nach 5 s stabilen Messwerten, kurzer Hinweis plus dauerhaftes Statussymbol. | Schlupfverdacht nicht mit sicherem Fehlernachweis verwechseln; Quellenwechsel nur bei plausibler Zuordnung. |
+
+| 13.10.2026 | GPS-81–84 | **Viererrunde A/A/A/A bestätigt:** bei Ausfall aller Distanzquellen automatische Zähler anhalten und warnen (manuelle ±10-m-Korrektur bleibt), strengere GNSS-Qualität zur Schlupferkennung, geschwindigkeits- und impulserwartungsabhängige Radgeber-Ausfallerkennung, automatische Wiederaufnahme ohne Nachberechnung unbekannter Ausfallstrecke. | Qualitätsgates, Timeout bei langsamer Fahrt, neuer GNSS-Anker und ereignisgenaue CSV-Dokumentation prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
