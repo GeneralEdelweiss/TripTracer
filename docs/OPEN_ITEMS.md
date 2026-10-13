@@ -4,6 +4,8 @@
 
 **Konkreter 80/20-Schutzkonzept-Entwurf:** [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md). **OV-Abschaltung statt 200-V-Ausgangsklemme** bevorzugt; LM74800-Q1 + lieferbaren **250-V-HV-MOSFET** und günstigeren 60-V-FET prüfen, keine eFuse-/Sicherheitsfunktion ohne Fehleranalyse stillschweigend streichen. **OV-Teiler im OFF** auf Ruhestrom und während Surge auf Pulsfestigkeit testen; Q1/Fuse/Buck Kurzschluss sicher begrenzen.
 
+**Priorisierter Vergleich:** **LM74930-Q1** (eine Schutz-IC-Stufe mit Überstrom-/Kurzschluss-Limiter, 200-V-Load-Dump, UVLO/OVP) vs. **LM74800-Q1** (ohne eFuse; nur bei anderweitig nachgewiesenem Kurzschluss-/Leitungsschutz). Siehe [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md). Im portablen KiCad-10-Symbollib ist der **LM74930-Q1 als 24-Signalpin-Kandidat** eingetragen; **Thermal-Pad RTN muss frei bleiben; Footprint/Pin-Pad-Mapping noch offen, Symbol nicht im Schaltplan verdrahtet, kein ERC**.
+
 ## Priorität A – Stromversorgung V1, Variante 3 (relaislos)
 
 Maßgebliche Analyse: [SOLID_STATE_POWER_ARCHITECTURE.md](SOLID_STATE_POWER_ARCHITECTURE.md). Die Entscheidung für Variante 3 ist **eine Entwicklungsrichtung, keine Sicherheits- oder Fertigungsfreigabe**.
