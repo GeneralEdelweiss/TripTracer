@@ -2,6 +2,8 @@
 
 **Stand: 13.10.2026.** Aktiver Entwicklungsstand: [TripTracer V1](../hardware/kicad/TripTracer_V1_README.md); V0.3 ist eine historische Referenz. **Kein fertiges oder freigegebenes PCB.**
 
+**Konkreter 80/20-Schutzkonzept-Entwurf:** [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md). **OV-Abschaltung statt 200-V-Ausgangsklemme** bevorzugt; LM74800-Q1 + lieferbaren **250-V-HV-MOSFET** und günstigeren 60-V-FET prüfen, keine eFuse-/Sicherheitsfunktion ohne Fehleranalyse stillschweigend streichen. **OV-Teiler im OFF** auf Ruhestrom und während Surge auf Pulsfestigkeit testen; Q1/Fuse/Buck Kurzschluss sicher begrenzen.
+
 ## Priorität A – Stromversorgung V1, Variante 3 (relaislos)
 
 Maßgebliche Analyse: [SOLID_STATE_POWER_ARCHITECTURE.md](SOLID_STATE_POWER_ARCHITECTURE.md). Die Entscheidung für Variante 3 ist **eine Entwicklungsrichtung, keine Sicherheits- oder Fertigungsfreigabe**.
