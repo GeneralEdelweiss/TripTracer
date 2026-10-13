@@ -2,6 +2,14 @@
 
 **Stand: 13.10.2026 · Status: KEINE belastbare Gesamt-BOM oder Fertigungspreiskalkulation.** Ziel ist der **günstigste nachweislich taugliche** Rallye-Tripmaster, nicht ein möglichst teures Automotive-Elektronikprojekt. Kein verbindliches Gerätebudget oder Verkaufspreis vom Nutzer festgelegt; **keine künstliche Budgetobergrenze** annehmen.
 
+## Übergeordnete 80/20-Sicherheitsentscheidung (13.10.2026)
+
+**Gefahr vor Verfügbarkeit:** Ein Tripmaster darf bei seltenen Extremtransienten ausgehen, neu starten oder im Einzelfall einen laufenden GPX-/CSV-Datensatz verlieren; diese Folgen sind akzeptabel, wenn der Zustand **elektrisch und thermisch sicher** bleibt. **Nicht akzeptabel:** Fahrzeugkabelbrand/-überlast, dauernder gefährlicher Kurzschluss, thermisch überlastete Leistungsteile oder unkontrollierter Dauerbetrieb unter einem Fehler. Für Schutzmaßnahmen nur dann zusätzliche Bauteile vorsehen, wenn sie **erforderliche elektrische Sicherheit**, normale Funktion oder einen erheblichen Nutzwert belegen.
+
+**Kostenfragen ab jetzt nach Risiko:** 1. Verhindert die Komponente Brand/gefährliche Überlast? 2. Ist sie für 9–36 V normal, ≥6 V während definiertem Motorstart oder für das tatsächlich gewählte ISO-Testprofil nötig? 3. Verhindert sie nur einen seltenen Datenfehler? **Punkt 3 allein rechtfertigt keine teure Redundanz.** Normalen ACC-AUS-Dateischluss weiterhin kostengünstig anstreben; Auto-Retry/eFuse-Ausstattung und unabhängige zweite Abschaltung auf tatsächliche Gefahren, Heizzyklen, Kabelsicherung und Mehrkosten prüfen, **nicht vorzeitig ohne Zustimmung streichen**.
+
+**Verbindliche Konzeptänderung vor weiterem Schaltplan:** Die ältere pauschale Forderung nach *zwei unabhängig fehlersicheren Hauptstromabschaltkanälen* gilt **nicht mehr als automatische Randbedingung**; nach FMEA über gefährliche Einzelfehler entscheiden, ob und wozu ein zweiter Pfad gebraucht wird. Der LM74800-Q1 bleibt kostengünstiger Erstkandidat, ohne eine implizite Brandsicherheitsgarantie oder Normfreigabe.
+
 ## Neue Anforderung: ISO-16750-2:2023-Testziele wirtschaftlich abdecken
 
 **Entscheidung 13.10.2026:** Elektrische Belastungsprüfungen für 12-/24-V-Straßenfahrzeuge nach den relevanten Teilen von **ISO 16750-2:2023** als Designmaßstab; für schnelle Spannungspulse zusätzlich die relevante **ISO 7637-2** prüfen. Die Ausführung des **TI LM74800-Q1-Referenzdesigns für 200 V ungedämpften 24-V-Load-Dump** hat Vorrang als **kostensparender technischer Ausgangspunkt** vor einer unbegründeten zweiten Surge-Stufe. Es ist keine fertige Normfreigabe und ersetzt keine getrennte Überstromschutz-/eFuse-Funktionsbewertung.
