@@ -76,6 +76,8 @@ Quelle: [u-blox MAX-M10N-00B Datenblatt](https://content.u-blox.com/sites/defaul
 
 ## 4. Geänderte Versorgungsarchitektur: ACC + BAT+ und Mikrorelais-Selbsthaltung (Stand 13.10.2026)
 
+**Neu: [Baugruppe-01-Relais- und AUX-Buck-Designreview](POWER_RELAY_DESIGN_REVIEW.md).** Darin sind konkrete Omron-/TI-Kandidaten, vorläufige Spulen-/Kontaktlasten, Schnittstellen und noch nicht bestandene Hardware-Gates dokumentiert.
+
 **Aktuelle Nutzerentscheidung (PWR-10/16/20/22/34, HW-84):** M8 Pin 1 geschaltetes ACC, Pin 3 GND, Pin 4 separat abgesichertes BAT+. ACC schaltet ein kleines Mikrorelais ein; das Relais leitet BAT+ in den geschützten 9–36-V-Eingang des TripTracer. Die MCU hält das Relais nach Zündung AUS über HOLD bestromt, sichert FRAM/GPX/CSV/SD/FAT32 und lässt es danach abfallen. **Keine garantierte Aufzeichnungssicherung bei vollständigem Abziehen des M8 oder BAT+/GND-Ausfall.** Das wird als akzeptierter Bedienfehler behandelt.
 
 **Früherer 3-s-Elko-Pufferentwurf ist damit überholt.** Die zuvor errechneten 185.000 µF (12→6 V, 3 W) bzw. 444.000 µF (9→6 V) waren ausschließlich illustrative Rechnungen zur vollständigen Drei-Sekunden-Überbrückung aus Kondensatoren. Sie sind **keine V1-Designanforderung oder BOM-Position** mehr und dürfen nicht wieder ungefragt eingeplant werden.

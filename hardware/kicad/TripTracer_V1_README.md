@@ -42,9 +42,13 @@ Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation 
 
 Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt zwei Kupferlagen; DRC-Mindestabstände sind **vorläufig** und bei JLCPCB mit dem tatsächlichen Stack-up abzugleichen. 35 µm/1 oz bleibt verbindliches Konstruktionsziel (HW-71).
 
+## Baugruppe 01: Relais-Vorprüfung (13.10.2026)
+
+[Technischer Designreview mit Bauteilkandidaten, Spulenrechnung, Kosten- und Kompatibilitäts-Gates](../../docs/POWER_RELAY_DESIGN_REVIEW.md). **Omron G6S-2F DC5 (C16707, Extended)** und **TI LM5164QDDARQ1 (C2072225, Kategorie offen)** sind **Kandidaten**, keine freigegebenen/platzierten KiCad-Bauteile. Aktuelle KiCad-Seite 01 enthält **noch keine realen elektrischen Verbindungen**. Keine ERC-/DRC-/Fertigungsfreigabe erfolgt.
+
 ## Wichtige aktuelle Risiken
 
-1. **V1 kann noch nicht eingeschaltet werden:** Die geschützte 9–36-V-Einspeisung, echte Pufferladung, 5-V-Quellenwahl und 3,3-V-LDO sind noch nicht verdrahtet.
+1. **V1 kann noch nicht eingeschaltet werden:** Die geschützte ACC/BAT+-Relaisversorgung, Relais-HOLD-/Failsafe-Ansteuerung, 5-V-Quellenwahl und 3,3-V-LDO sind noch nicht verdrahtet.
 2. **Buck U101:** LMR36520 ist ein **Kandidat**, noch keine Volllast-/Thermik-/90-%-Wirkungsgrad-Freigabe. Pin 1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, thermisches Pad 9. Pin-kompatibler V0.3-LMR36510-Footprint ist **noch gegen aktuelles TI-Package-Drawing zu prüfen**. https://www.ti.com/lit/ds/symlink/lmr36520.pdf
 3. **L101:** Symbol zeigt **15 µH als vorläufigen Entwurfswert**, während der derzeit verwendete Fußabdruck den alten **Bourns-22-µH-Typ** bezeichnet. **Nicht als freigegebenen 15-µH-Bauteilsatz bestellen.** Erst L-Wert/Isat/DCR und den Hersteller-Footprint festlegen.
 4. **USB-C:** Die D+/D−-, CC- und ESD-Grundbeschaltung ist entworfen. Die **USB-VBUS-Versorgung für Firmware/MSC ohne M8 sowie Quellen-Rückspeisesperre** fehlen auf `03_3V3_USB`. Kein Betrieb allein über USB möglich, solange diese Schaltung nicht fertig ist.
@@ -59,6 +63,6 @@ Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt 
 
 ## Nächste Baugruppe
 
-Als nächsten Schaltplanarbeitsschritt **`01_Eingangsschutz`** mit TVS, eFuse mit passendem externem Verpol-MOSFET, strombegrenztem Hochvolt-Elko-Puffer und ACC-Sense datenblattbasiert aufbauen. Danach **`03_3V3_USB`** mit LDO, USB/Bordnetz/Laboreinspeisung, galvanischer und logischer Rückspeisesicherheit. Erst dann PCB-Netze übertragen und die Stromversorgung validieren.
+Als nächsten Schaltplanarbeitsschritt **`01_Eingangsschutz`** auf Basis des [Relais-/Spulenregler-Designreviews](../../docs/POWER_RELAY_DESIGN_REVIEW.md) entwickeln: ACC+BAT+ (M8 1/3/4), monostabiles **5-V-Mikrorelais aus immer aktivem, stromsparendem AUX-Buck**, MCU-HOLD mit Hardware-Failsafe, TVS/eFuse/Verpolschutz und gesicherter Einschaltstrombegrenzung. Der frühere 3-s-HV-Elko-Puffer für kompletten Kabelausfall ist **ersatzlos entfallen**. Danach **`03_3V3_USB`** mit LDO, USB/Bordnetz/Laboreinspeisung, galvanischer und logischer Rückspeisesicherheit. Erst dann PCB-Netze übertragen und die Stromversorgung validieren.
 
 Verbindlich: [Hardwareanforderungen](../../docs/HARDWARE_REQUIREMENTS.md) / [Schematic Review](../../docs/PROTOTYPE_V1_SCHEMATIC_REVIEW.md).
