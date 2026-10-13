@@ -49,7 +49,15 @@
 | PWR-15 | **Festgelegt** | **Unterbrechungsfreier Betrieb beim Motorstart** in 12-V- und 24-V-Fahrzeugen: kein MCU-/GNSS-Neustart, keine Unterbrechung von Anzeige, Distanzzählung oder Streckenaufzeichnung durch den Startvorgang | Kritischen Spannungs-/Zeitverlauf beim Anlassvorgang, Mindest-Eingangsspannung und erforderliche Überbrückungszeit/Pufferenergie messen und festlegen; Funktionstest noch offen |
 | PWR-16 | **Festgelegt** | **Variante B: Spannungseinbrüche beim Motorstart unterbrechungsfrei überstehen (PWR-15); bei vollständigem Verlust der M8-Eingangsspannung (0 V) ist ein automatischer Neustart zulässig.** USB-C wird dadurch nicht zur normalen Notstromversorgung. | Zulässige Unterspannungsgrenze und Dauer des Einbruchs separat festlegen. Nach Rückkehr der Versorgung muss das Gerät selbstständig und mit erhaltenen, konsistent gespeicherten Tripdaten wieder anlaufen. |
 | PWR-17 | **Festgelegt** | **Variante A – ausgeprägte Kaltstart-Spannungseinbrüche ohne Neustart überstehen.** Vorläufiges 12-V-Auslegungsprofil: **3 V für ca. 15 ms**, danach **6 V für mehrere Sekunden**; vorläufiges 24-V-Auslegungsprofil: **6 V kurzzeitig**, danach **10 V für mehrere Sekunden**. Diese Werte sind **Planungsziele**, noch keine endgültig verifizierten Spannungs-/Zeitgrenzen. | Exakte Zeitdauer, Spannungsverlauf, Temperaturbedingungen und Wiederholungen je 12-/24-V-Netz anhand geeigneter Automotive-Anforderungen und Messungen festlegen. Wandler/eFuse müssen das Profil funktional unterstützen; für tiefe kurze Einbrüche darf ein Puffer erforderlich sein. **0 V muss gemäß PWR-16 nicht überbrückt werden.** |
-| PWR-18 | **Offen** | Verhalten der Display-Hintergrundbeleuchtung während starker Kaltstart-Einbrüche | Kurzes automatisches Dimmen/Abschalten erlaubt oder Helligkeit vollständig erhalten? MCU, GNSS und Aufzeichnung müssen gemäß PWR-15/17 ohne Neustart weiterlaufen. |
+| PWR-18 | **Festgelegt** | **Variante A:** Bei starken Start-Spannungseinbrüchen darf die Display-Hintergrundbeleuchtung automatisch gedimmt oder kurz ausgeschaltet werden; Anzeigecontroller, ESP32, GNSS, Distanzmessung und Streckenaufzeichnung laufen ohne Neustart weiter. | Bei wieder stabiler Versorgung ursprüngliche Helligkeit automatisch herstellen; unnötige Verbraucher priorisiert reduzieren. Schwellen/Hysterese, Zeitprofil und tatsächlich mögliche Energieersparnis im Test festlegen. |
+
+| PWR-19 | **Festgelegt** | **Automatischer Start mit anliegender M8-Fahrzeugspannung**; kein zusätzlicher Einschaltknopf erforderlich. | Verhalten beim Anschluss an dauerhaft spannungsführende Fahrzeugklemmen beachten: Solange M8 Spannung liefert, bleibt das Gerät regulär eingeschaltet. USB-only startet ausschließlich Flash-/Servicemodus gemäß PWR-06. |
+| PWR-20 | **Festgelegt** | **Kontrollierter Nachlauf mit lokalem Energiepuffer**, wenn die M8-Spannung wegfällt: kritische Betriebsdaten sichern, eine offene Streckenaufzeichnung/Datei konsistent abschließen und erst danach abschalten. | Pufferenergie, Abschaltschwelle, Reservierung für Dateisystem-Schreibspitzen sowie maximaler Nachlauf erst anhand Lastprofil festlegen; auch bei 0-V-Eingang sicher speichern, soweit innerhalb des dimensionierten Abschaltprofils. Keine fortgesetzte GPS-Messung im Nachlauf vorgeschrieben. |
+| PWR-21 | **Festgelegt** | **Bordnetzspannung vor der Spannungswandlung überwachen und im Menü anzeigen**, für 12-V- und 24-V-Systeme. | Messpunkt/Messbereich, Schutz des ADC vor Transienten, Eingangsimpedanz, Filterung, Kalibrierung und Anzeigeauflösung später festlegen; keine ungeprüften Direktverbindungen zum ESP32-ADC. |
+| PWR-22 | **Offen** | Anschluss der M8-Fahrzeugleitung: geschaltetes Plus (Zündung/ACC) oder dauerhaftes Batterieplus mit eigenem Standby-Konzept? | Mit PWR-19 und Ruhestromanforderungen abstimmen. |
+| PWR-23 | **Offen** | Ziel-Nachlaufdauer nach Wegfall von M8 | Zeit und Puffergröße erst anhand sicherer Schreib-/Shutdown-Zeiten und Leistungsbedarf bestimmen. |
+| PWR-24 | **Offen** | Verbraucherprioritäten während des gepufferten Nachlaufs | Nur MCU + Speicher-/Dateiverwaltung weiter versorgen oder zusätzlich Anzeige/GNSS? |
+| PWR-25 | **Offen** | Darstellung/Umfang der Bordnetzspannungsmessung | Nur Menüanzeige, permanente Anzeige oder zusätzlich Spannungsverlauf/Logging? |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -117,15 +125,18 @@
 | 13.10.2026 | PWR-06/08/13 | **M8 hat Versorgungsvorrang; USB-C-5-V ausschließlich zum Flashen ohne M8** | Mit M8 bleibt USB-Datenübertragung möglich, aber keine reguläre USB-Versorgung vorgesehen |
 | 13.10.2026 | PWR-16 | **Variante B: Unterbrechungsfrei bei Start-Spannungseinbrüchen; Neustart bei 0 V M8 zulässig** | Ergänzt PWR-15; kein Bedarf für vollständige Nullvolt-Überbrückung |
 | 13.10.2026 | PWR-17 | **Variante A: auch ausgeprägte Kaltstart-Spannungseinbrüche überstehen** | Vorläufig: 12 V → 3 V/ca. 15 ms und 6 V/mehrere Sekunden; 24 V → 6 V kurzzeitig und 10 V/mehrere Sekunden. Exakte Prüfprofile noch festzulegen. |
+| 13.10.2026 | PWR-18/19/20/21 | **Gebündelte 4er-Runde:** Display bei Motorstart dimmbar; Start automatisch mit M8; kontrollierter gepufferter Nachlauf; Bordnetzspannung im Menü messen/anzeigen | PWR-16 bleibt bestehen: vollständiger 0-V-Ausfall muss keinen laufenden Messbetrieb garantieren; der Nachlaufpuffer ist stattdessen für gesichertes Herunterfahren zu dimensionieren. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Block B – Stromversorgung, Frage 7 (PWR-18):** Darf TripTracer während eines ausgeprägten Kaltstart-Spannungseinbruchs die **Display-Hintergrundbeleuchtung kurzzeitig reduzieren**, um Energie für ESP32, GNSS, Anzeigecontroller und Streckenaufzeichnung zu sparen?
+**Nächste Vierer-Runde – Ausschalten, Fahrzeuganschluss und Diagnose (PWR-22 bis PWR-25):**
 
-- **A – Kurzzeitig dimmen erlaubt (Empfehlung):** Im tiefen Spannungseinbruch darf ausschließlich die Hintergrundbeleuchtung reduziert oder kurz abgeschaltet werden. Anzeigeinhalte, MCU, GNSS und Aufzeichnung laufen weiter; die Helligkeit kehrt automatisch zurück.
-- **B – Volle Helligkeit beibehalten:** Auch beim Kaltstart soll die Hintergrundbeleuchtung unverändert bleiben. Dies kann einen größeren Energiepuffer und höhere Anforderungen an den Wandler erfordern.
+1. **PWR-22 – Fahrzeugklemme:** A: Zündungs-/ACC-geschaltete, fahrzeugseitig abgesicherte Plusleitung (Empfehlung). B: Dauerplus; setzt noch zu definierenden Standby-/Abschaltmechanismus voraus, da PWR-19 automatisches Einschalten bei M8-Spannung vorgibt.
+2. **PWR-23 – Gepufferter Nachlauf:** A: So kurz wie möglich, bis Daten sauber gesichert sind (Zeitwert aus Tests). B: Mindestens 5 Sekunden reservieren. C: Mindestens 10 Sekunden reservieren. In jedem Fall dimensionieren nach realem Stromverbrauch und Schreibspitzen.
+3. **PWR-24 – Verbraucher beim Nachlauf:** A: MCU, FRAM und gegebenenfalls SD-Schreib-/Dateisystem-Funktionen priorisieren; Anzeige-Beleuchtung und GNSS abschalten (Empfehlung). B: Anzeige und GNSS sollen während des Nachlaufs ebenfalls weiterlaufen.
+4. **PWR-25 – Bordnetzspannungsanzeige:** A: Anzeige nur in Diagnose-/Menüseite (Empfehlung). B: Permanent kleines Spannungsfeld auf dem Hauptbildschirm. C: Menüanzeige plus Verlaufserfassung/Logging.
 
-Der kurze vollständige M8-Versorgungsausfall (0 V) darf weiterhin zum Neustart führen (PWR-16). Erst nach Wahl der Lastprioritäten legen wir realistische Leistung, Puffer und endgültige Spannungs-/Zeitprofile für 12/24 V fest.
+**Auslegungshinweis:** Ein gepufferter, kontrollierter Nachlauf darf die bestehende PWR-16-Anforderung nicht fälschlich in einen dauerhaft unterbrechungsfreien Betrieb bei 0 V verwandeln. Nachlaufdauer und Pufferenergie sind getrennt von der Kaltstart-Überbrückung zu verifizieren.
 
 ## Quellen / Verbindlichkeit
 
