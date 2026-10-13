@@ -361,6 +361,15 @@
 | GPS-61 | **Festgelegt – A: automatische strombegrenzte Wiederholversuche** | Bei Überstrom/Kurzschluss schaltet die geschützte **5-V-Sensorversorgung** ab und versucht nach begrenzter Wartezeit automatisch, strombegrenzt wieder einzuschalten. Bei anhaltendem Fehler keine Neustartschleife des Hauptgeräts, Fehlerstatus protokollieren. | Versuchsintervall, Duty-Cycle, Temperaturverhalten, maximaler Fehlerstrom und Warnungsquittierung festlegen; Versorgung und GNSS bleiben unabhängig. |
 | GPS-62 | **Festgelegt – A: Sensortyp manuell je Profil** | **Reed, Hall oder Open-Collector** im jeweiligen Fahrzeugprofil manuell auswählen; die passende Entprellung und Signalbewertung wird geladen. Bei zwei Eingängen Sensortyp und Eingangszuordnung unabhängig konfigurieren, sofern beide genutzt werden. | Persistenz, gültige Sensortyp-Pegel, Eingangsfilter und Verwechslungsprüfung im Einstellungsmenü sicherstellen. |
 
+### D.14 Zwei unabhängig konfigurierte Radsensoren – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-63 | **Festgelegt – A: unabhängige Radsensoren** | Die beiden Impulseingänge sind **gleichwertig und je Fahrzeugprofil unabhängig konfigurierbar**, einschließlich Sensortyp, Entprellung, Aktivierungszustand und Kalibrierung; beide können parallel überwacht werden. | Getrennte Zähler-/Interruptpfade bis 1 kHz, Fehlerflags und Diagnosewerte; Haupt-Distanzzähler dürfen ein Radereignis niemals doppelt zählen. |
+| GPS-64 | **Festgelegt – A: Sensorpriorität je Profil** | Für jedes Fahrzeugprofil **bevorzugten Radsensor (Eingang 1 oder 2)** einstellen. Bei Ausfall oder eindeutig erkannter Ungültigkeit der bevorzugten Quelle **automatisch auf den anderen gültigen Radgeber** wechseln, sofern GNSS als übergeordnete Distanzquelle gerade nicht verfügbar/nutzbar ist. | Hysterese und Wechsel ohne Distanzsprung, Ereignisprotokoll und Prioritätslogik mit GNSS-Vorrang abgleichen; Ungültigkeit vom bloßen Stillstand unterscheiden. |
+| GPS-65 | **Festgelegt – A: separat kalibrieren** | Für **jeden Radimpulseingang** innerhalb jedes Fahrzeugprofils eigenen Radumfang, Impulse/Umdrehung und bestätigten GNSS-Referenzkalibrierwert speichern. Die bestehende Mindest-Referenzstrecke von 1 km gilt auch hier. | Sensorweise persistente Parameter, unabhängige Kalibriervorgänge, atomare Übernahme nur nach Bestätigung, Plausibilitäts- und Bereichsprüfungen. |
+| GPS-66 | **Festgelegt – A: bevorzugten plausiblen Sensor nutzen und warnen** | Liefern zwei aktive Radgeber bei ausgefallenem GNSS deutlich widersprüchliche Geschwindigkeiten, **bevorzugten Sensor weiter zur Distanzmessung nutzen, sofern dieser weiterhin plausibel ist**; Abweichung durch Warnsymbol und Diagnose-/CSV-Ereignis protokollieren. | Differenzschwelle und Zeitfilter definieren; bei zusätzlichen Fehlerindikatoren des bevorzugten Sensors andere Quelle prüfen. Sind beide unplausibel, keine erfundene Strecke zählen; kein Mittelwert als Ersatz. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -659,6 +668,8 @@
 | 13.10.2026 | GPS-56–59 | **Viererrunde B/A/A/A bestätigt:** separater M8-Radsensoranschluss mit vier Polen (+5 V, GND, Signal, Reserve), Eingangsschutz gegen ESD/Verpolung/Überspannung, Software-Entprellung abhängig von Reed/Hall/Open-Collector, eigene elektronische Strombegrenzung/Abschaltung der 5-V-Sensorversorgung bei Fehler. | Pinbelegung, Steckerverwechslung, 1-kHz-Filterverhalten und Kurzschlussentkopplung festlegen. |
 
 | 13.10.2026 | GPS-60–62, UI-47 | **Viererrunde B/A/A/A bestätigt:** vierter M8-Kontakt wird zweiter Impulseingang, automatische strombegrenzte Wiederholversuche bei Sensorversorgungskurzschluss, Sensorart manuell pro Fahrzeugprofil, kompakter Status bereit/aktiv/gestört in der Fahrtanzeige. | Sichere Doppelkanal-Pegelauslegung, Zuordnung im Profil, Versuchstakt und Statusanzeige prüfen. |
+
+| 13.10.2026 | GPS-63–66 | **Viererrunde A/A/A/A bestätigt:** zwei unabhängig pro Profil konfigurierbare Radgeber, je Profil priorisierter Eingang mit automatischem Fehler-Fallback, getrennte Kalibrierung je Eingang, bei widersprüchlichen Messungen bevorzugte plausible Quelle plus Warnung/Protokollierung. | Umschalthysterese, GNSS-Priorität, Widerspruchsschwellen und Doppelerfassung verifizieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
