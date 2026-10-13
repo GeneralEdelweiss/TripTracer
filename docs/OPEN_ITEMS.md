@@ -1,5 +1,7 @@
 # TripTracer – offene technische Prüfungen
 
+**AKTUELLE ENTSCHEIDUNG (13.10.2026): Variante C ist verbindlich festgelegt: LM74930-Q1 + LMR36520, relaislose ACC-/MCU-HOLD-Logik.** Keine separate TPS26631, keine fest eingelöteten Einmalsicherungen mit Auslötpflicht; **quellseitig getrennt abgesicherte** ACC-/BAT+-Kabel bleiben Pflicht. **Reichelt und andere deutsche Lieferanten zuerst prüfen, wenn Gesamtpreis inkl. MwSt./Versand/Mindestmenge und Lagerbestand konkurrenzfähig**; sonst Mouser/DigiKey/LCSC möglich. Alte Varianten nur noch Vergleichsdokumentation. Offen: FET/Footprint/Shunt-Design, 6-V-Start, ISO-Transienten, Ruhestrom, Kurzschluss-/Thermiktest, realer BOM-Korb.
+
 **Stand: 13.10.2026.** Aktiver Entwicklungsstand: [TripTracer V1](../hardware/kicad/TripTracer_V1_README.md); V0.3 ist eine historische Referenz. **Kein fertiges oder freigegebenes PCB.**
 
 **Konkreter 80/20-Schutzkonzept-Entwurf:** [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md). **OV-Abschaltung statt 200-V-Ausgangsklemme** bevorzugt; LM74800-Q1 + lieferbaren **250-V-HV-MOSFET** und günstigeren 60-V-FET prüfen, keine eFuse-/Sicherheitsfunktion ohne Fehleranalyse stillschweigend streichen. **OV-Teiler im OFF** auf Ruhestrom und während Surge auf Pulsfestigkeit testen; Q1/Fuse/Buck Kurzschluss sicher begrenzen.
