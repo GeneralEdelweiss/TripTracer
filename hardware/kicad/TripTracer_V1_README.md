@@ -27,6 +27,8 @@ Projektlokale Bibliotheken über `sym-lib-table`/`fp-lib-table`: `Tripmaster_Sym
 
 Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation zwischen Schaltplanseiten](https://docs.kicad.org/10.0/en/eeschema/eeschema.html#navigating-between-sheets). Dieser Punkt ist in `AGENTS.md` dauerhaft als Pflicht festgelegt.
 
+**Aktuelle Versorgungspriorität (13.10.2026):** [MegaSquirt-V3.57-Schaltplananalyse und günstige LMR36520+ACC-HOLD-Grundversorgung](../../docs/MEGASQUIRT_POWER_BENCHMARK.md). **Noch keine KiCad-Änderung am LMR36520/01-Eingangsschutz umgesetzt.** Der Schaltplan in `02_5V_Buck.kicad_sch` zeigt L101=15µH, zugehöriger alter Footprint aber Bourns 22µH; **aktuelle TI-Rev.-C-Referenz 5V/2A: 10µH, 100kΩ/24,9kΩ, 2×22µF Ausgang, 2×4,7µF + 220nF Eingang**. Vor Revision konkrete verfügbare MPNs und Pin-/Temperatur-/6V-Details prüfen. **JLCPCB-SMD-Bestückung optional, nicht zu erzwingen.** Für Fahrzeugeinsatz fehlt weiterhin der ISO-16750-2-/200V-Load-Dump- und Leitungsschutz-Nachweis.
+
 ## Baugruppenstatus
 
 | Blatt | Inhalt | Stand |
