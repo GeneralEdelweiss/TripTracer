@@ -241,6 +241,15 @@
 | DIA-11 | **Festgelegt – C: Anzeige gruppieren, Rohereignisse behalten** | Gleichartige Warnereignisse in der **Displayübersicht gruppiert darstellen** (z. B. Zahl, erster/letzter Zeitpunkt), die **einzelnen Rohereignisse** bleiben im persistenten Ringpuffer und im exportierten CSV-Protokoll erhalten, soweit nicht durch reguläre Speicherbegrenzung überschrieben. | Gruppierung darf die Grenze der letzten 20 Rohereignisse nicht missverständlich verändern; Anzahl und Zeitfenster eindeutig angeben. |
 | DIA-12 | **Festgelegt – B: Löschen im normalen Diagnosemenü** | Funktion **„Fehlerhistorie löschen“ im normalen Diagnosemenü**, jedoch nur nach ausdrücklicher **Bestätigung**. Kein Entwicklermenü erforderlich. | Vorherige Warnung über Unumkehrbarkeit; aktive Fehler nicht unterdrücken, aktuelle aktive Warnungen gegebenenfalls sofort erneut anzeigen; vorhandene exportierte SD-Protokolle nicht ungefragt löschen. |
 
+### C.13 Diagnoseexport und Menüführung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| DIA-13 | **Festgelegt – A: CSV-Diagnosehistorie** | Gespeicherte Fehler-/Warnereignisse als **lesbare CSV-Datei** auf microSD führen, mit mindestens Fehlercode, Beschreibung, Zeitstempel, Dauer (falls bekannt), Status und verfügbaren ereignisbezogenen Messwerten. | UTF-8, Schema/Spalten, gültige Zeitbasis und klar gekennzeichnete fehlende Daten; kein zusätzliches JSON-Exportformat vorgeschrieben. |
+| DIA-14 | **Festgelegt – A: automatischer SD-Export** | **Neue FRAM-Fehlerereignisse bei verfügbarer und vom MCU nutzbarer microSD automatisch im Hintergrund** in das Diagnose-CSV übernehmen. Ist die Karte nicht verfügbar oder per USB-MSC exklusiv an den PC übergeben, Ereignisse zunächst persistent im FRAM halten und später nachtragen, soweit noch im begrenzten Ringpuffer vorhanden. | Keine parallelen PC-/MCU-Dateizugriffe, keine Blockade der Distanzmessung; idempotentes Nachtragen ohne Dubletten, Fehler/Überlauf bei SD-Ausfall anzeigen und erfassen. |
+| DIA-15 | **Festgelegt – A: Diagnoseübersicht mit Untermenüs** | Reguläres Diagnosemenü als **Übersicht mit getrennten Untermenüs** für Systemstatus, GNSS, Radgeber, Speicher, Versorgung und Fehlerhistorie aufbauen; der bereits getrennte Entwicklerbereich bleibt erhalten. | Bedienbarkeit mit den sechs kontextabhängig belegten Fronttasten, 30-s-Timeout-Ausnahmen für aktive Diagnose prüfen. |
+| DIA-16 | **Festgelegt – A: Einzelquittierung im Diagnosemenü** | **Nicht mehr aktive Warn-/Fehlermeldungen gezielt einzeln** in der Diagnoseansicht quittieren können – zusätzlich zur festgelegten Plus/Minus-2-s-Kombination. Aktive Fehler bleiben nicht quittierbar; Quittierung entfernt lediglich die offene Anzeige und **löscht keine gespeicherten Rohereignisse**. | Warnzähler und Quittierungsstatus über Neustart konsistent halten; aktive Warnungen nach Quittierung anderer Meldungen weiter anzeigen. |
+
 ## D. GNSS und Messfunktionen
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -789,6 +798,8 @@
 | 13.10.2026 | UI-53–56 | **Viererrunde A/A/A/A bestätigt:** Messlückenwarnungen per Plus+Minus 2 s ohne auslösende ±10-m-Korrektur quittieren, erst nach Wiederherstellung einer Distanzquelle; bei neuer Messlücke wieder einmaliger Warnton, gemeinsames Warnsymbol mit Anzahl unquittierter Meldungen. | Tastenerkennungs-Priorität, Quittierbarkeit aktiver Fehler und Warnzähler-Hysterese testen. |
 
 | 13.10.2026 | DIA-09–12 | **Viererrunde B/A/C/B bestätigt:** letzte 20 Fehlerereignisse im Diagnosemenü, Einzelansicht mit Fehlercode/Text/Zeit, Displaygruppierung gleichartiger Warnungen bei Erhalt der Rohereignisse, Löschen der lokalen Fehlerhistorie im normalen Diagnosemenü nach Bestätigung. | Ringpuffer-/Gruppierungsgrenzen, Persistenz und Verhalten aktiver Warnungen nach Löschen prüfen. |
+
+| 13.10.2026 | DIA-13–16 | **Viererrunde A/A/A/A bestätigt:** Fehlerhistorie als CSV, FRAM-Fehler bei verfügbarer microSD automatisch im Hintergrund nachtragen, Diagnoseübersicht mit Untermenüs, einzelne behobene Meldungen im Diagnosemenü quittieren (zusätzlich Plus/Minus). | MSC-Exklusivität, idempotenten Export, FRAM-Überlauf und eindeutige Quittierungszustände prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
