@@ -688,6 +688,15 @@
 | HW-15 | **Festgelegt – C: kompakte PCB zuerst** | Die Hauptplatine **unter Einhaltung sämtlicher elektrischer, thermischer, Antennen-, Service- und Steckverbinder-Abstände möglichst kompakt** auslegen. Die genaue ASA-Gehäusegeometrie wird **anschließend an das PCB** angepasst; bereits festgelegte Schnittstellenpositionen/Funktionsanforderungen bleiben gültig, soweit nicht ausdrücklich geändert. | Mechanischer 3D-Fit, Montage, Kabel-/Steckerzugang, GNSS-Antennenführung, M8/USB und Kühlflächen prüfen; keine Kompaktheit zulasten von Fertigbarkeit und Wartung. |
 | HW-16 | **Festgelegt – A: Serienwiderstände und ESD-Grundschutz** | Freie Erweiterungs-GPIOs mit **geeigneten Serienwiderständen und ESD-Schutz** auslegen, verträglich mit den vorgesehenen Signalfunktionen. **Keine zugesicherte 12-V-Toleranz** an GPIOs; Erweiterungsstecker bleibt eine 3,3-V-Logikschnittstelle. | ESD-Kapazität, Widerstandswerte, zulässige Signalgeschwindigkeit und GPIO-Bootstrapping prüfen; 5-V-Versorgungspin nicht mit 5-V-toleranten GPIO-Pegeln verwechseln. |
 
+### Hardwareprototyp – Wandlerarchitektur, Schutz und Lagen (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-17 | **Festgelegt – C: diskret ausgelegte Schaltreglerstufe** | Den zentralen **9–36-V-zu-5-V-/2-A-Abwärtswandler als eigene Schaltreglerstufe mit einzeln ausgewählten Leistungs-/Passivbauteilen und Reglerbeschaltung** entwickeln; **kein fertiges DC/DC-Modul**. „Diskret“ meint hier eine individuell ausgelegte Wandler-Powerstage; ob der gewählte Controller interne oder externe Leistungsschalter verwendet, wird nach Schaltungsauslegung entschieden und ist durch diese Auswahl nicht vorweggenommen. | Eingangstransienten nach Fahrzeuganforderungen, Wirkungsgrad, Thermik, Schaltfrequenz, Strombegrenzung, EMV, Induktor-/MOSFET-Dimensionierung (falls extern) und Verhalten bei 9–36 V messen; 5 V / 2 A bleibt vorläufiges Lastziel (HW-07). |
+| HW-18 | **Festgelegt – A: separat strombegrenzte Erweiterungsversorgungen** | Die **3,3-V- und 5-V-Ausgänge des internen JST-GH-Erweiterungssteckers jeweils mit eigener wirksamer Überstrom-/Kurzschlussbegrenzung** ausstatten, sodass ein Fehler eines Ausgangs den anderen möglichst nicht beeinträchtigt. | Konkrete Stromlimits nach Lastbilanz bestimmen; Einschaltstrom, Rückspeisung, Verpolung/Fehlverdrahtung, Temperatur und Fehler-Wiederanlauf prüfen. |
+| HW-19 | **Festgelegt – A: getrennte Funktionsbereiche** | PCB-Layout räumlich gliedern: **Bordnetzeingang, Schutz und Schaltregler als zusammenhängenden Leistungsteil**, mit kontrollierten kurzen Stromschleifen; **GNSS/RF und empfindliche digitale/analoge Eingänge räumlich getrennt**. Durchgängige niederimpedante Masse-Rückstromführung statt unbedachter Masseschlitze. | Schaltknotenflächen und Rückstromwege, GNSS-Antennen-/RF-Freiraum, ESD-Ableitung und Temperaturpfade im Layout prüfen; EMV beim Bring-up messen. |
+| HW-20 | **Festgelegt – A: zwei PCB-Lagen bevorzugt, vier bei Bedarf** | Für den ersten Prototyp **2-Lagen-PCB bevorzugen**; auf **4 Lagen wechseln, wenn Routing, stabile Masse-/Rückstromführung, USB-/GNSS-Signalintegrität, Thermik oder EMV technisch einen deutlichen Vorteil erfordern**. Vorherige PCB-01–04-Regeln bleiben gültig. | Layout-Review dokumentiert die Lagenentscheidung; keine starren 2-Lagen-Vorgaben zulasten der Funktionssicherheit. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -852,6 +861,8 @@
 | 13.10.2026 | HW-09–12 | **Hardware-Viererrunde A/A/A/B (korrigierte Nutzerentscheidung):** sechs einzeln verriegelnde JST-Tastenstecker, 3,3-V-LDO SOT-223 oder vergleichbares Power-SMD, beidseitige SMD-Bestückung, kleiner interner Erweiterungsstecker mit freien GPIOs und Versorgung anstelle bloßer Reserve-GPIO-Testpads. | Steckertypen, Reglerwärme, beidseitige Fertigbarkeit, GPIO-/Bootbudget prüfen. |
 
 | 13.10.2026 | HW-13–16 | **Hardware-Viererrunde A/B/C/A bestätigt:** Erweiterung über verriegelnden JST-GH-Stecker mit 3,3 V, 5 V und GND; kompakte PCB als primäre Geometrie, Gehäuse danach; GPIO-Grundschutz aus Serienwiderständen und ESD. | Kontaktzahl, Schutz-/Strombudget, Steckplatz und mechanischen Freiraum bei PCB-Layout nachweisen. |
+
+| 13.10.2026 | HW-17–20 | **Hardware-Viererrunde C/A/A/A bestätigt:** individuell ausgelegte diskrete 9–36-V-/5-V-Schaltreglerstufe statt DC/DC-Modul, getrennte strombegrenzte 3,3-V- und 5-V-Erweiterungsversorgung, räumliche Leistung/GNSS-Trennung und 2 PCB-Lagen bevorzugt mit 4-Lagen-Option. | Strom-/EMV-/Thermik-Auslegung und Lagenentscheid vor Layoutfreigabe prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
