@@ -232,6 +232,15 @@
 |---|---|---|---|
 | STO-44 | **Festgelegt – C: Messquelle plus Qualitätsindikator in CSV** | **Jeder reguläre CSV-Datensatz** enthält die tatsächliche aktive Distanzquelle (**GNSS, Radgeber 1, Radgeber 2 oder keine**) **und einen zur Quelle passenden Qualitäts-/Plausibilitätsindikator**. Quellenwechsel bleiben als gesonderte Ereignisse erhalten. | Die Kennzahl je Quelle fachlich unterscheiden und mit Einheit/Definition dokumentieren (z. B. GNSS Genauigkeit/Fixstatus; Radgeber Plausibilitäts-/Fehlerstatus), keinen künstlich vergleichbaren einheitlichen Genauigkeitswert vortäuschen. |
 
+### C.12 Fehlerhistorie und Verwaltung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| DIA-09 | **Festgelegt – B: letzte 20 Ereignisse** | Im regulären Diagnosemenü die **letzten 20 Warn-/Fehlerereignisse** aus dem persistenten Fehlerprotokoll abrufbar halten. Der Anzeigeumfang begrenzt nicht zwangsläufig die interne Ringpufferkapazität. | Sortierung nach Zeitpunkt/Sequenz, ungültige RTC-Zeit und Abruf bei vollem Ringpuffer prüfen. |
+| DIA-10 | **Festgelegt – A: Fehlercode, Beschreibung, Zeit** | Einzelansicht mit **Fehlercode, verständlicher Beschreibung und Zeitstempel**; Fehlerdauer anzeigen, sofern bekannt. | Zeitzone und RTC-Gültigkeit kennzeichnen; keine erfundenen Zeitstempel. |
+| DIA-11 | **Festgelegt – C: Anzeige gruppieren, Rohereignisse behalten** | Gleichartige Warnereignisse in der **Displayübersicht gruppiert darstellen** (z. B. Zahl, erster/letzter Zeitpunkt), die **einzelnen Rohereignisse** bleiben im persistenten Ringpuffer und im exportierten CSV-Protokoll erhalten, soweit nicht durch reguläre Speicherbegrenzung überschrieben. | Gruppierung darf die Grenze der letzten 20 Rohereignisse nicht missverständlich verändern; Anzahl und Zeitfenster eindeutig angeben. |
+| DIA-12 | **Festgelegt – B: Löschen im normalen Diagnosemenü** | Funktion **„Fehlerhistorie löschen“ im normalen Diagnosemenü**, jedoch nur nach ausdrücklicher **Bestätigung**. Kein Entwicklermenü erforderlich. | Vorherige Warnung über Unumkehrbarkeit; aktive Fehler nicht unterdrücken, aktuelle aktive Warnungen gegebenenfalls sofort erneut anzeigen; vorhandene exportierte SD-Protokolle nicht ungefragt löschen. |
+
 ## D. GNSS und Messfunktionen
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -778,6 +787,8 @@
 | 13.10.2026 | GPS-88, UI-50–52 | **Viererrunde B/A/A/A bestätigt:** Messlücken per bewusster Tastenkombination quittieren; jeden Ausfall einzeln mit Zeit/Dauer speichern; bei einzelnem defekten Radgeber kurzen Hinweis und kleines Warnsymbol zeigen; quittierte Warnungen im persistenten Fehlerprotokoll behalten. | Tastenkombination/Haltedauer konfliktfrei definieren; Fehler-/Quittierungsstatus auch nach Neustart konsistent. |
 
 | 13.10.2026 | UI-53–56 | **Viererrunde A/A/A/A bestätigt:** Messlückenwarnungen per Plus+Minus 2 s ohne auslösende ±10-m-Korrektur quittieren, erst nach Wiederherstellung einer Distanzquelle; bei neuer Messlücke wieder einmaliger Warnton, gemeinsames Warnsymbol mit Anzahl unquittierter Meldungen. | Tastenerkennungs-Priorität, Quittierbarkeit aktiver Fehler und Warnzähler-Hysterese testen. |
+
+| 13.10.2026 | DIA-09–12 | **Viererrunde B/A/C/B bestätigt:** letzte 20 Fehlerereignisse im Diagnosemenü, Einzelansicht mit Fehlercode/Text/Zeit, Displaygruppierung gleichartiger Warnungen bei Erhalt der Rohereignisse, Löschen der lokalen Fehlerhistorie im normalen Diagnosemenü nach Bestätigung. | Ringpuffer-/Gruppierungsgrenzen, Persistenz und Verhalten aktiver Warnungen nach Löschen prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
