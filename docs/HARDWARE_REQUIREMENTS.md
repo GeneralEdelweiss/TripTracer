@@ -25,7 +25,7 @@
 | SYS-01 | **Festgelegt** | GPS-gestützter Tripmaster für unterschiedliche Fahrzeuge, Rallye- und Toureneinsatz | Umstecken ohne Änderungen am Gerät |
 | SYS-02 | **Festgelegt** | Gerät zwischen mehreren Autos/Motorrädern einfach wechseln | Identische Stromanschlüsse und passende Halterungen je Fahrzeug |
 | SYS-03 | **Festgelegt** | KiCad 10, transportable Projektdateien und Bibliotheken | ERC/DRC und 3D-Pfade vor Fertigung prüfen |
-| SYS-04 | **Offen** | Gewünschter Temperaturbereich, Feuchte-/Staub-/Regenschutz und Vibrationsbelastung | Einsatzprofil festlegen |
+| SYS-04 | **Teilweise festgelegt** | Gehäuse soll **staubdicht** sein; **keine Wasserdichtigkeit/Regenschutz-Schutzklasse gefordert**. Temperaturbereich, Kondensations-/Spritzwasserfolgen und Vibrationsbelastung bleiben offen. | Staubschutz-Ziel hinsichtlich Festkörpern in Richtung **IP6X** entwickeln und später prüfen; keine ungeprüfte IP-Zertifizierung behaupten. |
 | SYS-05 | **Offen** | Kosten-, Baugrößen- und Leistungsbudget | Zielpreis und maximale Gehäuseabmessungen festlegen |
 
 ## B. Stromversorgung und Schutz – erster Brainstorming-Block
@@ -59,10 +59,10 @@
 | PWR-24 | **Festgelegt** | **Variante A – im Nachlauf nur notwendige Elektronik versorgen:** ESP32 und für sichere Speicherung erforderliches FRAM/SD-/Dateisystem weiter betreiben; GNSS, Displaybeleuchtung und entbehrliche Verbraucher ausschalten. | Sichere Erkennung des M8-Spannungsverlusts und priorisiertes Abschalten der Verbraucher sicherstellen; Reserve für SD-Schreibspitzen vorsehen; keine Messfortsetzung im Nachlauf erforderlich. |
 | PWR-25 | **Festgelegt** | **Variante A – Bordnetzspannung nur im Diagnosemenü anzeigen**, nicht permanent auf dem Hauptdisplay; Messung weiterhin für die Versorgungsüberwachung nutzbar (PWR-21). | Für 12-/24-V-Systeme korrekt skalieren/kalibrieren; Anzeigeauflösung, Aktualisierungsrate und Messschaltung später festlegen. |
 
-| STO-01 | **Offen** | Dauerhafter Track-Speicher: entnehmbare microSD oder fest verlöteter größerer Speicher | Langstrecken-Logging, Dateiformate und Datenexport ermöglichen; bestehender FRAM nur für kurze Einstell-/Zählerdaten. |
-| STO-02 | **Offen** | Falls microSD: Entnahme von außen oder nur nach Öffnen des Gehäuses | Gehäuseabdichtung, SD-Hotplug, Zugänglichkeit in der Fahrzeughalterung und Datenintegrität beachten. |
-| STO-03 | **Offen** | Externe GNSS-Antenne am Fahrzeug oder integrierte GNSS-Antenne im TripTracer | GNSS-Sicht, HF-Anbindung, Montage und universellen Fahrzeugwechsel abwägen; V0.3 sieht U.FL-Anschluss vor. |
-| STO-04 | **Offen** | Optionalen Anschluss für einen Radimpulssensor als spätere Erweiterung vorsehen oder GPS-only | Geschützter Eingang und freie GPIOs bei optionaler Sensoranbindung einkalkulieren. |
+| STO-01 | **Festgelegt** | **Variante A: microSD-Karte** als entnehmbares Speichermedium für GPS-Trackaufzeichnung und Dateiexport. | Schnittstelle, sichere Schreibvorgänge, Erkennen von Kartenfehlern und Umgang mit plötzlichem Stromausfall prüfen. FRAM für Kilometerstände/Einstellungen bleibt unabhängig davon vorgesehen. |
+| STO-02 | **Festgelegt** | **Variante A: microSD von außen erreichbar**, ohne Öffnen des TripTracer-Gehäuses. | Öffnung bei geschlossener Staubschutzkappe staubdicht ausführen (MEC-06/07). Mechanische Zugänglichkeit in der Fahrzeughalterung und sichere Entnahme ohne laufende Schreiboperationen berücksichtigen. |
+| STO-03 | **Festgelegt** | **Variante A: externe GNSS-Antenne** außerhalb des TripTracer-Gehäuses, für guten Empfang günstig am Fahrzeug zu positionieren. | Robust zu trennende, staubgeschützte HF-Gehäuseschnittstelle für häufigen Fahrzeugwechsel definieren; die interne U.FL-Buchse ist **kein** direkt zu bedienender Außenanschluss. Kabel, Steckverluste, Antennenspeisung und Montage klären. |
+| STO-04 | **Festgelegt** | **Variante A: separaten externen Anschluss und geschützten MCU-Eingang für späteren optionalen Radimpulssensor vorsehen**; Sensor selbst muss zunächst nicht vorhanden sein. | Für Reedschalter/Hallgeber geeignete elektrische Schnittstelle später definieren; Anschluss in unbenutztem Zustand mit Staubschutzkappe (MEC-07) versehen und mechanisch/elektrisch vom M8-Stromanschluss unverwechselbar ausführen. |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -72,7 +72,7 @@
 | MCU-02 | **Festgelegt** | Firmwareupdates direkt über **USB-C**, ohne zusätzliche 12-V-Stromquelle | USB-Boot-/Recovery-Prozedur in der späteren Hardware verifizieren |
 | MCU-03 | **Bestand V0.3** | FRAM MB85RC256VPNF (I²C) für wichtige Zähler und Einstellungen | Schreibintervalle, Datenintegrität und benötigte Kapazität bestimmen |
 | MCU-04 | **Wunsch** | Streckenaufzeichnung mit Export in gängige Dateiformate | GPX/KML/CSV, Datenrate, Datenmenge und Exportweg abstimmen |
-| MCU-05 | **Wunsch** | Entnehmbarer Speicherdatenträger (z. B. microSD) | Schnittstelle, Kartenzugang, Dateisystem und Datensicherheit abstimmen |
+| MCU-05 | **Festgelegt** | Entnehmbare **microSD-Karte mit äußerem Kartenzugang** (siehe STO-01/02). | Schnittstelle, FAT/Dateisystem, sicherer Auswurf und Datensicherheit später auslegen. |
 | MCU-06 | **Offen** | Erweiterungsreserve bei freien GPIOs, Energie und Einbaufläche | Nach kompletter Pinplanung festlegen |
 
 ## D. GNSS und Messfunktionen
@@ -102,8 +102,10 @@
 | MEC-01 | **Festgelegt** | Pro Fahrzeug eine feste Aufnahme; TripTracer ohne Werkzeug schnell einschieben, lösen und umsetzen | Rastung, Sicherung gegen unbeabsichtigtes Herausfallen und universelle Halterungsgeometrie entwickeln |
 | MEC-02 | **Festgelegt** | M8 mechanisch über die Gehäusewand abstützen; keine nennenswerte Steckkraft auf PCB-Lötstellen | Zugentlastung und Dichtung definieren |
 | MEC-03 | **Bestand V0.1** | Referenzgehäuse aus 3D-Druck, etwa 126 × 76 mm Front, PCB-Konzept etwa 118 × 68 mm | Maße sind Ausgangsstand, keine finale Begrenzung |
-| MEC-04 | **Offen** | Position/Zugänglichkeit von USB-C, M8, microSD und Antenne | Erreichbarkeit im montierten Zustand, Kappen und Abdichtung |
-| MEC-05 | **Offen** | Einbaulage, Sturz-/Vibrations-/Wasserschutz und Werkstoffe | Fahrzeugtypen und Montagesituationen sammeln |
+| MEC-04 | **Teilweise festgelegt** | Position und Zugänglichkeit von USB-C, M8, äußerer microSD, externer GNSS-Antennenbuchse sowie optionalem Radsensoranschluss | Nicht ständig benötigte Öffnungen mit Staubschutz gemäß MEC-07 abdecken, auch wenn das Gerät in der Fahrzeughalterung steckt. Konkrete Positionen noch offen. |
+| MEC-05 | **Offen** | Einbaulage, Sturz-/Vibrationsfestigkeit, Temperatur, Kondenswasserverhalten und Gehäusewerkstoffe | **Keine Wasserdichtheitsanforderung**; Staubdichtheit gesondert in MEC-06 festgelegt. Fahrzeugtypen und Montagesituationen sammeln. |
+| MEC-06 | **Festgelegt** | **Gehäuse staubdicht auslegen**, auch an Fugen und bei geschlossenen Anschlussabdeckungen; keine Wasserdichtheit gefordert. | Entwicklungsziel **IP6X hinsichtlich Festkörper-/Staubschutz**; nicht zertifiziert, Staubprüfung bei der Prototypenvalidierung vorsehen. |
+| MEC-07 | **Festgelegt** | **Alle optionalen, nicht ständig benutzten Anschlüsse und Öffnungen mit passenden Staubschutzstopfen/-kappen** (z. B. Gummi/Silikon) abdecken. | Insbesondere USB-C, microSD und nicht belegter Radimpulsanschluss; unbenutzte externe GNSS- und M8-Buchsen bei Lagerung/Transport ebenfalls schützen. Bevorzugt unverlierbar befestigte Abdeckungen. |
 
 ## G. Fertigung und Verifikation
 
@@ -113,6 +115,11 @@
 | Q-02 | **Offen** | Leiterplattenfertiger, Lagenaufbau, Dicke, Bestückungs-/Lötverfahren | Nach mechanischem und elektrischem Bedarf entscheiden |
 | Q-03 | **Festgelegt** | ERC/DRC und Datenblatt-/Pinprüfung vor Bestellung; Fahrzeugschutz und reale Funktion zusätzlich testen | Prüfberichte revisionsbezogen speichern |
 | Q-04 | **Offen** | Wartbarkeit, Prüfanschlüsse, Debug-/Firmware-Recovery | Zugang ohne Zerstörung des Gehäuses |
+
+| MEC-08 | **Offen** | HF-Gehäuseanschluss für externe GNSS-Antenne oder fest ausgeführtes Antennenkabel | Bei häufigem Fahrzeugwechsel trennbar, HF-tauglich und im unbenutzten Zustand mit Staubschutz versehen. |
+| MEC-09 | **Offen** | Staubdichter äußerer microSD-Zugang: flexible Schutzkappe oder feste Klappe | Kappenbefestigung, Freiraum zum Kartenauswurf und Abrieb klären. |
+| MEC-10 | **Offen** | Steckbarer optionaler Radimpulseingang oder festes Sensorkabel | Nicht verwechselbar mit der 12-/24-V-M8-Stromversorgung, geeigneter ESD-/Eingangsschutz. |
+| MEC-11 | **Offen** | Ausführung der USB-C-Staubabdeckung | Befestigte oder lose Gummikappe; Berücksichtigung von Zugänglichkeit und Ersatzteilbedarf. |
 
 ## Entscheidungsprotokoll
 
@@ -132,17 +139,19 @@
 | 13.10.2026 | PWR-17 | **Variante A: auch ausgeprägte Kaltstart-Spannungseinbrüche überstehen** | Vorläufig: 12 V → 3 V/ca. 15 ms und 6 V/mehrere Sekunden; 24 V → 6 V kurzzeitig und 10 V/mehrere Sekunden. Exakte Prüfprofile noch festzulegen. |
 | 13.10.2026 | PWR-18/19/20/21 | **Gebündelte 4er-Runde:** Display bei Motorstart dimmbar; Start automatisch mit M8; kontrollierter gepufferter Nachlauf; Bordnetzspannung im Menü messen/anzeigen | PWR-16 bleibt bestehen: vollständiger 0-V-Ausfall muss keinen laufenden Messbetrieb garantieren; der Nachlaufpuffer ist stattdessen für gesichertes Herunterfahren zu dimensionieren. |
 | 13.10.2026 | PWR-22/23/24/25 | **Gebündelte 4er-Runde:** geschaltetes Zündungsplus; minimal notwendiger Speichernachlauf; nur notwendige Elektronik im Nachlauf; Spannungsanzeige nur im Diagnosemenü | Keine feste Nachlaufdauer; Pufferung und Datensicherheit vor PCB-Layout dimensionieren und testen. |
+| 13.10.2026 | STO-01/02/03/04 | **Gebündelte 4er-Runde:** microSD, von außen zugänglich; externe GNSS-Antenne; Anschluss für optionalen Radsensor | Bauteile, geeignete HF-Stecker, Abdichtung und GPIOs noch offen. |
+| 13.10.2026 | SYS-04, MEC-04/05/06/07 | **Gehäuse staubdicht, aber nicht wasserdicht gefordert; Staubschutzkappen für optionale Anschlüsse/Öffnungen** | Schutz bei verschlossenen Öffnungen; IP6X nur als Entwicklungsziel, kein nachgewiesener Prüfstatus. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächste Vierer-Runde – GNSS und Streckenspeicherung (STO-01 bis STO-04):**
+**Nächste Vierer-Runde – Anschluss- und Staubschutzkonzept (MEC-08 bis MEC-11):**
 
-1. **STO-01 – Streckenspeicher:** A: microSD-Kartensteckplatz für lange GPS-Tracks und spätere Exportfunktionen (Empfehlung). B: Nur fest verlöteter Speicher; keine entnehmbare Karte. Der vorhandene kleine FRAM ist allein kein ausreichender Langzeit-Track-Speicher.
-2. **STO-02 – Kartenzugang (falls microSD):** A: Von außen über einen geschützten Gehäusezugang entnehmbar (Empfehlung für schnellen Export); B: microSD nur nach Öffnen des Gehäuses zugänglich (bessere Abdichtung). Bei Entscheidung STO-01 B bleibt dies gegenstandslos.
-3. **STO-03 – GNSS-Antenne:** A: Externe GNSS-Antenne über die bereits in V0.3 vorgesehene HF-Verbindung; Montage z. B. gut sichtbar am Fahrzeug (Empfehlung für freie Sicht). B: GNSS-Antenne ins TripTracer-Gehäuse integrieren; auf HF-Konstruktion, Abschattung und Gehäusematerial achten. Die mechanische HF-Buchse wird später gewählt.
-4. **STO-04 – Radsensor-Erweiterung:** A: Reservierten, geschützten Eingang/Anschluss für optionalen Radimpulssensor vorsehen (Empfehlung als Zukunftsreserve, noch kein Sensor selbst). B: Reiner GNSS-Tripmaster ohne externen Radsensoranschluss. Für beide Varianten bleiben die GNSS-Grenzen in Tunneln zu beachten.
+1. **MEC-08 – Externe GPS-Antenne:** A: fest am Gehäuse verschraubte HF-Buchse (z. B. SMA) mit abnehmbarer Antennenleitung, unbenutzt mit Staubkappe (Empfehlung). B: fest austretendes GNSS-Kabel mit Zugentlastung, keine trennbare Gehäuse-HF-Buchse; schlechter für den Fahrzeugwechsel.
+2. **MEC-09 – microSD-Schutzöffnung:** A: bündige, möglichst unverlierbar befestigte Gummi-/Silikonkappe (Empfehlung). B: starre, abnehmbare Schutzklappe mit Dichtlippe. In beiden Fällen staubdicht bei geschlossenem Zugang.
+3. **MEC-10 – Radimpuls-Anschluss:** A: kleiner separater, steckbarer und staubgeschützter Anschluss mit **anderer Steckgeometrie als M8-Strom** (Empfehlung). B: festes separates Sensorkabel mit Zugentlastung; weniger kompakt, aber weniger Steckkontakte.
+4. **MEC-11 – USB-C-Abdeckung:** A: befestigte Gummi-/Silikon-Staubkappe (Empfehlung). B: separate, abnehmbare Staubkappe. USB-C bleibt ausschließlich Flash-/Serviceanschluss; keine zusätzliche Wasserdichtigkeit nötig.
 
-**Keine der vier Fragen legt jetzt bereits konkrete Bauteile fest.** Mögliche Kosten, Einbauöffnungen, GPIO-Budget und Abdichtung bei der Wahl mitberücksichtigen.
+**Wichtig:** Die genannten Ausführungen sind Entscheidungsvorschläge, noch keine ausgewählten Bauteile. Die Staubdichtheit muss am gesamten Gehäuse und den verschlossenen Öffnungen überprüft werden.
 
 ## Quellen / Verbindlichkeit
 
