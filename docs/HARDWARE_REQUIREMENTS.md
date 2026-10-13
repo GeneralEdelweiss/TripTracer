@@ -742,6 +742,15 @@
 | HW-39 | **Festgelegt – A: LCSC/JLCPCB bevorzugt** | Konkrete Komponenten für den KiCad-Schaltplan **möglichst aus dem LCSC-Sortiment und der JLCPCB-Bestückungsbibliothek** auswählen, Standard-/Basic-Teile bevorzugen, sofern elektrische Eignung, Verfügbarkeit, Automotive-Anforderungen und Qualität erhalten bleiben. Notwendige Spezialteile dürfen andere Bezugsquellen verwenden. | LCSC-/JLCPCB-Teilenummern und Bestückbarkeit in BOM, Datenblätter/Footprints vor Freigabe prüfen. |
 | HW-40 | **Festgelegt – A: vollständiger Schaltplan vor PCB-Layout** | **Zuerst einen vollständigen zusammenhängenden KiCad-10-Schaltplan** aller im Prototyp vorgesehenen Baugruppen erstellen; danach ERC, Strom-/GPIO-Budget, Anschlussbelegungen und Bauteilvalidierung abschließen, bevor PCB-Routing und Prototypbestellung beginnen. | Hierarchische Struktur/lesbare Netze, sämtliche Pflichtbaugruppen und USB-/Versorgungs-/Sensorzustände verifizieren; ERC-frei oder begründete Ausnahmen, anschließend PCB DRC. |
 
+### Hardwareprototyp – Schaltplanarchitektur und Schnittstellen (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-41 | **Festgelegt – A: hierarchische KiCad-Schaltplanseiten** | Den vollständigen **KiCad-10-Schaltplan hierarchisch** in übersichtliche Funktionsblätter für Versorgung/Schutz, ESP32-S3/USB, GNSS, Speicher/RTC, Display/Tasten und Radsensoren/Erweiterung gliedern. | Korrekte Hierarchie-Pins, sauber benannte Netze, lesbare Signalwege und ERC vor Layout; funktionsübergreifende Versorgung/Signale eindeutig dokumentieren. |
+| HW-42 | **Festgelegt – A: GNSS über UART plus optionales Status-/Zeitimpulssignal** | **MAX-M10N primär per UART** mit ESP32-S3 verbinden; mindestens die bei der GNSS-Implementierung nötigen UART-Leitungen vorsehen. Eine **optionale TIMEPULSE-/Statusleitung** nach Datenblatt und GPIO-Budget einplanen, ohne zusätzliche I²C-Pflichtanbindung. | Pegelkompatibilität, Modulversorgung, Pinbudget, Firmware-Diagnose/UTC-Synchronisierung und Antennenbeschaltung nach konkretem MAX-M10N-Datenblatt prüfen. |
+| HW-43 | **Festgelegt – A: ein GPIO je Taster** | **Sechs FILN-Schaltkontakte an sechs getrennte ESP32-S3-GPIO-Eingänge** führen, jeweils über die schon festgelegten einzelnen verriegelnden JST-Anschlüsse. Entprellung und Eingangs-Pullups/Pulldowns passend zur elektrischen Schalterbeschaltung; gleichzeitige Tastenbetätigung (Plus/Minus 2 s) ohne ADC-Widerstandsleiter erfassen. | GPIO-/Strapping-/Wake-Budget, ESD und Eingangspegel prüfen; Kontakt-/LED-Pins an Steckern verwechslungssicher belegen. |
+| HW-44 | **Festgelegt – A: gemeinsamer LED-Ring-Schaltkanal** | **Alle sechs Tasten-LED-Ringe elektrisch gemeinsam über einen geeigneten schalt- und gegebenenfalls PWM-dimmbaren Treiberkanal ansteuern**; keine separat steuerbaren grünen/roten Kanäle als Hardwarepflicht. **Jeder LED-Ring erhält dennoch passende Strombegrenzung gemäß konkreter FILN-LED-Ausführung**; keine unzulässige Parallelschaltung ungeschützter LEDs. | LED-Nennspannungen/-ströme der fünf grünen und einen roten Taste abgleichen; Treiberstrom, Verlustleistung, PWM/EMV und Helligkeitssteuerung prüfen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -920,6 +929,8 @@
 | 13.10.2026 | HW-33–36 | **Hardware-Viererrunde A/A/A/A bestätigt:** endgültige Puffergröße nach Messung der Abschaltlast (vorläufige Berechnung für Erstprototyp erforderlich), Puffer bis zur belastbaren Buck-UVLO-Untergrenze nutzbar, kontrollierter Ladestrom und datenblattgestützte Auswahl aller Leistungsbauteile vor PCB-Routing. | Worst-Case-Leistungsprofil und Erstpuffer rechnen, UVLO/Startpfade prüfen, eFuse-Verpolschutz und LCSC/JLCPCB-Eignung nachweisen. |
 
 | 13.10.2026 | HW-37–40 | **Hardware-Viererrunde A/A/A/A bestätigt:** mehrere parallel bestückbare Elko-Plätze, auftrennbare Strommessbrücken, LCSC/JLCPCB als bevorzugte Beschaffung und vollständigen KiCad-10-Schaltplan vor PCB-Layout erstellen. | Thermische/mechanische Elko-Reserven, Messbrückensicherheit, konkrete BOM-Teilenummern und ERC vor Routing prüfen. |
+
+| 13.10.2026 | HW-41–44 | **Hardware-Viererrunde A/A/A/A bestätigt:** hierarchischer KiCad-10-Schaltplan, MAX-M10N primär über UART mit optionalem TIMEPULSE-/Statussignal, je Taster ein dedizierter ESP32-GPIO und gemeinsamer Schalt-/Dimmkanal für sechs Tasten-LED-Ringe mit je geeigneter Strombegrenzung. | MCU-GPIO-Budget, MAX-M10N-Pinout, FILN-LED-Varianten und LED-Treiberlast vor Routing prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
