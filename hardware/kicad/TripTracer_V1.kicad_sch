@@ -2,7 +2,7 @@
  (paper "A3")
  (title_block (title "TripTracer – Hardware V1 (Entwurf)") (date "2026-10-13") (rev "V1.0-a0 / NICHT FERTIGUNGSREIF") (company "TripTracer"))
  (lib_symbols)
- (text "V1 ENTWICKLUNGSSTAND: Nur der 5-V-Buck hat erste Bauteilverdrahtung; andere Blätter sind explizit offen." (at 210 16 0) (effects (font (size 1.6 1.6))) (uuid "a26d9b0c-7f10-4e5a-a65f-00000000006d"))
+ (text "V1 A1: 5-V-Buck und ESP32-S3/USB-C verdrahtet; uebrige Blaetter sind noch offen. PCB nur Vorplatzierung." (at 210 16 0) (effects (font (size 1.6 1.6))) (uuid "a26d9b0c-7f10-4e5a-a65f-00000000006d"))
  (sheet (at 25 30) (size 175 37) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
  (stroke (width 0) (type solid)) (fill (color 0 0 0 0)) (uuid "a26d9b0c-7f10-4e5a-a65f-000000000065")
  (property "Sheetname" "Eingangsschutz / eFuse / HV-Puffer" (at 25 29.24 0) (effects (font (size 1.524 1.524)) (justify left bottom)))
