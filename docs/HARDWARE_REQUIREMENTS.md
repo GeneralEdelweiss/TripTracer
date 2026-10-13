@@ -1,45 +1,45 @@
-# TripTracer – Hardware-Anforderungen
+# TripTracer – Anforderungsspezifikation (Hardware V1)
 
-**Status:** Arbeitsdokument für gemeinsames Brainstorming, nicht als freigegebene Fertigungsspezifikation zu verstehen.
-**Erstellt:** 13.10.2026  
-**Ziel:** Erst Funktionen, Betriebsbedingungen, Randbedingungen und Prüfkriterien festlegen; **danach** geeignete Bauteile, Schaltung und PCB-Layout auswählen.
+**Stand:** 13.10.2026 · **Status:** verbindliche Produkt- und Entwurfsentscheidungen, **keine elektrische oder fertigungstechnische Freigabe**.
 
-### Prototyp-Fokus – Entwicklungspriorität ab 13.10.2026
+**Produktziel:** preisbewusster DIY-Tripmaster mit Potenzial zur Kleinserie. **Kein fester Preisdeckel**; entscheidend ist der praktische Nutzen pro Euro (80/20-Orientierung), bei voller Einhaltung der beschlossenen Kernfunktionen und Schutzanforderungen.
 
-**Verbindliche Vorgehensweise:** Bis zum funktionsfähigen Hardwareprototyp nur noch Entscheidungen aktiv abfragen, die **Bauteilauswahl, elektrische Schnittstellen, Schaltplan, PCB-Layout, Fertigung, thermische Auslegung oder Gehäuse** beeinflussen. Die bereits beschlossenen Firmware-/UI-Anforderungen bleiben als spätere Implementierungsanforderungen erhalten, werden aber **nicht** in weiteren Detail-Viererrunden vertieft, solange kein unmittelbarer Hardwareeinfluss besteht.
+**Arbeitsweise:** Eine Baugruppe nach der anderen elektrisch korrekt entwerfen, datenblattgestützt prüfen und auf Kompatibilität mit den bestehenden Baugruppen kontrollieren. KiCad-10-ERC, PCB-DRC und reale Tests sind getrennte Freigabe-Gates; nicht durch Dokumentation ersetzbar. Siehe [AGENTS.md](../AGENTS.md).
 
-**Prototyp-Ziel:** ESP32-S3 und Firmwareflash über USB-C, Riverdi-Display, sechs beleuchtete Tasten, MAX-M10N samt externem GNSS-Antennenanschluss, zwei getrennte geschützte Radimpulseingänge über M8 4-polig mit 5-V-Sensorversorgung, 9–36-V-Eingang mit Bordnetzschutz, FRAM, RTC/Backupzelle, interne microSD, Helligkeits- und Temperatursensor sowie kontrollierte Abschaltstützung. Ersthardware in KiCad elektrisch prüfen, ERC/DRC und Fertigungsdaten verifizieren und durch grundlegende Bring-up-Tests nachweisen.
+## Lesehilfe und Navigation
 
-**Nächste Entscheidungsrunden:** Ausschließlich bislang offene Hardwarefragen; Softwaredetails (z. B. Fehlerpuffergrößen, CSV-Aufbau und Diagnosemenü-Interaktion) ausdrücklich zurückstellen. Bereits getroffene Entscheidungen nicht erneut als offene Frage behandeln.
+Dieses Dokument enthält die **aktuell geltenden Anforderungen und ihre ursprünglichen IDs**. Die chronologischen Gesprächs- und Entscheidungseinträge wurden **ohne Inhaltsverlust** in [HARDWARE_DECISION_HISTORY.md](HARDWARE_DECISION_HISTORY.md) archiviert. Dort stehen auch die früheren technischen Zusammenfassungen. Historische Aussagen können inzwischen überholt sein: **maßgeblich sind die zuletzt ausdrücklich bestätigten Anforderungen hier**, nicht ältere Formulierungen im Archiv.
 
-## Vorgehensweise
+| Kapitel | Inhalt |
+|---|---|
+| **A** | Einsatz, Systemarchitektur, grundsätzliche Produktvorgaben (SYS) |
+| **B** | Fahrzeug-Bordnetz, Versorgung, eFuse, USB-Strompfad, Energiepuffer (PWR) |
+| **C** | Steuerung, Speicher, USB-Service, Logging und Diagnose (STO/MCU) |
+| **D** | GNSS, Fahrstreckenmessung, Radimpulse und Quellenlogik (GPS/MES) |
+| **E** | Display, Bedienung und Fehleranzeige (UI) |
+| **F** | Gehäuse, Taster, Stecker, Halterung und Temperatur (MEC/ENV) |
+| **G** | Konkrete Hardware-/PCB-Auslegungsentscheidungen **HW-01 bis HW-81**, nach Baugruppen geordnet |
+| **H** | Fertigung, Test und Abnahme (Q/PCB) |
+| **I** | Archiv der chronologischen Entscheidungen |
+| **J** | Aktuelle offene Integrations- und Freigabe-Gates |
 
-1. Wir besprechen Entscheidungen üblicherweise **in Blöcken von drei bis vier Punkten** und übernehmen sie gesammelt, sofern der Nutzer nichts davon ausdrücklich offenlassen möchte.
-2. Bestätigte Wünsche werden als **Festgelegt** markiert; Annahmen bleiben **Offen**, vorhandene Bauteile **Bestand V0.3**, weitere Vorschläge **Wunsch**.
-3. Nach jedem Gespräch die betroffenen Anforderungen und das Entscheidungsprotokoll aktualisieren.
-4. Hersteller-/Teilenummern für Prototypen können gezielt vorgeplant werden; **endgültige KiCad-Footprints, elektrische und mechanische Freigabe erst nach Datenblatt-, Muster- und Passformprüfung**.
-5. Technische Prüfkriterien dokumentieren. Ein Schaltplan, eine erfolgreiche KiCad-Prüfung oder eine Bauteilauswahl allein ist noch keine elektrische oder Fahrzeugfreigabe.
+**Anforderungsstatus:** **Festgelegt** = entschieden, aber nicht automatisch elektrisch geprüft; **Teilweise festgelegt** = Grundsatz beschlossen, konkrete Auslegung offen; **Bestand V0.3** = historischer Schaltplanstand, nicht für V1 freigegeben; **Offen** = technische Entscheidung oder Verifikation steht aus; **Wunsch** = nicht automatisch implementieren.
 
-**Status-Legende:**
-- **Festgelegt** = vom Nutzer für die nächste Entwicklungsrevision bestätigt; kann noch technische Prüfung erfordern.
-- **Bestand V0.3** = in der bisherigen KiCad-V0.3-Revision enthalten, nicht zwingend bereits für die nächste Revision freigegeben.
-- **Wunsch** = Funktion aus der Ideensammlung, Umfang oder technische Lösung noch zu klären.
-- **Offen** = keine Entscheidung getroffen.
+### Aktueller Kernstand – nur als Wegweiser, nicht als zweite Anforderungstabelle
 
-## Entscheidungsübersicht – verbindlicher Stand
+| Bereich | Beschlossener Stand / wesentliche offene Verifikation |
+|---|---|
+| Elektronik | **Eine Hauptplatine** mit ESP32-S3-MINI-1-N8, MAX-M10N, FRAM, RTC mit Backup, microSD intern, digitalen Licht-/Temperatursensoren; sämtliche Baugruppen im hierarchischen KiCad-10-Projekt |
+| Versorgung | **9–36 V** über abgesicherten Fahrzeuganschluss M8; Board-eFuse mit Auto-Retry, gesonderter Verpol-/Transientenschutz, **5 V/2 A** als vorläufiges Wandlerziel, **3,3-V-LDO**, Abschaltpuffer und 5-V-Laboreingang; alles elektrisch noch nachzuweisen |
+| USB/SD | USB-C links, natives ESP32-S3-USB: bei USB-only SD-MSC oder Boot-/Flashmodus; bei gleichzeitiger M8-Versorgung hat **M8 Priorität**, keine Rückspeisung; Logging und SD-MSC nie gleichzeitig auf derselben SD |
+| Anzeige/Bedienung | Riverdi **RVT35HITNWC00-B**, 3,5-Zoll-IPS, sechs einzeln steckbare beleuchtete **FILN FLM12-FJ-6-E** (5 grün, 1 rot), automatische/manuelle gemeinsame Dimmung; Display-FPC/Backlight/Stecker noch verifizieren |
+| Messung | GNSS **5 Hz**, zwei getrennte geschützte Radimpulseingänge mit strombegrenzter 5-V-Sensorversorgung, Fahrzeugprofile und Quellen-Plausibilisierung |
+| Mechanik | Kompaktes staubgeschütztes ASA-Gehäuse, entnehmbare Hauptplatine und Fahrzeug-Schnellwechselhalterung; extern SMA normal, M8 hinten; microSD **nur intern** |
+| PCB/Kosten | Erste Fertigung **5 Rohplatinen, davon möglichst 2 bestückt und 3 Reserve**; **1,6 mm**, **35 µm Kupfer**, bevorzugt **2 Lagen** (4 wenn begründet); JLCPCB Basic, 1206/handlötbar nach Möglichkeit, ohne technische Kompromisse |
 
-| Bereich | Festgelegter Stand / bewusste Einschränkung | IDs |
-|---|---|---|
-| Distanzbedienung | Eigene +/−-Tasten mit 10 m pro Druck, beschleunigte Wiederholung; TRIP wählt den aktiven Zähler; LEG 0 sofort, Undo durch bestätigten Langdruck; Gesamt/Trip A/Trip B/LEG getrennt | UI-16–27 |
-| Navigation und Logging | GNSS 5 Hz; automatische, im Menü persistent abschaltbare GPX-/CSV-Tagesaufzeichnung; manueller Dateineustart; fehlende/volle/defekte SD melden; GNSS-Zeit + gepufferte RTC als Zeitbasis | GPS-05–11, STO-05/06/20–24 |
-| Stromversorgung | 12-/24-V-M8-ACC, eFuse, Startpuffer und kontrollierter Speicher-Nachlauf; USB-only 5 V für automatische SD-MSC-Dateiübertragung und getrennten Firmware-Bootmodus | PWR-01–29, STO-15–19 |
-| Display und Gehäuse | Riverdi 3,5-Zoll-IPS, ASA, Staubschutz, Schiebehalterung; **USB-C links, M8 hinten, microSD ausschließlich intern auf Hauptplatine ohne rechte Gehäuseöffnung**. | UI-06–13, MEC-04/06–15/35–39, STO-02/07/14 |
-| Fronttaster – für Prototyp ausgewählt | **Kleine FILN FLM12-FJ-6-E**, schwarz, 12-mm-Bohrung, 3-V-LED, NO-Momentkontakt, Stecker; vorläufig **5× Grün + 1× Rot (LEG 0)**. **LED-Ringe sind im regulären Betrieb immer an und dimmen automatisch/manuell gemeinsam mit dem Display** (UI-28/MEC-34), nicht tastengesteuert. 19-mm-FILN ausgeschlossen; taktile LEG-0-Unterscheidung weiter Pflicht. | MEC-17/21/25–34, UI-28, SYS-05/06 |
-| Bewusst nicht endgültig entschieden | Interner SD-Halter, RTC-Typ und konkrete Knopfzelle/Diagnoseauslegung, genaue UTC-/Lokalzeit-Logik, MSC-/Firmware-Moduswechsel, PCB-Koordinaten, M8-/USB-C-/SMA-/Radsensor-Stecker, Tastenlayout, LEG-0-Haptik und Dichtungen. | STO-14/17/20/23, PWR-29, MEC-04/17/23/27, UI-14 |
+**Noch offen:** Hersteller-Pinout/Footprints und Bauteil-BOM, Strom-/Thermikbudget samt Elko-Puffer, Quellenentkopplung, konkrete Lieferartikel/Stecker, KiCad-ERC/DRC und realer Versuchsaufbau. Das aktuelle V1-Projekt in [hardware/kicad](../hardware/kicad/) ist **Entwurfsstand, nicht serien- oder fahrzeugfreigegeben**.
 
-**Wichtig:** Die Übersicht ersetzt nicht die Anforderungstabelle. **FILN 12 mm ist als Prototypkomponente ausgewählt, aber erst nach Überprüfung der exakten Shopvariante, Anschlussmaße, Verfügbarkeit und Montagebedingungen fertigungstauglich freizugeben.** WITTKOWARE ist nur ein historisch diskutierter Rückfallkandidat; die frühere FILN-19-mm-Ausführung wurde ausdrücklich verworfen.
-
-## A. Einsatz und Gesamtkonzept
+## A. Einsatz und Gesamtarchitektur
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
 |---|---|---|---|
@@ -50,7 +50,7 @@
 | SYS-05 | **Festgelegt – kleinere FILN-Variante für die Prototypkalkulation** | **Kostensensible Beschaffung; FILN FLM12-FJ-6-E in Schwarz, LED 3 V, mit Stecker**, 12-mm-Einbaubohrung als für die Prototypenplanung gewählte Tasterfamilie. Die größere FILN-19-mm-Variante wird **nicht** mehr eingeplant. | Vorläufig 6 Taster (5× Grün, 1× Rot LEG 0), Stückpreis laut Shop zuletzt ab ca. **3,20 USD**, **Versandkosten von ca. 28 € je FILN-Bestellung** laut Nutzer – separat einkalkulieren (SYS-06). Preise in USD erst zum Kalkulationszeitpunkt umrechnen und ggf. Einfuhrabgaben/Steuern prüfen. Keine generelle Gesamtbudgetgrenze festgelegt. |
 | SYS-06 | **Kalkulationsvorgabe – Nutzerangabe, vor Bestellung aktualisieren** | **FILN-Direktversand: 28 € Versandkosten pro Bestellung** als eigener Fixkostenposten für die spätere TripTracer-BOM-/Prototyp- und Kleinserienkalkulation. Vorläufig sechs FILN-12-mm-Taster, davon fünf grüne und ein roter LED-Ring (3 V). | Beispielrechnung ohne Umrechnung: **6 × ca. 3,20 USD Produktpreis + 28 € Versand pro Bestellung**, nicht 28 € je Taster. Währungskurs, Endpreis des konkreten Variantenmixes, MwSt., ggf. Zoll/Einfuhrgebühren und Mengenänderungen getrennt ausweisen; die 28 € stammen vom Nutzer und sind kein garantiertes zeitloses Händlerangebot. Für Serienmengen neu kalkulieren und Versandkosten auf Stückzahl verteilen. |
 
-## B. Stromversorgung und Schutz – verbindliche Anforderungen und offene technische Auslegung
+## B. Stromversorgung und Schutz
 
 ### B.1 Versorgungszustände und Verhalten (verbindliche Systemlogik)
 
@@ -99,7 +99,7 @@
 | PWR-29 | **Offen – Zustandsautomat technisch auslegen** | Zustände für M8-Normalbetrieb, USB-only-MSC, expliziten MSC-Service bei M8+USB, Firmware-Bootmodus, SD-Exklusivzugriff, Host-Eject, ACC-Aus-Flush/Unmount und RTC-/Zeitvalidität festlegen. | USB-Stack, ROM-Boot, Power-Source-Priorität, Schreibrechte des PC, fehlerhafte USB-Abbrüche und sichere Übergänge real testen. |
 
 
-### B.3 Bordnetzbereich und Wiederanlauf – bestätigte Viererrunde 13.10.2026
+### B.3 Bordnetzbereich und Wiederanlauf
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -108,7 +108,7 @@
 | PWR-32 | **Festgelegt – A: Bordnetzspannung und Unterspannungswarnung** | Gemessene M8-Eingangsspannung im **Diagnosemenü** anzeigen; bei kritischem Spannungszustand **Warnsymbol** in der Fahranzeige. | Skalierung/ADC-Schutz, Filter und Unterspannungsgrenzen passend für 12-/24-V-Profile definieren; USB-only klar unterscheiden. |
 | PWR-33 | **Festgelegt – A: automatischer Wiederanlauf** | Nach Wiederkehr gültiger M8-Bordnetzversorgung **ohne Tastendruck automatisch neu starten**; zuletzt aktives Fahrzeugprofil, dauerhaft gespeicherte Zähler und relevante Einstellungen wiederherstellen. | FRAM-Atomarität, Power-Cycle-Tests, sichere SD-Dateiwiederaufnahme und Wiederanlaufsperre bei anhaltender thermischer Störung gemäß ENV-02. |
 
-### B.4 Energiepuffer und Abschaltverhalten – bestätigte Viererrunde 13.10.2026
+### B.4 Energiepuffer und Abschaltverhalten
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -117,7 +117,7 @@
 | PWR-36 | **Festgelegt – A: automatische Stabilisierung** | Wiederholte kurze Start-/Bordnetzeinbrüche ohne vermeidbare Reset- und Distanzunterbrechungen überbrücken; bei längerem Ausfall geordnet sichern und abschalten, bei wieder stabiler M8-Versorgung automatisch starten. | Schwellen und Hysterese, Anti-Flatter-Logik, Wiederanlaufverzögerung sowie Worst-Case-Serie von Motorstarts prüfen. Keine Endlosschleifen bei Grenzspannung. |
 | PWR-37 | **Festgelegt – A: dezente Spannungswarnung** | Drohenden Spannungsverlust durch **kleines Statussymbol und kurzen Hinweis** melden; reguläre Rallye-Distanzanzeige sichtbar lassen; Spannungsereignis im Diagnose-/Fehlerprotokoll festhalten. | Hysterese gegen wiederholte Hinweise, Priorisierung gegenüber kritischen Fehlern und klare Unterscheidung zu USB-only-Betrieb. |
 
-## C. Steuerung, Kommunikation und Speicher
+## C. Steuerung, Speicher und USB
 
 ### C.1 Externe Anschlüsse, microSD und Track-Aufzeichnung (STO)
 
@@ -160,7 +160,7 @@
 | MCU-05 | **Festgelegt** | Interne microSD an separatem SPI-Host; **FAT32 auf 32-GB-Karte als Planungsziel**, PC-Datenzugriff per exklusivem USB-MSC-Modus. | FAT32-SD-Treiber, hostseitiges sicheres Auswerfen, Dateisystemintegrität, Wiederanlauf nach Abbruch und Speicherplatzberechnung testen. |
 | MCU-06 | **Offen – GPIO/Boot-Budget** | Pinbudget und Reserven für TFT-SPI, SD-SPI, SD-Power, optionalen Card-Detect, RTC (ggf. vorhandener I²C-Bus), GNSS, FRAM, Sensoren, Tasten, Backlight und USB-OTG/ROM-Boot prüfen. | Vor KiCad-Layout konkrete GPIO-/Strapping-/Wake-/Resetbelegung belegen. |
 
-### C.3 Beschlossene Betriebs- und Zeitoptionen – Viererrunde 13.10.2026
+### C.3 Beschlossene Betriebs- und Zeitoptionen
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -171,7 +171,7 @@
 | STO-29 | **Festgelegt – RTC-Diagnoseziel; Schaltung offen** | RTC-Backupbatterie im Diagnosemenü überwachen: **Batteriespannung messbar**, Warnung „RTC-Batterie schwach“ und gesonderter Fehler „RTC-Zeit ungültig“. | Ruhestromarmer nur kurzzeitig zugeschalteter Spannungsteiler/ADC oder passender Batterieüberwachungsbaustein, ohne Entladung im ausgeschalteten Zustand; CR-Spannung ist kein genauer Ladeprozentsatz. Schwellen und Temperaturabhängigkeit datenblatt-/messbasiert bestimmen. |
 
 
-### C.4 Logging-Robustheit – bestätigte Viererrunde 13.10.2026
+### C.4 Logging-Robustheit
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -181,7 +181,7 @@
 | STO-33 | **Festgelegt – A: etwa 1 s persistenter Flush** | GNSS bleibt bei **5 Hz**; Logdaten werden zunächst gepuffert und im Normalbetrieb **ungefähr einmal pro Sekunde** gebündelt auf microSD geschrieben bzw. synchronisiert. ACC-Aus erzwingt geordnetes Schließen mittels dimensioniertem Energiepuffer. | Puffertiefe und Taskprioritäten garantieren störungsfreie Distanzmessung; reale maximale SD-Write-/fsync-Latenzen, Verschleiß und Energiepuffer dimensionieren. Ein ungefähr sekündlicher Flush ist keine Garantie gegen vollständigen Datenverlust bei abrupten Ausfällen außerhalb des Auslegungsprofils. |
 
 
-### C.5 Wiederanlauf und Logging – bestätigte Viererrunde 13.10.2026
+### C.5 Wiederanlauf und Logging
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -189,7 +189,7 @@
 | STO-35 | **Festgelegt – A: manuelle neue Logdatei ohne Rückfrage** | Menüpunkt **„Neue Logdatei starten“** schließt sofort und sicher das aktive GPX-/CSV-Dateipaar und eröffnet ohne Bestätigungsdialog ein neues eindeutig benanntes Paar am gleichen Tag (z. B. Tagesname mit laufender Sequenz). **Distanzzählung läuft ununterbrochen.** | SD-Operationen asynchron/nicht blockierend, GNSS-Pufferung bei Dateirotation, Fehlerzustand wenn SD nicht verfügbar oder USB-MSC aktiv, keine Datei überschreiben, UI-Feedback über Erfolg/Fehler. |
 
 
-### C.6 Systemdiagnose und Firmware-Recovery – bestätigte Viererrunde 13.10.2026
+### C.6 Systemdiagnose und Firmware-Recovery
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -198,7 +198,7 @@
 | DIA-03 | **Festgelegt – C: interne Recovery-Jumperbrücke** | **2-polige, auf der Hauptplatine zugängliche 2,54-mm-Stiftleiste für abnehmbaren Jumper**: bei gesteckter Brücke wird ESP32-S3 GPIO0 (BOOT) auf GND gezogen; **beim Reset/Power-on** startet ROM-Downloadmodus. Zum Notfall-Recovery Gehäuse öffnen, Jumper setzen, USB-C anschließen bzw. resetten, flashen, Jumper abziehen und neu starten. **Keine externe Recoverytaste.** | GPIO0 darf keine Konflikte mit anderen Bootstrapping-Funktionen haben; GPIO0 im Normalbetrieb mit geeignetem Pull-up, USB-Flashpfad und internen Reset/EN-Testkontakt auslegen. Platz für Jumper und Finger/Pinzette, Beschriftung BOOT/GND, ESD/Kurzschlussschutz, sicherer Normalstart bei entfernter Brücke prüfen. |
 | DIA-04 | **Festgelegt – A: zusätzliche Diagnosedatei** | Neben GPX und CSV **lesbare Diagnose-Datei** mit Firmwareversion, Hardware-Revision, letztem Systemstatus und ausgewählten Fehlerereignissen; über die interne SD als USB-MSC am PC abrufbar. | Datei unter MCU-exklusivem Dateisystemzugriff erzeugen/aktualisieren, **niemals während PC-MSC-Eigentümerschaft**; Fehlerexport auch bei SD-Defekt eingeschränkt, FRAM-Protokoll bleibt unabhängig. Persönliche/sensitive Positionsdaten in Diagnoseausgabe minimieren. |
 
-### C.7 Diagnose und Inbetriebnahme – bestätigte Viererrunde 13.10.2026
+### C.7 Diagnose und Inbetriebnahme
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -207,7 +207,7 @@
 | DIA-07 | **Festgelegt – A: Konfigurationsdatei auf microSD** | Alle relevanten Geräteeinstellungen und bis zu zehn Fahrzeugprofile **als lesbare Datei auf microSD exportieren**; später über Menü **wieder importieren**. | Schema-/Firmwareversion, Prüfsumme, Eingabevalidierung, sichere atomare Übernahme, Backup vor Überschreiben, Umgang mit fehlender SD und Zuordnung profilgebundener Zähler klar festlegen; keine USB-/SD-Zugriffskollision. |
 | DIA-08 | **Festgelegt – A: Versorgung und Resetgrund protokollieren** | Bei Start-/Versorgungsproblemen **gemessene Bordnetzspannung, ESP32-Resetursache, Fehlercode und wenn gültig Zeitstempel** im nichtflüchtigen FRAM-Fehlerprotokoll speichern. | Resetursache möglichst früh sichern; Spannungswert eindeutig als vor dem Ausfall, beim Start oder beim Ereignis gemessen kennzeichnen, um keine rückwirkend ungemessene Spannung vorzutäuschen. **Keine zusätzliche Spannungsverlaufshistorie beschlossen.** |
 
-### C.8 Konfigurationssicherung und Import – bestätigte Viererrunde 13.10.2026
+### C.8 Konfigurationssicherung und Import
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -216,7 +216,7 @@
 | CFG-03 | **Festgelegt – A: nur manuell sichern** | JSON-Konfigurationsbackup auf die microSD **ausschließlich auf ausdrücklichen Nutzerbefehl im Menü** schreiben; keine automatischen Exporte nach jeder Änderung oder täglich. | Laufende persistente Gerätekonfiguration intern weiterhin zuverlässig sichern; Export-Dateiname, Fehlerbehandlung und Speicherplatzprüfung festlegen. |
 | CFG-04 | **Festgelegt – A: defekte Importe vollständig ablehnen** | Beschädigte, ungültige oder inkompatible JSON-Dateien **vollständig zurückweisen**, Fehlermeldung anzeigen und **sämtliche bisherigen Einstellungen und Profile unverändert lassen**; keine Teilimporte oder Werksrücksetzung. | Vollständige Validierung vor Übernahme, atomarer Commit mit Power-Loss-Sicherheit, Rollback, Versionsprüfung und negative Tests mit unvollständigen/korrupten Dateien. |
 
-### C.9 GNSS-Trackdaten und Loggingdetails – bestätigte Viererrunde 13.10.2026
+### C.9 GNSS-Trackdaten und Loggingdetails
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -225,7 +225,7 @@
 | STO-38 | **Festgelegt – A: Fahrzeugprofil in CSV** | Jeden regulären CSV-Datensatz mit **aktiver stabiler Profil-ID und Profilname** ergänzen; jeden bestätigten Profilwechsel zusätzlich als Ereignis mit alter/neuer Profil-ID protokollieren. | Eindeutige Zuordnung von Zählern/Dateisamples, auch bei Namensänderung und Profilwechsel während der Fahrt; Logdatei nicht allein wegen Profilwechsel aufteilen. |
 | STO-39 | **Festgelegt – A: 7 Dezimalstellen** | Breitengrad und Längengrad in **GPX und CSV mit 7 Dezimalstellen** in Dezimalgrad speichern. Diese numerische Auflösung **nicht als reale GNSS-Ortsgenauigkeit ausgeben**. | Rundung, Vorzeichen, WGS84-Konvention, Punkt als Dezimaltrennzeichen und konsistente Darstellung in CSV/GPX testen. |
 
-### C.10 Fahrtenübersicht und Wiederherstellung – bestätigte Viererrunde 13.10.2026
+### C.10 Fahrtenübersicht und Wiederherstellung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -234,13 +234,13 @@
 | STO-42 | **Festgelegt – A: eindeutige Fahrt-ID** | Jeder Fahrt eine **dauerhaft eindeutige ID** zuweisen; diese in zentraler Fahrtenübersicht, Tages-CSV und Fahrtbeginn-/Endereignissen verwenden. Auch über Mitternacht, Profilwechsel, Neustart und Datenträger-Recovery eindeutig erhalten. | Kollisionsfreie nichtflüchtige ID-Vergabe und atomare Speicherung testen; Uhrzeit allein nicht als garantierte eindeutige ID verwenden. |
 | STO-43 | **Festgelegt – A: Höhenmeter und GNSS-Qualität** | Fahrtenübersicht zusätzlich mit **gefilterten positiven/negativen Höhenmetern** sowie einer aussagekräftigen **Zusammenfassung der GNSS-Empfangsqualität** (z. B. gültiger Fix-Anteil, Ausfälle) ergänzen. Höhenmeter nur aus ausreichend genauen, gefilterten Höhenwerten bilden; bei zu geringer Datenqualität als nicht verfügbar markieren. | Vertikale GNSS-Unsicherheit, Ausreißerfilter, Hysterese/Schwellwert gegen Rausch-Aufsummierung, Qualitätskennzeichen und Datenverfügbarkeit anhand realer Fahrtaufzeichnungen validieren; keine falschen Präzisionsversprechen. |
 
-### C.11 Quellenqualität in CSV – bestätigte Viererrunde 13.10.2026
+### C.11 Quellenqualität in CSV
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | STO-44 | **Festgelegt – C: Messquelle plus Qualitätsindikator in CSV** | **Jeder reguläre CSV-Datensatz** enthält die tatsächliche aktive Distanzquelle (**GNSS, Radgeber 1, Radgeber 2 oder keine**) **und einen zur Quelle passenden Qualitäts-/Plausibilitätsindikator**. Quellenwechsel bleiben als gesonderte Ereignisse erhalten. | Die Kennzahl je Quelle fachlich unterscheiden und mit Einheit/Definition dokumentieren (z. B. GNSS Genauigkeit/Fixstatus; Radgeber Plausibilitäts-/Fehlerstatus), keinen künstlich vergleichbaren einheitlichen Genauigkeitswert vortäuschen. |
 
-### C.12 Fehlerhistorie und Verwaltung – bestätigte Viererrunde 13.10.2026
+### C.12 Fehlerhistorie und Verwaltung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -249,7 +249,7 @@
 | DIA-11 | **Festgelegt – C: Anzeige gruppieren, Rohereignisse behalten** | Gleichartige Warnereignisse in der **Displayübersicht gruppiert darstellen** (z. B. Zahl, erster/letzter Zeitpunkt), die **einzelnen Rohereignisse** bleiben im persistenten Ringpuffer und im exportierten CSV-Protokoll erhalten, soweit nicht durch reguläre Speicherbegrenzung überschrieben. | Gruppierung darf die Grenze der letzten 20 Rohereignisse nicht missverständlich verändern; Anzahl und Zeitfenster eindeutig angeben. |
 | DIA-12 | **Festgelegt – B: Löschen im normalen Diagnosemenü** | Funktion **„Fehlerhistorie löschen“ im normalen Diagnosemenü**, jedoch nur nach ausdrücklicher **Bestätigung**. Kein Entwicklermenü erforderlich. | Vorherige Warnung über Unumkehrbarkeit; aktive Fehler nicht unterdrücken, aktuelle aktive Warnungen gegebenenfalls sofort erneut anzeigen; vorhandene exportierte SD-Protokolle nicht ungefragt löschen. |
 
-### C.13 Diagnoseexport und Menüführung – bestätigte Viererrunde 13.10.2026
+### C.13 Diagnoseexport und Menüführung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -279,7 +279,7 @@
 | GPS-15 | **Festgelegt** | **Variante A: Schutz und Diagnose der GNSS-Antennen-Bias-Versorgung gegen Kurzschluss und Überstrom mit Fehlermeldung auf dem Display.** Keine zusätzliche verbindliche Open-Circuit-/Kabelbruch-Strommessung. | Ansprechstrom, Abschalt-/Retry-Verhalten, Fehleranzeige und Schutz gegen ESD/Transienten nach konkreter Antenne und Bias-Schaltung spezifizieren und testen. Antennenausfall ohne Überstrom darf nicht fälschlich als zuverlässig diagnostizierter Kabelbruch behandelt werden; GNSS-Fixverlust separat anzeigen. |
 
 
-### D.1 GNSS-Status und Fahrzeugprofile – bestätigte Viererrunde 13.10.2026
+### D.1 GNSS-Status und Fahrzeugprofile
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -288,7 +288,7 @@
 | GPS-18 | **Festgelegt – A: mehrere Fahrzeugprofile** | Mehrere **nichtflüchtig gespeicherte, benennbare Fahrzeugprofile** (z. B. Motorrad/Pkw/Lkw) mit individuellen Radsensor-Kalibrierwerten und fahrzeugspezifischen Einstellungen; Profilwechsel im Menü. | FRAM-/NVS-Budget, Profilzahl, Eingabeverfahren, gültige Kalibrierung und Wechsel während der Fahrt prüfen; keine automatische Fahrzeugerkennung vorgeschrieben. |
 
 
-### D.2 Fahrzeugprofil- und Kalibrierverhalten – bestätigte Viererrunde 13.10.2026
+### D.2 Fahrzeugprofil- und Kalibrierverhalten
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -298,7 +298,7 @@
 | GPS-22 | **Festgelegt – A: eigene Distanzzähler je Profil** | Jedes der 10 Fahrzeugprofile führt **eigene persistente Zählerstände für Gesamt, Trip A, Trip B und LEG**. Beim bestätigten Profilwechsel die alten Zähler sichern und die zum Zielprofil gehörenden Werte wiederherstellen; vorhandene Undo-/Korrekturlogik profilgebunden halten. | FRAM-Bereich, Schreibatomarität, Wiederanlauf nach Stromverlust und Ereignis-Logging prüfen. GPX-/CSV-Trackdistanz nicht mit den gerätespezifischen korrigierbaren Zählern verwechseln. |
 
 
-### D.3 Kalibrierung und Messgenauigkeit – bestätigte Viererrunde 13.10.2026
+### D.3 Kalibrierung und Messgenauigkeit
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -306,7 +306,7 @@
 | GPS-24 | **Festgelegt – A: schlechte GNSS-Messwerte verwerfen** | GNSS-Positionen mit unzureichender Genauigkeit, unplausiblen Positions-/Geschwindigkeitssprüngen oder unbrauchbarem Fix **nicht** für die Distanzintegration benutzen; falls angeschlossen und kalibriert, auf den Radsensor wechseln, sonst Distanz anhalten und Warnstatus anzeigen. | Empfänger-Qualitätsindikatoren, Grenzwerte, Ausreißerfilter und Hysterese vor Umsetzung definieren und durch Fahrtests verifizieren. Ungültige GNSS-Positionen weder als echte GPX-Trackpunkte noch als erfundene Strecke ausgeben. |
 | GPS-25 | **Festgelegt – A: kein Distanzsprung bei GNSS-Rückkehr** | Bei Rückkehr stabiler, ausreichend genauer GNSS-Messwerte vom Radsensor auf GNSS zurückschalten, **ohne den bisherigen Zählerstand rückwirkend anzupassen oder schlagartig zu korrigieren**. Zukünftige Distanzinkremente aus der neuen gültigen Quelle beziehen. | Kontinuität, Doppelzählung, Wechselzeitpunkt und stabile GNSS-Wiederaufnahme testen; Messquellenwechsel im CSV protokollieren. |
 
-### D.4 Geschwindigkeit und Stillstand – bestätigte Viererrunde 13.10.2026
+### D.4 Geschwindigkeit und Stillstand
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -315,7 +315,7 @@
 | GPS-28 | **Festgelegt – A: Radsensor als Geschwindigkeits-Fallback** | Bei unzureichender GNSS-Qualität Geschwindigkeit aus den **kalibrierten Radimpulsen** ermitteln. Steht keine zuverlässige Quelle zur Verfügung, statt einer erfundenen oder eingefrorenen Geschwindigkeit **Strich/ungültig** anzeigen. | Quellenwechsel mit GPS-17/-24/-25 abstimmen; Werte auf plausiblen Bereich begrenzen, Quelle im Status anzeigen und Ereignisse protokollieren. |
 | GPS-29 | **Festgelegt – A: Fahrtstatistik** | **Durchschnitts- und Höchstgeschwindigkeit pro Fahrt** berechnen und im Menü abrufbar halten; bei Beginn einer neuen Fahrt zurücksetzen und in CSV dokumentieren. Fahrzeugprofil der jeweiligen Fahrt zuordnen. | Fahrtbeginn/-ende und Standzeitbehandlung definieren; Maximalwert aus plausibilisierten gültigen Geschwindigkeitssamples, kein Reset allein durch Tagesdateiwechsel; Sicherung bei Stromverlust. |
 
-### D.5 Fahrtdefinition und Geschwindigkeitsstatistik – bestätigte Viererrunde 13.10.2026
+### D.5 Fahrtdefinition und Geschwindigkeitsstatistik
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -324,7 +324,7 @@
 | GPS-32 | **Festgelegt – A: plausible Höchstgeschwindigkeit** | Nur **valide, auf GNSS-Qualität und Geschwindigkeitssprünge geprüfte** GNSS-Geschwindigkeitswerte beziehungsweise plausibilisierte Radsensorwerte zur Aktualisierung des Fahrt-Maximums zulassen. | Ausreißerunterdrückung darf kurze echte Geschwindigkeitsspitzen nicht systematisch verschweigen; Quelle und Gütekriterien festhalten. |
 | GPS-33 | **Festgelegt – A: neue Statistik bei Profilwechsel** | Bestätigter Wechsel des aktiven Fahrzeugprofils **beendet die bisherige Fahrtstatistik und beginnt für das Zielprofil eine neue Fahrtstatistik**, auch wenn die Fahrt ohne Unterbrechung weitergeht. Die unabhängigen profilgebundenen Distanzzähler bleiben gemäß GPS-22 erhalten. | Abschluss und Start samt Profil-IDs/Zeitstempel im CSV/Ereignislog dokumentieren; keine zusätzliche GPX-/CSV-Dateipaarung nur wegen Profilwechsel erforderlich. |
 
-### D.6 Pausen und Fahrtende – bestätigte Viererrunde 13.10.2026
+### D.6 Pausen und Fahrtende
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -333,7 +333,7 @@
 | GPS-36 | **Festgelegt – A: manueller Logdateiwechsel ohne Statistikreset** | Der bereits beschlossene Menüpunkt **„Neue Logdatei starten“ (STO-35)** erzeugt ausschließlich ein neues GPX-/CSV-Dateipaar; **die laufende Fahrt, die Fahrtstatistik und die profilgebundenen Distanzzähler werden nicht zurückgesetzt**. | Log-Ereignis/Segmentierung sichern; weiterhin ohne zusätzliche Bestätigungsabfrage gemäß STO-35. |
 | GPS-37 | **Festgelegt – A: ausgeschaltete Zeit separat erfassen** | **Pausenzeit bei ausgeschalteter M8-Versorgung separat dokumentieren**, aber **nicht als aktive Fahrtdauer** bei der Berechnung des Gesamtdurchschnitts verwenden. Stillstand bei eingeschaltetem Gerät bleibt im Gesamtdurchschnitt enthalten, jedoch nicht im Bewegungsdurchschnitt (GPS-31). | Zeitquellenvalidierung/RTC-Backup, Unterscheidung von Pause bei M8 AN und AUS, korrekte Durchschnittsnenner und Export mit expliziten Zeitfeldern prüfen. |
 
-### D.7 Pauseneinstellungen und Fahrthistorie – bestätigte Viererrunde 13.10.2026
+### D.7 Pauseneinstellungen und Fahrthistorie
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -342,7 +342,7 @@
 | GPS-40 | **Festgelegt – A: Fahrt über Mitternacht fortsetzen** | **Tageswechsel um 00:00 Uhr** beginnt ein neues GPX-/CSV-Dateipaar, **setzt aber die laufende Fahrtstatistik nicht zurück**; eine Fahrt darf sich über mehrere Tagesdateien erstrecken. | Konsistente Fahrt-ID und Start-/Endzeit über Dateigrenzen, Mitternacht bei Zeitzonenwechsel und Stromausfall testen. |
 | GPS-41 | **Festgelegt – A: zusätzliche Fahrtenübersicht als CSV** | Zusätzlich zu tagesweisen GPX-/CSV-Tracks eine **separate, lesbare CSV-Fahrtenübersicht** mit mindestens Fahrt-ID, Start/Ende, Profil-ID/-Name, Strecke, Pausenzeiten, Gesamtdurchschnitt, Bewegungsdurchschnitt und Höchstgeschwindigkeit erzeugen. | Abschlüsse nach Pause, manuellem Neustart und Profilwechsel ohne Dubletten schreiben; FRAM-/SD-Power-Loss-Recovery, UTF-8, UTC-Zeitstempel und lokale Anzeigezeiten eindeutig festlegen. |
 
-### D.8 GNSS-Höhenmessung und Qualitätsbewertung – bestätigte Viererrunde 13.10.2026
+### D.8 GNSS-Höhenmessung und Qualitätsbewertung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -350,7 +350,7 @@
 | GPS-43 | **Festgelegt – A: Höhenmessung unabhängig aussetzen** | Bei unzureichender **vertikaler** GNSS-Genauigkeit die Höhenmeterintegration aussetzen und in der Statistik als unvollständig kennzeichnen. Horizontale Distanz-/Geschwindigkeitsmessung **weiterführen**, sofern deren eigenständige Qualitätskriterien erfüllt sind. | Getrennte Qualitätsflags für vertikal/horizontal, stabile Wiederaufnahme ohne künstlichen Höhenmeter-Sprung; ungültige Höhenwerte im CSV entsprechend kennzeichnen. |
 | GPS-44 | **Festgelegt – A: Fix-Anteil und Ausfalldauer** | In der zentralen CSV-Fahrtenübersicht den **Anteil der Fahrtzeit mit gültigem GNSS-Fix (in Prozent)** und die **aufsummierte GNSS-Ausfalldauer** dokumentieren. | Den Nenner als aktive/aufgezeichnete Fahrtdauer klar festlegen und fehlende Zeitbereiche kennzeichnen; GNSS-Qualität und Verwendbarkeit für Distanz getrennt auswerten. |
 
-### D.9 GNSS-Ausfälle und Wiederherstellung – bestätigte Viererrunde 13.10.2026
+### D.9 GNSS-Ausfälle und Wiederherstellung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -358,7 +358,7 @@
 | GPS-46 | **Festgelegt – A: GPX-Segment unterbrechen** | Bei unbrauchbarem GNSS-Fix keine erfundenen Koordinaten und keine Wiederholung der letzten Position in GPX schreiben. Laufendes GPX-Tracksegment **unterbrechen**, bei verlässlicher GNSS-Rückkehr **neues Segment** starten. Über Radsensor gemessene Strecke bleibt in CSV nachvollziehbar. | GPX-Konformität, Segmentgrenze und sichere Dateischreiblogik auch bei Ausfall/Recovery testen. |
 | GPS-47 | **Festgelegt – C: Ausfallereignis mit Radstrecke** | Für jeden GNSS-Ausfall **Beginn, Ende, Dauer und währenddessen per kalibriertem Radsensor gemessene Distanz** als Ereignisse bzw. aggregierte Ausfallwerte in CSV erfassen. Gesamtausfalldauer weiterhin in zentraler Fahrtenübersicht gemäß GPS-44. | Fehlender/nicht kalibrierter Radsensor als **unbekannte Distanz** kennzeichnen (nicht fälschlich 0 m); unterbrochene Ausfälle/Profilwechsel und Zeitbasis sauber zuordnen. |
 
-### D.10 Radsensoreingang und Kalibrierung – bestätigte Viererrunde 13.10.2026
+### D.10 Radsensoreingang und Kalibrierung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -367,7 +367,7 @@
 | GPS-50 | **Festgelegt – A: Reed/Hall/Open-Collector** | Optionaler geschützter Radimpulseingang unterstützt **potentialfreie Reedkontakte sowie kompatible Hall- und Open-Collector-Ausgänge**. Für elektronische Geber definierte Versorgung und Pegel am Anschluss vorsehen. | Entprellung für Reed, Pull-up, Flankenerfassung, Eingangsschutz/ESD, Verpolung und elektrische Grenzwerte prüfen. **Direkte 12-V-Impulspegel sind durch diese Entscheidung nicht freigegeben.** |
 | GPS-51 | **Festgelegt – A: Kalibrierwert bleibt konstant** | Ein bestätigter Radsensor-Kalibrierwert bleibt **bis zur nächsten ausdrücklich durch den Nutzer bestätigten manuellen oder GNSS-Referenzkalibrierung** unverändert. Keine laufende automatische Nachregelung während der Fahrt. | Nichtflüchtige profilgebundene Speicherung, atomare Aktualisierung, Änderungsereignis und konsistente Verwendung während Quellenwechseln sicherstellen. |
 
-### D.11 Radsensorversorgung und Fehlerbehandlung – bestätigte Viererrunde 13.10.2026
+### D.11 Radsensorversorgung und Fehlerbehandlung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -376,7 +376,7 @@
 | GPS-54 | **Festgelegt – A: fehlerhaften Eingang sperren** | Bei anhaltend gestörtem oder unplausiblem Radimpulssignal **Radsensor als ungültig markieren**, Warnsymbol und Diagnoseereignis anzeigen/speichern. Wenn GNSS brauchbar, auf GNSS wechseln; andernfalls keine erfundene Distanz oder Geschwindigkeit aus Radimpulsen berechnen. | Fehlerkriterien mit GPS-49, Rückkehrbedingungen und Hysterese festlegen; Fehlfunktion des Radsensors darf GNSS-Messung nicht blockieren. |
 | GPS-55 | **Festgelegt – A: Radumfang und Impulse/Umdrehung** | Manuelle Kalibrierung im Menü über **Radumfang und Impulse pro Radumdrehung**; daraus die **Impulse/km berechnen und zur Kontrolle anzeigen**. GPS-Referenzkalibrierung gemäß GPS-21/23 bleibt möglich. **Keine zusätzliche direkte manuelle Eingabe von Impulsen/km beschlossen.** | Wertebereiche, Darstellung der Einheiten, Null-/Fehleingaben, Profilzuordnung und Änderungsbestätigung verifizieren; bestehenden fixen Kalibrierwert gemäß GPS-51 erhalten, bis Änderung bestätigt ist. |
 
-### D.12 Elektrischer Radsensoranschluss – bestätigte Viererrunde 13.10.2026
+### D.12 Elektrischer Radsensoranschluss
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -385,7 +385,7 @@
 | GPS-58 | **Festgelegt – A: sensortypabhängige Software-Entprellung** | **Reedkontakte mit einstellbarer Entprellzeit** im jeweiligen Fahrzeugprofil verarbeiten; bei Hall-/Open-Collector-Gebern deutlich kürzere Filterzeiten anwenden, sodass die bereits festgelegte Erfassung **bis 1 kHz** möglich bleibt. | Einstellgrenzen, Flanken-/Periodenfilter und maximale reale Fahrzeugimpulsrate validieren; keine Mehrfachzählungen oder Unterdrückung echter 1-kHz-Impulse. |
 | GPS-59 | **Festgelegt – A: Sensorversorgung begrenzen und abschalten** | Externe 5-V-Sensorversorgung erhält eine **eigene elektronische Strombegrenzung und automatische Abschaltung bei Überlast/Kurzschluss** mit auswertbarem Fehlerstatus. GNSS, Zähler, SD und Hauptversorgung laufen unabhängig weiter. | Stromlimit, Fehlererkennung, Wiederanlaufstrategie, thermische Grenzen und Kurzschluss nach Bordnetz/GND prüfen; Warn-/Fehlerereignis protokollieren. |
 
-### D.13 Doppelter Radsensoreingang und Diagnose – bestätigte Viererrunde 13.10.2026
+### D.13 Doppelter Radsensoreingang und Diagnose
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -393,7 +393,7 @@
 | GPS-61 | **Festgelegt – A: automatische strombegrenzte Wiederholversuche** | Bei Überstrom/Kurzschluss schaltet die geschützte **5-V-Sensorversorgung** ab und versucht nach begrenzter Wartezeit automatisch, strombegrenzt wieder einzuschalten. Bei anhaltendem Fehler keine Neustartschleife des Hauptgeräts, Fehlerstatus protokollieren. | Versuchsintervall, Duty-Cycle, Temperaturverhalten, maximaler Fehlerstrom und Warnungsquittierung festlegen; Versorgung und GNSS bleiben unabhängig. |
 | GPS-62 | **Festgelegt – A: Sensortyp manuell je Profil** | **Reed, Hall oder Open-Collector** im jeweiligen Fahrzeugprofil manuell auswählen; die passende Entprellung und Signalbewertung wird geladen. Bei zwei Eingängen Sensortyp und Eingangszuordnung unabhängig konfigurieren, sofern beide genutzt werden. | Persistenz, gültige Sensortyp-Pegel, Eingangsfilter und Verwechslungsprüfung im Einstellungsmenü sicherstellen. |
 
-### D.14 Zwei unabhängig konfigurierte Radsensoren – bestätigte Viererrunde 13.10.2026
+### D.14 Zwei unabhängig konfigurierte Radsensoren
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -402,7 +402,7 @@
 | GPS-65 | **Festgelegt – A: separat kalibrieren** | Für **jeden Radimpulseingang** innerhalb jedes Fahrzeugprofils eigenen Radumfang, Impulse/Umdrehung und bestätigten GNSS-Referenzkalibrierwert speichern. Die bestehende Mindest-Referenzstrecke von 1 km gilt auch hier. | Sensorweise persistente Parameter, unabhängige Kalibriervorgänge, atomare Übernahme nur nach Bestätigung, Plausibilitäts- und Bereichsprüfungen. |
 | GPS-66 | **Festgelegt – A: bevorzugten plausiblen Sensor nutzen und warnen** | Liefern zwei aktive Radgeber bei ausgefallenem GNSS deutlich widersprüchliche Geschwindigkeiten, **bevorzugten Sensor weiter zur Distanzmessung nutzen, sofern dieser weiterhin plausibel ist**; Abweichung durch Warnsymbol und Diagnose-/CSV-Ereignis protokollieren. | Differenzschwelle und Zeitfilter definieren; bei zusätzlichen Fehlerindikatoren des bevorzugten Sensors andere Quelle prüfen. Sind beide unplausibel, keine erfundene Strecke zählen; kein Mittelwert als Ersatz. |
 
-### D.15 Radgeber-Umschaltung und Abweichungsdiagnose – bestätigte Viererrunde 13.10.2026
+### D.15 Radgeber-Umschaltung und Abweichungsdiagnose
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -411,7 +411,7 @@
 | GPS-69 | **Festgelegt – A: automatische Rückkehr nach 5 s** | Nach Wiederherstellung des bevorzugten Radgebers **automatisch erst nach fünf Sekunden stabiler, plausibler Messung** von der Ersatzquelle zurückwechseln. | Umschalthysterese gegen Flattern, ausbleibende Flanken im Stand und Priorität gültiger GNSS-Messung beachten. |
 | GPS-70 | **Festgelegt – A: diagnostische Abweichungsereignisse** | Bei Abweichungswarnungen **Impulsfrequenzen beider Eingänge, berechnete Geschwindigkeiten, prozentuale Abweichung, aktive Quelle und Zeitstempel** als Diagnose-/CSV-Ereignis speichern. | Werte mit Einheiten und Gültigkeitsflags erfassen; bei fehlender/ungültiger zweiter Quelle keine künstliche Prozentabweichung errechnen. |
 
-### D.16 Grenzwerte für Radsensor-Plausibilität – bestätigte Viererrunde 13.10.2026
+### D.16 Grenzwerte für Radsensor-Plausibilität
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -420,7 +420,7 @@
 | GPS-73 | **Festgelegt – A: Vergleich ab 5 km/h** | Prozentualen Geschwindigkeitsvergleich der beiden Radsensoren **erst ab 5 km/h** aktivieren, um instabile Prozentwerte bei nahezu Stillstand zu vermeiden. Unabhängige elektrische Sensorfehler (z. B. Kurzschluss) weiter erkennen. | Referenzgeschwindigkeit für die Schwelle eindeutig definieren; 5-km/h-Hysterese, langsame Fahrt und Anfahren testen. |
 | GPS-74 | **Festgelegt – A: Abweichung allein löst keinen Wechsel aus** | Bei Differenzwarnung **bevorzugten Radsensor weiter verwenden, solange er selbst plausibel bleibt**. Eine bloße Differenz löst **keinen automatischen Quellenwechsel** aus; erst eindeutig erkannter Ausfall oder zusätzliche Plausibilitätsinformation rechtfertigt Wechsel nach GPS-68. | Fehlerpriorität, widersprüchliche Sensordaten, fehlendes GNSS und Warn-/Protokollverhalten mit GPS-66 konsistent halten. |
 
-### D.17 Messquellenpriorität und Schlupferkennung – bestätigte Viererrunde 13.10.2026
+### D.17 Messquellenpriorität und Schlupferkennung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -428,7 +428,7 @@
 | GPS-76 | **Festgelegt – C: kombinierte Radschlupf-Plausibilisierung** | Möglichen **Radschlupf über beide Verfahren** erkennen: Radsensor(en) gegen zuverlässige GNSS-Geschwindigkeit und zwei Radsensoren gegeneinander vergleichen. Reine Abweichung ist zunächst Indiz, keine sichere Fehlerzuordnung. | GNSS-Qualitätsgates, Schwellen/Hysterese, Reifenumfang, Kurvenfahrt und fehlende Signale beachten; Warnung und Ereignis aufzeichnen, ohne vorschnell defekte Sensoren zu behaupten. |
 | GPS-77 | **Festgelegt – A: zuverlässiges GNSS bei erkanntem Schlupf** | Wenn Radschlupf ausreichend plausibel erkannt ist und **zuverlässiges GNSS** zur Verfügung steht, **GNSS zur Distanzmessung nutzen**, auch wenn für dieses Profil normalerweise Radsensor-Priorität eingestellt ist. Ohne verlässliche GNSS-Referenz keine blinde Umschaltung auf einen vermeintlich besseren Wert. | Schlupferkennung muss von GPS-74 (bloße Sensorabweichung => nur Warnung) klar getrennt bleiben; sichere Rückkehr zur Profil-Priorität mit Hysterese festlegen; keine Distanzsprünge. |
 
-### D.18 Messquellenwahl und Radschlupf – bestätigte Viererrunde 13.10.2026
+### D.18 Messquellenwahl und Radschlupf
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -436,7 +436,7 @@
 | GPS-79 | **Festgelegt – A: Schlupfverdacht ab 15 % für 2 s** | Ein **möglicher Radschlupf** wird erkannt, wenn die plausible Radgeschwindigkeit über **mindestens zwei Sekunden um mindestens 15 %** von einer **ausreichend zuverlässigen GNSS-Geschwindigkeit** abweicht. Der Verdacht alleine ist noch kein eindeutiger Defektnachweis. | Kombination der beiden Radgeber gemäß GPS-76 zur Plausibilisierung verwenden; zeitliche Synchronisierung, Beschleunigung, Kurvenfahrt, niedrige Geschwindigkeiten und GNSS-Qualität berücksichtigen. 15 %/2 s sind feste Sollwerte dieser Runde, keine profilabhängige Einstelloption. |
 | GPS-80 | **Festgelegt – A: Rückkehr nach 5 s Plausibilität** | Nach einer bestätigten schlupfbedingten Umschaltung auf GNSS erst dann automatisch zum gemäß Fahrzeugprofil bevorzugten Radgeber zurückkehren, wenn dessen Messwerte **fünf Sekunden stabil und plausibel** sind. | Hysterese und erneutes Auftreten von Schlupf testen; kein Distanzsprung oder doppelt integrierter Weg beim Quellenwechsel. |
 
-### D.19 Vollständiger Quellenausfall und Wiederaufnahme – bestätigte Viererrunde 13.10.2026
+### D.19 Vollständiger Quellenausfall und Wiederaufnahme
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -445,7 +445,7 @@
 | GPS-83 | **Festgelegt – A: dynamische Radimpuls-Timeouts** | Fehlende Radimpulse **nur bei plausibel erwarteter Fahrzeugbewegung** als Aussetzer bewerten; Timeout-/Fehlererkennung abhängig von Fahrzeuggeschwindigkeit und erwarteter Impulsfrequenz statt starrem Timer. | Stillstand, Schritttempo, unterschiedliche Impulse/Umdrehung, GNSS-Ausfall und ausbleibende Flanken auseinanderhalten; elektrische Kurzschlüsse weiterhin separat erkennen. |
 | GPS-84 | **Festgelegt – A: automatische Wiederaufnahme ohne Nachberechnung** | Sobald wieder mindestens eine nach bestehenden Kriterien gültige Quelle verfügbar ist, **automatische Distanzmessung ohne Fahrerbestätigung fortsetzen**, aber **keine während des Ausfalls unbekannte Strecke rekonstruieren, rückwirkend nachtragen oder einen Distanzsprung erzeugen**. | GNSS-Positionsanker nach Empfangslücke neu setzen, Radimpulszähler ohne Doppelzählung übernehmen, Quellenwechsel und Messlücke im Log markieren. |
 
-### D.20 Messlücken und Korrekturen – bestätigte Viererrunde 13.10.2026
+### D.20 Messlücken und Korrekturen
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -453,13 +453,13 @@
 | GPS-86 | **Festgelegt – A: keine Korrekturschätzung** | Bei Messlücken **keinen automatischen oder vorgeschlagenen Nachtrag von Strecken anhand späterer GNSS-Koordinaten** vornehmen. Ausschließlich die bereits festgelegten **manuellen ±10-m-Korrekturen** ermöglichen einen durch den Fahrer ausgelösten Zählerabgleich. | Keine unsichere Luftlinien- oder Bewegungsmodell-Schätzung; tatsächliche Korrekturschritte als Ereignisse protokollieren. |
 | GPS-87 | **Festgelegt – A: unvollständige Fahrtstatistik kenntlich machen** | Während eines vollständigen Distanzquellenausfalls die **Zeit weiterhin fortschreiben**, aber **keine unbekannte Distanz ergänzen**. Die betroffene Fahrtstatistik deutlich **als wegen Messlücke unvollständig** kennzeichnen, auch wenn später wieder gültig gemessen wird. | Anteil/Zeitdauer der Lücke und Validitätsflags in CSV und zentraler Fahrtenübersicht abbilden; Durchschnittsgeschwindigkeit aus nur nachweislich erfasster Distanz nicht als vollständige Fahrtstatistik ausgeben. |
 
-### D.21 Mehrere Messlücken – bestätigte Viererrunde 13.10.2026
+### D.21 Mehrere Messlücken
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | GPS-88 | **Festgelegt – A: jede Messlücke einzeln speichern** | Jeden vollständigen Ausfall aller Distanzquellen **als eigenes Ereignis mit Beginn, Ende und Dauer** in CSV und persistentem Fehlerprotokoll erfassen. Im Fahrdisplay genügt **ein gemeinsames Warnsymbol** für unquittierte Messlücken. | Auch kurz aufeinanderfolgende Ereignisse unterscheidbar halten, Power-Loss-Recovery und Quittierungsstatus je Ereignis ohne Datensatzverlust handhaben. |
 
-## E. Anzeige und Bedienelemente
+## E. Anzeige und Bedienung
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
 |---|---|---|---|
@@ -502,7 +502,7 @@
 | UI-31 | **Festgelegt – A: Satellitenzahl + Empfangsqualität** | Im regulären Fahrdisplay **kompakte Anzahl verwendeter GNSS-Satelliten plus symbolisch/farbig dargestellten Qualitätsstatus** anzeigen; auch Zustand ohne Fix sichtbar halten. | Qualitätsstufen anhand GNSS-Fix-Typ, Genauigkeitsindikatoren und Satellitenzahl belastbar definieren; Farbe niemals als einziges Unterscheidungsmerkmal nutzen, Statuszeile darf Distanzanzeige nicht verdrängen. |
 | UI-32 | **Festgelegt – A: 10-m-Anzeigeauflösung** | Gesamt-, Trip-A-, Trip-B- und LEG-Distanzzähler standardmäßig mit **0,01 km (10 m)** Auflösung anzeigen, z. B. 12,34 km. **Keine zusätzliche Umschaltung auf 1-m-Anzeige als Pflicht.** | Interne Berechnung und Speicherung dürfen feiner auflösen als die Anzeige; Rundungsverhalten und ±10-m-Korrekturschritte konsistent halten. |
 
-### E.2 Rallye-Zählerbedienung – bestätigte Viererrunde 13.10.2026
+### E.2 Rallye-Zählerbedienung
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -512,7 +512,7 @@
 | UI-36 | **Festgelegt – A: Langdruck und Bestätigung für Reset** | Gewolltes Zurücksetzen von Gesamt-/Trip-Zählern erfordert **ausgewählten Zielzähler, langen Tastendruck und eine zusätzliche eindeutige Bestätigung**; kein versehentlicher Reset durch kurzen Tastendruck. | Bisherige Sofortaktion LEG 0 und separat geregelter bestätigter LEG-Undo bleiben unverändert. Reset-Zugang, Abbruch, Debouncing und Zeitdauer des Langdrucks in der UI festlegen. |
 
 
-### E.3 Display und Menüführung – bestätigte Viererrunde 13.10.2026
+### E.3 Display und Menüführung
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -522,7 +522,7 @@
 | UI-40 | **Festgelegt – A: Tastentöne** | Standardmäßig **kurzer Signalton für jeden gültigen Tastendruck**; Warnmeldungen erhalten klar unterscheidbare Tonmuster. Die bereits beschlossene Menüoption zum Stummschalten von Tastentönen bleibt erhalten. | Lautstärke, Dauer, Verhalten bei Haltewiederholungen, Nachtbetrieb und Priorität kritischer Warnungen festlegen; keine permanenten Töne bei beschleunigten ±10-m-Wiederholungen erzeugen. |
 
 
-### E.4 Anzeigehelligkeit und Nachtmodus – bestätigte Viererrunde 13.10.2026
+### E.4 Anzeigehelligkeit und Nachtmodus
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -531,37 +531,37 @@
 | UI-43 | **Festgelegt – A: persistente manuelle Helligkeit** | Wird die Helligkeitsautomatik manuell deaktiviert, bleibt die **manuell gewählte Helligkeit auch über Neustarts hinweg erhalten**, bis der Nutzer die Automatik ausdrücklich wieder aktiviert. | Modus und Helligkeitswert nichtflüchtig sichern; sichere Min-/Max-Grenzen und Schutzmaßnahmen bei Unterspannung/Temperatur haben Vorrang. |
 | UI-44 | **Festgelegt – A: getrennte Beleuchtungskennlinien** | Display und Tasten-LED-Ringe verwenden **denselben Lichtsensor und denselben Automatik-/Manuellmodus**, besitzen aber **getrennt einstellbare minimale/maximale Helligkeiten und Kennlinien**. Die beleuchteten Tastenringe bleiben bei regulärem M8-Betrieb ständig sichtbar, auch ohne Tastendruck. | Unterschiedliche Grün-/Rot-LED-Wahrnehmung und Strombegrenzung berücksichtigen, PWM/Regelung ohne sichtbares Flackern auslegen; gemeinsame zeitliche Regelung gemäß UI-41. |
 
-### E.5 GNSS-Höhenanzeige – bestätigte Viererrunde 13.10.2026
+### E.5 GNSS-Höhenanzeige
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-45 | **Festgelegt – A: Höhe als optionales Datenfeld** | Die **aktuelle GNSS-Höhe** ist als auswählbares Zusatzfeld eines Fahrdisplaylayouts verfügbar; die zwei gleich großen Standard-Distanzzähler bleiben vorrangig und werden nicht verdrängt. | Einheit Meter, Höhenreferenz eindeutig benennen, bei ungültigen Höhenwerten Strich/Status statt falscher Höhe; keine übertriebene Genauigkeitsanzeige. |
 
-### E.6 GNSS-Ausfallstatus – bestätigte Viererrunde 13.10.2026
+### E.6 GNSS-Ausfallstatus
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-46 | **Festgelegt – A: zurückhaltender Langzeitausfall-Status** | Nach dem bereits vorgesehenen einmaligen kurzen Hinweis auf GNSS-Ausfall **dauerhaft kleines Statussymbol** samt aktiver **Radsensorquelle** (falls gültig) in der Fahrtanzeige; **keine periodischen Pop-ups**, Distanzanzeige bleibt im Vordergrund. Ohne gültige Distanzquelle Zustand als Messung nicht verfügbar kennzeichnen. | Mit GPS-17 und UI-31 konsistent; Status trotz Tag-/Nachtmodus unterscheidbar. |
 
-### E.7 Radsensor-Status – bestätigte Viererrunde 13.10.2026
+### E.7 Radsensor-Status
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-47 | **Festgelegt – A: Radgeber-Statussymbol** | In der Fahranzeige den Radsensorzustand mit einem **kompakten, unterscheidbaren Symbol für bereit, aktiv als Messquelle oder gestört** darstellen; keine dauernde Impuls-Blinkanzeige oder zusätzliche Messwertreihe erforderlich. | Bei zwei Eingängen relevante Quelle eindeutig kennzeichnen; Fehlerstatus nicht allein über Farbe vermitteln, Statuszeile kompakt halten. |
 
-### E.8 Schlupfstatus – bestätigte Viererrunde 13.10.2026
+### E.8 Schlupfstatus
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-48 | **Festgelegt – A: kurzer Hinweis und Statussymbol** | Bei erkanntem Schlupf einmalig einen **kurzen Hinweis** anzeigen und danach ein **kompaktes, dauerhaftes Statussymbol** mit tatsächlich aktiver Distanzquelle führen; keine periodischen Pop-ups erforderlich. | Bei kurzfristigem Grenzwertflattern Hinweise entprellen; Warnung/Ende als Ereignis in CSV erfassen, Rallye-Hauptzähler nicht verdecken. |
 
-### E.9 Akustik bei vollständigem Messausfall – bestätigte Viererrunde 13.10.2026
+### E.9 Akustik bei vollständigem Messausfall
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-49 | **Festgelegt – A: einmaliger kurzer Warnton** | **Einmaligen kurzen Warnton beim Beginn eines vollständigen Distanzquellenausfalls** ausgeben, nicht periodisch wiederholen. Zusätzlich gilt die sichtbare Messlückenwarnung gemäß GPS-85. | Warnton von normalem Tastenklick unterscheidbar, Tonpriorität und Stummschaltungsregel mit UI-40 abstimmen; kein Dauerton, keine Warntonflut bei flackerndem Empfang. |
 
-### E.10 Warnmeldungen und Fehlerquittierung – bestätigte Viererrunde 13.10.2026
+### E.10 Warnmeldungen und Fehlerquittierung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -569,7 +569,7 @@
 | UI-51 | **Festgelegt – A: dezentes Symbol bei Einzelsensorfehler** | Bei Ausfall eines einzelnen Radgebers **einmaligen kurzen Hinweis und anschließend kleines Warnsymbol** zeigen, solange eine andere zuverlässige Quelle (GNSS oder zweiter Radgeber) die Messung fortsetzen kann. | Fehler bei späterem Quellenwechsel korrekt priorisieren; kein wiederkehrendes Pop-up und keine Verdeckung der Rallye-Anzeige. |
 | UI-52 | **Festgelegt – A: quittierte Warnungen im Fehlerprotokoll behalten** | Das **Quittieren entfernt nur die Anzeige**, nicht den persistenten Fehlerdatensatz. Ursache, Zeitstempel, Dauer und soweit verfügbar der Quittierungsstatus bleiben im bestehenden begrenzten FRAM-/CSV-Fehlerprotokoll nachvollziehbar. | Ringpuffer-/Speichergrenzen, erneute Warnungen nach neuen Fehlerereignissen und Export konsistent behandeln. |
 
-### E.11 Quittierung und Warnungsdarstellung – bestätigte Viererrunde 13.10.2026
+### E.11 Quittierung und Warnungsdarstellung
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
@@ -623,7 +623,7 @@
 | MEC-39 | **Erledigt durch Konzeptwechsel** | Die Suche nach einer Staubschutzkappe für die rechte microSD-Öffnung ist beendet: **Es wird keine äußere SD-Öffnung geben.** | Geschlossenes ASA-Gehäuse und USB-C-Staubschutz bleiben relevant. |
 
 
-### F.1 Gehäuse und Wartbarkeit – bestätigte Viererrunde 13.10.2026
+### F.1 Gehäuse und Wartbarkeit
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -633,7 +633,7 @@
 | MEC-43 | **Festgelegt – A: Anschlüsse zugänglich** | **M8, USB-C, GNSS-SMA und optionaler Radsensoranschluss** müssen auch bei vollständig in die Schiebehalterung eingesetztem TripTracer zugänglich und bedienbar bleiben. | Stecker-, Kabel-, Schraub-/Dreh- und Biegeradien sowie Staubkappenzugang im maßstäblichen CAD und am Gehäuseprototyp nachweisen. |
 
 
-### F.2 Fahrzeughalterung und Vibrationsschutz – bestätigte Viererrunde 13.10.2026
+### F.2 Fahrzeughalterung und Vibrationsschutz
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -643,7 +643,7 @@
 | MEC-47 | **Festgelegt – A: zusätzliche Sicherungsposition** | Zusätzlich zur automatisch einrastenden federnden Rastnase eine **optional aktivierbare mechanische Sicherungs-/Sperrposition am Druckhebel** vorsehen, damit sich der Schiebeverschluss bei besonders starken Vibrationen nicht versehentlich entriegeln lässt. | Betätigung mit Handschuhen, eindeutige Sperr-/Offenstellung, Verliersicherheit, Materialermüdung und Lösen im Wartungsfall prüfen; nur Rastnase genügt dann nicht als alleinige konstruktive Verriegelung. |
 
 
-### F.3 Temperatur und Umgebungsbedingungen – bestätigte Viererrunde 13.10.2026
+### F.3 Temperatur und Umgebungsbedingungen
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -652,7 +652,11 @@
 | ENV-03 | **Festgelegt – A: zusätzlicher Temperatursensor** | Auf der Hauptplatine **separaten digitalen Temperatursensor** zur Überwachung der Innentemperatur vorsehen; Messwert im (Entwickler-)Diagnosemenü und über Fehler-/Statusereignisse verfügbar. | Temperaturmessort außerhalb unmittelbarer MCU-/Wandler-Hotspots für repräsentativen Gehäusewert auswählen, Genauigkeit/I²C-Adresse und GPIO-/Busbudget prüfen; Sensorfehler erkennen. ESP32-interne Temperatur ist kein Ersatz für den festgelegten externen Sensor. |
 | ENV-04 | **Festgelegt – A: Druckausgleichsmembran** | Staubdichte, für das Gehäuse geeignete **Druckausgleichsmembran** in der ASA-Gehäusewand vorsehen, um Druckunterschiede bei Temperaturwechseln zu begrenzen; keine Behauptung, damit Kondenswasser vollständig zu vermeiden. | Membran mit nachgewiesenem Staubrückhalt passend zum Entwicklungsziel IP6X, Montage/Schutzlage, Wassereintritt bei Spritzwasser, Vibration, UV/Alterung, Luftdurchsatz und Klebe-/Einpressverfahren prüfen; tatsächliche Staubdichtheit des Gesamtsystems validieren. |
 
-### Hardwareprototyp – Grundarchitektur (Viererrunde 13.10.2026)
+## G. Elektronik- und PCB-Implementierung (HW-01 bis HW-81)
+
+Die **HW-IDs bleiben unverändert**. Inhaltlich überlappende Beschlüsse verfeinern ältere Vorgaben; eine neue HW-ID ist kein zusätzlicher, unabhängiger Funktionsumfang. Für Entscheidungen mit Widersprüchen gilt die zuletzt ausdrücklich bestätigte Aussage. Die frühere Aufteilung in chronologische Viererrunden steht im [Entscheidungsarchiv](HARDWARE_DECISION_HISTORY.md).
+
+### G.1 Grundarchitektur, USB/MCU, LDO, Tasten und Erweiterung
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -660,35 +664,20 @@
 | HW-02 | **Festgelegt – A: natives ESP32-S3-USB-C** | USB-C-Datenleitungen **direkt zur nativen USB-OTG-Schnittstelle des ESP32-S3** führen; geeignete CC-Sink-, ESD-, VBUS-Schutz-/Erkennungs- und Versorgungsbeschaltung vorsehen. **Keine zusätzliche USB-UART-Brücke**. USB-MSC und Firmware-/ROM-Recovery gemäß PWR-06, STO-15–19 und MCU-02 erhalten. | USB-DP/DM-Pinbelegung, Bootstrapping, ESD, Full-Speed-Signalführung, Strompfad-Entkopplung und Recovery im Schaltplan/Bring-up nachweisen. |
 | HW-03 | **Festgelegt – A: zentraler 5-V-Pfad plus 3,3-V-Regler** | Fahrzeugseitig geschützter **zentraler 5-V-DC/DC-Wandler**, daraus **3,3-V-Versorgung** für ESP32-S3/Logik; der bestehende **eigenständig strombegrenzte und fehlertolerante 5-V-Sensorausgang** bleibt separat geschützt. USB-only muss geeignete 5-/3,3-V-Verbraucher und SD ohne Rückspeisung versorgen; ACC-Abschaltpuffer bleibt gültig. | Worst-case-Leistungs-/Anlauf-/Wärmebudget für TFT, LEDs, SD und Sensorik; 9–36-V-Betrieb und USB-Stromgrenze sowie Quellenpriorität und Pufferumschaltung prüfen. |
 | HW-04 | **Festgelegt – B: Debug nur über USB-C und vorhandene Testpunkte** | Für Prototyp V1 **keinen zusätzlichen Debug-Steckverbinder und keine separate USB-UART-Brücke** vorsehen. **USB-C** ist die reguläre Flash-/Diagnoseschnittstelle. Vorhandene geeignete **Testpunkte** für EN/Reset, BOOT/GPIO0, GND und relevante Versorgungen beibehalten; der zuvor beschlossene **interne 2-polige BOOT/GND-Servicejumper** bleibt erhalten. Zusätzliche JTAG-/UART-Testpads sind **nicht verpflichtend**, können ohne Anschlusszwang vorgesehen werden, falls Routing/Platz es erlauben. | ROM-Recovery bei defekter Firmware über BOOT-Jumper und Reset sowie Diagnosezugriff per USB praktisch testen; Testpunkte für Spannungen und Reset zugänglich halten. |
-
-### Hardwareprototyp – Stromregelung, Tastenanschlüsse und Testpunkte (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-05 | **Festgelegt – A: 3,3-V-LDO** | Aus dem zentralen 5-V-Zweig eine **3,3-V-Versorgung mittels geeignetem LDO** für ESP32-S3 und zugeordnete 3,3-V-Peripherie erzeugen. Regler erst nach Worst-Case-Strom- und Verlustleistungsrechnung auswählen; insbesondere USB-only, GNSS/SD-Lastspitzen, thermische Reserve und Dropout berücksichtigen. | Verlustleistung näherungsweise (5 V − 3,3 V) × 3,3-V-Last, maximale Bauteil-/PCB-Temperaturen und Start-/Kurzschlussverhalten prüfen. Falls Lastbilanz das LDO-Konzept nicht ermöglicht, technische Rückfrage statt stiller Architekturänderung. |
 | HW-06 | **Festgelegt – B: sechs einzeln steckbare Fronttasten** | **Jeder der sechs beleuchteten Fronttaster erhält eine eigene abnehmbare Kabel-/Steckverbindung** zur Hauptplatine bzw. einer dafür vorgesehenen Anschlussstelle auf der Hauptplatine; keine zwingende gemeinsame Kabelbaum-Steckverbindung. | Passende Steckverbinder mit eindeutiger Belegung für Schaltkontakt und Ringbeleuchtung, Verriegelung, Montage-/Servicezugang, Strombelastbarkeit und Zugentlastung wählen; Platzbedarf für sechs Gegenstücke auf der Hauptplatine berücksichtigen. |
 | HW-07 | **Festgelegt – A: 5 V / 2 A als Auslegungsziel** | Zentralen geschützten 5-V-DC/DC-Wandler **vorläufig für 2 A Dauerstrom (10 W)** auslegen, mit Berücksichtigung von Anlauf-/Schreibspitzen, Tasten-LEDs, Display, 3,3-V-Zweig und geschütztem 5-V-Radsensorausgang. **Noch keine verifizierte Lastaufnahme oder finale Reglerfreigabe.** | Komponentenstrombilanz bei 9–36 V Eingang, Wärme, Wirkungsgrad, USB-only-Strombudget und separate Begrenzung des Sensorausgangs nachweisen. |
 | HW-08 | **Festgelegt – A: umfangreiche PCB-Testpunkte** | Auf der Hauptplatine **gut zugängliche Testpunkte** für Hauptversorgung, 5 V, 3,3 V, GND, USB-VBUS, Reset/EN, BOOT/GPIO0 sowie relevante Sensor-, Steuer- und Busleitungen vorsehen. Kein zusätzlicher Debug-Steckverbinder verpflichtend (HW-04). | Testpunkt-Geometrie, GND-Nähe, Messzugang trotz Gehäuse, ESD-/Signalintegrität sowie Fertigungsprüfbarkeit vor Layoutfreigabe prüfen. |
-
-### Hardwareprototyp – Steckverbinder, LDO und PCB-Aufbau (Viererrunde 13.10.2026, korrigiert A/A/A/B)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-09 | **Festgelegt – A: verriegelnde JST-Steckverbinder** | Die sechs Fronttaster erhalten **jeweils einen eigenen verriegelnden JST-Steckverbinder** auf der Hauptplatine. Kontaktzahl, Strombelastbarkeit und Steckerserie passend zur tatsächlichen Taster- und LED-Ring-Belegung dimensionieren. | Passende Gegenstecker, Crimpbarkeit, Vibrationssicherung, Abzugrichtung, Montagezugang und Platzbedarf prüfen. |
 | HW-10 | **Festgelegt – A: SOT-223 oder vergleichbares Power-SMD** | Den **3,3-V-LDO** in einem thermisch angemessenen **SOT-223- oder vergleichbaren Power-SMD-Gehäuse** auslegen, mit ausreichender Leiterplatten-Kupferfläche. Eine konkrete Reglerauswahl erfordert die 3,3-V-Last- und Wärmebilanz. | Worst-Case-Verlustleistung, Dropout, Reglerstabilität und erreichbare Wärmeabfuhr bei Fahrzeug-Innentemperaturen nachweisen. |
 | HW-11 | **Festgelegt – A: beidseitige SMD-Bestückung** | Die **Hauptplatine darf auf beiden PCB-Seiten mit SMD-Komponenten bestückt werden**. Die Freigabe gilt im Rahmen des bislang bevorzugten 2-Lagen-PCB mit technisch begründeter 4-Lagen-Option; keine strikte Einseitenbestückung. | Bauteilhöhen, Gehäusefreiheit, JLCPCB-Bestückbarkeit und Prüf-/Reparaturzugänglichkeit auf beiden Seiten sicherstellen. |
 | HW-12 | **Festgelegt – B: kleiner interner Erweiterungsstecker** | **Freie, nach GPIO-/Boot-Budget verfügbare ESP32-S3-Pins** sowie **GND und geeignete Versorgung** auf einen **kleinen internen Erweiterungssteckverbinder** führen. Strombegrenzung/Schutz und Pegel (3,3 V) spezifizieren; nur tatsächlich sichere, nicht von Pflichtfunktionen benötigte Pins verwenden. **Ersetzt die vorher lediglich vorgeschlagene Lösung mit Reserve-GPIO-Testpads**; bereits verpflichtende allgemeine Testpunkte (HW-08) bleiben. | GPIO-Matrix/Strapping prüfen, mechanischen Steckplatz und eindeutig dokumentierte Pinbelegung definieren; keine GPIOs mit USB-, Flash- oder Boot-Funktion versehentlich belegen. |
-
-### Hardwareprototyp – Erweiterungsstecker und PCB-Geometrie (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-13 | **Festgelegt – A: JST-GH** | Der interne Erweiterungsanschluss verwendet einen **kompakten verriegelnden JST-GH-Steckverbinder**; Kontaktzahl gemäß GPIO-Budget und notwendigen Versorgungs-/Massekontakten festlegen. | Gegenstecker und Crimpkontakte, Bauhöhe, Kabelabgang, mechanischen Freiraum und Polarität vor Layout prüfen. |
 | HW-14 | **Festgelegt – B: 3,3 V, 5 V und GND** | Am internen Erweiterungsstecker **beide Versorgungsschienen 3,3 V und 5 V sowie GND** bereitstellen. Ausgangsströme und Sicherung/Strombegrenzung nach finaler Leistungsbilanz dimensionieren; Spannungen gegen Rückspeisung und Überlast schützen. | Strombudget mit zentralem 5-V-/2-A-Ziel und 3,3-V-LDO abgleichen; Verpolung, Kurzschluss, Fremdspannung und Power-Sequencing testen. |
 | HW-15 | **Festgelegt – C: kompakte PCB zuerst** | Die Hauptplatine **unter Einhaltung sämtlicher elektrischer, thermischer, Antennen-, Service- und Steckverbinder-Abstände möglichst kompakt** auslegen. Die genaue ASA-Gehäusegeometrie wird **anschließend an das PCB** angepasst; bereits festgelegte Schnittstellenpositionen/Funktionsanforderungen bleiben gültig, soweit nicht ausdrücklich geändert. | Mechanischer 3D-Fit, Montage, Kabel-/Steckerzugang, GNSS-Antennenführung, M8/USB und Kühlflächen prüfen; keine Kompaktheit zulasten von Fertigbarkeit und Wartung. |
 | HW-16 | **Festgelegt – A: Serienwiderstände und ESD-Grundschutz** | Freie Erweiterungs-GPIOs mit **geeigneten Serienwiderständen und ESD-Schutz** auslegen, verträglich mit den vorgesehenen Signalfunktionen. **Keine zugesicherte 12-V-Toleranz** an GPIOs; Erweiterungsstecker bleibt eine 3,3-V-Logikschnittstelle. | ESD-Kapazität, Widerstandswerte, zulässige Signalgeschwindigkeit und GPIO-Bootstrapping prüfen; 5-V-Versorgungspin nicht mit 5-V-toleranten GPIO-Pegeln verwechseln. |
 
-### Hardwareprototyp – Wandlerarchitektur, Schutz und Lagen (Viererrunde 13.10.2026)
+### G.2 Versorgung, Bordnetzschutz, Buck und Energiepuffer
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -696,53 +685,28 @@
 | HW-18 | **Festgelegt – A: separat strombegrenzte Erweiterungsversorgungen** | Die **3,3-V- und 5-V-Ausgänge des internen JST-GH-Erweiterungssteckers jeweils mit eigener wirksamer Überstrom-/Kurzschlussbegrenzung** ausstatten, sodass ein Fehler eines Ausgangs den anderen möglichst nicht beeinträchtigt. | Konkrete Stromlimits nach Lastbilanz bestimmen; Einschaltstrom, Rückspeisung, Verpolung/Fehlverdrahtung, Temperatur und Fehler-Wiederanlauf prüfen. |
 | HW-19 | **Festgelegt – A: getrennte Funktionsbereiche** | PCB-Layout räumlich gliedern: **Bordnetzeingang, Schutz und Schaltregler als zusammenhängenden Leistungsteil**, mit kontrollierten kurzen Stromschleifen; **GNSS/RF und empfindliche digitale/analoge Eingänge räumlich getrennt**. Durchgängige niederimpedante Masse-Rückstromführung statt unbedachter Masseschlitze. | Schaltknotenflächen und Rückstromwege, GNSS-Antennen-/RF-Freiraum, ESD-Ableitung und Temperaturpfade im Layout prüfen; EMV beim Bring-up messen. |
 | HW-20 | **Festgelegt – A: zwei PCB-Lagen bevorzugt, vier bei Bedarf** | Für den ersten Prototyp **2-Lagen-PCB bevorzugen**; auf **4 Lagen wechseln, wenn Routing, stabile Masse-/Rückstromführung, USB-/GNSS-Signalintegrität, Thermik oder EMV technisch einen deutlichen Vorteil erfordern**. Vorherige PCB-01–04-Regeln bleiben gültig. | Layout-Review dokumentiert die Lagenentscheidung; keine starren 2-Lagen-Vorgaben zulasten der Funktionssicherheit. |
-
-### Hardwareprototyp – 5-V-Buck-Reglerauslegung (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-21 | **Festgelegt – A: synchroner Buck** | Den zentralen **5-V-/2-A-Abwärtswandler mit synchroner Buck-Topologie und integriertem Schaltregler-IC samt externem Induktor** aufbauen. Dies präzisiert HW-17; ein fertiges DC/DC-Modul oder eine obligatorische externe MOSFET-Halbbrücke ist nicht vorgesehen. | Controller mit passenden integrierten Schaltern, Kompensations-/Stabilitätsanforderungen, Lastsprung- und Kurzschlussverhalten auswählen. |
 | HW-22 | **Festgelegt – A: mindestens 60-V-Eingangsfestigkeit** | Der gewählte Buck-IC muss eine **im Datenblatt spezifizierte zulässige Eingangsspannung von mindestens 60 V** besitzen; **9–36 V** bleiben der normale Dauerbetriebsbereich. Vorgeschalteter Automotive-Transientenschutz bleibt erforderlich. | Absolute-Maximum- und empfohlene Betriebsgrenzen unterscheiden; Überspannungsklemme/Load-Dump-/Surge-Konzept und Eingangskondensatoren separat abstimmen, einschließlich Derating und Reaktionszeit. |
 | HW-23 | **Festgelegt – A: mindestens 90 % Wirkungsgrad als Entwicklungsziel** | Für die **gesamte 24-V-auf-5-V-Wandlerstufe bei 2 A Ausgangsstrom** einen Wirkungsgrad von **mindestens 90 %** anstreben (10 W Ausgang, rechnerisch höchstens ca. 1,11 W Wandlerverlust bei genau 90 %). Kein ungemessener Leistungsnachweis. | Datenblattkurven für 24 V/2 A prüfen und am Prototyp Ein-/Ausgangsleistung sowie Bauteiltemperaturen messen; Schutz- und weitere 3,3-V-Stufen nicht irreführend in den reinen Buck-Wirkungsgrad einrechnen. |
 | HW-24 | **Festgelegt – C: Frequenz anhand konkretem Regler** | **Keine feste Schaltfrequenz vorgeben**. Schaltfrequenz bei Auswahl des konkreten Buck-IC anhand Induktorgröße, Wirkungsgrad, Ripple, EMV, GNSS-Empfindlichkeit und PCB-Routing bestimmen. | Vorgesehene Frequenz und Designentscheid dokumentieren; Schaltknoten-Störungen im GNSS-Frequenzband und Leitungs-/Strahlungsemissionen praktisch bewerten. |
-
-### Hardwareprototyp – Bordnetzschutz und Hochvolt-Energiepuffer (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-25 | **Festgelegt – A: TVS-Diode mit Eingangsschutz** | Bordnetzeingang mit **geeigneter TVS-Transientenbegrenzung und abgestimmter Eingangs-Schutzbeschaltung** sichern. Normalbetrieb 9–36 V; der synchronen Buck-Stufe mit mindestens 60 V zulässiger IC-Eingangsspannung dürfen auch während relevanter Fahrzeugtransienten keine unzulässigen Spannungen zugeführt werden. | TVS-Standoff oberhalb der höchsten regulären Dauerspannung, Klemmspannung bei realem Pulsstrom, TVS-Energie, Vorsicherung/Leitungsimpedanz, Load-Dump- und ESD-Szenarien anhand konkreter Bauteildaten verifizieren; TVS allein garantiert keine Begrenzung unter 60 V. |
 | HW-26 | **Festgelegt – C: Verpolschutz über geeignete eFuse** | **Verpolschutzfunktion im gewählten eFuse-/Hot-Swap-Eingangsbaustein bzw. dessen ausdrücklich spezifizierter Schutzarchitektur** realisieren, **sofern die konkrete Komponente nachweislich negative Eingangsspannung und Reverse-Current-Szenarien für den Bordnetzeinsatz beherrscht**. Keine zusätzliche MOSFET-/Seriendiode als primär gewählte Lösung. | Datenblatt einschließlich absoluten Grenzwerten, negativer Eingangsspannung, interner/externer MOSFET-Erfordernisse, Rückstrom- und Fehlerabschaltung prüfen; ungeeignete eFuse nicht als verpolsicher deklarieren. Falls es keinen passenden Baustein gibt, technische Entscheidung erneut vorlegen statt ungeschützt umzusetzen. |
 | HW-27 | **Festgelegt – B: Hochvolt-Puffer vor 5-V-Wandler** | Für **mindestens 3 s geordneten Shutdown** eine **Energiereserve im höher spannenden DC-Zwischenkreis vor dem 5-V-Buck-Wandler** aufbauen, mit separatem Lade-/Entlade-, Eingangs- und Rückspeiseschutz entsprechend dem gemeinsamen Versorgungskonzept. | Nutzbare Energie über Spannungsfenster E = ½ C × (U_start² − U_min²), erforderliche Leistung samt Wirkungsgrad und Stromspitzen dimensionieren; Überspannung, Leckstrom, Inrush, Kapazitätstoleranz und Versorgungspfade bei ACC-Aus prüfen. |
 | HW-28 | **Festgelegt – A: gemeinsamer Puffer für Motorstart und Shutdown** | **Denselben ausreichend dimensionierten Hochvolt-Zwischenkreispuffer** für kurze Spannungseinbrüche beim Motorstart und den geregelten Datei-/FRAM-Abschluss nach Abschalten verwenden; weiterhin **ACC-Aus elektrisch erkennen und Logging beenden**, statt aus dem Puffer unbemerkt weiterzufahren. | Dauer und Tiefe realistischer Startunterspannungen, Zustandsübergänge und Pufferwiederaufladung testen; erforderliche 3-s-Abschaltenergie auch nach kurz vorher erfolgtem Start-Spannungseinbruch sicherstellen und Konflikt mit Abschalt-/USB-Priorität ausschließen. |
-
-### Hardwareprototyp – Hochvolt-Puffer und ACC-Erkennung (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-29 | **Festgelegt – A: Aluminium-Elektrolytkondensatoren** | Den gemeinsamen Hochvolt-Energiepuffer für Motorstart-Spannungseinbrüche und mindestens 3 s geordneten Shutdown **mit Aluminium-Elektrolytkondensatoren** auslegen, nicht mit einer Supercap-/Polymer-Pflichtlösung. | Kapazität aus minimaler verfügbarer Zwischenkreisspannung, Wirkungsgrad und realem Abschalt-Leistungsbudget berechnen; ESR, Ripple, Lebensdauer, Bauhöhe und Vibrationsfestigkeit prüfen. |
 | HW-30 | **Festgelegt – A: hinter eFuse und Eingangsschutz** | Puffer **hinter eFuse und Eingangsschutz** im geschützten Zwischenkreis **vor dem 5-V-Buck-Wandler** anschließen; Ein-/Rückspeisepfade so auslegen, dass der Puffer bei ACC-Aus nicht unkontrolliert das Fahrzeugnetz oder Schutz-IC speist. | eFuse-Lastkapazitäts-/Inrush-Fähigkeit, kontrollierte Aufladung, Trennung bei Fehlerfällen, Rückstromsperre und Verhalten nach Kurzschluss prüfen; gegebenenfalls zusätzliche Lade-/Entkopplungsbauteile dimensionieren. |
 | HW-31 | **Festgelegt – A: Bordnetz vor Puffer messen** | **ACC-/Bordnetzspannung vor dem Energiepuffer** über einen ausreichend hochspannungs- und transientenfesten Erkennungspfad überwachen. So wird ACC-Aus trotz weiter gespeistem Zwischenkreis unmittelbar erkannt und der geordnete Shutdown eingeleitet. | Eingangsteiler, Filter/Hysterese, ADC-/Comparator-Schutz, Wake-/Brownout-Pfade, 12-/24-V-Grenzen und Fehltrigger beim Motorstart prüfen. |
 | HW-32 | **Festgelegt – A: mindestens 105 °C** | Für Puffer-Aluminium-Elektrolytkondensatoren **Bauteile mit mindestens 105-°C-Nenntemperatur** vorsehen, mit Spannungs-/Ripple-Derating und Lebensdauerabschätzung für den Fahrzeugeinbau. | Maximaltemperatur des Einbauorts, Gehäuselüftung, Eigenwärme, Temperatur- und Vibrationseignung sowie Hersteller-Lebensdauerdaten prüfen. |
-
-### Hardwareprototyp – Pufferdimensionierung und Leistungsbauteile (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-33 | **Festgelegt – A: Abschaltlast messen, danach final dimensionieren** | Die **tatsächliche Last während geordnetem SD-/FRAM-Abschluss** im Hardwareprototyp messen und die **endgültige Kapazität des Hochvolt-Puffers anhand dieser Worst-Case-Messwerte** freigeben. Vor der ersten PCB-Version eine **konservative vorläufige Energie- und Kapazitätsrechnung** mit Reserve durchführen; die Messung ersetzt keine notwendige Erst-Auslegung. | Leistungsprofil inklusive SD-Schreibspitzen, TFT-/LED-Abschaltung, Buck-Wirkungsgrad und mindestens 3 s Shutdownzeit im ungünstigsten 12-/24-V-Betriebsfall aufnehmen; Nachbestückungs-/Kapazitätsreserve vorsehen. |
 | HW-34 | **Festgelegt – A: Puffer bis zu belastbarer Buck-UVLO-Untergrenze nutzen** | Nutzbares Puffer-Spannungsfenster **bis zur nachgewiesenen zuverlässigen Unterspannungsgrenze der gewählten Buck- und Steuerungsversorgung** ausnutzen. Die Mindestspannung nicht pauschal auf 9 oder 12 V fixieren; UVLO, notwendige Reserven und stabile 5-/3,3-V-Ausgangsspannungen gemeinsam auslegen. | Datenblatt-Minimum, UVLO-Hysterese, Spannungsabfälle, Lastspitzen und geregeltes Abschalten prüfen; Kondensatorenergie E = 0,5 × C × (U_start² − U_min²) konservativ abschätzen. |
 | HW-35 | **Festgelegt – A: kontrollierter Ladestrom** | Das Laden des hinter der eFuse angeordneten Hochvolt-Aluminiumelko-Puffers **mit geeigneter Strombegrenzung bzw. kontrollierter Anlauf-/Ladeschaltung** realisieren. | eFuse-SOA, Einschaltenergie, Startzeit, Kurzschluss-/Fehlerfall, Rückspeisung und Wiederanlauf bei häufigem ACC-Schalten testen. |
 | HW-36 | **Festgelegt – A: datenblattgestützte Leistungsbauteilfreigabe vor Routing** | **eFuse mit belegtem Verpolschutz, TVS, integrierten synchronen Buck-IC (mindestens 60 V spezifiziert), Spule, Puffer-Elkos und erforderliche Schutz-/Ladebauteile** vor dem PCB-Routing konkret anhand von Herstellerdatenblättern, realer Beschaffbarkeit und möglichst LCSC/JLCPCB-kompatiblen Teilenummern auswählen und elektrisch dimensionieren. | Spannungs-/Strom-/Thermik- und Transientenlimits, Footprints und Ersatzteiloptionen dokumentieren; keine bloße Schätzung als Datenblattfreigabe ausgeben. |
-
-### Hardwareprototyp – Schaltplanvorbereitung und Messbarkeit (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-37 | **Festgelegt – A: mehrere parallele Elko-Bestückungsplätze** | Den Hochvolt-Puffer auf der ersten Hauptplatine mit **mehreren elektrisch parallel vorgesehenen, einzeln bestückbaren Aluminiumelko-Positionen** aufbauen. Finale Kapazität nach Abschaltlastmessung anpassbar; Spannungs- und Temperaturfestigkeit gemäß HW-29–36. | Einzelkapazitäten, ESR/Ripple, gemeinsame Ladestrombegrenzung, Kriech-/Luftstrecken, Bauhöhen und mechanische Freiräume für alternative Bestückungsvarianten prüfen. |
 | HW-38 | **Festgelegt – A: auftrennbare Strommessbrücken** | **Geeignete auftrennbare bzw. durch Jumper/0-Ω-Brücke überbrückte Messstellen** an ausgewählten Strompfaden vorsehen, mindestens zur Bestimmung von Hauptwandler-, 3,3-V-Regler- und Abschaltstromaufnahme. Normalbetrieb nur mit sicher geschlossener Messbrücke; kein zusätzlicher dauerhafter Mess-IC erforderlich. | Stromtragfähigkeit, Übergangswiderstand, Messpunktzugang, Fehlbedienungs-/Kurzschlussrisiko und Einfluss auf Start-/Abschaltfunktionen kontrollieren. |
 | HW-39 | **Festgelegt – A: LCSC/JLCPCB bevorzugt** | Konkrete Komponenten für den KiCad-Schaltplan **möglichst aus dem LCSC-Sortiment und der JLCPCB-Bestückungsbibliothek** auswählen, Standard-/Basic-Teile bevorzugen, sofern elektrische Eignung, Verfügbarkeit, Automotive-Anforderungen und Qualität erhalten bleiben. Notwendige Spezialteile dürfen andere Bezugsquellen verwenden. | LCSC-/JLCPCB-Teilenummern und Bestückbarkeit in BOM, Datenblätter/Footprints vor Freigabe prüfen. |
 | HW-40 | **Festgelegt – A: vollständiger Schaltplan vor PCB-Layout** | **Zuerst einen vollständigen zusammenhängenden KiCad-10-Schaltplan** aller im Prototyp vorgesehenen Baugruppen erstellen; danach ERC, Strom-/GPIO-Budget, Anschlussbelegungen und Bauteilvalidierung abschließen, bevor PCB-Routing und Prototypbestellung beginnen. | Hierarchische Struktur/lesbare Netze, sämtliche Pflichtbaugruppen und USB-/Versorgungs-/Sensorzustände verifizieren; ERC-frei oder begründete Ausnahmen, anschließend PCB DRC. |
 
-### Hardwareprototyp – Schaltplanarchitektur und Schnittstellen (Viererrunde 13.10.2026)
+### G.3 Schaltplanaufbau, Display, GNSS und Sensorik
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -750,35 +714,20 @@
 | HW-42 | **Festgelegt – A: GNSS über UART plus optionales Status-/Zeitimpulssignal** | **MAX-M10N primär per UART** mit ESP32-S3 verbinden; mindestens die bei der GNSS-Implementierung nötigen UART-Leitungen vorsehen. Eine **optionale TIMEPULSE-/Statusleitung** nach Datenblatt und GPIO-Budget einplanen, ohne zusätzliche I²C-Pflichtanbindung. | Pegelkompatibilität, Modulversorgung, Pinbudget, Firmware-Diagnose/UTC-Synchronisierung und Antennenbeschaltung nach konkretem MAX-M10N-Datenblatt prüfen. |
 | HW-43 | **Festgelegt – A: ein GPIO je Taster** | **Sechs FILN-Schaltkontakte an sechs getrennte ESP32-S3-GPIO-Eingänge** führen, jeweils über die schon festgelegten einzelnen verriegelnden JST-Anschlüsse. Entprellung und Eingangs-Pullups/Pulldowns passend zur elektrischen Schalterbeschaltung; gleichzeitige Tastenbetätigung (Plus/Minus 2 s) ohne ADC-Widerstandsleiter erfassen. | GPIO-/Strapping-/Wake-Budget, ESD und Eingangspegel prüfen; Kontakt-/LED-Pins an Steckern verwechslungssicher belegen. |
 | HW-44 | **Festgelegt – A: gemeinsamer LED-Ring-Schaltkanal** | **Alle sechs Tasten-LED-Ringe elektrisch gemeinsam über einen geeigneten schalt- und gegebenenfalls PWM-dimmbaren Treiberkanal ansteuern**; keine separat steuerbaren grünen/roten Kanäle als Hardwarepflicht. **Jeder LED-Ring erhält dennoch passende Strombegrenzung gemäß konkreter FILN-LED-Ausführung**; keine unzulässige Parallelschaltung ungeschützter LEDs. | LED-Nennspannungen/-ströme der fünf grünen und einen roten Taste abgleichen; Treiberstrom, Verlustleistung, PWM/EMV und Helligkeitssteuerung prüfen. |
-
-### Hardwareprototyp – Display, GNSS-Antenne und Helligkeitssensor (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-45 | **Festgelegt – C: Display-Schnittstelle anhand konkreter Riverdi-Artikelnummer** | Die **elektrische Anbindung des vorgesehenen Riverdi-3,5-Zoll-Moduls erst nach Abgleich der konkreten bestellbaren Artikelnummer und des Herstellerdatenblatts** verbindlich auswählen. **SPI oder RGB nicht voreilig festschreiben.** | Displayinterface, Versorgung, Logikpegel, erforderliche ESP32-S3-Signale, Backlight/Treiber, Stromaufnahme und GPIO-Budget aus dem exakten Modul-Datenblatt prüfen; bisherige SPI-Planung ggf. ausdrücklich überarbeiten. |
 | HW-46 | **Festgelegt – A: lösbare FFC/FPC-Displayverbindung als Ziel** | **Display und Hauptplatine über eine kompakte lösbare FFC/FPC-Flachbandverbindung** anbinden, damit das Display separat montiert werden kann. Diese mechanische Zielvorgabe steht unter dem Vorbehalt der **realen Steck-/Signalausführung des in HW-45 noch festzulegenden Riverdi-Moduls**; keine nicht unterstützte FFC-Schnittstelle erzwingen. | Kontaktzahl, Pinbelegung, Pitch, Steckverbinder-Orientierung/Top-Bottom-Contacts, Kabeltyp, Biegeradius, Verriegelung und Signalqualität gemäß realem Modul verifizieren. |
 | HW-47 | **Festgelegt – A: U.FL auf PCB und externe SMA-Durchführung** | **MAX-M10N-GNSS-Antennensignal über einen geeigneten U.FL-Koaxanschluss auf der Hauptplatine und eine kurze interne Koaxleitung zur SMA-Gehäusedurchführung** führen. | 50-Ω-RF-Führung, Masse-Rückstrom, ESD, mechanische Kabelzugentlastung, aktiver/passiver Antennentyp, GNSS-Modul-Antennenversorgung und Koax-/SMA-Geschlecht verbindlich prüfen. |
 | HW-48 | **Festgelegt – A: digitaler I²C-Helligkeitssensor** | Die Umgebungshelligkeit über einen **digitalen I²C-Lichtsensor** erfassen und für die bereits beschlossene automatische Displayhelligkeitsregelung verwenden. Sensor so anordnen, dass er Umgebungslicht misst und nicht überwiegend die eigene Tasten-/Displaybeleuchtung. | Bauteil-/I²C-Adressauswahl, 3,3-V-Pegel, Bus-Pull-ups, Platzierung mit optischer Öffnung, Temperatur-/Messbereich und GPIO-Budget prüfen. |
-
-### Hardwareprototyp – Sensorik und elektrische Schnittstellen (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-49 | **Festgelegt – A: digitaler I²C-Temperatursensor** | Die **Temperatur der Hauptplatine** mit einem zusätzlichen **digitalen I²C-Temperatursensor** überwachen; die interne ESP32-S3-Chiptemperatur ersetzt die PCB-Messstelle nicht. | Geeigneten Sensor mit verträglicher I²C-Adresse, Temperaturbereich und 3,3-V-Versorgung auswählen; Lage nahe thermisch relevanten Baugruppen mit Interpretation der lokalen Temperatur festlegen. |
 | HW-50 | **Festgelegt – A: separate Schutz-/Filterstufe pro Radsensoreingang** | Die beiden über den gemeinsamen 4-poligen M8-Anschluss geführten **Radimpulseingänge elektrisch unabhängig mit je eigener ESD-/Überspannungsbegrenzung und passender Eingangsfilter-/Pegelaufbereitung** ausführen. Kompatibilität mit Reed, Hall und Open-Collector gemäß bestehenden GPS-Anforderungen; keine ungeschützte direkte Anbindung der Außenleitungen an MCU-GPIOs. | Fehlanschluss, ESD/Transienten, Kurzschluss eines Kanals bei weiter funktionsfähigem anderen Kanal, Flanken bis 1 kHz und Entprellung prüfen; 12-V-Pegel nicht als reguläre Eingangsanforderung interpretieren. |
 | HW-51 | **Festgelegt – A: gemeinsamer I²C-Bus** | **RTC, FRAM, digitaler Helligkeitssensor und digitaler PCB-Temperatursensor** verwenden grundsätzlich **einen gemeinsamen 3,3-V-I²C-Bus** mit passenden Pull-ups und eindeutigen Geräteadressen. | I²C-Adresskollisionen, Gesamtbuskapazität, Pull-up-Dimensionierung, Bus-Ausfallverhalten und Pegel beim Teilabschalten (insbesondere RTC-Backup) testen. |
 | HW-52 | **Festgelegt – A: elektronisch geschaltete 5-V-M8-Sensorversorgung** | Den gemeinsamen **5-V-Versorgungskontakt des M8-Radsensoranschlusses** über einen **strombegrenzten, elektronisch abschaltbaren Lastschalter** versorgen; Fehlerstatus und softwaregesteuerten Wiederanlauf gemäß bisherigen GPS-Vorgaben unterstützen. | Stromlimit nach Sensorlasten bestimmen; Kurzschluss, automatischen begrenzten Retry, thermische Abschaltung, Rückspeisung über Impulsleitungen und Strombudget des 5-V-Hauptzweigs überprüfen. |
-
-### Hardwareprototyp – I²C, Radgeber-Pull-ups, Temperatur und GPIO (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-53 | **Festgelegt – A: ein gemeinsamer I²C-Bus ohne Zusatzschalter** | RTC, FRAM, Helligkeits- und PCB-Temperatursensor **auf einem 3,3-V-I²C-Bus ohne zusätzliche Hardware-Multiplexer/-Schalter** belassen (HW-51). Firmwareseitige Bus-Recovery soweit physikalisch möglich vorsehen; dauerhaft kurzgeschlossene SDA/SCL-Leitungen können dadurch nicht garantiert repariert werden. | Adress-/Pull-up-Budget, Leckströme bei ausgeschalteten Teilnehmern und Fehlerverhalten bei klemmendem SDA/SCL prüfen. |
 | HW-54 | **Festgelegt – A: einzeln schaltbare Radgeber-Pull-ups** | Für beide unabhängigen Radimpulseingänge **jeweils separat aktivierbare/entfernbare Pull-ups als Hardware-Bestückungsoptionen oder zugängliche Jumper** vorsehen; die Pull-ups samt Eingangsschutz und Pegelaufbereitung für Reed, Hall und Open Collector auslegen. **Keine zusätzliche Software-gesteuerte Pull-up-Elektronik beschlossen.** | Definierte Pegel bei offenem Eingang, Pull-up-Strom, 1-kHz-Eingangssignal, ESD/Fehlverdrahtung sowie jeweilige Sensor-Kompatibilität überprüfen. |
 | HW-55 | **Festgelegt – A: Temperatursensor am DC/DC-Wandler** | Den digitalen I²C-PCB-Temperatursensor **im thermisch aussagekräftigen Bereich nahe der 5-V-DC/DC-Wandlerstufe** platzieren; nicht direkt an einem elektrisch störenden Schaltknoten und mit geeigneter thermischer Kopplung/Abschirmung. | PCB-/Regler-Temperatur an Referenzpunkten vergleichen; Messwert als lokale Boardtemperatur und nicht ungeprüft als Regler-Sperrschichttemperatur interpretieren. |
 | HW-56 | **Festgelegt – A: GPIO-Belegung nach Riverdi-Verifikation** | Die **endgültige ESP32-S3-GPIO-Zuordnung erst nach Identifikation und Datenblattprüfung des konkreten Riverdi-Displays** freigeben. Zuvor vollständiges Pinbudget für USB, GNSS-UART/TIMEPULSE, Display, getrennte SD-SPI, I²C, zwei Radsensoren, sechs Tasten, LED-Treiber, SD-/Sensor-Power, BOOT/Strapping, Diagnose und JST-GH-Erweiterung prüfen. | Pin-/Strapping-/USB-Konflikte und freie Erweiterungsleitungen dokumentieren; hierarchischen Schaltplan erst mit validiertem Pinmapping elektrisch freigeben. |
 
-### Hardwareprototyp – Display-/GNSS-Bauteilverifikation (Viererrunde 13.10.2026)
+### G.4 Datenblatt-/Anschlussprüfung, Antennen- und Ersatzteile
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -786,17 +735,12 @@
 | HW-58 | **Festgelegt – A: aktive und passive GNSS-Antennen unterstützen** | Antenneneingang des **MAX-M10N über U.FL zu SMA** sowohl für **passive als auch aktive GNSS-Antennen** auslegen. Für aktive Antennen eine **geeignete schalt-/trennbare, strombegrenzte Antennen-Biasversorgung** mit RF-tauglicher Entkopplung/Schutz vorsehen; passiver Betrieb ohne störende Gleichstromversorgung sicherstellen. | MAX-M10N-Datenblatt inkl. Antennenversorgung/-diagnose, Bias-T/Induktivität, DC-Sperre, 50-Ω-Führung, ESD, Stromlimit und Betrieb ohne Bias prüfen. |
 | HW-59 | **Festgelegt – A: verriegelnder ZIF-Stecker mit Kabelsicherung** | Lösbare **FFC/FPC-Displayverbindung über verriegelnden ZIF-Stecker und zusätzliche mechanische Kabelsicherung/Zugentlastung** vorsehen, soweit das verifizierte Riverdi-Modul diese Anbindung ermöglicht. | FFC-Pitch/Kontaktseite, Verriegelungs- und Biegeradien, Schwingungsfestigkeit, Montagezugang und Platzbedarf vor Layout bestätigen. |
 | HW-60 | **Festgelegt – A: kritische Teile zuerst prüfen** | Vor der finalen Schaltplan- und GPIO-Freigabe **zuerst Riverdi-Display, MAX-M10N/GNSS-Antennenpfad und Bordnetz-/5-V-Versorgung samt eFuse/Schutz** mit tatsächlichen Herstellerunterlagen und Beschaffbarkeit verifizieren; übrige Bauteile parallel weiter konkretisieren. | Datenblattgestützte Stückliste/Anschlussliste und Schnittstellen- sowie Spannungsbilanz; keine Freigabe von Platzhaltern als fertige Lösung. |
-
-### Hardwareprototyp – Bauteilfreigabe und Antennenanschluss (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-61 | **Festgelegt – A: Riverdi beibehalten, Anschluss anpassen** | Wenn das bisher festgelegte Riverdi-Modell keine direkt kompatible **FFC/FPC-Verbindung** bietet, **das bestehende Display beibehalten** und stattdessen einen technisch geeigneten **lösbaren Kabel-/Adapteranschluss** vorsehen. Die frühere FFC-Präferenz (HW-46/59) gilt nur bei tatsächlicher Modulkompatibilität; kein Displaywechsel allein wegen des Steckers. | Exakte Riverdi-Artikelnummer, elektrische Schnittstelle, Kontaktbelegung, Ersatzkabel/Adapter, Signalpegel, Montage- und Vibrationssicherheit sowie GPIO-Budget prüfen. |
 | HW-62 | **Festgelegt – A: feste datenblattgerechte aktive GNSS-Antennen-Biasspannung** | Für eine ausgewählte aktive GNSS-Antenne **eine feste, aus Datenblatt und Antennen-Spezifikation abgeleitete Bias-Spannung** bereitstellen; Antennenversorgung **abschaltbar und strombegrenzt**. Passive Antennen ohne eingespeiste Gleichspannung verwenden; **keine verpflichtende 3,3-/5-V-Umschaltung**. | Ausgewählte aktive Antenne und MAX-M10N-Antennenpfad auf Versorgung, Stromaufnahme, Bias-T, RF-Entkopplung, ESD und Schutz testen; konkrete Spannung erst nach Antennenwahl freigeben. |
 | HW-63 | **Festgelegt – A: SMA-Buchse am Gehäuse** | Die externe GNSS-Antenne wird an eine **normale SMA-Buchse an der Gehäuseaußenseite** angeschlossen (kein RP-SMA); im Inneren führt ein geeignetes Koax-Pigtail zum U.FL-Anschluss der Hauptplatine. | SMA-Geschlecht und Innenkontakt, Antennenstecker, Gehäusedurchführung, Dichtung, mechanische Fixierung, 50-Ω-Koaxleitung und Kabellänge prüfen. |
 | HW-64 | **Festgelegt – A: gleichwertige Alternativbauteile dokumentieren** | Für kritische und potenziell schwer verfügbare Komponenten in der Stückliste **nach Möglichkeit datenblattgestützt elektrisch, thermisch, mechanisch und footprint-kompatible Ersatztypen** dokumentieren. **Keine zusätzlichen Alternativ-Footprints auf dem PCB als allgemeine Pflicht**; Ersatztypen nur nach Kompatibilitätsprüfung freigeben. | LCSC/JLCPCB-Bestand, Hersteller-Datenblätter, Footprint/Pinout, elektrische Grenzwerte und Firmware-relevante Abweichungen bei jeder Alternative überprüfen. |
 
-### Hardwareprototyp – Erste PCB-Revision und Inbetriebnahme (Viererrunde 13.10.2026)
+### G.5 Erste PCB-Revision, Erstaufbau und Prüfeinspeisung
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -804,19 +748,14 @@
 | HW-66 | **Festgelegt – A: JLCPCB-SMD plus manuelle Sonderteile** | **Geeignete verfügbare SMD-Bauteile durch JLCPCB bestücken lassen**; mechanische Steckverbinder, größere Pufferelkos und nicht unterstützte bzw. unverhältnismäßig teure Spezialteile bei Bedarf **manuell nachbestücken**. | BOM/CPL, JLCPCB-Basic/Extended-Verfügbarkeit, 2-seitige Bestückung, Lötbarkeit der Sonderteile und Zugänglichkeit der Lötstellen vorher prüfen. |
 | HW-67 | **Festgelegt – A: getrennte Testeinspeisemöglichkeit** | Für den ersten Bring-up **zusätzlich zum regulären geschützten 9–36-V-M8-Bordnetzeingang einen abgesicherten 5-V-Testeinspeisepfad hinter dem Buck** vorsehen. Testversorgung so entkoppeln bzw. nur nach bewusstem Trennen/Umstecken zuschalten, dass **weder der Buck-Ausgang noch Bordnetz/USB rückgespeist** werden und 5-V-Quellen nicht gegeneinander arbeiten. | Fehler- und Verpolschutz, Spannungs-/Stromfestigkeit, eindeutige Testpunktkennzeichnung, Abschalt-/USB-Zustände und sichere Reihenfolge bei Labornetzteilbetrieb testen; Testeinspeisung nicht als ungeschützte Betriebsversorgung deklarieren. |
 | HW-68 | **Festgelegt – A: fünf Erstprototyp-PCBs** | **Fünf Hauptplatinen** der ersten PCB-Revision für Bring-up, Aufbauvarianten, Fehlersuche und Reserve fertigen lassen. Die Stückzahl der **vollständig oder teilbestückten** Platinen und der manuellen Sonderteile ist separat anhand der Bestellung/BOM festzulegen; fünf Leiterplatten bedeuten nicht automatisch fünf vollständig bestückte Geräte. | Fertigungs- und Bestückungskosten, Baugruppenaufteilung und Reserveteile auf fünf PCB-Rohlinge beziehen; Produktionsfreigabe erst nach Gerber-/BOM-/CPL-Prüfung. |
-
-### Hardwareprototyp – PCB-Fertigung und Laboreinspeisung (Viererrunde 13.10.2026)
-
-| ID | Status | Anforderung | Verifikation |
-|---|---|---|---|
 | HW-69 | **Festgelegt – A: zwei bestückte, drei unbestückte PCBs** | Für die erste Revision **fünf identische Hauptplatinen fertigen** (HW-68), davon **zwei für die maschinelle JLCPCB-SMD-Bestückung vorsehen und drei als unbestückte Reserven** behalten. Falls der Bestückungsdienst unterschiedliche PCB-/PCBA-Mindeststückzahlen vorgibt, vor Bestellung die tatsächlich verfügbare Bestellkonfiguration und Kosten offen prüfen, nicht stillschweigend fünf bestücken. | Bestellung: fünf nackte PCBs und nach Möglichkeit genau zwei PCBA; Sonderteile gemäß HW-66 manuell nachbestücken. |
 | HW-70 | **Festgelegt – A: interner zweipoliger 5-V-Laborstecker** | Die separate, abgesicherte 5-V-Testeinspeisung **über einen internen zweipoligen, möglichst verpolsicheren Steckverbinder** realisieren. Stecker und Schaltung gegen versehentliche **Rückspeisung auf Buck-Ausgang, USB-VBUS und Bordnetz/M8** sichern; klare Kennzeichnung +5V_TEST/GND und Stromlimit. | Gegenstecker/Zugänglichkeit, Kontaktstrom, Sicherung und Quellenwahl-/Trennschaltung prüfen; Labornetzteilbetrieb mit aus- und eingeschaltetem M8 und angeschlossenem USB testen. |
 | HW-71 | **Festgelegt – A: 35 µm (1 oz) Kupfer** | Erste Hauptplatine mit **nominal 35 µm / 1 oz Kupfer je Kupferlage** planen. Hochstrompfade, Schaltregler-Rückstromschleifen und thermische Flächen bei dieser Kupferdicke explizit dimensionieren. | Leiterbahn-/Kupferflächenbreite, Temperaturanstieg, Spannungsabfall, Via-Strompfade und DFM-Regeln für JLCPCB prüfen; bei unzureichender Reserve Entscheidung vor Fertigungsfreigabe neu vorlegen. |
 | HW-72 | **Festgelegt – A: 1,6 mm PCB-Dicke** | Erste Hauptplatine mit **nominal 1,6 mm Leiterplattendicke** auslegen, passend zur späteren ASA-Gehäusebefestigung und den gewählten Steckverbindern. | Stecker-/Gewindefreiräume, PCB-Steifigkeit, Gehäuseauflagen und 2-/4-Lagen-Stack-up einschließlich tatsächlich angebotenem JLCPCB-Material prüfen. |
 
-### Hardwareprototyp – JLCPCB Basic Parts und Handlötbarkeit (Nutzervorgabe 13.10.2026)
+### G.6 JLCPCB Basic Parts und Handlötbarkeit
 
-**Festgelegte Beschaffungs- und Gehäusepräferenz:** TripTracer soll nach Möglichkeit mit **JLCPCB Basic Parts** und **gut von Hand lötbaren SMD-Bauformen** entwickelt werden. Dies ist eine **Optimierungspräferenz, keine harte Bauteil- oder Größenbeschränkung**. Elektrische Sicherheit, Signalqualität, Lebensdauer, Wärmeabfuhr und zuverlässige Herstellbarkeit gehen stets vor.
+**Optimierungspräferenz, keine starre Gehäuse- oder Lieferantenpflicht:** Technische Eignung, Langzeitrobustheit, Thermik und Signalqualität stehen über Basic-/1206-Status.
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -825,9 +764,9 @@
 | HW-75 | **Festgelegt – handlötbare IC-/Leistungsgehäuse, sofern gleichwertig** | Für ICs, MOSFETs, Schutz- und Leistungsteile bevorzugt von Hand gut zugängliche SMD-Gehäuse wie **SOT-23, SOIC, TSSOP, SOT-223** oder vergleichbare Bauformen einsetzen, **sofern Pinzahl, elektrischer/thermischer Wirkungsgrad, EMV, Bauraum und Lieferbarkeit passen**. Fine-Pitch-, QFN-/DFN- und andere anspruchsvollere Packages sind ausdrücklich erlaubt, wenn sie für die Schaltung **erhebliche technische, thermische, funktionale, HF- oder Bauraumvorteile** bieten bzw. der benötigte Baustein nicht sinnvoll anders erhältlich ist. | Lötverfahren für schwierige Gehäuse (Heißluft/Reflow/Schablone oder JLCPCB-Bestückung), freiliegende Thermal-Pads und Inspectierbarkeit festlegen; **nicht aus Handlötgründen auf ungeeignete Leistungskomponenten wechseln**. |
 | HW-76 | **Festgelegt – Variantenentscheidung und Baugruppenvalidierung** | **Jede neue Baugruppe** mit einer nach Bauteilfamilien geprüften Auswahl aufbauen: zuerst technische Eignung und Kompatibilität, dann **Basic-Status, LCSC-Bezug und Handlötbarkeit** optimieren. Abweichungen von Basic/ca. 1206 kurz und konkret begründen, besonders bei **GNSS-RF, USB/ESD, Hochfrequenz-Switching, hochbelasteten Widerständen/MLCC, thermischen Pads und Spezialmodulen**. Die Möglichkeit zur Eigenbestückung erhalten, **ohne die bereits beschlossene erste Fertigungsplanung (HW-66/HW-69) stillschweigend zu ändern**. | BOM je Teil um **JLCPCB-Kategorie, C-Nummer, Gehäuse/Footprint, Handlötmethode, Ausnahmebegründung und Prüfstatus** ergänzen; nach Teiletausch Pinout, ERC, PCB-Footprint/DRC und Kompatibilität mit bisherigen Baugruppen erneut prüfen. |
 
-### Hardwareprototyp – Kostenziel „Budget-Tripmaster“ / DIY mit Serienpotenzial (Nutzervorgabe 13.10.2026)
+### G.7 Budget-Tripmaster und Preis-Leistungs-Prioritäten
 
-**Verbindliche Produktpositionierung:** TripTracer ist ein **preisbewusster DIY-Tripmaster mit realistischer Perspektive auf Kleinserie/Serienfertigung**, kein kostenunabhängiges High-End-Gerät. Die Konstruktion soll für einen privaten Selbstbau **mit Handbestückung erschwinglich und reparierbar** bleiben, gleichzeitig aber **JLCPCB-/LCSC-Beschaffung, maschinelle SMD-Bestückung, Wiederholgenauigkeit, Testbarkeit und Stückzahlen** berücksichtigen. **Weder konkrete Ziel-Verkaufspreise noch harte BOM-/Gesamtbudgetgrenzen sind bislang festgelegt** – keine erfundenen Preisobergrenzen.
+**Produktpositionierung:** DIY mit Kleinserienpotenzial, ohne feste Kostenobergrenze. Das 80/20-Prinzip ist eine **Preis-/Nutzen-Heuristik**, keine mathematische Quote und kein Grund, Kernfunktionen oder Schutztechnik zu streichen.
 
 | ID | Status | Anforderung | Verifikation |
 |---|---|---|---|
@@ -835,22 +774,21 @@
 | HW-78 | **Festgelegt – laufende Kostenbetrachtung pro Baugruppe** | Vor einer neuen Bauteil-/Package-Freigabe **mindestens zwei technisch geeignete Optionen hinsichtlich Stückpreis, Verfügbarkeit, JLCPCB-Basic-/Extended-Status, Lötbarkeit, Bauflächenbedarf, nötiger Zusatzbeschaltung und Serienmontage** vergleichen, soweit sinnvoll und verfügbar. Standardwerte/Bauformen wiederverwenden, ohne elektrische Nachteile zu erzwingen. | In BOM **Hersteller-MPN, LCSC-C-Nummer, reale Preisquelle und Prüftag, Mengenpreis und Beschaffungskategorie** erfassen; unbekannte Werte als `ungeprüft`, nicht als `0 €` behandeln. Entscheidung bei teurerem Bauteil kurz begründen. |
 | HW-79 | **Festgelegt – echte Systemkosten statt reiner Bauteilsumme** | Bei Kostenbewertungen neben der elektronischen BOM auch **PCB (2 gegenüber 4 Lagen), PCBA-Setup-/Extended-/Bestückungsgebühren, Kleinstmengen/MOQ, Versand, Steuern, nachzubestückende Teile, Handlötzeit, Gehäuse/ASA-Druck bzw. Seriengehäuse, Display, Taster, Koax/Pigtail, M8/JST/USB-Stecker, Backupzelle, Montage, Prüfung und Ausschussreserve** berücksichtigen. Einmalige Entwicklungs-/Werkzeugkosten gesondert von wiederkehrenden Stückkosten darstellen. | **Zwei Perspektiven** getrennt kalkulieren: (1) realer DIY-Einzel-/Erstprototyp mit Einkaufsmengen und Nebenkosten sowie (2) wiederkehrende Stückkosten einer möglichen Kleinserie. Preisvergleich z. B. **1, 10, 50, 100 Stück**, soweit belastbare echte Preise vorliegen; sonst transparent offen. |
 | HW-80 | **Festgelegt – kostengesteuerte Entscheidungen ohne Qualitätskompromiss** | Wirtschaftlichkeit vor **jeder Baugruppen-Freigabe und nach relevanten Bauteiltauschen** erneut bewerten. Handlötbare ca. 1206-Passive und JLCPCB Basic Parts nach HW-73–76 bevorzugen, aber **nur, wenn Gesamtaufwand und technische Eignung überzeugen**. Ein teureres/schwierigeres Gehäuse zulassen, wenn es einen wesentlichen Nutzen oder insgesamt geringere Fertigungskosten bietet. **Keine Hardwarefehler durch Firmware-Tricks oder billigen Überspannungs-/Verpolschutz verursachen.** | Bei ungewöhnlich teuren Bauteilen/Schaltungsteilen **Kostentreiber, Alternativen, Preis-/Leistungs-Abwägung und Restrisiko** dokumentieren; Optimierung muss mit den vorherigen Baugruppen kompatibel bleiben und deren ERC/DRC-/Fertigungsnachweise nötigenfalls erneut prüfen. |
-
 | HW-81 | **Festgelegt – Pareto-/80-20-Preis-Leistungs-Prinzip, keine Preisobergrenze** | **Nicht maximale Ausstattung oder niedrigster Preis, sondern der höchste praktische Nutzen je Euro** ist maßgeblich. Die Aussage **„80 % der Funktion für 20 % der Kosten wäre perfekt“** ist eine bewusst zugespitzte **Entscheidungsheuristik, keine buchstäbliche Kosten- oder Leistungsanforderung**. Eine ausreichend gute, einfache und kostengünstige Variante ist einer erheblich teureren Premiumlösung vorzuziehen, wenn deren Mehrwert im vorgesehenen Rallye-/DIY-Einsatz gering ist. Umgekehrt ist ein deutlicher Aufpreis gerechtfertigt, wenn Zuverlässigkeit, tatsächlicher Bediennutzen, Bauteilschutz oder Einsatzfähigkeit wesentlich gewinnen. | **Alternativen pro Baugruppe als Basislösung und Mehrpreis-Option** vergleichen und den **zusätzlichen praktischen Nutzen je Mehrkosten** dokumentieren (ggf. vereinfachte €/Nutzen-Bewertung). Funktionen, die bereits ausdrücklich beschlossen wurden, nicht eigenmächtig entfernen; bei Konflikten eine transparente günstigere Alternative zur Nutzerentscheidung vorlegen. Schutz, sichere Versorgung, EMV, Temperatur- und zuverlässiger Speicherbetrieb sind **keine optionalen 20-%-Extras**. |
 
-**Kostengrundsatz:** Günstig **in der Gesamtrechnung** statt nur die billigste Komponente. Keine Preise, JLCPCB-Basic-Einstufungen, Stückzahlrabatte, Lieferkosten oder Serienmargen ohne tatsächlich geprüfte Grundlage als garantiert angeben. Die Erstfertigungsplanung **5 PCB, 2 möglichst bestückt, 3 Reserve (HW-68/69)** bleibt bestehen.
+**Kostengrundsatz:** Die tatsächlich entstehenden **Gesamtkosten** optimieren (Bauteile, PCB, Bestückung, Gehäuse, Kabel, Versand, Prüfaufwand), nicht nur einzelne Teilepreise; keine unbestätigten Lieferkosten/Mengenpreise als garantiert angeben. Die 5-PCB-/2-PCBA-Planung ist hiervon nicht aufgehoben.
 
-## G. Fertigung und Verifikation
+## H. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
 |---|---|---|---|
 | Q-01 | **Festgelegt** | Portables KiCad-10-Projekt, schlüssige Symbole, Footprints, STEP-Dateien und Stückliste | Keine absoluten lokalen Pfade; Bauteile anhand Herstellerunterlagen verifizieren |
-| Q-02 | **Offen** | Leiterplattenfertiger, Lagenaufbau, Dicke, Bestückungs-/Lötverfahren | Nach mechanischem und elektrischem Bedarf entscheiden |
+| Q-02 | **Teilweise festgelegt – HW-11/65/66/69/71/72, PCB-01–03** | JLCPCB/LCSC bevorzugt, 1,6 mm, 35 µm/1 oz, zwei Lagen bevorzugt (vier bei begründetem Bedarf), Bestückung beidseitig zulässig, fünf Prototyp-PCBs (möglichst zwei PCBA). | Genauen Stack-up und Leiterplattenherstellerregeln, Zahl bestückbarer PCBs, CPL, Bauteile und Kostenvoranschlag vor Bestellung prüfen. |
 | Q-03 | **Festgelegt** | ERC/DRC und Datenblatt-/Pinprüfung vor Bestellung; Fahrzeugschutz und reale Funktion zusätzlich testen | Prüfberichte revisionsbezogen speichern |
-| Q-04 | **Offen** | Wartbarkeit, Prüfanschlüsse, Debug-/Firmware-Recovery | Zugang ohne Zerstörung des Gehäuses |
+| Q-04 | **Teilweise festgelegt – HW-04/08, MCU-02 und MEC** | USB-C-Debug/Flash und BOOT-/RESET-Recovery, zugängliche Messpunkte, lösbare Stecker und Wartbarkeit festgelegt; genaue Servicepositionen noch zu layouten. | Zugänglichkeit im Gehäuse, Fehler-/Recovery-Betrieb und Messpunkte praktisch prüfen. |
 
 
-### G.1 PCB-Aufbau und Fertigung – Viererrunde 13.10.2026
+### H.1 PCB-Aufbau und Fertigung
 
 | ID | Entscheidung | Anforderung | Validierung |
 |---|---|---|---|
@@ -859,205 +797,32 @@
 | PCB-03 | **Festgelegt – A: JLCPCB/LCSC** | Leiterplatte bevorzugt JLCPCB, SMT-Bestückung und Komponenten möglichst JLCPCB-/LCSC-verfügbar; Spezialbauteile separat zulässig. | Preise, Verfügbarkeit und beidseitige Montagefähigkeit vor Bestellung validieren. |
 | PCB-04 | **Festgelegt – A: viele Testpunkte** | Zugängliche, beschriftete Messpunkte für Versorgung, GND, BOOT, RESET, USB, GNSS, Radsensor und Diagnose. | An USB-D+/D− keine langen Stubs; GNSS-RF-Messung nur HF-gerecht; keine Konflikte mit Gehäuse und Service. |
 
-## Entscheidungsprotokoll
+## I. Historisches Entscheidungsprotokoll
 
-**Historische Einträge zu rechter externer microSD, Push-Push-/Card-Detect-Pflicht und Kappen gelten als durch spätere Nutzerentscheidung vom 13.10.2026 überholt. Aktueller Stand steht in STO-01–35 und im folgenden neuesten Protokolleintrag.**
+Die ursprünglich hier geführten **109 chronologischen Beschlusseinträge** wurden vollständig und ohne Änderung ihrer Einträge nach [HARDWARE_DECISION_HISTORY.md](HARDWARE_DECISION_HISTORY.md) ausgelagert. Auch die wiederholte ältere Schlusszusammenfassung befindet sich dort. Diese Daten **nicht erneut hierhinein kopieren**; stattdessen konkrete Einzelanforderungen und den aktuellen Stand hier aktualisieren.
 
-| Datum | ID(s) | Entscheidung | Bemerkung |
-|---|---|---|---|
-| 13.10.2026 | SYS-01/02, MEC-01 | Ein TripTracer für mehrere Fahrzeuge, separate Halterungen | Vom Nutzer bestätigt |
-| 13.10.2026 | PWR-02/10 | M8, 3-polig, A-codiert als Fahrzeugeingang | Endgültige Bestellnummer und Pinansicht offen |
-| 13.10.2026 | PWR-06/07/08 | USB-C: 5 V + Firmware; separater 12-V-Eingang | Bei V0.3 noch nicht umgesetzt |
-| 13.10.2026 | PWR-03/04 | **Sicherung auf der Platine**; einfach selbst anzufertigendes Fahrzeugkabel | Zuleitung braucht dennoch quellseitigen Kurzschlussschutz |
-| 13.10.2026 | MCU-01 | ESP32-S3 beibehalten; kein CH32X035 im TripTracer | Prozessor bereits im V0.3-Projekt |
-| 13.10.2026 | PWR-01/09/10/11 | **12 V und 24 V gleichermaßen unterstützen**, ohne Umstecken oder Spannungswahlschalter | Nachträgliche verbindliche Anforderung; Eingangsschutz, DC/DC und Sicherung neu dimensionieren |
-| 13.10.2026 | PWR-15 | **Variante A: unterbrechungsfreier Motorstart** | Gilt für beide Bordnetze; Spannungs-/Zeitgrenzen und Pufferung sind noch auszulegen und zu prüfen |
-| 13.10.2026 | PWR-12 | Zunächst Variante C: fest eingelötete Schmelzsicherung | **Durch spätere Entscheidung für eFuse ersetzt**; historische Zwischenentscheidung, nicht mehr aktuell |
-| 13.10.2026 | PWR-03/04/05/09/12 | **SMD-eFuse mit automatischem Wiederanlauf als primärer Geräteschutz**; Fahrzeugzuleitung ist fahrzeugseitig abgesichert | Verpolschutz und Fehler-/Transientenfestigkeit nach konkretem Datenblatt prüfen; keine Bauteilnummer festgelegt |
-| 13.10.2026 | PWR-06/08/13 | **M8 hat Versorgungsvorrang; USB-C-5-V ausschließlich zum Flashen ohne M8** | Mit M8 bleibt USB-Datenübertragung möglich, aber keine reguläre USB-Versorgung vorgesehen |
-| 13.10.2026 | PWR-16 | **Variante B: Unterbrechungsfrei bei Start-Spannungseinbrüchen; Neustart bei 0 V M8 zulässig** | Ergänzt PWR-15; kein Bedarf für vollständige Nullvolt-Überbrückung |
-| 13.10.2026 | PWR-17 | **Variante A: auch ausgeprägte Kaltstart-Spannungseinbrüche überstehen** | Vorläufig: 12 V → 3 V/ca. 15 ms und 6 V/mehrere Sekunden; 24 V → 6 V kurzzeitig und 10 V/mehrere Sekunden. Exakte Prüfprofile noch festzulegen. |
-| 13.10.2026 | PWR-18/19/20/21 | **Gebündelte 4er-Runde:** Display bei Motorstart dimmbar; Start automatisch mit M8; kontrollierter gepufferter Nachlauf; Bordnetzspannung im Menü messen/anzeigen | PWR-16 bleibt bestehen: vollständiger 0-V-Ausfall muss keinen laufenden Messbetrieb garantieren; der Nachlaufpuffer ist stattdessen für gesichertes Herunterfahren zu dimensionieren. |
-| 13.10.2026 | PWR-22/23/24/25 | **Gebündelte 4er-Runde:** geschaltetes Zündungsplus; minimal notwendiger Speichernachlauf; nur notwendige Elektronik im Nachlauf; Spannungsanzeige nur im Diagnosemenü | Keine feste Nachlaufdauer; Pufferung und Datensicherheit vor PCB-Layout dimensionieren und testen. |
-| 13.10.2026 | STO-01/02/03/04 | **Gebündelte 4er-Runde:** microSD, von außen zugänglich; externe GNSS-Antenne; Anschluss für optionalen Radsensor | Bauteile, geeignete HF-Stecker, Abdichtung und GPIOs noch offen. |
-| 13.10.2026 | SYS-04, MEC-04/05/06/07 | **Gehäuse staubdicht, aber nicht wasserdicht gefordert; Staubschutzkappen für optionale Anschlüsse/Öffnungen** | Schutz bei verschlossenen Öffnungen; IP6X nur als Entwicklungsziel, kein nachgewiesener Prüfstatus. |
-| 13.10.2026 | MEC-08/09/10/11 | **Gebündelte 4er-Runde:** SMA-Gehäusebuchse mit Staubkappe, außen liegende microSD mit unverlierbarer Gummikappe, separater steckbarer Radsensoranschluss, USB-C mit unverlierbarer Gummikappe | Hersteller-/Bauteilnummern und mechanische Prüfung stehen aus. |
-| 13.10.2026 | MEC-12/13/14/15 | **Gebündelte 4er-Runde:** Schiebehalterung mit Rastung, ASA-3D-Druckgehäuse, verschraubter Deckel mit Staubdichtung, handschuhtaugliche fühlbare Tasten | Mechanische Tests und konkrete Bauteile bleiben offen. |
-| 13.10.2026 | UI-03/04/08/09 | **Variante A für Piepser und automatische Helligkeitsregelung bestätigt.** | UI-06/07 waren zwischenzeitlich offen, jetzt Riverdi-Farbdisplay ausgewählt. |
-| 13.10.2026 | UI-06/07 | **Riverdi RVT35HITNWC00-B als gemeinsames 3,5-Zoll-Farbdisplay für Prototyp und Kleinserie gewählt** | Ansteuerung über SPI mit ESP32-S3 vorgesehen; 50-poliges 0,5-mm-FPC/ZIF, 15-V-Backlight-Treiber, Staubmontage und Lieferfähigkeit vor Serienfreigabe verifizieren. |
-| 13.10.2026 | UI-10/11/12/13 | **Vierer-Runde 7: automatischer Dark-/Light-Mode mit manueller Übersteuerung, gespeicherte umschaltbare Anzeigelayouts, partielle TFT-Aktualisierung, einstellbare Helligkeitsgrenzen** | Bedienlogik und Licht-Schwellen später konkretisieren; bisherige Einstellungen von UI-08/09 (Piepser, Umgebungslichtsensor) bleiben bestehen. |
-| 13.10.2026 | UI-14/15/16, GPS-05 | **Runde 8: feste Tastenfunktionen, bestätigter Langdruck-Tripreset, 5-Hz-GNSS**; fünf Fronttasten nur als damalige Präferenz | **Durch spätere Entscheidung zu Direktkorrektur/LEG 0 überholt**: aktuell sechs Tasten bevorzugt, Anzahl bleibt offen. |
-| 13.10.2026 | GPS-02, UI-14/15/16/17/18/19 | **Sofortkorrektur mit separaten +/−-Tasten, je 10 m auf aktiven Zähler; LEG 0 nullt Wegpunktdistanz unmittelbar, Gesamtdistanz bleibt erhalten.** | Reset nur für Gesamtzähler per Langdruck + Bestätigung; sechs handschuhtaugliche Fronttasten bevorzugt, aber noch nicht final validiert. |
-| 13.10.2026 | UI-20/21/22/23 | **Vierer-Runde 9: +/− mit beschleunigter Tastenwiederholung; TRIP-Taste wählt aktiven Korrekturzähler; LEG 0 haptisch eindeutig; letzte LEG-0-Nullung rückgängig machbar.** | Wiederholparameter, Undo-Bedienung und -Gültigkeit sowie konkrete Sechs-Tasten-Ergonomie bleiben offen. |
-| 13.10.2026 | UI-24/25/26/27 | **Vierer-Runde 10: LEG-Undo per bestätigtem Langdruck; sanfte beschleunigte ±10-m-Wiederholung; feste Zähler Gesamt/Trip A/Trip B/LEG; kurzes farbiges Feedback plus optionaler Piepser.** | Undo-Gültigkeit und Wiederholraten später kalibrieren. Kurz- und Langdruckgesten müssen einander ausschließen; sechs Fronttasten noch nicht final freigegeben. |
-| 13.10.2026 | GPS-04/06/07, STO-05/06, MCU-04 | **Vierer-Runde 11: GNSS-Ausfall ohne Radsensor stoppt Distanz und warnt; mit kalibriertem optionalem Radsensor automatische Übernahme; automatische Trackaufzeichnung; GPX + CSV.** | Umschaltung ohne Sprung/Doppelzählung; GNSS-Lücken als solche markieren, keine erfundenen GPS-Punkte; microSD-Schreibfehler und Stromverlust beherrschen. |
-| 13.10.2026 | GPS-08/09, STO-04/07/08, MCU-05 | **Vierer-Runde 12: geschützter Reed-/Hall-/Open-Collector-Radimpulseingang, dreipoliger Anschluss mit Sensorspeisung, microSD-Kartenerkennungskontakt, microSD über SPI.** | Versorgungsspannung und Steckerteil noch offen; Card-Detect nicht mit sicherem Auswurf verwechseln; SPI-Bus-Konzept vor PCB-Layout festlegen. |
-| 13.10.2026 | GPS-09/10/11, STO-09/10, MCU-06 | **Vierer-Runde 13: geregelte geschützte 5-V-Radsensorspeisung, GPS-gestützte und manuelle fahrzeugspezifische Radsensor-Kalibrierung, eigener microSD-SPI-Host, schaltbare microSD-3,3-V-Versorgung.** | Pinbudget des ESP32-S3 vor PCB-Layout vollständig verifizieren; SD-Abschaltung ohne GPIO-Rückspeisung, keine ungeschützten Sensorleitungen an MCU-Pins. |
-| 13.10.2026 | GPS-12/13, STO-11/12 | **Vierer-Runde 14: aktive GNSS-Antenne mit geschützter Bias-Speisung über SMA; kleine verriegelbare dreipolige Sensor-Rundbuchse; SD-Sicher-Auswurf per Menü; bei SD-Ausfall Weiterbetrieb mit begrenztem FRAM-Ereignispuffer.** | Antennenspannung/Antennentyp und Sensorstecker konkretisieren; FRAM-Reserve für kritische Zähler sicherstellen; Kartenentnahme erst nach erfolgreichem Schließen/Unmount. |
-| 13.10.2026 | GPS-12/14/15, STO-13/14, MCU-03 | **Vierer-Runde 15: feste 3,3-V-GNSS-Antennenspeisung mit Kurzschluss-/Überstromdiagnose, 32-KiB-FRAM beibehalten, Push-Push-microSD-Halter.** | Bias- und HF-Prüfung offen; geschützte Zählerbereiche gehen Eventpuffer vor; Slotvibrationen und Entnahme hinter der Kappe prüfen. |
-| 13.10.2026 | MEC-16/17/18/19 | **Runde 16 teilweise beschlossen: einzelne abgedichtete Paneltaster, Riverdi-Deckglas umlaufend verklebt, ASA-Deckel mit Messing-Gewindeeinsätzen.** **MEC-17 ausdrücklich offen**: zwei Dreierreihen unten, je drei links/rechts, alle sechs rechts oder drei unten + drei rechts erst nach Tasterwahl vergleichen. | Sechs Tasten weiter nur bevorzugt (UI-14); endgültige Frontaufteilung nach Tasterabmessungen und Blind-/Handschuh-Ergonomieprüfung. |
-| 13.10.2026 | MEC-20/21/22/23 | **Runde 17: MEC-20 A – Paneltaster mit Gewindeschaft und Gegenmutter; MEC-22 A – Gehäuseabmessungen nach Tasterwahl.** **MEC-21 bevorzugt direkte PCB-Lötung, bleibt bis zur Taster-/Mechanikprüfung offen. MEC-23 ohne Präferenz, bleibt offen.** | MEC-17 (Anordnung) und UI-14 (Tasterzahl) weiterhin ausdrücklich vertagt. Montagebelastungen nicht in starre Lötstellen einleiten. |
-| 13.10.2026 | MEC-24/25/26/27 | **Vierer-Runde 18: deutlicher kurzer Druckpunkt, beleuchtete Fronttaster/Leuchtringe, momentane NO-Kontakte und haptisch abweichende LEG-0-Kappe/Oberfläche.** | Konkrete in Deutschland beschaffbare abgedichtete Gewindetaster samt Datenblatt/LED-Versorgung und PCB-Lötbarkeit vergleichen; Buttonanzahl, Anordnung und direkte PCB-Montage bleiben offen. |
-| 13.10.2026 | SYS-05, MEC-21/25/27/28/29/30/31 | **WITTKOWARE 14-mm-LED-Metalltaster als Prototypfamilie eingeplant; Original-Lötösen möglichst als THT in PTH-Bohrungen/Langlöcher einlöten.** | Konkrete Varianten rot MT-LB-14MM-RR / grün MT-LB-14MM-RG verifiziert, Montage 12 mm und 5–14-V-LED laut Händler; 6 × 2,80 € ≈ 16,80 € zzgl. Versand. Echte Anschlussgeometrie, taktiler Hub, LEG-0-Tastkappe, Lichtdimmung bleiben ungeprüft. Die lange MEC-Tabelle wurde aus dem falschen Abschnitt G in F verschoben; STO aus B in C. |
-| 13.10.2026 | MEC-21/29/31/32 | **Montagefehler bei starr vorab THT-verlöteten WITTKOWARE-Tastern erkannt:** Sie werden von vorn eingesetzt, hinten verschraubt; die vorab auf der Hauptplatine verlötete Tastergruppe lässt sich nicht durch die feste Front einsetzen. | Direkte Hauptplatinen-THT-Montage zurückgestellt; **kurzer steckbarer Litzenanschluss nach Frontverschraubung als konstruktiver Favorit**, abnehmbare Front-Unterbaugruppe als offene Alternative. Montage und Demontage vor Layout nachweisen. |
-| 13.10.2026 | MEC-21/32, PWR-01–29 | **Litzen/Steckverbinder als vorläufige WITTKOWARE-Prototypmontage akzeptiert. PWR-Tabelle in verbindliche Spannungs-/Schutzentscheidungen, Zustandstabelle und offene Dimensionierungsaufgaben bereinigt.** | Überlappungen PWR-01/11, -03/12, -08/13, -15/18, -16/20 und -20/23/24 ausdrücklich abgegrenzt; 0-V-Fortsetzung der Messung nicht verlangt, kurzer Speicher-Nachlauf aber Pflicht. Neue offene technische Aufgaben PWR-26–29 ohne Bauteil- oder Schaltungsfreigabe. |
-| 13.10.2026 | PWR-18/19, MEC-21/25/27–33 | **Markdown-Tabellenbruch nach PWR-18 korrigiert** (Leerzeile entfernt; PWR-19 bis 29 gehören damit wieder zur selben Tabelle). **FILN schwarz mit 3-V-Ringen als Nutzerpräferenz festgehalten: vorläufig fünf grün, LEG 0 rot**, bei zusätzlicher taktiler Unterscheidung. 12-mm-Quick-Plug-FILN als kleinerer Kandidat dokumentiert. | Stecker seitlich/90° und Bauhöhe samt Kabel nicht als verifiziert ausgeben; günstiger Versand aus deutschem Lager für FILN bisher nicht bestätigt. WITTKOWARE bleibt nur Rückfalloption; Montage steckbar und servicefähig, USB-/PWR-Entscheidungen unverändert. |
-| 13.10.2026 | SYS-05/06, MEC-28/31/32/33, PWR-26 | **Kleinen FILN FLM12-FJ-6-E (12-mm-Bohrung) statt 19-mm-Version ausdrücklich für TripTracer-Prototyp ausgewählt.** Schwarz, LED-Version 3 V; bei vorläufig sechs Tastern fünf grüne Ringe und ein roter Ring für LEG 0. | **28 € FILN-Direktversand pro Bestellung** nach Nutzerangabe verbindlich in die spätere Prototyp-/BOM-Kalkulation aufnehmen, nicht je Stück; Artikel derzeit orientierend ab ca. 3,20 USD/Stück. Konkrete Varianten, Steckerwinkel/-Tiefe, LED-Strom und taktile LEG-0-Lösung vor PCB-Freigabe prüfen. |
-| 13.10.2026 | MEC-25/26/30/34, PWR-24/26 | **Neue verbindliche und von der Tastermarke unabhängige Regel: Fronttasten-LEDs leuchten im regulären M8-/ACC-Betrieb dauerhaft (FILN: 5× Grün, LEG 0 Rot) und sind elektrisch unabhängig vom NO-Kontakt.** Nutzerreferenz „Method 2: LED Always ON (Backlight Mode)“. | Auch bei ungedrückter Taste, Tagmodus und jedem Menü leuchten; Ersatztypen benötigen getrennte LED-Anschlüsse bzw. gleichwertige Dauerbeleuchtung. Optional dimmbar, aber im regulären Betrieb nicht aus. Ausnahme: USB-only-Service, kontrolliertes ACC-Aus-Speichernachlaufen; 3-V-LED-Strombegrenzung/Pinout verifizieren. |
-| 13.10.2026 | UI-04/09/13/28, MEC-25/30/34, PWR-26 | **Ring-LEDs dimmen verbindlich gemeinsam mit der Displayhelligkeit**: ein Umgebungslichtsensor und derselbe Automatik-/Manuellmodus samt Menü-Min-/Max-Einstellungen steuern beide Systeme; die Ringe leuchten bei regulärer M8-Versorgung dauerhaft auch ohne Tastendruck. | Separate LED-Strombegrenzung und individuelle Dimmerkennlinie (Rot/Grün vs. Riverdi-Backlight) erforderlich; minimales Ringlicht bleibt im Normalbetrieb sichtbar > 0. Ausnahmen USB-only-Flash, ACC-Aus-Nachlauf/Schutzabschaltung unverändert. |
-| 13.10.2026 | MEC-04/09/35–38, STO-02/14 | **Anschlusspositionen vor PCB-Layout: USB-C links, M8-Stromanschluss hinten, microSD auf rechter oder unterer Gehäuseseite (Seite offen). microSD-Karte muss bei geschlossener Staubschutzkappe eingesteckt bleiben.** | Standard-PCB-Push-Push mit Card-Detect unter vertiefter, unverlierbarer ASA-/Silikon-Abdeckung bevorzugt. Alternativ GT Contact GT2MSD01P1 IP68 mit GT2CMSD01-Kappe über eingesteckter Karte; Mechanismus laut Vertrieb Push-Pull, Preis/Card-Detect zu prüfen; kein stillschweigender Wechsel von Push-Push. M8-Kupplung und Kabel müssen an Schiebehalterung vorbeipassen. |
-| 13.10.2026 | MEC-04/09/36/37/39, STO-02/14 | **microSD rechts und direkt auf der Hauptplatine beschlossen**: normaler Push-Push-Card-Detect-Halter ohne Paneladapter/SD-Verlängerung. Rechtsseitige Gehäusestaubkappe **bei eingesteckter Karte schließbar** bleibt Pflicht. | **Historischer, später verworfener Vorschlag**: Pöppelmann GPN 920 Form B mit Rundstutzen (nicht für diesen rechteckigen microSD-Zugang geeignet; Entscheidung durch nachfolgenden Eintrag MEC-39 überholt). Normale microSD-Dummy-Slotstopfen bei Karte ungeeignet. Slot-/Kappenmaße und rechter PCB-Rand vor Routing prüfen. |
-| 13.10.2026 | MEC-09/37/39 | **Bisher empfohlene Staubschutzkappen verworfen:** KAPSTO GPN 920 ist für die kleine rechteckige microSD-Gehäuseöffnung konstruktiv unpassend; MODCOVER-Dummyportstopfen kann den Kartenzugang nur bei entfernter microSD verschließen. | microSD rechts, direkt auf PCB, Push-Push mit Card-Detect und Verschluss **bei eingesetzter Karte** bleiben verbindlich. Flache unverlierbare Gehäuseabdeckung mit z. B. ASA-Deckel und geschlossenzelliger EPDM-Dichtung als neue, **noch offene** konstruktive Option; erst Maße/Mechanik nach Kartenslot-Auswahl freigeben. |
+## J. Aktuelle Integrations- und Freigabe-Gates
 
-| 13.10.2026 | STO-01/02/05–07/11/12/14–24, MCU-02/04/05, MEC-04/09/36–39, PWR-06/08/13/19/29 | **Neue USB-/SD- und Logging-Entscheidung:** interne SD ohne äußere Öffnung; USB-only automatisch MSC-Laufwerk; Firmware per separatem USB-Bootmodus; M8 hat Priorität; Auto-Logging standardmäßig EIN, Menü AUS/EIN, Tagesdatei plus manueller Neustart, fehlende/volle/fehlerhafte SD melden, 32-GB-FAT32-Planungsziel, GNSS-UTC + gepufferte RTC für Timestamps. | Bisheriger Außenslot inkl. SD-Kappe/Card-Detect-Pflicht sowie „eine Datei pro Fahrt“ werden ersetzt. Firmware, RTC-Auswahl, Hardware und SD-Exklusivzugriff noch zu implementieren/testen. |
+Die folgenden Punkte sind **offene Arbeiten**, keine neuen Feature-Beschlüsse. Detaillierte Vorgaben stehen unter den jeweiligen IDs; aktuelle projektbezogene Befunde zusätzlich in [PROTOTYPE_V1_SCHEMATIC_REVIEW.md](PROTOTYPE_V1_SCHEMATIC_REVIEW.md).
 
-| 13.10.2026 | STO-25–29 | **Viererrunde komplett A bestätigt:** RTC mit austauschbarer Knopfzellen-Backupversorgung; ohne valide Zeit kurzfristig im RAM puffern und nur rekonstruierbar zeitstempeln; USB-MSC Lesen/Schreiben; einstellbare lokale Zeitzone mit Standard Europa/Berlin. **Zusätzlich RTC-Batteriespannungs-/Zeitgültigkeitsdiagnose als Entwicklungsziel.** | RTC/CR1220 vorläufiger Kandidat, keine endgültige elektrische/automotive Freigabe; Batteriewarnschwellen und Pufferbudget noch auszulegen. |
+| Reihenfolge | Aufgabe / Abnahmebedingung | Wesentliche Referenzen |
+|---|---|---|
+| 1 | **Eingangsschutz elektrisch abschließen**: Automotive-Transienten/TVS, eFuse mit Auto-Retry, nachgewiesener externer Verpolschutz, Ladebegrenzung, HV-Puffer und ACC-/UVLO-Schwellen. Puffer für tatsächliche Worst-Case-Abschaltlast berechnen; 3-s-Ziel samt Bauraum bewerten. | PWR-03/09/12/20, HW-25–38 |
+| 2 | **Versorgung vollständig anschließen**: geschützter 9–36-V-Eingang, 5-V-/2-A-Buck, 3,3-V-LDO, USB-only-Pfad, sicher entkoppelte 5-V-Laboreinspeisung. Priorität M8/USB und alle Rückspeisefälle prüfen. | PWR-06–08, HW-03/05/07/17–24/67/70 |
+| 3 | **ESP32-S3/USB sowie SD-Betriebsarten**: native D+/D−, CC, ESD, Boot/Reset, USB-only-Firmware und SD-MSC; M8+USB darf den laufenden Logger nicht ungewollt stoppen. | HW-02/04/41–44, STO-14–24 |
+| 4 | **Display/Frontbedienung**: gewähltes Riverdi RVT35HITNWC00-B, 50-poliges 0,5-mm-FPC inkl. Kontaktseite, 4-Wire-SPI und Backlight-Treiber dimensionieren; sechs verriegelnde FILN-Stecker, Ring-PWM und Lichtmessung. Touch-Datenblattwiderspruch vor Extra-Hardware klären. | UI-06/28, HW-45–49/57/59/61 |
+| 5 | **GNSS, Radsensoren, FRAM/RTC und Erweiterung**: MAX-M10N/U.FL/SMA sowie aktive/passive Antennen, zwei geschützte Radpulse mit schaltbarer 5-V-Sensorversorgung, RTC/Backup, interne microSD, GPIO-/I²C-/SPI-Adress- und Strombudgets. | HW-12–16/49–56/58/62–64, GPS/STO |
+| 6 | **Baugruppenweise Integration und Validierung**: jedes hierarchische KiCad-10-Blatt elektrisch und lesbar; Datenblätter, Pad-Nummern, Prüfpunkte, BOM/LCSC/JLCPCB-Status, Gesamtkosten und Kompatibilität mit vorherigen Baugruppen. **ERC/DRC nur bei tatsächlicher Ausführung als bestanden deklarieren.** | SYS-03, Q-01/03, HW-39/40/73–81, [AGENTS.md](../AGENTS.md) |
+| 7 | **Fertigung erst nach Prüf-Gates**: Board-/Gehäusefit, 35 µm/1,6 mm, zwei/vier Lagen, JLCPCB-Kosten samt Basic-/Extended-Beschaffung, fünf rohe und möglichst zwei bestückte PCBs; Gerber/BOM/CPL, messbare Inbetriebnahme und Automotive-Belastung. | PCB-01–04, HW-65–72 |
 
-| 13.10.2026 | STO-30–33 | **Viererrunde A/A/A/A bestätigt:** automatische begrenzte SD-Fehlerwiederherstellung; bei unter 10 % frei warnen, bis zur Sicherheitsreserve weiterloggen; CSV mit vollständiger Telemetrie; GNSS 5 Hz mit gebündeltem SD-Flush etwa jede Sekunde. | Endgültige Reserve, Retry-Logik, CSV-Schema und worst-case fsync-/Energiepuffer-Messung bleiben technische Entwicklungsaufgaben. |
+**Nicht automatisch beschlossen:** Konkrete Bauteilnummern, Schutzdimensionen, Steckerartikel und Bauraumgrößen, soweit in den IDs noch als offen gekennzeichnet. Der Kostenschwerpunkt „Budget-Tripmaster“ rechtfertigt keine Verschlechterung elektrischer Sicherheit.
 
-| 13.10.2026 | STO-34/35, UI-29/30 | **Viererrunde A/A/A/A bestätigt:** Automatische FRAM-/GPX-/CSV-Wiederherstellung nach Stromausfall soweit sicher möglich; kurze SD-Fehlermeldung plus persistentes Statussymbol; Speicherdetails ausschließlich im Diagnosemenü; neue Logdatei über Menü sofort ohne Rückfrage bei durchlaufender Distanzmessung. | Recovery-Grenzen, UI-Einblenddauer und Datei-Rotationsverhalten technisch zu validieren. |
+## Quellen und Geltung
 
-| 13.10.2026 | DIA-01–04, PWR-06/19, MCU-02, STO-16 | **Viererrunde C/A/C/A bestätigt:** separates Normal- und Entwickler-Diagnosemenü, persistentes begrenztes FRAM-Fehlerprotokoll, Firmware-Recovery nur über interne BOOT-/RESET-Servicekontakte bei geöffnetem Gehäuse, lesbare zusätzliche Diagnosedatei über USB. | Frühere Forderung eines ohne Gehäuseöffnung zugänglichen Recovery-Zugangs ist überholt; regulärer USB-C-Firmware-Flash bleibt bestehen. |
-
-| 13.10.2026 | DIA-03, STO-16 | **Interne Firmware-Recovery konkretisiert:** aufsteckbarer Jumper auf zweipoliger BOOT/GND-Stiftleiste (2,54 mm), GPIO0 bei Reset/Start low; keine externe Boot-Taste. | Pull-up/Strapping und interner Reset-/Power-Cycle-Pfad vor Schaltplanfreigabe prüfen. |
-
-| 13.10.2026 | GPS-16–18, UI-31 | **Viererrunde A/A/A/A bestätigt:** Tripanzeige direkt nach M8-Start mit GNSS-Wartestatus, kurzer Hinweis und dauerhaftes Quellensymbol bei GNSS-/Radsensor-Wechsel, mehrere gespeicherte benennbare Fahrzeugprofile, Satellitenzahl und GNSS-Qualität im Fahrdisplay. | Ohne gültige Quelle keine erfundene Distanz; Qualitätsschwellen, Profilanzahl und Wechselverhalten technisch zu definieren. |
-
-| 13.10.2026 | GPS-19–22 | **Viererrunde A/B/A/A bestätigt:** bis zu zehn Fahrzeugprofile; Profilwechsel auch während Fahrt, aber nur nach ausdrücklicher Bestätigung; GNSS-basierte Radsensorkalibrierung über längere Referenzfahrt mit Bestätigung; eigene Gesamt-/Trip-A-/Trip-B-/LEG-Zähler je Profil. | Atomarer Profilwechsel, Speicherbudget, Referenzstrecken-/GNSS-Gütekriterien und Logsegmentierung vor Firmwarefreigabe prüfen. |
-
-| 13.10.2026 | GPS-23–25, UI-32 | **Viererrunde A/A/A/A bestätigt:** GNSS-Referenzkalibrierfahrt mindestens 1 km; GNSS-Distanz nur bei ausreichender Qualität; keine rückwirkenden Distanzsprünge bei GNSS-Rückkehr; Zähleranzeige standardmäßig fest 10 m / 0,01 km. | Güteschwellen, Hysterese, Rundung und Fahrtests bleiben offene technische Auslegung. |
-
-| 13.10.2026 | UI-33–36 | **Viererrunde A/A/A/A bestätigt:** aktiven ±10-m-Korrekturzähler farblich markieren; sanfte Tastenwiederholung nach ca. 0,5 s bis ca. 5 Schritte/s; profilgebundenes LEG-0-Undo bis zur nächsten Nullung auch über Neustart/Profilwechsel; Gesamt-/Trip-Reset nur per Langdruck plus Bestätigung. | genaue Bedienkennlinie, Kontrast und FRAM-Atomarität technisch prüfen. |
-
-| 13.10.2026 | UI-37–40 | **Viererrunde A/B/A/A bestätigt:** bestehende Fronttasten im Menü kontextabhängig doppelt nutzen, Standard-Fahrdisplay mit zwei gleich großen Distanzzählern, nach 30 s Inaktivität zurück zur Fahrtanzeige, kurzer Tastenton bei jeder gültigen Eingabe (abschaltbar) und unterscheidbare Warnsignale. | Sichere Menüfunktionsbelegung, Layoutpaarung, Timeout-Ausnahmen und akustische Wiederholraten noch konkretisieren. |
-
-| 13.10.2026 | UI-41–44 | **Viererrunde A/A/A/A bestätigt:** sanfte automatische Helligkeitsanpassung über ca. 2–3 s, Nachtmodus mit dunklem Hintergrund und gedämpften Farben, manuelle Helligkeit bleibt bis zum erneuten Einschalten der Automatik auch nach Neustart erhalten, separate Display-/LED-Ring-Helligkeitskennlinien mit gemeinsamen Sensor und Modus. | Hysterese, Kontrast, PWM und getrennte Min-/Max-Werte bei Prototypen validieren. |
-
-| 13.10.2026 | MEC-40–43 | **Viererrunde A/B/A/A bestätigt:** microSD, CR1220 und BOOT-Jumper nach Abnahme des Rückdeckels gemeinsam ohne PCB-Ausbau zugänglich; **sechs M3-Schrauben** in Messing-Einsätzen; federnde Rastnase mit Druckhebel; sämtliche Außenanschlüsse auch in eingesetzter Schiebehalterung erreichbar. | Dichtungspressung, Servicefreiräume, Rastfestigkeit und Kabel-/Steckerzugang vor mechanischer Freigabe nachweisen. |
-
-| 13.10.2026 | MEC-44–47 | **Viererrunde C/A/A/A bestätigt:** austauschbare Führungseinsätze als Verschleißteile, elastisch gelagerte Fahrzeughalterung mit Gummipuffern, universelle Schraubgrundplatte mit mehreren Lochbildern, zusätzliche zuschaltbare Hebelsperre gegen unbeabsichtigtes Entriegeln. | Frühere Auswahl „nur Rastnase“ als Vorschlag überholt; federnde Rastnase MEC-42 bleibt plus zusätzliche Sicherungsposition. Einbau- und Vibrationsversuche vor Freigabe. |
-
-| 13.10.2026 | ENV-01–04 | **Viererrunde A/A/A/A bestätigt:** Betriebs-Entwicklungsziel −20 bis +70 °C; abgestufter Übertemperaturschutz bis kontrollierter Abschaltung; zusätzlicher digitaler PCB-Innentemperatursensor; staubschutzgeeignete Druckausgleichsmembran. | Komponentenratings, Schaltschwellen, Abschaltenergie, Membran-/Dichtheitsvalidierung und Hitze-/Kältetests bleiben offen; keine voreilige Temperatur- oder IP-Freigabe. |
-
-| 13.10.2026 | PCB-01–04 | **B/A/A/A (historische Ausgangsentscheidung):** 2-Lagen-PCB, beidseitig bestückbar, JLCPCB/LCSC bevorzugt, umfangreiche Testpunkte. | USB-/GNSS-/EMV-Layout sowie Montage und Testpad-Zugang prüfen. |
-
-| 13.10.2026 | PCB-01 | **PCB-Lagenzahl aktualisiert:** 2 Lagen aus Kostengründen bevorzugt, **4 Lagen bei technischem Bedarf freigegeben**; Entscheidung anhand Routing, Masseführung, EMV, USB, GNSS und Kosten treffen. | Hebt starre Zweilagenfestlegung aus der vorherigen Viererrunde auf; PCB-02–04 unverändert. |
-
-| 13.10.2026 | PWR-30–33 | **Viererrunde A/A/A/A bestätigt:** Dauerbetrieb 9–36 V DC, kurzer Spannungseinbruch möglichst ohne Unterbrechung der Distanzmessung, Bordnetzspannung im Diagnosemenü samt Unterspannungswarnung, automatischer Wiederanlauf mit gespeicherten Profil-/Zählerständen. | Automotive-Transientenschutz, Pufferzeit, Schwellen für 12/24 V und Wiederanlaufsicherheit prüfen. |
-
-| 13.10.2026 | PWR-34–37 | **Viererrunde A/A/A/A bestätigt:** 3 s Shutdown-Energiepuffer als Entwicklungsziel bei sofort abgeschalteten Nebenverbrauchern; nach M8 AUS ohne absichtlichen Nachlauf sichern und herunterfahren; wiederholte Starteinbrüche stabil abfangen und bei gültiger Versorgung automatisch neu starten; Spannungswarnung als Symbol plus kurzer Hinweis. | Erkennung kurzer Einbrüche versus echtes AUS, SD-Schreibspitzen und Kondensator-Derating testen. |
-
-| 13.10.2026 | DIA-05–08 | **Viererrunde A/A/A/A bestätigt:** nicht blockierender erweiterter Start-Selbsttest, Radsensor-Livediagnose mit Pegel/Impulszähler/Frequenz, lesbarer Konfigurationsexport und -import über microSD, Ereignisprotokoll aus Bordnetzspannung und ESP32-Resetursache. | Selbsttest-Timeouts, importsichere Dateivalidierung und korrekte Zeitzuordnung von Spannungsmesswerten prüfen; keine zusätzliche Spannungshistorie beschlossen. |
-
-| 13.10.2026 | CFG-01–04 | **Viererrunde A/A/A/A bestätigt:** Konfigurationsbackup als lesbare versionierte JSON-Datei; Import nur von Einstellungen und Fahrzeugprofilen, niemals Distanzzähler/Undo; Export ausschließlich auf Nutzerbefehl; beschädigte oder inkompatible Importdateien vollständig und ohne Änderungen ablehnen. | Schema, Validierung vor Übernahme, atomare Speicherung und Profil-ID-Zuordnung prüfen. |
-
-| 13.10.2026 | STO-36–39 | **Viererrunde A/A/A/A bestätigt:** Tracking-Lograte 5 Hz in Fahrt, ca. 1 Hz im Stand (GNSS-Messung unverändert); schlechte GNSS-Messwerte diagnostisch in CSV statt als gültige GPX-Punkte; Profil-ID/-Name je CSV-Zeile mit Wechselereignis; WGS84-Koordinaten auf 7 Dezimalstellen. | Stillstandshysterese, Fehlerkennzeichnung, Profil-ID-Stabilität und Koordinatenformat prüfen. |
-
-| 13.10.2026 | GPS-26–29 | **Viererrunde A/A/A/A bestätigt:** Geschwindigkeit ganzzahlig in km/h; Stillstand mit Geschwindigkeit, Radimpulsen und Zeit-Hysterese erkennen; bei GNSS-Ausfall kalibrierte Radsensor-Geschwindigkeit, sonst ungültig; Durchschnitts- und Maximalgeschwindigkeit je Fahrt im Menü und CSV. | Abgrenzung von Fahrtbeginn/-ende, Standzeit im Durchschnitt und Stillstandsschwellen bei Implementierung bestimmen. |
-
-| 13.10.2026 | GPS-30–33 | **Viererrunde C/C/A/A bestätigt:** neue Fahrt erst nach längerer Pause (Standard 15 min, einstellbar gemäß späterer Entscheidung GPS-34), Durchschnitt mit und ohne Stillstand, Höchstwert nur aus plausiblen Geschwindigkeiten, neue Fahrtstatistik bei bestätigtem Profilwechsel. | Einstellbereich, abgeschaltete Zeit, Uhrzeitgültigkeit und Log-Ereignisgrenzen konkretisieren. |
-
-| 13.10.2026 | GPS-34–37 | **Viererrunde A/A/A/A mit Ergänzung bestätigt:** Pausenschwelle **einstellbar, Standard 15 min**; Stillstand bei M8 AN und Zeit mit M8 AUS gelten als Pause; manuelle neue Logdatei setzt Fahrtstatistik nicht zurück; ausgeschaltete Zeit separat erfassen und nicht als aktive Fahrtdauer für den Durchschnitt rechnen. | Einstellbereich/Schrittweite, RTC-Ausfälle und Pausengrenzen bei GNSS-Fehlern konkretisieren. |
-
-| 13.10.2026 | GPS-38–41 | **Viererrunde A/A/A/A bestätigt:** Pausenschwelle 1–120 Minuten in 1-Minuten-Schritten (Standard 15 min), manueller Fahrtbeginn über Menü mit Bestätigung ohne Dateipaarwechsel, Fahrtstatistik läuft über Mitternacht weiter, separate CSV-Fahrtenübersicht je abgeschlossener Fahrt. | Fahrt-ID, robuste CSV-Anfügung, Mitternacht und Abschlusserkennung validieren. |
-
-| 13.10.2026 | STO-40–43 | **Viererrunde A/A/A/A bestätigt:** zentrale Fahrtenübersicht in einer CSV; fehlende Fahrtabschlüsse nach Power-Loss aus FRAM/Logs soweit zuverlässig rekonstruieren; eindeutige persistente Fahrt-ID; gefilterte Auf-/Abstiegshöhenmeter und GNSS-Gütezusammenfassung in der Fahrtenübersicht. | Kollisionsfreie Fahrt-IDs, doppelte Einträge verhindern und vertikale GNSS-Unsicherheit berücksichtigen. |
-
-| 13.10.2026 | GPS-42–44, UI-45 | **Viererrunde A/A/A/A bestätigt:** gefilterte 5-m-Höhenänderungsschwelle, vertikale GNSS-Höhenintegration bei schlechter vertikaler Genauigkeit unabhängig aussetzen, GNSS-Fix-Zeitanteil und Gesamtausfalldauer pro Fahrt, Höhe optional im Fahrdisplay. | Höhen-Hysterese, separate Qualitätsflags, Zeitbasis der Fixstatistik und Höhenreferenz verifizieren. |
-
-| 13.10.2026 | GPS-45–47, UI-46 | **Viererrunde A/A/C/A bestätigt:** GNSS-Rückkehr nach 3 s stabiler Qualität, GPX-Tracksegment bei GNSS-Ausfall unterbrechen, einzelne Ausfälle samt Beginn/Ende/Dauer und per Radsensor gefahrener Strecke in CSV, längerer Ausfall nur mit Statussymbol/aktiver Quelle nach kurzem Ersthinweis. | Keine erfundenen GPX-Koordinaten oder 0-m-Radstrecke ohne Sensor; stabile Hysterese und Quellenwechselprüfung. |
-
-| 13.10.2026 | GPS-48–51 | **Viererrunde A/A/A/A bestätigt:** Impulse/Radumdrehung und Radumfang je Fahrzeug frei einstellbar; Radimpulse bei gültigem GNSS auf Plausibilität prüfen; Eingang für Reed, Hall und Open-Collector; Kalibrierwert nur nach bestätigter Neukalibrierung ändern. | Eingangspegel, Entprellung, Fehlergrenzen und profilgebundene Persistenz technisch validieren; keine pauschale 12-V-Pegelfreigabe. |
-
-| 13.10.2026 | GPS-52–55 | **Viererrunde A/A/A/A bestätigt:** geschützte strombegrenzte 5-V-Sensorversorgung, Radimpulserfassung bis 1 kHz, bei dauerhaft fehlerhafter Sensorleitung Radmessquelle sperren und wenn möglich GNSS verwenden, manuelle Kalibrierung über Radumfang plus Impulse/Umdrehung mit abgeleiteter Impulse/km-Anzeige. | Eingangsfilter/Entprellung, 5-V-Strombudget, Fehlerhysterese und Profilkalibrierung prüfen; keine direkte Impulse/km-Eingabe hinzugefügt. |
-
-| 13.10.2026 | GPS-56–59 | **Viererrunde B/A/A/A bestätigt:** separater M8-Radsensoranschluss mit vier Polen (+5 V, GND, Signal, Reserve), Eingangsschutz gegen ESD/Verpolung/Überspannung, Software-Entprellung abhängig von Reed/Hall/Open-Collector, eigene elektronische Strombegrenzung/Abschaltung der 5-V-Sensorversorgung bei Fehler. | Pinbelegung, Steckerverwechslung, 1-kHz-Filterverhalten und Kurzschlussentkopplung festlegen. |
-
-| 13.10.2026 | GPS-60–62, UI-47 | **Viererrunde B/A/A/A bestätigt:** vierter M8-Kontakt wird zweiter Impulseingang, automatische strombegrenzte Wiederholversuche bei Sensorversorgungskurzschluss, Sensorart manuell pro Fahrzeugprofil, kompakter Status bereit/aktiv/gestört in der Fahrtanzeige. | Sichere Doppelkanal-Pegelauslegung, Zuordnung im Profil, Versuchstakt und Statusanzeige prüfen. |
-
-| 13.10.2026 | GPS-63–66 | **Viererrunde A/A/A/A bestätigt:** zwei unabhängig pro Profil konfigurierbare Radgeber, je Profil priorisierter Eingang mit automatischem Fehler-Fallback, getrennte Kalibrierung je Eingang, bei widersprüchlichen Messungen bevorzugte plausible Quelle plus Warnung/Protokollierung. | Umschalthysterese, GNSS-Priorität, Widerspruchsschwellen und Doppelerfassung verifizieren. |
-
-| 13.10.2026 | GPS-67–70 | **Viererrunde C/A/A/A bestätigt:** pro Fahrzeugprofil einstellbarer Radgeber-Abweichungsgrenzwert, Wechsel zur plausiblen Ersatzquelle nach ungefähr 1 s bestätigtem Fehler, Rückkehr zur bevorzugten Quelle nach 5 s stabiler Messung, Ereignisprotokoll mit Frequenzen/Geschwindigkeiten/Differenz/aktiver Quelle. | Grenzwertbereich, Zeitfilter bei Abweichung, Niedriggeschwindigkeits-Sonderfall und Vermeidung von Distanzsprüngen konkretisieren. |
-
-| 13.10.2026 | GPS-71–74 | **Viererrunde A/A/A/A bestätigt:** sensorische Geschwindigkeitsabweichung je Profil 5–30 % in 1-%-Schritten, Werkseinstellung 10 %, Warnung erst nach 3 s, Vergleich erst ab 5 km/h, bloße Differenz löst ohne weitere Fehlerindizien keinen Radgeberwechsel aus. | Hysterese und Referenzgeschwindigkeit bei 5 km/h sowie Timer-Rücksetzen testen. |
-
-| 13.10.2026 | GPS-75–77, STO-44 | **Viererrunde B/C/A/C bestätigt:** GNSS-/Radsensor-Priorität je Fahrzeugprofil statt festem GNSS-Vorrang; Schlupferkennung aus GNSS- und Radgeber-Vergleich kombiniert; bei verlässlich erkanntem Radschlupf zuverlässiges GNSS als Distanzquelle; in jedem CSV-Datensatz Messquelle und quellenspezifischer Qualitätsindikator. | Früheren GNSS-Vorrang als überholt behandeln, Abgrenzung reine Differenz/Schlupfnachweis und konsistente Quellendefinition verifizieren. |
-
-| 13.10.2026 | GPS-78–80, UI-48 | **Viererrunde A/A/A/A bestätigt:** Profilpriorität über einfache Auswahl GNSS/Radsensor, Schlupfverdacht bei 15 % Abweichung über mindestens 2 s gegen zuverlässiges GNSS, Rückkehr zur bevorzugten Radquelle nach 5 s stabilen Messwerten, kurzer Hinweis plus dauerhaftes Statussymbol. | Schlupfverdacht nicht mit sicherem Fehlernachweis verwechseln; Quellenwechsel nur bei plausibler Zuordnung. |
-
-| 13.10.2026 | GPS-81–84 | **Viererrunde A/A/A/A bestätigt:** bei Ausfall aller Distanzquellen automatische Zähler anhalten und warnen (manuelle ±10-m-Korrektur bleibt), strengere GNSS-Qualität zur Schlupferkennung, geschwindigkeits- und impulserwartungsabhängige Radgeber-Ausfallerkennung, automatische Wiederaufnahme ohne Nachberechnung unbekannter Ausfallstrecke. | Qualitätsgates, Timeout bei langsamer Fahrt, neuer GNSS-Anker und ereignisgenaue CSV-Dokumentation prüfen. |
-
-| 13.10.2026 | GPS-85–87, UI-49 | **Viererrunde A/A/A/A bestätigt:** Messlücken-Warnsymbol bis zur ausdrücklichen Quittierung, keine automatische oder vorgeschlagene Distanzschätzung, Fahrtstatistik mit fortlaufender Zeit und unvollständiger Distanz kennzeichnen, einmaliger kurzer Warnton bei Beginn vollständigen Quellenausfalls. | Quittierung und Fehlerpersistenz, CSV-Gültigkeitsstatus und Warnton-Hysterese verifizieren. |
-
-| 13.10.2026 | GPS-88, UI-50–52 | **Viererrunde B/A/A/A bestätigt:** Messlücken per bewusster Tastenkombination quittieren; jeden Ausfall einzeln mit Zeit/Dauer speichern; bei einzelnem defekten Radgeber kurzen Hinweis und kleines Warnsymbol zeigen; quittierte Warnungen im persistenten Fehlerprotokoll behalten. | Tastenkombination/Haltedauer konfliktfrei definieren; Fehler-/Quittierungsstatus auch nach Neustart konsistent. |
-
-| 13.10.2026 | UI-53–56 | **Viererrunde A/A/A/A bestätigt:** Messlückenwarnungen per Plus+Minus 2 s ohne auslösende ±10-m-Korrektur quittieren, erst nach Wiederherstellung einer Distanzquelle; bei neuer Messlücke wieder einmaliger Warnton, gemeinsames Warnsymbol mit Anzahl unquittierter Meldungen. | Tastenerkennungs-Priorität, Quittierbarkeit aktiver Fehler und Warnzähler-Hysterese testen. |
-
-| 13.10.2026 | DIA-09–12 | **Viererrunde B/A/C/B bestätigt:** letzte 20 Fehlerereignisse im Diagnosemenü, Einzelansicht mit Fehlercode/Text/Zeit, Displaygruppierung gleichartiger Warnungen bei Erhalt der Rohereignisse, Löschen der lokalen Fehlerhistorie im normalen Diagnosemenü nach Bestätigung. | Ringpuffer-/Gruppierungsgrenzen, Persistenz und Verhalten aktiver Warnungen nach Löschen prüfen. |
-
-| 13.10.2026 | DIA-13–16 | **Viererrunde A/A/A/A bestätigt:** Fehlerhistorie als CSV, FRAM-Fehler bei verfügbarer microSD automatisch im Hintergrund nachtragen, Diagnoseübersicht mit Untermenüs, einzelne behobene Meldungen im Diagnosemenü quittieren (zusätzlich Plus/Minus). | MSC-Exklusivität, idempotenten Export, FRAM-Überlauf und eindeutige Quittierungszustände prüfen. |
-
-| 13.10.2026 | HW-01–04 | **Hardware-Viererrunde A/A/A/B bestätigt:** zentrale Hauptplatine mit kabelgebundenem Display und sechs Tastern, native ESP32-S3-USB-C-Anbindung ohne USB-UART-Brücke, zentraler geschützter 5-V-Wandler und nachgelagerte 3,3-V-Versorgung, Debugging regulär über USB-C plus bestehende Testpunkte (kein zusätzlicher Debuganschluss). | Elektrische/Montage-Schnittstellen, USB-Recovery, Last-/Wärmebudget und Quellenschaltung in KiCad und Bring-up prüfen. |
-
-| 13.10.2026 | HW-05–08 | **Hardware-Viererrunde A/B/A/A bestätigt:** 3,3-V-LDO ab zentralen 5 V (thermisch zu dimensionieren), sechs Fronttasten jeweils einzeln steckbar, 5-V-Wandler auf 2 A Dauerstrom als vorläufiges Ziel, umfangreiche Testpunkte ohne zusätzlichen Debuganschluss. | Strom- und Verlustleistungsbilanz, Steckerplatz und Testzugänglichkeit vor KiCad-Layout freigeben. |
-
-| 13.10.2026 | HW-09–12 | **Hardware-Viererrunde A/A/A/B (korrigierte Nutzerentscheidung):** sechs einzeln verriegelnde JST-Tastenstecker, 3,3-V-LDO SOT-223 oder vergleichbares Power-SMD, beidseitige SMD-Bestückung, kleiner interner Erweiterungsstecker mit freien GPIOs und Versorgung anstelle bloßer Reserve-GPIO-Testpads. | Steckertypen, Reglerwärme, beidseitige Fertigbarkeit, GPIO-/Bootbudget prüfen. |
-
-| 13.10.2026 | HW-13–16 | **Hardware-Viererrunde A/B/C/A bestätigt:** Erweiterung über verriegelnden JST-GH-Stecker mit 3,3 V, 5 V und GND; kompakte PCB als primäre Geometrie, Gehäuse danach; GPIO-Grundschutz aus Serienwiderständen und ESD. | Kontaktzahl, Schutz-/Strombudget, Steckplatz und mechanischen Freiraum bei PCB-Layout nachweisen. |
-
-| 13.10.2026 | HW-17–20 | **Hardware-Viererrunde C/A/A/A bestätigt:** individuell ausgelegte diskrete 9–36-V-/5-V-Schaltreglerstufe statt DC/DC-Modul, getrennte strombegrenzte 3,3-V- und 5-V-Erweiterungsversorgung, räumliche Leistung/GNSS-Trennung und 2 PCB-Lagen bevorzugt mit 4-Lagen-Option. | Strom-/EMV-/Thermik-Auslegung und Lagenentscheid vor Layoutfreigabe prüfen. |
-
-| 13.10.2026 | HW-17 (Korrektur) | **Aktuelle bestätigte Auswahl A/A/A/A ersetzt C/A/A/A:** HW-17 nun integrierter Buck-Schaltregler mit externer Spule (kein fertiges DC/DC-Modul); HW-18–20 bleiben unverändert: separate Strombegrenzungen, getrennte Funktionsbereiche, 2 Lagen bevorzugt/4 bei Bedarf. | Frühere C-Festlegung ist historisch und nicht mehr gültig; LDO-/Lastbudget vor Schaltplanfreigabe prüfen. |
-
-| 13.10.2026 | HW-21–24 | **Hardware-Viererrunde A/A/A/C bestätigt:** synchroner integrierter Buck mit externer Spule, mindestens 60 V zulässige Eingangsspannung des Regler-IC, mindestens 90 % Wirkungsgrad als Entwicklungsziel bei 24 V auf 5 V/2 A, Frequenz erst mit konkretem Regler bestimmen. | Reglerdatenblatt, Eingangs-Transientenschutz, Induktordimensionierung und Effizienzmessung vor Layoutfreigabe. |
-
-| 13.10.2026 | HW-25–28 | **Hardware-Viererrunde A/C/B/A bestätigt:** TVS-Eingangsschutz, Verpolschutz in dafür nachweislich geeigneter eFuse, Hochvolt-Energiepuffer vor 5-V-Buck und gemeinsamer Puffer für Motorstart-Spannungseinbrüche und mindestens 3 s kontrollierten Shutdown. | eFuse-Verpolschutz datenblattbasiert nachweisen; TVS-Klemmung und Pufferenergie inklusive ungünstigstem Start-/Shutdown-Fall berechnen. |
-
-| 13.10.2026 | HW-29–32 | **Hardware-Viererrunde A/A/A/A bestätigt:** Hochvolt-Puffer aus Aluminium-Elkos hinter Eingangsschutz/eFuse und vor Buck, ACC-Spannung separat vor Puffer überwachen, Elkos mindestens 105 °C spezifiziert. | 12-V-Worst-Case-Pufferkapazität, eFuse-Inrush, Rückspeiseentkopplung und Elko-Lebensdauer vor Schaltplanfreigabe berechnen. |
-
-| 13.10.2026 | HW-33–36 | **Hardware-Viererrunde A/A/A/A bestätigt:** endgültige Puffergröße nach Messung der Abschaltlast (vorläufige Berechnung für Erstprototyp erforderlich), Puffer bis zur belastbaren Buck-UVLO-Untergrenze nutzbar, kontrollierter Ladestrom und datenblattgestützte Auswahl aller Leistungsbauteile vor PCB-Routing. | Worst-Case-Leistungsprofil und Erstpuffer rechnen, UVLO/Startpfade prüfen, eFuse-Verpolschutz und LCSC/JLCPCB-Eignung nachweisen. |
-
-| 13.10.2026 | HW-37–40 | **Hardware-Viererrunde A/A/A/A bestätigt:** mehrere parallel bestückbare Elko-Plätze, auftrennbare Strommessbrücken, LCSC/JLCPCB als bevorzugte Beschaffung und vollständigen KiCad-10-Schaltplan vor PCB-Layout erstellen. | Thermische/mechanische Elko-Reserven, Messbrückensicherheit, konkrete BOM-Teilenummern und ERC vor Routing prüfen. |
-
-| 13.10.2026 | HW-41–44 | **Hardware-Viererrunde A/A/A/A bestätigt:** hierarchischer KiCad-10-Schaltplan, MAX-M10N primär über UART mit optionalem TIMEPULSE-/Statussignal, je Taster ein dedizierter ESP32-GPIO und gemeinsamer Schalt-/Dimmkanal für sechs Tasten-LED-Ringe mit je geeigneter Strombegrenzung. | MCU-GPIO-Budget, MAX-M10N-Pinout, FILN-LED-Varianten und LED-Treiberlast vor Routing prüfen. |
-
-| 13.10.2026 | HW-45–48 | **Hardware-Viererrunde C/A/A/A bestätigt:** Riverdi-Displayschnittstelle erst anhand konkreter Artikelnummer festlegen, lösbare FFC/FPC-Verbindung als hardwareseitiges Ziel vorbehaltlich Modulkompatibilität, U.FL-auf-PCB zu SMA-Gehäusedurchführung für GNSS, digitaler I²C-Helligkeitssensor. | Exakte Riverdi- und MAX-M10N-Datenblätter vor Schaltplanabschluss prüfen; FFC-Kompatibilität nicht voraussetzen. |
-
-| 13.10.2026 | HW-49–52 | **Hardware-Viererrunde A/A/A/A bestätigt:** digitaler I²C-PCB-Temperatursensor, unabhängig geschützte/gefilterte Radimpulseingänge, gemeinsamer 3,3-V-I²C-Bus für RTC/FRAM/Licht/Temperatur und strombegrenzter elektronischer 5-V-Lastschalter für M8-Radsensorversorgung. | Adressen/Buslast, Sensorfehler-Isolation, Signalpegel/ESD und Stromlimit/Retry vor Layout nachweisen. |
-
-| 13.10.2026 | HW-53–56 | **Hardware-Viererrunde A/A/A/A bestätigt:** I²C ohne zusätzliche Isolationsschalter, je Radsensor bestückungs-/jumperseitig schaltbare Pull-ups, I²C-Temperatursensor nahe dem DC/DC-Wandler und finale ESP32-S3-Pinzuordnung nach konkreter Riverdi-Displayverifikation. | Displaymodell beschaffen/verifizieren, vollständiges GPIO-Budget sowie Pull-up-Sensorkompatibilität nachweisen. |
-
-| 13.10.2026 | HW-57–60 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Modell anhand Artikelnummer verifizieren; aktive und passive GNSS-Antennen per geschützter zuschaltbarer Biasversorgung unterstützen; verriegelnder ZIF samt FFC-Zugentlastung; kritische Display-/GNSS-/Versorgungsbauteile vor Schaltplanfreigabe priorisiert prüfen. | Herstellerdatenblätter, Kontakt-/Antennen-Bias-Plan und reale Bezugsquellen verifizieren. |
-
-| 13.10.2026 | HW-61–64 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Display behalten und ggf. Kabelanschluss anpassen; feste, geeignete abschaltbare GNSS-Antennen-Biasversorgung; normale SMA-Buchse am Gehäuse; geprüfte kompatible Ersatzteile in der BOM dokumentieren. | Display-/Antennen-Artikelnummer, Pigtail-Steckergeschlecht, tatsächliche Bias-Spannung und Ersatzteilkompatibilität vor Schaltplanfreigabe prüfen. |
-
-| 13.10.2026 | HW-65–68 | **Hardware-Viererrunde A/A/A/A bestätigt:** erste Revision mit allen Hardwarefunktionen auf einer Hauptplatine, JLCPCB-SMD-Bestückung plus manuelle Sonderteile, abgesicherte/entkoppelte 5-V-Laboreinspeisung hinter Buck zusätzlich zu M8 und fünf Erstprototyp-PCBs. | Testversorgung gegen Rückspeisung und Fehlbedienung sichern; Zahl maschinell bestückter PCBs separat kalkulieren. |
-
-| 13.10.2026 | HW-69–72 | **Hardware-Viererrunde A/A/A/A bestätigt:** fünf PCB-Rohlinge, nach Möglichkeit genau zwei maschinell bestückte und drei unbestückte; abgesicherter/entkoppelter zweipoliger 5-V-Laboreinspeisestecker, 35 µm Kupfer und 1,6 mm PCB-Stärke. | JLCPCB-PCBA-Mindeststückzahl, Rückspeisungsschutz sowie Strom- und Thermikreserve vor Auftragserteilung prüfen. |
-
-| 13.10.2026 | HW-73–76 | **Neue Nutzervorgabe:** JLCPCB Basic Parts und handlötbare SMD-Teile (insbesondere passive Bauteile ca. 1206) bevorzugen; technisch/thermisch/HF-bedingte andere Gehäuse ausdrücklich zulassen und begründen. Keine Änderung der bereits festgelegten 5-PCB-/2-PCBA-Planung ohne gesonderte Entscheidung. | BOM: aktuelle C-Nummer, Basic-/Extended-Status, Handlötverfahren und Ausnahmen je Teil dokumentieren; funktionale Eignung hat Vorrang. |
-
-| 13.10.2026 | HW-77–80 | **Neue Produktvorgabe „Budget-Tripmaster“:** preisbewusster DIY-Selbstbau mit späterem Kleinserien-/Serienpotenzial; Kosten/Nutzen **pro Baugruppe** optimieren, Basic-/1206-Präferenz auf **Systemkosten** ausrichten und laufende BOM-/Montage-/Gehäuse-/Versandkalkulation führen. Keine feste Zielpreisgrenze genannt; Schutz/Qualität/Funktion nicht für niedrige Kosten opfern. | Belastbare Stückkosten und Quellen einschließlich Nebenkosten bei Prototyp und potenzieller Kleinserie dokumentieren, fehlende Preise ausdrücklich offenlassen. |
-
-| 13.10.2026 | HW-81 | **Preis-Leistungs-Priorität nach Pareto/80-20-Prinzip ausdrücklich bestätigt:** kein Kostenlimit; lieber einen sehr großen Teil des praktischen Nutzens für einen Bruchteil des Premiumpreises erreichen, sofern Kernfunktionen, Sicherheit und Zuverlässigkeit erhalten bleiben. | Bei jeder Baugruppe Mehrkosten versus konkreten Mehrwert bewerten und Premiumfunktionen nur mit nachvollziehbarem Zusatznutzen wählen. |
-
-## Nächste gemeinsame Entscheidung / technisches Layout-Gate
-
-**Neue verbindliche Nutzungsentscheidung vom 13.10.2026:** microSD **intern** auf Hauptplatine, nur bei geöffnetem Gehäuse zugänglich. USB-C **links**: ohne M8 sofort USB-MSC-SD-Laufwerk für den PC; Firmware-Flash über gesonderten ESP32-S3-Bootmodus. **M8 hinten** und weiterhin vorrangige Fahrzeugversorgung; bei M8+USB kein automatischer Export oder Logging-Abbruch. Bisherige Forderungen nach rechtem äußerem Push-Push-Slot, Card-Detect-Pflicht und rechter SD-Staubschutzklappe sind **überholt** (STO-02/07/14–19, MEC-04/09/36–39, PWR-06/08).
-
-**Logging nun festgelegt:** Standardmäßig EIN ab jedem M8-Start und im Menü persistent ausschaltbar; **ein GPX-/CSV-Dateipaar je lokalem Kalendertag**, Fortsetzen bei weiteren Fahrten desselben Tages, GPX-Fahrtsegmente separat; neue Dateien bei Tageswechsel oder manuell per Menü. SD fehlt/voll/Fehler klar anzeigen, Messbetrieb unabhängig. Intern GNSS-UTC plus **RTC mit Backupversorgung**, GNSS-Synchronisation, einstellbare Lokalzeitzone; Wahl des RTC-Bauteils/Backup bleibt technische Auslegung (STO-20–24).
-
-**Vor PCB-Freigabe:** internen SD-Halter und seine Lage ohne Außenöffnung wählen; ESP32-S3-USB-OTG/MSC plus ROM-Download/Boot verifizieren; interne BOOT-/RESET-Recovery nach Gehäuseöffnung realisieren; FAT32-Host-Exklusivität und Eject/ACC-Aus-Prozesse testen; RTC + Backup, GPIO- und Leistungsbudget einschließlich USB-only-SD dimensionieren. USB-C, M8, externe SMA-/Radsensor-Buchsen und Fronttaster maßstäblich koordinieren.
-
-**Technischer Stand:** u-blox MAX-M10N-00B unterstützt bei drei GNSS-Konstellationen im Full-Power-Modus max. 10 Hz (Datenblatt R05); **5 Hz sind ein konservatives Ziel**. Im stromsparenden LEAP-Modus sind nur 1 Hz möglich. Für unsere Anforderung wird der Full-Power-Modus vorgesehen.
-
-**Technische Referenz des gewählten Displays:** Riverdi RVT35HITNWC00-B, ILI9488, SPI über **50-poliges 0,5-mm-FPC** (einmalig in ZIF-Verbinder auf der PCB einstecken; keine manuelle FPC-Lötung). 4-Wire-SPI laut Datenblatt mit IM2/IM1/IM0 = 1/1/1; serieller ILI9488-Treiber benötigt typischerweise 18-Bit-Farbtransfer (RGB666) bei voller Farbdarstellung. ESP32-S3-MINI-1-N8 muss mit begrenztem RAM und partiellen Bildschirmaktualisierungen zurechtkommen. Betriebsversorgung LCD VCI 2,5–3,3 V, IOVCC 1,7–3,3 V; 15-V-/100-mA-Backlight benötigt Treiber. **Dokumentationswiderspruch:** Der Modellcode N und Mouser kennzeichnen 'kein Touch', während die Hersteller-Produktseite und Teile des Datenblatts Touch beschreiben; ohne schriftliche Klärung keine Touch-Hardware vorsehen. Das am Modul vorhandene Deckglas samt umlaufender Klebefläche ersetzt keine Staubprüfung der gesamten ASA-Gehäusefront. Die genannte Preisindikation ca. 28,83 € pro Stück (Mouser ohne gesondert ausgewiesene Steuer/Versand) ist kein garantierter Serienpreis.
-
-## Quellen / Verbindlichkeit
-
+- [HARDWARE_DECISION_HISTORY.md](HARDWARE_DECISION_HISTORY.md) – vollständiger chronologischer Entscheidungsverlauf und ältere Zusammenfassungen (historisch, nicht zweite Anforderungsquelle).
 - [IDEAS.md](IDEAS.md) – freie Funktionen und zukünftige Wünsche; nicht automatisch freigegeben.
 - [ARCHITECTURE.md](ARCHITECTURE.md) – dokumentierter Bestand V0.3 und jüngste technische Entscheidungen.
 - [OPEN_ITEMS.md](OPEN_ITEMS.md) – konkrete Entwicklungs-/Validierungsaufgaben.
 - [AGENTS.md](../AGENTS.md) – Arbeitsregeln für KI/Codex.
 
-**Dieses Dokument ist die zentrale Hardware-Anforderungsspezifikation der nächsten Revision.** Die Kennzeichnung »Festgelegt« bedeutet eine Projektentscheidung, **keine elektrische oder mechanische Prüfung**.
+**Dieses Dokument ist die verbindliche, thematisch geordnete Hardware-Anforderungsspezifikation der nächsten Revision.** Die Kennzeichnung »Festgelegt« bedeutet eine Projektentscheidung, **keine elektrische oder mechanische Prüfung**.
