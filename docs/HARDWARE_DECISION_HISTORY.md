@@ -139,3 +139,8 @@ Dieses Dokument enthält das ursprüngliche chronologische Entscheidungsprotokol
 
 **Technische Referenz des gewählten Displays:** Riverdi RVT35HITNWC00-B, ILI9488, SPI über **50-poliges 0,5-mm-FPC** (einmalig in ZIF-Verbinder auf der PCB einstecken; keine manuelle FPC-Lötung). 4-Wire-SPI laut Datenblatt mit IM2/IM1/IM0 = 1/1/1; serieller ILI9488-Treiber benötigt typischerweise 18-Bit-Farbtransfer (RGB666) bei voller Farbdarstellung. ESP32-S3-MINI-1-N8 muss mit begrenztem RAM und partiellen Bildschirmaktualisierungen zurechtkommen. Betriebsversorgung LCD VCI 2,5–3,3 V, IOVCC 1,7–3,3 V; 15-V-/100-mA-Backlight benötigt Treiber. **Dokumentationswiderspruch:** Der Modellcode N und Mouser kennzeichnen 'kein Touch', während die Hersteller-Produktseite und Teile des Datenblatts Touch beschreiben; ohne schriftliche Klärung keine Touch-Hardware vorsehen. Das am Modul vorhandene Deckglas samt umlaufender Klebefläche ersetzt keine Staubprüfung der gesamten ASA-Gehäusefront. Die genannte Preisindikation ca. 28,83 € pro Stück (Mouser ohne gesondert ausgewiesene Steuer/Versand) ist kein garantierter Serienpreis.
 
+
+
+## 13.10.2026 – Dauerbetriebsobergrenze abgesenkt
+
+Nutzer: „setze die 36V dauerbetrieb auf ca. 30V herunter“. Umsetzung: PWR-01/PWR-17 und aktive Auslegungsleitlinie auf 9–30 V Dauerbetrieb aktualisiert. 12-/24-V-Kompatibilitaet, 6-V-Motorstart und separate Automotive-Transientenpruefziele bleiben bestehen. Neue OVP-Dimensionierung erforderlich; keine Freigabe.

@@ -1,5 +1,9 @@
 # TripTracer V1 – laufende Gesamtkostenkontrolle
 
+**NEUESTE SPANNUNGSENTSCHEIDUNG (13.10.2026):** Der Nutzer senkt die obere Dauerbetriebsgrenze von 36 V auf **ca. 30 V**. Fuer die Auslegung gilt jetzt **9–30 V Dauerbetrieb**, weiterhin 12-/24-V-Bordnetze und **6 V beim definierten Motorstart**. Die gewaehlten Automotive-/Load-Dump-Transientenziele sind davon getrennt und bleiben bestehen; Spannungen oberhalb 30 V sind keine zugesagte Dauerbetriebsbedingung. OVP-Schwelle mit Toleranzen oberhalb 30 V und unterhalb der nachgewiesenen Bauteilgrenzen dimensionieren. **Anforderungsentscheidung, kein Testnachweis.**
+
+Aeltere 36-V-Rechnungen in diesem Dokument bleiben als historische Szenarien erkennbar; sie sind keine aktuelle Dauerbetriebsanforderung.
+
 **Stand: 13.10.2026 · Status: KEINE belastbare Gesamt-BOM oder Fertigungspreiskalkulation.** Ziel ist der **günstigste nachweislich taugliche** Rallye-Tripmaster, nicht ein möglichst teures Automotive-Elektronikprojekt. Kein verbindliches Gerätebudget oder Verkaufspreis vom Nutzer festgelegt; **keine künstliche Budgetobergrenze** annehmen.
 
 **Neuer Komponenten-Preischeck (13.10.2026):** [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md) vergleicht die **OV-Cut-off-Variante** mit Ti LM74800 (2,58 €/1) und lieferbarem **onsemi 250-V-FET FQD16N25CTM (0,9493 USD/1 bei LCSC)**. Im Unterschied zur teuren Altstudie ist keine aktive lineare 200-V-Ausgangsklemme vorgesehen. **Keine gemischten USD-/EUR-Summierungen, keinen angeblichen fertigen BOM-Preis**; relevante Zener-/TVS-/Fuse-/ACC-Logik und Prüfkosten sind noch offen. Die preisgünstigen 250-V-FETs sind **noch nicht 6-V-Gate-/Temperatur-/SOA-freigegeben**.

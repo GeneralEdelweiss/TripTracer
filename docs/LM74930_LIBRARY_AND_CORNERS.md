@@ -28,6 +28,10 @@ Native KiCad-10.0.6-Symbol-/Footprint-SVG-Exporte: Exit 0, visuell geprüft. Nat
 
 Die bisherigen aktiven Schaltplanseiten bleiben erhalten: alte Schutzfunktionen werden erst durch einen vollständig dimensionierten, geprüften Ersatz abgelöst. Kein neues Platzhalterblatt als fertige Baugruppe integriert.
 
+## Aktuelle Dauerbetriebsgrenze
+
+Seit der Nutzerentscheidung vom 13.10.2026 gilt **9–30 V Dauerbetrieb**. Das 6-V-Motorstartziel und der separate Schutz gegen Automotive-Transienten bleiben bestehen. Die folgenden 36-V-Vergleiche sind historische Rechenszenarien. Es wurde noch kein OVP-Teiler im aktiven Schaltplan geändert.
+
 ## Reproduzierbare Berechnung
 
 `python tools/calculate_power_corners.py` erzeugt transparente Szenarien. Eingangslastannahme: maximal 10 W Buck-Ausgang, Wirkungsgrad **angenommen**, keine gemessene Geräteleistung. Bei 6 V und 80 % ergibt sich 2,083 A vor zusätzlichem Frontend-Spannungsabfall. Ein 2-A-Circuit-Breaker wäre zu knapp. Shunt-/Leistungsvarianten werden gerechnet, nicht freigegeben.
@@ -36,6 +40,7 @@ Eigene Eckwertrechnung mit 1-%-Widerständen und ±0,2-µA-Eingangsleckstrom:
 
 | Teiler | Berechneter Bereich | Konsequenz |
 |---|---|---|
+| OV, neuer 30-V-Kandidat 100k/1,8k | 32,422–36,357 V steigend | Rechnerischer Abstand oberhalb 30 V; Bauteilgrenzen, Hysterese und Transienten noch prüfen |
 | OV, TI-Beispiel 100k/1,65k | 35,318–39,603 V steigend | Kann 36-V-Normalbetrieb abschalten; ungeeignet als ungeprüfte Kopie |
 | OV, Kandidat 100k/1,58k | 36,857–41,329 V steigend | Rechnerisch mehr Abstand zu 36 V; Verzögerung/Surge/FET-Grenzen offen |
 | UVLO-Kandidat 100k/12,4k | 4,726–5,308 V fallend; 5,190–5,833 V steigend | Nur Teilerrechnung; Spannungsabfall/6-V-Kaltstart und Filter offen |

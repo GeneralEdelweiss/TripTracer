@@ -1,5 +1,9 @@
 # TripTracer V1 – Feldstudie: relaislose Automotive-Stromversorgung (Variante 3)
 
+**NEUESTE SPANNUNGSENTSCHEIDUNG (13.10.2026):** Der Nutzer senkt die obere Dauerbetriebsgrenze von 36 V auf **ca. 30 V**. Fuer die Auslegung gilt jetzt **9–30 V Dauerbetrieb**, weiterhin 12-/24-V-Bordnetze und **6 V beim definierten Motorstart**. Die gewaehlten Automotive-/Load-Dump-Transientenziele sind davon getrennt und bleiben bestehen; Spannungen oberhalb 30 V sind keine zugesagte Dauerbetriebsbedingung. OVP-Schwelle mit Toleranzen oberhalb 30 V und unterhalb der nachgewiesenen Bauteilgrenzen dimensionieren. **Anforderungsentscheidung, kein Testnachweis.**
+
+Aeltere 36-V-Rechnungen in diesem Dokument bleiben als historische Szenarien erkennbar; sie sind keine aktuelle Dauerbetriebsanforderung.
+
 **Jüngste bindende Nutzerentscheidung (13.10.2026):** Die Projektversorgung wird als **Variante C mit LM74930-Q1 + LMR36520 und relaisloser ACC-/MCU-HOLD-Selbsthaltung** umgesetzt; die in dieser früheren Studie diskutierten **LM74800-/LTC4380-/MegaSquirt-Mindestvarianten sind nur Vergleiche**, keine aktuelle Teileauswahl. **Keine zusätzliche TPS26631 und keine auf der Platine verlöteten Schmelzsicherungen, deren Tausch Auslöten erfordert.** Die Fahrzeugzuleitungen ACC und BAT+ bleiben separat quellseitig abgesichert; gegebenenfalls mit **ohne Löten tauschbaren** Sicherungen. Bei der Beschaffung **Reichelt und andere deutsche Lieferanten bei wirtschaftlichem Gesamtpreis bevorzugen**; Mouser/DigiKey/LCSC weiterhin nach Preis/Verfügbarkeit möglich. **Keine Fertigungs-/ISO-/ERC-/DRC-Freigabe**. Verbindliche Details in [HARDWARE_REQUIREMENTS.md](HARDWARE_REQUIREMENTS.md).
 
 
