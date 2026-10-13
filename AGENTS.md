@@ -23,5 +23,6 @@
 
 - Bei Schaltplan-, PCB-, Versorgungs- und Mechanikarbeiten zuerst `docs/HARDWARE_REQUIREMENTS.md` lesen und Anforderungen mit dem aktuellen KiCad-Bestand abgleichen.
 - Bei gemeinsam geklaerten Entscheidungen die betroffenen IDs und das Entscheidungsprotokoll in `docs/HARDWARE_REQUIREMENTS.md` aktualisieren; nicht voreilig Bauteile festlegen oder offene Punkte als beschlossen ausgeben.
-- **Geraetesicherung auf der Platine (PWR-03)**. Das ersetzt nicht den notwendigen Kurzschlussschutz der Fahrzeug-Zuleitung ab der Quelle. Selbst angefertigte M8-Kabel duerfen an bereits abgesicherten Fahrzeugabgriffen betrieben werden; Direktanschluss an die Batterie erfordert quellseitige Absicherung.
+- **Primaerer Geraete-Ueberstromschutz ist eine selbst rueckstellende SMD-eFuse auf der Platine (PWR-03/PWR-12).** Nicht automatisch annehmen, dass jeder eFuse-Typ Verpolschutz oder Load-Dump-Festigkeit bietet: datenblattbasiert pruefen und ggf. ergaenzen. Eine zusaetzliche unabhaengige Sicherung nur nach Schutz- und Fehleranalyse festlegen.
+- **Fahrzeugseitige Kabelabsicherung ist festgelegt (PWR-04/05)**: einfach selbst konfektionierbare M8-Kabel an abgesichertem Abgriff oder mit vorgeschalteter Sicherung nahe der Batterie. Die eFuse sichert das Kabel vor dem Geraet nicht gegen Kurzschluss.
 - Aenderungen an der Hardware-Architektur mit `docs/ARCHITECTURE.md` und der Wunschliste abgleichen. Die Version V0.3 bleibt historischer Bestand.
