@@ -84,6 +84,23 @@ Zwei getrennte **elektrisch ehrliche Optionen**:
 
 **Reiner Regler-Einkaufsanker:** ~**2,80 €** (Mouser) bzw. ~**1,59 USD** (LCSC) für den Hauptbuck. Das ist **keine** fertige Versorgung: Induktivität, MLCC, ESD/TVS, Sicherung, Verpolschutz, MCU-HOLD und ggf. HV-Controller fehlen. Der frühere 21,92€-Doppelcontroller-Ansatz darf nicht als Mindestkostenwert benutzt werden.
 
+## 4.1 Konkreter Nachbau des schon vorhandenen U101-Buck-Blocks
+
+In der bestehenden KiCad-V1-Hierarchie gibt es **bereits** `hardware/kicad/02_5V_Buck.kicad_sch` mit **U101 LMR36520**. Der bisherige Vorentwurf benutzt **L101 = 15 µH als Symbolwert**, während der Footprint einen **alten Bourns-SRN6045-220M-/22-µH-Typ** benennt. **Keine Freigabe für irgendeines dieser beiden Werte/Footprints.**
+
+Die **aktuelle TI-Datenblatt-Rev.-C-Referenztabelle für 5 V / 2 A / 400 kHz** nennt als bevorzugten Startpunkt:
+
+| Schaltposition | TI-Referenzwert | Umsetzungs-/Kostenpunkt |
+|---|---|---|
+| U101 | **LMR36520ADDAR**, HSOIC-8 DDA | schon im Projekt; nur exaktes TI-Pad-9-/Footprint-Mapping verifizieren |
+| L101 | **10 µH**, ausreichend I_SAT/DCR und Layoutstrom | bisher 15/22µH inkonsistent; **erst neue reale MPN mit echter Lieferbarkeit auswählen** |
+| R_FB_TOP | **100 kΩ** | bisher 172kΩ: 5-V-Funktion grundsätzlich möglich, aber TI-Tabelle ist zuverlässigerer Ausgangspunkt |
+| R_FB_BOTTOM | **24,9 kΩ** | bisher 43,2kΩ: zu neuem 100k-Referenzteiler paarweise wechseln, nicht nur einen Widerstand |
+| C_OUT | **2 × 22 µF nominell**, Spannungs-/DC-Bias-/Thermik-Derating prüfen | kein blindes „22µF nominell = 22µF effektiv“, echte 10V-/25V-MLCC-MPN und Kapazität prüfen |
+| C_IN | **2 × 4,7 µF plus 220 nF**, ≥36V Eingangs- und transientenbedingte Kondensator-Ratings wählen | nur **hinter** geprüftem Überspannungs-Front-End sinnvoll; Kapazität/Voltage-Derating/PCB-Loop prüfen |
+
+**Herstellerquelle:** [TI LMR36520 Rev. C Table 8-1 und Section 8.2](https://www.ti.com/lit/ds/symlink/lmr36520.pdf). Das heißt ausdrücklich **NICHT**, dass die vorhandene Topologie mit 100k/24,9k/10µH ohne sorgfältigen Pin-/Layout-/Stabilitätscheck sofort funktionsfähig sei, oder dass sich die 6-V-VIN-Brownout-Regelung aus einer 24-V-Referenztabelle beweisen lässt. Zunächst Datenblatt/Netze/3D/Footprints und alle späteren 5-V-Abzweige prüfen.
+
 ### Was NICHT mehr priorisiert wird
 
 - JLCPCB-Basic-Quote und automatisierte Bestückung um jeden Preis.
