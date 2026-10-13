@@ -48,7 +48,8 @@
 | PWR-14 | **Bestand V0.3** | 12-V-Eingang J1 → Eingangsabsicherung/-schutz → 3,3-V-DC/DC; USB bisher nur Daten | Bei nächster Revision auch für 24-V-Fahrzeuge neu auslegen (PWR-01/09/11); an PWR-02/03/06/08 anpassen. Vorhandene V0.3-Schaltung nicht als 24-V-tauglich ausgeben |
 | PWR-15 | **Festgelegt** | **Unterbrechungsfreier Betrieb beim Motorstart** in 12-V- und 24-V-Fahrzeugen: kein MCU-/GNSS-Neustart, keine Unterbrechung von Anzeige, Distanzzählung oder Streckenaufzeichnung durch den Startvorgang | Kritischen Spannungs-/Zeitverlauf beim Anlassvorgang, Mindest-Eingangsspannung und erforderliche Überbrückungszeit/Pufferenergie messen und festlegen; Funktionstest noch offen |
 | PWR-16 | **Festgelegt** | **Variante B: Spannungseinbrüche beim Motorstart unterbrechungsfrei überstehen (PWR-15); bei vollständigem Verlust der M8-Eingangsspannung (0 V) ist ein automatischer Neustart zulässig.** USB-C wird dadurch nicht zur normalen Notstromversorgung. | Zulässige Unterspannungsgrenze und Dauer des Einbruchs separat festlegen. Nach Rückkehr der Versorgung muss das Gerät selbstständig und mit erhaltenen, konsistent gespeicherten Tripdaten wieder anlaufen. |
-| PWR-17 | **Offen** | Mindestspannung und zeitlicher Verlauf des Bordnetzeinbruchs beim Motorstart (12/24 V) | Ausgeprägten Kaltstart mit kurzzeitig sehr tiefer Spannung unterstützen oder vereinfachtes Mindestspannungsniveau? Separat für beide Bordnetze quantifizieren. |
+| PWR-17 | **Festgelegt** | **Variante A – ausgeprägte Kaltstart-Spannungseinbrüche ohne Neustart überstehen.** Vorläufiges 12-V-Auslegungsprofil: **3 V für ca. 15 ms**, danach **6 V für mehrere Sekunden**; vorläufiges 24-V-Auslegungsprofil: **6 V kurzzeitig**, danach **10 V für mehrere Sekunden**. Diese Werte sind **Planungsziele**, noch keine endgültig verifizierten Spannungs-/Zeitgrenzen. | Exakte Zeitdauer, Spannungsverlauf, Temperaturbedingungen und Wiederholungen je 12-/24-V-Netz anhand geeigneter Automotive-Anforderungen und Messungen festlegen. Wandler/eFuse müssen das Profil funktional unterstützen; für tiefe kurze Einbrüche darf ein Puffer erforderlich sein. **0 V muss gemäß PWR-16 nicht überbrückt werden.** |
+| PWR-18 | **Offen** | Verhalten der Display-Hintergrundbeleuchtung während starker Kaltstart-Einbrüche | Kurzes automatisches Dimmen/Abschalten erlaubt oder Helligkeit vollständig erhalten? MCU, GNSS und Aufzeichnung müssen gemäß PWR-15/17 ohne Neustart weiterlaufen. |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -115,15 +116,16 @@
 | 13.10.2026 | PWR-03/04/05/09/12 | **SMD-eFuse mit automatischem Wiederanlauf als primärer Geräteschutz**; Fahrzeugzuleitung ist fahrzeugseitig abgesichert | Verpolschutz und Fehler-/Transientenfestigkeit nach konkretem Datenblatt prüfen; keine Bauteilnummer festgelegt |
 | 13.10.2026 | PWR-06/08/13 | **M8 hat Versorgungsvorrang; USB-C-5-V ausschließlich zum Flashen ohne M8** | Mit M8 bleibt USB-Datenübertragung möglich, aber keine reguläre USB-Versorgung vorgesehen |
 | 13.10.2026 | PWR-16 | **Variante B: Unterbrechungsfrei bei Start-Spannungseinbrüchen; Neustart bei 0 V M8 zulässig** | Ergänzt PWR-15; kein Bedarf für vollständige Nullvolt-Überbrückung |
+| 13.10.2026 | PWR-17 | **Variante A: auch ausgeprägte Kaltstart-Spannungseinbrüche überstehen** | Vorläufig: 12 V → 3 V/ca. 15 ms und 6 V/mehrere Sekunden; 24 V → 6 V kurzzeitig und 10 V/mehrere Sekunden. Exakte Prüfprofile noch festzulegen. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Block B – Stromversorgung, Frage 6 (PWR-17):** Welchen **Start-Spannungseinbruch** soll TripTracer ohne Neustart bestehen? Die Werte sind vorläufige Lastprofil-Ziele zur gemeinsamen Auswahl, keine bereits freigegebenen Eingangsspezifikationen.
+**Block B – Stromversorgung, Frage 7 (PWR-18):** Darf TripTracer während eines ausgeprägten Kaltstart-Spannungseinbruchs die **Display-Hintergrundbeleuchtung kurzzeitig reduzieren**, um Energie für ESP32, GNSS, Anzeigecontroller und Streckenaufzeichnung zu sparen?
 
-- **A – Auch ausgeprägte Kaltstart-Einbrüche:** Für 12-V-Fahrzeuge kurzzeitig bis etwa **3 V** (Größenordnung 15 ms), anschließend beispielsweise **6 V für mehrere Sekunden**; für 24-V-Fahrzeuge entsprechend eigene tiefe Kaltstartprofile definieren (z. B. 6 V kurzzeitig und 10 V länger). Für diese kurzen tiefen Einbrüche ist eventuell ein lokaler Energiepuffer notwendig.
-- **B – Weniger extreme Motorstarts:** Ohne Neustart ab etwa **6 V bei 12-V-Fahrzeugen** und **12 V bei 24-V-Fahrzeugen**; tiefere Einbrüche dürfen zum Neustart führen. Einfachere Versorgung möglich, aber nicht jeder Kaltstart wäre abgedeckt.
+- **A – Kurzzeitig dimmen erlaubt (Empfehlung):** Im tiefen Spannungseinbruch darf ausschließlich die Hintergrundbeleuchtung reduziert oder kurz abgeschaltet werden. Anzeigeinhalte, MCU, GNSS und Aufzeichnung laufen weiter; die Helligkeit kehrt automatisch zurück.
+- **B – Volle Helligkeit beibehalten:** Auch beim Kaltstart soll die Hintergrundbeleuchtung unverändert bleiben. Dies kann einen größeren Energiepuffer und höhere Anforderungen an den Wandler erfordern.
 
-Der Grenzwert der 3,3-V-Schiene, die Dauer der Einbrüche sowie das reale Lastprofil müssen anschließend festgelegt und getestet werden. **Eine eFuse mit Abschaltschwelle oberhalb der gewählten Einbrüche wäre ohne Pufferung/entsprechende Topologie nicht kompatibel.** Konkrete Bauteile werden erst danach ausgewählt.
+Der kurze vollständige M8-Versorgungsausfall (0 V) darf weiterhin zum Neustart führen (PWR-16). Erst nach Wahl der Lastprioritäten legen wir realistische Leistung, Puffer und endgültige Spannungs-/Zeitprofile für 12/24 V fest.
 
 ## Quellen / Verbindlichkeit
 
