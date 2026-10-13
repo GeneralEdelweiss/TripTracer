@@ -141,6 +141,15 @@
 | STO-24 | **Festgelegt – Dauerzustand Logging** | Default „Logging EIN“ wird persistent gespeichert; im Menü jederzeit AUS/EIN. Aktivierung/Manuell-Neustart schließt/öffnet die Tagesdateien sicher, ohne laufende Distanzzählung zu unterbrechen; USB-only arbeitet ohne Logging. | Zeitgültigkeit und sichere Fallback-Strategie für Logs vor RTC-/GNSS-Zeit-Sync definieren, keine erfundenen realen Timestamps; bei SD-Fehler weiter FRAM für kritische Zustände. |
 
 
+### C.7 Diagnose und Inbetriebnahme – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| DIA-05 | **Festgelegt – A: erweiterter Start-Selbsttest** | Beim Systemstart **FRAM, microSD, RTC, GNSS-Kommunikation, PCB-Temperatursensor und Versorgung** auf grundsätzliche Erreichbarkeit und Fehler prüfen. Der Test läuft **nicht blockierend**; die Fahranzeige bleibt sofort nutzbar, ohne einen GNSS-Fix abzuwarten. | Fehler je Komponente protokollieren und im Diagnosemenü anzeigen; keine destruktiven Speicherprüfungen, kontrollierte Timeouts, GNSS-Kommunikationsprüfung von tatsächlichem Fix unterscheiden. |
+| DIA-06 | **Festgelegt – A: Live-Diagnose für Radsensor** | Im Entwickler-Diagnosemenü den **aktuellen Pegel des Radsensoreingangs, die Anzahl gültiger Impulse und deren Frequenz** live anzeigen. | Entprellung, Flankenzählung, Zeitbasis, Grenzen der Frequenzmessung, Sensorunterbrechung und Rauschen prüfen; keine Beeinträchtigung der Distanzzählung. |
+| DIA-07 | **Festgelegt – A: Konfigurationsdatei auf microSD** | Alle relevanten Geräteeinstellungen und bis zu zehn Fahrzeugprofile **als lesbare Datei auf microSD exportieren**; später über Menü **wieder importieren**. | Schema-/Firmwareversion, Prüfsumme, Eingabevalidierung, sichere atomare Übernahme, Backup vor Überschreiben, Umgang mit fehlender SD und Zuordnung profilgebundener Zähler klar festlegen; keine USB-/SD-Zugriffskollision. |
+| DIA-08 | **Festgelegt – A: Versorgung und Resetgrund protokollieren** | Bei Start-/Versorgungsproblemen **gemessene Bordnetzspannung, ESP32-Resetursache, Fehlercode und wenn gültig Zeitstempel** im nichtflüchtigen FRAM-Fehlerprotokoll speichern. | Resetursache möglichst früh sichern; Spannungswert eindeutig als vor dem Ausfall, beim Start oder beim Ereignis gemessen kennzeichnen, um keine rückwirkend ungemessene Spannung vorzutäuschen. **Keine zusätzliche Spannungsverlaufshistorie beschlossen.** |
+
 ### C.2 Controller und nichtflüchtiger Speicher (MCU)
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -490,6 +499,8 @@
 | 13.10.2026 | PWR-30–33 | **Viererrunde A/A/A/A bestätigt:** Dauerbetrieb 9–36 V DC, kurzer Spannungseinbruch möglichst ohne Unterbrechung der Distanzmessung, Bordnetzspannung im Diagnosemenü samt Unterspannungswarnung, automatischer Wiederanlauf mit gespeicherten Profil-/Zählerständen. | Automotive-Transientenschutz, Pufferzeit, Schwellen für 12/24 V und Wiederanlaufsicherheit prüfen. |
 
 | 13.10.2026 | PWR-34–37 | **Viererrunde A/A/A/A bestätigt:** 3 s Shutdown-Energiepuffer als Entwicklungsziel bei sofort abgeschalteten Nebenverbrauchern; nach M8 AUS ohne absichtlichen Nachlauf sichern und herunterfahren; wiederholte Starteinbrüche stabil abfangen und bei gültiger Versorgung automatisch neu starten; Spannungswarnung als Symbol plus kurzer Hinweis. | Erkennung kurzer Einbrüche versus echtes AUS, SD-Schreibspitzen und Kondensator-Derating testen. |
+
+| 13.10.2026 | DIA-05–08 | **Viererrunde A/A/A/A bestätigt:** nicht blockierender erweiterter Start-Selbsttest, Radsensor-Livediagnose mit Pegel/Impulszähler/Frequenz, lesbarer Konfigurationsexport und -import über microSD, Ereignisprotokoll aus Bordnetzspannung und ESP32-Resetursache. | Selbsttest-Timeouts, importsichere Dateivalidierung und korrekte Zeitzuordnung von Spannungsmesswerten prüfen; keine zusätzliche Spannungshistorie beschlossen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
