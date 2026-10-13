@@ -22,13 +22,15 @@ Diese Datei ist dein **freier Ideenspeicher** für TripTracer. Schreibe hier jed
 
 ### Firmware, Schnittstellen & Extras
 
-- Programmierung (auch flashen) und Stromversorgung über USB-C Port
-- Eigene "Aufbereitung" und absicherung der Spannungsversorgung auf der Trägerplatine, damit auch ein selbst gebasteltes USB-Kabel, dass zb direkt von der Fahrzeugbatterie kommt angeschlossen werden kann.
-- Eine weitere Rundbuchse für die Spannungsverorgung vorsehen.
+- **USB-C:** Firmwareupdates/Flashen und alternative Stromversorgung mit **5 V** (z. B. vom PC oder über einen externen 12-V-Zigarettenanzünder-auf-5-V-USB-C-Adapter); kein externer 12-V-Direkteingang über USB-C.
+- **Hauptversorgung:** separate **M8-A-codierte, 3-polige Schraubsteckverbindung** für den normalen 12-V-Fahrzeugbetrieb anstelle einer DC-Hohlbuchse. Der Geräteanschluss wird mechanisch im Gehäuse montiert.
+- **Fahrzeugwechsel:** TripTracer soll einfach zwischen mehreren Fahrzeugen umgesteckt werden können; pro Fahrzeug eine vorinstallierte, nahe der Spannungsquelle abgesicherte Leitung mit passender M8-Kabelbuchse.
+- **Versorgungsschutz:** Fahrzeug-Bordnetzschutz auf der Trägerplatine; USB-5-V- und Fahrzeug-12-V-Eingang sicher entkoppeln, auch wenn beide gleichzeitig angeschlossen sind. Keine Rückspeisung zu PC/USB oder in den Fahrzeugkabelbaum.
+- **Geplante M8-Belegung:** Pin 1 = abgesichertes +12 V, Pin 3 = Masse, Pin 4 = Reserve (vorerst unbeschaltet); endgültige Kontaktansicht und Belegung vor der PCB-Freigabe am Steckerdatenblatt prüfen.
 
 ### Gehäuse & Mechanik
 
-- _(Platz für Ideen.)_
+- **Schnellwechsel-Halterung:** pro Fahrzeug eine feste Halterung, TripTracer selbst werkzeuglos einschieben/ausrasten; zusätzlich nur den M8-Stecker lösen.
 
 ## Später prüfen / offene Entscheidungen
 
