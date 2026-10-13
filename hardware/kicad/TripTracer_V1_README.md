@@ -1,49 +1,51 @@
-# TripTracer V1 – KiCad-10-Projektstart (13.10.2026)
+# TripTracer V1 – eigenständige KiCad-Projektdateien und Entwicklungsstand
 
-**Status: BEGINN DER SCHALTPLANENTWICKLUNG – NICHT ERC-/DRC-GEPRÜFT UND NICHT FERTIGUNGSREIF.**
+**Stand:** 13.10.2026, Arbeitsrevision A1. **KEINE ERC-/DRC-/Automotive-/Fertigungsfreigabe.** Die alte V0.3 bleibt unverändert als Vergleichsstand erhalten.
 
-## Öffnen
+## Projekt in KiCad 10 öffnen
 
-`TripTracer_V1.kicad_pro` oder `TripTracer_V1.kicad_sch` mit **KiCad 10** öffnen. Alle Dateien und Bibliotheken **im vorhandenen Ordner `hardware/kicad/` belassen**, damit `sym-lib-table`, `fp-lib-table` und `Tripmaster.pretty` aufgelöst werden. `Tripmaster_V0_3.*` bleibt unverändert als historische Referenz.
+Im Repository den kompletten Ordner `hardware/kicad/` herunterladen bzw. klonen. **`TripTracer_V1.kicad_pro`** öffnen; die gleichnamige **`TripTracer_V1.kicad_sch`** (Hauptschaltplan) und **`TripTracer_V1.kicad_pcb`** (PCB-Dokument) gehören dazu.
 
-## Echte vorhandene V1-Projektdateien
+Projektlokale Bibliotheken über `sym-lib-table`/`fp-lib-table`: `Tripmaster_Sym.kicad_sym`, `TripTracer_V1.kicad_sym`, `Tripmaster.pretty/`, `Tripmaster_3dmodels.3dshapes/`. **Keiner der Symbol-/Footprint-/3D-Pfade benötigt ein festes Windows-Laufwerk.** Die V1 greift teilweise noch auf die alte Projektbibliothek zu; bei Umzug beide Bibliotheken mitkopieren.
 
-- `TripTracer_V1.kicad_sch` – hierarchisches V1-Hauptblatt mit **8 verlinkten Schaltplanseiten**;
-- `01_Eingangsschutz.kicad_sch` – Arbeitsblatt/Offenpunkte: M8, TVS, eFuse, Verpol-FET, HV-Puffer; **noch nicht elektrisch umgesetzt**;
-- `02_5V_Buck.kicad_sch` – **erste elektrische Verdrahtung** der 5-V-Buck-Kandidatenschaltung mit **9 Symbolinstanzen**, Eingangskondensator, LMR36520, BOOT- und VCC-Kondensator, Induktor, zwei Ausgangskondensatoren und FB-Teiler; **noch nicht ERC- und thermisch freigegeben**;
-- `03_3V3_USB.kicad_sch` – offenes Blatt für 3,3-V-LDO, USB-Serviceversorgung und abgesicherte 5-V-Testeinspeisung;
-- `04_ESP32_USB.kicad_sch` – offenes Blatt ESP32-S3, USB, BOOT und GPIO;
-- `05_GNSS.kicad_sch` – offenes GNSS-/RF-/Antennenbias-Blatt;
-- `06_Display_Tasten.kicad_sch` – offenes Riverdi-/Tasten-/Backlight-Blatt;
-- `07_Speicher_RTC.kicad_sch` – offenes FRAM-/microSD-/RTC-Blatt;
-- `08_Radsensoren.kicad_sch` – offenes Radgeber-/Erweiterungs-Blatt;
-- `TripTracer_V1.kicad_sym` – erstes V1-Projektsymbol für LMR36520; in projektlokaler `sym-lib-table` registriert.
+## Baugruppenstatus
 
-## Aktuelle 5-V-Buck-Bauteilskizze
-
-| Referenz | Vorläufige Funktion | Vor Freigabe erforderlich |
+| Blatt | Inhalt | Stand |
 |---|---|---|
-| U101 | **TI LMR36520ADDAR**, synchron, 4,2–65 V, 2 A | Datenblatt, tatsächliche Bestellbarkeit und 90-%-Ziel bei 24 V / 2 A prüfen |
-| L101 | Induktor, vorläufig 15 µH | Datenblatt-Auslegungsbeispiel, Stromspitzen/Sättigung, DCR, Bauform – alter Footprint **nur vorläufig** |
-| R101/R102 | 172 kΩ / 43,2 kΩ, FB-Teiler | Für ca. 5 V nach 1,0-V-FB-Referenz; Widerstandstoleranz und Layout |
-| C101 | 2,2 µF, 100 V Eingang | Spannungsspitzen, Keramik-DC-Bias und Ripple |
-| C102 | 100 nF BOOT–SW | Abstand/Platzierung am Regler |
-| C103 | 1 µF VCC–GND | VCC ist interne Regler-Versorgung, **keine Lastversorgungsquelle** |
-| C104/C105 | je 22 µF am 5-V-Ausgang | reale wirksame C bei 5 V, Ripple/Reglerstabilität |
+| `01_Eingangsschutz.kicad_sch` | 9–36-V-M8, eFuse, externer Verpol-MOSFET, TVS, Pufferelkos, Ladestrombegrenzung, ACC-Sense | **Noch nicht verschaltet** |
+| `02_5V_Buck.kicad_sch` | LMR36520 als Reglerkandidat, Spule, 5-V-Feedback, Bootstrap/VCC-Kondensatoren und Ausgangskondensatoren | **9 reale Symbolinstanzen mit vorläufiger Verdrahtung; Bauteilauslegung/Pin-Footprint-Freigabe offen** |
+| `03_3V3_USB.kicad_sch` | 3,3-V-LDO, Bordnetz/USB-Priorisierung, 5-V-Laborteststecker | **Noch nicht verschaltet** |
+| `04_ESP32_USB.kicad_sch` | ESP32-S3-MINI-1-N8, USB-C-Buchse, 2×5,1-kΩ-CC-Rd, USBLC6-2SC6, D+/D−-Serienwiderstände, BOOT/EN-Pull-ups, lokale Kondensatoren | **12 echte Symbolinstanzen verdrahtet; übrige GPIOs und Quellenentkopplung fehlen** |
+| `05_GNSS.kicad_sch` | MAX-M10N, UART/TIMEPULSE, U.FL und geschützter Antennen-Bias | **Noch nicht verschaltet** |
+| `06_Display_Tasten.kicad_sch` | Riverdi 50-polig / SPI / 15-V-Backlight, sechs FILN-Tasten | **Noch nicht verschaltet** |
+| `07_Speicher_RTC.kicad_sch` | interne microSD, FRAM, RTC/CR1220, I²C-Sensoren | **Noch nicht verschaltet** |
+| `08_Radsensoren.kicad_sch` | zwei getrennte Radimpulse, geschaltete 5-V-Sensorversorgung, JST-GH-Erweiterung | **Noch nicht verschaltet** |
 
-**LMR36520 ist nach TI ausdrücklich pin-kompatibel zum bestehenden LMR36510.** Der erste Symbolentwurf übernimmt die Pin-Geometrie des alten Projektstandes mit neuer Benennung; Footprint- und Padprüfung bleibt verpflichtend. Datenblatt: https://www.ti.com/lit/ds/symlink/lmr36520.pdf.
+## PCB-Dokument bereits angelegt
 
-**Wichtige Lücken der ersten Schaltung:** Die geschützte Hochvolt-Eingangsspannung ist bisher ein offener Cross-Sheet-Anschluss `HV_PROTECTED_AFTER_EFUSE`. Die echte eFuse-/TVS-/Rückstromschutz- und Elko-Schaltung ist noch **nicht** angeschlossen. Ebenso fehlen der definierte vollständige 5-V-Quellenwahlschalter, die Laboreinspeisung und der 3,3-V-LDO. Keine Spannung einspeisen, nur weil das Buck-Blatt gezeichnet ist.
+`TripTracer_V1.kicad_pcb` enthält **21 reale, aus dem Schaltplan referenzierte Footprint-Instanzen**: die 9 Buck-Bauteile und 12 MCU-/USB-Bauteile. Für die bisherigen Footprints wurden bestehende lokale Hersteller-/Geometrieentwürfe wiederverwendet; einzelne Landpatterns sind noch ungeprüft.
 
-## Validierungsstand
+**Achtung:** Die PCB ist eine **Vorplatzierung**. Sie enthält noch **keine verbindliche Edge.Cuts-Outline, keine zugeordneten Netze, keine gerouteten Tracks/Vias und keine vollständigen Komponenten**. Das Rechteck auf **Dwgs.User ist KEIN Platinenumriss** und darf nicht als Gerber/Fertigungsgrundlage benutzt werden. Über KiCad `Werkzeuge → Leiterplatte aus Schaltplan aktualisieren` müssen die später gültigen Netze auf die PCB übertragen und alle verbliebenen Funktionsgruppen ergänzt werden.
 
-- Projektstruktur, **11 neu erzeugte KiCad-Dateien einschließlich Projektstarter und Symbolbibliothek** sowie S-Ausdruck-Klammer-/Zitatbalance der `.kicad_sch`-Dateien automatisiert geprüft.
-- Auf dem Buck-Blatt sind **8 Junction-Dots** für T-Verzweigungen ergänzt.
-- **Keine native KiCad-10-Parserprüfung, kein ERC, kein DRC, keine visuelle KiCad-Editorprüfung**, keine SPICE-/Benchvalidierung.
-- Benötigte weitere Schritte: zunächst Eingangsschutz/eFuse+N-MOSFET mit nachgewiesenem Verpolschutz, TVS/Clamp, regelbare Pufferladung und ACC-Sense elektrisch fertigstellen; danach Quellenentkopplung, LDO, MCU/USB und übrige Baugruppen; im Anschluss Pinout-/Footprint-Abgleich, ERC und Berechnungen.
+Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt zwei Kupferlagen; DRC-Mindestabstände sind **vorläufig** und bei JLCPCB mit dem tatsächlichen Stack-up abzugleichen. 35 µm/1 oz bleibt verbindliches Konstruktionsziel (HW-71).
 
-## Beschlossene Fertigungsdaten
+## Wichtige aktuelle Risiken
 
-**5 PCBs, davon 2 bestücken (soweit JLCPCB unterstützt), 3 unbestückt; 35 µm/1 oz Kupfer; 1,6 mm Dicke; SMD-JLCPCB plus manuelle Sonderteile.** Diese Daten sind **kein Fertigungsauftrag** und ausdrücklich **keine Produktionsfreigabe**.
+1. **V1 kann noch nicht eingeschaltet werden:** Die geschützte 9–36-V-Einspeisung, echte Pufferladung, 5-V-Quellenwahl und 3,3-V-LDO sind noch nicht verdrahtet.
+2. **Buck U101:** LMR36520 ist ein **Kandidat**, noch keine Volllast-/Thermik-/90-%-Wirkungsgrad-Freigabe. Pin 1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, thermisches Pad 9. Pin-kompatibler V0.3-LMR36510-Footprint ist **noch gegen aktuelles TI-Package-Drawing zu prüfen**. https://www.ti.com/lit/ds/symlink/lmr36520.pdf
+3. **L101:** Symbol zeigt **15 µH als vorläufigen Entwurfswert**, während der derzeit verwendete Fußabdruck den alten **Bourns-22-µH-Typ** bezeichnet. **Nicht als freigegebenen 15-µH-Bauteilsatz bestellen.** Erst L-Wert/Isat/DCR und den Hersteller-Footprint festlegen.
+4. **USB-C:** Die D+/D−-, CC- und ESD-Grundbeschaltung ist entworfen. Die **USB-VBUS-Versorgung für Firmware/MSC ohne M8 sowie Quellen-Rückspeisesperre** fehlen auf `03_3V3_USB`. Kein Betrieb allein über USB möglich, solange diese Schaltung nicht fertig ist.
+5. **GPIOs:** ESP32-S3-MINI-1-N8 vorhanden, aber weitere Pins für Display, Tasten, GNSS, microSD, Radgeber und Erweiterung müssen konfliktfrei zugeordnet werden. GPIO0/3/45/46 und native GPIO19/20 besonders prüfen.
+6. **PCB-Fertigung:** Bei fünf nackten PCBs möglichst zwei SMD-bestückt und drei unbestückt; erst nach ERC, DRC, Bauteil-/Footprint-Abgleich und Einkaufstest zu bestellen.
 
-Siehe [HARDWARE_REQUIREMENTS.md](../../docs/HARDWARE_REQUIREMENTS.md) und [PROTOTYPE_V1_SCHEMATIC_REVIEW.md](../../docs/PROTOTYPE_V1_SCHEMATIC_REVIEW.md).
+## Was geprüft wurde – und was nicht
+
+- **Geprüft durch Struktur-Abgleich:** alle 8 Blattdateien existieren, `TripTracer_V1.kicad_pro` und `.kicad_pcb` sind vorhanden, **21 Symbol-Referenzen entsprechen den 21 platzierten PCB-Footprints**, ihre hierarchischen Schaltplan-UUID-Pfade wurden zugeordnet.
+- **Nicht durchgeführt:** Öffnung der V1 in einer installierten KiCad-10-Anwendung, native Schema-Parser-/ERC-Prüfung, DRC/DFM, Datenblatt-Freigabe sämtlicher Footprints, Netzsynchronisierung, realer Boardtest.
+- Das Vorhandensein einer PCB-Datei oder die Strukturprüfung bedeutet **nicht**, dass die PCB funktionsfähig oder fertig geroutet ist.
+
+## Nächste Baugruppe
+
+Als nächsten Schaltplanarbeitsschritt **`01_Eingangsschutz`** mit TVS, eFuse mit passendem externem Verpol-MOSFET, strombegrenztem Hochvolt-Elko-Puffer und ACC-Sense datenblattbasiert aufbauen. Danach **`03_3V3_USB`** mit LDO, USB/Bordnetz/Laboreinspeisung, galvanischer und logischer Rückspeisesicherheit. Erst dann PCB-Netze übertragen und die Stromversorgung validieren.
+
+Verbindlich: [Hardwareanforderungen](../../docs/HARDWARE_REQUIREMENTS.md) / [Schematic Review](../../docs/PROTOTYPE_V1_SCHEMATIC_REVIEW.md).
