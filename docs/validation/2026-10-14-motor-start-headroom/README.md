@@ -26,3 +26,7 @@ Die positiven Reserven sind **kein garantierter Startnachweis**; 0,75 A hat in d
 Zusätzlich liegt die idealisierte 2-A-Spitze bei 30 V/8 µH/340 kHz bei 2,766 A, oberhalb des tabellierten HS-Limits von mindestens 2,4 A. Das allein beweist **kein** Versagen des TI-Referenzentwurfs, kennzeichnet aber fehlende Stromreserve im einfachen Modell. Referenz-10-µH-Auslegung nicht blind durch eine andere Induktivität ersetzen; Hersteller-Regelbereich, Verlustleistung, Bias und reale Volllast zuerst prüfen.
 
 Nächster notwendiger Schritt: tatsächliche Kernlast einschließlich MCU/GNSS/SD-Schreibspitzen, Displaylogik und Sensoren messen bzw. mit maximalen Herstellerwerten budgetieren; Backlight-Dimming beim Motorstart als bereits erlaubten Betriebszustand berücksichtigen. Daraus Frontend-RDS(on), Gate-/VS-Versorgung und Buck-Dropout dimensionieren. Keine beliebige Reduktion des 2-A-Normalbetriebs, kein zusätzlicher Controller oder Energiespeicher ohne nachgewiesenen Bedarf. Preis-/BOM unverändert; nur Auslegungsrechnung ergänzt.
+
+## Hersteller-Grundlagen der Kernlast
+
+[Partielle Kernlast-Eingaben](../../CORE_POWER_BUDGET.md) unterscheiden MCU-Versorgungskapazität, GNSS-Anlauf und typische 1-Hz-Ströme von dem noch unbekannten 5-Hz-/SD-/Display-Spitzenbedarf. Kein vollständiges Budget.
