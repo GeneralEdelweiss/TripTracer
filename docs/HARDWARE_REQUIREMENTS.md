@@ -257,6 +257,16 @@
 | UI-27 | **Festgelegt** | **Variante A: kurze farbliche Bestätigung am Display** nach +/−-Korrektur bzw. LEG-0-Nullung, ergänzt durch den vorhandenen **optional abschaltbaren Piepser**. | Bestätigung soll den angepassten Zähler eindeutig kennzeichnen, Lesbarkeit nicht beeinträchtigen und keine längere blockierende Animation erzwingen (UI-12). Piepser folgt globaler Stummschaltung. |
 | UI-28 | **Festgelegt – synchroner Beleuchtungsmodus** | **Tastenringe und Display werden bezüglich der Helligkeitssteuerung als ein gemeinsames Beleuchtungssystem bedient:** bei Automatik regelt derselbe Umgebungslichtsensor beide, bei manueller Einstellung verändert dieselbe Menüvorgabe beide. Die einstellbaren Min-/Max-Werte wirken auf beide; **LED-Ringe bleiben dabei im regulären Betrieb immer sichtbar an** (MEC-34). | **Synchroner Bedienmodus bedeutet nicht gleiche Versorgungsspannung oder identisches PWM-Tastverhältnis.** Getrennte Helligkeitskennlinien/Treiber für Display-Backlight und grüne/rote Ring-LEDs zulässig, solange die wahrgenommene Helligkeit gemeinsam zu-/abnimmt; sichtbares Ring-Minimum > 0. Kein Tasterdruck darf Ringlicht ein-/ausschalten, keine zweite unabhängige LED-Helligkeitseinstellung verlangt. Tests bei Tageslicht, Nacht und manuell min/max. |
 
+
+### E.1 Rallye-Zählerbedienung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| UI-33 | **Festgelegt – A: farbliche Hervorhebung** | Der mit TRIP ausgewählte aktive Korrekturzähler wird im Fahrtlayout durch einen **deutlich farblich hervorgehobenen Rahmen oder Hintergrund** gekennzeichnet. | Kontrast im Tag-/Nachtmodus, Lesbarkeit bei Sonnenlicht und eindeutige Auswahl unabhängig von Warnfarben prüfen; alle ±10-m-Korrekturen wirken nur auf den markierten Zähler. |
+| UI-34 | **Festgelegt – A: sanfte Wiederholbeschleunigung** | ±10-m-Tasten lösen beim ersten Druck genau einen Schritt sofort aus; bei Halten nach **ca. 0,5 s** wiederholte Schritte mit **sanfter Beschleunigung auf ungefähr 5 Schritte/s**. | Entprellung, genaue Wiederholkennlinie und Maximalrate in Bedienversuchen validieren; keine unbeabsichtigten Zusatzeingaben beim Loslassen, Schritte bei Halten bleiben je 10 m. |
+| UI-35 | **Festgelegt – A: LEG-0-Undo bis zur nächsten Nullung** | Die letzte LEG-0-Nullung kann durch den bereits beschlossenen bestätigten Langdruck rückgängig gemacht werden, **bis eine weitere LEG-0-Nullung erfolgt**. Undo-Zustand wird **profilgebunden nichtflüchtig** gespeichert und bleibt über Neustart sowie Wechsel des aktiven Fahrzeugprofils erhalten. | FRAM-Speicherbudget und atomare Sicherung je Profil, genau eine rückgängig machbare Nullung pro Profil; bei neuer LEG-0-Nullung des Profils alten Undo-Eintrag ersetzen. Undo darf andere Profile und Gesamt-/Trip-Zähler nicht verändern. |
+| UI-36 | **Festgelegt – A: Langdruck und Bestätigung für Reset** | Gewolltes Zurücksetzen von Gesamt-/Trip-Zählern erfordert **ausgewählten Zielzähler, langen Tastendruck und eine zusätzliche eindeutige Bestätigung**; kein versehentlicher Reset durch kurzen Tastendruck. | Bisherige Sofortaktion LEG 0 und separat geregelter bestätigter LEG-Undo bleiben unverändert. Reset-Zugang, Abbruch, Debouncing und Zeitdauer des Langdrucks in der UI festlegen. |
+
 ## F. Gehäuse, Stecker und Montage
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -378,6 +388,8 @@
 | 13.10.2026 | GPS-19–22 | **Viererrunde A/B/A/A bestätigt:** bis zu zehn Fahrzeugprofile; Profilwechsel auch während Fahrt, aber nur nach ausdrücklicher Bestätigung; GNSS-basierte Radsensorkalibrierung über längere Referenzfahrt mit Bestätigung; eigene Gesamt-/Trip-A-/Trip-B-/LEG-Zähler je Profil. | Atomarer Profilwechsel, Speicherbudget, Referenzstrecken-/GNSS-Gütekriterien und Logsegmentierung vor Firmwarefreigabe prüfen. |
 
 | 13.10.2026 | GPS-23–25, UI-32 | **Viererrunde A/A/A/A bestätigt:** GNSS-Referenzkalibrierfahrt mindestens 1 km; GNSS-Distanz nur bei ausreichender Qualität; keine rückwirkenden Distanzsprünge bei GNSS-Rückkehr; Zähleranzeige standardmäßig fest 10 m / 0,01 km. | Güteschwellen, Hysterese, Rundung und Fahrtests bleiben offene technische Auslegung. |
+
+| 13.10.2026 | UI-33–36 | **Viererrunde A/A/A/A bestätigt:** aktiven ±10-m-Korrekturzähler farblich markieren; sanfte Tastenwiederholung nach ca. 0,5 s bis ca. 5 Schritte/s; profilgebundenes LEG-0-Undo bis zur nächsten Nullung auch über Neustart/Profilwechsel; Gesamt-/Trip-Reset nur per Langdruck plus Bestätigung. | genaue Bedienkennlinie, Kontrast und FRAM-Atomarität technisch prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
