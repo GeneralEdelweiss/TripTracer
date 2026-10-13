@@ -2,6 +2,14 @@
 
 **Stand:** 13.10.2026, **elektrische Vorstudie ohne Fertigungsfreigabe**. Ausgangsstand unveränderlich gesichert: `07b6ae6c82a02aa866dadd50f507025a7d0c8587` (`snapshot/2026-10-13-before-solid-state`); der vorangegangene 01D-Designreview separat unter `snapshot/2026-10-13-with-01d-review`. Diese Studie **ersetzt keinen KiCad-Schaltplan**, keinen Schaltungs-/Pincheck, kein ERC/DRC und keinen Fahrzeugtest.
 
+## Verbindliche ISO-Entscheidung (13.10.2026): normorientiert, nicht überdimensioniert
+
+Die **ISO 16750-2:2023** wird als verbindlicher **elektrischer Entwicklungs-/Prüfmaßstab** für TripTracer in 12-/24-V-Straßenfahrzeugen festgelegt; die passenden Teiltests/Level/Funktionszustandsklassen sind projektbezogen auszuwählen und noch **nicht getestet**. **ISO 7637-2** für zusätzliche schnelle Störpulse prüfen; *EMV ist nicht Inhalt* der ISO 16750-2:2023. **Motorräder/Mopeds sind von deren direktem Geltungsbereich ausdrücklich ausgenommen**, daher ihre elektrischen Risiken fachlich analog, aber separat definieren. [ISO-Herstellerseite](https://www.iso.org/standard/76119.html).
+
+Der **LM74800-Q1** ist aufgrund seiner **TI-Referenzschaltung Abschnitt 10.3** für **200-V ungedämpften 24-V-Load-Dump** der **bevorzugte kostenoptimierte Schutzcontroller-Kandidat**, jedoch **kein Nachweis der Gesamtnorm für das TripTracer-PCB**. Datenblattauslegung: 24 V, 6-V-Startfall, 200-V-Load-Dump, etwa 37-V-Klemmung und 25-W-Referenzlast; unsere reale 9–36-V- und 3-V-/15-ms-Kaltstartanforderung sowie MOSFET-SOA, separate ACC-Führung und Software-Logging bleiben zu prüfen. **Zusätzliche Schutzcontroller nur nach Funktionslücken-/Kostenanalyse**; externe Sicherungen, Strombegrenzung und definierter Hardware-OFF sind nicht durch ISO-Nennung ersetzt. [TI-Datenblatt](https://www.ti.com/lit/ds/symlink/lm7480-q1.pdf).
+
+**STATUS:** Prüfprofil-/Testmatrix **offen**, ISO-Ziel **beschlossen**, KiCad-Umbau/Fault-Injection/Normmessungen **nicht erfolgt**, Fertigung **gesperrt**.
+
 ## Preisrevision nach Kostenkritik (13.10.2026) – vor der 22-€-Variante lesen
 
 **Korrektur:** Die bisherige 21,92-€/Gerät-Robust-BOM in Kapitel 7 beruht auf einer sehr teuren **LTC4380 + TPS26631**-Doppelarchitektur mit **zwei** 250-V-Leistungs-FETs. Diese Auslegung ist **nicht die günstigste Lösung** für den Nachweis eines 200-V-Load-Dumps. Ihre hohe Kostenposition ist kein allgemeiner Mindestpreis für einen hinreichend robusten TripTracer.
