@@ -6,6 +6,8 @@
 
 **Priorisierter Vergleich:** **LM74930-Q1** (eine Schutz-IC-Stufe mit Überstrom-/Kurzschluss-Limiter, 200-V-Load-Dump, UVLO/OVP) vs. **LM74800-Q1** (ohne eFuse; nur bei anderweitig nachgewiesenem Kurzschluss-/Leitungsschutz). Siehe [POWER_INPUT_80_20_DECISION.md](POWER_INPUT_80_20_DECISION.md). Im portablen KiCad-10-Symbollib ist der **LM74930-Q1 als 24-Signalpin-Kandidat** eingetragen; **Thermal-Pad RTN muss frei bleiben; Footprint/Pin-Pad-Mapping noch offen, Symbol nicht im Schaltplan verdrahtet, kein ERC**.
 
+**Neue Reihenfolge nach MegaSquirt-Versorgungsvergleich (13.10.2026):** **Zuerst** günstigen 9–36-V-/5-V-/2-A-Buck **LMR36520** mit 6-V-Kaltstart und einfacherer **ACC OR MCU_HOLD → Buck_EN**-Selbsthaltung komplett elektrisch auslegen; verifizierbaren Kurzschluss-/Brandschutz sowie getrennt abgesicherte BAT+/ACC-Zuleitungen dimensionieren. **Dann** den 200-V-ungedämpften ISO-16750-2-Load-Dump über geeignete vorgeschaltete, stromsparende Abschaltstufe **vor jedem Fahrzeugeinsatz** nachweisen. Einkaufsreihenfolge: tatsächliche Verfügbarkeit/Herstellerqualität/Preis/Handlötbarkeit, **JLCPCB-PCBA optional und nachrangig**. Vollständige Argumentation: [MEGASQUIRT_POWER_BENCHMARK.md](MEGASQUIRT_POWER_BENCHMARK.md). Ursprüngliches 18-V-MOV/26-V-Linearregler-MegaSquirt-Design NICHT einfach kopieren.
+
 ## Priorität A – Stromversorgung V1, Variante 3 (relaislos)
 
 Maßgebliche Analyse: [SOLID_STATE_POWER_ARCHITECTURE.md](SOLID_STATE_POWER_ARCHITECTURE.md). Die Entscheidung für Variante 3 ist **eine Entwicklungsrichtung, keine Sicherheits- oder Fertigungsfreigabe**.
