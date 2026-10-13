@@ -34,7 +34,7 @@
 |---|---|---|---|
 | PWR-01 | **Festgelegt** | Regulärer Betrieb sowohl an **12-V- als auch an 24-V-Fahrzeugbordnetzen**, ohne manuellen Spannungswahlschalter | Durchgängigen zulässigen Eingangsspannungsbereich, Motorstart-Unterspannung, Ladespannung und Transienten für beide Netze spezifizieren |
 | PWR-02 | **Festgelegt** | **M8, 3-polig, A-codiert, Schraubverriegelung** als normaler Fahrzeug-Stromanschluss; keine einfache DC-Hohlbuchse | Einbaustecker am Gerät, Kabelbuchse fahrzeugseitig; Strombelastbarkeit, Orientierung und Schutzart prüfen |
-| PWR-03 | **Festgelegt** | **Gerätesicherung direkt auf der TripTracer-Platine** im Fahrzeug-Bordnetz-Eingangsstrompfad (12 V und 24 V) | Sicherungsart, Nennstrom, Baugröße, Zugang/Austauschbarkeit und Lage noch bestimmen |
+| PWR-03 | **Festgelegt** | **Gerätesicherung direkt auf der TripTracer-Platine** im Fahrzeug-Bordnetz-Eingangsstrompfad (12 V und 24 V) | **Fest eingelötet (PWR-12)**; Nennstrom, Auslösecharakteristik, Baugröße, Spannungs-/Abschaltvermögen und genaue Lage noch bestimmen |
 | PWR-04 | **Festgelegt** | Ein **einfaches, selbst angefertigtes M8-Anschlusskabel** soll ausreichen; möglichst kein zusätzlicher Sicherungshalter im gerätespezifischen Kabel | Anschluss an einen bereits fahrzeugseitig abgesicherten Stromkreis vorsehen; geeigneten Leitungsquerschnitt und Länge definieren |
 | PWR-05 | **Sicherheitsanforderung** | **Die Platinensicherung schützt nicht die Leitung vor ihr.** Bei direktem Batterieanschluss ist eine zusätzliche Sicherung **nahe der Quelle** notwendig; alternativ einen bereits abgesicherten Fahrzeugabgriff nutzen | Zuleitung auch bei Kurzschluss vor dem TripTracer absichern; Schutzkonzept gemeinsam festlegen |
 | PWR-06 | **Festgelegt** | **USB-C** dient sowohl für USB-Daten/Firmwareupdates als auch zur alternativen Versorgung mit **5 V** (PC oder externer Zigarettenanzünder-auf-USB-C-Adapter) | Gerät muss zum Flashen über USB allein funktionieren; 5-V-Strombudget prüfen |
@@ -43,7 +43,7 @@
 | PWR-09 | **Festgelegt** | Bordnetzschutz auf der Platine für **12-V- und 24-V-Fahrzeuge**: Verpolung, Transienten/ESD, Spannungswandlung und sichere Masseführung | Bauteile anhand beider Bordnetze einschließlich erhöhten Ladespannungen, Motorstart und Load-Dump-Ereignissen dimensionieren; keine ungeprüfte 24-V-Freigabe |
 | PWR-10 | **Festgelegt** | Vorläufige M8-Belegung: **Pin 1 = +12/24 V Bordnetz, Pin 3 = GND, Pin 4 = Reserve/NC** | Konkreten Gegenstecker und Kontaktansicht anhand Datenblatt verifizieren; 24-V-Tauglichkeit ergibt sich aus der gesamten Schaltung und nicht allein dem Steckertyp |
 | PWR-11 | **Festgelegt** | **12-V- und 24-V-Fahrzeuge** unterstützen; automatisch nutzbar am selben M8-Eingang ohne Umschalten oder Umbau | Eingangsspannungsbereich und Schutz/Regler für beide Fahrzeugklassen erst auslegen und prüfen; die bisherige V0.3-Hardware erfüllt diese Vorgabe noch nicht nachweislich |
-| PWR-12 | **Offen** | Soll die Sicherung von außen wechselbar sein oder darf das Gehäuse dafür geöffnet werden? | Anforderungen an Abdichtung, Sicherheit, Service und Bauraum |
+| PWR-12 | **Festgelegt** | **Variante C: fest eingelötete, nicht vom Nutzer steckbar austauschbare Platinensicherung**, bevorzugt kompakte SMD-Bauform; Austausch bei Defekt nur durch Öffnen des Gehäuses und Löten | Sicherungsnennstrom, Auslösecharakteristik, Spannungs- und Abschaltvermögen für 12-/24-V-Fahrzeugnetze inklusive möglicher Fehlerfälle dimensionieren; eine rückstellbare PTC-Sicherung ist nicht automatisch gleichwertig |
 | PWR-13 | **Offen** | Was passiert bei gleichzeitig eingestecktem USB und M8? | Versorgungsvorrang und Umschaltunterbrechung |
 | PWR-14 | **Bestand V0.3** | 12-V-Eingang J1 → Eingangsabsicherung/-schutz → 3,3-V-DC/DC; USB bisher nur Daten | Bei nächster Revision auch für 24-V-Fahrzeuge neu auslegen (PWR-01/09/11); an PWR-02/03/06/08 anpassen. Vorhandene V0.3-Schaltung nicht als 24-V-tauglich ausgeben |
 | PWR-15 | **Festgelegt** | **Unterbrechungsfreier Betrieb beim Motorstart** in 12-V- und 24-V-Fahrzeugen: kein MCU-/GNSS-Neustart, keine Unterbrechung von Anzeige, Distanzzählung oder Streckenaufzeichnung durch den Startvorgang | Kritischen Spannungs-/Zeitverlauf beim Anlassvorgang, Mindest-Eingangsspannung und erforderliche Überbrückungszeit/Pufferenergie messen und festlegen; Funktionstest noch offen |
@@ -109,16 +109,18 @@
 | 13.10.2026 | MCU-01 | ESP32-S3 beibehalten; kein CH32X035 im TripTracer | Prozessor bereits im V0.3-Projekt |
 | 13.10.2026 | PWR-01/09/10/11 | **12 V und 24 V gleichermaßen unterstützen**, ohne Umstecken oder Spannungswahlschalter | Nachträgliche verbindliche Anforderung; Eingangsschutz, DC/DC und Sicherung neu dimensionieren |
 | 13.10.2026 | PWR-15 | **Variante A: unterbrechungsfreier Motorstart** | Gilt für beide Bordnetze; Spannungs-/Zeitgrenzen und Pufferung sind noch auszulegen und zu prüfen |
+| 13.10.2026 | PWR-12 | **Variante C: fest eingelötete Platinensicherung** | Nutzerkorrektur; keine Steck- oder Außen-Sicherung; Service erfordert Löten |
 
 ## Nächste gemeinsame Entscheidung
 
-**Block B – Stromversorgung, Frage 3 (PWR-12):** Wie soll die **Sicherung auf der Platine** bei einem Defekt erreichbar sein?
+**Block B – Stromversorgung, Frage 4 (PWR-13):** Wenn **M8 (12/24 V) und USB-C (5 V) gleichzeitig angeschlossen** sind, welcher Eingang soll das Gerät vorzugsweise versorgen?
 
-- **A (Vorschlag):** Austauschbare Sicherung **innen**, nach Öffnen des Gehäuses erreichbar. Einfache Abdichtung.
-- **B:** Austauschbare Sicherung **von außen** über einen geschützten Deckel. Komfortabler, aber größerer Dichtungsaufwand.
-- **C:** Fest eingelötete Sicherung, bei Defekt nur mit Lötarbeiten austauschbar. Kompakter, aber schlechter wartbar.
+- **A (Vorschlag): M8 hat Vorrang.** USB-C bleibt für Daten/Flashen verbunden. Fällt M8 aus, übernimmt USB-C nach Möglichkeit ohne Neustart, sofern die USB-Quelle genug Leistung liefert.
+- **B: USB-C hat Vorrang.** Beim Anschluss an PC/USB-Adapter läuft das Gerät vorzugsweise daraus. Fällt USB-C aus, übernimmt M8 nach Möglichkeit ohne Neustart.
 
-Danach definieren wir den Spannungs-/Zeitverlauf beim Motorstart und den Versorgungsvorrang zwischen USB-C und M8. Konkrete Bauteile wählen wir erst später.
+In beiden Fällen sind sichere Entkopplung, keine Rückspeisung und eine funktionsfähige Versorgung bei einzeln angeschlossenen Quellen zwingend. Die konkrete Schaltung wird erst nach Klärung des Leistungsbudgets festgelegt.
+
+Anschließend legen wir den realistischen Spannungs-/Zeitverlauf beim Motorstart fest. Konkrete Bauteile wählen wir später.
 
 ## Quellen / Verbindlichkeit
 
