@@ -1,0 +1,11 @@
+# Idealisierte Zeitverläufe der Fahrzeug-5-V-Selbsthaltung
+
+14.10.2026. 12 ngspice-Zeitverläufe ausgeführt: 6/9/30 V mit regulärem ACC/HOLD-Ablauf, USB-only-HOLD, festhängendem HOLD und ACC-Flattern. Jeweils 200 ms mit maximal 50 µs Zeitschritt; alle experimentellen Auswertekriterien erfüllt. **Kein Bestehen der Hardware-Deadline: die Schaltung besitzt noch keinen Timer.**
+
+Der reale LM74930-/MOSFET-/Buck-Hauptpfad ist durch eine ideale 5-V-Quelle mit hysteretischem Schalter ersetzt: Ein-Schwelle 1,05 V, Aus-Schwelle 0,41 V, RON 0,05 Ohm. 220 µF Ausgangskapazität und 2,5 Ohm Last bilden nur ein gewähltes Szenario. Start-/Reglerverzögerungen, Stromlimit, Unterspannung, VS-/Gate-Versorgung und Rückspeisung werden damit nicht nachgewiesen. Generic MOS-/Diodenmodelle, fixe Sperrstrom-Stressquellen; keine garantierten Temperatur-/MPN-Eckwerte.
+
+ACC startet bei 10 ms, MCU-HOLD bei 20 ms, ACC AUS bei 100 ms, HOLD AUS bei 130 ms und ACC-Wiederkehr bei 180 ms. **Komprimierte Ablaufprüfung, keine 3-s-Speicher-/Nachlaufprüfung.** Im normalen Modell bleibt Fahrzeug-5-V nach ACC AUS bei 120 ms erhalten, fällt nach HOLD AUS bis 170 ms unter 0,1 V und startet bei ACC-Wiederkehr erneut. USB-only startet nicht; Flattern wird während gesetztem HOLD überbrückt. Bei festhängendem HOLD bleibt Fahrzeug-5-V am Prüfpunkt 170 ms über 4,75 V; aus der strukturell fehlenden Zeitbegrenzung und dem DC-Selbsthaltungszustand folgt das offene Deadline-Gate.
+
+Die Kriterien im Script heißen ausdrücklich experimentelle Prüfungen; das erfolgreiche Erkennen eines fehlenden Timers darf nicht als bestandene Sicherheitsfunktion ausgegeben werden. Ergebnisse aller 12 Läufe in transient-results.json, vollständiges ngspice-Log, sowie rohe 6-V-Normal-/Stuck-HOLD-Zeitreihen und zugehörige Circuits gespeichert. Weitere CSVs sind aus dem Script reproduzierbar. Keine Simulation des tatsächlichen vollständigen KiCad-Schaltplans, keine Labormessung.
+
+Reproduktion: tools/simulate_acc_hold_transitions.py --dll <installierte-ngspice-Bibliothek> --output <Ausgabeordner>. Hersteller-Timer und ACC-Flankenansteuerung müssen vor Integration gesondert dimensioniert werden. Vorhandener TLC555/AND-Entwurf ist kein unverändert übernehmbarer Block.

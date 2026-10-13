@@ -1,0 +1,2267 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-14T00:19:04",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.6",
+    "schematic_parity": [
+        {
+            "description": "Fehlender Footprint D111 (SS36 - FLYBACK (CANDIDATE))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint K101 (G6S-2F DC5 - C16707)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint Q111 (DMN2056U-7)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R111 (100k - GATE PULLDOWN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C106 (4.7uF 100V X7R VIN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C107 (220nF 100V X7R HF VIN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Wert (L101) stimmt nicht mit Symbolwert (L1_Bourns_SRN6045_220M) überein.",
+            "items": [
+                {
+                    "description": "Footprint L101",
+                    "pos": {
+                        "x": 74.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Tripmaster:L1_Bourns_SRN6045_220M stimmt nicht mit dem Footprint des Symbols (Tripmaster:L_Bourns_SRP6030VA_100M) überein.",
+            "items": [
+                {
+                    "description": "Footprint L101",
+                    "pos": {
+                        "x": 74.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Fehlender Footprint C204 (22uF 16V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C205 (22uF 16V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C206 (3.3nF 50V X7R - CA)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C207 (100pF 50V C0G - CB)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C1201 (2.2uF 100V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C1202 (2.2uF 100V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C1203 (2.2nF 50V X7R - BST)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint L201 (68uH - Isat>=1.75A TO VERIFY)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1201 (316k 1% - FB TOP)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1202 (100k 1% - FB BOTTOM)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1203 (43.2k 1% - RON)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1204 (180k 1% - RIPPLE RA)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U1201 (LM5164QDDARQ1 - AUX 5V CANDIDATE)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C301 (10nF 50V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D301 (BAT54WS ACC OR (C5251553))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D302 (BAT54WS HOLD OR (C5251553))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint Q301 (MMBT5551 (C408396))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint Q302 (MMBT5401 (C408397))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R301 (220k ACC LIMIT)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R302 (220k BASE PULL)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R303 (47k PNP BASE)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R304 (220k PNP OFF)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R305 (100k ACC_DRIVE_OFF_PULLDOWN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C501 (10uF 16V X7R (1210), DERATE)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C502 (10nF AC falling-edge pulse)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C503 (100nF RESET POR filter)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C504 (10nF CONT bypass)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C505 (100nF VDD bypass)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D501 (BAT54WS TRIG positive clamp)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D502 (BAT54WS TRIG negative clamp)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R501 (2.2M 1% - tMAX)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R502 (100k TRIG pull-up)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R503 (100k RESET pull-up)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R504 (100k MCU hold pull-down)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U501 (TLC555QDRQ1 - MONOSTABLE 24s NOM)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U502 (SN74LVC1G08-Q1 AND)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U401 (TPS26631PWPT CANDIDATE - NOT CONNECTED)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        }
+    ],
+    "source": "TripTracer_V1.kicad_pcb",
+    "unconnected_items": [
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] von C103 auf F.Cu",
+                    "pos": {
+                        "x": 57.55,
+                        "y": 42.0
+                    },
+                    "uuid": "a47ac29d-fb3c-4dc9-8c57-f921ac5aa341"
+                },
+                {
+                    "description": "Pad 9 [GND] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 63.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a7ab9d13-5db9-4989-b4e3-5f715e0eab6a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 53.905
+                    },
+                    "uuid": "ff1fadf0-2654-47b2-a397-b5895b5fad0e"
+                },
+                {
+                    "description": "Pad 1 [GND] von C101 auf F.Cu",
+                    "pos": {
+                        "x": 49.7,
+                        "y": 52.0
+                    },
+                    "uuid": "834ea76e-fc05-4242-a282-298b4d84b5d3"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 9 [GND] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 63.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a7ab9d13-5db9-4989-b4e3-5f715e0eab6a"
+                },
+                {
+                    "description": "Pad 1 [GND] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 53.905
+                    },
+                    "uuid": "ff1fadf0-2654-47b2-a397-b5895b5fad0e"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von C104 auf F.Cu",
+                    "pos": {
+                        "x": 80.7,
+                        "y": 49.0
+                    },
+                    "uuid": "e53073c1-ec3b-44d1-9ce2-f32266063f8b"
+                },
+                {
+                    "description": "Pad 9 [GND] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 63.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a7ab9d13-5db9-4989-b4e3-5f715e0eab6a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 87.7,
+                        "y": 54.0
+                    },
+                    "uuid": "a9650842-e0d1-485d-8da3-2e3f9d3fa219"
+                },
+                {
+                    "description": "Pad 1 [GND] von C104 auf F.Cu",
+                    "pos": {
+                        "x": 80.7,
+                        "y": 49.0
+                    },
+                    "uuid": "e53073c1-ec3b-44d1-9ce2-f32266063f8b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 87.7,
+                        "y": 54.0
+                    },
+                    "uuid": "a9650842-e0d1-485d-8da3-2e3f9d3fa219"
+                },
+                {
+                    "description": "Pad 1 [GND] von R102 auf F.Cu",
+                    "pos": {
+                        "x": 84.45,
+                        "y": 64.0
+                    },
+                    "uuid": "8622caf3-d5e8-4997-b8d2-bc13489cdaf1"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 45.1
+                    },
+                    "uuid": "a4ba9c27-7599-4f08-ace3-b84a54c4ee21"
+                },
+                {
+                    "description": "Pad 1 [GND] von R201 auf F.Cu",
+                    "pos": {
+                        "x": 116.45,
+                        "y": 35.0
+                    },
+                    "uuid": "42821391-afa6-4fcc-a9bb-dc17425d082c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 45.1
+                    },
+                    "uuid": "a4ba9c27-7599-4f08-ace3-b84a54c4ee21"
+                },
+                {
+                    "description": "Pad 62 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 63.05
+                    },
+                    "uuid": "814c7cad-460a-408b-a43d-6e2627d4891e"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [GND] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 45.1
+                    },
+                    "uuid": "a4ba9c27-7599-4f08-ace3-b84a54c4ee21"
+                },
+                {
+                    "description": "Pad 1 [GND] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 87.7,
+                        "y": 54.0
+                    },
+                    "uuid": "a9650842-e0d1-485d-8da3-2e3f9d3fa219"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 62 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 63.05
+                    },
+                    "uuid": "814c7cad-460a-408b-a43d-6e2627d4891e"
+                },
+                {
+                    "description": "Pad 60 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.05,
+                        "y": 63.05
+                    },
+                    "uuid": "2df53120-44d3-4129-bdb0-e8f76c7e2bb4"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 62 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 63.05
+                    },
+                    "uuid": "814c7cad-460a-408b-a43d-6e2627d4891e"
+                },
+                {
+                    "description": "Pad 1 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 64.05
+                    },
+                    "uuid": "140e90ae-a209-48de-b7dc-8b734abfe1f9"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 64.05
+                    },
+                    "uuid": "140e90ae-a209-48de-b7dc-8b734abfe1f9"
+                },
+                {
+                    "description": "Pad 2 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 64.9
+                    },
+                    "uuid": "7fa0a818-3a1e-4fcb-9fb9-182c73e24459"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 125.68,
+                        "y": 32.895
+                    },
+                    "uuid": "0da017ff-2c0a-4e35-97fe-3128d250bc4b"
+                },
+                {
+                    "description": "Pad B12 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "9a383ed1-4f2e-45d2-a64f-5167a3e81e1f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 125.68,
+                        "y": 37.075
+                    },
+                    "uuid": "c9d5255b-02c3-4737-ae24-32ecdb385022"
+                },
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 125.68,
+                        "y": 32.895
+                    },
+                    "uuid": "0da017ff-2c0a-4e35-97fe-3128d250bc4b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 125.68,
+                        "y": 37.075
+                    },
+                    "uuid": "c9d5255b-02c3-4737-ae24-32ecdb385022"
+                },
+                {
+                    "description": "Pad 1 [GND] von R201 auf F.Cu",
+                    "pos": {
+                        "x": 116.45,
+                        "y": 35.0
+                    },
+                    "uuid": "42821391-afa6-4fcc-a9bb-dc17425d082c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 60 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.05,
+                        "y": 63.05
+                    },
+                    "uuid": "2df53120-44d3-4129-bdb0-e8f76c7e2bb4"
+                },
+                {
+                    "description": "Pad 59 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.9,
+                        "y": 63.05
+                    },
+                    "uuid": "9697d30b-3439-4b42-9563-3c16375e87d7"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 59 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.9,
+                        "y": 63.05
+                    },
+                    "uuid": "9697d30b-3439-4b42-9563-3c16375e87d7"
+                },
+                {
+                    "description": "Pad 58 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 127.75,
+                        "y": 63.05
+                    },
+                    "uuid": "35f29a44-6e1a-456a-b148-c92e239c542f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 57 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 128.6,
+                        "y": 63.05
+                    },
+                    "uuid": "f5c131f5-9116-480d-b663-500bba43d1c6"
+                },
+                {
+                    "description": "Pad 56 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 129.45,
+                        "y": 63.05
+                    },
+                    "uuid": "755d1f0f-b02c-4c7e-9d3d-5b7e93b1c17b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 57 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 128.6,
+                        "y": 63.05
+                    },
+                    "uuid": "f5c131f5-9116-480d-b663-500bba43d1c6"
+                },
+                {
+                    "description": "Pad 58 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 127.75,
+                        "y": 63.05
+                    },
+                    "uuid": "35f29a44-6e1a-456a-b148-c92e239c542f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 56 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 129.45,
+                        "y": 63.05
+                    },
+                    "uuid": "755d1f0f-b02c-4c7e-9d3d-5b7e93b1c17b"
+                },
+                {
+                    "description": "Pad 55 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 63.05
+                    },
+                    "uuid": "01c976a5-f91d-49b9-8226-3d07bd9c61b0"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 68.3
+                    },
+                    "uuid": "eb1e46b4-34b1-4527-8de3-1fc123279ac6"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 70.0
+                    },
+                    "uuid": "797d2795-09fe-466b-a722-2745bf47a9ec"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 70.0
+                    },
+                    "uuid": "797d2795-09fe-466b-a722-2745bf47a9ec"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "97812ba7-a5df-4baa-b168-81597f8e4ccc"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 70.0
+                    },
+                    "uuid": "797d2795-09fe-466b-a722-2745bf47a9ec"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 71.7
+                    },
+                    "uuid": "b37b4023-a1ef-4140-aa2d-e004254b35cd"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 71.7
+                    },
+                    "uuid": "b37b4023-a1ef-4140-aa2d-e004254b35cd"
+                },
+                {
+                    "description": "Pad 63 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 76.95
+                    },
+                    "uuid": "aafc1987-cf5a-479a-8920-55467b1699c3"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 54 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 131.15,
+                        "y": 63.05
+                    },
+                    "uuid": "c56132b4-174a-4c58-b553-bbc380745638"
+                },
+                {
+                    "description": "Pad 55 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 63.05
+                    },
+                    "uuid": "01c976a5-f91d-49b9-8226-3d07bd9c61b0"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 53 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 63.05
+                    },
+                    "uuid": "c90f7cba-c583-4073-a63b-b66ee22a53ce"
+                },
+                {
+                    "description": "Pad 52 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.85,
+                        "y": 63.05
+                    },
+                    "uuid": "22f3ae6a-3942-4a78-90d2-8f549ce67365"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 53 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 63.05
+                    },
+                    "uuid": "c90f7cba-c583-4073-a63b-b66ee22a53ce"
+                },
+                {
+                    "description": "Pad 54 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 131.15,
+                        "y": 63.05
+                    },
+                    "uuid": "c56132b4-174a-4c58-b553-bbc380745638"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 68.3
+                    },
+                    "uuid": "45c51777-57c3-4652-af6c-573b8a13ea2b"
+                },
+                {
+                    "description": "Pad 53 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 63.05
+                    },
+                    "uuid": "c90f7cba-c583-4073-a63b-b66ee22a53ce"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "97812ba7-a5df-4baa-b168-81597f8e4ccc"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 68.3
+                    },
+                    "uuid": "45c51777-57c3-4652-af6c-573b8a13ea2b"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "97812ba7-a5df-4baa-b168-81597f8e4ccc"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 70.0
+                    },
+                    "uuid": "c221ddb2-8926-4a15-bba0-d5c8d00f5a15"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 71.7
+                    },
+                    "uuid": "f4ea8b6e-475d-4e4b-9da0-2a0192c8c79a"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 71.7
+                    },
+                    "uuid": "b37b4023-a1ef-4140-aa2d-e004254b35cd"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B1 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "20aea615-5afa-4e96-bfa6-8a88333f11fc"
+                },
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 134.32,
+                        "y": 32.895
+                    },
+                    "uuid": "99182c49-b8ca-4d41-9663-892896996876"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B1 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "20aea615-5afa-4e96-bfa6-8a88333f11fc"
+                },
+                {
+                    "description": "Pad B12 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "9a383ed1-4f2e-45d2-a64f-5167a3e81e1f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 51 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 63.05
+                    },
+                    "uuid": "1a1b48df-1dab-47b6-b96c-302e63bd32c1"
+                },
+                {
+                    "description": "Pad 50 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 134.55,
+                        "y": 63.05
+                    },
+                    "uuid": "6a55ca59-fd0d-4e57-b887-f8879adfc258"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 51 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 63.05
+                    },
+                    "uuid": "1a1b48df-1dab-47b6-b96c-302e63bd32c1"
+                },
+                {
+                    "description": "Pad 52 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.85,
+                        "y": 63.05
+                    },
+                    "uuid": "22f3ae6a-3942-4a78-90d2-8f549ce67365"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 70.0
+                    },
+                    "uuid": "c221ddb2-8926-4a15-bba0-d5c8d00f5a15"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 68.3
+                    },
+                    "uuid": "2d627a1d-b52e-4e0e-86f4-56311e0b2d1d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 71.7
+                    },
+                    "uuid": "97934bca-8feb-4ddb-92ae-3c8c48104982"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 71.7
+                    },
+                    "uuid": "f4ea8b6e-475d-4e4b-9da0-2a0192c8c79a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 134.32,
+                        "y": 32.895
+                    },
+                    "uuid": "99182c49-b8ca-4d41-9663-892896996876"
+                },
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 134.32,
+                        "y": 37.075
+                    },
+                    "uuid": "0b8685da-c3a3-48aa-836c-bf2fbfd81354"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [GND] von J201",
+                    "pos": {
+                        "x": 134.32,
+                        "y": 37.075
+                    },
+                    "uuid": "0b8685da-c3a3-48aa-836c-bf2fbfd81354"
+                },
+                {
+                    "description": "Pad 2 [GND] von R202 auf F.Cu",
+                    "pos": {
+                        "x": 146.55,
+                        "y": 35.0
+                    },
+                    "uuid": "3b2c843a-1b23-4188-b42c-52681cd1c6f3"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 50 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 134.55,
+                        "y": 63.05
+                    },
+                    "uuid": "6a55ca59-fd0d-4e57-b887-f8879adfc258"
+                },
+                {
+                    "description": "Pad 49 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 135.4,
+                        "y": 63.05
+                    },
+                    "uuid": "84c2185f-e554-490d-a61b-7faebd787440"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 49 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 135.4,
+                        "y": 63.05
+                    },
+                    "uuid": "84c2185f-e554-490d-a61b-7faebd787440"
+                },
+                {
+                    "description": "Pad 48 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 136.25,
+                        "y": 63.05
+                    },
+                    "uuid": "dfd268d7-12bd-41b5-8b4f-3a2ce21314d2"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 48 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 136.25,
+                        "y": 63.05
+                    },
+                    "uuid": "dfd268d7-12bd-41b5-8b4f-3a2ce21314d2"
+                },
+                {
+                    "description": "Pad 47 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.1,
+                        "y": 63.05
+                    },
+                    "uuid": "33aba049-e8b8-43cf-9bbf-708072274e78"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 46 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.95,
+                        "y": 63.05
+                    },
+                    "uuid": "5686bc3a-65ef-4198-869b-0c16b1c3a37f"
+                },
+                {
+                    "description": "Pad 47 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.1,
+                        "y": 63.05
+                    },
+                    "uuid": "33aba049-e8b8-43cf-9bbf-708072274e78"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 65 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 63.05
+                    },
+                    "uuid": "05db1767-22d4-4ec3-b76b-e32255aeb713"
+                },
+                {
+                    "description": "Pad 46 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.95,
+                        "y": 63.05
+                    },
+                    "uuid": "5686bc3a-65ef-4198-869b-0c16b1c3a37f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 43 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 65.75
+                    },
+                    "uuid": "2b4b969a-a8a0-463c-b631-9c3037cedcd4"
+                },
+                {
+                    "description": "Pad 65 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 63.05
+                    },
+                    "uuid": "05db1767-22d4-4ec3-b76b-e32255aeb713"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 42 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 66.6
+                    },
+                    "uuid": "3a40052a-014e-4c82-9079-d2985a3cefd2"
+                },
+                {
+                    "description": "Pad 43 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 65.75
+                    },
+                    "uuid": "2b4b969a-a8a0-463c-b631-9c3037cedcd4"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 64 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 76.95
+                    },
+                    "uuid": "e566b309-00e6-4a30-aa7d-a3053a960e90"
+                },
+                {
+                    "description": "Pad 61 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 71.7
+                    },
+                    "uuid": "97934bca-8feb-4ddb-92ae-3c8c48104982"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von C201 auf F.Cu",
+                    "pos": {
+                        "x": 147.7,
+                        "y": 64.0
+                    },
+                    "uuid": "3cfd258b-155e-4843-b732-a366d96a276c"
+                },
+                {
+                    "description": "Pad 1 [GND] von C202 auf F.Cu",
+                    "pos": {
+                        "x": 148.7,
+                        "y": 72.0
+                    },
+                    "uuid": "396b591d-d48a-4550-8c00-97e2a0201b39"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von C201 auf F.Cu",
+                    "pos": {
+                        "x": 147.7,
+                        "y": 64.0
+                    },
+                    "uuid": "3cfd258b-155e-4843-b732-a366d96a276c"
+                },
+                {
+                    "description": "Pad 65 [GND] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 63.05
+                    },
+                    "uuid": "05db1767-22d4-4ec3-b76b-e32255aeb713"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [GND] von C203 auf F.Cu",
+                    "pos": {
+                        "x": 150.7,
+                        "y": 81.0
+                    },
+                    "uuid": "7dcdef5a-51ef-4cd7-ad87-ea82f3a248ae"
+                },
+                {
+                    "description": "Pad 1 [GND] von C202 auf F.Cu",
+                    "pos": {
+                        "x": 148.7,
+                        "y": 72.0
+                    },
+                    "uuid": "396b591d-d48a-4550-8c00-97e2a0201b39"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [HV_PROTECTED_AFTER_EFUSE] von C101 auf F.Cu",
+                    "pos": {
+                        "x": 52.3,
+                        "y": 52.0
+                    },
+                    "uuid": "2006aba0-b715-4bf0-9580-80bb24873501"
+                },
+                {
+                    "description": "Pad 2 [HV_PROTECTED_AFTER_EFUSE] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 52.635
+                    },
+                    "uuid": "cc6103a7-6cee-4d64-a8f3-00e4b2b3aa04"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 5 [Net-(U101-FB)] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 50.095
+                    },
+                    "uuid": "e1c95f4b-951b-4d01-966b-fe1e43a81a44"
+                },
+                {
+                    "description": "Pad 1 [Net-(U101-FB)] von R101 auf F.Cu",
+                    "pos": {
+                        "x": 79.45,
+                        "y": 60.0
+                    },
+                    "uuid": "a580ef0a-bea4-4aff-bc55-163c50043dee"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [Net-(U101-FB)] von R101 auf F.Cu",
+                    "pos": {
+                        "x": 79.45,
+                        "y": 60.0
+                    },
+                    "uuid": "a580ef0a-bea4-4aff-bc55-163c50043dee"
+                },
+                {
+                    "description": "Pad 2 [Net-(U101-FB)] von R102 auf F.Cu",
+                    "pos": {
+                        "x": 87.55,
+                        "y": 64.0
+                    },
+                    "uuid": "db72e929-2323-455c-9623-8c201488c720"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [Net-(U101-VCC)] von C103 auf F.Cu",
+                    "pos": {
+                        "x": 54.45,
+                        "y": 42.0
+                    },
+                    "uuid": "72d0bee1-4b16-4a68-ba2f-449a01612950"
+                },
+                {
+                    "description": "Pad 6 [Net-(U101-VCC)] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 51.365
+                    },
+                    "uuid": "d74c78e0-d026-41d3-a64e-e1dfebb595a1"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [Net-(U101-BOOT)] von C102 auf F.Cu",
+                    "pos": {
+                        "x": 61.45,
+                        "y": 41.0
+                    },
+                    "uuid": "0f379c60-4d58-4782-9487-2f2181b4b26c"
+                },
+                {
+                    "description": "Pad 7 [Net-(U101-BOOT)] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 52.635
+                    },
+                    "uuid": "4bf22cd2-f319-4240-be53-de719c29f0cb"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [Net-(U101-SW)] von C102 auf F.Cu",
+                    "pos": {
+                        "x": 64.55,
+                        "y": 41.0
+                    },
+                    "uuid": "a7f3d1e2-3745-46e4-9205-eb22e6b09a76"
+                },
+                {
+                    "description": "Pad 8 [Net-(U101-SW)] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 53.905
+                    },
+                    "uuid": "83b868ae-3e04-47e1-be67-7a34b482e78e"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 8 [Net-(U101-SW)] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 53.905
+                    },
+                    "uuid": "83b868ae-3e04-47e1-be67-7a34b482e78e"
+                },
+                {
+                    "description": "Pad 1 [Net-(U101-SW)] von L101 auf F.Cu",
+                    "pos": {
+                        "x": 71.85,
+                        "y": 52.0
+                    },
+                    "uuid": "2f3cf0c2-c984-4338-a62f-c9678824869f"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [V5_BUCK_RAW] von R101 auf F.Cu",
+                    "pos": {
+                        "x": 82.55,
+                        "y": 60.0
+                    },
+                    "uuid": "6db1f12e-af13-4066-8a11-25bb5da2511c"
+                },
+                {
+                    "description": "Pad 2 [V5_BUCK_RAW] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 90.3,
+                        "y": 54.0
+                    },
+                    "uuid": "aaf11332-d980-4975-8d57-dde49b3d7698"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [V5_BUCK_RAW] von C104 auf F.Cu",
+                    "pos": {
+                        "x": 83.3,
+                        "y": 49.0
+                    },
+                    "uuid": "6d65c037-a286-4274-b27f-039eff39d103"
+                },
+                {
+                    "description": "Pad 2 [V5_BUCK_RAW] von L101 auf F.Cu",
+                    "pos": {
+                        "x": 76.15,
+                        "y": 52.0
+                    },
+                    "uuid": "3302b0d0-b2e6-41aa-956f-b2748d76cc5d"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [V5_BUCK_RAW] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 90.3,
+                        "y": 54.0
+                    },
+                    "uuid": "aaf11332-d980-4975-8d57-dde49b3d7698"
+                },
+                {
+                    "description": "Pad 2 [V5_BUCK_RAW] von C104 auf F.Cu",
+                    "pos": {
+                        "x": 83.3,
+                        "y": 49.0
+                    },
+                    "uuid": "6d65c037-a286-4274-b27f-039eff39d103"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 3 [V3V3_SYS] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 65.75
+                    },
+                    "uuid": "193102aa-8076-4a37-925e-8cbf2f01b690"
+                },
+                {
+                    "description": "Pad 2 [V3V3_SYS] von R205 auf F.Cu",
+                    "pos": {
+                        "x": 115.55,
+                        "y": 90.0
+                    },
+                    "uuid": "9b8282b3-6c4e-4b8d-8c11-b68898b1f2c7"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [V3V3_SYS] von C201 auf F.Cu",
+                    "pos": {
+                        "x": 150.3,
+                        "y": 64.0
+                    },
+                    "uuid": "b85ef8dc-a1eb-4d6e-91fe-0fc71b96e979"
+                },
+                {
+                    "description": "Pad 3 [V3V3_SYS] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 65.75
+                    },
+                    "uuid": "193102aa-8076-4a37-925e-8cbf2f01b690"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [V3V3_SYS] von C202 auf F.Cu",
+                    "pos": {
+                        "x": 151.3,
+                        "y": 72.0
+                    },
+                    "uuid": "62d23df0-f521-424a-9efb-17eea539af04"
+                },
+                {
+                    "description": "Pad 2 [V3V3_SYS] von C201 auf F.Cu",
+                    "pos": {
+                        "x": 150.3,
+                        "y": 64.0
+                    },
+                    "uuid": "b85ef8dc-a1eb-4d6e-91fe-0fc71b96e979"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [V3V3_SYS] von R206 auf F.Cu",
+                    "pos": {
+                        "x": 153.55,
+                        "y": 90.0
+                    },
+                    "uuid": "b2fca016-b180-49c4-8732-34505dbdbc61"
+                },
+                {
+                    "description": "Pad 2 [V3V3_SYS] von C202 auf F.Cu",
+                    "pos": {
+                        "x": 151.3,
+                        "y": 72.0
+                    },
+                    "uuid": "62d23df0-f521-424a-9efb-17eea539af04"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [BOOT0_RECOVERY] von R205 auf F.Cu",
+                    "pos": {
+                        "x": 112.45,
+                        "y": 90.0
+                    },
+                    "uuid": "b4be467c-723d-480b-aad0-7092cb7dd67b"
+                },
+                {
+                    "description": "Pad 4 [BOOT0_RECOVERY] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 66.6
+                    },
+                    "uuid": "84b75d6e-9a80-4c14-9ddc-161f1381a27a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [USB_DM_MCU] von R204 auf F.Cu",
+                    "pos": {
+                        "x": 126.55,
+                        "y": 52.0
+                    },
+                    "uuid": "4fd95727-baef-440a-848a-b47ae299edf0"
+                },
+                {
+                    "description": "Pad 23 [USB_DM_MCU] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 76.95
+                    },
+                    "uuid": "f4f50fb1-1065-459c-9238-165f4e597480"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [USB_DP_MCU] von R203 auf F.Cu",
+                    "pos": {
+                        "x": 115.55,
+                        "y": 52.0
+                    },
+                    "uuid": "49bdec5e-2f9f-4ef1-b54c-fd94816a2c8a"
+                },
+                {
+                    "description": "Pad 24 [USB_DP_MCU] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.85,
+                        "y": 76.95
+                    },
+                    "uuid": "52af1569-198f-4b14-9206-d87ea44ff1b2"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [EN_RESET] von R206 auf F.Cu",
+                    "pos": {
+                        "x": 150.45,
+                        "y": 90.0
+                    },
+                    "uuid": "56e7ef40-e53d-4e64-9537-0607584afc91"
+                },
+                {
+                    "description": "Pad 2 [EN_RESET] von C203 auf F.Cu",
+                    "pos": {
+                        "x": 153.3,
+                        "y": 81.0
+                    },
+                    "uuid": "6a5453f0-d857-4d0e-967c-07fafb0c56bf"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [EN_RESET] von C203 auf F.Cu",
+                    "pos": {
+                        "x": 153.3,
+                        "y": 81.0
+                    },
+                    "uuid": "6a5453f0-d857-4d0e-967c-07fafb0c56bf"
+                },
+                {
+                    "description": "Pad 45 [EN_RESET] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 64.05
+                    },
+                    "uuid": "3693b8e7-c3b2-46e9-b3a3-96d48481a8c9"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B9 [USB_VBUS_RAW] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "9f81f5b1-3b7a-4e9d-b3e7-92f9cd09b14c"
+                },
+                {
+                    "description": "Pad 5 [USB_VBUS_RAW] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 42.9
+                    },
+                    "uuid": "2f459584-43aa-4098-a3f8-d330a2832f67"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B4 [USB_VBUS_RAW] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "b68811e5-8970-42ef-872e-8cb57bebcf67"
+                },
+                {
+                    "description": "Pad B9 [USB_VBUS_RAW] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "9f81f5b1-3b7a-4e9d-b3e7-92f9cd09b14c"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 2 [Net-(J201-CC1)] von R201 auf F.Cu",
+                    "pos": {
+                        "x": 119.55,
+                        "y": 35.0
+                    },
+                    "uuid": "518314de-f82b-4f70-b0f9-fc4f6546ca31"
+                },
+                {
+                    "description": "Pad A5 [Net-(J201-CC1)] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 128.75,
+                        "y": 32.32
+                    },
+                    "uuid": "429ba713-1545-4a74-9353-375c46931fe1"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad A6 [USB_DP_PORT] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 129.75,
+                        "y": 32.32
+                    },
+                    "uuid": "2ad5033b-a012-4125-9f5b-5646c1b104e0"
+                },
+                {
+                    "description": "Pad 1 [USB_DP_PORT] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 113.05,
+                        "y": 45.1
+                    },
+                    "uuid": "8d66e919-3944-428d-b441-859d21c85910"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B6 [USB_DP_PORT] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 130.75,
+                        "y": 32.32
+                    },
+                    "uuid": "d403c9d9-3e0d-4302-8e07-5534b7f515db"
+                },
+                {
+                    "description": "Pad A6 [USB_DP_PORT] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 129.75,
+                        "y": 32.32
+                    },
+                    "uuid": "2ad5033b-a012-4125-9f5b-5646c1b104e0"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B7 [USB_DM_PORT] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 129.25,
+                        "y": 32.32
+                    },
+                    "uuid": "6af9f5b2-281d-47b3-b508-4fc1d7a1d074"
+                },
+                {
+                    "description": "Pad 3 [USB_DM_PORT] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.95,
+                        "y": 45.1
+                    },
+                    "uuid": "0c36014c-bfed-4055-ab47-06f5cc60eb23"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad A7 [USB_DM_PORT] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 130.25,
+                        "y": 32.32
+                    },
+                    "uuid": "6b6c1740-4fcb-4865-9d8c-a11045597e25"
+                },
+                {
+                    "description": "Pad B7 [USB_DM_PORT] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 129.25,
+                        "y": 32.32
+                    },
+                    "uuid": "6af9f5b2-281d-47b3-b508-4fc1d7a1d074"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad B5 [Net-(J201-CC2)] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 131.75,
+                        "y": 32.32
+                    },
+                    "uuid": "04282ff8-311c-4c21-8ea6-100013bd28e5"
+                },
+                {
+                    "description": "Pad 1 [Net-(J201-CC2)] von R202 auf F.Cu",
+                    "pos": {
+                        "x": 143.45,
+                        "y": 35.0
+                    },
+                    "uuid": "3dd9e219-a625-4c66-a7ad-99289a1f19e2"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 4 [USB_DM_PORT_ESD] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.95,
+                        "y": 42.9
+                    },
+                    "uuid": "a2a91095-3e9a-43ac-ae2d-abb46b6f819e"
+                },
+                {
+                    "description": "Pad 1 [USB_DM_PORT_ESD] von R204 auf F.Cu",
+                    "pos": {
+                        "x": 123.45,
+                        "y": 52.0
+                    },
+                    "uuid": "ddb7af58-dc59-4d34-9f8e-3f35fea2d86a"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        },
+        {
+            "description": "Missing connection between items",
+            "items": [
+                {
+                    "description": "Pad 1 [Net-(D201-IO1_OUT)] von R203 auf F.Cu",
+                    "pos": {
+                        "x": 112.45,
+                        "y": 52.0
+                    },
+                    "uuid": "a3708f5a-1643-42cb-ad35-31168b496855"
+                },
+                {
+                    "description": "Pad 6 [Net-(D201-IO1_OUT)] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 113.05,
+                        "y": 42.9
+                    },
+                    "uuid": "b8a216c7-2481-4ae9-9440-13224ba2cc53"
+                }
+            ],
+            "severity": "error",
+            "type": "unconnected_items"
+        }
+    ],
+    "violations": [
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad A1 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "0ee68e0a-4178-4bee-afd4-faf6a0a75432"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 127.11,
+                        "y": 33.395
+                    },
+                    "uuid": "d3d5f5d0-40c0-4c24-950d-8bb5c3f43f46"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad B12 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "9a383ed1-4f2e-45d2-a64f-5167a3e81e1f"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 127.11,
+                        "y": 33.395
+                    },
+                    "uuid": "d3d5f5d0-40c0-4c24-950d-8bb5c3f43f46"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad A12 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "b9e05791-2f3a-4215-901f-20a02be253e9"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 132.89,
+                        "y": 33.395
+                    },
+                    "uuid": "4ed74542-aac0-4421-b8cc-b824bad4ac14"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad B1 [GND] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "20aea615-5afa-4e96-bfa6-8a88333f11fc"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 132.89,
+                        "y": 33.395
+                    },
+                    "uuid": "4ed74542-aac0-4421-b8cc-b824bad4ac14"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Platine hat fehlerhaften Umriss (keine Kanten auf Edge.Cuts-Lage gefunden)",
+            "items": [
+                {
+                    "description": "PCB",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "8ea543fb-702e-498d-8125-38bb3c83490a"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Footprint \"U1_ESP32-S3-MINI-1-N8\" stimmt nicht mit Kopie in Bibliothek \"Tripmaster\" überein.",
+            "items": [
+                {
+                    "description": "Footprint U201",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007925"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        }
+    ]
+}

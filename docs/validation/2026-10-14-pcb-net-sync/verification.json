@@ -1,0 +1,827 @@
+{
+  "status": "Existing footprints synchronized to native schematic netlist only; no PCB release",
+  "physical_footprint_geometry_unchanged": true,
+  "existing_footprints": 21,
+  "assigned_pads": 142,
+  "unique_schematic_pad_keys": 131,
+  "net_names_added": 107,
+  "unmatched_pads": [],
+  "value_changes": [
+    {
+      "ref": "U101",
+      "before": "U3_TI_LMR36510ADDAR_DDA",
+      "after": "LMR36520ADDAR 5V/2A CANDIDATE"
+    },
+    {
+      "ref": "C101",
+      "before": "C_1210_3225",
+      "after": "4.7uF 100V X7R VIN"
+    },
+    {
+      "ref": "C102",
+      "before": "C_1206_3216",
+      "after": "100nF BOOT-SW"
+    },
+    {
+      "ref": "C103",
+      "before": "C_1206_3216",
+      "after": "1uF VCC"
+    },
+    {
+      "ref": "C104",
+      "before": "C_1210_3225",
+      "after": "22uF 25V X7R VOUT"
+    },
+    {
+      "ref": "C105",
+      "before": "C_1210_3225",
+      "after": "22uF 25V X7R VOUT"
+    },
+    {
+      "ref": "R101",
+      "before": "R_1206_3216",
+      "after": "100k 1% FB TOP TI"
+    },
+    {
+      "ref": "R102",
+      "before": "R_1206_3216",
+      "after": "24.9k 1% FB BOTTOM TI"
+    },
+    {
+      "ref": "U201",
+      "before": "U1_ESP32-S3-MINI-1-N8",
+      "after": "ESP32-S3-MINI-1-N8"
+    },
+    {
+      "ref": "J201",
+      "before": "J1_GCT_USB4105_GF_A_USB_C",
+      "after": "GCT USB4105-GF-A"
+    },
+    {
+      "ref": "D201",
+      "before": "D2_ST_USBLC6_2SC6",
+      "after": "USBLC6-2SC6"
+    },
+    {
+      "ref": "R201",
+      "before": "R_1206_3216",
+      "after": "5.1k CC1"
+    },
+    {
+      "ref": "R202",
+      "before": "R_1206_3216",
+      "after": "5.1k CC2"
+    },
+    {
+      "ref": "R203",
+      "before": "R_1206_3216",
+      "after": "22R D+"
+    },
+    {
+      "ref": "R204",
+      "before": "R_1206_3216",
+      "after": "22R D-"
+    },
+    {
+      "ref": "R205",
+      "before": "R_1206_3216",
+      "after": "10k BOOT PU"
+    },
+    {
+      "ref": "R206",
+      "before": "R_1206_3216",
+      "after": "10k EN PU"
+    },
+    {
+      "ref": "C201",
+      "before": "C_1210_3225",
+      "after": "100nF MCU local"
+    },
+    {
+      "ref": "C202",
+      "before": "C_1210_3225",
+      "after": "22uF MCU bulk"
+    },
+    {
+      "ref": "C203",
+      "before": "C_1210_3225",
+      "after": "1uF EN RC"
+    }
+  ],
+  "pad_net_assignments": [
+    {
+      "ref": "U101",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "U101",
+      "pad": "2",
+      "net": "HV_PROTECTED_AFTER_EFUSE"
+    },
+    {
+      "ref": "U101",
+      "pad": "3",
+      "net": "BUCK_ENABLE"
+    },
+    {
+      "ref": "U101",
+      "pad": "4",
+      "net": "/5-V-Synchronbuck (elektrischer Entwurf)/BUCK_PGOOD"
+    },
+    {
+      "ref": "U101",
+      "pad": "5",
+      "net": "Net-(U101-FB)"
+    },
+    {
+      "ref": "U101",
+      "pad": "6",
+      "net": "Net-(U101-VCC)"
+    },
+    {
+      "ref": "U101",
+      "pad": "7",
+      "net": "Net-(U101-BOOT)"
+    },
+    {
+      "ref": "U101",
+      "pad": "8",
+      "net": "Net-(U101-SW)"
+    },
+    {
+      "ref": "U101",
+      "pad": "9",
+      "net": "GND"
+    },
+    {
+      "ref": "L101",
+      "pad": "1",
+      "net": "Net-(U101-SW)"
+    },
+    {
+      "ref": "L101",
+      "pad": "2",
+      "net": "V5_BUCK_RAW"
+    },
+    {
+      "ref": "C101",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "C101",
+      "pad": "2",
+      "net": "HV_PROTECTED_AFTER_EFUSE"
+    },
+    {
+      "ref": "C102",
+      "pad": "1",
+      "net": "Net-(U101-BOOT)"
+    },
+    {
+      "ref": "C102",
+      "pad": "2",
+      "net": "Net-(U101-SW)"
+    },
+    {
+      "ref": "C103",
+      "pad": "1",
+      "net": "Net-(U101-VCC)"
+    },
+    {
+      "ref": "C103",
+      "pad": "2",
+      "net": "GND"
+    },
+    {
+      "ref": "C104",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "C104",
+      "pad": "2",
+      "net": "V5_BUCK_RAW"
+    },
+    {
+      "ref": "C105",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "C105",
+      "pad": "2",
+      "net": "V5_BUCK_RAW"
+    },
+    {
+      "ref": "R101",
+      "pad": "1",
+      "net": "Net-(U101-FB)"
+    },
+    {
+      "ref": "R101",
+      "pad": "2",
+      "net": "V5_BUCK_RAW"
+    },
+    {
+      "ref": "R102",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "R102",
+      "pad": "2",
+      "net": "Net-(U101-FB)"
+    },
+    {
+      "ref": "U201",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "2",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "3",
+      "net": "V3V3_SYS"
+    },
+    {
+      "ref": "U201",
+      "pad": "4",
+      "net": "BOOT0_RECOVERY"
+    },
+    {
+      "ref": "U201",
+      "pad": "5",
+      "net": "unconnected-(U201-IO1-Pad5)"
+    },
+    {
+      "ref": "U201",
+      "pad": "6",
+      "net": "unconnected-(U201-IO2-Pad6)"
+    },
+    {
+      "ref": "U201",
+      "pad": "7",
+      "net": "unconnected-(U201-IO3-Pad7)"
+    },
+    {
+      "ref": "U201",
+      "pad": "8",
+      "net": "unconnected-(U201-IO4-Pad8)"
+    },
+    {
+      "ref": "U201",
+      "pad": "9",
+      "net": "unconnected-(U201-IO5-Pad9)"
+    },
+    {
+      "ref": "U201",
+      "pad": "10",
+      "net": "unconnected-(U201-IO6-Pad10)"
+    },
+    {
+      "ref": "U201",
+      "pad": "11",
+      "net": "unconnected-(U201-IO7-Pad11)"
+    },
+    {
+      "ref": "U201",
+      "pad": "12",
+      "net": "unconnected-(U201-IO8-Pad12)"
+    },
+    {
+      "ref": "U201",
+      "pad": "13",
+      "net": "unconnected-(U201-IO9-Pad13)"
+    },
+    {
+      "ref": "U201",
+      "pad": "14",
+      "net": "unconnected-(U201-IO10-Pad14)"
+    },
+    {
+      "ref": "U201",
+      "pad": "15",
+      "net": "unconnected-(U201-IO11-Pad15)"
+    },
+    {
+      "ref": "U201",
+      "pad": "16",
+      "net": "unconnected-(U201-IO12-Pad16)"
+    },
+    {
+      "ref": "U201",
+      "pad": "17",
+      "net": "unconnected-(U201-IO13-Pad17)"
+    },
+    {
+      "ref": "U201",
+      "pad": "18",
+      "net": "unconnected-(U201-IO14-Pad18)"
+    },
+    {
+      "ref": "U201",
+      "pad": "19",
+      "net": "unconnected-(U201-IO15-Pad19)"
+    },
+    {
+      "ref": "U201",
+      "pad": "20",
+      "net": "unconnected-(U201-IO16-Pad20)"
+    },
+    {
+      "ref": "U201",
+      "pad": "21",
+      "net": "unconnected-(U201-IO17-Pad21)"
+    },
+    {
+      "ref": "U201",
+      "pad": "22",
+      "net": "unconnected-(U201-IO18-Pad22)"
+    },
+    {
+      "ref": "U201",
+      "pad": "23",
+      "net": "USB_DM_MCU"
+    },
+    {
+      "ref": "U201",
+      "pad": "24",
+      "net": "USB_DP_MCU"
+    },
+    {
+      "ref": "U201",
+      "pad": "25",
+      "net": "unconnected-(U201-IO21-Pad25)"
+    },
+    {
+      "ref": "U201",
+      "pad": "26",
+      "net": "unconnected-(U201-IO26-Pad26)"
+    },
+    {
+      "ref": "U201",
+      "pad": "27",
+      "net": "unconnected-(U201-IO47-Pad27)"
+    },
+    {
+      "ref": "U201",
+      "pad": "28",
+      "net": "unconnected-(U201-IO33-Pad28)"
+    },
+    {
+      "ref": "U201",
+      "pad": "29",
+      "net": "unconnected-(U201-IO34-Pad29)"
+    },
+    {
+      "ref": "U201",
+      "pad": "30",
+      "net": "unconnected-(U201-IO48-Pad30)"
+    },
+    {
+      "ref": "U201",
+      "pad": "31",
+      "net": "unconnected-(U201-IO35-Pad31)"
+    },
+    {
+      "ref": "U201",
+      "pad": "32",
+      "net": "unconnected-(U201-IO36-Pad32)"
+    },
+    {
+      "ref": "U201",
+      "pad": "33",
+      "net": "unconnected-(U201-IO37-Pad33)"
+    },
+    {
+      "ref": "U201",
+      "pad": "34",
+      "net": "unconnected-(U201-IO38-Pad34)"
+    },
+    {
+      "ref": "U201",
+      "pad": "35",
+      "net": "unconnected-(U201-IO39-Pad35)"
+    },
+    {
+      "ref": "U201",
+      "pad": "36",
+      "net": "unconnected-(U201-IO40-Pad36)"
+    },
+    {
+      "ref": "U201",
+      "pad": "37",
+      "net": "unconnected-(U201-IO41-Pad37)"
+    },
+    {
+      "ref": "U201",
+      "pad": "38",
+      "net": "unconnected-(U201-IO42-Pad38)"
+    },
+    {
+      "ref": "U201",
+      "pad": "39",
+      "net": "unconnected-(U201-TXD0_IO43-Pad39)"
+    },
+    {
+      "ref": "U201",
+      "pad": "40",
+      "net": "unconnected-(U201-RXD0_IO44-Pad40)"
+    },
+    {
+      "ref": "U201",
+      "pad": "41",
+      "net": "unconnected-(U201-IO45-Pad41)"
+    },
+    {
+      "ref": "U201",
+      "pad": "42",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "43",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "44",
+      "net": "unconnected-(U201-IO46-Pad44)"
+    },
+    {
+      "ref": "U201",
+      "pad": "45",
+      "net": "EN_RESET"
+    },
+    {
+      "ref": "U201",
+      "pad": "46",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "47",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "48",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "49",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "50",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "51",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "52",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "53",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "54",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "55",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "56",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "57",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "58",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "59",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "60",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "61",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "62",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "63",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "64",
+      "net": "GND"
+    },
+    {
+      "ref": "U201",
+      "pad": "65",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "A1",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "A4",
+      "net": "USB_VBUS_RAW"
+    },
+    {
+      "ref": "J201",
+      "pad": "A5",
+      "net": "Net-(J201-CC1)"
+    },
+    {
+      "ref": "J201",
+      "pad": "A6",
+      "net": "USB_DP_PORT"
+    },
+    {
+      "ref": "J201",
+      "pad": "A7",
+      "net": "USB_DM_PORT"
+    },
+    {
+      "ref": "J201",
+      "pad": "A8",
+      "net": "unconnected-(J201-SBU1-PadA8)"
+    },
+    {
+      "ref": "J201",
+      "pad": "A9",
+      "net": "USB_VBUS_RAW"
+    },
+    {
+      "ref": "J201",
+      "pad": "A12",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "B1",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "B4",
+      "net": "USB_VBUS_RAW"
+    },
+    {
+      "ref": "J201",
+      "pad": "B5",
+      "net": "Net-(J201-CC2)"
+    },
+    {
+      "ref": "J201",
+      "pad": "B6",
+      "net": "USB_DP_PORT"
+    },
+    {
+      "ref": "J201",
+      "pad": "B7",
+      "net": "USB_DM_PORT"
+    },
+    {
+      "ref": "J201",
+      "pad": "B8",
+      "net": "unconnected-(J201-SBU2-PadB8)"
+    },
+    {
+      "ref": "J201",
+      "pad": "B9",
+      "net": "USB_VBUS_RAW"
+    },
+    {
+      "ref": "J201",
+      "pad": "B12",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "SH",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "SH",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "SH",
+      "net": "GND"
+    },
+    {
+      "ref": "J201",
+      "pad": "SH",
+      "net": "GND"
+    },
+    {
+      "ref": "D201",
+      "pad": "1",
+      "net": "USB_DP_PORT"
+    },
+    {
+      "ref": "D201",
+      "pad": "2",
+      "net": "GND"
+    },
+    {
+      "ref": "D201",
+      "pad": "3",
+      "net": "USB_DM_PORT"
+    },
+    {
+      "ref": "D201",
+      "pad": "4",
+      "net": "USB_DM_PORT_ESD"
+    },
+    {
+      "ref": "D201",
+      "pad": "5",
+      "net": "USB_VBUS_RAW"
+    },
+    {
+      "ref": "D201",
+      "pad": "6",
+      "net": "Net-(D201-IO1_OUT)"
+    },
+    {
+      "ref": "R201",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "R201",
+      "pad": "2",
+      "net": "Net-(J201-CC1)"
+    },
+    {
+      "ref": "R202",
+      "pad": "1",
+      "net": "Net-(J201-CC2)"
+    },
+    {
+      "ref": "R202",
+      "pad": "2",
+      "net": "GND"
+    },
+    {
+      "ref": "R203",
+      "pad": "1",
+      "net": "Net-(D201-IO1_OUT)"
+    },
+    {
+      "ref": "R203",
+      "pad": "2",
+      "net": "USB_DP_MCU"
+    },
+    {
+      "ref": "R204",
+      "pad": "1",
+      "net": "USB_DM_PORT_ESD"
+    },
+    {
+      "ref": "R204",
+      "pad": "2",
+      "net": "USB_DM_MCU"
+    },
+    {
+      "ref": "R205",
+      "pad": "1",
+      "net": "BOOT0_RECOVERY"
+    },
+    {
+      "ref": "R205",
+      "pad": "2",
+      "net": "V3V3_SYS"
+    },
+    {
+      "ref": "R206",
+      "pad": "1",
+      "net": "EN_RESET"
+    },
+    {
+      "ref": "R206",
+      "pad": "2",
+      "net": "V3V3_SYS"
+    },
+    {
+      "ref": "C201",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "C201",
+      "pad": "2",
+      "net": "V3V3_SYS"
+    },
+    {
+      "ref": "C202",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "C202",
+      "pad": "2",
+      "net": "V3V3_SYS"
+    },
+    {
+      "ref": "C203",
+      "pad": "1",
+      "net": "GND"
+    },
+    {
+      "ref": "C203",
+      "pad": "2",
+      "net": "EN_RESET"
+    }
+  ],
+  "open": [
+    "L101 footprint is old SRN6045, not schematic SRP6030VA; value deliberately not changed",
+    "Missing footprints/routing/outline and mechanical verification remain open"
+  ]
+}

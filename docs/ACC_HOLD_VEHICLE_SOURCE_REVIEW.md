@@ -37,3 +37,7 @@ Bei 200 V und angenommener 4,7-V-Klemme beträgt der Strom durch die beiden 100k
 Zwei kleine MOSFETs statt vier beim invertierten Kill-Kandidaten; kein zusätzlicher Schutzcontroller. Der 4,7k-Gate-Pull-up verbraucht während HOLD aktiv ungefähr 1,06 mA aus Fahrzeug-5-V, bei ausgeschaltetem Fahrzeug-Buck keine entsprechende BAT-Biasleistung. **Gesamter OFF-Strom noch nicht nachgewiesen**: LM74930, VS-Zener/TVS, Messpfade, USB und PCB-Leckströme bleiben im Budget. Preise/Warenkorb und konkrete deutsche Lieferbarkeit **NICHT BELASTBAR**; keine Bestellung oder Serien-BOM festgelegt.
 
 Vor Integration offen: realer Bootstrap und EN-Ansteuerung bei fehlendem VS, vollständige 6-V-Kaltstartrechnung, Transienten beim Einschalten/ACC AUS/Abschalten/USB, Hardware-Deadline gegen festhängendes HOLD, EN-Kapazität und minimale GPIO-HIGH-Spannung, reale Zener-/Diodenkennlinien, kalte MOS-Schwellwerte, Rückspeisung und Fehlerfälle. Der unverändert fehlende gespeiste Hauptstrompfad wird durch diese DC-Untersuchung nicht als umgesetzt erklärt.
+
+## Ergänzung: Zeitverläufe
+
+[12 idealisierte Übergangsversuche](validation/2026-10-14-acc-hold-transients/README.md) bestätigen die Modell-Selbsthaltung und Freigabe, zeigen aber weiterhin das fehlende Hardware-Deadline-Gate. Kein Test des realen Buck-/Controller-Startverhaltens.
