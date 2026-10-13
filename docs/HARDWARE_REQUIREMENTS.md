@@ -346,6 +346,16 @@
 | MEC-42 | **Festgelegt – A: federnde Rastnase** | Werkzeuglose Schiebehalterung mit **automatisch einrastender federnder Rastnase**; Lösen über gut erreichbaren Druckhebel. | Fahrzeugvibration, Fehlbedienung, Ermüdung, Handschuhbedienbarkeit und Verliersicherheit prüfen; ausreichender Abstand zu Anschlüssen und Rückdeckel. |
 | MEC-43 | **Festgelegt – A: Anschlüsse zugänglich** | **M8, USB-C, GNSS-SMA und optionaler Radsensoranschluss** müssen auch bei vollständig in die Schiebehalterung eingesetztem TripTracer zugänglich und bedienbar bleiben. | Stecker-, Kabel-, Schraub-/Dreh- und Biegeradien sowie Staubkappenzugang im maßstäblichen CAD und am Gehäuseprototyp nachweisen. |
 
+
+### F.2 Fahrzeughalterung und Vibrationsschutz – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| MEC-44 | **Festgelegt – C: wechselbare Führungseinsätze** | Schiebehalterung mit **austauschbaren mechanischen Führungseinsätzen** als getrennten Verschleißteilen auslegen, statt verschlissene Führungen am Gehäuse beziehungsweise Halterung komplett ersetzen zu müssen. Die bereits festgelegte federnde Rastnase bleibt erhalten. | Formschluss, Spielfreiheit, austauschbare Befestigung, Materialpaarung, Verschleiß, Vibrationsfestigkeit und Einbau-/Ausbaubarkeit prüfen; Schwalbenschwanz- oder Parallelgeometrie bleibt konstruktiv offen. |
+| MEC-45 | **Festgelegt – A: Entkopplung an Fahrzeughalterung** | **Gummipuffer/Elastomerlager zwischen Fahrzeug und Halterung** vorsehen. Schiebeführung und Rastmechanismus bleiben möglichst spielfrei; keine gewollte lose Bewegung des TripTracers in der Führung. | Schwingungs-/Stoßspektrum für Motorrad/Pkw/Lkw, Federsteifigkeit, Eigenfrequenz, Dämpfung, Temperatur/Alterung, Schraubensicherung und maximale Auslenkung prüfen; ungeeignete Resonanzverstärkung vermeiden. |
+| MEC-46 | **Festgelegt – A: universelle Schraubhalterung** | Fahrzeugseitig **standardisierte verschraubbare Grundplatte mit mehreren Befestigungslochbildern** vorsehen; fahrzeugspezifische Adapter (z. B. Motorrad-/Kfz-Träger) separat. | Lochbilder, Schraubengrößen, Adaptergeometrie und Einbauraum vor CAD-Freigabe definieren; Zugänglichkeit der M8-/USB-/SMA-/Radsensoranschlüsse gemäß MEC-43 bewahren. |
+| MEC-47 | **Festgelegt – A: zusätzliche Sicherungsposition** | Zusätzlich zur automatisch einrastenden federnden Rastnase eine **optional aktivierbare mechanische Sicherungs-/Sperrposition am Druckhebel** vorsehen, damit sich der Schiebeverschluss bei besonders starken Vibrationen nicht versehentlich entriegeln lässt. | Betätigung mit Handschuhen, eindeutige Sperr-/Offenstellung, Verliersicherheit, Materialermüdung und Lösen im Wartungsfall prüfen; nur Rastnase genügt dann nicht als alleinige konstruktive Verriegelung. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -431,6 +441,8 @@
 | 13.10.2026 | UI-41–44 | **Viererrunde A/A/A/A bestätigt:** sanfte automatische Helligkeitsanpassung über ca. 2–3 s, Nachtmodus mit dunklem Hintergrund und gedämpften Farben, manuelle Helligkeit bleibt bis zum erneuten Einschalten der Automatik auch nach Neustart erhalten, separate Display-/LED-Ring-Helligkeitskennlinien mit gemeinsamen Sensor und Modus. | Hysterese, Kontrast, PWM und getrennte Min-/Max-Werte bei Prototypen validieren. |
 
 | 13.10.2026 | MEC-40–43 | **Viererrunde A/B/A/A bestätigt:** microSD, CR1220 und BOOT-Jumper nach Abnahme des Rückdeckels gemeinsam ohne PCB-Ausbau zugänglich; **sechs M3-Schrauben** in Messing-Einsätzen; federnde Rastnase mit Druckhebel; sämtliche Außenanschlüsse auch in eingesetzter Schiebehalterung erreichbar. | Dichtungspressung, Servicefreiräume, Rastfestigkeit und Kabel-/Steckerzugang vor mechanischer Freigabe nachweisen. |
+
+| 13.10.2026 | MEC-44–47 | **Viererrunde C/A/A/A bestätigt:** austauschbare Führungseinsätze als Verschleißteile, elastisch gelagerte Fahrzeughalterung mit Gummipuffern, universelle Schraubgrundplatte mit mehreren Lochbildern, zusätzliche zuschaltbare Hebelsperre gegen unbeabsichtigtes Entriegeln. | Frühere Auswahl „nur Rastnase“ als Vorschlag überholt; federnde Rastnase MEC-42 bleibt plus zusätzliche Sicherungsposition. Einbau- und Vibrationsversuche vor Freigabe. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
