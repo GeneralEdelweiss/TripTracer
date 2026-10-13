@@ -21,6 +21,8 @@ Projektlokale Bibliotheken über `sym-lib-table`/`fp-lib-table`: `Tripmaster_Sym
 | `07_Speicher_RTC.kicad_sch` | interne microSD, FRAM, RTC/CR1220, I²C-Sensoren | **Noch nicht verschaltet** |
 | `08_Radsensoren.kicad_sch` | zwei getrennte Radimpulse, geschaltete 5-V-Sensorversorgung, JST-GH-Erweiterung | **Noch nicht verschaltet** |
 
+**Vorläufige, aus beiden verdrahteten V1-Baugruppen abgeleitete BOM:** [TripTracer_V1_BOM_DRAFT.csv](TripTracer_V1_BOM_DRAFT.csv). Alle 21 Positionen sind derzeit lediglich Entwurfs-/Prüfpositionen, keine freigegebene Bestellliste.
+
 ## PCB-Dokument bereits angelegt
 
 `TripTracer_V1.kicad_pcb` enthält **21 reale, aus dem Schaltplan referenzierte Footprint-Instanzen**: die 9 Buck-Bauteile und 12 MCU-/USB-Bauteile. Für die bisherigen Footprints wurden bestehende lokale Hersteller-/Geometrieentwürfe wiederverwendet; einzelne Landpatterns sind noch ungeprüft.
