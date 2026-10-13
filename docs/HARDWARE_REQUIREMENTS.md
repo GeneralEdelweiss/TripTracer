@@ -94,6 +94,10 @@
 | UI-03 | **Wunsch** | Piepser als optional abschaltbare Tastenrückmeldung | Lautstärke, Frequenz und Montage-/Dichtheitskonzept |
 | UI-04 | **Wunsch** | Automatische Displayhelligkeit mit Menüoption zum Deaktivieren | Umgebungslichtsensor und Regelverhalten festlegen |
 | UI-05 | **Offen** | Anzeigeinhalte, Schriftgrößen, Ablesbarkeit bei Sonne/Nacht | Nutzerführung und Sichtabstand festlegen |
+| UI-06 | **Offen** | Finales Displaykonzept: bisheriges transflektives 128×64-LCD beibehalten oder größeres/höher auflösendes Display vorsehen | Baugröße, Sonnenablesbarkeit, Leistungsbedarf und Schnittstelle vor Auswahl klären. |
+| UI-07 | **Offen** | Hintergrundbeleuchtungsfarbe Amber oder Weiß für die nächste Revision | V0.3 sieht Amber vor, ist als Farbvorgabe noch nicht neu bestätigt. |
+| UI-08 | **Offen** | Hardware-Piepser für Tastenrückmeldung einbauen oder weglassen | Bei Vorsehen im Menü abschaltbar; bestehender Wunsch UI-03. |
+| UI-09 | **Offen** | Umgebungslichtsensor für automatische Helligkeit oder nur manuelle Beleuchtung | Bei Vorsehen automatische Regelung im Menü deaktivierbar; bestehender Wunsch UI-04. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -120,6 +124,10 @@
 | MEC-09 | **Festgelegt** | **Variante A – unverlierbar am Gehäuse befestigte Gummi-/Silikon-Staubschutzkappe** für den außen zugänglichen microSD-Steckplatz. | Dichtender Sitz im geschlossenen Zustand (Staubschutz), Auswurf-/Entnahmefreiraum, Haltbarkeit der Befestigung und Bedienbarkeit bei montiertem TripTracer prüfen. |
 | MEC-10 | **Festgelegt** | **Variante A – eigener, kleiner, steckbarer Anschluss für den optionalen Radimpulssensor**, bei Nichtbenutzung mit Staubschutzkappe versehen. | Steckgeometrie eindeutig verschieden vom M8-Versorgungsanschluss; erforderliche Kontakte, Sensor-Versorgung, Schutz und mechanische Robustheit erst nach Definition des Sensors festlegen. |
 | MEC-11 | **Festgelegt** | **Variante A – unverlierbar befestigte Gummi-/Silikon-Staubschutzkappe** für USB-C, im normalen Fahrzeugbetrieb geschlossen. | Staubdichter Verschluss im unbenutzten Zustand, USB-Steckerfreiraum beim Flashen, Befestigung und mechanische Beständigkeit prüfen. |
+| MEC-12 | **Festgelegt** | **Variante A – universelle Schiebehalterung mit mechanischer Rastverriegelung** zum werkzeuglosen Umsetzen des TripTracer zwischen Fahrzeugen. | Rastung auf Vibrations- und Auszugsfestigkeit prüfen; M8-Versorgung und SMA-Antennenkabel müssen beim Fahrzeugwechsel separat gelöst werden. |
+| MEC-13 | **Festgelegt** | **Variante A – 3D-gedrucktes ASA-Gehäuse** für Prototypen und kleine Stückzahlen. | Druckorientierung, Schichtverbund, Temperatur-/UV-Beständigkeit, Gewindeeinsätze, Toleranzen und Staubdichtheit prüfen; Produktionsverfahren für größere Stückzahlen bleibt offen. |
+| MEC-14 | **Festgelegt** | **Variante A – verschraubter, wiederholt zu öffnender Gehäusedeckel mit Staubdichtung**, kein dauerhaft verklebtes Gehäuse. | Dichtungsgeometrie, Anpressung, Schraub-/Gewindeeinsatz-Haltbarkeit, Zugänglichkeit und wiederholtes Öffnen testen; IP6X ist weiterhin nur Zielvorgabe. |
+| MEC-15 | **Festgelegt** | **Variante A – mechanische, deutlich fühlbare und mit Handschuhen gut bedienbare Fronttasten**, gegen Staubeintritt geschützt. | Haptik, Betätigungskraft, Tastenabstand, Langzeit-Vibration, Kappen-/Membrandichtung und sichere Bedienung prüfen; konkrete Tasterzahl aus V0.3 noch nicht neu bestätigt. |
 | MEC-12 | **Offen** | Schnellwechselhalterung: Schiebeaufnahme mit Rastverriegelung oder Bajonettverschluss | Vibrationssicherheit, Werkzeuglosigkeit und Montage in mehreren Fahrzeugen prüfen. |
 | MEC-13 | **Offen** | Gehäusefertigung: 3D-Druck (z. B. ASA) oder anderes Verfahren/Material | Mechanische Robustheit, Temperatur, Alterung, Gewindeeinsätze und Fertigungskosten beurteilen. |
 | MEC-14 | **Offen** | Gehäuse wiederholt servicefähig zu öffnen oder dauerhaft geschlossen zu fertigen | Staubdichte Fuge, Wartbarkeit von Platine/Anschlüssen und Verschraubung. |
@@ -146,17 +154,18 @@
 | 13.10.2026 | STO-01/02/03/04 | **Gebündelte 4er-Runde:** microSD, von außen zugänglich; externe GNSS-Antenne; Anschluss für optionalen Radsensor | Bauteile, geeignete HF-Stecker, Abdichtung und GPIOs noch offen. |
 | 13.10.2026 | SYS-04, MEC-04/05/06/07 | **Gehäuse staubdicht, aber nicht wasserdicht gefordert; Staubschutzkappen für optionale Anschlüsse/Öffnungen** | Schutz bei verschlossenen Öffnungen; IP6X nur als Entwicklungsziel, kein nachgewiesener Prüfstatus. |
 | 13.10.2026 | MEC-08/09/10/11 | **Gebündelte 4er-Runde:** SMA-Gehäusebuchse mit Staubkappe, außen liegende microSD mit unverlierbarer Gummikappe, separater steckbarer Radsensoranschluss, USB-C mit unverlierbarer Gummikappe | Hersteller-/Bauteilnummern und mechanische Prüfung stehen aus. |
+| 13.10.2026 | MEC-12/13/14/15 | **Gebündelte 4er-Runde:** Schiebehalterung mit Rastung, ASA-3D-Druckgehäuse, verschraubter Deckel mit Staubdichtung, handschuhtaugliche fühlbare Tasten | Mechanische Tests und konkrete Bauteile bleiben offen. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächste Vierer-Runde – Gehäuse und Bedienbarkeit (MEC-12 bis MEC-15):**
+**Nächste Vierer-Runde – Display, Licht und Rückmeldung (UI-06 bis UI-09):**
 
-1. **MEC-12 – Schnellwechselhalterung:** A: universelle Schiebeaufnahme mit mechanischer Rastverriegelung und separatem Lösen des M8-/SMA-Kabels (Empfehlung). B: Bajonett-/Vierteldrehverschluss mit mechanischer Rastung. Beide Varianten sollen das Gerät sicher gegen Vibration halten.
-2. **MEC-13 – Gehäusefertigung:** A: 3D-druckbares ASA-Gehäuse für Prototyp und kleine Stückzahlen, bei Bedarf mit Einpressgewinden (Empfehlung). B: zunächst anderes Fertigungsverfahren/Material, z. B. CNC-Gehäuse; thermische und mechanische Anforderungen bleiben zu prüfen.
-3. **MEC-14 – Gehäuseservice:** A: geschraubter, wiederholt zu öffnender Deckel mit Staubdichtung (Empfehlung). B: dauerhaft verklebtes/verschweißtes Gehäuse ohne reguläre Öffnung. Der äußere microSD-Zugang bleibt in beiden Varianten bestehen.
-4. **MEC-15 – Tastenbedienung:** A: große mechanisch klar fühlbare Tasten, auch mit Handschuhen nutzbar, gegen Staub abgedichtet (Empfehlung). B: besonders flache Tasten/Membranbedienung zugunsten einer glatten Front. Anzahl/Funktionen bleiben bis zur Bedienkonzeptentscheidung offen.
+1. **UI-06 – Displaykonzept:** A: Das bestehende transflektive 128×64-Monochrom-LCD als Anforderungsbasis beibehalten (wenig Strom, gut bei Tageslicht; endgültige Typprüfung später). B: Ein größeres bzw. höher auflösendes Display vorsehen; Auswirkungen auf Gehäuse, Stromaufnahme und Kosten akzeptieren.
+2. **UI-07 – Farbe der Displaybeleuchtung:** A: Amber-Hintergrundbeleuchtung wie im V0.3-Entwurf (Empfehlung für das bisherige Gestaltungskonzept). B: Weiß als Hintergrundbeleuchtung; konkrete LEDs/Displayoption später prüfen.
+3. **UI-08 – Akustische Rückmeldung:** A: Kleinen integrierten Piepser vorsehen, im Menü abschaltbar (Empfehlung, bisher Wunsch in UI-03). B: Kein Piepser, ausschließlich visuelle Rückmeldung.
+4. **UI-09 – Automatische Helligkeit:** A: Umgebungslichtsensor für automatische Hintergrundbeleuchtung mit manuellem Modus im Menü vorsehen (Empfehlung, bisher Wunsch in UI-04). B: Ausschließlich manuell einstellbare Beleuchtung ohne Lichtsensor.
 
-**Noch keine Auswahl getroffen:** Diese Optionen sind Vorschläge für die nächste gemeinsame Entscheidungsrunde; sie beeinflussen Gehäuseabmessungen, Staubschutz, Haptik und mechanische Stückliste.
+**Noch keine Auswahl getroffen:** Die vier Display-/Bedienentscheidungen erst gemeinsam bestätigen und gesammelt ins Dokument übernehmen. Der bisherige LCD-Typ und die Tasteranzahl sind bislang nur V0.3-Bestand, nicht automatisch neue verbindliche Spezifikation.
 
 ## Quellen / Verbindlichkeit
 
