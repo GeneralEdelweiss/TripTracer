@@ -27,14 +27,14 @@ Projektlokale Bibliotheken über `sym-lib-table`/`fp-lib-table`: `Tripmaster_Sym
 
 Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation zwischen Schaltplanseiten](https://docs.kicad.org/10.0/en/eeschema/eeschema.html#navigating-between-sheets). Dieser Punkt ist in `AGENTS.md` dauerhaft als Pflicht festgelegt.
 
-**Aktuelle Versorgungspriorität (13.10.2026):** [MegaSquirt-V3.57-Schaltplananalyse und günstige LMR36520+ACC-HOLD-Grundversorgung](../../docs/MEGASQUIRT_POWER_BENCHMARK.md). **Noch keine KiCad-Änderung am LMR36520/01-Eingangsschutz umgesetzt.** Der Schaltplan in `02_5V_Buck.kicad_sch` zeigt L101=15µH, zugehöriger alter Footprint aber Bourns 22µH; **aktuelle TI-Rev.-C-Referenz 5V/2A: 10µH, 100kΩ/24,9kΩ, 2×22µF Ausgang, 2×4,7µF + 220nF Eingang**. Vor Revision konkrete verfügbare MPNs und Pin-/Temperatur-/6V-Details prüfen. **JLCPCB-SMD-Bestückung optional, nicht zu erzwingen.** Für Fahrzeugeinsatz fehlt weiterhin der ISO-16750-2-/200V-Load-Dump- und Leitungsschutz-Nachweis.
+**Buck-Revision a1 (13.10.2026, tatsächlicher KiCad-Commit):** `02_5V_Buck.kicad_sch` ist jetzt auf die **TI LMR36520 Rev. C 5V/2A Referenzauslegung** abgestimmt: **L101=10µH Bourns SRP6030VA-100M, Isat typ. 5A (gegen ISC max. 3.6A)**; R101=100k, R102=24.9k; C101/C106=4.7µF 100V; C107=220nF 100V; C104/C105=22µF 25V. **EN ist nicht mehr an VIN gebrückt**, sondern `BUCK_ENABLE` für spätere ACC-/MCU-HOLD-Steuerung. Der neue vorläufige, projektlokale Bourns-Footprint liegt unter `Tripmaster.pretty/L_Bourns_SRP6030VA_100M.kicad_mod`; geometrische Herstellermaßgrundlage dokumentiert, **KiCad-10-GUI-Sichtprüfung und PCB-Layout stehen aus**. C-SMD-MPNs/DC-Bias, TI-EPAD-Layout, ERC/DRC, 6-V-Volllast, LM74930-Quellpfad und Ruhestrom **noch NICHT freigegeben**. Der alte `HV_PROTECTED_AFTER_EFUSE`-Label ist vorübergehend ein Legacy-Schnittstellenname, kein Beleg einer vorhandenen eFuse. Kein Fahrzeugbetrieb.
 
 ## Baugruppenstatus
 
 | Blatt | Inhalt | Stand |
 |---|---|---|
 | `01_Eingangsschutz.kicad_sch` | **TEILENTWURF:** K101 Omron G6S-2F DC5 mit echtem Pad-1/12-Spulenanschluss, NO 4/5, Q111 DMN2056U-Spulentreiber, D111 SS36-Freilauf, R111 100k-Pulldown. **5V_AUX_COIL / RELAY_ENABLE_5V / Schutzketten / ACC-HOLD fehlen noch**. | **Nicht funktionsfähig als Gesamtbaugruppe; ERC/DRC nicht ausgeführt.** |
-| `02_5V_Buck.kicad_sch` | LMR36520 als Reglerkandidat, Spule, 5-V-Feedback, Bootstrap/VCC-Kondensatoren und Ausgangskondensatoren | **9 reale Symbolinstanzen mit vorläufiger Verdrahtung; Bauteilauslegung/Pin-Footprint-Freigabe offen** |
+| `02_5V_Buck.kicad_sch` | LMR36520 als Reglerkandidat, Spule, 5-V-Feedback, Bootstrap/VCC-Kondensatoren und Ausgangskondensatoren | **11 Symbolinstanzen; TI-Referenzwerte korrigiert, EN getrennt von VIN; Pin-/Footprint-/ERC-/DRC-Freigabe offen** |
 | `03_3V3_USB.kicad_sch` | 3,3-V-LDO, Bordnetz/USB-Priorisierung, 5-V-Laborteststecker | **Noch nicht verschaltet** |
 | `04_ESP32_USB.kicad_sch` | ESP32-S3-MINI-1-N8, USB-C-Buchse, 2×5,1-kΩ-CC-Rd, USBLC6-2SC6, D+/D−-Serienwiderstände, BOOT/EN-Pull-ups, lokale Kondensatoren | **12 echte Symbolinstanzen verdrahtet; übrige GPIOs und Quellenentkopplung fehlen** |
 | `05_GNSS.kicad_sch` | MAX-M10N, UART/TIMEPULSE, U.FL und geschützter Antennen-Bias | **Noch nicht verschaltet** |
@@ -74,7 +74,7 @@ Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt 
 
 1. **V1 kann noch nicht eingeschaltet werden:** Die geschützte ACC/BAT+-Relaisversorgung, Relais-HOLD-/Failsafe-Ansteuerung, 5-V-Quellenwahl und 3,3-V-LDO sind noch nicht verdrahtet.
 2. **Buck U101:** LMR36520 ist ein **Kandidat**, noch keine Volllast-/Thermik-/90-%-Wirkungsgrad-Freigabe. Pin 1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, thermisches Pad 9. Pin-kompatibler V0.3-LMR36510-Footprint ist **noch gegen aktuelles TI-Package-Drawing zu prüfen**. https://www.ti.com/lit/ds/symlink/lmr36520.pdf
-3. **L101:** Symbol zeigt **15 µH als vorläufigen Entwurfswert**, während der derzeit verwendete Fußabdruck den alten **Bourns-22-µH-Typ** bezeichnet. **Nicht als freigegebenen 15-µH-Bauteilsatz bestellen.** Erst L-Wert/Isat/DCR und den Hersteller-Footprint festlegen.
+3. **L101 (aktualisiert):** **10 µH Bourns SRP6030VA-100M**, I_sat typ. **5 A**, I_rms typ. **5 A**, AEC-Q200; früherer 15-µH-/22-µH-Widerspruch behoben. Footprint `Tripmaster:L_Bourns_SRP6030VA_100M` als vorläufiges Herstellerlandmuster erstellt; Feinprüfung in KiCad-10 und Temperatur/Spulen-Luftspalt/Fertigung noch offen.
 4. **USB-C:** Die D+/D−-, CC- und ESD-Grundbeschaltung ist entworfen. Die **USB-VBUS-Versorgung für Firmware/MSC ohne M8 sowie Quellen-Rückspeisesperre** fehlen auf `03_3V3_USB`. Kein Betrieb allein über USB möglich, solange diese Schaltung nicht fertig ist.
 5. **GPIOs:** ESP32-S3-MINI-1-N8 vorhanden, aber weitere Pins für Display, Tasten, GNSS, microSD, Radgeber und Erweiterung müssen konfliktfrei zugeordnet werden. GPIO0/3/45/46 und native GPIO19/20 besonders prüfen.
 6. **PCB-Fertigung:** Bei fünf nackten PCBs möglichst zwei SMD-bestückt und drei unbestückt; erst nach ERC, DRC, Bauteil-/Footprint-Abgleich und Einkaufstest zu bestellen.
