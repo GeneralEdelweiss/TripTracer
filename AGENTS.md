@@ -10,6 +10,19 @@
 - Wiederholte Korrekturen: maximal 3 Versuche pro Fehlergruppe; offene Fehler klar benennen und nicht stillschweigend unterdruecken.
 - Erst nach elektrischem Test, KiCad ERC/DRC, manueller Pin- und Footprintpruefung und Automotive-Pruefung fuer Fertigung freigeben.
 
+## KiCad-Projekt als einheitliches, durchblaetterbares Mehrseiten-Schema
+
+**Verbindliche UX- und Projektanforderung:** Alle TripTracer-Baugruppen sind **innerhalb eines einzigen KiCad-10-Schaltplaneditors** über den **Hierarchie-Navigator** und die Funktionen für vorherige/nächste Seite erreichbar. Der Nutzer darf **nicht** gezwungen sein, jede Baugruppen-Datei einzeln zu öffnen.
+
+- **Ein einziger Projekteinstiegspunkt:** `hardware/kicad/TripTracer_V1.kicad_pro` mit der **Root-Schaltplandatei** `TripTracer_V1.kicad_sch` und dem gleichnamigen `TripTracer_V1.kicad_pcb`. Im Editor müssen sich Root-Deckblatt und sämtliche Baugruppenseiten als **ein Schaltplanprojekt** präsentieren.
+- **Modular statt monolithisch:** Für jede eigenständige Baugruppe eine korrekt referenzierte **hierarchische Unterseite** (separate `.kicad_sch` mit relativem Dateinamen) verwenden. Mehrere echte KiCad-Seiten gehören in die Hierarchie, **nicht** als unabhängig zu öffnende Einzel-Schaltpläne; auch nicht alle Bauteile auf ein unlesbares Riesenblatt drängen. Eine einzelne physische `.sch`-Datei ist **nicht** das Ziel.
+- **Jede neue Baugruppe sofort in die Root-Hierarchie integrieren:** Sheet-Symbol, gültige `Sheetfile`-Referenz, eindeutige Namen/UUIDs und konsistente `instances`-/Seitennummerierung anlegen. Bei Datei-Umbenennung oder Verschiebung alle Referenzen korrekt aktualisieren; keine verwaisten Seiten, mehrfachen Sheet-UUIDs oder gebrochenen relativen Pfade erzeugen.
+- **Schnittstellen korrekt über Blattgrenzen:** Signale mit dokumentierten globalen Netzen oder – vorzugsweise bei klaren Schnittstellen – **hierarchischen Labels und zugehörigen Sheet-Pins** verbinden. Lokale Labels allein verbinden keine verschiedenen Blätter. Nur grafische Hierarchie **ohne elektrische Anbindung** niemals als funktionsfähig integriert deklarieren.
+- **Prüfung nach jeder Baugruppe:** Root-`.kicad_sch` und **alle** Referenzen/Unterseiten systematisch prüfen. Wenn KiCad 10 ausführbar ist, das gesamte Projekt über `.kicad_pro` öffnen, **Hierarchie-Navigator** einschließlich neuer Seite durchklicken, Vor-/Zurücknavigation verifizieren, projektweiten ERC und nötigenfalls Netlist/BOM aus der Root starten. Wenn keine native KiCad-Prüfung ausgeführt wurde, diese Einschränkung ausdrücklich dokumentieren.
+- **Benutzerführung dokumentieren:** In der Projekt-README eindeutig angeben, **welche eine Projektdatei zu öffnen** ist und wie alle Seiten im KiCad-Hierarchie-Navigator erreichbar sind. Den aktuellen Gesamtumfang und offene/validierte Baugruppen auf dem Deckblatt kenntlich machen.
+
+Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine optional zu erfüllende Schönheitsmaßnahme. Sie gilt zusätzlich zu den strikten Baugruppen- und Kompatibilitäts-Gates.
+
 ## Vorsichtige, baugruppenweise Hardware-Entwicklung (verbindliche Arbeitsweise)
 
 **Grundprinzip: Hardware zuerst korrekt, danach Software daran anpassen.** Eine fehlerhafte, bereits gefertigte Platine ist wesentlich teurer und aufwendiger zu korrigieren als eine Firmware-Anpassung. Deshalb konsequent **schrittweise, risikobewusst und ohne vorschnelle Fertigmeldungen** entwickeln.
