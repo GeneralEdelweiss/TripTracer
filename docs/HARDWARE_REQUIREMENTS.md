@@ -380,7 +380,7 @@
 
 | ID | Entscheidung | Anforderung | Validierung |
 |---|---|---|---|
-| PCB-01 | **Festgelegt – B: 2 Lagen** | Hauptplatine als **2-Lagen-PCB** ausführen. | Durchgehende Rückstrompfade und Masseflächen, USB-Differenzpaar, GNSS-HF/EMV und Schaltregler-Störabstände beim Layout verifizieren. Bei technischen Hindernissen vor einer Lagenänderung Rücksprache halten. |
+| PCB-01 | **Aktualisiert – 2 Lagen bevorzugt, 4 Lagen falls nötig** | Hauptplatine kostenbewusst zunächst für **2 Lagen** prüfen; **4 Lagen ausdrücklich zulässig und zu verwenden, falls Signalintegrität, EMV, GNSS-Empfang, USB-Routing, durchgehende Masse-/Rückstromführung, Platzbedarf oder Versorgungslayout dies sinnvoll erfordern**. Keine starre 2-Lagen-Vorgabe mehr. | 2- und 4-Lagen-Varianten technisch und kostenmäßig bewerten; Mehrlagenaufbau bei Bedarf dokumentieren. Ein Wechsel auf 4 Lagen ist dadurch bereits freigegeben. |
 | PCB-02 | **Festgelegt – A: beidseitig** | Bauteile auf Ober- und Unterseite zulässig; Servicekomponenten von der Rückdeckelseite ohne Platinenausbau erreichbar (MEC-40). | Bestückungskosten, Bauhöhe und Servicefreiraum prüfen. |
 | PCB-03 | **Festgelegt – A: JLCPCB/LCSC** | Leiterplatte bevorzugt JLCPCB, SMT-Bestückung und Komponenten möglichst JLCPCB-/LCSC-verfügbar; Spezialbauteile separat zulässig. | Preise, Verfügbarkeit und beidseitige Montagefähigkeit vor Bestellung validieren. |
 | PCB-04 | **Festgelegt – A: viele Testpunkte** | Zugängliche, beschriftete Messpunkte für Versorgung, GND, BOOT, RESET, USB, GNSS, Radsensor und Diagnose. | An USB-D+/D− keine langen Stubs; GNSS-RF-Messung nur HF-gerecht; keine Konflikte mit Gehäuse und Service. |
@@ -465,7 +465,9 @@
 
 | 13.10.2026 | ENV-01–04 | **Viererrunde A/A/A/A bestätigt:** Betriebs-Entwicklungsziel −20 bis +70 °C; abgestufter Übertemperaturschutz bis kontrollierter Abschaltung; zusätzlicher digitaler PCB-Innentemperatursensor; staubschutzgeeignete Druckausgleichsmembran. | Komponentenratings, Schaltschwellen, Abschaltenergie, Membran-/Dichtheitsvalidierung und Hitze-/Kältetests bleiben offen; keine voreilige Temperatur- oder IP-Freigabe. |
 
-| 13.10.2026 | PCB-01–04 | **B/A/A/A:** 2-Lagen-PCB, beidseitig bestückbar, JLCPCB/LCSC bevorzugt, umfangreiche Testpunkte. | USB-/GNSS-/EMV-Layout sowie Montage und Testpad-Zugang prüfen. |
+| 13.10.2026 | PCB-01–04 | **B/A/A/A (historische Ausgangsentscheidung):** 2-Lagen-PCB, beidseitig bestückbar, JLCPCB/LCSC bevorzugt, umfangreiche Testpunkte. | USB-/GNSS-/EMV-Layout sowie Montage und Testpad-Zugang prüfen. |
+
+| 13.10.2026 | PCB-01 | **PCB-Lagenzahl aktualisiert:** 2 Lagen aus Kostengründen bevorzugt, **4 Lagen bei technischem Bedarf freigegeben**; Entscheidung anhand Routing, Masseführung, EMV, USB, GNSS und Kosten treffen. | Hebt starre Zweilagenfestlegung aus der vorherigen Viererrunde auf; PCB-02–04 unverändert. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
