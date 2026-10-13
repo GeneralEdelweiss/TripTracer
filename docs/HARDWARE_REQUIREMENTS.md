@@ -310,6 +310,14 @@
 | GPS-40 | **Festgelegt – A: Fahrt über Mitternacht fortsetzen** | **Tageswechsel um 00:00 Uhr** beginnt ein neues GPX-/CSV-Dateipaar, **setzt aber die laufende Fahrtstatistik nicht zurück**; eine Fahrt darf sich über mehrere Tagesdateien erstrecken. | Konsistente Fahrt-ID und Start-/Endzeit über Dateigrenzen, Mitternacht bei Zeitzonenwechsel und Stromausfall testen. |
 | GPS-41 | **Festgelegt – A: zusätzliche Fahrtenübersicht als CSV** | Zusätzlich zu tagesweisen GPX-/CSV-Tracks eine **separate, lesbare CSV-Fahrtenübersicht** mit mindestens Fahrt-ID, Start/Ende, Profil-ID/-Name, Strecke, Pausenzeiten, Gesamtdurchschnitt, Bewegungsdurchschnitt und Höchstgeschwindigkeit erzeugen. | Abschlüsse nach Pause, manuellem Neustart und Profilwechsel ohne Dubletten schreiben; FRAM-/SD-Power-Loss-Recovery, UTF-8, UTC-Zeitstempel und lokale Anzeigezeiten eindeutig festlegen. |
 
+### D.8 GNSS-Höhenmessung und Qualitätsbewertung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-42 | **Festgelegt – A: Höhenänderung mindestens 5 m** | Für die positiven/negativen Fahrt-Höhenmeter nur **nach Qualitätsprüfung und Filterung** ermittelte Höhenänderungen berücksichtigen, die eine **5-m-Schwelle** überschreiten. Die Schwelle verhindert das Aufsummieren kleiner GNSS-Höhenschwankungen und ist keine zugesicherte absolute Höhengenauigkeit. | Kumulierte Höhenänderung über lokale Extrempunkte und Schwellwert/Hysterese definieren, damit keine dauerhafte Unterschätzung durch per-Sample-Verwerfen auftritt; Testfahrten mit Referenzprofilen. |
+| GPS-43 | **Festgelegt – A: Höhenmessung unabhängig aussetzen** | Bei unzureichender **vertikaler** GNSS-Genauigkeit die Höhenmeterintegration aussetzen und in der Statistik als unvollständig kennzeichnen. Horizontale Distanz-/Geschwindigkeitsmessung **weiterführen**, sofern deren eigenständige Qualitätskriterien erfüllt sind. | Getrennte Qualitätsflags für vertikal/horizontal, stabile Wiederaufnahme ohne künstlichen Höhenmeter-Sprung; ungültige Höhenwerte im CSV entsprechend kennzeichnen. |
+| GPS-44 | **Festgelegt – A: Fix-Anteil und Ausfalldauer** | In der zentralen CSV-Fahrtenübersicht den **Anteil der Fahrtzeit mit gültigem GNSS-Fix (in Prozent)** und die **aufsummierte GNSS-Ausfalldauer** dokumentieren. | Den Nenner als aktive/aufgezeichnete Fahrtdauer klar festlegen und fehlende Zeitbereiche kennzeichnen; GNSS-Qualität und Verwendbarkeit für Distanz getrennt auswerten. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -381,6 +389,12 @@
 | UI-42 | **Festgelegt – A: gedämpfter Nachtmodus** | Nachtmodus mit **dunklem Hintergrund, gut lesbaren Ziffern und gedämpften Statusfarben**. Die bereits beschlossene automatische Tag-/Nachtumschaltung sowie manuelle Auswahl bleiben bestehen. | Lesbarkeit bei minimaler Beleuchtung, Warnfarben/Kontrast, Fehlzustände auch ohne Farberkennung und Übergang bei wechselndem Umgebungslicht prüfen. |
 | UI-43 | **Festgelegt – A: persistente manuelle Helligkeit** | Wird die Helligkeitsautomatik manuell deaktiviert, bleibt die **manuell gewählte Helligkeit auch über Neustarts hinweg erhalten**, bis der Nutzer die Automatik ausdrücklich wieder aktiviert. | Modus und Helligkeitswert nichtflüchtig sichern; sichere Min-/Max-Grenzen und Schutzmaßnahmen bei Unterspannung/Temperatur haben Vorrang. |
 | UI-44 | **Festgelegt – A: getrennte Beleuchtungskennlinien** | Display und Tasten-LED-Ringe verwenden **denselben Lichtsensor und denselben Automatik-/Manuellmodus**, besitzen aber **getrennt einstellbare minimale/maximale Helligkeiten und Kennlinien**. Die beleuchteten Tastenringe bleiben bei regulärem M8-Betrieb ständig sichtbar, auch ohne Tastendruck. | Unterschiedliche Grün-/Rot-LED-Wahrnehmung und Strombegrenzung berücksichtigen, PWM/Regelung ohne sichtbares Flackern auslegen; gemeinsame zeitliche Regelung gemäß UI-41. |
+
+### E.5 GNSS-Höhenanzeige – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| UI-45 | **Festgelegt – A: Höhe als optionales Datenfeld** | Die **aktuelle GNSS-Höhe** ist als auswählbares Zusatzfeld eines Fahrdisplaylayouts verfügbar; die zwei gleich großen Standard-Distanzzähler bleiben vorrangig und werden nicht verdrängt. | Einheit Meter, Höhenreferenz eindeutig benennen, bei ungültigen Höhenwerten Strich/Status statt falscher Höhe; keine übertriebene Genauigkeitsanzeige. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -578,6 +592,8 @@
 | 13.10.2026 | GPS-38–41 | **Viererrunde A/A/A/A bestätigt:** Pausenschwelle 1–120 Minuten in 1-Minuten-Schritten (Standard 15 min), manueller Fahrtbeginn über Menü mit Bestätigung ohne Dateipaarwechsel, Fahrtstatistik läuft über Mitternacht weiter, separate CSV-Fahrtenübersicht je abgeschlossener Fahrt. | Fahrt-ID, robuste CSV-Anfügung, Mitternacht und Abschlusserkennung validieren. |
 
 | 13.10.2026 | STO-40–43 | **Viererrunde A/A/A/A bestätigt:** zentrale Fahrtenübersicht in einer CSV; fehlende Fahrtabschlüsse nach Power-Loss aus FRAM/Logs soweit zuverlässig rekonstruieren; eindeutige persistente Fahrt-ID; gefilterte Auf-/Abstiegshöhenmeter und GNSS-Gütezusammenfassung in der Fahrtenübersicht. | Kollisionsfreie Fahrt-IDs, doppelte Einträge verhindern und vertikale GNSS-Unsicherheit berücksichtigen. |
+
+| 13.10.2026 | GPS-42–44, UI-45 | **Viererrunde A/A/A/A bestätigt:** gefilterte 5-m-Höhenänderungsschwelle, vertikale GNSS-Höhenintegration bei schlechter vertikaler Genauigkeit unabhängig aussetzen, GNSS-Fix-Zeitanteil und Gesamtausfalldauer pro Fahrt, Höhe optional im Fahrdisplay. | Höhen-Hysterese, separate Qualitätsflags, Zeitbasis der Fixstatistik und Höhenreferenz verifizieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
