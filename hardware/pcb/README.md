@@ -1,1 +1,1 @@
-Noch kein geroutetes bzw. fertigungsreifes PCB vorhanden. Diese Struktur ist für spätere Leiterplattenrevisionen reserviert.
+No routed and validated production PCB exists yet. V0.3 contains a KiCad schematic and library, not a production PCB.

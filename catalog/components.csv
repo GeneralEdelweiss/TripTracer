@@ -1,0 +1,70 @@
+reference,value,footprint_library,footprint_name,verification_status,source_version
+J1,12V_BOARD,Tripmaster,J3_Phoenix_MKDS_1_5_2_5_08_1715721,needs_datasheet_and_ERC_review,V0.3
+F1,0.5A / 0451.500MRL,Tripmaster,F1_Littelfuse_0451_500MRL,needs_datasheet_and_ERC_review,V0.3
+D1,SS36 / 60V,Tripmaster,D_SMA_SS36,needs_datasheet_and_ERC_review,V0.3
+D2,SMCJ24A TVS,Tripmaster,D1_Littelfuse_SMCJ24A,needs_datasheet_and_ERC_review,V0.3
+C1,2.2uF / 100V X7R,Tripmaster,C_1210_3225,needs_datasheet_and_ERC_review,V0.3
+C2,220nF / 100V,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+U3,LMR36510ADDAR,Tripmaster,U3_TI_LMR36510ADDAR_DDA,needs_datasheet_and_ERC_review,V0.3
+C3,1uF / 16V VCC,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C4,100nF BOOT,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+L1,22uH SRN6045-220M,Tripmaster,L1_Bourns_SRN6045_220M,needs_datasheet_and_ERC_review,V0.3
+C5,22uF / >=10V X7R,Tripmaster,C_1210_3225,needs_datasheet_and_ERC_review,V0.3
+C6,22uF / >=10V X7R,Tripmaster,C_1210_3225,needs_datasheet_and_ERC_review,V0.3
+C7,22uF / >=10V X7R,Tripmaster,C_1210_3225,needs_datasheet_and_ERC_review,V0.3
+R1,100k / 1% (TOP),Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R2,43.2k / 1% (BOT),Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R3,10k PG pullup,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+PWR01,PWR_FLAG,,,needs_datasheet_and_ERC_review,V0.3
+PWR02,PWR_FLAG,,,needs_datasheet_and_ERC_review,V0.3
+PWR03,PWR_FLAG,,,needs_datasheet_and_ERC_review,V0.3
+U1,ESP32-S3-MINI-1-N8,Tripmaster,U1_ESP32-S3-MINI-1-N8,needs_datasheet_and_ERC_review,V0.3
+C8,22uF ESP bulk,Tripmaster,C_1210_3225,needs_datasheet_and_ERC_review,V0.3
+C9,100nF ESP local,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R4,10k EN pullup,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C10,1uF EN start,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R5,10k BOOT pullup,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+SW6,RESET MCU,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+SW7,BOOT MCU,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+U2,MAX-M10N-00B,Tripmaster,U2_MAX-M10N-00B,needs_datasheet_and_ERC_review,V0.3
+C11,100nF GNSS VCC,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C12,10uF GNSS VCC,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C13,100nF VCC_RF,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+J3,GNSS U.FL ANT,Tripmaster,J2_Hirose_U_FL_R_SMT_1,needs_datasheet_and_ERC_review,V0.3
+C14,100pF RF series,Tripmaster,C_0603_1608,needs_datasheet_and_ERC_review,V0.3
+L2,47nH RF bias,Tripmaster,L_0603_1608,needs_datasheet_and_ERC_review,V0.3
+U4,MB85RC256VPNF,Tripmaster,U4_RAMXEED_MB85RC256VPNF_G_AMERE2,needs_datasheet_and_ERC_review,V0.3
+R6,4.7k SDA,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R7,4.7k SCL,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C15,100nF FRAM,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+J2,GCT USB4105-GF-A,Tripmaster,J1_GCT_USB4105_GF_A_USB_C,needs_datasheet_and_ERC_review,V0.3
+PWR04,PWR_FLAG,,,needs_datasheet_and_ERC_review,V0.3
+R8,5.1k CC1,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R9,5.1k CC2,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+D3,USBLC6-2SC6,Tripmaster,D2_ST_USBLC6_2SC6,needs_datasheet_and_ERC_review,V0.3
+R10,22R D+ series,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R11,22R D- series,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C16,100nF VBUS ESD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R12,100k VBUS top,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R13,100k VBUS bottom,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+DS1,EA DOGL128W-6 + LED68X51-A,Tripmaster,DS1_BL1_EA_DOGL128W6_LED68X51A,needs_datasheet_and_ERC_review,V0.3
+C17,1uF / >=16V LCD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C18,1uF / >=16V LCD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C19,1uF / >=16V LCD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C20,1uF / >=16V LCD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C21,1uF / >=16V LCD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C22,1uF / >=16V LCD,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C23,1uF CAP3P-CAP1N,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C24,1uF CAP1N-CAP1P,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+C25,1uF CAP2P-CAP2N,Tripmaster,C_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R14,47R / LED 1,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R15,47R / LED 2,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+R16,47R / LED 3,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+Q1,DMN2056U-7 / PWM,Tripmaster,Q1_Diodes_DMN2056U_7,needs_datasheet_and_ERC_review,V0.3
+R17,100k PWM pulldown,Tripmaster,R_1206_3216,needs_datasheet_and_ERC_review,V0.3
+SW1,MODE,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+SW2,PLUS,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+SW3,MINUS,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+SW4,RESET TRIP,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+SW5,SET,Tripmaster,SW_Omron_B3F_1000,needs_datasheet_and_ERC_review,V0.3
+J4,EXT TRIP RESET,Tripmaster,J3_Phoenix_MKDS_1_5_2_5_08_1715721,needs_datasheet_and_ERC_review,V0.3

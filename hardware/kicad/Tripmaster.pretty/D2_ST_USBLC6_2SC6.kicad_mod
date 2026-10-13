@@ -1,0 +1,18 @@
+(footprint "D2_ST_USBLC6_2SC6" (version 20240108) (generator "pcbnew") (layer "F.Cu")
+ (descr "ST USBLC6-2SC6 USB2 highspeed ESD SOT23-6, 1/6 IO1 3/4 IO2 2 GND 5 VBUS | Status: STANDARD_SOT23_6_ELEKTRIK_PRUEFEN")
+ (tags "Tripmaster")
+ (attr smd)
+ (fp_text reference "D" (at 0 -2.800) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
+ (fp_text value "D2_ST_USBLC6_2SC6" (at 0 2.800) (layer "F.Fab") (effects (font (size 0.7 0.7) (thickness 0.1))))
+(fp_rect (start -1.500 -0.800) (end 1.500 0.800) (stroke (width 0.100) (type default)) (fill none) (layer "F.Fab"))
+(fp_rect (start -1.850 -1.900) (end 1.850 1.900) (stroke (width 0.050) (type default)) (fill none) (layer "F.CrtYd"))
+(pad "1" smd rect (at -0.950 1.100) (size 0.550 0.950) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "2" smd rect (at 0.000 1.100) (size 0.550 0.950) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "3" smd rect (at 0.950 1.100) (size 0.550 0.950) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "4" smd rect (at 0.950 -1.100) (size 0.550 0.950) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "5" smd rect (at 0.000 -1.100) (size 0.550 0.950) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "6" smd rect (at -0.950 -1.100) (size 0.550 0.950) (layers "F.Cu" "F.Paste" "F.Mask"))
+
+(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/SOT23_6.step"
+ (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)

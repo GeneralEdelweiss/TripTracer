@@ -1,1 +1,1 @@
-Nur nach KiCad-10-ERC, vollständigem PCB-DRC, Bauteilverifikation und notwendigen Fahrzeug-/EMV-/Thermiktests einen Fertigungs-Release erzeugen.
+Only put fabrication releases here after KiCad-10 ERC, DRC, library/model check, and electrical and environmental validation.

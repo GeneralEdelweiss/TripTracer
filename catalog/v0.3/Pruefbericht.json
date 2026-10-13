@@ -1,0 +1,15 @@
+{
+  "version": "V0.3",
+  "parts": 69,
+  "labels": 255,
+  "wires": 256,
+  "no_connects": 27,
+  "library_symbols": 22,
+  "errors": [],
+  "notes": [
+    "KiCad CLI/ERC not executed",
+    "Netlabels directly at wire endpoints",
+    "Motorvehicle load dump not validated",
+    "Passive antenna bias tee remains RF-prototype"
+  ]
+}

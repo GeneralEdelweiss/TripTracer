@@ -1,0 +1,15 @@
+(footprint "J2_Hirose_U_FL_R_SMT_1" (version 20240108) (generator "pcbnew") (layer "F.Cu")
+ (descr "Hirose U.FL-R-SMT-1(01) 50ohm RF coax SMT, 3 pads per catalog | Status: HERSTELLER_LANDMASS")
+ (tags "Tripmaster")
+ (attr smd)
+ (fp_text reference "J" (at 0 -2.850) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
+ (fp_text value "J2_Hirose_U_FL_R_SMT_1" (at 0 3.600) (layer "F.Fab") (effects (font (size 0.7 0.7) (thickness 0.1))))
+(fp_rect (start -1.500 -1.550) (end 1.500 1.550) (stroke (width 0.100) (type default)) (fill none) (layer "F.Fab"))
+(fp_rect (start -2.550 -1.900) (end 2.550 2.800) (stroke (width 0.050) (type default)) (fill none) (layer "F.CrtYd"))
+(pad "1" smd rect (at 0.000 1.625) (size 1.000 1.050) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "2" smd rect (at -1.475 -0.300) (size 1.050 2.200) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "2" smd rect (at 1.475 -0.300) (size 1.050 2.200) (layers "F.Cu" "F.Paste" "F.Mask"))
+
+(model "${TRIPTRACER_LIB}/3dmodels/Hirose_UFL_R_SMT_1.step"
+ (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)

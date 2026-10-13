@@ -1,0 +1,22 @@
+﻿GPIO;Funktion;Hardware;Bemerkung
+1;MODE;Taster 1;Pullup
+2;PLUS;Taster 2;Pullup
+4;MINUS;Taster 3;Pullup
+5;RESET;Taster 4;Pullup
+6;LIGHT;Taster 5;Pullup
+7;BACKLIGHT_PWM;NMOS Gate;PWM ~1kHz
+8;LCD_RST;DOGL128 Pin 39;active-low
+9;LCD_A0;DOGL128 Pin 38;Data/Command
+10;LCD_CS;DOGL128 Pin 40;active-low
+11;LCD_SI;DOGL128 Pin 36;SPI MOSI
+12;LCD_SCL;DOGL128 Pin 37;SPI CLK
+13;WHEEL_INPUT;Radsensor optional;Eingang muss geschuetzt werden
+14;LIGHT_SENSOR;Lichtsensor optional;ADC2, im ersten FW Stand nicht aktiv
+15;FRAM_SDA;MB85RC256V optional;I2C
+16;FRAM_SCL;MB85RC256V optional;I2C
+17;GNSS_RX;MAX-M10N TXD Pin 2;UART
+18;GNSS_TX;MAX-M10N RXD Pin 3;UART
+19;USB_D-;ESP32 nativer USB;nicht anderweitig belegen
+20;USB_D+;ESP32 nativer USB;nicht anderweitig belegen
+21;GNSS_TIMEPULSE;MAX-M10N Pin 4 optional;1PPS nur optional
+0;BOOT;Start Download Mode;Pullup/Boot-Taste, Strapping

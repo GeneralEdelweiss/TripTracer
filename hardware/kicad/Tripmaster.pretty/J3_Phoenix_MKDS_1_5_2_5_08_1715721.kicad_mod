@@ -1,0 +1,14 @@
+(footprint "J3_Phoenix_MKDS_1_5_2_5_08_1715721" (version 20240108) (generator "pcbnew") (layer "F.Cu")
+ (descr "Phoenix MKDS 1,5/ 2-5,08 1715721 2pin pitch5.08 drill1.3 | Status: HERSTELLER_GEO")
+ (tags "Tripmaster")
+ (attr through_hole)
+ (fp_text reference "J" (at 0 -6.200) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
+ (fp_text value "J3_Phoenix_MKDS_1_5_2_5_08_1715721" (at 0 6.100) (layer "F.Fab") (effects (font (size 0.7 0.7) (thickness 0.1))))
+(fp_rect (start -5.080 -4.900) (end 5.080 4.900) (stroke (width 0.100) (type default)) (fill none) (layer "F.Fab"))
+(fp_rect (start -5.600 -5.400) (end 5.600 5.400) (stroke (width 0.050) (type default)) (fill none) (layer "F.CrtYd"))
+(pad "1" thru_hole circle (at -2.540 0.000) (size 2.400 2.400) (drill 1.300) (layers "*.Cu" "*.Mask"))
+(pad "2" thru_hole circle (at 2.540 0.000) (size 2.400 2.400) (drill 1.300) (layers "*.Cu" "*.Mask"))
+
+(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/Phoenix_1715721.step"
+ (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)

@@ -1,1 +1,1 @@
-Datenblattlinks und Quellen gehören unter `docs/REFERENCES.md`. Hersteller-PDFs nur ins Repository übernehmen, wenn die Lizenz das erlaubt.
+Only record reference links to original manufacturer datasheets. No guessed values. Consult docs/REFERENCES.md.

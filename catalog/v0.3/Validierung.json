@@ -1,0 +1,12 @@
+{
+  "status": "structurally_passed_not_ERC",
+  "component_count": 69,
+  "footprint_count": 25,
+  "named_connections": 257,
+  "no_connect_marks": 27,
+  "pin_footprint_checks": 65,
+  "errors": [],
+  "kicad_ERC": "not_executed",
+  "kicad_DRC": "not_executed",
+  "note": "This test is a structural file/pad check, not a KiCad electrical rule check."
+}

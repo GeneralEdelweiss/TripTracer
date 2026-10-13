@@ -1,14 +1,14 @@
-# TripTracer – Offene Prüfungen
+# Offene Punkte (Stand V0.3)
 
-1. V0.3-Schaltplan in KiCad 10 öffnen und native ERC ausführen; elektrische Pin-/Netzverknüpfungen anhand Datenblättern verifizieren.
-2. KiCad-PCB-Layout erstellen; Herstellerregeln, DRC und mechanische Passprobe durchführen.
-3. Bordnetzschutz: Load Dump, ISO-Transienten, Verpolung, EMV, ESD, Sicherung und Temperatur qualifizieren.
-4. TI LMR36510, Induktivität 22 µH und Ausgangskondensatoren auf Strom, Ripple und thermische Reserven prüfen.
-5. 50-Ohm-GNSS-Antennenleitung sowie Bias-T für konkrete aktive Antenne dimensionieren und messen.
-6. LCD-Footprint mit 40 Pins, Blickwinkel und neun Pumpen-/Kontrastkondensatoren nach Herstellerzeichnung kontrollieren.
-7. USB-Stromversorgung überarbeiten, falls Flashen **ohne** externe 12-V-Versorgung gewünscht ist (aktueller V0.3-Stand kann das nicht).
-8. Mechanik V0.1 auf echten Bauteilen ausdrucken und prüfen: Tasterhöhe, Sichtfenster, Steckverbinder, Abdichtung.
-9. Experimentelle Firmware V0.1 auf den V0.3-Schaltplan übertragen; GNSS-Datenrate, Wegstreckenintegration, FRAM und Tasten testen.
-10. 3D-Modelle, die als vereinfachte mechanische Modelle entstanden, nicht als präzise Herstellergeometrie ausgeben.
+1. Schaltplan in KiCad 10 laden und native ERC-Pruefung durchfuehren.
+2. Komplettes PCB layouten und nach JLCPCB-Regeln DRC pruefen. Der V0.1-Placement-Entwurf ist explizit kein Fertigungs-PCB.
+3. Automobilversorgung: Load Dump, Transienten, ESD/EMV, Verpolung, Sicherung und Temperaturbelastung nachweisen.
+4. 3.3-V-Buck-Spule, Kondensator-Derating, Ripple und thermische Auslegung pruefen.
+5. GNSS-Antenne und Bias-T (50 Ohm, aktive Antenne) am konkreten Aufbau testen.
+6. LCD-40-Pin-Layout, Modulabmessungen und Ladungspumpen-Kondensatoren gegen Herstellerunterlagen pruefen.
+7. USB-C: VBUS versorgt laut V0.3 nicht das Geraet; Firmwareflash erfordert zusaetzlich J1.
+8. Firmware V0.1 mit V0.3-Schaltplan abgleichen, ESP32-S3-Build und 10-Hz-GNSS-Konfiguration testen.
+9. Mechanik V0.1: Druck- und Passprobe; Schalterhoehe, Dichtung, Vibration und Antennenanschluss bestaetigen.
+10. Bibliothek: 3D-Modelle sind teils vereinfachte Geometrien, keine freigegebenen Hersteller-CAD-Modelle.
 
-**Keine Fertigungsfreigabe** vor Abschluss der erforderlichen Prüfungen.
+Nichts hiervon darf als abgeschlossen oder getestet bezeichnet werden, bevor ein konkreter Testbericht existiert.

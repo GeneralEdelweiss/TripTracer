@@ -1,0 +1,1 @@
+(sym_lib_table (lib (name "Tripmaster_Sym") (type "KiCad") (uri "${KIPRJMOD}/Tripmaster_Sym.kicad_sym") (options "") (descr "Tripmaster V0.3 custom circuit symbols")))

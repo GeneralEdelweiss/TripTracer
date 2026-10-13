@@ -1,0 +1,13 @@
+(footprint "MECH_SMA_BULKHEAD_OFFBOARD" (version 20240108) (generator "pcbnew") (layer "F.Cu")
+ (descr "Mechanical reference model ONLY - SMA bulkhead mounts on the enclosure not PCB | Status: NICHT_AUF_PCB")
+ (tags "Tripmaster")
+ (attr exclude_from_bom)
+ (fp_text reference "MECH" (at 0 -5.000) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
+ (fp_text value "MECH_SMA_BULKHEAD_OFFBOARD" (at 0 5.000) (layer "F.Fab") (effects (font (size 0.7 0.7) (thickness 0.1))))
+(fp_circle (center 0.000 0.000) (end 3.350 0.000) (stroke (width 0.100) (type default)) (fill none) (layer "F.Fab"))
+(fp_circle (center 0.000 0.000) (end 4.000 0.000) (stroke (width 0.050) (type default)) (fill none) (layer "F.CrtYd"))
+
+
+(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/SMA_Bulkhead.step"
+ (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)

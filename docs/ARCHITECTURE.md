@@ -1,18 +1,13 @@
-# TripTracer – Hardwarekonzept
+# TripTracer Architektur (aus dem KiCad-V0.3-Entwurf)
 
-Stand: Elektronik V0.3; Mechanik/Firmware V0.1
+- Zweck: universeller GPS-Tripmaster fuer Rallye, Touren und Fahrzeuge, nicht auf Offroad beschraenkt.
+- Steuerung: ESP32-S3-MINI-1-N8, USB-C zum Flashen, J1 als 12-V-Betriebsversorgung.
+- GNSS: u-blox MAX-M10N-00B mit U.FL und optionaler aktiver Antenne.
+- Anzeige: Display Visions EA DOGL128W-6 (128x64, transflektiv) und EA LED68X51-A (Amber-LED-Backlight); PWM-Treiber.
+- Bedienung: 5 Fronttaster, separater Boot/Reset; externer Trip-Reset-Anschluss.
+- Speicherung: FRAM MB85RC256VPNF per I2C im V0.3-Schaltplan vorgesehen.
+- Stromversorgung: 12 V -> Schutzkonzept (F1, D1, TVS) -> TI LMR36510ADDAR -> 3.3 V.
+- V0.1-Mechanik: Front ca. 126x76 mm; PCB-Konzept 118x68 mm; ASA-Gehaeuse, 3D-Druck.
 
-| Baugruppe | Festgelegter Baustein / Funktion |
-| --- | --- |
-| Steuerung | ESP32-S3-MINI-1-N8 |
-| GPS/GNSS | u-blox MAX-M10N-00B, U.FL-Antennenanschluss |
-| Anzeige | EA DOGL128W-6, 128 × 64 Pixel, transflektiv |
-| Beleuchtung | EA LED68X51-A, amber, per PWM geregelt |
-| Versorgung | 12-V-Eingang mit Sicherung/TVS, TI LMR36510ADDAR auf 3,3 V |
-| Datenspeicher | MB85RC256VPNF, I²C-FRAM |
-| Bedienung | 5 Fronttasten, separater MCU-Reset/BOOT |
-| USB | USB-C für Daten/Flashen, keine USB-Speisung der Elektronik in V0.3 |
-| Gehäuse | 3D-Druck, grober Frontentwurf 126 × 76 mm, bevorzugt ASA |
-| Platinenkonzept | ca. 118 × 68 mm im V0.1-Entwurf; noch kein geroutetes Produktionslayout |
-
-Die Bauteile sind auf einer gemeinsamen Trägerplatine vorgesehen. Ein vollständiger Test unter realen Fahrzeugbedingungen steht aus.
+**Revisionsstand:** V0.3 ist ein Schaltplan-Prototyp ohne KiCad ERC/DRC oder Fahrzeugfreigabe. 
+**Firmwarestand:** V0.1 ist experimentell, nicht gegen V0.3 abgeglichen.

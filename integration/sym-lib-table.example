@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "TripTracer") (type "KiCad") (uri "${TRIPTRACER_LIB}/symbols/TripTracer.kicad_sym") (options "") (descr "TripTracer shared symbols"))
+)

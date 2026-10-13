@@ -1,13 +1,11 @@
-# TripTracer – Codex-Anweisungen
+# TripTracer – Regeln fuer KI/Codex
 
-- KiCad 10 ist das Zielsystem. Projekte müssen ohne absolute lokale Pfade portabel bleiben.
-- **Elektronik:** V0.3 ist aktuell. **Mechanik und Firmware:** V0.1 ist nur Prototypenstand.
-- Keine funktionsfähige, vollständig geroutete oder geprüfte Leiterplatte behaupten.
-- Bauteile nur anhand dokumentierter Herstellerdaten, Pinbelegung und Footprint-Geometrie als verifiziert kennzeichnen.
-- Nicht mit SoulTracer (Solar-Schmuck) oder der BTN9990LV-Lüftersteuerung vermischen.
-- Keine unkontrollierte Änderung an intakten Symbol- und Footprintverknüpfungen.
-- Verwende projektlokale `${KIPRJMOD}`-Bibliotheken für reproduzierbare KiCad-Projekte.
-- Vor Änderungen Git-Status und bestehende Projektdateien prüfen. Neue Revisionen nachvollziehbar committen.
-- ERC/DRC mit KiCad ausführen, wenn vorhanden; Fehlschläge melden. Ungeprüfte Ergebnisse nie als bestanden ausgeben.
-- Maximal drei automatische Korrekturzyklen pro Fehlergruppe, danach Ursachenbericht.
-- Fahrzeugversorgung: Schutz vor Load Dump, Transienten, Verpolung, ESD/EMV und thermische Reserven vor Feldbetrieb validieren.
+- Ziel: KiCad 10 und vollstaendig portable lokale Projektbibliotheken.
+- V0.3-Schaltplan ist aktueller Elektronikstand. V0.1-Firmware und -Mechanik nur als Prototyp-/Referenzstand behandeln.
+- Keine gepruefte PCB-Fertigung, keine bestandenen ERC/DRC, keine Automotive-Sicherheitsfreigabe behaupten.
+- Vermeide Vermischung mit SoulTracer (Solar-Schmuck) oder BTN9990LV-Lueftersteuerung.
+- Bei Aenderungen so wenige Dateien wie moeglich anfassen; Git-Commit und Aenderungsbericht erstellen.
+- Projektlokale Bibliotheken und Modellpfade relativ `${KIPRJMOD}` halten, keine absoluten Windows-Pfade.
+- Neue Bauteile mit Hersteller-/Teilenummer, Geometriedatenquelle, Pinout und Geometriepruefung dokumentieren.
+- Wiederholte Korrekturen: maximal 3 Versuche pro Fehlergruppe; offene Fehler klar benennen und nicht stillschweigend unterdruecken.
+- Erst nach elektrischem Test, KiCad ERC/DRC, manueller Pin- und Footprintpruefung und Automotive-Pruefung fuer Fertigung freigeben.

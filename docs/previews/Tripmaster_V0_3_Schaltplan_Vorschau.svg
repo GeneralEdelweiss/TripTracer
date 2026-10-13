@@ -1,0 +1,1031 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2800" height="1980" viewBox="0 0 1189 841">
+<rect width="1189" height="841" fill="#fffefa"/>
+<style>text{font-family:DejaVu Sans,Arial,sans-serif}.tiny{font-size:2.45px;fill:#43506b}.net{font-size:2.25px;fill:#2e5684}.part{font-size:3.1px;font-weight:700;fill:#124963}.value{font-size:2.15px;fill:#40586f}.section{font-size:4.0px;font-weight:bold;fill:#193d65}.wire{stroke:#247353;stroke-width:.33;fill:none}.comp{stroke:#1f5391;stroke-width:.34;fill:#eff6fb}</style>
+<rect x="25" y="47" width="374" height="359" rx="2" fill="#f5f9ff" stroke="#c6d7e5" stroke-width=".38"/>
+<rect x="418" y="47" width="377" height="371" rx="2" fill="#f8fbfc" stroke="#c6d7e5" stroke-width=".38"/>
+<rect x="797" y="47" width="368" height="371" rx="2" fill="#f5f9ff" stroke="#c6d7e5" stroke-width=".38"/>
+<rect x="25" y="430" width="381" height="394" rx="2" fill="#f8fbfc" stroke="#c6d7e5" stroke-width=".38"/>
+<rect x="415" y="430" width="502" height="394" rx="2" fill="#f5f9ff" stroke="#c6d7e5" stroke-width=".38"/>
+<rect x="920" y="430" width="245" height="394" rx="2" fill="#f8fbfc" stroke="#c6d7e5" stroke-width=".38"/>
+<line class="wire" x1="49.92" y1="82.46" x2="42.300000000000004" y2="82.46"/>
+<line class="wire" x1="49.92" y1="87.54" x2="42.300000000000004" y2="87.54"/>
+<line class="wire" x1="125.57" y1="76.0" x2="117.94999999999999" y2="76.0"/>
+<line class="wire" x1="238.43" y1="76.0" x2="246.05" y2="76.0"/>
+<line class="wire" x1="148.43" y1="76.0" x2="215.57" y2="76.0"/>
+<line class="wire" x1="311.43" y1="94.0" x2="319.05" y2="94.0"/>
+<line class="wire" x1="288.57" y1="94.0" x2="280.95" y2="94.0"/>
+<line class="wire" x1="70.57" y1="149.0" x2="62.949999999999996" y2="149.0"/>
+<line class="wire" x1="93.43" y1="149.0" x2="101.05000000000001" y2="149.0"/>
+<line class="wire" x1="168.57" y1="149.0" x2="160.95" y2="149.0"/>
+<line class="wire" x1="191.43" y1="149.0" x2="199.05" y2="149.0"/>
+<line class="wire" x1="257.42" y1="170.38" x2="249.8" y2="170.38"/>
+<line class="wire" x1="257.42" y1="175.46" x2="249.8" y2="175.46"/>
+<line class="wire" x1="257.42" y1="180.54" x2="249.8" y2="180.54"/>
+<line class="wire" x1="257.42" y1="185.62" x2="249.8" y2="185.62"/>
+<line class="wire" x1="302.58" y1="167.84" x2="310.2" y2="167.84"/>
+<line class="wire" x1="302.58" y1="172.92" x2="310.2" y2="172.92"/>
+<line class="wire" x1="302.58" y1="178.0" x2="310.2" y2="178.0"/>
+<line class="wire" x1="302.58" y1="183.08" x2="310.2" y2="183.08"/>
+<line class="wire" x1="302.58" y1="188.16" x2="310.2" y2="188.16"/>
+<line class="wire" x1="58.57" y1="220.0" x2="50.95" y2="220.0"/>
+<line class="wire" x1="81.43" y1="220.0" x2="89.05000000000001" y2="220.0"/>
+<line class="wire" x1="133.57" y1="220.0" x2="125.94999999999999" y2="220.0"/>
+<line class="wire" x1="156.43" y1="220.0" x2="164.05" y2="220.0"/>
+<line class="wire" x1="208.57" y1="267.0" x2="200.95" y2="267.0"/>
+<line class="wire" x1="231.43" y1="267.0" x2="239.05" y2="267.0"/>
+<line class="wire" x1="48.57" y1="296.0" x2="40.95" y2="296.0"/>
+<line class="wire" x1="71.43" y1="296.0" x2="79.05000000000001" y2="296.0"/>
+<line class="wire" x1="123.57" y1="296.0" x2="115.94999999999999" y2="296.0"/>
+<line class="wire" x1="146.43" y1="296.0" x2="154.05" y2="296.0"/>
+<line class="wire" x1="198.57" y1="331.0" x2="190.95" y2="331.0"/>
+<line class="wire" x1="221.43" y1="331.0" x2="229.05" y2="331.0"/>
+<line class="wire" x1="286.57" y1="272.0" x2="278.95" y2="272.0"/>
+<line class="wire" x1="309.43" y1="272.0" x2="317.05" y2="272.0"/>
+<line class="wire" x1="286.57" y1="308.0" x2="278.95" y2="308.0"/>
+<line class="wire" x1="309.43" y1="308.0" x2="317.05" y2="308.0"/>
+<line class="wire" x1="286.57" y1="351.0" x2="278.95" y2="351.0"/>
+<line class="wire" x1="309.43" y1="351.0" x2="317.05" y2="351.0"/>
+<line class="wire" x1="380.0" y1="113.58" x2="380.0" y2="121.2"/>
+<line class="wire" x1="379.0" y1="299.58" x2="379.0" y2="307.2"/>
+<line class="wire" x1="379.0" y1="341.58" x2="379.0" y2="349.2"/>
+<line class="wire" x1="692.58" y1="158.04" x2="702.08" y2="158.04"/>
+<line class="wire" x1="635.42" y1="119.94" x2="625.92" y2="119.94"/>
+<line class="wire" x1="635.42" y1="125.02" x2="625.92" y2="125.02"/>
+<line class="wire" x1="635.42" y1="130.1" x2="625.92" y2="130.1"/>
+<line class="wire" x1="635.42" y1="140.26" x2="625.92" y2="140.26"/>
+<line class="wire" x1="635.42" y1="145.34" x2="625.92" y2="145.34"/>
+<line class="wire" x1="635.42" y1="150.42000000000002" x2="625.92" y2="150.42000000000002"/>
+<line class="wire" x1="635.42" y1="155.5" x2="625.92" y2="155.5"/>
+<line class="wire" x1="635.42" y1="160.57999999999998" x2="625.92" y2="160.57999999999998"/>
+<line class="wire" x1="635.42" y1="165.66" x2="625.92" y2="165.66"/>
+<line class="wire" x1="635.42" y1="170.74" x2="625.92" y2="170.74"/>
+<line class="wire" x1="635.42" y1="175.82" x2="625.92" y2="175.82"/>
+<line class="wire" x1="635.42" y1="180.9" x2="625.92" y2="180.9"/>
+<line class="wire" x1="635.42" y1="185.98000000000002" x2="625.92" y2="185.98000000000002"/>
+<line class="wire" x1="635.42" y1="191.06" x2="625.92" y2="191.06"/>
+<line class="wire" x1="635.42" y1="196.14" x2="625.92" y2="196.14"/>
+<line class="wire" x1="635.42" y1="201.22" x2="625.92" y2="201.22"/>
+<line class="wire" x1="635.42" y1="206.3" x2="625.92" y2="206.3"/>
+<line class="wire" x1="635.42" y1="216.45999999999998" x2="625.92" y2="216.45999999999998"/>
+<line class="wire" x1="635.42" y1="221.54" x2="625.92" y2="221.54"/>
+<line class="wire" x1="635.42" y1="226.62" x2="625.92" y2="226.62"/>
+<line class="wire" x1="635.42" y1="277.41999999999996" x2="625.92" y2="277.41999999999996"/>
+<line class="wire" x1="635.42" y1="318.06" x2="625.92" y2="318.06"/>
+<line class="wire" x1="692.58" y1="163.12" x2="700.2" y2="163.12"/>
+<line class="wire" x1="692.58" y1="168.2" x2="700.2" y2="168.2"/>
+<line class="wire" x1="692.58" y1="173.28" x2="700.2" y2="173.28"/>
+<line class="wire" x1="692.58" y1="178.36" x2="700.2" y2="178.36"/>
+<line class="wire" x1="692.58" y1="183.44" x2="700.2" y2="183.44"/>
+<line class="wire" x1="692.58" y1="188.52" x2="700.2" y2="188.52"/>
+<line class="wire" x1="692.58" y1="193.6" x2="700.2" y2="193.6"/>
+<line class="wire" x1="692.58" y1="198.68" x2="700.2" y2="198.68"/>
+<line class="wire" x1="692.58" y1="203.76" x2="700.2" y2="203.76"/>
+<line class="wire" x1="692.58" y1="208.84" x2="700.2" y2="208.84"/>
+<line class="wire" x1="692.58" y1="213.92000000000002" x2="700.2" y2="213.92000000000002"/>
+<line class="wire" x1="692.58" y1="219.0" x2="700.2" y2="219.0"/>
+<line class="wire" x1="692.58" y1="224.08" x2="700.2" y2="224.08"/>
+<line class="wire" x1="692.58" y1="229.16" x2="700.2" y2="229.16"/>
+<line class="wire" x1="692.58" y1="234.24" x2="700.2" y2="234.24"/>
+<line class="wire" x1="692.58" y1="239.32" x2="700.2" y2="239.32"/>
+<line class="wire" x1="692.58" y1="244.4" x2="700.2" y2="244.4"/>
+<line class="wire" x1="692.58" y1="249.48" x2="700.2" y2="249.48"/>
+<line class="wire" x1="692.58" y1="254.56" x2="700.2" y2="254.56"/>
+<line class="wire" x1="692.58" y1="259.64" x2="700.2" y2="259.64"/>
+<line class="wire" x1="692.58" y1="264.72" x2="700.2" y2="264.72"/>
+<line class="wire" x1="692.58" y1="269.8" x2="700.2" y2="269.8"/>
+<line class="wire" x1="692.58" y1="274.88" x2="700.2" y2="274.88"/>
+<line class="wire" x1="692.58" y1="279.96" x2="700.2" y2="279.96"/>
+<line class="wire" x1="471.57" y1="70.0" x2="463.95" y2="70.0"/>
+<line class="wire" x1="494.43" y1="70.0" x2="502.05" y2="70.0"/>
+<line class="wire" x1="569.57" y1="70.0" x2="561.95" y2="70.0"/>
+<line class="wire" x1="592.43" y1="70.0" x2="600.05" y2="70.0"/>
+<line class="wire" x1="464.57" y1="357.0" x2="456.95" y2="357.0"/>
+<line class="wire" x1="487.43" y1="357.0" x2="495.05" y2="357.0"/>
+<line class="wire" x1="555.57" y1="357.0" x2="547.95" y2="357.0"/>
+<line class="wire" x1="578.43" y1="357.0" x2="586.05" y2="357.0"/>
+<line class="wire" x1="649.57" y1="357.0" x2="641.95" y2="357.0"/>
+<line class="wire" x1="672.43" y1="357.0" x2="680.05" y2="357.0"/>
+<line class="wire" x1="498.92" y1="393.46" x2="491.3" y2="393.46"/>
+<line class="wire" x1="498.92" y1="398.54" x2="491.3" y2="398.54"/>
+<line class="wire" x1="531.08" y1="393.46" x2="538.7" y2="393.46"/>
+<line class="wire" x1="531.08" y1="398.54" x2="538.7" y2="398.54"/>
+<line class="wire" x1="690.92" y1="393.46" x2="683.3" y2="393.46"/>
+<line class="wire" x1="690.92" y1="398.54" x2="683.3" y2="398.54"/>
+<line class="wire" x1="723.08" y1="393.46" x2="730.7" y2="393.46"/>
+<line class="wire" x1="723.08" y1="398.54" x2="730.7" y2="398.54"/>
+<line class="wire" x1="888.92" y1="153.22" x2="881.3" y2="153.22"/>
+<line class="wire" x1="888.92" y1="158.3" x2="881.3" y2="158.3"/>
+<line class="wire" x1="888.92" y1="163.38" x2="881.3" y2="163.38"/>
+<line class="wire" x1="941.08" y1="148.14" x2="948.7" y2="148.14"/>
+<line class="wire" x1="888.92" y1="178.62" x2="881.3" y2="178.62"/>
+<line class="wire" x1="941.08" y1="153.22" x2="948.7" y2="153.22"/>
+<line class="wire" x1="888.92" y1="188.78" x2="881.3" y2="188.78"/>
+<line class="wire" x1="941.08" y1="163.38" x2="948.7" y2="163.38"/>
+<line class="wire" x1="941.08" y1="168.46" x2="948.7" y2="168.46"/>
+<line class="wire" x1="941.08" y1="173.54" x2="948.7" y2="173.54"/>
+<line class="wire" x1="941.08" y1="178.62" x2="948.7" y2="178.62"/>
+<line class="wire" x1="811.57" y1="261.0" x2="803.95" y2="261.0"/>
+<line class="wire" x1="834.43" y1="261.0" x2="842.05" y2="261.0"/>
+<line class="wire" x1="930.57" y1="261.0" x2="922.95" y2="261.0"/>
+<line class="wire" x1="953.43" y1="261.0" x2="961.05" y2="261.0"/>
+<line class="wire" x1="1057.57" y1="261.0" x2="1049.95" y2="261.0"/>
+<line class="wire" x1="1080.43" y1="261.0" x2="1088.05" y2="261.0"/>
+<line class="wire" x1="838.92" y1="320.0" x2="831.3" y2="320.0"/>
+<line class="wire" x1="875.08" y1="320.0" x2="882.7" y2="320.0"/>
+<line class="wire" x1="967.57" y1="324.0" x2="959.95" y2="324.0"/>
+<line class="wire" x1="990.43" y1="324.0" x2="998.05" y2="324.0"/>
+<line class="wire" x1="1066.57" y1="324.0" x2="1058.95" y2="324.0"/>
+<line class="wire" x1="1089.43" y1="324.0" x2="1097.05" y2="324.0"/>
+<line class="wire" x1="871.42" y1="384.84" x2="863.8" y2="384.84"/>
+<line class="wire" x1="871.42" y1="389.92" x2="863.8" y2="389.92"/>
+<line class="wire" x1="871.42" y1="395.0" x2="863.8" y2="395.0"/>
+<line class="wire" x1="871.42" y1="400.08" x2="863.8" y2="400.08"/>
+<line class="wire" x1="871.42" y1="405.16" x2="863.8" y2="405.16"/>
+<line class="wire" x1="916.58" y1="389.92" x2="924.2" y2="389.92"/>
+<line class="wire" x1="916.58" y1="395.0" x2="924.2" y2="395.0"/>
+<line class="wire" x1="916.58" y1="400.08" x2="924.2" y2="400.08"/>
+<line class="wire" x1="1025.57" y1="386.0" x2="1017.9499999999999" y2="386.0"/>
+<line class="wire" x1="1048.43" y1="386.0" x2="1056.05" y2="386.0"/>
+<line class="wire" x1="1025.57" y1="410.0" x2="1017.9499999999999" y2="410.0"/>
+<line class="wire" x1="1048.43" y1="410.0" x2="1056.05" y2="410.0"/>
+<line class="wire" x1="1101.57" y1="390.0" x2="1093.95" y2="390.0"/>
+<line class="wire" x1="1124.43" y1="390.0" x2="1132.05" y2="390.0"/>
+<line class="wire" x1="95.92" y1="516.22" x2="88.3" y2="516.22"/>
+<line class="wire" x1="95.92" y1="551.78" x2="88.3" y2="551.78"/>
+<line class="wire" x1="154.07999999999998" y1="513.68" x2="161.7" y2="513.68"/>
+<line class="wire" x1="154.07999999999998" y1="549.24" x2="161.7" y2="549.24"/>
+<line class="wire" x1="95.92" y1="521.3" x2="88.3" y2="521.3"/>
+<line class="wire" x1="95.92" y1="546.7" x2="88.3" y2="546.7"/>
+<line class="wire" x1="154.07999999999998" y1="518.76" x2="161.7" y2="518.76"/>
+<line class="wire" x1="154.07999999999998" y1="544.16" x2="161.7" y2="544.16"/>
+<line class="wire" x1="95.92" y1="526.38" x2="88.3" y2="526.38"/>
+<line class="wire" x1="154.07999999999998" y1="523.84" x2="161.7" y2="523.84"/>
+<line class="wire" x1="95.92" y1="531.46" x2="88.3" y2="531.46"/>
+<line class="wire" x1="154.07999999999998" y1="528.92" x2="161.7" y2="528.92"/>
+<line class="wire" x1="95.92" y1="536.54" x2="88.3" y2="536.54"/>
+<line class="wire" x1="154.07999999999998" y1="534.0" x2="161.7" y2="534.0"/>
+<line class="wire" x1="154.07999999999998" y1="554.32" x2="161.7" y2="554.32"/>
+<line class="wire" x1="365.0" y1="480.58" x2="365.0" y2="488.2"/>
+<line class="wire" x1="255.57" y1="474.0" x2="247.95" y2="474.0"/>
+<line class="wire" x1="278.43" y1="474.0" x2="286.05" y2="474.0"/>
+<line class="wire" x1="255.57" y1="496.0" x2="247.95" y2="496.0"/>
+<line class="wire" x1="278.43" y1="496.0" x2="286.05" y2="496.0"/>
+<line class="wire" x1="240.92000000000002" y1="538.92" x2="233.3" y2="538.92"/>
+<line class="wire" x1="287.08" y1="538.92" x2="294.7" y2="538.92"/>
+<line class="wire" x1="240.92000000000002" y1="544.0" x2="233.3" y2="544.0"/>
+<line class="wire" x1="287.08" y1="544.0" x2="294.7" y2="544.0"/>
+<line class="wire" x1="240.92000000000002" y1="549.08" x2="233.3" y2="549.08"/>
+<line class="wire" x1="287.08" y1="549.08" x2="294.7" y2="549.08"/>
+<line class="wire" x1="253.57" y1="599.0" x2="245.95" y2="599.0"/>
+<line class="wire" x1="276.43" y1="599.0" x2="284.05" y2="599.0"/>
+<line class="wire" x1="253.57" y1="622.0" x2="245.95" y2="622.0"/>
+<line class="wire" x1="276.43" y1="622.0" x2="284.05" y2="622.0"/>
+<line class="wire" x1="58.57" y1="646.0" x2="50.95" y2="646.0"/>
+<line class="wire" x1="81.43" y1="646.0" x2="89.05000000000001" y2="646.0"/>
+<line class="wire" x1="157.57" y1="662.0" x2="149.95" y2="662.0"/>
+<line class="wire" x1="180.43" y1="662.0" x2="188.05" y2="662.0"/>
+<line class="wire" x1="273.57" y1="662.0" x2="265.95" y2="662.0"/>
+<line class="wire" x1="296.43" y1="662.0" x2="304.05" y2="662.0"/>
+<line class="wire" x1="548.92" y1="553.14" x2="538.76" y2="553.14"/>
+<line class="wire" x1="548.92" y1="588.7" x2="538.76" y2="588.7"/>
+<line class="wire" x1="548.92" y1="593.78" x2="538.76" y2="593.78"/>
+<line class="wire" x1="548.92" y1="598.86" x2="538.76" y2="598.86"/>
+<line class="wire" x1="548.92" y1="603.94" x2="538.76" y2="603.94"/>
+<line class="wire" x1="548.92" y1="609.02" x2="538.76" y2="609.02"/>
+<line class="wire" x1="548.92" y1="614.1" x2="538.76" y2="614.1"/>
+<line class="wire" x1="548.92" y1="619.18" x2="538.76" y2="619.18"/>
+<line class="wire" x1="548.92" y1="624.26" x2="538.76" y2="624.26"/>
+<line class="wire" x1="548.92" y1="583.62" x2="538.76" y2="583.62"/>
+<line class="wire" x1="548.92" y1="578.54" x2="538.76" y2="578.54"/>
+<line class="wire" x1="548.92" y1="573.46" x2="538.76" y2="573.46"/>
+<line class="wire" x1="548.92" y1="568.38" x2="538.76" y2="568.38"/>
+<line class="wire" x1="548.92" y1="563.3" x2="538.76" y2="563.3"/>
+<line class="wire" x1="548.92" y1="558.22" x2="538.76" y2="558.22"/>
+<line class="wire" x1="548.92" y1="548.06" x2="538.76" y2="548.06"/>
+<line class="wire" x1="548.92" y1="542.98" x2="538.76" y2="542.98"/>
+<line class="wire" x1="548.92" y1="537.9" x2="538.76" y2="537.9"/>
+<line class="wire" x1="548.92" y1="532.82" x2="538.76" y2="532.82"/>
+<line class="wire" x1="548.92" y1="527.74" x2="538.76" y2="527.74"/>
+<line class="wire" x1="611.08" y1="527.74" x2="618.7" y2="527.74"/>
+<line class="wire" x1="611.08" y1="532.82" x2="618.7" y2="532.82"/>
+<line class="wire" x1="611.08" y1="537.9" x2="618.7" y2="537.9"/>
+<line class="wire" x1="611.08" y1="542.98" x2="618.7" y2="542.98"/>
+<line class="wire" x1="611.08" y1="548.06" x2="618.7" y2="548.06"/>
+<line class="wire" x1="611.08" y1="553.14" x2="618.7" y2="553.14"/>
+<line class="wire" x1="450.57" y1="690.0" x2="442.95" y2="690.0"/>
+<line class="wire" x1="473.43" y1="690.0" x2="481.05" y2="690.0"/>
+<line class="wire" x1="530.57" y1="690.0" x2="522.95" y2="690.0"/>
+<line class="wire" x1="553.43" y1="690.0" x2="561.05" y2="690.0"/>
+<line class="wire" x1="610.57" y1="690.0" x2="602.95" y2="690.0"/>
+<line class="wire" x1="633.43" y1="690.0" x2="641.05" y2="690.0"/>
+<line class="wire" x1="690.57" y1="690.0" x2="682.95" y2="690.0"/>
+<line class="wire" x1="713.43" y1="690.0" x2="721.05" y2="690.0"/>
+<line class="wire" x1="770.57" y1="690.0" x2="762.95" y2="690.0"/>
+<line class="wire" x1="793.43" y1="690.0" x2="801.05" y2="690.0"/>
+<line class="wire" x1="850.57" y1="690.0" x2="842.95" y2="690.0"/>
+<line class="wire" x1="873.43" y1="690.0" x2="881.05" y2="690.0"/>
+<line class="wire" x1="453.57" y1="745.0" x2="445.95" y2="745.0"/>
+<line class="wire" x1="476.43" y1="745.0" x2="484.05" y2="745.0"/>
+<line class="wire" x1="613.57" y1="745.0" x2="605.95" y2="745.0"/>
+<line class="wire" x1="636.43" y1="745.0" x2="644.05" y2="745.0"/>
+<line class="wire" x1="773.57" y1="745.0" x2="765.95" y2="745.0"/>
+<line class="wire" x1="796.43" y1="745.0" x2="804.05" y2="745.0"/>
+<line class="wire" x1="762.57" y1="477.0" x2="754.95" y2="477.0"/>
+<line class="wire" x1="785.43" y1="477.0" x2="793.05" y2="477.0"/>
+<line class="wire" x1="823.57" y1="477.0" x2="815.95" y2="477.0"/>
+<line class="wire" x1="846.43" y1="477.0" x2="854.05" y2="477.0"/>
+<line class="wire" x1="884.57" y1="477.0" x2="876.95" y2="477.0"/>
+<line class="wire" x1="907.43" y1="477.0" x2="915.05" y2="477.0"/>
+<line class="wire" x1="806.92" y1="631.0" x2="799.3" y2="631.0"/>
+<line class="wire" x1="837.08" y1="633.54" x2="844.7" y2="633.54"/>
+<line class="wire" x1="837.08" y1="628.46" x2="844.7" y2="628.46"/>
+<line class="wire" x1="810.57" y1="661.0" x2="802.95" y2="661.0"/>
+<line class="wire" x1="833.43" y1="661.0" x2="841.05" y2="661.0"/>
+<line class="wire" x1="938.92" y1="465.46" x2="931.3" y2="465.46"/>
+<line class="wire" x1="938.92" y1="470.54" x2="931.3" y2="470.54"/>
+<line class="wire" x1="971.08" y1="465.46" x2="978.7" y2="465.46"/>
+<line class="wire" x1="971.08" y1="470.54" x2="978.7" y2="470.54"/>
+<line class="wire" x1="1037.92" y1="465.46" x2="1030.3000000000002" y2="465.46"/>
+<line class="wire" x1="1037.92" y1="470.54" x2="1030.3000000000002" y2="470.54"/>
+<line class="wire" x1="1070.08" y1="465.46" x2="1077.6999999999998" y2="465.46"/>
+<line class="wire" x1="1070.08" y1="470.54" x2="1077.6999999999998" y2="470.54"/>
+<line class="wire" x1="938.92" y1="553.46" x2="931.3" y2="553.46"/>
+<line class="wire" x1="938.92" y1="558.54" x2="931.3" y2="558.54"/>
+<line class="wire" x1="971.08" y1="553.46" x2="978.7" y2="553.46"/>
+<line class="wire" x1="971.08" y1="558.54" x2="978.7" y2="558.54"/>
+<line class="wire" x1="1037.92" y1="553.46" x2="1030.3000000000002" y2="553.46"/>
+<line class="wire" x1="1037.92" y1="558.54" x2="1030.3000000000002" y2="558.54"/>
+<line class="wire" x1="1070.08" y1="553.46" x2="1077.6999999999998" y2="553.46"/>
+<line class="wire" x1="1070.08" y1="558.54" x2="1077.6999999999998" y2="558.54"/>
+<line class="wire" x1="938.92" y1="639.46" x2="931.3" y2="639.46"/>
+<line class="wire" x1="938.92" y1="644.54" x2="931.3" y2="644.54"/>
+<line class="wire" x1="971.08" y1="639.46" x2="978.7" y2="639.46"/>
+<line class="wire" x1="971.08" y1="644.54" x2="978.7" y2="644.54"/>
+<line class="wire" x1="1072.92" y1="657.46" x2="1065.3000000000002" y2="657.46"/>
+<line class="wire" x1="1072.92" y1="662.54" x2="1065.3000000000002" y2="662.54"/>
+<rect class="comp" x="55.00" y="74.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="55.0" y="68.64">J1</text>
+<text class="value" x="55.0" y="71.84">12V_BOARD</text>
+<text class="tiny" x="53.12" y="81.78" text-anchor="start">PIN1 [1]</text>
+<text class="tiny" x="53.12" y="86.86" text-anchor="start">PIN2 [2]</text>
+<rect class="comp" x="130.65" y="72.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="130.65" y="65.99">F1</text>
+<text class="value" x="130.65" y="69.19">0.5A / 0451.500MRL</text>
+<text class="tiny" x="128.77" y="75.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="145.23" y="75.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="220.65" y="72.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="220.65" y="65.99">D1</text>
+<text class="value" x="220.65" y="69.19">SS36 / 60V</text>
+<text class="tiny" x="218.77" y="75.32" text-anchor="start">A [2]</text>
+<text class="tiny" x="235.23" y="75.32" text-anchor="end">K [1]</text>
+<rect class="comp" x="293.65" y="90.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="293.65" y="83.99">D2</text>
+<text class="value" x="293.65" y="87.19">SMCJ24A TVS</text>
+<text class="tiny" x="291.77" y="93.32" text-anchor="start">A [2]</text>
+<text class="tiny" x="308.23" y="93.32" text-anchor="end">K [1]</text>
+<rect class="comp" x="75.65" y="145.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="75.65" y="138.99">C1</text>
+<text class="value" x="75.65" y="142.19">2.2uF / 100V X7R</text>
+<text class="tiny" x="73.77" y="148.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="90.23" y="148.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="173.65" y="145.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="173.65" y="138.99">C2</text>
+<text class="value" x="173.65" y="142.19">220nF / 100V</text>
+<text class="tiny" x="171.77" y="148.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="188.23" y="148.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="262.50" y="162.76" width="35.00" height="30.48" rx=".7"/>
+<text class="part" x="262.5" y="156.56">U3</text>
+<text class="value" x="262.5" y="159.76">LMR36510ADDAR</text>
+<text class="tiny" x="260.62" y="169.70" text-anchor="start">VIN [2]</text>
+<text class="tiny" x="260.62" y="174.78" text-anchor="start">EN [3]</text>
+<text class="tiny" x="260.62" y="179.86" text-anchor="start">PGND [1]</text>
+<text class="tiny" x="260.62" y="184.94" text-anchor="start">EPAD [9]</text>
+<text class="tiny" x="299.38" y="167.16" text-anchor="end">SW [8]</text>
+<text class="tiny" x="299.38" y="172.24" text-anchor="end">BOOT [7]</text>
+<text class="tiny" x="299.38" y="177.32" text-anchor="end">VCC [6]</text>
+<text class="tiny" x="299.38" y="182.40" text-anchor="end">FB [5]</text>
+<text class="tiny" x="299.38" y="187.48" text-anchor="end">PG [4]</text>
+<rect class="comp" x="63.65" y="216.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="63.65" y="209.99">C3</text>
+<text class="value" x="63.65" y="213.19">1uF / 16V VCC</text>
+<text class="tiny" x="61.77" y="219.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="78.23" y="219.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="138.65" y="216.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="138.65" y="209.99">C4</text>
+<text class="value" x="138.65" y="213.19">100nF BOOT</text>
+<text class="tiny" x="136.77" y="219.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="153.23" y="219.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="213.65" y="263.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="213.65" y="256.99">L1</text>
+<text class="value" x="213.65" y="260.19">22uH SRN6045-220M</text>
+<text class="tiny" x="211.77" y="266.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="228.23" y="266.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="53.65" y="292.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="53.65" y="285.99">C5</text>
+<text class="value" x="53.65" y="289.19">22uF / &gt;=10V X7R</text>
+<text class="tiny" x="51.77" y="295.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="68.23" y="295.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="128.65" y="292.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="128.65" y="285.99">C6</text>
+<text class="value" x="128.65" y="289.19">22uF / &gt;=10V X7R</text>
+<text class="tiny" x="126.77" y="295.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="143.23" y="295.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="203.65" y="327.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="203.65" y="320.99">C7</text>
+<text class="value" x="203.65" y="324.19">22uF / &gt;=10V X7R</text>
+<text class="tiny" x="201.77" y="330.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="218.23" y="330.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="291.65" y="268.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="291.65" y="261.99">R1</text>
+<text class="value" x="291.65" y="265.19">100k / 1% (TOP)</text>
+<text class="tiny" x="289.77" y="271.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="306.23" y="271.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="291.65" y="304.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="291.65" y="297.99">R2</text>
+<text class="value" x="291.65" y="301.19">43.2k / 1% (BOT)</text>
+<text class="tiny" x="289.77" y="307.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="306.23" y="307.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="291.65" y="347.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="291.65" y="340.99">R3</text>
+<text class="value" x="291.65" y="344.19">10k PG pullup</text>
+<text class="tiny" x="289.77" y="350.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="306.23" y="350.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="373.00" y="99.50" width="14.00" height="9.00" rx=".7"/>
+<text class="part" x="373.0" y="93.3">PWR01</text>
+<text class="value" x="373.0" y="96.5">PWR_FLAG</text>
+<rect class="comp" x="372.00" y="285.50" width="14.00" height="9.00" rx=".7"/>
+<text class="part" x="372.0" y="279.3">PWR02</text>
+<text class="value" x="372.0" y="282.5">PWR_FLAG</text>
+<rect class="comp" x="372.00" y="327.50" width="14.00" height="9.00" rx=".7"/>
+<text class="part" x="372.0" y="321.3">PWR03</text>
+<text class="value" x="372.0" y="324.5">PWR_FLAG</text>
+<rect class="comp" x="640.50" y="114.86" width="47.00" height="208.28" rx=".7"/>
+<text class="part" x="640.5" y="108.66">U1</text>
+<text class="value" x="640.5" y="111.86">ESP32-S3-MINI-1-N8</text>
+<text class="tiny" x="638.62" y="119.26" text-anchor="start">IO0 [4]</text>
+<text class="tiny" x="638.62" y="124.34" text-anchor="start">IO1 [5]</text>
+<text class="tiny" x="638.62" y="129.42" text-anchor="start">IO2 [6]</text>
+<text class="tiny" x="638.62" y="134.50" text-anchor="start">IO3 [7]</text>
+<text class="tiny" x="638.62" y="139.58" text-anchor="start">IO4 [8]</text>
+<text class="tiny" x="638.62" y="144.66" text-anchor="start">IO5 [9]</text>
+<text class="tiny" x="638.62" y="149.74" text-anchor="start">IO6 [10]</text>
+<text class="tiny" x="638.62" y="154.82" text-anchor="start">IO7 [11]</text>
+<text class="tiny" x="638.62" y="159.90" text-anchor="start">IO8 [12]</text>
+<text class="tiny" x="638.62" y="164.98" text-anchor="start">IO9 [13]</text>
+<text class="tiny" x="638.62" y="170.06" text-anchor="start">IO10 [14]</text>
+<text class="tiny" x="638.62" y="175.14" text-anchor="start">IO11 [15]</text>
+<text class="tiny" x="638.62" y="180.22" text-anchor="start">IO12 [16]</text>
+<text class="tiny" x="638.62" y="185.30" text-anchor="start">IO13 [17]</text>
+<text class="tiny" x="638.62" y="190.38" text-anchor="start">IO14 [18]</text>
+<text class="tiny" x="638.62" y="195.46" text-anchor="start">IO15 [19]</text>
+<text class="tiny" x="638.62" y="200.54" text-anchor="start">IO16 [20]</text>
+<text class="tiny" x="638.62" y="205.62" text-anchor="start">IO17 [21]</text>
+<text class="tiny" x="638.62" y="210.70" text-anchor="start">IO18 [22]</text>
+<text class="tiny" x="638.62" y="215.78" text-anchor="start">IO19_USB_DM [23]</text>
+<text class="tiny" x="638.62" y="220.86" text-anchor="start">IO20_USB_DP [24]</text>
+<text class="tiny" x="638.62" y="225.94" text-anchor="start">IO21 [25]</text>
+<text class="tiny" x="638.62" y="231.02" text-anchor="start">IO26 [26]</text>
+<text class="tiny" x="638.62" y="236.10" text-anchor="start">IO47 [27]</text>
+<text class="tiny" x="638.62" y="241.18" text-anchor="start">IO33 [28]</text>
+<text class="tiny" x="638.62" y="246.26" text-anchor="start">IO34 [29]</text>
+<text class="tiny" x="638.62" y="251.34" text-anchor="start">IO48 [30]</text>
+<text class="tiny" x="638.62" y="256.42" text-anchor="start">IO35 [31]</text>
+<text class="tiny" x="638.62" y="261.50" text-anchor="start">IO36 [32]</text>
+<text class="tiny" x="638.62" y="266.58" text-anchor="start">IO37 [33]</text>
+<text class="tiny" x="638.62" y="271.66" text-anchor="start">IO38 [34]</text>
+<text class="tiny" x="638.62" y="276.74" text-anchor="start">IO39 [35]</text>
+<text class="tiny" x="638.62" y="281.82" text-anchor="start">IO40 [36]</text>
+<text class="tiny" x="638.62" y="286.90" text-anchor="start">IO41 [37]</text>
+<text class="tiny" x="638.62" y="291.98" text-anchor="start">IO42 [38]</text>
+<text class="tiny" x="638.62" y="297.06" text-anchor="start">TXD0_IO43 [39]</text>
+<text class="tiny" x="638.62" y="302.14" text-anchor="start">RXD0_IO44 [40]</text>
+<text class="tiny" x="638.62" y="307.22" text-anchor="start">IO45 [41]</text>
+<text class="tiny" x="638.62" y="312.30" text-anchor="start">IO46 [44]</text>
+<text class="tiny" x="638.62" y="317.38" text-anchor="start">EN [45]</text>
+<text class="tiny" x="689.38" y="157.36" text-anchor="end">3V3 [3]</text>
+<text class="tiny" x="689.38" y="162.44" text-anchor="end">GND [1]</text>
+<text class="tiny" x="689.38" y="167.52" text-anchor="end">GND [2]</text>
+<text class="tiny" x="689.38" y="172.60" text-anchor="end">GND [42]</text>
+<text class="tiny" x="689.38" y="177.68" text-anchor="end">GND [43]</text>
+<text class="tiny" x="689.38" y="182.76" text-anchor="end">GND [46]</text>
+<text class="tiny" x="689.38" y="187.84" text-anchor="end">GND [47]</text>
+<text class="tiny" x="689.38" y="192.92" text-anchor="end">GND [48]</text>
+<text class="tiny" x="689.38" y="198.00" text-anchor="end">GND [49]</text>
+<text class="tiny" x="689.38" y="203.08" text-anchor="end">GND [50]</text>
+<text class="tiny" x="689.38" y="208.16" text-anchor="end">GND [51]</text>
+<text class="tiny" x="689.38" y="213.24" text-anchor="end">GND [52]</text>
+<text class="tiny" x="689.38" y="218.32" text-anchor="end">GND [53]</text>
+<text class="tiny" x="689.38" y="223.40" text-anchor="end">GND [54]</text>
+<text class="tiny" x="689.38" y="228.48" text-anchor="end">GND [55]</text>
+<text class="tiny" x="689.38" y="233.56" text-anchor="end">GND [56]</text>
+<text class="tiny" x="689.38" y="238.64" text-anchor="end">GND [57]</text>
+<text class="tiny" x="689.38" y="243.72" text-anchor="end">GND [58]</text>
+<text class="tiny" x="689.38" y="248.80" text-anchor="end">GND [59]</text>
+<text class="tiny" x="689.38" y="253.88" text-anchor="end">GND [60]</text>
+<text class="tiny" x="689.38" y="258.96" text-anchor="end">GND [61]</text>
+<text class="tiny" x="689.38" y="264.04" text-anchor="end">GND [62]</text>
+<text class="tiny" x="689.38" y="269.12" text-anchor="end">GND [63]</text>
+<text class="tiny" x="689.38" y="274.20" text-anchor="end">GND [64]</text>
+<text class="tiny" x="689.38" y="279.28" text-anchor="end">GND [65]</text>
+<rect class="comp" x="476.65" y="66.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="476.65" y="59.989999999999995">C8</text>
+<text class="value" x="476.65" y="63.19">22uF ESP bulk</text>
+<text class="tiny" x="474.77" y="69.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="491.23" y="69.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="574.65" y="66.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="574.65" y="59.989999999999995">C9</text>
+<text class="value" x="574.65" y="63.19">100nF ESP local</text>
+<text class="tiny" x="572.77" y="69.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="589.23" y="69.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="469.65" y="353.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="469.65" y="346.99">R4</text>
+<text class="value" x="469.65" y="350.19">10k EN pullup</text>
+<text class="tiny" x="467.77" y="356.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="484.23" y="356.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="560.65" y="353.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="560.65" y="346.99">C10</text>
+<text class="value" x="560.65" y="350.19">1uF EN start</text>
+<text class="tiny" x="558.77" y="356.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="575.23" y="356.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="654.65" y="353.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="654.65" y="346.99">R5</text>
+<text class="value" x="654.65" y="350.19">10k BOOT pullup</text>
+<text class="tiny" x="652.77" y="356.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="669.23" y="356.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="504.00" y="385.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="504.0" y="379.64">SW6</text>
+<text class="value" x="504.0" y="382.84">RESET MCU</text>
+<text class="tiny" x="502.12" y="392.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="502.12" y="397.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="527.88" y="392.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="527.88" y="397.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="696.00" y="385.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="696.0" y="379.64">SW7</text>
+<text class="value" x="696.0" y="382.84">BOOT MCU</text>
+<text class="tiny" x="694.12" y="392.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="694.12" y="397.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="719.88" y="392.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="719.88" y="397.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="894.00" y="143.06" width="42.00" height="55.88" rx=".7"/>
+<text class="part" x="894.0" y="136.86">U2</text>
+<text class="value" x="894.0" y="140.06">MAX-M10N-00B</text>
+<text class="tiny" x="892.12" y="152.54" text-anchor="start">VCC [8]</text>
+<text class="tiny" x="892.12" y="157.62" text-anchor="start">V_IO [7]</text>
+<text class="tiny" x="892.12" y="162.70" text-anchor="start">V_BCKP [6]</text>
+<text class="tiny" x="892.12" y="167.78" text-anchor="start">VIO_SEL [15]</text>
+<text class="tiny" x="892.12" y="172.86" text-anchor="start">RESET_N [9]</text>
+<text class="tiny" x="892.12" y="177.94" text-anchor="start">RXD [3]</text>
+<text class="tiny" x="892.12" y="183.02" text-anchor="start">EXTINT [5]</text>
+<text class="tiny" x="892.12" y="188.10" text-anchor="start">RF_IN [11]</text>
+<text class="tiny" x="937.88" y="147.46" text-anchor="end">TXD [2]</text>
+<text class="tiny" x="937.88" y="152.54" text-anchor="end">TIMEPULSE [4]</text>
+<text class="tiny" x="937.88" y="157.62" text-anchor="end">LNA_EN [13]</text>
+<text class="tiny" x="937.88" y="162.70" text-anchor="end">VCC_RF [14]</text>
+<text class="tiny" x="937.88" y="167.78" text-anchor="end">GND_1 [1]</text>
+<text class="tiny" x="937.88" y="172.86" text-anchor="end">GND_2 [10]</text>
+<text class="tiny" x="937.88" y="177.94" text-anchor="end">GND_3 [12]</text>
+<text class="tiny" x="937.88" y="183.02" text-anchor="end">RESERVED_16 [16]</text>
+<text class="tiny" x="937.88" y="188.10" text-anchor="end">RESERVED_17 [17]</text>
+<text class="tiny" x="937.88" y="193.18" text-anchor="end">SAFEBOOT_N [18]</text>
+<rect class="comp" x="816.65" y="257.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="816.65" y="250.99">C11</text>
+<text class="value" x="816.65" y="254.19">100nF GNSS VCC</text>
+<text class="tiny" x="814.77" y="260.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="831.23" y="260.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="935.65" y="257.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="935.65" y="250.99">C12</text>
+<text class="value" x="935.65" y="254.19">10uF GNSS VCC</text>
+<text class="tiny" x="933.77" y="260.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="950.23" y="260.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="1062.65" y="257.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="1062.65" y="250.99">C13</text>
+<text class="value" x="1062.65" y="254.19">100nF VCC_RF</text>
+<text class="tiny" x="1060.77" y="260.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="1077.23" y="260.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="844.00" y="309.84" width="26.00" height="20.32" rx=".7"/>
+<text class="part" x="844.0" y="303.64">J3</text>
+<text class="value" x="844.0" y="306.84">GNSS U.FL ANT</text>
+<text class="tiny" x="842.12" y="319.32" text-anchor="start">RF [1]</text>
+<text class="tiny" x="871.88" y="319.32" text-anchor="end">GND [2]</text>
+<rect class="comp" x="972.65" y="320.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="972.65" y="313.99">C14</text>
+<text class="value" x="972.65" y="317.19">100pF RF series</text>
+<text class="tiny" x="970.77" y="323.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="987.23" y="323.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="1071.65" y="320.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="1071.65" y="313.99">L2</text>
+<text class="value" x="1071.65" y="317.19">47nH RF bias</text>
+<text class="tiny" x="1069.77" y="323.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="1086.23" y="323.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="876.50" y="379.76" width="35.00" height="30.48" rx=".7"/>
+<text class="part" x="876.5" y="373.56">U4</text>
+<text class="value" x="876.5" y="376.76">MB85RC256VPNF</text>
+<text class="tiny" x="874.62" y="384.16" text-anchor="start">A0 [1]</text>
+<text class="tiny" x="874.62" y="389.24" text-anchor="start">A1 [2]</text>
+<text class="tiny" x="874.62" y="394.32" text-anchor="start">A2 [3]</text>
+<text class="tiny" x="874.62" y="399.40" text-anchor="start">VSS [4]</text>
+<text class="tiny" x="874.62" y="404.48" text-anchor="start">WP [7]</text>
+<text class="tiny" x="913.38" y="389.24" text-anchor="end">VDD [8]</text>
+<text class="tiny" x="913.38" y="394.32" text-anchor="end">SCL [6]</text>
+<text class="tiny" x="913.38" y="399.40" text-anchor="end">SDA [5]</text>
+<rect class="comp" x="1030.65" y="382.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="1030.65" y="375.99">R6</text>
+<text class="value" x="1030.65" y="379.19">4.7k SDA</text>
+<text class="tiny" x="1028.77" y="385.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="1045.23" y="385.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="1030.65" y="406.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="1030.65" y="399.99">R7</text>
+<text class="value" x="1030.65" y="403.19">4.7k SCL</text>
+<text class="tiny" x="1028.77" y="409.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="1045.23" y="409.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="1106.65" y="386.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="1106.65" y="379.99">C15</text>
+<text class="value" x="1106.65" y="383.19">100nF FRAM</text>
+<text class="tiny" x="1104.77" y="389.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="1121.23" y="389.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="101.00" y="508.60" width="48.00" height="50.80" rx=".7"/>
+<text class="part" x="101.0" y="502.40000000000003">J2</text>
+<text class="value" x="101.0" y="505.6">GCT USB4105-GF-A</text>
+<text class="tiny" x="99.12" y="515.54" text-anchor="start">GND_A1 [A1]</text>
+<text class="tiny" x="99.12" y="520.62" text-anchor="start">VBUS_A4 [A4]</text>
+<text class="tiny" x="99.12" y="525.70" text-anchor="start">CC1 [A5]</text>
+<text class="tiny" x="99.12" y="530.78" text-anchor="start">D+_A6 [A6]</text>
+<text class="tiny" x="99.12" y="535.86" text-anchor="start">D-_A7 [A7]</text>
+<text class="tiny" x="99.12" y="540.94" text-anchor="start">SBU1 [A8]</text>
+<text class="tiny" x="99.12" y="546.02" text-anchor="start">VBUS_A9 [A9]</text>
+<text class="tiny" x="99.12" y="551.10" text-anchor="start">GND_A12 [A12]</text>
+<text class="tiny" x="150.88" y="513.00" text-anchor="end">GND_B1 [B1]</text>
+<text class="tiny" x="150.88" y="518.08" text-anchor="end">VBUS_B4 [B4]</text>
+<text class="tiny" x="150.88" y="523.16" text-anchor="end">CC2 [B5]</text>
+<text class="tiny" x="150.88" y="528.24" text-anchor="end">D+_B6 [B6]</text>
+<text class="tiny" x="150.88" y="533.32" text-anchor="end">D-_B7 [B7]</text>
+<text class="tiny" x="150.88" y="538.40" text-anchor="end">SBU2 [B8]</text>
+<text class="tiny" x="150.88" y="543.48" text-anchor="end">VBUS_B9 [B9]</text>
+<text class="tiny" x="150.88" y="548.56" text-anchor="end">GND_B12 [B12]</text>
+<text class="tiny" x="150.88" y="553.64" text-anchor="end">SHIELD [SH]</text>
+<rect class="comp" x="358.00" y="466.50" width="14.00" height="9.00" rx=".7"/>
+<text class="part" x="358.0" y="460.3">PWR04</text>
+<text class="value" x="358.0" y="463.5">PWR_FLAG</text>
+<rect class="comp" x="260.65" y="470.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="260.65" y="463.99">R8</text>
+<text class="value" x="260.65" y="467.19">5.1k CC1</text>
+<text class="tiny" x="258.77" y="473.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="275.23" y="473.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="260.65" y="492.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="260.65" y="485.99">R9</text>
+<text class="value" x="260.65" y="489.19">5.1k CC2</text>
+<text class="tiny" x="258.77" y="495.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="275.23" y="495.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="246.00" y="533.84" width="36.00" height="20.32" rx=".7"/>
+<text class="part" x="246.0" y="527.64">D3</text>
+<text class="value" x="246.0" y="530.84">USBLC6-2SC6</text>
+<text class="tiny" x="244.12" y="538.24" text-anchor="start">IO1_IN [1]</text>
+<text class="tiny" x="244.12" y="543.32" text-anchor="start">IO2_IN [3]</text>
+<text class="tiny" x="244.12" y="548.40" text-anchor="start">GND [2]</text>
+<text class="tiny" x="283.88" y="538.24" text-anchor="end">IO1_OUT [6]</text>
+<text class="tiny" x="283.88" y="543.32" text-anchor="end">IO2_OUT [4]</text>
+<text class="tiny" x="283.88" y="548.40" text-anchor="end">VBUS [5]</text>
+<rect class="comp" x="258.65" y="595.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="258.65" y="588.99">R10</text>
+<text class="value" x="258.65" y="592.19">22R D+ series</text>
+<text class="tiny" x="256.77" y="598.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="273.23" y="598.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="258.65" y="618.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="258.65" y="611.99">R11</text>
+<text class="value" x="258.65" y="615.19">22R D- series</text>
+<text class="tiny" x="256.77" y="621.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="273.23" y="621.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="63.65" y="642.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="63.65" y="635.99">C16</text>
+<text class="value" x="63.65" y="639.19">100nF VBUS ESD</text>
+<text class="tiny" x="61.77" y="645.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="78.23" y="645.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="162.65" y="658.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="162.65" y="651.99">R12</text>
+<text class="value" x="162.65" y="655.19">100k VBUS top</text>
+<text class="tiny" x="160.77" y="661.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="177.23" y="661.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="278.65" y="658.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="278.65" y="651.99">R13</text>
+<text class="value" x="278.65" y="655.19">100k VBUS bottom</text>
+<text class="tiny" x="276.77" y="661.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="293.23" y="661.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="554.00" y="522.66" width="52.00" height="106.68" rx=".7"/>
+<text class="part" x="554.0" y="516.4599999999999">DS1</text>
+<text class="value" x="554.0" y="519.66">EA DOGL128W-6 + LED68X51-A</text>
+<text class="tiny" x="552.12" y="527.06" text-anchor="start">V0 [21]</text>
+<text class="tiny" x="552.12" y="532.14" text-anchor="start">V1 [22]</text>
+<text class="tiny" x="552.12" y="537.22" text-anchor="start">V2 [23]</text>
+<text class="tiny" x="552.12" y="542.30" text-anchor="start">V3 [24]</text>
+<text class="tiny" x="552.12" y="547.38" text-anchor="start">V4 [25]</text>
+<text class="tiny" x="552.12" y="552.46" text-anchor="start">VSS_26 [26]</text>
+<text class="tiny" x="552.12" y="557.54" text-anchor="start">CAP2N [27]</text>
+<text class="tiny" x="552.12" y="562.62" text-anchor="start">CAP2P [28]</text>
+<text class="tiny" x="552.12" y="567.70" text-anchor="start">CAP1P [29]</text>
+<text class="tiny" x="552.12" y="572.78" text-anchor="start">CAP1N [30]</text>
+<text class="tiny" x="552.12" y="577.86" text-anchor="start">CAP3P [31]</text>
+<text class="tiny" x="552.12" y="582.94" text-anchor="start">VOUT [32]</text>
+<text class="tiny" x="552.12" y="588.02" text-anchor="start">VSS_33 [33]</text>
+<text class="tiny" x="552.12" y="593.10" text-anchor="start">VDD2 [34]</text>
+<text class="tiny" x="552.12" y="598.18" text-anchor="start">VDD [35]</text>
+<text class="tiny" x="552.12" y="603.26" text-anchor="start">SI [36]</text>
+<text class="tiny" x="552.12" y="608.34" text-anchor="start">SCL [37]</text>
+<text class="tiny" x="552.12" y="613.42" text-anchor="start">A0 [38]</text>
+<text class="tiny" x="552.12" y="618.50" text-anchor="start">RST [39]</text>
+<text class="tiny" x="552.12" y="623.58" text-anchor="start">CS1B [40]</text>
+<text class="tiny" x="607.88" y="527.06" text-anchor="end">LED_A1 [1]</text>
+<text class="tiny" x="607.88" y="532.14" text-anchor="end">LED_A2 [2]</text>
+<text class="tiny" x="607.88" y="537.22" text-anchor="end">LED_A3 [3]</text>
+<text class="tiny" x="607.88" y="542.30" text-anchor="end">LED_K1 [18]</text>
+<text class="tiny" x="607.88" y="547.38" text-anchor="end">LED_K2 [19]</text>
+<text class="tiny" x="607.88" y="552.46" text-anchor="end">LED_K3 [20]</text>
+<rect class="comp" x="455.65" y="686.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="455.65" y="679.99">C17</text>
+<text class="value" x="455.65" y="683.19">1uF / &gt;=16V LCD</text>
+<text class="tiny" x="453.77" y="689.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="470.23" y="689.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="535.65" y="686.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="535.65" y="679.99">C18</text>
+<text class="value" x="535.65" y="683.19">1uF / &gt;=16V LCD</text>
+<text class="tiny" x="533.77" y="689.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="550.23" y="689.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="615.65" y="686.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="615.65" y="679.99">C19</text>
+<text class="value" x="615.65" y="683.19">1uF / &gt;=16V LCD</text>
+<text class="tiny" x="613.77" y="689.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="630.23" y="689.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="695.65" y="686.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="695.65" y="679.99">C20</text>
+<text class="value" x="695.65" y="683.19">1uF / &gt;=16V LCD</text>
+<text class="tiny" x="693.77" y="689.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="710.23" y="689.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="775.65" y="686.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="775.65" y="679.99">C21</text>
+<text class="value" x="775.65" y="683.19">1uF / &gt;=16V LCD</text>
+<text class="tiny" x="773.77" y="689.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="790.23" y="689.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="855.65" y="686.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="855.65" y="679.99">C22</text>
+<text class="value" x="855.65" y="683.19">1uF / &gt;=16V LCD</text>
+<text class="tiny" x="853.77" y="689.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="870.23" y="689.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="458.65" y="741.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="458.65" y="734.99">C23</text>
+<text class="value" x="458.65" y="738.19">1uF CAP3P-CAP1N</text>
+<text class="tiny" x="456.77" y="744.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="473.23" y="744.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="618.65" y="741.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="618.65" y="734.99">C24</text>
+<text class="value" x="618.65" y="738.19">1uF CAP1N-CAP1P</text>
+<text class="tiny" x="616.77" y="744.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="633.23" y="744.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="778.65" y="741.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="778.65" y="734.99">C25</text>
+<text class="value" x="778.65" y="738.19">1uF CAP2P-CAP2N</text>
+<text class="tiny" x="776.77" y="744.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="793.23" y="744.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="767.65" y="473.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="767.65" y="466.99">R14</text>
+<text class="value" x="767.65" y="470.19">47R / LED 1</text>
+<text class="tiny" x="765.77" y="476.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="782.23" y="476.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="828.65" y="473.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="828.65" y="466.99">R15</text>
+<text class="value" x="828.65" y="470.19">47R / LED 2</text>
+<text class="tiny" x="826.77" y="476.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="843.23" y="476.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="889.65" y="473.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="889.65" y="466.99">R16</text>
+<text class="value" x="889.65" y="470.19">47R / LED 3</text>
+<text class="tiny" x="887.77" y="476.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="904.23" y="476.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="812.00" y="620.84" width="20.00" height="20.32" rx=".7"/>
+<text class="part" x="812.0" y="614.64">Q1</text>
+<text class="value" x="812.0" y="617.84">DMN2056U-7 / PWM</text>
+<text class="tiny" x="810.12" y="630.32" text-anchor="start">G [1]</text>
+<text class="tiny" x="833.88" y="627.78" text-anchor="end">D [3]</text>
+<text class="tiny" x="833.88" y="632.86" text-anchor="end">S [2]</text>
+<rect class="comp" x="815.65" y="657.19" width="12.70" height="7.62" rx=".7"/>
+<text class="part" x="815.65" y="650.99">R17</text>
+<text class="value" x="815.65" y="654.19">100k PWM pulldown</text>
+<text class="tiny" x="813.77" y="660.32" text-anchor="start">1 [1]</text>
+<text class="tiny" x="830.23" y="660.32" text-anchor="end">2 [2]</text>
+<rect class="comp" x="944.00" y="457.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="944.0" y="451.64">SW1</text>
+<text class="value" x="944.0" y="454.84">MODE</text>
+<text class="tiny" x="942.12" y="464.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="942.12" y="469.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="967.88" y="464.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="967.88" y="469.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="1043.00" y="457.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="1043.0" y="451.64">SW2</text>
+<text class="value" x="1043.0" y="454.84">PLUS</text>
+<text class="tiny" x="1041.12" y="464.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="1041.12" y="469.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="1066.88" y="464.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="1066.88" y="469.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="944.00" y="545.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="944.0" y="539.64">SW3</text>
+<text class="value" x="944.0" y="542.84">MINUS</text>
+<text class="tiny" x="942.12" y="552.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="942.12" y="557.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="967.88" y="552.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="967.88" y="557.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="1043.00" y="545.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="1043.0" y="539.64">SW4</text>
+<text class="value" x="1043.0" y="542.84">RESET TRIP</text>
+<text class="tiny" x="1041.12" y="552.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="1041.12" y="557.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="1066.88" y="552.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="1066.88" y="557.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="944.00" y="631.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="944.0" y="625.64">SW5</text>
+<text class="value" x="944.0" y="628.84">SET</text>
+<text class="tiny" x="942.12" y="638.78" text-anchor="start">GND_L1 [2]</text>
+<text class="tiny" x="942.12" y="643.86" text-anchor="start">GND_L2 [4]</text>
+<text class="tiny" x="967.88" y="638.78" text-anchor="end">SW_R1 [1]</text>
+<text class="tiny" x="967.88" y="643.86" text-anchor="end">SW_R2 [3]</text>
+<rect class="comp" x="1078.00" y="649.84" width="22.00" height="20.32" rx=".7"/>
+<text class="part" x="1078.0" y="643.64">J4</text>
+<text class="value" x="1078.0" y="646.84">EXT TRIP RESET</text>
+<text class="tiny" x="1076.12" y="656.78" text-anchor="start">PIN1 [1]</text>
+<text class="tiny" x="1076.12" y="661.86" text-anchor="start">PIN2 [2]</text>
+<text class="net" x="42.3" y="81.66" text-anchor="end">BAT_IN</text>
+<text class="net" x="42.3" y="86.74000000000001" text-anchor="end">GND</text>
+<text class="net" x="117.95" y="75.2" text-anchor="end">BAT_IN</text>
+<text class="net" x="246.05" y="75.2" text-anchor="start">VIN_PROT</text>
+<text class="net" x="319.05" y="93.2" text-anchor="start">VIN_PROT</text>
+<text class="net" x="280.95" y="93.2" text-anchor="end">GND</text>
+<text class="net" x="62.95" y="148.2" text-anchor="end">VIN_PROT</text>
+<text class="net" x="101.05" y="148.2" text-anchor="start">GND</text>
+<text class="net" x="160.95" y="148.2" text-anchor="end">VIN_PROT</text>
+<text class="net" x="199.05" y="148.2" text-anchor="start">GND</text>
+<text class="net" x="249.8" y="169.57999999999998" text-anchor="end">VIN_PROT</text>
+<text class="net" x="249.8" y="174.66" text-anchor="end">VIN_PROT</text>
+<text class="net" x="249.8" y="179.73999999999998" text-anchor="end">GND</text>
+<text class="net" x="249.8" y="184.82" text-anchor="end">GND</text>
+<text class="net" x="310.2" y="167.04" text-anchor="start">SW_BUCK</text>
+<text class="net" x="310.2" y="172.11999999999998" text-anchor="start">BOOT_BUCK</text>
+<text class="net" x="310.2" y="177.2" text-anchor="start">VCC_INTERNAL</text>
+<text class="net" x="310.2" y="182.28" text-anchor="start">FB_BUCK</text>
+<text class="net" x="310.2" y="187.35999999999999" text-anchor="start">PG_BUCK</text>
+<text class="net" x="50.95" y="219.2" text-anchor="end">VCC_INTERNAL</text>
+<text class="net" x="89.05" y="219.2" text-anchor="start">GND</text>
+<text class="net" x="125.95" y="219.2" text-anchor="end">SW_BUCK</text>
+<text class="net" x="164.05" y="219.2" text-anchor="start">BOOT_BUCK</text>
+<text class="net" x="200.95" y="266.2" text-anchor="end">SW_BUCK</text>
+<text class="net" x="239.05" y="266.2" text-anchor="start">+3V3</text>
+<text class="net" x="40.95" y="295.2" text-anchor="end">+3V3</text>
+<text class="net" x="79.05" y="295.2" text-anchor="start">GND</text>
+<text class="net" x="115.95" y="295.2" text-anchor="end">+3V3</text>
+<text class="net" x="154.05" y="295.2" text-anchor="start">GND</text>
+<text class="net" x="190.95" y="330.2" text-anchor="end">+3V3</text>
+<text class="net" x="229.05" y="330.2" text-anchor="start">GND</text>
+<text class="net" x="278.95" y="271.2" text-anchor="end">+3V3</text>
+<text class="net" x="317.05" y="271.2" text-anchor="start">FB_BUCK</text>
+<text class="net" x="278.95" y="307.2" text-anchor="end">FB_BUCK</text>
+<text class="net" x="317.05" y="307.2" text-anchor="start">GND</text>
+<text class="net" x="278.95" y="350.2" text-anchor="end">+3V3</text>
+<text class="net" x="317.05" y="350.2" text-anchor="start">PG_BUCK</text>
+<text class="net" x="380.0" y="120.4" text-anchor="start">VIN_PROT</text>
+<text class="net" x="379.0" y="306.4" text-anchor="start">+3V3</text>
+<text class="net" x="379.0" y="348.4" text-anchor="start">GND</text>
+<text class="net" x="702.08" y="157.23999999999998" text-anchor="start">+3V3</text>
+<text class="net" x="625.92" y="119.14" text-anchor="end">BOOT_IO0</text>
+<text class="net" x="625.92" y="124.22" text-anchor="end">KEY_MODE</text>
+<text class="net" x="625.92" y="129.29999999999998" text-anchor="end">KEY_PLUS</text>
+<text class="net" x="625.92" y="139.45999999999998" text-anchor="end">KEY_MINUS</text>
+<text class="net" x="625.92" y="144.54" text-anchor="end">KEY_RESET</text>
+<text class="net" x="625.92" y="149.61999999999998" text-anchor="end">KEY_SET</text>
+<text class="net" x="625.92" y="154.7" text-anchor="end">LCD_SI</text>
+<text class="net" x="625.92" y="159.78" text-anchor="end">LCD_SCL</text>
+<text class="net" x="625.92" y="164.85999999999999" text-anchor="end">LCD_A0</text>
+<text class="net" x="625.92" y="169.94" text-anchor="end">LCD_CS</text>
+<text class="net" x="625.92" y="175.01999999999998" text-anchor="end">LCD_RST</text>
+<text class="net" x="625.92" y="180.1" text-anchor="end">LCD_BL_PWM</text>
+<text class="net" x="625.92" y="185.17999999999998" text-anchor="end">I2C_SDA</text>
+<text class="net" x="625.92" y="190.26" text-anchor="end">I2C_SCL</text>
+<text class="net" x="625.92" y="195.33999999999997" text-anchor="end">GNSS_PPS</text>
+<text class="net" x="625.92" y="200.42" text-anchor="end">GNSS_TX_TO_MCU</text>
+<text class="net" x="625.92" y="205.5" text-anchor="end">GNSS_RX_FROM_MCU</text>
+<text class="net" x="625.92" y="215.66" text-anchor="end">USB_DM_MCU</text>
+<text class="net" x="625.92" y="220.73999999999998" text-anchor="end">USB_DP_MCU</text>
+<text class="net" x="625.92" y="225.82" text-anchor="end">USB_VBUS_SENSE</text>
+<text class="net" x="625.92" y="276.62" text-anchor="end">PG_BUCK</text>
+<text class="net" x="625.92" y="317.26" text-anchor="end">ESP_EN</text>
+<text class="net" x="700.2" y="162.32" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="167.39999999999998" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="172.48" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="177.56" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="182.64" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="187.72" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="192.79999999999998" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="197.88" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="202.95999999999998" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="208.04" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="213.11999999999998" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="218.2" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="223.28" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="228.35999999999999" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="233.44" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="238.51999999999998" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="243.6" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="248.67999999999998" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="253.76" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="258.84" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="263.92" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="269.0" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="274.08" text-anchor="start">GND</text>
+<text class="net" x="700.2" y="279.15999999999997" text-anchor="start">GND</text>
+<text class="net" x="463.95" y="69.2" text-anchor="end">+3V3</text>
+<text class="net" x="502.05" y="69.2" text-anchor="start">GND</text>
+<text class="net" x="561.95" y="69.2" text-anchor="end">+3V3</text>
+<text class="net" x="600.05" y="69.2" text-anchor="start">GND</text>
+<text class="net" x="456.95" y="356.2" text-anchor="end">+3V3</text>
+<text class="net" x="495.05" y="356.2" text-anchor="start">ESP_EN</text>
+<text class="net" x="547.95" y="356.2" text-anchor="end">ESP_EN</text>
+<text class="net" x="586.05" y="356.2" text-anchor="start">GND</text>
+<text class="net" x="641.95" y="356.2" text-anchor="end">+3V3</text>
+<text class="net" x="680.05" y="356.2" text-anchor="start">BOOT_IO0</text>
+<text class="net" x="491.3" y="392.65999999999997" text-anchor="end">GND</text>
+<text class="net" x="491.3" y="397.74" text-anchor="end">GND</text>
+<text class="net" x="538.7" y="392.65999999999997" text-anchor="start">ESP_EN</text>
+<text class="net" x="538.7" y="397.74" text-anchor="start">ESP_EN</text>
+<text class="net" x="683.3" y="392.65999999999997" text-anchor="end">GND</text>
+<text class="net" x="683.3" y="397.74" text-anchor="end">GND</text>
+<text class="net" x="730.7" y="392.65999999999997" text-anchor="start">BOOT_IO0</text>
+<text class="net" x="730.7" y="397.74" text-anchor="start">BOOT_IO0</text>
+<text class="net" x="881.3" y="152.42" text-anchor="end">+3V3</text>
+<text class="net" x="881.3" y="157.5" text-anchor="end">+3V3</text>
+<text class="net" x="881.3" y="162.57999999999998" text-anchor="end">+3V3</text>
+<text class="net" x="948.7" y="147.33999999999997" text-anchor="start">GNSS_TX_TO_MCU</text>
+<text class="net" x="881.3" y="177.82" text-anchor="end">GNSS_RX_FROM_MCU</text>
+<text class="net" x="948.7" y="152.42" text-anchor="start">GNSS_PPS</text>
+<text class="net" x="881.3" y="187.98" text-anchor="end">RF_IN_RX</text>
+<text class="net" x="948.7" y="162.57999999999998" text-anchor="start">VCC_RF</text>
+<text class="net" x="948.7" y="167.66" text-anchor="start">GND</text>
+<text class="net" x="948.7" y="172.73999999999998" text-anchor="start">GND</text>
+<text class="net" x="948.7" y="177.82" text-anchor="start">GND</text>
+<text class="net" x="803.95" y="260.2" text-anchor="end">+3V3</text>
+<text class="net" x="842.05" y="260.2" text-anchor="start">GND</text>
+<text class="net" x="922.95" y="260.2" text-anchor="end">+3V3</text>
+<text class="net" x="961.05" y="260.2" text-anchor="start">GND</text>
+<text class="net" x="1049.95" y="260.2" text-anchor="end">VCC_RF</text>
+<text class="net" x="1088.05" y="260.2" text-anchor="start">GND</text>
+<text class="net" x="831.3" y="319.2" text-anchor="end">RF_ANT_BIAS</text>
+<text class="net" x="882.7" y="319.2" text-anchor="start">GND</text>
+<text class="net" x="959.95" y="323.2" text-anchor="end">RF_ANT_BIAS</text>
+<text class="net" x="998.05" y="323.2" text-anchor="start">RF_IN_RX</text>
+<text class="net" x="1058.95" y="323.2" text-anchor="end">VCC_RF</text>
+<text class="net" x="1097.05" y="323.2" text-anchor="start">RF_ANT_BIAS</text>
+<text class="net" x="863.8" y="384.03999999999996" text-anchor="end">GND</text>
+<text class="net" x="863.8" y="389.12" text-anchor="end">GND</text>
+<text class="net" x="863.8" y="394.2" text-anchor="end">GND</text>
+<text class="net" x="863.8" y="399.28" text-anchor="end">GND</text>
+<text class="net" x="863.8" y="404.36" text-anchor="end">GND</text>
+<text class="net" x="924.2" y="389.12" text-anchor="start">+3V3</text>
+<text class="net" x="924.2" y="394.2" text-anchor="start">I2C_SCL</text>
+<text class="net" x="924.2" y="399.28" text-anchor="start">I2C_SDA</text>
+<text class="net" x="1017.95" y="385.2" text-anchor="end">+3V3</text>
+<text class="net" x="1056.05" y="385.2" text-anchor="start">I2C_SDA</text>
+<text class="net" x="1017.95" y="409.2" text-anchor="end">+3V3</text>
+<text class="net" x="1056.05" y="409.2" text-anchor="start">I2C_SCL</text>
+<text class="net" x="1093.95" y="389.2" text-anchor="end">+3V3</text>
+<text class="net" x="1132.05" y="389.2" text-anchor="start">GND</text>
+<text class="net" x="88.3" y="515.4200000000001" text-anchor="end">GND</text>
+<text class="net" x="88.3" y="550.98" text-anchor="end">GND</text>
+<text class="net" x="161.7" y="512.88" text-anchor="start">GND</text>
+<text class="net" x="161.7" y="548.44" text-anchor="start">GND</text>
+<text class="net" x="88.3" y="520.5" text-anchor="end">USB_VBUS</text>
+<text class="net" x="88.3" y="545.9000000000001" text-anchor="end">USB_VBUS</text>
+<text class="net" x="161.7" y="517.96" text-anchor="start">USB_VBUS</text>
+<text class="net" x="161.7" y="543.36" text-anchor="start">USB_VBUS</text>
+<text class="net" x="88.3" y="525.58" text-anchor="end">USB_CC1</text>
+<text class="net" x="161.7" y="523.0400000000001" text-anchor="start">USB_CC2</text>
+<text class="net" x="88.3" y="530.6600000000001" text-anchor="end">USB_DP_CONN</text>
+<text class="net" x="161.7" y="528.12" text-anchor="start">USB_DP_CONN</text>
+<text class="net" x="88.3" y="535.74" text-anchor="end">USB_DM_CONN</text>
+<text class="net" x="161.7" y="533.2" text-anchor="start">USB_DM_CONN</text>
+<text class="net" x="161.7" y="553.5200000000001" text-anchor="start">GND</text>
+<text class="net" x="365.0" y="487.4" text-anchor="start">USB_VBUS</text>
+<text class="net" x="247.95" y="473.2" text-anchor="end">USB_CC1</text>
+<text class="net" x="286.05" y="473.2" text-anchor="start">GND</text>
+<text class="net" x="247.95" y="495.2" text-anchor="end">USB_CC2</text>
+<text class="net" x="286.05" y="495.2" text-anchor="start">GND</text>
+<text class="net" x="233.3" y="538.12" text-anchor="end">USB_DP_CONN</text>
+<text class="net" x="294.7" y="538.12" text-anchor="start">USB_DP_ESD</text>
+<text class="net" x="233.3" y="543.2" text-anchor="end">USB_DM_CONN</text>
+<text class="net" x="294.7" y="543.2" text-anchor="start">USB_DM_ESD</text>
+<text class="net" x="233.3" y="548.2800000000001" text-anchor="end">GND</text>
+<text class="net" x="294.7" y="548.2800000000001" text-anchor="start">USB_VBUS</text>
+<text class="net" x="245.95" y="598.2" text-anchor="end">USB_DP_ESD</text>
+<text class="net" x="284.05" y="598.2" text-anchor="start">USB_DP_MCU</text>
+<text class="net" x="245.95" y="621.2" text-anchor="end">USB_DM_ESD</text>
+<text class="net" x="284.05" y="621.2" text-anchor="start">USB_DM_MCU</text>
+<text class="net" x="50.95" y="645.2" text-anchor="end">USB_VBUS</text>
+<text class="net" x="89.05" y="645.2" text-anchor="start">GND</text>
+<text class="net" x="149.95" y="661.2" text-anchor="end">USB_VBUS</text>
+<text class="net" x="188.05" y="661.2" text-anchor="start">USB_VBUS_SENSE</text>
+<text class="net" x="265.95" y="661.2" text-anchor="end">USB_VBUS_SENSE</text>
+<text class="net" x="304.05" y="661.2" text-anchor="start">GND</text>
+<text class="net" x="538.76" y="552.34" text-anchor="end">GND</text>
+<text class="net" x="538.76" y="587.9000000000001" text-anchor="end">GND</text>
+<text class="net" x="538.76" y="592.98" text-anchor="end">+3V3</text>
+<text class="net" x="538.76" y="598.0600000000001" text-anchor="end">+3V3</text>
+<text class="net" x="538.76" y="603.1400000000001" text-anchor="end">LCD_SI</text>
+<text class="net" x="538.76" y="608.22" text-anchor="end">LCD_SCL</text>
+<text class="net" x="538.76" y="613.3000000000001" text-anchor="end">LCD_A0</text>
+<text class="net" x="538.76" y="618.38" text-anchor="end">LCD_RST</text>
+<text class="net" x="538.76" y="623.46" text-anchor="end">LCD_CS</text>
+<text class="net" x="538.76" y="582.82" text-anchor="end">LCD_VOUT</text>
+<text class="net" x="538.76" y="577.74" text-anchor="end">LCD_CAP3P</text>
+<text class="net" x="538.76" y="572.6600000000001" text-anchor="end">LCD_CAP1N</text>
+<text class="net" x="538.76" y="567.58" text-anchor="end">LCD_CAP1P</text>
+<text class="net" x="538.76" y="562.5" text-anchor="end">LCD_CAP2P</text>
+<text class="net" x="538.76" y="557.4200000000001" text-anchor="end">LCD_CAP2N</text>
+<text class="net" x="538.76" y="547.26" text-anchor="end">LCD_V4</text>
+<text class="net" x="538.76" y="542.1800000000001" text-anchor="end">LCD_V3</text>
+<text class="net" x="538.76" y="537.1" text-anchor="end">LCD_V2</text>
+<text class="net" x="538.76" y="532.0200000000001" text-anchor="end">LCD_V1</text>
+<text class="net" x="538.76" y="526.94" text-anchor="end">LCD_V0</text>
+<text class="net" x="618.7" y="526.94" text-anchor="start">LED_A1</text>
+<text class="net" x="618.7" y="532.0200000000001" text-anchor="start">LED_A2</text>
+<text class="net" x="618.7" y="537.1" text-anchor="start">LED_A3</text>
+<text class="net" x="618.7" y="542.1800000000001" text-anchor="start">LED_K_COMMON</text>
+<text class="net" x="618.7" y="547.26" text-anchor="start">LED_K_COMMON</text>
+<text class="net" x="618.7" y="552.34" text-anchor="start">LED_K_COMMON</text>
+<text class="net" x="442.95" y="689.2" text-anchor="end">LCD_VOUT</text>
+<text class="net" x="481.05" y="689.2" text-anchor="start">GND</text>
+<text class="net" x="522.95" y="689.2" text-anchor="end">LCD_V0</text>
+<text class="net" x="561.05" y="689.2" text-anchor="start">GND</text>
+<text class="net" x="602.95" y="689.2" text-anchor="end">LCD_V1</text>
+<text class="net" x="641.05" y="689.2" text-anchor="start">GND</text>
+<text class="net" x="682.95" y="689.2" text-anchor="end">LCD_V2</text>
+<text class="net" x="721.05" y="689.2" text-anchor="start">GND</text>
+<text class="net" x="762.95" y="689.2" text-anchor="end">LCD_V3</text>
+<text class="net" x="801.05" y="689.2" text-anchor="start">GND</text>
+<text class="net" x="842.95" y="689.2" text-anchor="end">LCD_V4</text>
+<text class="net" x="881.05" y="689.2" text-anchor="start">GND</text>
+<text class="net" x="445.95" y="744.2" text-anchor="end">LCD_CAP3P</text>
+<text class="net" x="484.05" y="744.2" text-anchor="start">LCD_CAP1N</text>
+<text class="net" x="605.95" y="744.2" text-anchor="end">LCD_CAP1N</text>
+<text class="net" x="644.05" y="744.2" text-anchor="start">LCD_CAP1P</text>
+<text class="net" x="765.95" y="744.2" text-anchor="end">LCD_CAP2P</text>
+<text class="net" x="804.05" y="744.2" text-anchor="start">LCD_CAP2N</text>
+<text class="net" x="754.95" y="476.2" text-anchor="end">+3V3</text>
+<text class="net" x="793.05" y="476.2" text-anchor="start">LED_A1</text>
+<text class="net" x="815.95" y="476.2" text-anchor="end">+3V3</text>
+<text class="net" x="854.05" y="476.2" text-anchor="start">LED_A2</text>
+<text class="net" x="876.95" y="476.2" text-anchor="end">+3V3</text>
+<text class="net" x="915.05" y="476.2" text-anchor="start">LED_A3</text>
+<text class="net" x="799.3" y="630.2" text-anchor="end">LCD_BL_PWM</text>
+<text class="net" x="844.7" y="632.74" text-anchor="start">GND</text>
+<text class="net" x="844.7" y="627.6600000000001" text-anchor="start">LED_K_COMMON</text>
+<text class="net" x="802.95" y="660.2" text-anchor="end">LCD_BL_PWM</text>
+<text class="net" x="841.05" y="660.2" text-anchor="start">GND</text>
+<text class="net" x="931.3" y="464.65999999999997" text-anchor="end">GND</text>
+<text class="net" x="931.3" y="469.74" text-anchor="end">GND</text>
+<text class="net" x="978.7" y="464.65999999999997" text-anchor="start">KEY_MODE</text>
+<text class="net" x="978.7" y="469.74" text-anchor="start">KEY_MODE</text>
+<text class="net" x="1030.3" y="464.65999999999997" text-anchor="end">GND</text>
+<text class="net" x="1030.3" y="469.74" text-anchor="end">GND</text>
+<text class="net" x="1077.7" y="464.65999999999997" text-anchor="start">KEY_PLUS</text>
+<text class="net" x="1077.7" y="469.74" text-anchor="start">KEY_PLUS</text>
+<text class="net" x="931.3" y="552.6600000000001" text-anchor="end">GND</text>
+<text class="net" x="931.3" y="557.74" text-anchor="end">GND</text>
+<text class="net" x="978.7" y="552.6600000000001" text-anchor="start">KEY_MINUS</text>
+<text class="net" x="978.7" y="557.74" text-anchor="start">KEY_MINUS</text>
+<text class="net" x="1030.3" y="552.6600000000001" text-anchor="end">GND</text>
+<text class="net" x="1030.3" y="557.74" text-anchor="end">GND</text>
+<text class="net" x="1077.7" y="552.6600000000001" text-anchor="start">KEY_RESET</text>
+<text class="net" x="1077.7" y="557.74" text-anchor="start">KEY_RESET</text>
+<text class="net" x="931.3" y="638.6600000000001" text-anchor="end">GND</text>
+<text class="net" x="931.3" y="643.74" text-anchor="end">GND</text>
+<text class="net" x="978.7" y="638.6600000000001" text-anchor="start">KEY_SET</text>
+<text class="net" x="978.7" y="643.74" text-anchor="start">KEY_SET</text>
+<text class="net" x="1065.3" y="656.6600000000001" text-anchor="end">KEY_RESET</text>
+<text class="net" x="1065.3" y="661.74" text-anchor="end">GND</text>
+<text class="section" x="30" y="43" font-size="3.5999999999999996">01  EINGANG / 12-V-SCHUTZ / 3,3-V-DC-DC</text>
+<text class="value" x="30" y="45.54" font-size="2.5">________________________________________________________________________________________________</text>
+<text class="section" x="425" y="43" font-size="3.5999999999999996">02  ESP32-S3 / RESET / BOOT</text>
+<text class="value" x="425" y="45.54" font-size="2.5">________________________________________________________________________________________________</text>
+<text class="section" x="805" y="43" font-size="3.5999999999999996">03  GNSS / ANTENNE / I2C-FRAM</text>
+<text class="value" x="805" y="45.54" font-size="2.5">________________________________________________________________________________________________</text>
+<text class="section" x="30" y="426" font-size="3.5999999999999996">04  USB-C  /  SELBSTVERSORGTER USB-PORT</text>
+<text class="value" x="30" y="428.54" font-size="2.5">________________________________________________________________________________________________</text>
+<text class="section" x="425" y="426" font-size="3.5999999999999996">05  LCD / KONTRASTPUMPE / BACKLIGHT</text>
+<text class="value" x="425" y="428.54" font-size="2.5">________________________________________________________________________________________________</text>
+<text class="section" x="925" y="426" font-size="3.5999999999999996">06  BEDIENUNG / EXTERNER RESET</text>
+<text class="value" x="925" y="428.54" font-size="2.5">________________________________________________________________________________________________</text>
+<text class="value" x="205" y="112" font-size="2.5">TVS nur Vorentwurf, kein ISO-Load-Dump-Nachweis</text>
+<text class="value" x="44" y="387" font-size="2.5">PWR_FLAG nur an realen Einspeisepunkten</text>
+<text class="value" x="814" y="360" font-size="2.5">RF-In 50 Ohm; Bias-T nur mit aktivem Antennentyp pruefen</text>
+<text class="value" x="38" y="703" font-size="2.5">USB VBUS NUR ERKENNUNG / ESD - KEINE 5-V-EINSPEISUNG</text>
+<text class="value" x="38" y="711" font-size="2.5">Zum Flashen 12-V-Bordnetz bzw. externes Netzteil erforderlich.</text>
+<text class="value" x="462" y="795" font-size="2.5">3 LED-Pfade mit EINZELNEN Vorwiderstaenden, niemals direkt an +3V3</text>
+<text class="value" x="462" y="807" font-size="2.5">LCD: 9x 1uF fuer Single-Supply-Ladungspumpe, Rueckseite nach Datenblatt</text>
+<text class="value" x="932" y="712" font-size="2.5">Pullups im ESP32 aktivieren (Firmware).</text>
+<text class="value" x="932" y="720" font-size="2.5">Externer Taster parallel zu SW4.</text>
+<text class="section" x="29" y="29" font-size="4.32">TRIPMASTER / GPS-ROADBOOK COMPUTER - ELEKTRIK V0.3 / VORPRUEFUNG, NICHT FERTIGEN</text>
+<text class="value" x="30" y="820" font-size="2.5">Netzlabels verbinden nur gleichnamige Netze; Leiter und Symbole sind im Editor einzeln editierbar.</text>
+</svg>

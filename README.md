@@ -1,30 +1,41 @@
-# TripTracer – GPS-Rallye- und Tripcomputer
+# TripTracer – GPS Rally & Trip Computer
 
-Eigenentwickelter GPS-Tripmaster für Rallye, Touren und Fahrzeuge. Zentrales privates GitHub-Repository für KiCad 10, Firmware, 3D-Modelle und Gehäuse.
+Privates Entwicklungsprojekt eines selbstgebauten GPS-Tripmasters, universell fuer Rallye, Touren und Fahrzeuge. Zentraler, portabler Entwicklungsstand inklusive KiCad-10-Schaltplan, Bibliotheken, STEP-Modellen, erstem Gehaeuse und experimenteller Firmware.
 
-## Aktueller Entwicklungsstand
+## Projektstand (Oktober 2026)
 
-- **Elektronik V0.3:** Ein editierbarer KiCad-10-Schaltplan mit 69 Bauteilinstanzen, 25 Footprint-Typen, Symbolbibliothek und STEP-Modellen liegt aus früherer Entwicklung vor. Strukturelle Prüfung bestanden, aber **kein KiCad-ERC/DRC durchgeführt**.
-- **Leiterplatte:** Es existiert **noch kein fertig geroutetes oder zur Fertigung freigegebenes PCB**.
-- **Mechanik V0.1:** CAD-Prototyp mit Gehäusefront, Rückdeckel, Tasterkappe und PCB-Referenz.
-- **Firmware V0.1:** Experimentelles ESP32-S3-/PlatformIO-Projekt, **nicht mit V0.3 abgeglichen**.
+| Teil | Stand | Bemerkung |
+| --- | --- | --- |
+| Schaltplan | V0.3 | 69 Instanzen, 25 Footprinttypen; strukturell geprueft, ERC nicht ausgefuehrt |
+| Leiterplatte | Offen | **Keine geroutete, freigegebene PCB-Datei** |
+| Symbole/Footprints/3D | V0.3 | Projektlokal und zentrale Kopie, Geometrie und Modelle noch zu verifizieren |
+| Gehaeuse | V0.1 | Front/Rueckdeckel, Kappe, Referenzgeometrie als STEP/STL; Passprobe offen |
+| Firmware | V0.1 | Experimenteller ESP32-S3-Prototyp, noch nicht mit V0.3 abgeglichen |
 
-Die Bauteile sind u. a. **ESP32-S3-MINI-1-N8**, **u-blox MAX-M10N-00B**, **EA DOGL128W-6** mit **EA LED68X51-A**, **LMR36510ADDAR** sowie **I²C-FRAM MB85RC256VPNF**.
+## Verzeichnisse
 
-### Dateiimport
+- `hardware/kicad/`: originaler V0.3-Schaltplan, projektlokale Symbole, Footprints, STEP-Modelle, Bibliothekstabellen
+- `hardware/pcb/`: spaeteres Layout, momentan nur Hinweis
+- `symbols/`, `footprints/`, `3dmodels/`: aus V0.3 uebernommene zentrale Bibliothekskopien
+- `catalog/`: V0.3-BOM, Pin-/Netztabellen, Strukturpruefberichte, Modellinventar
+- `mechanics/prototype_v0.1/`: mechanischer Prototyp (STEP/STL)
+- `firmware/prototype_v0.1/`: PlatformIO-Prototyp
+- `docs/`: Architektur, Datenblatt-URLs, Preview und offene Punkte
+- `tools/legacy_generation/`: reproduzierbare Skripte der V0.3, **nicht ungefragt erneut ausfuehren**, da UUIDs neu vergeben werden koennen
+- `integration/`: Bibliothekseinbindung auf weiteren Rechnern
+- `releases/`: erst nach Freigabe fuellen
 
-Die Quellbestände werden als geprüftes Archiv **`TripTracer-Project-Bundle.zip`** importiert. Vor dem ersten Import enthält dieses Repository bewusst nur die Projektstruktur und Dokumentation. Siehe [imports/README.md](imports/README.md).
+## Oeffnen
 
-Nach dem Import:
-- `hardware/kicad/`: V0.3-Schaltplan und projektlokale Bibliotheken.
-- `symbols/`, `footprints/`, `3dmodels/`: wiederverwendbare Bibliothek.
-- `catalog/`: Bauteile, Netzlisten, Prüfberichte, Inventar.
-- `mechanics/prototype_v0.1/`: STEP/STL-Gehäuseprototyp.
-- `firmware/prototype_v0.1/`: experimentelle ESP32-Firmware.
-- `docs/`: Entwurfsstand, offene Punkte und Quellen.
-- `integration/`: Pfadkonfiguration für weitere Rechner.
-- `releases/`: erst für später freigegebene Stände.
+1. Repository klonen, KiCad 10 installieren.
+2. `hardware/kicad/Tripmaster_V0_3.kicad_pro` oeffnen.
+3. Bibliothekstabellen und 3D-Modelle aus demselben Ordner unveraendert belassen.
+4. ERC in KiCad ausfuehren und Ergebnisse einzeln pruefen; keine PCB-Fertigungsdateien aus diesem Stand ableiten.
+5. Hinweise in `docs/OPEN_ITEMS.md` beachten.
 
-**Wichtig:** Keine Fertigungs- oder Fahrzeugfreigabe. Die USB-C-Buchse ist im V0.3-Schaltplan nur ein datenbasierter Anschluss; zum Firmware-Flashen muss das Gerät zusätzlich über J1 mit Strom versorgt werden.
+## Sicherheit und Revisionshinweise
 
-Das ältere lokale KiCad-Dateinamensschema `Tripmaster_V0_3` wird zur Erhaltung von Bibliotheksreferenzen beibehalten, obwohl der Projektname nun **TripTracer** lautet.
+- Es gibt **keine nachgewiesene Freigabe fuer Fahrzeugbetrieb** (Load Dump/EMV/ESD/Verpolung).
+- In V0.3 ist USB-C ein selbstversorgter Datenanschluss; die Elektronik muss zum Flashen zusaetzlich ueber J1 versorgt werden.
+- V0.1-Mechanik und -Firmware haben andere Revisionsnummern als V0.3 und sind nicht automatisch kompatibel.
+- Keine fruehen Platzhalterfootprints aus V0.1/V0.2 als freigegebenen Produktionsstand nutzen.

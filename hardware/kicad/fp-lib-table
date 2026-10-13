@@ -1,0 +1,1 @@
+(fp_lib_table (lib (name "Tripmaster") (type "KiCad") (uri "${KIPRJMOD}/Tripmaster.pretty") (options "") (descr "Tripmaster V0.3 PCB footprints")))

@@ -1,0 +1,14 @@
+(footprint "F1_Littelfuse_0451_500MRL" (version 20240108) (generator "pcbnew") (layer "F.Cu")
+ (descr "Littelfuse 0451.500MRL 500mA SMD 451 series, lands 1.96x3.15 | Status: HERSTELLER_LANDMASS_SICHERUNGSWERT_PRUEFEN")
+ (tags "Tripmaster")
+ (attr smd)
+ (fp_text reference "F" (at 0 -3.000) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
+ (fp_text value "F1_Littelfuse_0451_500MRL" (at 0 3.000) (layer "F.Fab") (effects (font (size 0.7 0.7) (thickness 0.1))))
+(fp_rect (start -3.050 -1.345) (end 3.050 1.345) (stroke (width 0.100) (type default)) (fill none) (layer "F.Fab"))
+(fp_rect (start -3.700 -1.900) (end 3.700 1.900) (stroke (width 0.050) (type default)) (fill none) (layer "F.CrtYd"))
+(pad "1" smd rect (at -2.450 0.000) (size 1.960 3.150) (layers "F.Cu" "F.Paste" "F.Mask"))
+(pad "2" smd rect (at 2.450 0.000) (size 1.960 3.150) (layers "F.Cu" "F.Paste" "F.Mask"))
+
+(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/Littelfuse_451_Fuse.step"
+ (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)
