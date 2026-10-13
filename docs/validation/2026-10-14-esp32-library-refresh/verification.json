@@ -1,0 +1,9 @@
+{
+  "reference": "U201",
+  "operation": "Refresh from identical local-library geometry, preserve UUID/path/value/nets",
+  "all_73_pad_geometries_unchanged": true,
+  "all_existing_PCB_pad_nets_unchanged": true,
+  "antenna_keepout_zone_count": 2,
+  "native_normalized_footprint_comparison_before_refresh": "Identical after removing UUIDs/library-name and standardizing reference/value text",
+  "scope": "Cache/library consistency only, not manufacturer/antenna/3D/thermal approval"
+}
