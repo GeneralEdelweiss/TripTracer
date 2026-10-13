@@ -22,10 +22,10 @@ Diese Datei ist dein **freier Ideenspeicher** für TripTracer. Schreibe hier jed
 
 ### Firmware, Schnittstellen & Extras
 
-- **USB-C:** Firmwareupdates/Flashen und alternative Stromversorgung mit **5 V** (z. B. vom PC oder über einen externen 12-V-Zigarettenanzünder-auf-5-V-USB-C-Adapter); keine direkte 12-V- oder 24-V-Einspeisung über USB-C.
+- **USB-C:** Firmwareupdates/Flashen mit **5 V vom PC nur für den Flash-/Servicemodus ohne M8**; keine USB-C-Stromversorgung für den normalen Tripmaster-Betrieb. Bei gleichzeitigem M8-Anschluss liefert M8 den Strom, USB-C bleibt Datenanschluss. Keine direkte 12-V- oder 24-V-Einspeisung über USB-C.
 - **Hauptversorgung:** separate **M8-A-codierte, 3-polige Schraubsteckverbindung** für den normalen 12-/24-V-Fahrzeugbetrieb anstelle einer DC-Hohlbuchse. Der Geräteanschluss wird mechanisch im Gehäuse montiert.
 - **Fahrzeugwechsel:** TripTracer soll einfach zwischen mehreren Fahrzeugen umgesteckt werden können. Pro Fahrzeug ein selbst angefertigtes, unkompliziertes M8-Kabel ohne zusätzlichen gerätespezifischen Sicherungshalter. Anschluss an einen bereits abgesicherten Fahrzeugstromkreis; bei direkter Batterieverbindung muss die Zuleitung separat nahe der Batterie abgesichert werden.
-- **Versorgungsschutz:** **Selbstrückstellende SMD-eFuse als primärer Geräteschutz auf der Trägerplatine**. Gewählter eFuse-Typ muss einen wirksamen Verpolschutz besitzen oder dieser wird separat ergänzt; 12-/24-V-Fahrzeugtransienten/Load Dump separat absichern. **Das einfache M8-Fahrzeugkabel wird fahrzeugseitig abgesichert.** USB-5-V- und Bordnetzeingang sicher entkoppeln; keine Rückspeisung zu PC/USB oder ins Fahrzeug.
+- **Versorgungsschutz:** **Selbstrückstellende SMD-eFuse als primärer Geräteschutz auf der Trägerplatine**. Gewählter eFuse-Typ muss einen wirksamen Verpolschutz besitzen oder dieser wird separat ergänzt; 12-/24-V-Fahrzeugtransienten/Load Dump separat absichern. **Das einfache M8-Fahrzeugkabel wird fahrzeugseitig abgesichert.** **M8 hat Versorgungsvorrang** vor USB-C-5-V; beide Eingänge sicher entkoppeln, keine Rückspeisung zu PC/USB oder ins Fahrzeug.
 - **Geplante M8-Belegung:** Pin 1 = abgesichertes +12/24 V, Pin 3 = Masse, Pin 4 = Reserve (vorerst unbeschaltet); endgültige Kontaktansicht und Belegung vor der PCB-Freigabe am Steckerdatenblatt prüfen.
 
 ### Gehäuse & Mechanik
