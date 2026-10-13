@@ -37,16 +37,17 @@
 | PWR-03 | **Festgelegt** | **Elektronischer Überstromschutz (eFuse) in SMD-Bauform direkt auf der Platine** im 12-/24-V-Bordnetz-Eingang; automatische Wiederherstellung nach einem geeigneten Fehlerfall | Stromgrenze, Einschaltstrombegrenzung, Spannungsbereich, thermische Auslegung und Verhalten bei dauerhaftem Kurzschluss erst festlegen; mögliche ergänzende Schmelzsicherung anhand Fehleranalyse prüfen |
 | PWR-04 | **Festgelegt** | Ein **einfaches, selbst angefertigtes M8-Anschlusskabel** ohne integrierten gerätespezifischen Sicherungshalter | **Fahrzeugseitige Absicherung ist vom Nutzer bestätigt**: Anschluss an bereits abgesicherten Abgriff oder separate Sicherung nahe der Batterie; Leitungsquerschnitt/-länge und zur Zuleitung passende Sicherung festlegen |
 | PWR-05 | **Festgelegt (Sicherheit)** | **Die Fahrzeugzuleitung wird fahrzeugseitig abgesichert.** Die eFuse im TripTracer kann keinen Kurzschluss im Kabel vor dem Gerät absichern. Bei direktem Batterieanschluss Sicherung nahe der Batterie; alternativ bereits abgesicherten Abgriff verwenden | Sicherungswert und Kabelquerschnitt aufeinander abstimmen, beide Bordnetzspannungen und maximalen Quell-Kurzschlussstrom berücksichtigen |
-| PWR-06 | **Festgelegt** | **USB-C** dient sowohl für USB-Daten/Firmwareupdates als auch zur alternativen Versorgung mit **5 V** (PC oder externer Zigarettenanzünder-auf-USB-C-Adapter) | Gerät muss zum Flashen über USB allein funktionieren; 5-V-Strombudget prüfen |
+| PWR-06 | **Festgelegt** | **USB-C für Daten und Firmwareupdates; 5-V-Versorgung ausschließlich für den Flash-/Servicemodus ohne M8.** USB-C ist **keine alternative reguläre Betriebsversorgung** im Fahrzeug. | Firmware muss über USB-C am PC ohne angeschlossenen M8-Stecker aufspielbar sein. Strombedarf und ggf. Abschaltung nicht notwendiger Verbraucher im Flashmodus prüfen. |
 | PWR-07 | **Festgelegt** | **Keine rohe 12-V- oder 24-V-Bordnetzspannung auf USB-C.** Externe Fahrzeugadapter müssen das Bordnetz außerhalb des TripTracers auf normgerechte USB-5-V-Versorgung wandeln | USB-Geräte-/Host-Schutz und CC-Beschaltung prüfen |
-| PWR-08 | **Festgelegt** | Sichere Entkopplung von USB-5-V- und Bordnetz-Eingang; keine Rückspeisung bei gleichzeitigem Anschluss | Umschalt-/Prioritätsverhalten und Ausfallfälle festlegen |
+| PWR-08 | **Festgelegt** | **M8-Bordnetzeingang hat immer Vorrang vor USB-C-5-V.** USB bleibt bei gleichzeitiger Verbindung als Datenschnittstelle zum Flashen nutzbar. USB-5-V-Einspeisung darf nur ohne verfügbare M8-Versorgung den Flash-/Servicebetrieb speisen. Beide Quellen müssen rückspeisungssicher getrennt sein. | Sichere Quellenpriorisierung, USB-VBUS-/5-V-Erkennung, Strombudget sowie Umschalten bei Ein-/Ausstecken prüfen; kein allgemeiner USB-Ersatzbetrieb gefordert. |
 | PWR-09 | **Festgelegt** | Bordnetzschutz für **12-V- und 24-V-Fahrzeuge** mit Überstromabschaltung durch eFuse; **Verpolschutz ist bei der konkret ausgewählten eFuse nachzuweisen** oder zusätzlich aufzubauen. Transienten/ESD, Load Dump, Spannungswandlung und sichere Masseführung bleiben gesondert zu lösen | Nicht jede eFuse bietet Verpolschutz oder ausreichend hohe Spannungsfestigkeit; Schutzfunktionen per Datenblatt und Tests für beide Bordnetze verifizieren |
 | PWR-10 | **Festgelegt** | Vorläufige M8-Belegung: **Pin 1 = +12/24 V Bordnetz, Pin 3 = GND, Pin 4 = Reserve/NC** | Konkreten Gegenstecker und Kontaktansicht anhand Datenblatt verifizieren; 24-V-Tauglichkeit ergibt sich aus der gesamten Schaltung und nicht allein dem Steckertyp |
 | PWR-11 | **Festgelegt** | **12-V- und 24-V-Fahrzeuge** unterstützen; automatisch nutzbar am selben M8-Eingang ohne Umschalten oder Umbau | Eingangsspannungsbereich und Schutz/Regler für beide Fahrzeugklassen erst auslegen und prüfen; die bisherige V0.3-Hardware erfüllt diese Vorgabe noch nicht nachweislich |
 | PWR-12 | **Festgelegt** | **Kompakte SMD-eFuse mit automatischer Rückstellung**, statt steckbarer oder fest eingelöteter Schmelzsicherung als primärem Überstromschutz; kein von außen zugänglicher Sicherungshalter erforderlich | Auto-Retry-/Latch-Verhalten, sichere Reaktion bei Kurzschluss, zulässiger Fehlerstrom und ggf. notwendiger unabhängiger Schutz müssen für den ausgewählten Baustein verifiziert werden; eFuse ersetzt nicht die externe Kabelsicherung |
-| PWR-13 | **Offen** | Was passiert bei gleichzeitig eingestecktem USB und M8? | Versorgungsvorrang und Umschaltunterbrechung |
+| PWR-13 | **Festgelegt** | **M8 vor USB-C:** Bei gleichzeitigem Anschluss versorgt der M8-Eingang das Gerät; USB-C liefert ausschließlich die Datenverbindung für Firmwareupdates. Ohne M8 versorgt USB-C ausschließlich den Flash-/Servicemodus. | Verhindern, dass USB-VBUS bei vorhandenem M8 in den Fahrzeugstrompfad einspeist oder ein angeschlossener PC aus dem Gerät gespeist wird. Keine automatische Übernahme des normalen Betriebs durch USB bei M8-Ausfall gefordert. |
 | PWR-14 | **Bestand V0.3** | 12-V-Eingang J1 → Eingangsabsicherung/-schutz → 3,3-V-DC/DC; USB bisher nur Daten | Bei nächster Revision auch für 24-V-Fahrzeuge neu auslegen (PWR-01/09/11); an PWR-02/03/06/08 anpassen. Vorhandene V0.3-Schaltung nicht als 24-V-tauglich ausgeben |
 | PWR-15 | **Festgelegt** | **Unterbrechungsfreier Betrieb beim Motorstart** in 12-V- und 24-V-Fahrzeugen: kein MCU-/GNSS-Neustart, keine Unterbrechung von Anzeige, Distanzzählung oder Streckenaufzeichnung durch den Startvorgang | Kritischen Spannungs-/Zeitverlauf beim Anlassvorgang, Mindest-Eingangsspannung und erforderliche Überbrückungszeit/Pufferenergie messen und festlegen; Funktionstest noch offen |
+| PWR-16 | **Offen** | Bei komplettem kurzzeitigem M8-Versorgungsausfall (0 V) während des Motorstarts: Weiterbetrieb mit Energiepuffer oder Neustart zulässig? | Abgrenzung zu PWR-15 und maximaler Pufferzeitbedarf festlegen |
 
 ## C. Steuerung, Kommunikation und Speicher
 
@@ -111,17 +112,16 @@
 | 13.10.2026 | PWR-15 | **Variante A: unterbrechungsfreier Motorstart** | Gilt für beide Bordnetze; Spannungs-/Zeitgrenzen und Pufferung sind noch auszulegen und zu prüfen |
 | 13.10.2026 | PWR-12 | Zunächst Variante C: fest eingelötete Schmelzsicherung | **Durch spätere Entscheidung für eFuse ersetzt**; historische Zwischenentscheidung, nicht mehr aktuell |
 | 13.10.2026 | PWR-03/04/05/09/12 | **SMD-eFuse mit automatischem Wiederanlauf als primärer Geräteschutz**; Fahrzeugzuleitung ist fahrzeugseitig abgesichert | Verpolschutz und Fehler-/Transientenfestigkeit nach konkretem Datenblatt prüfen; keine Bauteilnummer festgelegt |
+| 13.10.2026 | PWR-06/08/13 | **M8 hat Versorgungsvorrang; USB-C-5-V ausschließlich zum Flashen ohne M8** | Mit M8 bleibt USB-Datenübertragung möglich, aber keine reguläre USB-Versorgung vorgesehen |
 
 ## Nächste gemeinsame Entscheidung
 
-**Block B – Stromversorgung, Frage 4 (PWR-13):** Wenn **M8 (12/24 V) und USB-C (5 V) gleichzeitig angeschlossen** sind, welcher Eingang soll das Gerät vorzugsweise versorgen?
+**Block B – Stromversorgung, Frage 5 (PWR-16):** Wie robust soll der TripTracer gegen eine **vollständige Unterbrechung der M8-Spannung (0 V)** beim Motorstart sein?
 
-- **A (Vorschlag): M8 hat Vorrang.** USB-C bleibt für Daten/Flashen verbunden. Fällt M8 aus, übernimmt USB-C nach Möglichkeit ohne Neustart, sofern die USB-Quelle genug Leistung liefert.
-- **B: USB-C hat Vorrang.** Beim Anschluss an PC/USB-Adapter läuft das Gerät vorzugsweise daraus. Fällt USB-C aus, übernimmt M8 nach Möglichkeit ohne Neustart.
+- **A: Kurzzeitigen Ausfall überbrücken.** Auch eine vollständige Versorgungslücke von z. B. 1–2 Sekunden überstehen, ohne dass MCU, GNSS, Anzeige und Aufzeichnung neu starten. Erfordert zusätzliche Energiepufferung und entsprechende Leistungsbilanz.
+- **B: Nur Spannungseinbrüche überbrücken.** Bei normalen Start-Einbrüchen ohne Versorgungsausfall unterbrechungsfrei bleiben (PWR-15); eine vollständige Unterbrechung der Bordnetzversorgung darf zum Neustart führen.
 
-In beiden Fällen sind sichere Entkopplung, keine Rückspeisung und eine funktionsfähige Versorgung bei einzeln angeschlossenen Quellen zwingend. Die konkrete Schaltung wird erst nach Klärung des Leistungsbudgets festgelegt.
-
-Anschließend legen wir den realistischen Spannungs-/Zeitverlauf beim Motorstart fest. Konkrete Bauteile wählen wir später.
+Die beispielhaften 1–2 Sekunden sind **noch keine freigegebene Auslegung**. Den exakten Unterspannungs-/Zeitverlauf, die Pufferenergie und die Dauerbetriebsgrenzen bestimmen wir anhand der Gesamtleistungsaufnahme und eines realistischen Fahrzeuglastprofils. Konkrete Bauteile werden erst danach gewählt.
 
 ## Quellen / Verbindlichkeit
 
