@@ -751,6 +751,15 @@
 | HW-43 | **Festgelegt – A: ein GPIO je Taster** | **Sechs FILN-Schaltkontakte an sechs getrennte ESP32-S3-GPIO-Eingänge** führen, jeweils über die schon festgelegten einzelnen verriegelnden JST-Anschlüsse. Entprellung und Eingangs-Pullups/Pulldowns passend zur elektrischen Schalterbeschaltung; gleichzeitige Tastenbetätigung (Plus/Minus 2 s) ohne ADC-Widerstandsleiter erfassen. | GPIO-/Strapping-/Wake-Budget, ESD und Eingangspegel prüfen; Kontakt-/LED-Pins an Steckern verwechslungssicher belegen. |
 | HW-44 | **Festgelegt – A: gemeinsamer LED-Ring-Schaltkanal** | **Alle sechs Tasten-LED-Ringe elektrisch gemeinsam über einen geeigneten schalt- und gegebenenfalls PWM-dimmbaren Treiberkanal ansteuern**; keine separat steuerbaren grünen/roten Kanäle als Hardwarepflicht. **Jeder LED-Ring erhält dennoch passende Strombegrenzung gemäß konkreter FILN-LED-Ausführung**; keine unzulässige Parallelschaltung ungeschützter LEDs. | LED-Nennspannungen/-ströme der fünf grünen und einen roten Taste abgleichen; Treiberstrom, Verlustleistung, PWM/EMV und Helligkeitssteuerung prüfen. |
 
+### Hardwareprototyp – Display, GNSS-Antenne und Helligkeitssensor (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-45 | **Festgelegt – C: Display-Schnittstelle anhand konkreter Riverdi-Artikelnummer** | Die **elektrische Anbindung des vorgesehenen Riverdi-3,5-Zoll-Moduls erst nach Abgleich der konkreten bestellbaren Artikelnummer und des Herstellerdatenblatts** verbindlich auswählen. **SPI oder RGB nicht voreilig festschreiben.** | Displayinterface, Versorgung, Logikpegel, erforderliche ESP32-S3-Signale, Backlight/Treiber, Stromaufnahme und GPIO-Budget aus dem exakten Modul-Datenblatt prüfen; bisherige SPI-Planung ggf. ausdrücklich überarbeiten. |
+| HW-46 | **Festgelegt – A: lösbare FFC/FPC-Displayverbindung als Ziel** | **Display und Hauptplatine über eine kompakte lösbare FFC/FPC-Flachbandverbindung** anbinden, damit das Display separat montiert werden kann. Diese mechanische Zielvorgabe steht unter dem Vorbehalt der **realen Steck-/Signalausführung des in HW-45 noch festzulegenden Riverdi-Moduls**; keine nicht unterstützte FFC-Schnittstelle erzwingen. | Kontaktzahl, Pinbelegung, Pitch, Steckverbinder-Orientierung/Top-Bottom-Contacts, Kabeltyp, Biegeradius, Verriegelung und Signalqualität gemäß realem Modul verifizieren. |
+| HW-47 | **Festgelegt – A: U.FL auf PCB und externe SMA-Durchführung** | **MAX-M10N-GNSS-Antennensignal über einen geeigneten U.FL-Koaxanschluss auf der Hauptplatine und eine kurze interne Koaxleitung zur SMA-Gehäusedurchführung** führen. | 50-Ω-RF-Führung, Masse-Rückstrom, ESD, mechanische Kabelzugentlastung, aktiver/passiver Antennentyp, GNSS-Modul-Antennenversorgung und Koax-/SMA-Geschlecht verbindlich prüfen. |
+| HW-48 | **Festgelegt – A: digitaler I²C-Helligkeitssensor** | Die Umgebungshelligkeit über einen **digitalen I²C-Lichtsensor** erfassen und für die bereits beschlossene automatische Displayhelligkeitsregelung verwenden. Sensor so anordnen, dass er Umgebungslicht misst und nicht überwiegend die eigene Tasten-/Displaybeleuchtung. | Bauteil-/I²C-Adressauswahl, 3,3-V-Pegel, Bus-Pull-ups, Platzierung mit optischer Öffnung, Temperatur-/Messbereich und GPIO-Budget prüfen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -931,6 +940,8 @@
 | 13.10.2026 | HW-37–40 | **Hardware-Viererrunde A/A/A/A bestätigt:** mehrere parallel bestückbare Elko-Plätze, auftrennbare Strommessbrücken, LCSC/JLCPCB als bevorzugte Beschaffung und vollständigen KiCad-10-Schaltplan vor PCB-Layout erstellen. | Thermische/mechanische Elko-Reserven, Messbrückensicherheit, konkrete BOM-Teilenummern und ERC vor Routing prüfen. |
 
 | 13.10.2026 | HW-41–44 | **Hardware-Viererrunde A/A/A/A bestätigt:** hierarchischer KiCad-10-Schaltplan, MAX-M10N primär über UART mit optionalem TIMEPULSE-/Statussignal, je Taster ein dedizierter ESP32-GPIO und gemeinsamer Schalt-/Dimmkanal für sechs Tasten-LED-Ringe mit je geeigneter Strombegrenzung. | MCU-GPIO-Budget, MAX-M10N-Pinout, FILN-LED-Varianten und LED-Treiberlast vor Routing prüfen. |
+
+| 13.10.2026 | HW-45–48 | **Hardware-Viererrunde C/A/A/A bestätigt:** Riverdi-Displayschnittstelle erst anhand konkreter Artikelnummer festlegen, lösbare FFC/FPC-Verbindung als hardwareseitiges Ziel vorbehaltlich Modulkompatibilität, U.FL-auf-PCB zu SMA-Gehäusedurchführung für GNSS, digitaler I²C-Helligkeitssensor. | Exakte Riverdi- und MAX-M10N-Datenblätter vor Schaltplanabschluss prüfen; FFC-Kompatibilität nicht voraussetzen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
