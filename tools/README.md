@@ -1,0 +1,1 @@
+Entwicklungsskripte aus der V0.3 werden unter `tools/legacy_generation/` importiert. Diese Skripte können beim Neuaufbau UUIDs ändern und dürfen nicht ungefragt bestehende bearbeitete Schaltpläne überschreiben.
