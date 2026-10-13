@@ -335,6 +335,15 @@
 | GPS-50 | **Festgelegt – A: Reed/Hall/Open-Collector** | Optionaler geschützter Radimpulseingang unterstützt **potentialfreie Reedkontakte sowie kompatible Hall- und Open-Collector-Ausgänge**. Für elektronische Geber definierte Versorgung und Pegel am Anschluss vorsehen. | Entprellung für Reed, Pull-up, Flankenerfassung, Eingangsschutz/ESD, Verpolung und elektrische Grenzwerte prüfen. **Direkte 12-V-Impulspegel sind durch diese Entscheidung nicht freigegeben.** |
 | GPS-51 | **Festgelegt – A: Kalibrierwert bleibt konstant** | Ein bestätigter Radsensor-Kalibrierwert bleibt **bis zur nächsten ausdrücklich durch den Nutzer bestätigten manuellen oder GNSS-Referenzkalibrierung** unverändert. Keine laufende automatische Nachregelung während der Fahrt. | Nichtflüchtige profilgebundene Speicherung, atomare Aktualisierung, Änderungsereignis und konsistente Verwendung während Quellenwechseln sicherstellen. |
 
+### D.11 Radsensorversorgung und Fehlerbehandlung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-52 | **Festgelegt – A: geschützte 5-V-Sensorversorgung** | Für kompatible externe Hall-Radsensoren eine **strombegrenzte und kurzschlussgeschützte 5-V-Versorgung** am Sensoranschluss vorsehen. Reedkontakte benötigen keine eigene Versorgung; der Impulseingang ist für 3,3-V-Logik geeignet zu beschalten. | Strombudget, Abschalt-/Wiederanlaufverhalten, Kurzschluss nach Masse und Fahrzeugversorgung, ESD, Verpolschutz und Pegelanpassung prüfen; Sensorversorgung darf den Hauptrechner nicht gefährden. |
+| GPS-53 | **Festgelegt – A: bis 1 kHz** | Der Radimpulseingang muss **Frequenzen bis einschließlich 1 kHz** zuverlässig erfassen und zählen können. | Elektrische Filter-/Entprellzeit für Reed versus Hall/Open-Collector differenzieren; Flankenverarbeitung und Messgenauigkeit am Teststand bis 1 kHz nachweisen. |
+| GPS-54 | **Festgelegt – A: fehlerhaften Eingang sperren** | Bei anhaltend gestörtem oder unplausiblem Radimpulssignal **Radsensor als ungültig markieren**, Warnsymbol und Diagnoseereignis anzeigen/speichern. Wenn GNSS brauchbar, auf GNSS wechseln; andernfalls keine erfundene Distanz oder Geschwindigkeit aus Radimpulsen berechnen. | Fehlerkriterien mit GPS-49, Rückkehrbedingungen und Hysterese festlegen; Fehlfunktion des Radsensors darf GNSS-Messung nicht blockieren. |
+| GPS-55 | **Festgelegt – A: Radumfang und Impulse/Umdrehung** | Manuelle Kalibrierung im Menü über **Radumfang und Impulse pro Radumdrehung**; daraus die **Impulse/km berechnen und zur Kontrolle anzeigen**. GPS-Referenzkalibrierung gemäß GPS-21/23 bleibt möglich. **Keine zusätzliche direkte manuelle Eingabe von Impulsen/km beschlossen.** | Wertebereiche, Darstellung der Einheiten, Null-/Fehleingaben, Profilzuordnung und Änderungsbestätigung verifizieren; bestehenden fixen Kalibrierwert gemäß GPS-51 erhalten, bis Änderung bestätigt ist. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -621,6 +630,8 @@
 | 13.10.2026 | GPS-45–47, UI-46 | **Viererrunde A/A/C/A bestätigt:** GNSS-Rückkehr nach 3 s stabiler Qualität, GPX-Tracksegment bei GNSS-Ausfall unterbrechen, einzelne Ausfälle samt Beginn/Ende/Dauer und per Radsensor gefahrener Strecke in CSV, längerer Ausfall nur mit Statussymbol/aktiver Quelle nach kurzem Ersthinweis. | Keine erfundenen GPX-Koordinaten oder 0-m-Radstrecke ohne Sensor; stabile Hysterese und Quellenwechselprüfung. |
 
 | 13.10.2026 | GPS-48–51 | **Viererrunde A/A/A/A bestätigt:** Impulse/Radumdrehung und Radumfang je Fahrzeug frei einstellbar; Radimpulse bei gültigem GNSS auf Plausibilität prüfen; Eingang für Reed, Hall und Open-Collector; Kalibrierwert nur nach bestätigter Neukalibrierung ändern. | Eingangspegel, Entprellung, Fehlergrenzen und profilgebundene Persistenz technisch validieren; keine pauschale 12-V-Pegelfreigabe. |
+
+| 13.10.2026 | GPS-52–55 | **Viererrunde A/A/A/A bestätigt:** geschützte strombegrenzte 5-V-Sensorversorgung, Radimpulserfassung bis 1 kHz, bei dauerhaft fehlerhafter Sensorleitung Radmessquelle sperren und wenn möglich GNSS verwenden, manuelle Kalibrierung über Radumfang plus Impulse/Umdrehung mit abgeleiteter Impulse/km-Anzeige. | Eingangsfilter/Entprellung, 5-V-Strombudget, Fehlerhysterese und Profilkalibrierung prüfen; keine direkte Impulse/km-Eingabe hinzugefügt. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
