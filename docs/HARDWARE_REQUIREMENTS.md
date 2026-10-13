@@ -265,6 +265,15 @@
 | GPS-24 | **Festgelegt – A: schlechte GNSS-Messwerte verwerfen** | GNSS-Positionen mit unzureichender Genauigkeit, unplausiblen Positions-/Geschwindigkeitssprüngen oder unbrauchbarem Fix **nicht** für die Distanzintegration benutzen; falls angeschlossen und kalibriert, auf den Radsensor wechseln, sonst Distanz anhalten und Warnstatus anzeigen. | Empfänger-Qualitätsindikatoren, Grenzwerte, Ausreißerfilter und Hysterese vor Umsetzung definieren und durch Fahrtests verifizieren. Ungültige GNSS-Positionen weder als echte GPX-Trackpunkte noch als erfundene Strecke ausgeben. |
 | GPS-25 | **Festgelegt – A: kein Distanzsprung bei GNSS-Rückkehr** | Bei Rückkehr stabiler, ausreichend genauer GNSS-Messwerte vom Radsensor auf GNSS zurückschalten, **ohne den bisherigen Zählerstand rückwirkend anzupassen oder schlagartig zu korrigieren**. Zukünftige Distanzinkremente aus der neuen gültigen Quelle beziehen. | Kontinuität, Doppelzählung, Wechselzeitpunkt und stabile GNSS-Wiederaufnahme testen; Messquellenwechsel im CSV protokollieren. |
 
+### D.4 Geschwindigkeit und Stillstand – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-26 | **Festgelegt – A: ganze km/h** | Die aktuelle Geschwindigkeit im Fahrdisplay **in ganzen km/h** gerundet anzeigen. | Internen Geschwindigkeitswert mit höherer Auflösung erhalten; Rundung, ungültige Werte und Wechsel der Messquelle korrekt kennzeichnen. |
+| GPS-27 | **Festgelegt – A: plausible Stillstandserkennung** | Stillstand erst nach **mehreren Sekunden geringer gültiger Geschwindigkeit** und ohne plausible Radimpulse feststellen; Hysterese gegen häufigen Wechsel zwischen Stillstand und Fahrt. Steuert Trackaufzeichnung mit ca. 1 Hz im Stand und 5 Hz bei Fahrt gemäß STO-36. | GNSS-Rauschen, fehlender Radsensor, Kriechfahrt, Sensordefekte und Wiederanfahren testen; keine Distanzaddition allein durch Positionsrauschen. |
+| GPS-28 | **Festgelegt – A: Radsensor als Geschwindigkeits-Fallback** | Bei unzureichender GNSS-Qualität Geschwindigkeit aus den **kalibrierten Radimpulsen** ermitteln. Steht keine zuverlässige Quelle zur Verfügung, statt einer erfundenen oder eingefrorenen Geschwindigkeit **Strich/ungültig** anzeigen. | Quellenwechsel mit GPS-17/-24/-25 abstimmen; Werte auf plausiblen Bereich begrenzen, Quelle im Status anzeigen und Ereignisse protokollieren. |
+| GPS-29 | **Festgelegt – A: Fahrtstatistik** | **Durchschnitts- und Höchstgeschwindigkeit pro Fahrt** berechnen und im Menü abrufbar halten; bei Beginn einer neuen Fahrt zurücksetzen und in CSV dokumentieren. Fahrzeugprofil der jeweiligen Fahrt zuordnen. | Fahrtbeginn/-ende und Standzeitbehandlung definieren; Maximalwert aus plausibilisierten gültigen Geschwindigkeitssamples, kein Reset allein durch Tagesdateiwechsel; Sicherung bei Stromverlust. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -523,6 +532,8 @@
 | 13.10.2026 | CFG-01–04 | **Viererrunde A/A/A/A bestätigt:** Konfigurationsbackup als lesbare versionierte JSON-Datei; Import nur von Einstellungen und Fahrzeugprofilen, niemals Distanzzähler/Undo; Export ausschließlich auf Nutzerbefehl; beschädigte oder inkompatible Importdateien vollständig und ohne Änderungen ablehnen. | Schema, Validierung vor Übernahme, atomare Speicherung und Profil-ID-Zuordnung prüfen. |
 
 | 13.10.2026 | STO-36–39 | **Viererrunde A/A/A/A bestätigt:** Tracking-Lograte 5 Hz in Fahrt, ca. 1 Hz im Stand (GNSS-Messung unverändert); schlechte GNSS-Messwerte diagnostisch in CSV statt als gültige GPX-Punkte; Profil-ID/-Name je CSV-Zeile mit Wechselereignis; WGS84-Koordinaten auf 7 Dezimalstellen. | Stillstandshysterese, Fehlerkennzeichnung, Profil-ID-Stabilität und Koordinatenformat prüfen. |
+
+| 13.10.2026 | GPS-26–29 | **Viererrunde A/A/A/A bestätigt:** Geschwindigkeit ganzzahlig in km/h; Stillstand mit Geschwindigkeit, Radimpulsen und Zeit-Hysterese erkennen; bei GNSS-Ausfall kalibrierte Radsensor-Geschwindigkeit, sonst ungültig; Durchschnitts- und Maximalgeschwindigkeit je Fahrt im Menü und CSV. | Abgrenzung von Fahrtbeginn/-ende, Standzeit im Durchschnitt und Stillstandsschwellen bei Implementierung bestimmen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
