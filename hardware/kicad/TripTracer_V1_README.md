@@ -1,5 +1,7 @@
 # TripTracer V1 – eigenständige KiCad-Projektdateien und Entwicklungsstand
 
+**Prüfstand 14.10.2026:** [Buck-Raster und Darstellung nativ korrigiert](../../docs/validation/2026-10-14-buck-grid/README.md): 304 ERC-Meldungen, 14 DRC-Meldungen und 207 Paritätsabweichungen bleiben; keine Freigabe. Alle 260 Pin-Netz-Zuordnungen unverändert.
+
 **NEUESTE SPANNUNGSENTSCHEIDUNG (13.10.2026):** Der Nutzer senkt die obere Dauerbetriebsgrenze von 36 V auf **ca. 30 V**. Fuer die Auslegung gilt jetzt **9–30 V Dauerbetrieb**, weiterhin 12-/24-V-Bordnetze und **6 V beim definierten Motorstart**. Die gewaehlten Automotive-/Load-Dump-Transientenziele sind davon getrennt und bleiben bestehen; Spannungen oberhalb 30 V sind keine zugesagte Dauerbetriebsbedingung. OVP-Schwelle mit Toleranzen oberhalb 30 V und unterhalb der nachgewiesenen Bauteilgrenzen dimensionieren. **Anforderungsentscheidung, kein Testnachweis.**
 
 Aeltere 36-V-Rechnungen in diesem Dokument bleiben als historische Szenarien erkennbar; sie sind keine aktuelle Dauerbetriebsanforderung.
