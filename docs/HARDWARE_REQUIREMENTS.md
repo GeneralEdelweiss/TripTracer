@@ -379,6 +379,15 @@
 | GPS-69 | **Festgelegt – A: automatische Rückkehr nach 5 s** | Nach Wiederherstellung des bevorzugten Radgebers **automatisch erst nach fünf Sekunden stabiler, plausibler Messung** von der Ersatzquelle zurückwechseln. | Umschalthysterese gegen Flattern, ausbleibende Flanken im Stand und Priorität gültiger GNSS-Messung beachten. |
 | GPS-70 | **Festgelegt – A: diagnostische Abweichungsereignisse** | Bei Abweichungswarnungen **Impulsfrequenzen beider Eingänge, berechnete Geschwindigkeiten, prozentuale Abweichung, aktive Quelle und Zeitstempel** als Diagnose-/CSV-Ereignis speichern. | Werte mit Einheiten und Gültigkeitsflags erfassen; bei fehlender/ungültiger zweiter Quelle keine künstliche Prozentabweichung errechnen. |
 
+### D.16 Grenzwerte für Radsensor-Plausibilität – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-71 | **Festgelegt – A: 5–30 %, Standard 10 %** | Abweichungsgrenzwert zweier Radsensoren **pro Fahrzeugprofil von 5 bis 30 % in 1-%-Schritten einstellbar**; Werkseinstellung **10 %**. | Dauerhaft profilgebunden speichern, Bereich prüfen und Berechnung bei Geschwindigkeiten nahe null unterdrücken. |
+| GPS-72 | **Festgelegt – A: Warnung nach 3 s** | Erst wenn die Abweichung zweier gültiger Radgeschwindigkeiten den Grenzwert **mindestens 3 Sekunden ununterbrochen** überschreitet, eine Abweichungswarnung auslösen und protokollieren. | Timer bei Unterschreiten rücksetzen, Hysterese gegen Flattern prüfen und Sonderfälle bei Sensorfehler/Quellenwechsel testen. |
+| GPS-73 | **Festgelegt – A: Vergleich ab 5 km/h** | Prozentualen Geschwindigkeitsvergleich der beiden Radsensoren **erst ab 5 km/h** aktivieren, um instabile Prozentwerte bei nahezu Stillstand zu vermeiden. Unabhängige elektrische Sensorfehler (z. B. Kurzschluss) weiter erkennen. | Referenzgeschwindigkeit für die Schwelle eindeutig definieren; 5-km/h-Hysterese, langsame Fahrt und Anfahren testen. |
+| GPS-74 | **Festgelegt – A: Abweichung allein löst keinen Wechsel aus** | Bei Differenzwarnung **bevorzugten Radsensor weiter verwenden, solange er selbst plausibel bleibt**. Eine bloße Differenz löst **keinen automatischen Quellenwechsel** aus; erst eindeutig erkannter Ausfall oder zusätzliche Plausibilitätsinformation rechtfertigt Wechsel nach GPS-68. | Fehlerpriorität, widersprüchliche Sensordaten, fehlendes GNSS und Warn-/Protokollverhalten mit GPS-66 konsistent halten. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -681,6 +690,8 @@
 | 13.10.2026 | GPS-63–66 | **Viererrunde A/A/A/A bestätigt:** zwei unabhängig pro Profil konfigurierbare Radgeber, je Profil priorisierter Eingang mit automatischem Fehler-Fallback, getrennte Kalibrierung je Eingang, bei widersprüchlichen Messungen bevorzugte plausible Quelle plus Warnung/Protokollierung. | Umschalthysterese, GNSS-Priorität, Widerspruchsschwellen und Doppelerfassung verifizieren. |
 
 | 13.10.2026 | GPS-67–70 | **Viererrunde C/A/A/A bestätigt:** pro Fahrzeugprofil einstellbarer Radgeber-Abweichungsgrenzwert, Wechsel zur plausiblen Ersatzquelle nach ungefähr 1 s bestätigtem Fehler, Rückkehr zur bevorzugten Quelle nach 5 s stabiler Messung, Ereignisprotokoll mit Frequenzen/Geschwindigkeiten/Differenz/aktiver Quelle. | Grenzwertbereich, Zeitfilter bei Abweichung, Niedriggeschwindigkeits-Sonderfall und Vermeidung von Distanzsprüngen konkretisieren. |
+
+| 13.10.2026 | GPS-71–74 | **Viererrunde A/A/A/A bestätigt:** sensorische Geschwindigkeitsabweichung je Profil 5–30 % in 1-%-Schritten, Werkseinstellung 10 %, Warnung erst nach 3 s, Vergleich erst ab 5 km/h, bloße Differenz löst ohne weitere Fehlerindizien keinen Radgeberwechsel aus. | Hysterese und Referenzgeschwindigkeit bei 5 km/h sowie Timer-Rücksetzen testen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
