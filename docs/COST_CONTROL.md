@@ -29,6 +29,10 @@
 
 **Keine künstliche Redundanz:** Zwei in Serie geschaltete teure Controller sind nicht allein durch das Wort „Sicherheit“ gerechtfertigt. Zuerst gemeinsame Fehlerfälle, unabhängige Abschaltanforderungen und bereits integrierte Schutzfunktionen betrachten. Die Pflichtfunktionen Kurzschluss-/Leitungsschutz, Kfz-Transienten, Verpolung, sichere SD-Abmeldung, USB-Entkopplung bleiben erhalten; der preisgünstigste Weg zu **nachweisbar** sicheren Funktionen gewinnt.
 
+## Motorstart-Kostenentscheidung (13.10.2026)
+
+**Neue verbindliche Untergrenze:** 6 V statt 3 V beim Motorstart (PWR-17). Keine zusätzlichen Bauteile oder Energiespeicher allein zur Überbrückung eines 3-V-/15-ms-Einbruchs einkalkulieren. **Unmittelbare Ersparnis noch unbekannt**, da Regler-/MOSFET-/eFuse-Kette bei 6 V und Last erst geprüft werden muss; keine pauschale Einsparzahl erfinden. Wandler mit geeigneter UVLO, ausreichend geringem Spannungsabfall und Backlight-Lastabwurf kostengünstig priorisieren. 9–36 V Dauerbetrieb und ISO-16750-2-Ziel bleiben unverändert.
+
 ## Kostenrisiken für die Gesamtrechnung, derzeit priorisiert
 
 | Baugruppe / Kostenthema | Nachweisbarer Stand / Risiko | Kostenkontrolle vor Festlegung |
