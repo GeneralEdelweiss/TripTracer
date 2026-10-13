@@ -376,6 +376,15 @@
 | Q-04 | **Offen** | Wartbarkeit, Prüfanschlüsse, Debug-/Firmware-Recovery | Zugang ohne Zerstörung des Gehäuses |
 
 
+### G.1 PCB-Aufbau und Fertigung – Viererrunde 13.10.2026
+
+| ID | Entscheidung | Anforderung | Validierung |
+|---|---|---|---|
+| PCB-01 | **Festgelegt – B: 2 Lagen** | Hauptplatine als **2-Lagen-PCB** ausführen. | Durchgehende Rückstrompfade und Masseflächen, USB-Differenzpaar, GNSS-HF/EMV und Schaltregler-Störabstände beim Layout verifizieren. Bei technischen Hindernissen vor einer Lagenänderung Rücksprache halten. |
+| PCB-02 | **Festgelegt – A: beidseitig** | Bauteile auf Ober- und Unterseite zulässig; Servicekomponenten von der Rückdeckelseite ohne Platinenausbau erreichbar (MEC-40). | Bestückungskosten, Bauhöhe und Servicefreiraum prüfen. |
+| PCB-03 | **Festgelegt – A: JLCPCB/LCSC** | Leiterplatte bevorzugt JLCPCB, SMT-Bestückung und Komponenten möglichst JLCPCB-/LCSC-verfügbar; Spezialbauteile separat zulässig. | Preise, Verfügbarkeit und beidseitige Montagefähigkeit vor Bestellung validieren. |
+| PCB-04 | **Festgelegt – A: viele Testpunkte** | Zugängliche, beschriftete Messpunkte für Versorgung, GND, BOOT, RESET, USB, GNSS, Radsensor und Diagnose. | An USB-D+/D− keine langen Stubs; GNSS-RF-Messung nur HF-gerecht; keine Konflikte mit Gehäuse und Service. |
+
 ## Entscheidungsprotokoll
 
 **Historische Einträge zu rechter externer microSD, Push-Push-/Card-Detect-Pflicht und Kappen gelten als durch spätere Nutzerentscheidung vom 13.10.2026 überholt. Aktueller Stand steht in STO-01–35 und im folgenden neuesten Protokolleintrag.**
@@ -455,6 +464,8 @@
 | 13.10.2026 | MEC-44–47 | **Viererrunde C/A/A/A bestätigt:** austauschbare Führungseinsätze als Verschleißteile, elastisch gelagerte Fahrzeughalterung mit Gummipuffern, universelle Schraubgrundplatte mit mehreren Lochbildern, zusätzliche zuschaltbare Hebelsperre gegen unbeabsichtigtes Entriegeln. | Frühere Auswahl „nur Rastnase“ als Vorschlag überholt; federnde Rastnase MEC-42 bleibt plus zusätzliche Sicherungsposition. Einbau- und Vibrationsversuche vor Freigabe. |
 
 | 13.10.2026 | ENV-01–04 | **Viererrunde A/A/A/A bestätigt:** Betriebs-Entwicklungsziel −20 bis +70 °C; abgestufter Übertemperaturschutz bis kontrollierter Abschaltung; zusätzlicher digitaler PCB-Innentemperatursensor; staubschutzgeeignete Druckausgleichsmembran. | Komponentenratings, Schaltschwellen, Abschaltenergie, Membran-/Dichtheitsvalidierung und Hitze-/Kältetests bleiben offen; keine voreilige Temperatur- oder IP-Freigabe. |
+
+| 13.10.2026 | PCB-01–04 | **B/A/A/A:** 2-Lagen-PCB, beidseitig bestückbar, JLCPCB/LCSC bevorzugt, umfangreiche Testpunkte. | USB-/GNSS-/EMV-Layout sowie Montage und Testpad-Zugang prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
