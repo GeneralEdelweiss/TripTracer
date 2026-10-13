@@ -267,6 +267,16 @@
 | UI-35 | **Festgelegt – A: LEG-0-Undo bis zur nächsten Nullung** | Die letzte LEG-0-Nullung kann durch den bereits beschlossenen bestätigten Langdruck rückgängig gemacht werden, **bis eine weitere LEG-0-Nullung erfolgt**. Undo-Zustand wird **profilgebunden nichtflüchtig** gespeichert und bleibt über Neustart sowie Wechsel des aktiven Fahrzeugprofils erhalten. | FRAM-Speicherbudget und atomare Sicherung je Profil, genau eine rückgängig machbare Nullung pro Profil; bei neuer LEG-0-Nullung des Profils alten Undo-Eintrag ersetzen. Undo darf andere Profile und Gesamt-/Trip-Zähler nicht verändern. |
 | UI-36 | **Festgelegt – A: Langdruck und Bestätigung für Reset** | Gewolltes Zurücksetzen von Gesamt-/Trip-Zählern erfordert **ausgewählten Zielzähler, langen Tastendruck und eine zusätzliche eindeutige Bestätigung**; kein versehentlicher Reset durch kurzen Tastendruck. | Bisherige Sofortaktion LEG 0 und separat geregelter bestätigter LEG-Undo bleiben unverändert. Reset-Zugang, Abbruch, Debouncing und Zeitdauer des Langdrucks in der UI festlegen. |
 
+
+### E.2 Display und Menüführung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| UI-37 | **Festgelegt – A: kontextabhängige Tasten** | Bestehende Fronttasten werden **im Menü** für Navigation, Bestätigen und Zurück verwendet; im regulären Fahrbildschirm behalten sie ihre festen Rallye-Funktionen. **Kein zusätzlicher Menütaster** allein für die Navigation. | Sicheren und eindeutigen Menüzugang, Funktionsbelegung der sechs Tasten, Abbruchmöglichkeiten und Schutz vor versehentlichen Distanzkorrekturen beim Menüwechsel festlegen. |
+| UI-38 | **Festgelegt – B: Standardlayout mit zwei gleichwertigen Zählern** | Beim ersten Einschalten standardmäßig **zwei gleich große Distanzzähler** anzeigen (beispielsweise LEG und Trip A); andere zuvor beschlossene Layouts bleiben auswählbar und die zuletzt gewählte Darstellung wird nichtflüchtig gespeichert. | Exakte Standard-Zählerpaarung und typografische Auslegung bei 3,5-Zoll-Display bestimmen; gut sichtbarer aktiver Korrekturzähler (UI-33), 0,01-km-Anzeige (UI-32) sowie Statussymbole müssen Platz finden. |
+| UI-39 | **Festgelegt – A: 30-s-Menütimeout** | Nach **30 Sekunden ohne Bedieneingabe** aus regulären Menüs automatisch zur Fahranzeige zurückkehren. Änderungen müssen zuvor entweder ausdrücklich übernommen oder nachvollziehbar verworfen werden; keine unbemerkten Parameteränderungen. | Kritische Bestätigungsdialoge, Firmwareupdate/Diagnose und laufende Kalibrierung nicht unkontrolliert abbrechen; Ausnahmen und Timeout-Verhalten pro Menü definieren. |
+| UI-40 | **Festgelegt – A: Tastentöne** | Standardmäßig **kurzer Signalton für jeden gültigen Tastendruck**; Warnmeldungen erhalten klar unterscheidbare Tonmuster. Die bereits beschlossene Menüoption zum Stummschalten von Tastentönen bleibt erhalten. | Lautstärke, Dauer, Verhalten bei Haltewiederholungen, Nachtbetrieb und Priorität kritischer Warnungen festlegen; keine permanenten Töne bei beschleunigten ±10-m-Wiederholungen erzeugen. |
+
 ## F. Gehäuse, Stecker und Montage
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -390,6 +400,8 @@
 | 13.10.2026 | GPS-23–25, UI-32 | **Viererrunde A/A/A/A bestätigt:** GNSS-Referenzkalibrierfahrt mindestens 1 km; GNSS-Distanz nur bei ausreichender Qualität; keine rückwirkenden Distanzsprünge bei GNSS-Rückkehr; Zähleranzeige standardmäßig fest 10 m / 0,01 km. | Güteschwellen, Hysterese, Rundung und Fahrtests bleiben offene technische Auslegung. |
 
 | 13.10.2026 | UI-33–36 | **Viererrunde A/A/A/A bestätigt:** aktiven ±10-m-Korrekturzähler farblich markieren; sanfte Tastenwiederholung nach ca. 0,5 s bis ca. 5 Schritte/s; profilgebundenes LEG-0-Undo bis zur nächsten Nullung auch über Neustart/Profilwechsel; Gesamt-/Trip-Reset nur per Langdruck plus Bestätigung. | genaue Bedienkennlinie, Kontrast und FRAM-Atomarität technisch prüfen. |
+
+| 13.10.2026 | UI-37–40 | **Viererrunde A/B/A/A bestätigt:** bestehende Fronttasten im Menü kontextabhängig doppelt nutzen, Standard-Fahrdisplay mit zwei gleich großen Distanzzählern, nach 30 s Inaktivität zurück zur Fahrtanzeige, kurzer Tastenton bei jeder gültigen Eingabe (abschaltbar) und unterscheidbare Warnsignale. | Sichere Menüfunktionsbelegung, Layoutpaarung, Timeout-Ausnahmen und akustische Wiederholraten noch konkretisieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
