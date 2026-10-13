@@ -2,6 +2,12 @@
 
 **Stand:** 13.10.2026, Arbeitsrevision A1. **KEINE ERC-/DRC-/Automotive-/Fertigungsfreigabe.** Die alte V0.3 bleibt unverändert als Vergleichsstand erhalten.
 
+## Laufende Feldstudie: relaislose Versorgung (noch **nicht** im Schaltplan implementiert)
+
+Die neu bevorzugte Entwicklungsrichtung ist **Variante 3: elektronische, MCU-unabhängig sicher begrenzte Einschalt-/HOLD-Schaltung mit zwei separat abschaltbaren Leistungspfaden, ohne daueraktiven 5-V-Relaishilfsbuck**. Siehe [SOLID_STATE_POWER_ARCHITECTURE.md](../../docs/SOLID_STATE_POWER_ARCHITECTURE.md). Die bestehende Relais-Baugruppe `01_Eingangsschutz`, die Seite `01A_AUX_5V` und die alten ACC-/HOLD-Seiten `01B`/`01C` wurden bewusst **noch nicht überschrieben**. Sie bilden derzeit nur den bisherigen Schaltungsstand und sind für Variante 3 **nicht verwendungsfertig**. `01D_INPUT_PROTECTION` enthält ausschließlich einen **unverdrahteten** eFuse-Kandidaten, nicht den vollständig geschützten Hauptpfad.
+
+Der Stand in `main` ist als [GitHub-Commit 07b6ae6](https://github.com/GeneralEdelweiss/TripTracer/commit/07b6ae6c82a02aa866dadd50f507025a7d0c8587) und [Snapshot-Branch](https://github.com/GeneralEdelweiss/TripTracer/tree/snapshot/2026-10-13-before-solid-state) fixiert; auch der 01D-Designreview liegt auf [einem gesonderten Snapshot](https://github.com/GeneralEdelweiss/TripTracer/tree/snapshot/2026-10-13-with-01d-review). **Noch keine vollständige Relaisschaltungs- oder relaislose Verdrahtung; weiterhin keine ERC-/DRC-/Automotive-/Fertigungsfreigabe.**
+
 ## Projekt in KiCad 10 öffnen
 
 Im Repository den kompletten Ordner `hardware/kicad/` herunterladen bzw. klonen. **`TripTracer_V1.kicad_pro`** öffnen; die gleichnamige **`TripTracer_V1.kicad_sch`** (Hauptschaltplan) und **`TripTracer_V1.kicad_pcb`** (PCB-Dokument) gehören dazu.
