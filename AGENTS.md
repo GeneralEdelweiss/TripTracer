@@ -1,7 +1,7 @@
 # TripTracer – Regeln fuer KI/Codex
 
 - Ziel: KiCad 10 und vollstaendig portable lokale Projektbibliotheken.
-- V0.3-Schaltplan ist aktueller Elektronikstand. V0.1-Firmware und -Mechanik nur als Prototyp-/Referenzstand behandeln.
+- **TripTracer V1** in `hardware/kicad/` ist der aktive, noch nicht freigegebene Elektronik-Entwicklungsstand; **V0.3** bleibt historische Referenz. V0.1-Firmware und -Mechanik nur als Prototyp-/Referenzstand behandeln.
 - Keine gepruefte PCB-Fertigung, keine bestandenen ERC/DRC, keine Automotive-Sicherheitsfreigabe behaupten.
 - Vermeide Vermischung mit SoulTracer (Solar-Schmuck) oder BTN9990LV-Lueftersteuerung.
 - Bei Aenderungen so wenige Dateien wie moeglich anfassen; Git-Commit und Aenderungsbericht erstellen.
@@ -9,6 +9,38 @@
 - Neue Bauteile mit Hersteller-/Teilenummer, Geometriedatenquelle, Pinout und Geometriepruefung dokumentieren.
 - Wiederholte Korrekturen: maximal 3 Versuche pro Fehlergruppe; offene Fehler klar benennen und nicht stillschweigend unterdruecken.
 - Erst nach elektrischem Test, KiCad ERC/DRC, manueller Pin- und Footprintpruefung und Automotive-Pruefung fuer Fertigung freigeben.
+
+## Vorsichtige, baugruppenweise Hardware-Entwicklung (verbindliche Arbeitsweise)
+
+**Grundprinzip: Hardware zuerst korrekt, danach Software daran anpassen.** Eine fehlerhafte, bereits gefertigte Platine ist wesentlich teurer und aufwendiger zu korrigieren als eine Firmware-Anpassung. Deshalb konsequent **schrittweise, risikobewusst und ohne vorschnelle Fertigmeldungen** entwickeln.
+
+### Ablauf für JEDE einzelne Baugruppe
+
+1. **Ausgangslage und Schnittstellen klären.** Vor Änderungen `docs/HARDWARE_REQUIREMENTS.md`, die vorhandenen V1-Schaltplan-/PCB-Blätter, relevante Herstellerdatenblätter und offene Fehler lesen. Zweck, Eingänge, Ausgänge, Spannungen, Grenzwerte, Lasten, Steuersignale und Fehlerszenarien der Baugruppe benennen. Bereits festgelegte Anforderungen nicht eigenmächtig ändern.
+2. **Genau eine Baugruppe vollständig elektrisch entwerfen.** Schaltung mit tatsächlich verbundenen Pins/Wires, sinnvoller Versorgung, Schutz-, Entkopplungs-, Pull-up-/Pull-down- und Testbeschaltung fertig ausarbeiten. Keine funktionslosen Platzhaltersymbole, erfundenen Anschlussbelegungen oder reinen Text-Blätter als „fertig“ darstellen. Ein neuer Block darf zunächst als „Entwurf“ entstehen, nicht als validiert.
+3. **Bauteile und Footprints gegen Herstellerunterlagen prüfen.** Hersteller-Teilenummer, Pin-1-/Pad-Nummern, elektrische Maximalwerte, Verlustleistung, thermisches Derating, Footprint-Geometrie, Bestückbarkeit und Lieferbarkeit prüfen. Projektspezifische KiCad-10-Symbole, Footprints und 3D-Modelle konsistent und relativ zu `${KIPRJMOD}` pflegen. Vorläufige Werte und abweichende Footprint-Namen ausdrücklich als Sperrpunkt markieren.
+4. **Baugruppe für sich validieren.** Datenblattrechnung, Strom-/Spannungs-/Thermikbudget, Bauteilbelastung und einschlägige Fehlerfälle prüfen. **Native KiCad-10-ERC** ausführen, Schaltplan visuell auf Lesbarkeit, Kreuzungen und echte elektrische Verbindung prüfen; wo sinnvoll Simulation oder Labor-/Messprüfung ergänzen. Fehler beheben und relevante Checks nach Änderungen erneut ausführen.
+5. **Vor Integration Kompatibilität mit ALLEN bereits vorhandenen Baugruppen prüfen.** Eine neue Baugruppe darf nicht isoliert für korrekt erklärt und unbemerkt integriert werden. Gemeinsame Netznamen und Hierarchie-Pins, Versorgungsreihenfolge, Pegel, Impedanzen, 5-V-/3,3-V-Leistungsbilanz, GPIO-/Strapping-Pins, USB und SD-Zugriffsmodi, I²C-Adressen/Pull-ups, SPI-Chip-Selects, Reset/Enable, Signalrichtungen, Masse-/Rückstromführung, Schutzketten, Rückspeisung, EMV/ESD, Wärme, Steckerbelegung und Mechanik prüfen. Bestehende Baugruppen durch Änderungen **nicht regressieren lassen**.
+6. **Erst nach bestandener Integrationsprüfung den nächsten Block beginnen.** Den übergreifenden ERC erneut ausführen; beim PCB-Stand zusätzlich Netze aus dem Schaltplan synchronisieren, reale Pad-/Pin-Zuordnung, Abstände, Kupferstrompfade und DRC prüfen. Falls eine Prüfung technisch hier nicht ausführbar ist, ausdrücklich „NICHT GETESTET / FREIGABE AUSSTEHEND“ schreiben, kein bestandenes Ergebnis behaupten und die fehlende Prüfung als **offenes Gate** festhalten.
+7. **Kleiner Commit mit Nachweis.** Pro Baugruppe zusammenhängende Änderungen committen, BOM/Designentscheidungen aktualisieren und eine kurze Prüfliste ablegen: Was wurde geändert? Welche Schnittstellen und früheren Baugruppen wurden überprüft? Welche Tests wurden **tatsächlich** durchgeführt und mit welchem Ergebnis? Was ist noch offen? In nächsten Schritten darauf aufbauen statt dieselben Annahmen stillschweigend erneut zu treffen.
+
+### Verbindliche Qualitäts-Gates
+
+- **Gate A – Baugruppe intern plausibel:** korrekte Hersteller-Pinouts, berechnete Grenzwerte, vollständige Schaltung und Prüfung auf versteckte Annahmen.
+- **Gate B – Schnittstellen kompatibel:** systematische Gegenprüfung der neuen Baugruppe mit **allen bereits integrierten Baugruppen** und den verbindlichen Anforderungen; Konflikte vor der nächsten Erweiterung beseitigen.
+- **Gate C – KiCad elektrisch geprüft:** natives ERC und visuelle Schaltplanprüfung; kein „ERC bestanden“ ohne ausgeführtes ERC. Fehlendes ERC ist **kein** stillschweigendes Bestehen.
+- **Gate D – PCB geprüft, sobald layoutet:** Symbol-Pad-Konsistenz, synchronisierte Netze, Footprint-/3D-Modellprüfung, Layout-Rückstrom- und Thermikreview, natives DRC und Fertigerregeln; kein „DRC bestanden“ ohne ausgeführtes DRC.
+- **Gate E – Reales Hardware-Testing vor Fertigungs-/Fahrzeugfreigabe:** Labornetzteil und definierte Messungen, danach relevante Automotive-Schutz-, Transienten-, Temperatur- und Fehlertests. Simulation und ERC/DRC ersetzen keine reale elektrische Erprobung.
+
+**Status immer sauber trennen:** `offen` → `elektrischer Entwurf` → `datenblatt-/schnittstellengeprüft` → `ERC-geprüft` → `PCB/DRC-geprüft` → `am Prototyp gemessen` → `fertigungs-/einsatzfreigegeben`. Die jeweils höhere Stufe darf nur durch tatsächlich vorhandene Nachweise erreicht werden.
+
+### Hardware vor Firmware; keine kaschierten Hardwarefehler
+
+- **Keine fragwürdige Hardware mit späteren Firmware-Workarounds rechtfertigen.** Fehlende Verpol-/Überspannungsabsicherung, thermisch überlastete Bauteile, falsche Versorgung, Boot-Strapping-Probleme, kollidierende Busadressen, instabile Pegel, fehlende Entkopplung oder unzureichende Leitungs-/Pad-Dimensionen müssen auf Schaltplan-/PCB-Ebene gelöst werden.
+- Softwareseitig leicht änderbare Entscheidungen (z. B. nicht sicherheitskritische GPIO-Konfiguration, Logging, Anzeige, Timing innerhalb garantierter Hardwaregrenzen) dürfen nachgelagert werden. **Die Hardware muss aber bereits die notwendigen realen Firmware-/Boot-/USB-/Speicherfunktionen elektrisch ermöglichen.** Kritische Timing-, Sicherheits- und Abschaltanforderungen dürfen nicht auf unbelegte spätere Softwareversprechen verschoben werden.
+- **Bei Widersprüchen, nicht belastbar belegten Datenblattwerten oder fehlenden Prüfmitteln stoppen und den Sperrpunkt offenlegen**; nicht blind weitere Baugruppen hinzufügen, das Gesamt-PCB routen oder Gerber erzeugen. Gegebenenfalls gezielt eine Entscheidung mit Vor- und Nachteilen einholen.
+- **Keine große „alles auf einmal“-Schaltplanaktion**, auch wenn das endgültige Gerät eine einzige Hauptplatine ist. Vollständige Hauptplatine als Ziel bedeutet **nicht**, dass Baugruppen ungeprüft parallel integriert werden dürfen.
+- Änderungen an einer bereits geprüften Baugruppe lösen mindestens eine erneute Schnittstellen-/Regressionsprüfung aus. Prüfnachweise und offene Risiken im Repository nachvollziehbar halten.
 
 ## Wunschliste und neue Ideen
 
