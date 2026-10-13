@@ -6,31 +6,25 @@ Diese Datei ist dein **freier Ideenspeicher** für TripTracer. Schreibe hier jed
 
 ## Neue Ideen / Wunschliste
 
-Funktionen (Hardware prüfen ob möglich)
-- Programmierung (auch flashen) und Stromversorgung über USB-C Port
-- Eigene "Aufbereitung" und absicherung der Spannungsversorgung auf der Trägerplatine, damit auch ein selbst gebasteltes USB-Kabel, dass zb direkt von der Fahrzeugbatterie kommt angeschlossen werden kann.
-- Eine weitere Rundbuchse für die Spannungsverorgung vorsehen.
-- Alle Funktionen eines typischen Tripmasters sollten vorhanden sein (Teilstrecken, gesamtstrecken, korrektur etc).
-- Aufzeichnung von Strecken und Export in typischen formaten soll möglich sein (SD-Karte? Kann der CH32X035 das?)
-- Anzeige der Anzahl der verbundenen Satteliten auf dem Display.
-- Piepser bei Tastendruck (ein/ausschaltbar über ein Menü)
-- Automatische Helligkeitseinstellung des Displays (ein/ausschaltbar über Menü)
-
-- _(Hier deine neuen Ideen eintragen.)_
 
 ## Themenbereiche (optional)
 
 ### Bedienung & Anzeige
 
-- _(Platz für Ideen.)_
+- Alle Funktionen eines typischen Tripmasters sollten vorhanden sein (Teilstrecken, Gesamtstrecken, korrektur etc).
+- Anzeige der Anzahl der verbundenen Satteliten auf dem Display.
+- Piepser bei Tastendruck (ein/ausschaltbar über ein Menü)
+- Automatische Helligkeitseinstellung des Displays (ein/ausschaltbar über Menü)
 
 ### GPS, Streckenmessung & Navigation
 
-- _(Platz für Ideen.)_
+- Aufzeichnung von Strecken und Export in typischen formaten soll möglich sein (SD-Karte? Kann der CH32X035 das?)
 
 ### Firmware, Schnittstellen & Extras
 
-- _(Platz für Ideen.)_
+- Programmierung (auch flashen) und Stromversorgung über USB-C Port
+- Eigene "Aufbereitung" und absicherung der Spannungsversorgung auf der Trägerplatine, damit auch ein selbst gebasteltes USB-Kabel, dass zb direkt von der Fahrzeugbatterie kommt angeschlossen werden kann.
+- Eine weitere Rundbuchse für die Spannungsverorgung vorsehen.
 
 ### Gehäuse & Mechanik
 
