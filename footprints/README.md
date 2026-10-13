@@ -1,0 +1,1 @@
+Die zentrale `TripTracer.pretty`-Footprintbibliothek aus Elektronik V0.3 wird nach dem ZIP-Import hier liegen. Modelldateien über `${TRIPTRACER_LIB}/3dmodels` verwenden. Bitte Geometrie und Padnummern vor Fertigung überprüfen.
