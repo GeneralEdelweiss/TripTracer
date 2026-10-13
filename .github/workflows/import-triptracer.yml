@@ -65,12 +65,12 @@ jobs:
               bad=[]
               for footprint in Path(fp_root).glob('*.kicad_mod'):
                   text=footprint.read_text(encoding='utf-8')
-                  for suffix in re.findall(r'\\(model\\s+"'+re.escape(prefix)+r'([^"]+)"',text):
+                  for suffix in re.findall(r'\(model\s+"'+re.escape(prefix)+r'([^"]+)"',text):
                       ref=Path(model_root)/suffix
                       if not ref.exists():
                           bad.append(str(footprint)+': '+str(ref))
               if bad:
-                  sys.exit('Missing 3D model paths:\\n'+'\\n'.join(bad[:20]))
+                  sys.exit('Missing 3D model paths:\n'+'\n'.join(bad[:20]))
           assert_models('hardware/kicad/Tripmaster.pretty',
                         '${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/',
                         'hardware/kicad/Tripmaster_3dmodels.3dshapes')
