@@ -91,13 +91,13 @@
 |---|---|---|---|
 | UI-01 | **Bestand V0.3** | EA DOGL128W-6, 128 × 64 Pixel, transflektiv, Amber-Hintergrundbeleuchtung | Ablesbarkeit, Verfügbarkeit und mechanische Maße evaluieren |
 | UI-02 | **Bestand V0.3** | Fünf Fronttaster sowie Reset/Boot und externer Trip-Reset | Anordnung, Bedienung mit Handschuhen, Schutz vor Fehlbetätigung |
-| UI-03 | **Wunsch** | Piepser als optional abschaltbare Tastenrückmeldung | Lautstärke, Frequenz und Montage-/Dichtheitskonzept |
-| UI-04 | **Wunsch** | Automatische Displayhelligkeit mit Menüoption zum Deaktivieren | Umgebungslichtsensor und Regelverhalten festlegen |
+| UI-03 | **Festgelegt** | Kleiner integrierter Piepser für akustische Tastenrückmeldung, im Menü deaktivierbar (siehe UI-08). | Ansteuerung, Lautstärke, Frequenz und Montage ohne Verlust der Staubdichtheit später bestimmen. |
+| UI-04 | **Festgelegt** | Automatische Displayhelligkeit über Umgebungslichtsensor, im Menü abschaltbar; manuelle Helligkeitseinstellung bleibt möglich (UI-09). | Sensorposition, Regelkurve und Hysterese sowie Sensorzugänglichkeit am staubdichten Gehäuse erst auslegen. |
 | UI-05 | **Offen** | Anzeigeinhalte, Schriftgrößen, Ablesbarkeit bei Sonne/Nacht | Nutzerführung und Sichtabstand festlegen |
-| UI-06 | **Offen** | Finales Displaykonzept: bisheriges transflektives 128×64-LCD beibehalten oder größeres/höher auflösendes Display vorsehen | Baugröße, Sonnenablesbarkeit, Leistungsbedarf und Schnittstelle vor Auswahl klären. |
-| UI-07 | **Offen** | Hintergrundbeleuchtungsfarbe Amber oder Weiß für die nächste Revision | V0.3 sieht Amber vor, ist als Farbvorgabe noch nicht neu bestätigt. |
-| UI-08 | **Offen** | Hardware-Piepser für Tastenrückmeldung einbauen oder weglassen | Bei Vorsehen im Menü abschaltbar; bestehender Wunsch UI-03. |
-| UI-09 | **Offen** | Umgebungslichtsensor für automatische Helligkeit oder nur manuelle Beleuchtung | Bei Vorsehen automatische Regelung im Menü deaktivierbar; bestehender Wunsch UI-04. |
+| UI-06 | **Offen – erneute Abwägung** | Nutzer bevorzugte zunächst Variante A (EA DOGL128W-6, 128×64 monochrom), zieht jetzt aber **ein kleines, niedrig auflösendes echtes Farbdisplay** für farbige Zähler/Warnungen in Betracht. **Keine Display-Festlegung vor Entscheidung.** | Vergleiche Monochrom mit fixer/RGB-Hintergrundbeleuchtung (keine einzeln farbigen Elemente) gegen echtes transflektives Farb-TFT (z. B. EA TFT024-23ATNN, 2,4 Zoll, 240×320, ST7789V/SPI, bei Sonne lesbar), optional helles 2,8-Zoll-IPS. Größen, Stromaufnahme, Helligkeit, Kosten und Montage prüfen. |
+| UI-07 | **Offen – abhängig von UI-06** | Nutzerpräferenz zunächst Amber (Variante A). Beim bisherigen DOGL128 ist die LED-Beleuchtung austauschbar (u. a. Amber/Weiß/RGB), aber sämtliche Pixel bleiben monochrom; bei echtem Farb-TFT werden Pixel einzeln farbig und die Hintergrundbeleuchtung ist in der Regel weiß. | Amber nur verbindlich machen, wenn ein monochromes Display gewählt wird; bei Farb-TFT keine Amber-Vorgabe, sondern gewünschte Menü-/Textfarben festlegen. |
+| UI-08 | **Festgelegt** | **Variante A – Piepser als Hardwarefunktion** für Tastenrückmeldung vorsehen; durch Menüeinstellung abschaltbar. | Minimale Lautstärke/Ansteuerung, Strombudget und akustische Öffnungen mit Staubschutz später prüfen. |
+| UI-09 | **Festgelegt** | **Variante A – Umgebungslichtsensor mit automatischer Displayhelligkeit**; im Menü zwischen automatischer und manueller Einstellung umschaltbar. | Sensorfenster/Platzierung und dimmbarer Backlight-Treiber je nach Displaytyp bestimmen. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -155,17 +155,17 @@
 | 13.10.2026 | SYS-04, MEC-04/05/06/07 | **Gehäuse staubdicht, aber nicht wasserdicht gefordert; Staubschutzkappen für optionale Anschlüsse/Öffnungen** | Schutz bei verschlossenen Öffnungen; IP6X nur als Entwicklungsziel, kein nachgewiesener Prüfstatus. |
 | 13.10.2026 | MEC-08/09/10/11 | **Gebündelte 4er-Runde:** SMA-Gehäusebuchse mit Staubkappe, außen liegende microSD mit unverlierbarer Gummikappe, separater steckbarer Radsensoranschluss, USB-C mit unverlierbarer Gummikappe | Hersteller-/Bauteilnummern und mechanische Prüfung stehen aus. |
 | 13.10.2026 | MEC-12/13/14/15 | **Gebündelte 4er-Runde:** Schiebehalterung mit Rastung, ASA-3D-Druckgehäuse, verschraubter Deckel mit Staubdichtung, handschuhtaugliche fühlbare Tasten | Mechanische Tests und konkrete Bauteile bleiben offen. |
+| 13.10.2026 | UI-03/04/08/09 | **Variante A für Piepser und automatische Helligkeitsregelung bestätigt.** | UI-06/07 bleiben trotz ursprünglicher A-Präferenz offen, da Nutzer ausdrücklich echtes kleines Farbdisplay erwägt. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächste Vierer-Runde – Display, Licht und Rückmeldung (UI-06 bis UI-09):**
+**Offene Entscheidung – kleines Display mit oder ohne farbige Pixel (UI-06/07):**
 
-1. **UI-06 – Displaykonzept:** A: Das bestehende transflektive 128×64-Monochrom-LCD als Anforderungsbasis beibehalten (wenig Strom, gut bei Tageslicht; endgültige Typprüfung später). B: Ein größeres bzw. höher auflösendes Display vorsehen; Auswirkungen auf Gehäuse, Stromaufnahme und Kosten akzeptieren.
-2. **UI-07 – Farbe der Displaybeleuchtung:** A: Amber-Hintergrundbeleuchtung wie im V0.3-Entwurf (Empfehlung für das bisherige Gestaltungskonzept). B: Weiß als Hintergrundbeleuchtung; konkrete LEDs/Displayoption später prüfen.
-3. **UI-08 – Akustische Rückmeldung:** A: Kleinen integrierten Piepser vorsehen, im Menü abschaltbar (Empfehlung, bisher Wunsch in UI-03). B: Kein Piepser, ausschließlich visuelle Rückmeldung.
-4. **UI-09 – Automatische Helligkeit:** A: Umgebungslichtsensor für automatische Hintergrundbeleuchtung mit manuellem Modus im Menü vorsehen (Empfehlung, bisher Wunsch in UI-04). B: Ausschließlich manuell einstellbare Beleuchtung ohne Lichtsensor.
+- **A – Monochromes 128×64-LCD** wie V0.3 beibehalten; Amber-Hintergrundbeleuchtung wie zunächst gewünscht. Pixel können nur schwarz/weiß sein.
+- **B – Monochromes 128×64-LCD mit RGB-Hintergrundbeleuchtung** (EA LED68X51-RGB). Die **gesamte** Hintergrundfarbe ist änderbar, aber **nicht** die Farbe einzelner Anzeigen.
+- **C – Echtes kleines Farb-TFT, vorzugsweise transflektiv** (Empfehlung für verschiedene Farben einzelner Zähler und Warnungen), z. B. 2,4 Zoll/240×320/SPI; Displaymodell nach Vergleich von Sonnenablesbarkeit, aktiver Fläche, Kosten, Temperatur und Strombedarf endgültig wählen.
 
-**Noch keine Auswahl getroffen:** Die vier Display-/Bedienentscheidungen erst gemeinsam bestätigen und gesammelt ins Dokument übernehmen. Der bisherige LCD-Typ und die Tasteranzahl sind bislang nur V0.3-Bestand, nicht automatisch neue verbindliche Spezifikation.
+Piepser und automatische Helligkeit (UI-08/09) sind bereits entschieden. Die Displayfrage wird noch **nicht** als Festlegung gewertet; die Auswahl der LED-Beleuchtungsfarbe wird aus dem später gewählten Displaykonzept abgeleitet.
 
 ## Quellen / Verbindlichkeit
 
