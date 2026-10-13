@@ -226,6 +226,12 @@
 | STO-42 | **Festgelegt – A: eindeutige Fahrt-ID** | Jeder Fahrt eine **dauerhaft eindeutige ID** zuweisen; diese in zentraler Fahrtenübersicht, Tages-CSV und Fahrtbeginn-/Endereignissen verwenden. Auch über Mitternacht, Profilwechsel, Neustart und Datenträger-Recovery eindeutig erhalten. | Kollisionsfreie nichtflüchtige ID-Vergabe und atomare Speicherung testen; Uhrzeit allein nicht als garantierte eindeutige ID verwenden. |
 | STO-43 | **Festgelegt – A: Höhenmeter und GNSS-Qualität** | Fahrtenübersicht zusätzlich mit **gefilterten positiven/negativen Höhenmetern** sowie einer aussagekräftigen **Zusammenfassung der GNSS-Empfangsqualität** (z. B. gültiger Fix-Anteil, Ausfälle) ergänzen. Höhenmeter nur aus ausreichend genauen, gefilterten Höhenwerten bilden; bei zu geringer Datenqualität als nicht verfügbar markieren. | Vertikale GNSS-Unsicherheit, Ausreißerfilter, Hysterese/Schwellwert gegen Rausch-Aufsummierung, Qualitätskennzeichen und Datenverfügbarkeit anhand realer Fahrtaufzeichnungen validieren; keine falschen Präzisionsversprechen. |
 
+### C.11 Quellenqualität in CSV – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| STO-44 | **Festgelegt – C: Messquelle plus Qualitätsindikator in CSV** | **Jeder reguläre CSV-Datensatz** enthält die tatsächliche aktive Distanzquelle (**GNSS, Radgeber 1, Radgeber 2 oder keine**) **und einen zur Quelle passenden Qualitäts-/Plausibilitätsindikator**. Quellenwechsel bleiben als gesonderte Ereignisse erhalten. | Die Kennzahl je Quelle fachlich unterscheiden und mit Einheit/Definition dokumentieren (z. B. GNSS Genauigkeit/Fixstatus; Radgeber Plausibilitäts-/Fehlerstatus), keinen künstlich vergleichbaren einheitlichen Genauigkeitswert vortäuschen. |
+
 ## D. GNSS und Messfunktionen
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -387,6 +393,14 @@
 | GPS-72 | **Festgelegt – A: Warnung nach 3 s** | Erst wenn die Abweichung zweier gültiger Radgeschwindigkeiten den Grenzwert **mindestens 3 Sekunden ununterbrochen** überschreitet, eine Abweichungswarnung auslösen und protokollieren. | Timer bei Unterschreiten rücksetzen, Hysterese gegen Flattern prüfen und Sonderfälle bei Sensorfehler/Quellenwechsel testen. |
 | GPS-73 | **Festgelegt – A: Vergleich ab 5 km/h** | Prozentualen Geschwindigkeitsvergleich der beiden Radsensoren **erst ab 5 km/h** aktivieren, um instabile Prozentwerte bei nahezu Stillstand zu vermeiden. Unabhängige elektrische Sensorfehler (z. B. Kurzschluss) weiter erkennen. | Referenzgeschwindigkeit für die Schwelle eindeutig definieren; 5-km/h-Hysterese, langsame Fahrt und Anfahren testen. |
 | GPS-74 | **Festgelegt – A: Abweichung allein löst keinen Wechsel aus** | Bei Differenzwarnung **bevorzugten Radsensor weiter verwenden, solange er selbst plausibel bleibt**. Eine bloße Differenz löst **keinen automatischen Quellenwechsel** aus; erst eindeutig erkannter Ausfall oder zusätzliche Plausibilitätsinformation rechtfertigt Wechsel nach GPS-68. | Fehlerpriorität, widersprüchliche Sensordaten, fehlendes GNSS und Warn-/Protokollverhalten mit GPS-66 konsistent halten. |
+
+### D.17 Messquellenpriorität und Schlupferkennung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-75 | **Festgelegt – B: primäre Distanzquelle je Fahrzeugprofil** | Die **Priorität zwischen GNSS und Radsensormessung ist je Fahrzeugprofil einstellbar**; wählbar als primäre Quelle **GNSS** oder **Radsensor**. Bei primärem Radsensor gilt die bereits festgelegte Rangfolge Radgeber 1/2 gemäß GPS-64. **Ersetzt frühere starre GNSS-Vorrang-Regel.** Unbrauchbare Quellen dürfen unabhängig von der Präferenz nicht genutzt werden. | Beim Umschalten kontinuierliche Distanz ohne Doppelzählung/Positionssprung (GPS-25); Sensor-Prioritätsliste und GNSS-Qualität in Zustandsmaschine testen; Einstellungen dauerhaft pro Profil speichern. |
+| GPS-76 | **Festgelegt – C: kombinierte Radschlupf-Plausibilisierung** | Möglichen **Radschlupf über beide Verfahren** erkennen: Radsensor(en) gegen zuverlässige GNSS-Geschwindigkeit und zwei Radsensoren gegeneinander vergleichen. Reine Abweichung ist zunächst Indiz, keine sichere Fehlerzuordnung. | GNSS-Qualitätsgates, Schwellen/Hysterese, Reifenumfang, Kurvenfahrt und fehlende Signale beachten; Warnung und Ereignis aufzeichnen, ohne vorschnell defekte Sensoren zu behaupten. |
+| GPS-77 | **Festgelegt – A: zuverlässiges GNSS bei erkanntem Schlupf** | Wenn Radschlupf ausreichend plausibel erkannt ist und **zuverlässiges GNSS** zur Verfügung steht, **GNSS zur Distanzmessung nutzen**, auch wenn für dieses Profil normalerweise Radsensor-Priorität eingestellt ist. Ohne verlässliche GNSS-Referenz keine blinde Umschaltung auf einen vermeintlich besseren Wert. | Schlupferkennung muss von GPS-74 (bloße Sensorabweichung => nur Warnung) klar getrennt bleiben; sichere Rückkehr zur Profil-Priorität mit Hysterese festlegen; keine Distanzsprünge. |
 
 ## E. Anzeige und Bedienelemente
 
@@ -692,6 +706,8 @@
 | 13.10.2026 | GPS-67–70 | **Viererrunde C/A/A/A bestätigt:** pro Fahrzeugprofil einstellbarer Radgeber-Abweichungsgrenzwert, Wechsel zur plausiblen Ersatzquelle nach ungefähr 1 s bestätigtem Fehler, Rückkehr zur bevorzugten Quelle nach 5 s stabiler Messung, Ereignisprotokoll mit Frequenzen/Geschwindigkeiten/Differenz/aktiver Quelle. | Grenzwertbereich, Zeitfilter bei Abweichung, Niedriggeschwindigkeits-Sonderfall und Vermeidung von Distanzsprüngen konkretisieren. |
 
 | 13.10.2026 | GPS-71–74 | **Viererrunde A/A/A/A bestätigt:** sensorische Geschwindigkeitsabweichung je Profil 5–30 % in 1-%-Schritten, Werkseinstellung 10 %, Warnung erst nach 3 s, Vergleich erst ab 5 km/h, bloße Differenz löst ohne weitere Fehlerindizien keinen Radgeberwechsel aus. | Hysterese und Referenzgeschwindigkeit bei 5 km/h sowie Timer-Rücksetzen testen. |
+
+| 13.10.2026 | GPS-75–77, STO-44 | **Viererrunde B/C/A/C bestätigt:** GNSS-/Radsensor-Priorität je Fahrzeugprofil statt festem GNSS-Vorrang; Schlupferkennung aus GNSS- und Radgeber-Vergleich kombiniert; bei verlässlich erkanntem Radschlupf zuverlässiges GNSS als Distanzquelle; in jedem CSV-Datensatz Messquelle und quellenspezifischer Qualitätsindikator. | Früheren GNSS-Vorrang als überholt behandeln, Abgrenzung reine Differenz/Schlupfnachweis und konsistente Quellendefinition verifizieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
