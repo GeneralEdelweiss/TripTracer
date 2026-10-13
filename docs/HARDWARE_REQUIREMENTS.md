@@ -715,6 +715,15 @@
 | HW-27 | **Festgelegt – B: Hochvolt-Puffer vor 5-V-Wandler** | Für **mindestens 3 s geordneten Shutdown** eine **Energiereserve im höher spannenden DC-Zwischenkreis vor dem 5-V-Buck-Wandler** aufbauen, mit separatem Lade-/Entlade-, Eingangs- und Rückspeiseschutz entsprechend dem gemeinsamen Versorgungskonzept. | Nutzbare Energie über Spannungsfenster E = ½ C × (U_start² − U_min²), erforderliche Leistung samt Wirkungsgrad und Stromspitzen dimensionieren; Überspannung, Leckstrom, Inrush, Kapazitätstoleranz und Versorgungspfade bei ACC-Aus prüfen. |
 | HW-28 | **Festgelegt – A: gemeinsamer Puffer für Motorstart und Shutdown** | **Denselben ausreichend dimensionierten Hochvolt-Zwischenkreispuffer** für kurze Spannungseinbrüche beim Motorstart und den geregelten Datei-/FRAM-Abschluss nach Abschalten verwenden; weiterhin **ACC-Aus elektrisch erkennen und Logging beenden**, statt aus dem Puffer unbemerkt weiterzufahren. | Dauer und Tiefe realistischer Startunterspannungen, Zustandsübergänge und Pufferwiederaufladung testen; erforderliche 3-s-Abschaltenergie auch nach kurz vorher erfolgtem Start-Spannungseinbruch sicherstellen und Konflikt mit Abschalt-/USB-Priorität ausschließen. |
 
+### Hardwareprototyp – Hochvolt-Puffer und ACC-Erkennung (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-29 | **Festgelegt – A: Aluminium-Elektrolytkondensatoren** | Den gemeinsamen Hochvolt-Energiepuffer für Motorstart-Spannungseinbrüche und mindestens 3 s geordneten Shutdown **mit Aluminium-Elektrolytkondensatoren** auslegen, nicht mit einer Supercap-/Polymer-Pflichtlösung. | Kapazität aus minimaler verfügbarer Zwischenkreisspannung, Wirkungsgrad und realem Abschalt-Leistungsbudget berechnen; ESR, Ripple, Lebensdauer, Bauhöhe und Vibrationsfestigkeit prüfen. |
+| HW-30 | **Festgelegt – A: hinter eFuse und Eingangsschutz** | Puffer **hinter eFuse und Eingangsschutz** im geschützten Zwischenkreis **vor dem 5-V-Buck-Wandler** anschließen; Ein-/Rückspeisepfade so auslegen, dass der Puffer bei ACC-Aus nicht unkontrolliert das Fahrzeugnetz oder Schutz-IC speist. | eFuse-Lastkapazitäts-/Inrush-Fähigkeit, kontrollierte Aufladung, Trennung bei Fehlerfällen, Rückstromsperre und Verhalten nach Kurzschluss prüfen; gegebenenfalls zusätzliche Lade-/Entkopplungsbauteile dimensionieren. |
+| HW-31 | **Festgelegt – A: Bordnetz vor Puffer messen** | **ACC-/Bordnetzspannung vor dem Energiepuffer** über einen ausreichend hochspannungs- und transientenfesten Erkennungspfad überwachen. So wird ACC-Aus trotz weiter gespeistem Zwischenkreis unmittelbar erkannt und der geordnete Shutdown eingeleitet. | Eingangsteiler, Filter/Hysterese, ADC-/Comparator-Schutz, Wake-/Brownout-Pfade, 12-/24-V-Grenzen und Fehltrigger beim Motorstart prüfen. |
+| HW-32 | **Festgelegt – A: mindestens 105 °C** | Für Puffer-Aluminium-Elektrolytkondensatoren **Bauteile mit mindestens 105-°C-Nenntemperatur** vorsehen, mit Spannungs-/Ripple-Derating und Lebensdauerabschätzung für den Fahrzeugeinbau. | Maximaltemperatur des Einbauorts, Gehäuselüftung, Eigenwärme, Temperatur- und Vibrationseignung sowie Hersteller-Lebensdauerdaten prüfen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -887,6 +896,8 @@
 | 13.10.2026 | HW-21–24 | **Hardware-Viererrunde A/A/A/C bestätigt:** synchroner integrierter Buck mit externer Spule, mindestens 60 V zulässige Eingangsspannung des Regler-IC, mindestens 90 % Wirkungsgrad als Entwicklungsziel bei 24 V auf 5 V/2 A, Frequenz erst mit konkretem Regler bestimmen. | Reglerdatenblatt, Eingangs-Transientenschutz, Induktordimensionierung und Effizienzmessung vor Layoutfreigabe. |
 
 | 13.10.2026 | HW-25–28 | **Hardware-Viererrunde A/C/B/A bestätigt:** TVS-Eingangsschutz, Verpolschutz in dafür nachweislich geeigneter eFuse, Hochvolt-Energiepuffer vor 5-V-Buck und gemeinsamer Puffer für Motorstart-Spannungseinbrüche und mindestens 3 s kontrollierten Shutdown. | eFuse-Verpolschutz datenblattbasiert nachweisen; TVS-Klemmung und Pufferenergie inklusive ungünstigstem Start-/Shutdown-Fall berechnen. |
+
+| 13.10.2026 | HW-29–32 | **Hardware-Viererrunde A/A/A/A bestätigt:** Hochvolt-Puffer aus Aluminium-Elkos hinter Eingangsschutz/eFuse und vor Buck, ACC-Spannung separat vor Puffer überwachen, Elkos mindestens 105 °C spezifiziert. | 12-V-Worst-Case-Pufferkapazität, eFuse-Inrush, Rückspeiseentkopplung und Elko-Lebensdauer vor Schaltplanfreigabe berechnen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
