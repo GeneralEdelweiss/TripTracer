@@ -733,6 +733,15 @@
 | HW-35 | **Festgelegt – A: kontrollierter Ladestrom** | Das Laden des hinter der eFuse angeordneten Hochvolt-Aluminiumelko-Puffers **mit geeigneter Strombegrenzung bzw. kontrollierter Anlauf-/Ladeschaltung** realisieren. | eFuse-SOA, Einschaltenergie, Startzeit, Kurzschluss-/Fehlerfall, Rückspeisung und Wiederanlauf bei häufigem ACC-Schalten testen. |
 | HW-36 | **Festgelegt – A: datenblattgestützte Leistungsbauteilfreigabe vor Routing** | **eFuse mit belegtem Verpolschutz, TVS, integrierten synchronen Buck-IC (mindestens 60 V spezifiziert), Spule, Puffer-Elkos und erforderliche Schutz-/Ladebauteile** vor dem PCB-Routing konkret anhand von Herstellerdatenblättern, realer Beschaffbarkeit und möglichst LCSC/JLCPCB-kompatiblen Teilenummern auswählen und elektrisch dimensionieren. | Spannungs-/Strom-/Thermik- und Transientenlimits, Footprints und Ersatzteiloptionen dokumentieren; keine bloße Schätzung als Datenblattfreigabe ausgeben. |
 
+### Hardwareprototyp – Schaltplanvorbereitung und Messbarkeit (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-37 | **Festgelegt – A: mehrere parallele Elko-Bestückungsplätze** | Den Hochvolt-Puffer auf der ersten Hauptplatine mit **mehreren elektrisch parallel vorgesehenen, einzeln bestückbaren Aluminiumelko-Positionen** aufbauen. Finale Kapazität nach Abschaltlastmessung anpassbar; Spannungs- und Temperaturfestigkeit gemäß HW-29–36. | Einzelkapazitäten, ESR/Ripple, gemeinsame Ladestrombegrenzung, Kriech-/Luftstrecken, Bauhöhen und mechanische Freiräume für alternative Bestückungsvarianten prüfen. |
+| HW-38 | **Festgelegt – A: auftrennbare Strommessbrücken** | **Geeignete auftrennbare bzw. durch Jumper/0-Ω-Brücke überbrückte Messstellen** an ausgewählten Strompfaden vorsehen, mindestens zur Bestimmung von Hauptwandler-, 3,3-V-Regler- und Abschaltstromaufnahme. Normalbetrieb nur mit sicher geschlossener Messbrücke; kein zusätzlicher dauerhafter Mess-IC erforderlich. | Stromtragfähigkeit, Übergangswiderstand, Messpunktzugang, Fehlbedienungs-/Kurzschlussrisiko und Einfluss auf Start-/Abschaltfunktionen kontrollieren. |
+| HW-39 | **Festgelegt – A: LCSC/JLCPCB bevorzugt** | Konkrete Komponenten für den KiCad-Schaltplan **möglichst aus dem LCSC-Sortiment und der JLCPCB-Bestückungsbibliothek** auswählen, Standard-/Basic-Teile bevorzugen, sofern elektrische Eignung, Verfügbarkeit, Automotive-Anforderungen und Qualität erhalten bleiben. Notwendige Spezialteile dürfen andere Bezugsquellen verwenden. | LCSC-/JLCPCB-Teilenummern und Bestückbarkeit in BOM, Datenblätter/Footprints vor Freigabe prüfen. |
+| HW-40 | **Festgelegt – A: vollständiger Schaltplan vor PCB-Layout** | **Zuerst einen vollständigen zusammenhängenden KiCad-10-Schaltplan** aller im Prototyp vorgesehenen Baugruppen erstellen; danach ERC, Strom-/GPIO-Budget, Anschlussbelegungen und Bauteilvalidierung abschließen, bevor PCB-Routing und Prototypbestellung beginnen. | Hierarchische Struktur/lesbare Netze, sämtliche Pflichtbaugruppen und USB-/Versorgungs-/Sensorzustände verifizieren; ERC-frei oder begründete Ausnahmen, anschließend PCB DRC. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -909,6 +918,8 @@
 | 13.10.2026 | HW-29–32 | **Hardware-Viererrunde A/A/A/A bestätigt:** Hochvolt-Puffer aus Aluminium-Elkos hinter Eingangsschutz/eFuse und vor Buck, ACC-Spannung separat vor Puffer überwachen, Elkos mindestens 105 °C spezifiziert. | 12-V-Worst-Case-Pufferkapazität, eFuse-Inrush, Rückspeiseentkopplung und Elko-Lebensdauer vor Schaltplanfreigabe berechnen. |
 
 | 13.10.2026 | HW-33–36 | **Hardware-Viererrunde A/A/A/A bestätigt:** endgültige Puffergröße nach Messung der Abschaltlast (vorläufige Berechnung für Erstprototyp erforderlich), Puffer bis zur belastbaren Buck-UVLO-Untergrenze nutzbar, kontrollierter Ladestrom und datenblattgestützte Auswahl aller Leistungsbauteile vor PCB-Routing. | Worst-Case-Leistungsprofil und Erstpuffer rechnen, UVLO/Startpfade prüfen, eFuse-Verpolschutz und LCSC/JLCPCB-Eignung nachweisen. |
+
+| 13.10.2026 | HW-37–40 | **Hardware-Viererrunde A/A/A/A bestätigt:** mehrere parallel bestückbare Elko-Plätze, auftrennbare Strommessbrücken, LCSC/JLCPCB als bevorzugte Beschaffung und vollständigen KiCad-10-Schaltplan vor PCB-Layout erstellen. | Thermische/mechanische Elko-Reserven, Messbrückensicherheit, konkrete BOM-Teilenummern und ERC vor Routing prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
