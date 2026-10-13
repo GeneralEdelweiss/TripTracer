@@ -13,3 +13,7 @@ Native DRC: **5 Meldungen** statt 6 (4 USB-Lochabstände, fehlender Edge.Cuts-Um
 Die Python-KiCad-Bindings meldeten nach dem Kopieren eine SWIG-Warnung zu einem FOOTPRINT-Destruktor/Prozessspeicher; Speichern/Neuladen und die anschließende native CLI-Prüfung wurden trotzdem erfolgreich ausgeführt. Diese Warnung wird nicht als elektrischer Fehler oder bestandene Prüfung umgedeutet.
 
 Kosten/BOM unverändert, keine neue Hersteller-/Teileauswahl. Hersteller-Pin-/Gehäusefreigabe, RF-/Antennenabstände, 3D-/Bestückungsprüfung und die gesamte LM74930-Versorgung bleiben separate offene Gates.
+
+## GitHub-Prüfung
+
+[Run 38478504363](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38478504363), Commit 71f6d8ea04d95f045ee56b259da23e7c3f3a844d: KiCad 10.0.6 bestätigt ERC 304, DRC 5, unverbundene Verbindungen 79 und Parität 43. Hierarchie und Netliste erfolgreich; Gesamtprüfung fehlgeschlagen. Tatsächliches Log in github-run.log.

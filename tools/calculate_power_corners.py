@@ -21,6 +21,20 @@ def calculate():
             buck.append({'vin_V':vin,'load_A':2,'inductance_H':inductance,'frequency_Hz':frequency,
                          'scenario':label,'ripple_pp_A':ripple,'peak_A':2+ripple/2,
                          'rms_A':rms,'DCR_68mOhm_loss_25C_W':rms**2*0.068})
+    dropout=[]
+    # Sensitivity only: 98% duty is a typical system characteristic, not a
+    # guaranteed bound. 1.4x inductor DCR is an assumed hot copper scenario.
+    duty=0.98
+    hot_rl=0.068*1.4
+    req=duty*0.465+(1-duty)*0.310+hot_rl
+    for load,front_r,eta in itertools.product([0.25,0.5,0.75,1,1.5,2],[0.1,0.25,0.5],[0.8,0.9]):
+        buck_min=(5+load*req)/duty
+        input_i=5*load/(eta*buck_min)
+        dropout.append({'output_load_A':load,'assumed_frontend_ohm':front_r,
+                        'assumed_efficiency':eta,'buck_input_required_scenario_V':buck_min,
+                        'input_current_scenario_A':input_i,
+                        'battery_input_required_scenario_V':buck_min+input_i*front_r,
+                        'scenario_margin_at_6V_V':6-buck_min-input_i*front_r})
     shunts=[]
     for r in [0.002,0.005,0.01,0.02]:
         shunts.append({'shunt_ohm':r,'ocp_3A_RLIM_ohm':12*50/(3*r),
@@ -38,6 +52,8 @@ def calculate():
             'power_assumption_W':power,'input_current_scenarios':current,
             'shunt_tradeoffs':shunts,
             'buck_inductor_scenarios':buck,
+            'motor_start_dropout_scenarios':dropout,
+            'motor_start_dropout_assumptions':{'output_target_V':5,'assumed_duty':duty,'HS_RDSon_max_ohm':0.465,'LS_RDSon_max_ohm':0.310,'assumed_hot_inductor_ohm':hot_rl,'scope':'approximate steady-state conduction/headroom model, not guaranteed startup/temperature/loop validation'},
             'buck_inductor_limitations':'CCM ideal ripple only; no guaranteed DC-bias/temperature inductance, core losses, short-circuit/loop/thermal or 6V dropout validation',
             'uv_candidate_fall_V':[min(uv),max(uv)],
             'uv_candidate_rise_V':[min(uv_on),max(uv_on)],

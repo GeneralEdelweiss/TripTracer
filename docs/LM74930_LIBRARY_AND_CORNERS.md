@@ -54,3 +54,7 @@ VS-Schutz-Szenario: 200 V, angenommene 60-V-Klemme, 10k Serienwiderstand → 1,9
 Kein zusätzlicher Schutzcontroller, keine neuen Funktionen, keine Bestellung. Der bereits ausgewählte LM74930 bleibt; vorhandene Kostenstudie ist kein aktuelles Angebot. Exakte Shunt-/FET-/Zener-/ACC-MPNs, deutsche Lieferbarkeit, 2-/10-/100-Geräte-Gesamtkosten, LCSC/PCBA-Kategorie und Bestückungsprozess noch offen. VQFN-Unterseitenpad benötigt Paste/Reflow oder passenden Heißluftprozess; Handlötkolben allein ist keine belastbare Montageplanung.
 
 Offen: Vollständiger VS-/Gate-/Zener-Strompfad, 6-V-Kaltstart, OC/SCP-Eckwerte, sicherer Latch-Off/Retry, ACC/HOLD-Failsafe, USB-Rückspeisung, MOSFET-SOA, Pulsbauteile, Temperatur, PCB/EMV und Laborprüfungen. Noch keine Baugruppe als Gate A/B/C bestanden erklären.
+
+## 6-V-Kernlastreserve
+
+[36 Dropout-/Frontend-Sensitivitäten](validation/2026-10-14-motor-start-headroom/README.md) zeigen die offene Abhängigkeit von Kernlast, FET-Widerständen und Temperatur. 2 A bei 6 V wurden nicht zugesagt oder getestet; PWR-15/17-Kernfunktionen und 2-A-Normalbetrieb bleiben unverändert.
