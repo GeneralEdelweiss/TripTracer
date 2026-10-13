@@ -217,6 +217,15 @@
 | STO-38 | **Festgelegt – A: Fahrzeugprofil in CSV** | Jeden regulären CSV-Datensatz mit **aktiver stabiler Profil-ID und Profilname** ergänzen; jeden bestätigten Profilwechsel zusätzlich als Ereignis mit alter/neuer Profil-ID protokollieren. | Eindeutige Zuordnung von Zählern/Dateisamples, auch bei Namensänderung und Profilwechsel während der Fahrt; Logdatei nicht allein wegen Profilwechsel aufteilen. |
 | STO-39 | **Festgelegt – A: 7 Dezimalstellen** | Breitengrad und Längengrad in **GPX und CSV mit 7 Dezimalstellen** in Dezimalgrad speichern. Diese numerische Auflösung **nicht als reale GNSS-Ortsgenauigkeit ausgeben**. | Rundung, Vorzeichen, WGS84-Konvention, Punkt als Dezimaltrennzeichen und konsistente Darstellung in CSV/GPX testen. |
 
+### C.10 Fahrtenübersicht und Wiederherstellung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| STO-40 | **Festgelegt – A: zentrale CSV-Fahrtenübersicht** | Alle abgeschlossenen Fahrten chronologisch in **einer zentralen CSV-Datei** auf microSD speichern (z. B. `trips.csv`), unabhängig von Profil, Tagesdatei und manuell neu begonnenem GPX-/CSV-Dateipaar. | CSV-Header/Schema/Version festlegen, zuverlässiges Anhängen und Datenträgerfehler berücksichtigen, keine Duplikate nach Neustart. |
+| STO-41 | **Festgelegt – A: unvollständige Fahrt rekonstruieren** | Bei unerwartetem Spannungsausfall die letzte **noch nicht abschließend verbuchte Fahrt** beim nächsten Start anhand persistentem FRAM-Fahrtzustand und vorhandenen Logs prüfen; soweit zuverlässig rekonstruierbar, fehlenden Eintrag in der zentralen Fahrtenübersicht **nachtragen**. | Eintrags-ID und Abschlussstatus zur Duplikatvermeidung, plausible Zeit-/Distanzrekonstruktion; nicht sicher rekonstruierbare Werte als unbekannt/unvollständig markieren, niemals erfinden. |
+| STO-42 | **Festgelegt – A: eindeutige Fahrt-ID** | Jeder Fahrt eine **dauerhaft eindeutige ID** zuweisen; diese in zentraler Fahrtenübersicht, Tages-CSV und Fahrtbeginn-/Endereignissen verwenden. Auch über Mitternacht, Profilwechsel, Neustart und Datenträger-Recovery eindeutig erhalten. | Kollisionsfreie nichtflüchtige ID-Vergabe und atomare Speicherung testen; Uhrzeit allein nicht als garantierte eindeutige ID verwenden. |
+| STO-43 | **Festgelegt – A: Höhenmeter und GNSS-Qualität** | Fahrtenübersicht zusätzlich mit **gefilterten positiven/negativen Höhenmetern** sowie einer aussagekräftigen **Zusammenfassung der GNSS-Empfangsqualität** (z. B. gültiger Fix-Anteil, Ausfälle) ergänzen. Höhenmeter nur aus ausreichend genauen, gefilterten Höhenwerten bilden; bei zu geringer Datenqualität als nicht verfügbar markieren. | Vertikale GNSS-Unsicherheit, Ausreißerfilter, Hysterese/Schwellwert gegen Rausch-Aufsummierung, Qualitätskennzeichen und Datenverfügbarkeit anhand realer Fahrtaufzeichnungen validieren; keine falschen Präzisionsversprechen. |
+
 ## D. GNSS und Messfunktionen
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -567,6 +576,8 @@
 | 13.10.2026 | GPS-34–37 | **Viererrunde A/A/A/A mit Ergänzung bestätigt:** Pausenschwelle **einstellbar, Standard 15 min**; Stillstand bei M8 AN und Zeit mit M8 AUS gelten als Pause; manuelle neue Logdatei setzt Fahrtstatistik nicht zurück; ausgeschaltete Zeit separat erfassen und nicht als aktive Fahrtdauer für den Durchschnitt rechnen. | Einstellbereich/Schrittweite, RTC-Ausfälle und Pausengrenzen bei GNSS-Fehlern konkretisieren. |
 
 | 13.10.2026 | GPS-38–41 | **Viererrunde A/A/A/A bestätigt:** Pausenschwelle 1–120 Minuten in 1-Minuten-Schritten (Standard 15 min), manueller Fahrtbeginn über Menü mit Bestätigung ohne Dateipaarwechsel, Fahrtstatistik läuft über Mitternacht weiter, separate CSV-Fahrtenübersicht je abgeschlossener Fahrt. | Fahrt-ID, robuste CSV-Anfügung, Mitternacht und Abschlusserkennung validieren. |
+
+| 13.10.2026 | STO-40–43 | **Viererrunde A/A/A/A bestätigt:** zentrale Fahrtenübersicht in einer CSV; fehlende Fahrtabschlüsse nach Power-Loss aus FRAM/Logs soweit zuverlässig rekonstruieren; eindeutige persistente Fahrt-ID; gefilterte Auf-/Abstiegshöhenmeter und GNSS-Gütezusammenfassung in der Fahrtenübersicht. | Kollisionsfreie Fahrt-IDs, doppelte Einträge verhindern und vertikale GNSS-Unsicherheit berücksichtigen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
