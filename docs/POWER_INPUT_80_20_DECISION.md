@@ -69,6 +69,24 @@ Zwei zu messende Alternativen:
 
 **Kostengrenze heute:** Die verifizierten **LM74800 + FDD-Kandidaten** alleine kosten **5,13 € / Gerät einzeln, 3,59 € bei 10 und 2,724 € bei 100 Stück**, *ohne* Q2, TVS, Zener, Eingangs-/Gate-Widerstände, Cap, Sicherung, ACC-/HOLD-/USB-Logik, PCBA/Versand/MwSt. Deshalb **keine fertige „5-€-Schutzschaltung“ behaupten**. Die frühere 21,92-€-Doppelcontroller-BOM ist kein notwendiger Standard und die früheren 9–10-€-Schätzungen sind noch kein vollständiger Funktionsvergleich.
 
+
+## 4.1 Nachgereichte Q1-Suche: verfügbarer 250-V-FET, niedrigere Kosten
+
+Die erste Kostenprobe war noch zu pessimistisch: Bei LCSC finden sich **lagernde 250-V-N-MOSFETs** als Q1-Kandidaten, darunter:
+
+| Kandidat | Preis 1 / 10 / 100 Stück (USD, LCSC) | Datenlage | Entscheidung |
+|---|---|---|---|
+| **Truesemi TSD16N25M** / LCSC **C2829043**, 250 V, TO-252 | **0,319 / 0,2501 / 0,1837** | günstig, derzeit lagernd; max. RDS(on)/Gate-Kennlinie bei 6 V, Original-SOA und Qualität/AEC unbekannt | **Nur Preisreferenz**, kein blindes „billig = sicher“ |
+| **onsemi FQD16N25CTM** / LCSC **C415866**, 250 V, DPAK | **0,9493 / 0,8064 / 0,6652** | offizielles onsemi-Datenblatt, RDS(on) max **270 mΩ bei VGS=10 V**, **kein** spezifiziertes RDS(on) bei 5 V, Qg max 53,5 nC, ±30V VGS, derzeit lagernd | **Bevorzugter zu untersuchender 250-V-Prototyp-Kandidat**, vor 6-V-Cold-Crank-/SOA-/Temperaturtest **nicht freigegeben** |
+| **onsemi FDD18N20LZ** / LCSC **C903557**, 200 V, DPAK | DigiKey EUR **2,55 / 1,648 / 1,134** (*nicht vergleichbare Währung und Vertriebssituation*) | bessere VGS=5V-RDS(on)-Spezifikation (max. 130mΩ); LCSC gerade Bestand 0; nur 200-V-VDSS | **Preis-/Gate-Vergleich**, nicht aktueller JLC-Bestückungskandidat |
+| **Infineon AUIRFR4292TRL** / LCSC **C533343**, 250 V, DPAK | Preis noch ungeprüft | AEC-Q101, aber **Last Time Buy**, RDS(on) max 345mΩ @ VGS=10 V; Threshold max. 5V | **Nicht** als neue serienfähige Standardwahl übernehmen |
+
+**Wirtschaftliche Konsequenz:** Beim 250-V-onsemi-FET statt 200-V-FDD kann der Materialpreis **unter ~1 USD** in Einzelmenge liegen, jedoch hat der FQD ein **2- bis 3-fach höheres RDS(on) bei spezifizierten 10 V** und keine garantierte 5-V-RDS(on)-Angabe. Es ist erst nach realem **6-V-Eingang/Temperatur-/Gate-Charge-/Dauerstrom-Test** zulässig, die Ersparnis mitzunehmen. Bei 6 V Fahrzeug-BAT+ ist **die MOSFET-Gate-Spannung nicht identisch mit der Bordnetzspannung**, da LM74800-Q1 über Charge Pump treibt, aber der tatsächliche VGS-/Treiber-Einregelverlauf unter Starttransienten bleibt zu messen.
+
+**Zum Leitungsschutz:** Eine **58-V-DC-Nennsicherung** ist für normalen 36-V-Dauerbetrieb geeigneter als eine typische 32-V-Blade, stellt aber **keinen automatischen Nachweis sicheren Abschaltens eines harten Kurzschlusses während eines 200-V-Load-Dump** dar. Ein 200-V-Transient und die reale Quellimpedanz erfordern eine gesonderte Prüfung des Verhaltens von Sicherung/TVS/Q1, keine stillschweigende 200-V-Fuse-Rating-Unterstellung. Damit ist die gewählte Priorität **kein Brand im Fehlerfall** auch bei Pulsbeanspruchung einzuhalten.
+
+Quellen: [LCSC TSD16N25M C2829043](https://www.lcsc.com/product-detail/C2829043.html), [LCSC onsemi FQD16N25CTM C415866](https://www.lcsc.com/product-detail/C415866.html), [onsemi FQD16N25C-Datenblatt](https://www.onsemi.com/pdf/datasheet/fqd16n25c-d.pdf), [Infineon AUIRFR4292-Datenblatt](https://www.infineon.com/assets/row/public/documents/10/49/auirfr4292.pdf?fileId=5546d462533600a4015355b59f38148b).
+
 ## 5. Nächste Baugruppenschritte in sinnvoller Reihenfolge
 
 1. **Brand-/Kurzschluss-FMEA** mit BAT+-Kurzschluss vor/nach Q1/Q2, FET D-S stuck ON, Buck-Eingang kurz, 5-V- und externe Sensorleitung kurz, 24-V-Transient, TVS selbst kurz, Masseausfall und USB-Rückspeisung. Leiter-/Sicherungskette zuerst freigeben; konkret Sicherung und Leiterbahnen gemeinsam festlegen.
