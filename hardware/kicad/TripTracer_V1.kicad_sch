@@ -43,6 +43,7 @@
  (property "Sheetname" "Radsensoren / JST-GH / I2C" (at 214 194.24 0) (effects (font (size 1.524 1.524)) (justify left bottom)))
  (property "Sheetfile" "08_Radsensoren.kicad_sch" (at 214 232.76 0) (effects (font (size 1.524 1.524)) (justify left top)))
  (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064" (page "9")))))
+ (text "Navi in KiCad 10: Hierarchie-Navigator links aktivieren; alle 8 Baugruppenseiten gehoeren zu diesem Hauptschaltplan." (at 210 252 0) (effects (font (size 1.5 1.5))) (uuid "61a744f4-1cb2-46d4-829c-425faf164e79"))
  (sheet_instances (path "/" (page "1")))
  (embedded_fonts no)
 )
