@@ -192,3 +192,45 @@ Bei hypothetisch **80 % Gesamt-Wirkungsgrad ab BAT+** entspräche das etwa **0,7
 - [Verbindliche Hardwareanforderungen](HARDWARE_REQUIREMENTS.md)
 
 **Prüfstatus:** Datenblattparameter und einfache Worst-Case-Rechnungen geprüft; keine Simulations-/Labor-/KiCad-10-Prüfung. **Kein fertiger Schaltplan, kein DRC/ERC-Bestehen, kein 12-/24-V-Fahrzeugbetrieb freigegeben.**
+
+
+## 7. Preisvergleich (13.10.2026) – belastbare Bauteilpositionen, offene Freigaben
+
+**Ziel:** 9–36-V-System, ACC-/BAT+-Eingänge, OFF-Selbsthaltung, zwei separat abschaltbare Leistungsschalter und differenzierter Schutz für suppressed sowie unsuppressed 24-V-Load-Dump. Die Vergleiche umfassen nur die **Bordnetz-/Hauptschutzsektion**, nicht die gemeinsamen Buck-/LDO-/USB-/Display-/Logik-Baugruppen. Alle Händlerpreise **netto, ohne Versand/Zoll/PCBA/PCB, Oktober 2026**; JLCPCB Basic/Extended und realer Warenkorb **nicht** nachgeprüft. Sonstige Bauteile sind separat als *Schätzansatz* gekennzeichnet.
+
+### 7.1 Hersteller-Referenz für die robuste Variante
+
+[ADI DC2178A Demo Manual](https://www.analog.com/media/en/technical-documentation/user-guides/dc2178af.pdf), S. 1–3/5: 24-/28-V-Betrieb mit **0,5 A** Last und nominell **45-V-Ausgangsklemme**, **ISO 16750-2 Test A** sowie **250 V für 1 ms** (kein garantierter 250-V-/350-ms-Dauertest); Eingang im DC-Test bis **37,5 V** bei voller 0,5-A-Last; maximal **80 V DC Survival**. Demo verwendet **LTC4380-2 + FDB33N25 + 40-mΩ-Shunt + 68-V-VCC-Zener**, besitzt aber **KEINEN Reverse-Polarity-Schutz im MOSFET-Hauptpfad**, da dessen Body-Diode negative Eingänge zum Ausgang führt (S. 2). Für TripTracer ist darum ein **zweiter Hochvolt-MOSFET in Back-to-back-Topologie** oder gleichwertiger Reverse-Schutz einzukalkulieren. Die bloße Rückwärtsfestigkeit des LTC4380-ICs schützt nicht die Last.
+
+Die Demo weist selbst darauf hin, dass **FDB33N25 bei Kaltstart 4–8 V Gate-Ansteuerung zu hohe Gate-Schwelle** haben kann. **Unser 3-V/15-ms-Kaltstartprofil ist nicht durch dieses Referenzboard abgedeckt**; zusätzlicher Core-Puffer, geeigneter Logic-Level-250-V-FET oder ein neuer Regler-/FET-Nachweis sind zwingend. Auch 200-V-/350-ms-SOA bei unserer realen Last und hoher Temperatur **nicht ungeprüft übertragen**.
+
+**Stress-Szenarien:** Bei `V_IN=202 V`, `V_CLAMP=45 V`, `I_LOAD=0,27 A` wären **42,4 W momentane** lineare FET-Verlustleistung am Pulsmaximum; bei **0,5 A** wären es **78,5 W**. Die Pulsform ist **keine konstante 350-ms-Rechtecklast**. SOA und integrierte Verlustenergie nur aus zeitlichem Testverlauf und Derating bestimmbar. **Alternativ darf der Controller bei langer extremer Surge abgeschaltet bleiben, um Schaden zu verhindern – dann keine garantierte Track-Aufzeichnung während dieses Impulses.**
+
+### 7.2 Roh-BOM-Preisvergleich in EUR
+
+| Position (Menge je Gerät) | 1 Stück, Preis / Bauteil | 10 Stück | 100 Stück | Einkauf / Einordnung |
+|---|---:|---:|---:|---|
+| TI TPS26631PWPT (1×), **beide Varianten** | 4,22 | 3,205 | 2,674 | [DigiKey](https://www.digikey.de/de/products/detail/texas-instruments/TPS26631PWPT/12165640); zweiter unabhängiger Abschalter |
+| ROHM RD3P050SNFRATL, N-FET 100 V (1×), **Baseline** | 1,61 | 0,989 | 0,709 | [Mouser](https://www.mouser.de/c/semiconductors/discrete-semiconductors/transistors/?configuration=Single&pg=4&transistor+polarity=N-Channel&vds+-+drain-source+breakdown+voltage=100+V); Kandidat, SOA noch offen |
+| ROHM RSJ250P10FRATL, P-FET 100 V (1×), **Baseline** | 2,40 | 1,19 | 1,07 | [Mouser](https://www.mouser.de/de/c/semiconductors/discrete-semiconductors/transistors/mosfets/?mounting+style=SMD%2FSMT&package+%2F+case=TO-263-3&vds+-+drain-source+breakdown+voltage=100+V); AEC-Q101, unabhängiger High-Side-Abschalter |
+| Diodes BSS138-7-F (1×), **Baseline** | 0,20 | 0,119 | 0,074 | [DigiKey](https://www.digikey.de/en/products/detail/diodes-incorporated/BSS138-7-F/717723); 50 V, nur zulässig an geschütztem Gate-Treiberknoten |
+| Littelfuse SLD8S36A (1×), **Baseline** | 3,72 | 2,53 | 1,81 | [Mouser](https://www.mouser.de/de/ProductDetail/Littelfuse/SLD8S36A); 36,5-V-VRWM/58,1-V-Klemmspannung am spez. I_PP, AEC-Q101, **nicht** als ungedämpfte 202-V-/350-ms-Alleinlösung freigegeben |
+| ADI LTC4380IMS-2#PBF (1×), **robust** | 7,98 | 6,21 | 5,26 | [Mouser](https://www.mouser.de/ProductDetail/Analog-Devices/LTC4380IMS-2PBF); Auto-Retry, 45-V-Clamp, Automotive-Klasse, 10-MSOP |
+| onsemi FDB33N25TM (2×), **robust** | 3,05 | 1,988 | 1,381 | [DigiKey](https://www.digikey.de/de/products/detail/onsemi/FDB33N25TM/1922973); 250-V-/33-A-N-FET TO-263, ADI-Demo-FET als Budget-Proxy; **Kaltstart/SOA/Automotive-Qualifikation nicht freigegeben** |
+| Vishay WSL2512R0400FEA (1×), **robust** | 0,72 | 0,467 | 0,319 | [DigiKey](https://www.digikey.at/en/products/detail/vishay-dale/WSL2512R0400FEA/712567); 40 mΩ Sense, finalen Grenzwert neu dimensionieren |
+| Sonstige passive/kleine Schutzteile Baseline (ein Satz) | **1,50** | **1,20** | **0,80** | **unverbindlicher Schätzansatz**, kein Preisangebot |
+| 68-V-Zener LTC VCC (1×), robust | **0,40** | **0,25** | **0,15** | **unverbindlicher Schätzansatz**, Hersteller/MPN noch offen |
+| R/C/Snubbers/Kleinmaterial robust (ein Satz) | **2,50** | **1,50** | **1,00** | **unverbindlicher Schätzansatz**, keine BOM mit realen MPN |
+
+**Resultat, nur Bauteil-Szenario, €/TripTracer (Einzelpreise / Staffelpreise):**
+
+| Ansatz | 2 Geräte (1er-Preise) | 10 Geräte | 100 Geräte |
+|---|---:|---:|---:|
+| **Baseline**: TPS26631 + 2×100-V-FET + SLD8S36A + Gate + Budget-R/C | **13,65 €/Gerät; 27,30 € gesamt** | **9,23 €/Gerät; 92,33 € gesamt** | **7,14 €/Gerät; 713,73 € gesamt** |
+| **Robust**: LTC4380 + 2×250-V-FET + TPS26631 + Sense/Schutz/Budget-R/C | **21,92 €/Gerät; 43,84 € gesamt** | **15,61 €/Gerät; 156,08 € gesamt** | **12,16 €/Gerät; 1.216,50 € gesamt** |
+| **Aufpreis robust** | **8,27 €/Gerät; 16,54 € gesamt** | **6,38 €/Gerät; 63,75 € gesamt** | **5,03 €/Gerät; 502,77 € gesamt** |
+
+**Keine fertigungstaugliche BOM:** Die Baseline mit SLD8S36A erfüllt einen **noch zu spezifizierenden suppressed-Load-Dump-Prüffall** nur, wenn deren Pulsstrom-/Energiegrenzen und TPS26631-Maximalwerte eingehalten werden. Dioden-Datenblattkennwerte für 10/1000-µs sind **kein ISO-16750-2-SOA-Nachweis für 350 ms**. Der robuste Ansatz ist analog zum ADI-Referenzdesign, aber **zwei 250-V-FETs können u. U. ungünstige Cold-Crank-/SOA- oder Beschaffungs-Eigenschaften haben** und brauchen Ersatzvarianten. **Preise steigen möglicherweise** durch bessere AEC-Q101-FETs, Thermikfläche, Hi-Rel-MLCCs, Widerstände mit hoher Pulsfestigkeit und höhere PCB-Kosten. Beide Pfade sind unabhängig zu treiben, nicht dieselbe gemeinsame Enable-Leitung als redundanten Abschalter ausgeben. ACC-Schutz, USB-Entkopplung, 5V-/3V3-/Backlight-Regler, M8/Fahrzeugsicherungen und Restgeräte-BOM sind bei beiden **außerhalb** dieser Teilsumme.
+
+**Preis-Leistungs-Einschätzung:** Die robuste Test-A-Zielsetzung ist für ein wechselbares Rallye-Gerät vorläufig sinnvoll: ~**8,27 € Mehrpreis je Kleinmengen-Prototyp** bzw. ~**5,03 €/Gerät bei 100 Stück**, vor Freigabe von Gate-/SOA-/Kaltstart-/Störprofil. **Ein sicherer Betrieb ohne Datenunterbrechung im gesamten 202-V-/350-ms-Impuls ist derzeit NICHT nachgewiesen**.
+
