@@ -194,6 +194,16 @@
 | GPS-14 | **Festgelegt** | **Variante A: feste, geregelte 3,3-V-Bias-Versorgung** über SMA für eine ausdrücklich zu 3,3 V kompatible aktive externe GNSS-Antenne. Keine umschaltbare 5-V-Antennenspeisung erforderlich. | Tatsächliche Antenne erst anhand Versorgungsspannung, Stromaufnahme, GNSS-Frequenzbändern, LNA-Verstärkung, Kabelverlusten und MAX-M10N-00B-HF-Anforderungen auswählen; Bias-Einspeisung schützen und HF-Entkopplung vor PCB-Freigabe prüfen. |
 | GPS-15 | **Festgelegt** | **Variante A: Schutz und Diagnose der GNSS-Antennen-Bias-Versorgung gegen Kurzschluss und Überstrom mit Fehlermeldung auf dem Display.** Keine zusätzliche verbindliche Open-Circuit-/Kabelbruch-Strommessung. | Ansprechstrom, Abschalt-/Retry-Verhalten, Fehleranzeige und Schutz gegen ESD/Transienten nach konkreter Antenne und Bias-Schaltung spezifizieren und testen. Antennenausfall ohne Überstrom darf nicht fälschlich als zuverlässig diagnostizierter Kabelbruch behandelt werden; GNSS-Fixverlust separat anzeigen. |
 
+
+### D.1 GNSS-Anzeige und Fahrzeugprofile – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
+|---|---|---|---|
+| GPS-16 | **Festgelegt – A: sofortige Anzeige** | Nach Einschalten über M8 ist die reguläre Tripmasteranzeige samt Zählern und Tasten **sofort nutzbar**, auch vor dem ersten gültigen GNSS-Fix. Ein klar sichtbares Statussymbol zeigt „GNSS-Fix ausstehend“. | Ohne gültigen GNSS-Fix und ohne gültigen kalibrierten Radsensor **keine fiktive Distanzaddition**; initiale Anzeige darf nicht durch GNSS-Wartebildschirm blockieren. |
+| GPS-17 | **Festgelegt – A: Quellenwechsel kurz melden** | Bei GNSS-Ausfall und automatischer Übernahme durch einen angeschlossenen kalibrierten Radsensor (bzw. bei GNSS-Rückkehr) **kurzen Hinweis** anzeigen, danach dauerhaft ein kleines Symbol der aktiven Distanzquelle in der Statusleiste. | Hysterese gegen Hin-und-her-Wechsel, keine Distanzsprünge/Doppelzählung, Warnung wenn keine gültige Quelle verfügbar; Quellwechsel als Ereignis im CSV/Diagnoseprotokoll erfassen. |
+| GPS-18 | **Festgelegt – A: mehrere Fahrzeugprofile** | Mehrere **nichtflüchtig gespeicherte, benennbare Fahrzeugprofile** (z. B. Motorrad/Pkw/Lkw) mit individuellen Radsensor-Kalibrierwerten und fahrzeugspezifischen Einstellungen; Profilwechsel im Menü. | FRAM-/NVS-Budget, Profilzahl, Eingabeverfahren, gültige Kalibrierung und Wechsel während der Fahrt prüfen; keine automatische Fahrzeugerkennung vorgeschrieben. |
+| UI-31 | **Festgelegt – A: Satellitenzahl + Empfangsqualität** | Im regulären Fahrdisplay **kompakte Anzahl verwendeter GNSS-Satelliten plus symbolisch/farbig dargestellten Qualitätsstatus** anzeigen; auch Zustand ohne Fix sichtbar halten. | Qualitätsstufen anhand GNSS-Fix-Typ, Genauigkeitsindikatoren und Satellitenzahl belastbar definieren; Farbe niemals als einziges Unterscheidungsmerkmal nutzen, Statuszeile darf Distanzanzeige nicht verdrängen. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -342,6 +352,8 @@
 | 13.10.2026 | DIA-01–04, PWR-06/19, MCU-02, STO-16 | **Viererrunde C/A/C/A bestätigt:** separates Normal- und Entwickler-Diagnosemenü, persistentes begrenztes FRAM-Fehlerprotokoll, Firmware-Recovery nur über interne BOOT-/RESET-Servicekontakte bei geöffnetem Gehäuse, lesbare zusätzliche Diagnosedatei über USB. | Frühere Forderung eines ohne Gehäuseöffnung zugänglichen Recovery-Zugangs ist überholt; regulärer USB-C-Firmware-Flash bleibt bestehen. |
 
 | 13.10.2026 | DIA-03, STO-16 | **Interne Firmware-Recovery konkretisiert:** aufsteckbarer Jumper auf zweipoliger BOOT/GND-Stiftleiste (2,54 mm), GPIO0 bei Reset/Start low; keine externe Boot-Taste. | Pull-up/Strapping und interner Reset-/Power-Cycle-Pfad vor Schaltplanfreigabe prüfen. |
+
+| 13.10.2026 | GPS-16–18, UI-31 | **Viererrunde A/A/A/A bestätigt:** Tripanzeige direkt nach M8-Start mit GNSS-Wartestatus, kurzer Hinweis und dauerhaftes Quellensymbol bei GNSS-/Radsensor-Wechsel, mehrere gespeicherte benennbare Fahrzeugprofile, Satellitenzahl und GNSS-Qualität im Fahrdisplay. | Ohne gültige Quelle keine erfundene Distanz; Qualitätsschwellen, Profilanzahl und Wechselverhalten technisch zu definieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
