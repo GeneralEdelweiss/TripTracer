@@ -23,6 +23,14 @@
 
 Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine optional zu erfüllende Schönheitsmaßnahme. Sie gilt zusätzlich zu den strikten Baugruppen- und Kompatibilitäts-Gates.
 
+## Verbindlicher Kfz-Elektrik-Prüfmaßstab (13.10.2026)
+
+- **ISO 16750-2:2023** ist verbindlicher **Entwicklungs- und Prüfmaßstab für die relevanten elektrischen Fahrzeugbelastungen**, bei Nutzung des TripTracers in **12-/24-V-Straßenfahrzeugen**. Die passenden Einzelprüfungen, Parameter, Betriebs-/Funktionsstatusklassen und Pass-/Fail-Kriterien **vor** der Hardwarefreigabe dokumentieren.
+- **ISO 7637-2** separat für transiente leitungsgebundene Störungen prüfen; die ISO 16750-2:2023 deckt **EMV ausdrücklich nicht** ab. Die ISO 16750-2 gilt formal **nicht für Motorräder und Mopeds**; dort nur fachlich geeignete analoge Prüfprofile, keine pauschale ISO-Konformität behaupten.
+- **LM74800-Q1** ist derzeit bevorzugter *kosteneffizienter Schutzcontroller-Kandidat* wegen TI-200-V-24-V-Load-Dump-Referenzdesign. **Nicht** aus Datenblatt-Beispiel eine automatische Normerfüllung des TripTracer ableiten; MOSFET-SOA/-Temperatur, Pulsenergie, Zener/TVS, PCB, ACC-Versorgung, eFuse-/Überstromfunktion und USB-Rückspeisung unabhängig verifizieren.
+- **Kostendisziplin:** Schutzfunktionen möglichst in vorhandenen Bauteilen kombinieren. Einen teuren zweiten Controller, Zusatz-MOSFET oder eine weitere Schutzstufe nur bei belegtem und budgetiertem Zusatznutzen vorsehen, ohne unverzichtbaren Leitungs-, Fehler- oder Überstromschutz zu streichen. Preis-/Nutzenanalyse und offene Normtests in `docs/COST_CONTROL.md` dokumentieren.
+- **Es gibt bisher weder ein vollständiges Prüfprotokoll noch eine ISO-, ERC-/DRC-, Serien- oder Fahrzeugfreigabe.** Quelle: https://www.iso.org/standard/76119.html und https://www.ti.com/lit/ds/symlink/lm7480-q1.pdf .
+
 ## Produktziel: Budget-Tripmaster – DIY heute, Kleinserie morgen
 
 **Verbindliche oberste Entwicklungsprämisse (HW-77–80):** TripTracer ist ein **preisbewusster DIY-Tripmaster mit Potenzial zur Kleinserie/Serienfertigung**, nicht ein unbegrenzt teures Entwicklungsprojekt. Bei **jeder** Hardware-, Bauteil-, Schaltungs-, PCB- und Mechanikentscheidung die **realen Gesamtkosten** mitdenken – ohne sicherheitskritische Kompromisse und ohne beschlossene Kernfunktionen zu streichen. **Es gibt noch keinen verbindlich genannten Preisdeckel oder Ziel-Verkaufspreis: keine Budgets erfinden.**
