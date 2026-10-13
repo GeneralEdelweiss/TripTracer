@@ -13,7 +13,7 @@ Maßgebliche Analyse: [SOLID_STATE_POWER_ARCHITECTURE.md](SOLID_STATE_POWER_ARCH
 - [ ] Schutz-/Wake-/HOLD-Logik ohne bisherige dauerhaft aktive 5-V-AUX-Versorgung zeichnen. **01B muss neu entworfen** werden, 01C-Timer ist nur ein ungeprüfter Teilschaltplan.
 - [ ] MCU-unabhängigen, zeitbegrenzten Shutdown / USB-only-Vehicle-Interlock / Frühzeit-ACC-Wake testen; ACC AUS mit BAT+ nach Dateischluss schaltet beide Pfade aus.
 - [ ] <100 µA gesamten BAT+-OFF-Ruhestrom bei 9/12/24/36 V und relevanter Temperatur **messen**; 60 µA maximalen U401-Shutdown-Strom plus OVP-Divider/TVS/Leckströme berücksichtigen.
-- [ ] 12-/24-V-Startprofile inkl. kurzer 3-V-/6-V-Einbrüche aus realer Leistungsaufnahme und geordnetem Backlight-Lastabwurf dimensionieren.
+- [ ] 12-/24-V-Startprofile mit **6 V als unterer Motorstart-Funktionsgrenze** (keine 3-V-/15-ms-Fortsetzungsforderung mehr) und zeitlichem Verlauf nach ISO-16750-2-Testmatrix dimensionieren. Kernversorgung/SD/GNSS bei 6 V prüfen, Backlight bei Bedarf abschalten, definierte Brownout-Zustände unter 6 V testen.
 - [ ] Erst anschließend die Hierarchie der `hardware/kicad/TripTracer_V1.kicad_pro` mit vollständig gezeichneten Netzen aktualisieren; projektweit **KiCad-10-ERC**, PCB-Netzübernahme/**DRC** und echte Schutz-/Fault-Injection-Tests durchführen.
 - [ ] Alternativcontroller LTC4380 (AEC-Q100, niedriger Iq) **nur technisch vergleichen**, **nicht** ohne gesonderte Freigabe als Ersatz der festgelegten SMD-eFuse verbauen.
 
