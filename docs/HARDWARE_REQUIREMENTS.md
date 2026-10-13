@@ -6,10 +6,10 @@
 
 ## Vorgehensweise
 
-1. Wir besprechen jeweils **einen Themenblock** und idealerweise nur eine offene Entscheidung auf einmal.
+1. Wir besprechen Entscheidungen üblicherweise **in Blöcken von drei bis vier Punkten** und übernehmen sie gesammelt, sofern der Nutzer nichts davon ausdrücklich offenlassen möchte.
 2. Bestätigte Wünsche werden als **Festgelegt** markiert; Annahmen bleiben **Offen**, vorhandene Bauteile **Bestand V0.3**, weitere Vorschläge **Wunsch**.
 3. Nach jedem Gespräch die betroffenen Anforderungen und das Entscheidungsprotokoll aktualisieren.
-4. Erst wenn die Anforderungen des Themenblocks hinreichend geklärt sind, konkrete Hersteller-/Teilenummern und die Schaltung festlegen.
+4. Hersteller-/Teilenummern für Prototypen können gezielt vorgeplant werden; **endgültige KiCad-Footprints, elektrische und mechanische Freigabe erst nach Datenblatt-, Muster- und Passformprüfung**.
 5. Technische Prüfkriterien dokumentieren. Ein Schaltplan, eine erfolgreiche KiCad-Prüfung oder eine Bauteilauswahl allein ist noch keine elektrische oder Fahrzeugfreigabe.
 
 **Status-Legende:**
@@ -17,6 +17,19 @@
 - **Bestand V0.3** = in der bisherigen KiCad-V0.3-Revision enthalten, nicht zwingend bereits für die nächste Revision freigegeben.
 - **Wunsch** = Funktion aus der Ideensammlung, Umfang oder technische Lösung noch zu klären.
 - **Offen** = keine Entscheidung getroffen.
+
+## Entscheidungsübersicht – verbindlicher Stand
+
+| Bereich | Festgelegter Stand / bewusste Einschränkung | IDs |
+|---|---|---|
+| Distanzbedienung | Eigene +/−-Tasten mit 10 m pro Druck, beschleunigte Wiederholung; TRIP wählt den aktiven Zähler; LEG 0 sofort, Undo durch bestätigten Langdruck; Gesamt/Trip A/Trip B/LEG getrennt | UI-16–27 |
+| Navigation und Logging | GNSS 5 Hz; bei Ausfall ohne Sensor Distanz anhalten; optional kalibrierter Radsensor übernimmt automatisch; automatische GPX-/CSV-Aufzeichnung | GPS-05–11, STO-05/06 |
+| Stromversorgung | 12-/24-V-M8-ACC, eFuse, unterbrechungsfreier Motorstart nach Auslegungsprofil, kontrollierter Speichernachlauf; USB-C nur für Flash/Service-5-V ohne M8 | PWR-01–25 |
+| Display und Gehäuse | Riverdi 3,5-Zoll-IPS, automatische Helligkeit, ASA-Gehäuse, Staubschutz und Schiebehalterung | UI-06–13, MEC-06–15 |
+| Fronttaster – ausgewählte Prototypfamilie | **WITTKOWARE 14 mm mit LED-Ring (12 mm Einbauloch, NO-Momenttaster, IP67 laut Händler)**; etwa sechs Stück und **THT-Verlötung der Lötösen bevorzugt** | MEC-20/24–31 |
+| Bewusst nicht endgültig entschieden | Zahl/Anordnung der Tasten (sechs bevorzugt), Lötösen-Footprint-Maße, LEG-0-Sonderoberfläche, Dimm-/LED-Farbe und Deckeldichtungsgeometrie | UI-14, MEC-17/21/23/27–31 |
+
+**Wichtig:** Die Übersicht ersetzt nicht die vollständig geführte Anforderungstabelle darunter. „Festgelegt“ bezeichnet eine Nutzerentscheidung; die WITTKOWARE-Serie ist für Prototypen **vorgesehen**, aber noch nicht anhand eines Musterteils konstruktiv freigegeben.
 
 ## A. Einsatz und Gesamtkonzept
 
@@ -26,7 +39,7 @@
 | SYS-02 | **Festgelegt** | Gerät zwischen mehreren Autos/Motorrädern einfach wechseln | Identische Stromanschlüsse und passende Halterungen je Fahrzeug |
 | SYS-03 | **Festgelegt** | KiCad 10, transportable Projektdateien und Bibliotheken | ERC/DRC und 3D-Pfade vor Fertigung prüfen |
 | SYS-04 | **Teilweise festgelegt** | Gehäuse soll **staubdicht** sein; **keine Wasserdichtigkeit/Regenschutz-Schutzklasse gefordert**. Temperaturbereich, Kondensations-/Spritzwasserfolgen und Vibrationsbelastung bleiben offen. | Staubschutz-Ziel hinsichtlich Festkörpern in Richtung **IP6X** entwickeln und später prüfen; keine ungeprüfte IP-Zertifizierung behaupten. |
-| SYS-05 | **Offen** | Kosten-, Baugrößen- und Leistungsbudget | Zielpreis und maximale Gehäuseabmessungen festlegen |
+| SYS-05 | **Teilweise festgelegt – kostensensitives Konzept** | Auf preisgünstige, in Deutschland beschaffbare Komponenten achten; **sechs WITTKOWARE-LED-Taster mit derzeit rund 16,80 € inkl. MwSt.** (ab drei Stück je 2,80 €, zzgl. Versand) als Kostenrichtwert der Frontbedienung vorgesehen. Ein generelles Gerätebudget und endgültige Tastenanzahl sind **nicht** festgelegt. | Kosten mit tatsächlicher Tasterfarbe/-variante, Lieferstand, benötigten Zusatzteilen und Versand aktualisieren; konkrete maximal zulässige Gehäuseabmessungen bleiben gemäß MEC-22 bis nach der Tasterwahl offen. Hersteller: https://wittko.eu/product-14mm-metall-drucktaster-mit-led-ringbeleuchtung-rot |
 
 ## B. Stromversorgung und Schutz – erster Brainstorming-Block
 
@@ -59,6 +72,13 @@
 | PWR-24 | **Festgelegt** | **Variante A – im Nachlauf nur notwendige Elektronik versorgen:** ESP32 und für sichere Speicherung erforderliches FRAM/SD-/Dateisystem weiter betreiben; GNSS, Displaybeleuchtung und entbehrliche Verbraucher ausschalten. | Sichere Erkennung des M8-Spannungsverlusts und priorisiertes Abschalten der Verbraucher sicherstellen; Reserve für SD-Schreibspitzen vorsehen; keine Messfortsetzung im Nachlauf erforderlich. |
 | PWR-25 | **Festgelegt** | **Variante A – Bordnetzspannung nur im Diagnosemenü anzeigen**, nicht permanent auf dem Hauptdisplay; Messung weiterhin für die Versorgungsüberwachung nutzbar (PWR-21). | Für 12-/24-V-Systeme korrekt skalieren/kalibrieren; Anzeigeauflösung, Aktualisierungsrate und Messschaltung später festlegen. |
 
+
+## C. Steuerung, Kommunikation und Speicher
+
+### C.1 Externe Anschlüsse, microSD und Track-Aufzeichnung (STO)
+
+| ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
+|---|---|---|---|
 | STO-01 | **Festgelegt** | **Variante A: microSD-Karte** als entnehmbares Speichermedium für GPS-Trackaufzeichnung und Dateiexport. | Schnittstelle, sichere Schreibvorgänge, Erkennen von Kartenfehlern und Umgang mit plötzlichem Stromausfall prüfen. FRAM für Kilometerstände/Einstellungen bleibt unabhängig davon vorgesehen. |
 | STO-02 | **Festgelegt** | **Variante A: microSD von außen erreichbar**, ohne Öffnen des TripTracer-Gehäuses. | Öffnung bei geschlossener Staubschutzkappe staubdicht ausführen (MEC-06/07). Mechanische Zugänglichkeit in der Fahrzeughalterung und sichere Entnahme ohne laufende Schreiboperationen berücksichtigen. |
 | STO-03 | **Festgelegt** | **Variante A: externe GNSS-Antenne** außerhalb des TripTracer-Gehäuses, für guten Empfang günstig am Fahrzeug zu positionieren. | Robust zu trennende, staubgeschützte HF-Gehäuseschnittstelle für häufigen Fahrzeugwechsel definieren; die interne U.FL-Buchse ist **kein** direkt zu bedienender Außenanschluss. Kabel, Steckverluste, Antennenspeisung und Montage klären. |
@@ -74,7 +94,7 @@
 | STO-13 | **Festgelegt** | **Variante A: vorhandenen 256-kbit-/32-KiB-I²C-FRAM MB85RC256VPNF aus V0.3 beibehalten**, mit strikt begrenztem Event-Ringpuffer bei SD-Ausfall. | FRAM-Speicherkarte für Gesamt/Trip A/Trip B/LEG, Korrekturoffsets, letzte LEG-Nullung/Undo, Fahrzeugkalibrierprofile und Konfiguration zuerst reservieren. Integrität (Versionskennung/CRC/atomare Zustandswechsel) und maximalen Eventpuffer bestimmen; Ringpuffer darf kritische Daten nie überschreiben. |
 | STO-14 | **Festgelegt** | **Variante A: Push-Push-microSD-Kartenhalter** mit separatem Card-Detect-Schalter, hinter der bereits festgelegten unverlierbaren Staubschutzkappe und von außen erreichbar. | Feder-/Rastmechanik bei Fahrzeugvibrationen und mehrfachem Kartenwechsel testen; Einbaulage und Kappenform so auslegen, dass ungewolltes Auswerfen verhindert wird und die Karte nach Menü-Auswurf (STO-11) entnommen werden kann. Konkreten Halter erst nach Footprint-/Gehäuseabgleich auswählen. |
 
-## C. Steuerung, Kommunikation und Speicher
+### C.2 Controller und nichtflüchtiger Speicher (MCU)
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
 |---|---|---|---|
@@ -148,16 +168,6 @@
 | MEC-05 | **Offen** | Einbaulage, Sturz-/Vibrationsfestigkeit, Temperatur, Kondenswasserverhalten und Gehäusewerkstoffe | **Keine Wasserdichtheitsanforderung**; Staubdichtheit gesondert in MEC-06 festgelegt. Fahrzeugtypen und Montagesituationen sammeln. |
 | MEC-06 | **Festgelegt** | **Gehäuse staubdicht auslegen**, auch an Fugen und bei geschlossenen Anschlussabdeckungen; keine Wasserdichtheit gefordert. | Entwicklungsziel **IP6X hinsichtlich Festkörper-/Staubschutz**; nicht zertifiziert, Staubprüfung bei der Prototypenvalidierung vorsehen. |
 | MEC-07 | **Festgelegt** | **Alle optionalen, nicht ständig benutzten Anschlüsse und Öffnungen mit passenden Staubschutzstopfen/-kappen** (z. B. Gummi/Silikon) abdecken. | Insbesondere USB-C, microSD und nicht belegter Radimpulsanschluss; unbenutzte externe GNSS- und M8-Buchsen bei Lagerung/Transport ebenfalls schützen. Bevorzugt unverlierbar befestigte Abdeckungen. |
-
-## G. Fertigung und Verifikation
-
-| ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
-|---|---|---|---|
-| Q-01 | **Festgelegt** | Portables KiCad-10-Projekt, schlüssige Symbole, Footprints, STEP-Dateien und Stückliste | Keine absoluten lokalen Pfade; Bauteile anhand Herstellerunterlagen verifizieren |
-| Q-02 | **Offen** | Leiterplattenfertiger, Lagenaufbau, Dicke, Bestückungs-/Lötverfahren | Nach mechanischem und elektrischem Bedarf entscheiden |
-| Q-03 | **Festgelegt** | ERC/DRC und Datenblatt-/Pinprüfung vor Bestellung; Fahrzeugschutz und reale Funktion zusätzlich testen | Prüfberichte revisionsbezogen speichern |
-| Q-04 | **Offen** | Wartbarkeit, Prüfanschlüsse, Debug-/Firmware-Recovery | Zugang ohne Zerstörung des Gehäuses |
-
 | MEC-08 | **Festgelegt** | **Variante A – verschraubte SMA-Gehäusebuchse** für die externe GNSS-Antenne; trennbares Antennenkabel und passende Staubschutzkappe bei Nichtbenutzung. | Konkrete SMA-Polarität, Antennenkabel, HF-Impedanz (50 Ω), mechanische Wandmontage, interne Verbindung zum GNSS-Modul und ESD-Schutz vor Bauteilauswahl prüfen. |
 | MEC-09 | **Festgelegt** | **Variante A – unverlierbar am Gehäuse befestigte Gummi-/Silikon-Staubschutzkappe** für den außen zugänglichen microSD-Steckplatz. | Dichtender Sitz im geschlossenen Zustand (Staubschutz), Auswurf-/Entnahmefreiraum, Haltbarkeit der Befestigung und Bedienbarkeit bei montiertem TripTracer prüfen. |
 | MEC-10 | **Festgelegt** | **Variante A – eigener, kleiner, steckbarer Anschluss für den optionalen Radimpulssensor**, bei Nichtbenutzung mit Staubschutzkappe versehen. | Steckgeometrie eindeutig verschieden vom M8-Versorgungsanschluss; erforderliche Kontakte, Sensor-Versorgung, Schutz und mechanische Robustheit erst nach Definition des Sensors festlegen. |
@@ -171,13 +181,27 @@
 | MEC-18 | **Festgelegt – Variante A** | **Werkseitig vorgesehenes umlaufendes Riverdi-Klebekonzept** des vorbondierten Display-Deckglases auf einem ausreichend planen, passend vorbereiteten ASA-Auflager zur mechanischen Befestigung und Staubabdichtung der Gehäusefront verwenden. | Herstellervorgaben zu Klebfläche, Vorbehandlung/Haftung auf ASA, Auflagersteifigkeit, temperaturbedingter Längenausdehnung, Vibration und Entlastung des TFT nach CAD/Datenblatt validieren. Die fertige Front bleibt **erst nach Staubtest** als dicht nachgewiesen; bei Displaytausch kann Entkleben erforderlich sein. |
 | MEC-19 | **Festgelegt – Variante A** | **Wärmeeingesetzte Messing-Gewindeeinsätze im 3D-gedruckten ASA** für die Verschraubung des mehrfach zu öffnenden Gehäusedeckels vorsehen. | Einsatzgröße, Bohrungsgeometrie, Schmelz-/Einpresstiefe, Wandabstände, Anzugsmoment, Schraubensicherung und gleichmäßige Kompression der Deckeldichtung vor mechanischer Freigabe testen. |
 | MEC-20 | **Festgelegt – Variante A** | **Einzeln abgedichtete Paneltaster mit Gewindeschaft und rückseitiger Befestigungsmutter**, mit passender Dichtung zur ASA-Gehäusefront. | Tastertyp und Mutter-/Dichtungssatz erst nach Bauteilauswahl konkretisieren; Gewindedurchmesser, Einbaubohrung, Klemmbereich, Anzugsmoment, Frontwandstärke, Tasterzugang und staubdichte Montage im Gehäuse prüfen. |
-| MEC-21 | **Offen – direkte PCB-Lötmontage bevorzugt, konstruktiv zu prüfen** | **Nutzerpräferenz: Fronttaster möglichst unmittelbar auf die Leiterplatte löten**, ohne separaten Taster-Kabelbaum. Endgültige elektrische Anbindung erst nach Auswahl des konkreten, gewindemontierten und abgedichteten Paneltasters (MEC-20) festlegen. | Prüfen, ob passende Lötpins/Footprints vorhanden sind und Frontwand, Taster-Mutter, PCB-Standoffs und Toleranzen mechanisch zusammenpassen. Die **Panelbefestigung muss Betätigungskräfte aufnehmen**, ohne Lötstellen oder Leiterplatte durch Montageversatz zu verspannen; ggf. separate Taster-Tochterplatine oder flexiblen Kabelanschluss als begründete Alternative anbieten. Keine starre PCB-Direktmontage als bereits final entschieden behandeln. |
+| MEC-21 | **Offen – THT-Direktverlötung bevorzugt; Prototyp geplant** | **Bevorzugt die WITTKOWARE-Lötösen unmittelbar wie THT-Anschlüsse in der PCB verlöten**, statt zusätzliche Kabelbäume oder teure Spezial-Paneltaster vorzusehen. Je nach Fahnenform kommen metallisierte THT-Bohrungen oder **PTH-Langlöcher** im eigenen KiCad-10-Footprint infrage (MEC-29). | Exakte Anschlussanzahl/LED-Pinbelegung, Breite, Stärke, Länge, Ausrichtung, Raster und Toleranzen der Lötösen **an Mustern messen**, PCB-Sitz samt Frontwand/Gewindemutter/Abstandshaltern im CAD prüfen und Montagefolge festlegen. Ein Paneltaster muss weiterhin **mechanisch über die Mutter am ASA-Gehäuse abgestützt** werden; kein erzwingendes Einlöten mit Verspannungen. Kabel-/Tochterplatinenlösung bleibt Rückfalloption, wenn THT geometrisch nicht sicher ist. |
 | MEC-22 | **Festgelegt – Variante A** | **Keine starre maximale Gehäusebreite oder -höhe vor der Tasterauswahl** festlegen. Die Außenabmessungen aus den Einbaumaßen geeigneter Paneltaster, der noch offenen Tastenanordnung und dem Riverdi-3,5-Zoll-Display ableiten. | Kompaktheit und handschuhtaugliche Bedienung als Optimierungsziele; bei Wahl eines Tastertyps Platz für Muttern, Dichtungen, Leiterplatte und Anschlüsse berücksichtigen, danach maßstäblichen Frontentwurf und Ergonomieprüfung erstellen. |
 | MEC-23 | **Offen – keine Nutzerpräferenz** | **Gehäusedeckel benötigt eine geeignete wiederlösbare Staubdichtung; Flachdichtung oder O-Ring-/Schnurdichtung in Nut sind beide zulässig.** Nutzer legt sich bei der Dichtungsvariante ausdrücklich nicht fest. | Dichtung nach realer ASA-Druck-/Oberflächengüte, Nut-/Auflagegeometrie, Schraubenabständen, Dichtpressung, Toleranzen, Montage- und Wiederöffnungstests technisch auswählen. IP6X weiterhin nur Entwicklungsziel; keine Variante als entschieden markieren. |
 | MEC-24 | **Festgelegt – Variante A** | **Einzeln abgedichtete mechanische Paneltaster mit deutlich fühlbarem Druckpunkt und kurzem, definiertem Hub** für blinde Bedienung mit Handschuhen. | Tatsächliche Schaltkraft, Hub, Taktilität, Lebensdauer und Fehlauslösung im Fahr-/Handschuhtest anhand verfügbarer Tasterdatenblätter prüfen; ein als „tactile“ beworbener Kontakt ist ohne Mess-/Anfassprobe noch nicht ergonomisch freigegeben. |
-| MEC-25 | **Festgelegt – Variante B** | **Alle relevanten Fronttaster erhalten Beleuchtung oder Leuchtringe für den Nachtbetrieb**; einzelne unbeleuchtete Standardtaster als endgültige Frontlösung nicht ausreichend. | LED-Farbe, Versorgung/Vorwiderstände oder Konstantstrom, Helligkeitsregelung, Blendfreiheit, Homogenität und Verfügbarkeit geeigneter beleuchteter, abgedichteter Paneltaster prüfen. Bereits vorhandener Lichtsensor und automatische Display-Helligkeit können als Eingangsgröße dienen; Kopplung/Separatsteuerung noch offen. |
+| MEC-25 | **Festgelegt – Variante B** | **Alle relevanten Fronttaster erhalten Beleuchtung oder Leuchtringe für den Nachtbetrieb**; die preisgünstige **WITTKOWARE-14-mm-LED-Ringtaster-Serie** ist für den Prototyp vorgesehen (MEC-28). | Die geprüften Varianten spezifizieren **5–14 V AC/DC für den LED-Ring** (keine garantierte 3,3-V-Funktion). LED-Farbe(n), Anzahl und Polung der LED-Anschlüsse, tatsächliche Stromaufnahme, Nacht-Dimmung und getrenntes Schalten/Helligkeitssteuerung erst nach Test festlegen; nicht ungeprüft an 3,3-V-GPIO anschließen. |
 | MEC-26 | **Festgelegt – Variante A** | **Momentane, normalerweise offene Schließerkontakte (NO) ohne mechanische Verrastung** für sämtliche Fahrbedientaster; Kontakt nur während Betätigung geschlossen. | Mit ESP32-S3-Eingangspegeln, Pull-up/-down und Entprellung auslegen; Kurz-/Langdruck sowie wiederholte +/−-Betätigung sind Firmwarefunktionen. Keine latching-Taster oder rein kapazitiven Sensorflächen als Ersatz. |
-| MEC-27 | **Festgelegt – Variante A** | **LEG-0-Taste durch abweichende Tastenkappenform und/oder fühlbar andere Oberfläche gegenüber den übrigen Fronttastern unterscheiden**, weiterhin kurzer Direktdruck für LEG-0-Nullung und bestätigter Langdruck für Undo. | Eine kompatible Kappe/Sonderoberfläche zur gewählten Gewinde-Paneltasterfamilie muss nachgewiesen oder eine konstruktive taktile Differenzierung bei ansonsten passendem Schalter entwickelt werden. Keine ungesicherte Annahme austauschbarer Kappen. |
+| MEC-27 | **Festgelegt – Variante A** | **LEG-0-Taste durch abweichende Tastenkappenform und/oder fühlbar andere Oberfläche gegenüber den übrigen Fronttastern unterscheiden**, weiterhin kurzer Direktdruck für LEG-0-Nullung und bestätigter Langdruck für Undo. | **Für die WITTKOWARE-14-mm-Serie ist eine alternative Kappe/Oberfläche noch nicht nachgewiesen.** Geeignete tastbare Abdeckung/Modifikation untersuchen, ohne den Hub, die IP67-Dichtung oder den NO-Tastkontakt zu beeinträchtigen. Falls nicht zuverlässig lösbar, einen haptisch differenzierten kompatiblen LEG-0-Taster separat auswählen; keine ungeprüfte Kappen-Austauschbarkeit annehmen. |
+| MEC-28 | **Für Prototyp eingeplant – genaue Ausführung/Mechanik zu verifizieren** | **WITTKOWARE beleuchtete 14-mm-Metall-Drucktaster-Serie**, vorläufig sechs Stück als Frontbestückung (UI-14). Belegter Referenztyp: **MT-LB-14MM-RR** (roter LED-Ring, NO-Momentkontakt), Alternative **MT-LB-14MM-RG** (grüner Ring); endgültige LED-Farbe(n) nicht festgelegt. Händler: https://wittko.eu/product-14mm-metall-drucktaster-mit-led-ringbeleuchtung-rot und https://wittko.eu/product-14mm-metall-drucktaster-mit-led-ringbeleuchtung-gruen | Händlerangaben: **12-mm-Einbaubohrung, 14-mm-Kopf, 20-mm-Einbautiefe, 22-mm-Gesamtlänge, IP67, Lötösen, rückseitige Mutter und Dichtungsring, LED 5–14 V AC/DC**, Preis derzeit **2,80 € je Stück ab 3** (=16,80 € für 6) inkl. MwSt. zzgl. Versand. Konkrete Bestellvariante muss **tastend / NO** sein; nicht versehentlich rastende WITTKOWARE-„Druckschalter“ bestellen. Haptischer Druckpunkt, Hub und Schutzart nur nach Test/Montage validiert. |
+| MEC-29 | **Bevorzugtes PCB-Konzept – Freigabe nach Musterprüfung offen** | **Originale Lötösen des gewindemontierten WITTKOWARE-Paneltasters direkt in passende durchkontaktierte PCB-Bohrungen oder metallisierte Langlöcher (PTH-Slots) stecken und wie THT verlöten.** Eigene Schalter/LED-Symbole sowie KiCad-10-Footprints, Bestückungs- und Gehäusebezug herstellen. | Anschlussraster, Fahnenbreite/-dicke, LED/Kontakt-Pinbelegung und erforderlichen Überstand real vermessen; Fertiger-Minimalmaße und PTH-Langloch-Geometrie vorlegen. Mechanische Fixierung durch Mutter/Dichtring **vor** verlustfreiem Lötprozess und spannungsfreie Position der PCB über Abstandshalter sicherstellen; genügend Zugang für Muttern. Keine angenommenen Maße oder frei erfundenen 3D-Modelle. |
+| MEC-30 | **Offen – Funktionsauslegung nach Tastmuster** | **LED-Versorgung und Dimmung der WITTKOWARE-Leuchtringe** auf Basis der vom Hersteller angegebenen 5–14-V-Betriebsspannung für die beleuchtete Tastervariante festlegen; keine unbelegte 3,3-V-Direktversorgung. | Reale Stromaufnahme bei 5/12 V, internen Vorwiderstand und Anschlusszuordnung messen; geeigneten geschützten Versorgungspfad/LED-Treiber, Abschaltung und nachtfahrtaugliches PWM-Dimmverhalten (Flimmern) entwickeln. ESP32-GPIO-Belastung prüfen. |
+| MEC-31 | **Offen – Musterprüfung vor PCB-Freigabe** | **Mechanische und ergonomische Abnahme des WITTKOWARE-Tasters vor Serien-PCB**: Schaltpunkt/Hub mit Handschuhen, Einbau in ASA mit Mutter/Dichtung, Lötösen-THT-Montage, LED-Nachtsichtbarkeit und LEG-0-Haptik. | Wenn der Taster eine verbindliche Anforderung MEC-20/24/25/26/27 nicht erfüllt, zuerst Ersatz oder begründete technische Anpassung prüfen, nicht stillschweigend die Anforderung abschwächen. MEC-17 (Anordnung), UI-14 (Anzahl) und MEC-21 (Lötgeometrie) bleiben bis dahin offen. |
+
+## G. Fertigung und Verifikation
+
+| ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
+|---|---|---|---|
+| Q-01 | **Festgelegt** | Portables KiCad-10-Projekt, schlüssige Symbole, Footprints, STEP-Dateien und Stückliste | Keine absoluten lokalen Pfade; Bauteile anhand Herstellerunterlagen verifizieren |
+| Q-02 | **Offen** | Leiterplattenfertiger, Lagenaufbau, Dicke, Bestückungs-/Lötverfahren | Nach mechanischem und elektrischem Bedarf entscheiden |
+| Q-03 | **Festgelegt** | ERC/DRC und Datenblatt-/Pinprüfung vor Bestellung; Fahrzeugschutz und reale Funktion zusätzlich testen | Prüfberichte revisionsbezogen speichern |
+| Q-04 | **Offen** | Wartbarkeit, Prüfanschlüsse, Debug-/Firmware-Recovery | Zugang ohne Zerstörung des Gehäuses |
+
 
 ## Entscheidungsprotokoll
 
@@ -216,16 +240,17 @@
 | 13.10.2026 | MEC-16/17/18/19 | **Runde 16 teilweise beschlossen: einzelne abgedichtete Paneltaster, Riverdi-Deckglas umlaufend verklebt, ASA-Deckel mit Messing-Gewindeeinsätzen.** **MEC-17 ausdrücklich offen**: zwei Dreierreihen unten, je drei links/rechts, alle sechs rechts oder drei unten + drei rechts erst nach Tasterwahl vergleichen. | Sechs Tasten weiter nur bevorzugt (UI-14); endgültige Frontaufteilung nach Tasterabmessungen und Blind-/Handschuh-Ergonomieprüfung. |
 | 13.10.2026 | MEC-20/21/22/23 | **Runde 17: MEC-20 A – Paneltaster mit Gewindeschaft und Gegenmutter; MEC-22 A – Gehäuseabmessungen nach Tasterwahl.** **MEC-21 bevorzugt direkte PCB-Lötung, bleibt bis zur Taster-/Mechanikprüfung offen. MEC-23 ohne Präferenz, bleibt offen.** | MEC-17 (Anordnung) und UI-14 (Tasterzahl) weiterhin ausdrücklich vertagt. Montagebelastungen nicht in starre Lötstellen einleiten. |
 | 13.10.2026 | MEC-24/25/26/27 | **Vierer-Runde 18: deutlicher kurzer Druckpunkt, beleuchtete Fronttaster/Leuchtringe, momentane NO-Kontakte und haptisch abweichende LEG-0-Kappe/Oberfläche.** | Konkrete in Deutschland beschaffbare abgedichtete Gewindetaster samt Datenblatt/LED-Versorgung und PCB-Lötbarkeit vergleichen; Buttonanzahl, Anordnung und direkte PCB-Montage bleiben offen. |
+| 13.10.2026 | SYS-05, MEC-21/25/27/28/29/30/31 | **WITTKOWARE 14-mm-LED-Metalltaster als Prototypfamilie eingeplant; Original-Lötösen möglichst als THT in PTH-Bohrungen/Langlöcher einlöten.** | Konkrete Varianten rot MT-LB-14MM-RR / grün MT-LB-14MM-RG verifiziert, Montage 12 mm und 5–14-V-LED laut Händler; 6 × 2,80 € ≈ 16,80 € zzgl. Versand. Echte Anschlussgeometrie, taktiler Hub, LEG-0-Tastkappe, Lichtdimmung bleiben ungeprüft. Die lange MEC-Tabelle wurde aus dem falschen Abschnitt G in F verschoben; STO aus B in C. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächster Arbeitsschritt – Datenblattgestützte Tasterauswahl statt neuer Vorabfestlegung:**
+**Nächster Arbeitsschritt – WITTKOWARE-Tastmuster für KiCad 10 und ASA-Front validieren:**
 
-Die Vierer-Runde 18 ist entschieden (MEC-24 A, MEC-25 B, MEC-26 A, MEC-27 A). Priorität hat nun ein **Vergleich tatsächlich in Deutschland beschaffbarer mechanischer Gewinde-Paneltaster** mit belegter Abdichtung, kurzem taktilen Hub, NO-Momentkontakt, Beleuchtung (LED/Leuchtring), Muttern-/Dichtungssatz, realen Einbauabmessungen und geeigneter LEG-0-Haptik.
+Die **14-mm-LED-Ringtaster-Serie WITTKOWARE** ist für den TripTracer-Prototyp eingeplant (MEC-28). Den vorhandenen **Momenttaster** mit Lötösen wählen (nicht verwechseln mit dem äußerlich ähnlichen rastenden „Druckschalter“). Rot **MT-LB-14MM-RR**, Grün **MT-LB-14MM-RG**, LED-Farbe bleibt frei. Händlerdaten: 12-mm-Bohrung, 14-mm-Kopf, 20-mm-Einbautiefe, 22-mm-Gesamtlänge, 5–14-V-LED, NO-Kontakt, IP67, Mutter/Dichtring. https://wittko.eu/product-14mm-metall-drucktaster-mit-led-ringbeleuchtung-rot
 
-**Besonders prüfen:** Hat die angebotene **exakte Bestellvariante** wirklich eine LED, momentane NO-Kontakte und Schutzart bei bestimmungsgemäßer Panelmontage? Wie viele Anschlüsse haben Kontakt und LED? Sind **direkte PCB-Lötpins** vorhanden, oder nur Löt-/Flachsteckfahnen für kurze Drähte? Die starre Direktlötung ist eine **Präferenz** (MEC-21), keine Pflicht um jeden Preis; keine mechanische Last auf die Lötstellen übertragen. Bei ungenügender LED-/Haptik-/Footprint-Kombination Alternativen offen zeigen statt vermeintliche Komplettlösung erfinden.
+**Vor dem PCB-Layout:** physisches Muster / maßhaltige Anschlusszeichnung beschaffen; **Lötösen-Geometrie und Schaltkontakt-/LED-Pins vermessen**, gegebenenfalls metallisierte Langlöcher im KiCad-Footprint dimensionieren (MEC-29), die mögliche Montagefolge mit rückseitiger Mutter prüfen, die Versorgung/Dimmung der Leuchtringe absichern und für **LEG 0** eine tatsächlich ertastbare andere Oberfläche finden. Ein Taster mit unbestätigtem Hub darf nicht automatisch die Anforderungen MEC-24/27 erfüllen. Alle bislang festgelegten Bedien- und Fahrzeugfunktionen bleiben verbindlich.
 
-**Weiter ausdrücklich offen:** UI-14 Tastenanzahl (sechs bevorzugt), MEC-17 Layout (zwei Reihen unten; links/rechts; sechs rechts; drei unten/drei rechts), MEC-21 Anschlussentscheidung sowie MEC-23 Deckeldichtungsform. Keine dieser Fragen ohne konkrete Bauteil-/Passformprüfung freigeben.
+**Weiter offen:** tatsächliche Tasterzahl (UI-14, sechs bevorzugt), Layout (MEC-17: zwei Reihen unten; links/rechts; alle sechs rechts; drei unten/drei rechts), feste Direktverlötungsfreigabe (MEC-21), Deckeldichtung (MEC-23). Diese Entscheidungen erst auf Basis des realen Tasters und der ASA-Front freigeben.
 
 **Technischer Stand:** u-blox MAX-M10N-00B unterstützt bei drei GNSS-Konstellationen im Full-Power-Modus max. 10 Hz (Datenblatt R05); **5 Hz sind ein konservatives Ziel**. Im stromsparenden LEAP-Modus sind nur 1 Hz möglich. Für unsere Anforderung wird der Full-Power-Modus vorgesehen.
 
