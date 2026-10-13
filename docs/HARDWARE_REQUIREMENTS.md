@@ -326,6 +326,15 @@
 | GPS-46 | **Festgelegt – A: GPX-Segment unterbrechen** | Bei unbrauchbarem GNSS-Fix keine erfundenen Koordinaten und keine Wiederholung der letzten Position in GPX schreiben. Laufendes GPX-Tracksegment **unterbrechen**, bei verlässlicher GNSS-Rückkehr **neues Segment** starten. Über Radsensor gemessene Strecke bleibt in CSV nachvollziehbar. | GPX-Konformität, Segmentgrenze und sichere Dateischreiblogik auch bei Ausfall/Recovery testen. |
 | GPS-47 | **Festgelegt – C: Ausfallereignis mit Radstrecke** | Für jeden GNSS-Ausfall **Beginn, Ende, Dauer und währenddessen per kalibriertem Radsensor gemessene Distanz** als Ereignisse bzw. aggregierte Ausfallwerte in CSV erfassen. Gesamtausfalldauer weiterhin in zentraler Fahrtenübersicht gemäß GPS-44. | Fehlender/nicht kalibrierter Radsensor als **unbekannte Distanz** kennzeichnen (nicht fälschlich 0 m); unterbrochene Ausfälle/Profilwechsel und Zeitbasis sauber zuordnen. |
 
+### D.10 Radsensoreingang und Kalibrierung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-48 | **Festgelegt – A: frei einstellbare Impulse/Umdrehung** | Pro Fahrzeugprofil **Radumfang und Anzahl Impulse pro Radumdrehung separat und frei einstellbar** speichern; daraus Distanz je gültigem Impuls ableiten. Die bereits beschlossene GNSS-Referenzkalibrierung über mindestens 1 km bleibt verfügbar. | Zahlenbereiche, nichtganzzahlige Übersetzungsverhältnisse, Einheiten, Eingabevalidierung und Impulsskalierung verifizieren; zusätzlich direkte Impulse/km als intern abgeleiteter Kalibrierwert zulässig. |
+| GPS-49 | **Festgelegt – A: Plausibilitätsvergleich mit GNSS** | Bei ausreichend genauer GNSS-Messung **Radimpulsfrequenz bzw. Radsensorgeschwindigkeit gegen GNSS-Geschwindigkeit** plausibilisieren; auffällige Abweichungen im Diagnosemenü anzeigen und als Ereignis erfassen. | Schwellwerte, zeitliche Filterung, Anfahrvorgänge, Schlupf, unterschiedliche Reifen sowie Sensorstillstand prüfen; keine Fehlermeldungen wegen unbrauchbarer GNSS-Daten. |
+| GPS-50 | **Festgelegt – A: Reed/Hall/Open-Collector** | Optionaler geschützter Radimpulseingang unterstützt **potentialfreie Reedkontakte sowie kompatible Hall- und Open-Collector-Ausgänge**. Für elektronische Geber definierte Versorgung und Pegel am Anschluss vorsehen. | Entprellung für Reed, Pull-up, Flankenerfassung, Eingangsschutz/ESD, Verpolung und elektrische Grenzwerte prüfen. **Direkte 12-V-Impulspegel sind durch diese Entscheidung nicht freigegeben.** |
+| GPS-51 | **Festgelegt – A: Kalibrierwert bleibt konstant** | Ein bestätigter Radsensor-Kalibrierwert bleibt **bis zur nächsten ausdrücklich durch den Nutzer bestätigten manuellen oder GNSS-Referenzkalibrierung** unverändert. Keine laufende automatische Nachregelung während der Fahrt. | Nichtflüchtige profilgebundene Speicherung, atomare Aktualisierung, Änderungsereignis und konsistente Verwendung während Quellenwechseln sicherstellen. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -610,6 +619,8 @@
 | 13.10.2026 | GPS-42–44, UI-45 | **Viererrunde A/A/A/A bestätigt:** gefilterte 5-m-Höhenänderungsschwelle, vertikale GNSS-Höhenintegration bei schlechter vertikaler Genauigkeit unabhängig aussetzen, GNSS-Fix-Zeitanteil und Gesamtausfalldauer pro Fahrt, Höhe optional im Fahrdisplay. | Höhen-Hysterese, separate Qualitätsflags, Zeitbasis der Fixstatistik und Höhenreferenz verifizieren. |
 
 | 13.10.2026 | GPS-45–47, UI-46 | **Viererrunde A/A/C/A bestätigt:** GNSS-Rückkehr nach 3 s stabiler Qualität, GPX-Tracksegment bei GNSS-Ausfall unterbrechen, einzelne Ausfälle samt Beginn/Ende/Dauer und per Radsensor gefahrener Strecke in CSV, längerer Ausfall nur mit Statussymbol/aktiver Quelle nach kurzem Ersthinweis. | Keine erfundenen GPX-Koordinaten oder 0-m-Radstrecke ohne Sensor; stabile Hysterese und Quellenwechselprüfung. |
+
+| 13.10.2026 | GPS-48–51 | **Viererrunde A/A/A/A bestätigt:** Impulse/Radumdrehung und Radumfang je Fahrzeug frei einstellbar; Radimpulse bei gültigem GNSS auf Plausibilität prüfen; Eingang für Reed, Hall und Open-Collector; Kalibrierwert nur nach bestätigter Neukalibrierung ändern. | Eingangspegel, Entprellung, Fehlergrenzen und profilgebundene Persistenz technisch validieren; keine pauschale 12-V-Pegelfreigabe. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
