@@ -274,6 +274,15 @@
 | GPS-28 | **Festgelegt – A: Radsensor als Geschwindigkeits-Fallback** | Bei unzureichender GNSS-Qualität Geschwindigkeit aus den **kalibrierten Radimpulsen** ermitteln. Steht keine zuverlässige Quelle zur Verfügung, statt einer erfundenen oder eingefrorenen Geschwindigkeit **Strich/ungültig** anzeigen. | Quellenwechsel mit GPS-17/-24/-25 abstimmen; Werte auf plausiblen Bereich begrenzen, Quelle im Status anzeigen und Ereignisse protokollieren. |
 | GPS-29 | **Festgelegt – A: Fahrtstatistik** | **Durchschnitts- und Höchstgeschwindigkeit pro Fahrt** berechnen und im Menü abrufbar halten; bei Beginn einer neuen Fahrt zurücksetzen und in CSV dokumentieren. Fahrzeugprofil der jeweiligen Fahrt zuordnen. | Fahrtbeginn/-ende und Standzeitbehandlung definieren; Maximalwert aus plausibilisierten gültigen Geschwindigkeitssamples, kein Reset allein durch Tagesdateiwechsel; Sicherung bei Stromverlust. |
 
+### D.5 Fahrtdefinition und Geschwindigkeitsstatistik – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-30 | **Festgelegt – C: neue Fahrt nach längerer Pause** | Ein neuer Fahrtabschnitt mit zurückgesetzter Fahrtstatistik beginnt **automatisch nach einer ausreichend langen Pause**; kurzes Anhalten oder kurzer Zündungs-/M8-Aus-Zyklus startet **keine** neue Fahrt. Dauer und Definition der längeren Pause bleiben zu bestimmen; RTC-Zeitstempel und Wiedereinschaltzeit nutzen. | Pausenschwelle, Handling von Abschaltung/Wiederanlauf, Uhrzeitfehler und Profilwechsel klären. Log-Dateigrenzen pro Kalendertag nicht mit Fahrten gleichsetzen. |
+| GPS-31 | **Festgelegt – C: beide Durchschnittsgeschwindigkeiten** | Pro Fahrt **Gesamtdurchschnitt einschließlich Stand-/Pausenzeiten während aktiver Fahrt** sowie **Bewegungsdurchschnitt ohne Stillstandszeiten** berechnen und im Statistikmenü anzeigen; dazu Dauerwerte getrennt führen und in CSV dokumentieren. | Zeit während ausgeschaltetem Gerät eindeutig behandeln und nicht ungeprüft als aktive Fahrtdauer zählen; Plausibilitätsprüfung bei 0 Fahrstrecke/0 Bewegungsdauer. |
+| GPS-32 | **Festgelegt – A: plausible Höchstgeschwindigkeit** | Nur **valide, auf GNSS-Qualität und Geschwindigkeitssprünge geprüfte** GNSS-Geschwindigkeitswerte beziehungsweise plausibilisierte Radsensorwerte zur Aktualisierung des Fahrt-Maximums zulassen. | Ausreißerunterdrückung darf kurze echte Geschwindigkeitsspitzen nicht systematisch verschweigen; Quelle und Gütekriterien festhalten. |
+| GPS-33 | **Festgelegt – A: neue Statistik bei Profilwechsel** | Bestätigter Wechsel des aktiven Fahrzeugprofils **beendet die bisherige Fahrtstatistik und beginnt für das Zielprofil eine neue Fahrtstatistik**, auch wenn die Fahrt ohne Unterbrechung weitergeht. Die unabhängigen profilgebundenen Distanzzähler bleiben gemäß GPS-22 erhalten. | Abschluss und Start samt Profil-IDs/Zeitstempel im CSV/Ereignislog dokumentieren; keine zusätzliche GPX-/CSV-Dateipaarung nur wegen Profilwechsel erforderlich. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -534,6 +543,8 @@
 | 13.10.2026 | STO-36–39 | **Viererrunde A/A/A/A bestätigt:** Tracking-Lograte 5 Hz in Fahrt, ca. 1 Hz im Stand (GNSS-Messung unverändert); schlechte GNSS-Messwerte diagnostisch in CSV statt als gültige GPX-Punkte; Profil-ID/-Name je CSV-Zeile mit Wechselereignis; WGS84-Koordinaten auf 7 Dezimalstellen. | Stillstandshysterese, Fehlerkennzeichnung, Profil-ID-Stabilität und Koordinatenformat prüfen. |
 
 | 13.10.2026 | GPS-26–29 | **Viererrunde A/A/A/A bestätigt:** Geschwindigkeit ganzzahlig in km/h; Stillstand mit Geschwindigkeit, Radimpulsen und Zeit-Hysterese erkennen; bei GNSS-Ausfall kalibrierte Radsensor-Geschwindigkeit, sonst ungültig; Durchschnitts- und Maximalgeschwindigkeit je Fahrt im Menü und CSV. | Abgrenzung von Fahrtbeginn/-ende, Standzeit im Durchschnitt und Stillstandsschwellen bei Implementierung bestimmen. |
+
+| 13.10.2026 | GPS-30–33 | **Viererrunde C/C/A/A bestätigt:** neue Fahrt erst nach längerer Pause (Schwelle noch offen), Durchschnitt mit und ohne Stillstand, Höchstwert nur aus plausiblen Geschwindigkeiten, neue Fahrtstatistik bei bestätigtem Profilwechsel. | Pausenschwelle, abgeschaltete Zeit, Uhrzeitgültigkeit und Log-Ereignisgrenzen konkretisieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
