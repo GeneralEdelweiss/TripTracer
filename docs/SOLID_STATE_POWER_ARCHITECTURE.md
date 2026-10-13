@@ -83,7 +83,13 @@ Gegenüber dem alten **390 kΩ + 12 kΩ**-Teiler (**89,55 µA bei 36 V**) sparen
 
 **S1-Ruhestrom-Zwischensumme bei 36 V** nur aus *maximalem* U401-Shutdown-IC-Strom + OVP-Divider-Nennstrom: **60 + 15,87 = 75,87 µA**. Bis zum **100-µA-Gesamtziel** blieben **24,13 µA** für ALLE anderen BAT+-angeschlossenen Stufen (ACC-Messung, Reverse-FET-Leckströme, TVS, Q601, Schutz-/Spannungsteiler, Leiterplatte, Temperatur). Diese Reserve kann bei +85 °C unzureichend sein. **Nicht als bestanden ausgeben.**
 
-### 3.3 P-Kanal-Sicherheitsschalter Q601, nur Bauteilkandidat
+#### 3.2.1 Getrennte Betrachtung: manueller ACC-Standby ist **nicht** OFF
+
+Die obige Mikroampere-Rechnung gilt **nur für ACC AUS nach abgeschlossenem Dateischluss**. Beim beschlossenen **manuellen Standby mit ACC EIN** muss U401 die Vehicle-Schiene des ESP32/RTC-Wake-Pfads versorgen und ist **eingeschaltet**: Laut TI liegt U401s eigener Stromverbrauch dann bei **1,38 mA typ. / 1,70 mA max.**, bevor Hauptbuck-/LDO-Verlust, wachhaltende RTC/MCU, Sensor-Standby, Q601-Treiber und LED-Leckströme addiert werden.
+
+Bei hypothetisch **einem Monat ununterbrochenem ACC-Standby** wären allein aus den **1,38 mA typ.** rund **0,99 Ah Batterieladung** verbraucht, aus den **1,70 mA max.** rund **1,22 Ah**. Das ist für normales ACC EIN nicht unbedingt kritisch, aber kein **<1-mA-Gesamtstandby**. Die Wahl **LTC4380 (8 µA Controller im Betrieb)** könnte diesen einen Betriebszustand wesentlich verbessern, falls der zusätzliche Schutz-/SOA-/Teileaufwand sinnvoll ist. **OFF, ACC-STANDBY und USB-only immer getrennt bilanzieren.**
+
+## 3.3 P-Kanal-Sicherheitsschalter Q601, nur Bauteilkandidat
 
 ROHM **AG502EPD3HRTTL**, AEC-Q101, **–100 V**, **–28 A**, TO-252/DPAK, `R_DS(on) typ ≈ 74 mΩ` bei `V_GS = –10 V`; nicht ohne Prüfung des konkreten `V_GS(max)`, SOA, Gate-Clamps, Sperrleckstroms, Footprints und Temperatur-Deratings freigegeben. Bei **2 A Dauerstrom** ergäben **I²R ≈ 0,296 W** nur aus der typischen 25-°C-Kennzahl, ohne Temperaturanstieg/PCB. Alternative **ROHM AG501EPD3HRTTL** ebenfalls –100 V und AEC-Q101, `R_DS(on) typ ≈ 25 mΩ`, gleiche Gehäuseklasse; bei 2 A nominal **0,100 W**, aber größere Gate-Ladung. **Reale TripTracer-Last, Stückkosten, Lagerbestand, SOA und die komplette Steuerung sind offen**.
 
