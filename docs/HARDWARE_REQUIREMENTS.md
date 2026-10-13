@@ -318,6 +318,14 @@
 | GPS-43 | **Festgelegt – A: Höhenmessung unabhängig aussetzen** | Bei unzureichender **vertikaler** GNSS-Genauigkeit die Höhenmeterintegration aussetzen und in der Statistik als unvollständig kennzeichnen. Horizontale Distanz-/Geschwindigkeitsmessung **weiterführen**, sofern deren eigenständige Qualitätskriterien erfüllt sind. | Getrennte Qualitätsflags für vertikal/horizontal, stabile Wiederaufnahme ohne künstlichen Höhenmeter-Sprung; ungültige Höhenwerte im CSV entsprechend kennzeichnen. |
 | GPS-44 | **Festgelegt – A: Fix-Anteil und Ausfalldauer** | In der zentralen CSV-Fahrtenübersicht den **Anteil der Fahrtzeit mit gültigem GNSS-Fix (in Prozent)** und die **aufsummierte GNSS-Ausfalldauer** dokumentieren. | Den Nenner als aktive/aufgezeichnete Fahrtdauer klar festlegen und fehlende Zeitbereiche kennzeichnen; GNSS-Qualität und Verwendbarkeit für Distanz getrennt auswerten. |
 
+### D.9 GNSS-Ausfälle und Wiederherstellung – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-45 | **Festgelegt – A: 3 s stabile GNSS-Qualität** | Nach Ausfall GNSS erst wieder als Distanz- und Geschwindigkeitsquelle nutzen, wenn **mindestens 3 Sekunden** kontinuierlich ausreichend genaue, plausible GNSS-Messungen vorliegen. Bis dahin kalibrierten Radsensor weiter nutzen, sofern verfügbar. | Bei 5 Hz mindestens ca. 15 gültige Messzyklen, Grenzwerte und Quellenwechsel-Hysterese verifizieren; kein rückwirkender Distanzsprung gemäß GPS-25. |
+| GPS-46 | **Festgelegt – A: GPX-Segment unterbrechen** | Bei unbrauchbarem GNSS-Fix keine erfundenen Koordinaten und keine Wiederholung der letzten Position in GPX schreiben. Laufendes GPX-Tracksegment **unterbrechen**, bei verlässlicher GNSS-Rückkehr **neues Segment** starten. Über Radsensor gemessene Strecke bleibt in CSV nachvollziehbar. | GPX-Konformität, Segmentgrenze und sichere Dateischreiblogik auch bei Ausfall/Recovery testen. |
+| GPS-47 | **Festgelegt – C: Ausfallereignis mit Radstrecke** | Für jeden GNSS-Ausfall **Beginn, Ende, Dauer und währenddessen per kalibriertem Radsensor gemessene Distanz** als Ereignisse bzw. aggregierte Ausfallwerte in CSV erfassen. Gesamtausfalldauer weiterhin in zentraler Fahrtenübersicht gemäß GPS-44. | Fehlender/nicht kalibrierter Radsensor als **unbekannte Distanz** kennzeichnen (nicht fälschlich 0 m); unterbrochene Ausfälle/Profilwechsel und Zeitbasis sauber zuordnen. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -395,6 +403,12 @@
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-45 | **Festgelegt – A: Höhe als optionales Datenfeld** | Die **aktuelle GNSS-Höhe** ist als auswählbares Zusatzfeld eines Fahrdisplaylayouts verfügbar; die zwei gleich großen Standard-Distanzzähler bleiben vorrangig und werden nicht verdrängt. | Einheit Meter, Höhenreferenz eindeutig benennen, bei ungültigen Höhenwerten Strich/Status statt falscher Höhe; keine übertriebene Genauigkeitsanzeige. |
+
+### E.6 GNSS-Ausfallstatus – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| UI-46 | **Festgelegt – A: zurückhaltender Langzeitausfall-Status** | Nach dem bereits vorgesehenen einmaligen kurzen Hinweis auf GNSS-Ausfall **dauerhaft kleines Statussymbol** samt aktiver **Radsensorquelle** (falls gültig) in der Fahrtanzeige; **keine periodischen Pop-ups**, Distanzanzeige bleibt im Vordergrund. Ohne gültige Distanzquelle Zustand als Messung nicht verfügbar kennzeichnen. | Mit GPS-17 und UI-31 konsistent; Status trotz Tag-/Nachtmodus unterscheidbar. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -594,6 +608,8 @@
 | 13.10.2026 | STO-40–43 | **Viererrunde A/A/A/A bestätigt:** zentrale Fahrtenübersicht in einer CSV; fehlende Fahrtabschlüsse nach Power-Loss aus FRAM/Logs soweit zuverlässig rekonstruieren; eindeutige persistente Fahrt-ID; gefilterte Auf-/Abstiegshöhenmeter und GNSS-Gütezusammenfassung in der Fahrtenübersicht. | Kollisionsfreie Fahrt-IDs, doppelte Einträge verhindern und vertikale GNSS-Unsicherheit berücksichtigen. |
 
 | 13.10.2026 | GPS-42–44, UI-45 | **Viererrunde A/A/A/A bestätigt:** gefilterte 5-m-Höhenänderungsschwelle, vertikale GNSS-Höhenintegration bei schlechter vertikaler Genauigkeit unabhängig aussetzen, GNSS-Fix-Zeitanteil und Gesamtausfalldauer pro Fahrt, Höhe optional im Fahrdisplay. | Höhen-Hysterese, separate Qualitätsflags, Zeitbasis der Fixstatistik und Höhenreferenz verifizieren. |
+
+| 13.10.2026 | GPS-45–47, UI-46 | **Viererrunde A/A/C/A bestätigt:** GNSS-Rückkehr nach 3 s stabiler Qualität, GPX-Tracksegment bei GNSS-Ausfall unterbrechen, einzelne Ausfälle samt Beginn/Ende/Dauer und per Radsensor gefahrener Strecke in CSV, längerer Ausfall nur mit Statussymbol/aktiver Quelle nach kurzem Ersthinweis. | Keine erfundenen GPX-Koordinaten oder 0-m-Radstrecke ohne Sensor; stabile Hysterese und Quellenwechselprüfung. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
