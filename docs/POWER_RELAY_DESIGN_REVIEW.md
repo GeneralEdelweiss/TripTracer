@@ -123,6 +123,10 @@ Die neue Unterseite `01A_AUX_5V.kicad_sch` ist **über das bestehende 01_Eingang
  
 Quelle: [TI TLC555-Q1 Produkt und Datenblatt](https://www.ti.com/product/TLC555-Q1), [TI SN74LVC1G08-Q1](https://www.ti.com/product/SN74LVC1G08-Q1).
 
+### 01D – Kfz-Eingangsschutz als neue Schaltplan-Baugruppe (Status: offen)
+
+Der herstellerbasierte 20-polige **TPS26631-PWP-Symbolkandidat** ist als `U401` auf dem neuen KiCad-Unterblatt [01D_INPUT_PROTECTION.kicad_sch](../hardware/kicad/01D_INPUT_PROTECTION.kicad_sch) enthalten, jedoch **noch absichtlich nicht elektrisch verbunden**. Bevor eine sichere Eingangsversorgung aufgebaut wird, müssen der in [INPUT_PROTECTION_DESIGN_REVIEW.md](INPUT_PROTECTION_DESIGN_REVIEW.md) beschriebene separate Always-on-AUX-Schutz, das externe TPS26631-Reverse-BLOCKING-FET-Paar und das 24-V-Load-Dump-Profil dimensioniert werden. **Ein SMD-eFuse-IC allein ist noch kein Verpol-/Surge-Schutz.** Die TPS26631-Schaltschwellen (36-V-Dauerbetrieb!), Relaiskontakt-Inrush und der 12-V-Kaltstart bleiben Prüfungssperren. **Kein ERC/DRC/Hardwaretest ausgeführt.**
+
 ## 5. Abnahme-Gates – vor dem nächsten Baugruppenblatt
 
 1. **Kontakt-/Relaisdaten**: G6S-2F DC5 **Schaltkurven**, Pin-Nummern/SMD-Footprint, Spulen- und Kontaktbelastung bei −40 bis +85 °C, Vibration, Real-Inrush, Dauerstrom und 36-V-Öffnen anhand Herstellervorgaben prüfen.

@@ -44,6 +44,10 @@ Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt 
 
 ## Baugruppe 01: Relais-Vorprüfung
 
+**Entwurfsstand a4:** Neue hierarchische [01D_INPUT_PROTECTION.kicad_sch](01D_INPUT_PROTECTION.kicad_sch) mit **TPS26631-PWP eFuse-Symbol** (20 Hersteller-Signalpins, U401) als **nicht angeschlossener Kandidat**. [Eingangsschutz-Designreview](../../docs/INPUT_PROTECTION_DESIGN_REVIEW.md): 9–36 V, ACC/BAT+ getrennt geschützt, Always-on-AUX-Ruhestrom und separate vorgeschaltete Verpol-/TVS-Schutzpfade, eFuse hinter Relais, Kontakteinschaltstrom und Kaltstart. **Vor weiteren Leiterbahn-/Footprintarbeiten externes Blocking-FET + Pulldown, Kfz-Transienten, OVP/UVLO/ILIM/dVdT, Hauptstrompfad und PCB-Freigabe prüfen. Kein ERC/DRC.**
+
+
+
 **KiCad-Teilstand a3 – 01C max. Nachlauf-Timer:** Die neue hierarchische Unterseite [01C_HOLD_TIMER.kicad_sch](01C_HOLD_TIMER.kicad_sch) ergänzt einen **automotive-TLC555-Q1-Monoflop mit UND-Gatter SN74LVC1G08-Q1**. Der Monoflop wird vom fallenden ACC_DRIVER-Pegel angestoßen; seine Ausgangsfreigabe wird mit `MCU_HOLD_REQ` verundet. `R501=2,2 MΩ, C501=10 µF`: **24,2 s nur nominal**, Keramikkondensator-Toleranz/-DC-Bias und Trigger-/Reset-Übergänge noch ungetestet. `R305` in 01B fixiert den Low-Pegel beim ACC-Abfall. **Die ECU-/GPIO-Zuordnung, realer AC-Eingangsschutz, KiCad-ERC/DRC, Anlauf-/Abschaltmessung und Footprint-Freigabe fehlen.** Nur Architektur/Teilschaltung, nicht funktions- oder serienfreigegeben.
 
  (13.10.2026)
