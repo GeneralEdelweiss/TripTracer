@@ -100,6 +100,15 @@
 | PWR-32 | **Festgelegt – A: Bordnetzspannung und Unterspannungswarnung** | Gemessene M8-Eingangsspannung im **Diagnosemenü** anzeigen; bei kritischem Spannungszustand **Warnsymbol** in der Fahranzeige. | Skalierung/ADC-Schutz, Filter und Unterspannungsgrenzen passend für 12-/24-V-Profile definieren; USB-only klar unterscheiden. |
 | PWR-33 | **Festgelegt – A: automatischer Wiederanlauf** | Nach Wiederkehr gültiger M8-Bordnetzversorgung **ohne Tastendruck automatisch neu starten**; zuletzt aktives Fahrzeugprofil, dauerhaft gespeicherte Zähler und relevante Einstellungen wiederherstellen. | FRAM-Atomarität, Power-Cycle-Tests, sichere SD-Dateiwiederaufnahme und Wiederanlaufsperre bei anhaltender thermischer Störung gemäß ENV-02. |
 
+### B.4 Energiepuffer und Abschaltverhalten – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| PWR-34 | **Festgelegt – A: 3 Sekunden Datensicherung** | Bei vollständigem Wegfall der M8-Versorgung **mindestens 3 s Energiepuffer als Entwicklungsziel für kontrollierte Sicherung und Dateischließung** bereitstellen. Display-Backlight, Tastenringe und andere nicht erforderliche Verbraucher sofort abschalten; Messbetrieb während des regulären Shutdowns nicht garantiert. | Pufferkapazität anhand tatsächlicher Abschaltlasten, minimal nutzbarer Spannung, Temperatur, Alterung und SD-Schreibspitzen auslegen; worst-case testen. |
+| PWR-35 | **Festgelegt – A: sofortiges Herunterfahren** | Bei erkanntem regulärem **M8 AUS** ohne absichtlichen Nachlauf unverzüglich Zählerzustände sichern, GPX/CSV-Logs synchronisieren/schließen und anschließend kontrolliert abschalten. | Stromausfall-Detektion mit Entprellung gegen kurze Einbrüche gemäß PWR-31 und PWR-36 abstimmen; Logging darf die 3-s-Pufferfrist nicht überschreiten. |
+| PWR-36 | **Festgelegt – A: automatische Stabilisierung** | Wiederholte kurze Start-/Bordnetzeinbrüche ohne vermeidbare Reset- und Distanzunterbrechungen überbrücken; bei längerem Ausfall geordnet sichern und abschalten, bei wieder stabiler M8-Versorgung automatisch starten. | Schwellen und Hysterese, Anti-Flatter-Logik, Wiederanlaufverzögerung sowie Worst-Case-Serie von Motorstarts prüfen. Keine Endlosschleifen bei Grenzspannung. |
+| PWR-37 | **Festgelegt – A: dezente Spannungswarnung** | Drohenden Spannungsverlust durch **kleines Statussymbol und kurzen Hinweis** melden; reguläre Rallye-Distanzanzeige sichtbar lassen; Spannungsereignis im Diagnose-/Fehlerprotokoll festhalten. | Hysterese gegen wiederholte Hinweise, Priorisierung gegenüber kritischen Fehlern und klare Unterscheidung zu USB-only-Betrieb. |
+
 ## C. Steuerung, Kommunikation und Speicher
 
 ### C.1 Externe Anschlüsse, microSD und Track-Aufzeichnung (STO)
@@ -479,6 +488,8 @@
 | 13.10.2026 | PCB-01 | **PCB-Lagenzahl aktualisiert:** 2 Lagen aus Kostengründen bevorzugt, **4 Lagen bei technischem Bedarf freigegeben**; Entscheidung anhand Routing, Masseführung, EMV, USB, GNSS und Kosten treffen. | Hebt starre Zweilagenfestlegung aus der vorherigen Viererrunde auf; PCB-02–04 unverändert. |
 
 | 13.10.2026 | PWR-30–33 | **Viererrunde A/A/A/A bestätigt:** Dauerbetrieb 9–36 V DC, kurzer Spannungseinbruch möglichst ohne Unterbrechung der Distanzmessung, Bordnetzspannung im Diagnosemenü samt Unterspannungswarnung, automatischer Wiederanlauf mit gespeicherten Profil-/Zählerständen. | Automotive-Transientenschutz, Pufferzeit, Schwellen für 12/24 V und Wiederanlaufsicherheit prüfen. |
+
+| 13.10.2026 | PWR-34–37 | **Viererrunde A/A/A/A bestätigt:** 3 s Shutdown-Energiepuffer als Entwicklungsziel bei sofort abgeschalteten Nebenverbrauchern; nach M8 AUS ohne absichtlichen Nachlauf sichern und herunterfahren; wiederholte Starteinbrüche stabil abfangen und bei gültiger Versorgung automatisch neu starten; Spannungswarnung als Symbol plus kurzer Hinweis. | Erkennung kurzer Einbrüche versus echtes AUS, SD-Schreibspitzen und Kondensator-Derating testen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
