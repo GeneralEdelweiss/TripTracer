@@ -123,6 +123,17 @@
 | STO-24 | **Festgelegt – Dauerzustand Logging** | Default „Logging EIN“ wird persistent gespeichert; im Menü jederzeit AUS/EIN. Aktivierung/Manuell-Neustart schließt/öffnet die Tagesdateien sicher, ohne laufende Distanzzählung zu unterbrechen; USB-only arbeitet ohne Logging. | Zeitgültigkeit und sichere Fallback-Strategie für Logs vor RTC-/GNSS-Zeit-Sync definieren, keine erfundenen realen Timestamps; bei SD-Fehler weiter FRAM für kritische Zustände. |
 
 
+### C.2 Controller und nichtflüchtiger Speicher (MCU)
+
+| ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
+|---|---|---|---|
+| MCU-01 | **Festgelegt** | **ESP32-S3-MINI-1-N8** als Prozessorplattform beibehalten | GPIO-Budget, RAM/Flash und Bootstrapping für alle Zusatzfunktionen vor PCB prüfen |
+| MCU-02 | **Festgelegt – USB-Doppelnutzung** | USB-C: automatisches USB-Massenspeicherlaufwerk ohne M8 und Firmware-Flash im gesonderten Boot-/Downloadmodus. **Normaler Firmware-Flash ohne Öffnen; bei defekter Firmware Recovery über interne BOOT-/RESET-Servicekontakte nach Gehäuseöffnung.** | ESP32-S3 USB-OTG/MSC und ROM-Download/USB-Serial-JTAG sowie zuverlässiges Erreichen des Bootmodus über die internen Kontakte verifizieren. |
+| MCU-03 | **Festgelegt – Bestand V0.3 behalten** | FRAM **MB85RC256VPNF, 256 kbit = 32 KiB (I²C)** für kritische Kilometerstände, Korrekturoffsets, Undo, Fahrzeugprofile und Einstellungen; Restkapazität als begrenzter Event-Ringpuffer gemäß STO-12/13. | Feste Bereichszuordnung, Datenversionierung, CRC/redundante Zustände und Pufferüberlaufstrategie auslegen; FRAM-Speicher darf weder SD-Tracklog vollständig ersetzen noch kritische Zähler durch Ereignisse überschreiben. |
+| MCU-04 | **Teilweise festgelegt – Logging-Betrieb bestätigt** | Bei M8-Start standardmäßig aktiviertes, persistent abschaltbares GPX-/CSV-Tageslogging mit GNSS 5 Hz als Basis; Menüaktion zum Starten eines neuen Log-Dateipaares. | Zeitzonen-/Uhrvalidität, Zeitquelle, CSV-Spalten, Dateifortsetzung, Platzmangel und SD-Fehler erproben (STO-20–24). |
+| MCU-05 | **Festgelegt** | Interne microSD an separatem SPI-Host; **FAT32 auf 32-GB-Karte als Planungsziel**, PC-Datenzugriff per exklusivem USB-MSC-Modus. | FAT32-SD-Treiber, hostseitiges sicheres Auswerfen, Dateisystemintegrität, Wiederanlauf nach Abbruch und Speicherplatzberechnung testen. |
+| MCU-06 | **Offen – GPIO/Boot-Budget** | Pinbudget und Reserven für TFT-SPI, SD-SPI, SD-Power, optionalen Card-Detect, RTC (ggf. vorhandener I²C-Bus), GNSS, FRAM, Sensoren, Tasten, Backlight und USB-OTG/ROM-Boot prüfen. | Vor KiCad-Layout konkrete GPIO-/Strapping-/Wake-/Resetbelegung belegen. |
+
 ### C.3 Beschlossene Betriebs- und Zeitoptionen – Viererrunde 13.10.2026
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
@@ -144,13 +155,11 @@
 | STO-33 | **Festgelegt – A: etwa 1 s persistenter Flush** | GNSS bleibt bei **5 Hz**; Logdaten werden zunächst gepuffert und im Normalbetrieb **ungefähr einmal pro Sekunde** gebündelt auf microSD geschrieben bzw. synchronisiert. ACC-Aus erzwingt geordnetes Schließen mittels dimensioniertem Energiepuffer. | Puffertiefe und Taskprioritäten garantieren störungsfreie Distanzmessung; reale maximale SD-Write-/fsync-Latenzen, Verschleiß und Energiepuffer dimensionieren. Ein ungefähr sekündlicher Flush ist keine Garantie gegen vollständigen Datenverlust bei abrupten Ausfällen außerhalb des Auslegungsprofils. |
 
 
-### C.5 Wiederanlauf und Bedienung – bestätigte Viererrunde 13.10.2026
+### C.5 Wiederanlauf und Logging – bestätigte Viererrunde 13.10.2026
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
 | STO-34 | **Festgelegt – A: automatische Wiederherstellung nach Stromausfall** | Bei unerwartetem Spannungsausfall stellt TripTracer beim nächsten M8-Start kritische Zähler aus FRAM wieder her, überprüft die zuletzt geöffneten GPX-/CSV-Dateien auf Konsistenz, repariert sie **soweit sicher möglich** und setzt danach das reguläre Tageslogging automatisch fort. | Niemals beschädigte Daten stillschweigend überschreiben oder vollständige Recovery versprechen; begrenzte Prüfung/Reparatur, Backup/Quarantäne unrettbarer Dateien, FAT32-Integrität, Zeitstempel, Stromausfall während Reparatur und ggf. neue fortlaufend benannte Logdateien testen. GNSS-/Rad-Distanzmessung darf nicht durch lange Reparatur blockiert werden. |
-| UI-29 | **Festgelegt – A: SD-Fehleranzeige** | Bei fehlender, voller oder fehlerhafter SD zunächst eine **kurze gut sichtbare Warnmeldung** und anschließend **dauerhaftes SD-Warnsymbol** in der Statuszeile, bis Fehler behoben ist. | Haupt-Distanzanzeige nicht dauerhaft verdecken; Fehlermeldung auch bei aktivem Warnstatus erneut abrufbar; Prioritäten weiterer kritischer Warnungen und Dauer der Einblendung später abstimmen. |
-| UI-30 | **Festgelegt – A: Speicherinformation im Diagnosemenü** | Freier microSD-Speicher, Füllgrad, geschätzte verbleibende Aufzeichnungsdauer und Kartenzustand **nur im Diagnosemenü**; im Fahrdisplay ausschließlich Logging-/Fehlersymbole, keine permanente Kapazitätsanzeige. | Bereits vereinbarte unter-10-%-Warnung bleibt als kurz sichtbare Meldung und Statussymbol bestehen (STO-21/31). Schätzung anhand gemessener Datenrate statt garantierter Kapazität. |
 | STO-35 | **Festgelegt – A: manuelle neue Logdatei ohne Rückfrage** | Menüpunkt **„Neue Logdatei starten“** schließt sofort und sicher das aktive GPX-/CSV-Dateipaar und eröffnet ohne Bestätigungsdialog ein neues eindeutig benanntes Paar am gleichen Tag (z. B. Tagesname mit laufender Sequenz). **Distanzzählung läuft ununterbrochen.** | SD-Operationen asynchron/nicht blockierend, GNSS-Pufferung bei Dateirotation, Fehlerzustand wenn SD nicht verfügbar oder USB-MSC aktiv, keine Datei überschreiben, UI-Feedback über Erfolg/Fehler. |
 
 
@@ -162,17 +171,6 @@
 | DIA-02 | **Festgelegt – A: FRAM-Fehlerhistorie** | **Persistentes Fehlerprotokoll im begrenzten FRAM-Ringpuffer**, mit Fehlercode, Status und, wo verlässlich verfügbar, UTC-Zeitstempel. Fehler bleiben über Neustarts und SD-Defekte hinweg erhalten. | Kritische Zähler/Konfiguration haben Vorrang im 32-KiB-FRAM; Ringspeicher nur im reservierten Bereich, CRC/Atomarität, Schreiblast, Ereignis-Deduplikation und Umgang mit ungültiger Zeit festlegen. Im Diagnosemenü einsehbar. |
 | DIA-03 | **Festgelegt – C: interne Recovery-Jumperbrücke** | **2-polige, auf der Hauptplatine zugängliche 2,54-mm-Stiftleiste für abnehmbaren Jumper**: bei gesteckter Brücke wird ESP32-S3 GPIO0 (BOOT) auf GND gezogen; **beim Reset/Power-on** startet ROM-Downloadmodus. Zum Notfall-Recovery Gehäuse öffnen, Jumper setzen, USB-C anschließen bzw. resetten, flashen, Jumper abziehen und neu starten. **Keine externe Recoverytaste.** | GPIO0 darf keine Konflikte mit anderen Bootstrapping-Funktionen haben; GPIO0 im Normalbetrieb mit geeignetem Pull-up, USB-Flashpfad und internen Reset/EN-Testkontakt auslegen. Platz für Jumper und Finger/Pinzette, Beschriftung BOOT/GND, ESD/Kurzschlussschutz, sicherer Normalstart bei entfernter Brücke prüfen. |
 | DIA-04 | **Festgelegt – A: zusätzliche Diagnosedatei** | Neben GPX und CSV **lesbare Diagnose-Datei** mit Firmwareversion, Hardware-Revision, letztem Systemstatus und ausgewählten Fehlerereignissen; über die interne SD als USB-MSC am PC abrufbar. | Datei unter MCU-exklusivem Dateisystemzugriff erzeugen/aktualisieren, **niemals während PC-MSC-Eigentümerschaft**; Fehlerexport auch bei SD-Defekt eingeschränkt, FRAM-Protokoll bleibt unabhängig. Persönliche/sensitive Positionsdaten in Diagnoseausgabe minimieren. |
-
-### C.2 Controller und nichtflüchtiger Speicher (MCU)
-
-| ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
-|---|---|---|---|
-| MCU-01 | **Festgelegt** | **ESP32-S3-MINI-1-N8** als Prozessorplattform beibehalten | GPIO-Budget, RAM/Flash und Bootstrapping für alle Zusatzfunktionen vor PCB prüfen |
-| MCU-02 | **Festgelegt – USB-Doppelnutzung** | USB-C: automatisches USB-Massenspeicherlaufwerk ohne M8 und Firmware-Flash im gesonderten Boot-/Downloadmodus. **Normaler Firmware-Flash ohne Öffnen; bei defekter Firmware Recovery über interne BOOT-/RESET-Servicekontakte nach Gehäuseöffnung.** | ESP32-S3 USB-OTG/MSC und ROM-Download/USB-Serial-JTAG sowie zuverlässiges Erreichen des Bootmodus über die internen Kontakte verifizieren. |
-| MCU-03 | **Festgelegt – Bestand V0.3 behalten** | FRAM **MB85RC256VPNF, 256 kbit = 32 KiB (I²C)** für kritische Kilometerstände, Korrekturoffsets, Undo, Fahrzeugprofile und Einstellungen; Restkapazität als begrenzter Event-Ringpuffer gemäß STO-12/13. | Feste Bereichszuordnung, Datenversionierung, CRC/redundante Zustände und Pufferüberlaufstrategie auslegen; FRAM-Speicher darf weder SD-Tracklog vollständig ersetzen noch kritische Zähler durch Ereignisse überschreiben. |
-| MCU-04 | **Teilweise festgelegt – Logging-Betrieb bestätigt** | Bei M8-Start standardmäßig aktiviertes, persistent abschaltbares GPX-/CSV-Tageslogging mit GNSS 5 Hz als Basis; Menüaktion zum Starten eines neuen Log-Dateipaares. | Zeitzonen-/Uhrvalidität, Zeitquelle, CSV-Spalten, Dateifortsetzung, Platzmangel und SD-Fehler erproben (STO-20–24). |
-| MCU-05 | **Festgelegt** | Interne microSD an separatem SPI-Host; **FAT32 auf 32-GB-Karte als Planungsziel**, PC-Datenzugriff per exklusivem USB-MSC-Modus. | FAT32-SD-Treiber, hostseitiges sicheres Auswerfen, Dateisystemintegrität, Wiederanlauf nach Abbruch und Speicherplatzberechnung testen. |
-| MCU-06 | **Offen – GPIO/Boot-Budget** | Pinbudget und Reserven für TFT-SPI, SD-SPI, SD-Power, optionalen Card-Detect, RTC (ggf. vorhandener I²C-Bus), GNSS, FRAM, Sensoren, Tasten, Backlight und USB-OTG/ROM-Boot prüfen. | Vor KiCad-Layout konkrete GPIO-/Strapping-/Wake-/Resetbelegung belegen. |
 
 ## D. GNSS und Messfunktionen
 
@@ -195,14 +193,13 @@
 | GPS-15 | **Festgelegt** | **Variante A: Schutz und Diagnose der GNSS-Antennen-Bias-Versorgung gegen Kurzschluss und Überstrom mit Fehlermeldung auf dem Display.** Keine zusätzliche verbindliche Open-Circuit-/Kabelbruch-Strommessung. | Ansprechstrom, Abschalt-/Retry-Verhalten, Fehleranzeige und Schutz gegen ESD/Transienten nach konkreter Antenne und Bias-Schaltung spezifizieren und testen. Antennenausfall ohne Überstrom darf nicht fälschlich als zuverlässig diagnostizierter Kabelbruch behandelt werden; GNSS-Fixverlust separat anzeigen. |
 
 
-### D.1 GNSS-Anzeige und Fahrzeugprofile – bestätigte Viererrunde 13.10.2026
+### D.1 GNSS-Status und Fahrzeugprofile – bestätigte Viererrunde 13.10.2026
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
 | GPS-16 | **Festgelegt – A: sofortige Anzeige** | Nach Einschalten über M8 ist die reguläre Tripmasteranzeige samt Zählern und Tasten **sofort nutzbar**, auch vor dem ersten gültigen GNSS-Fix. Ein klar sichtbares Statussymbol zeigt „GNSS-Fix ausstehend“. | Ohne gültigen GNSS-Fix und ohne gültigen kalibrierten Radsensor **keine fiktive Distanzaddition**; initiale Anzeige darf nicht durch GNSS-Wartebildschirm blockieren. |
 | GPS-17 | **Festgelegt – A: Quellenwechsel kurz melden** | Bei GNSS-Ausfall und automatischer Übernahme durch einen angeschlossenen kalibrierten Radsensor (bzw. bei GNSS-Rückkehr) **kurzen Hinweis** anzeigen, danach dauerhaft ein kleines Symbol der aktiven Distanzquelle in der Statusleiste. | Hysterese gegen Hin-und-her-Wechsel, keine Distanzsprünge/Doppelzählung, Warnung wenn keine gültige Quelle verfügbar; Quellwechsel als Ereignis im CSV/Diagnoseprotokoll erfassen. |
 | GPS-18 | **Festgelegt – A: mehrere Fahrzeugprofile** | Mehrere **nichtflüchtig gespeicherte, benennbare Fahrzeugprofile** (z. B. Motorrad/Pkw/Lkw) mit individuellen Radsensor-Kalibrierwerten und fahrzeugspezifischen Einstellungen; Profilwechsel im Menü. | FRAM-/NVS-Budget, Profilzahl, Eingabeverfahren, gültige Kalibrierung und Wechsel während der Fahrt prüfen; keine automatische Fahrzeugerkennung vorgeschrieben. |
-| UI-31 | **Festgelegt – A: Satellitenzahl + Empfangsqualität** | Im regulären Fahrdisplay **kompakte Anzahl verwendeter GNSS-Satelliten plus symbolisch/farbig dargestellten Qualitätsstatus** anzeigen; auch Zustand ohne Fix sichtbar halten. | Qualitätsstufen anhand GNSS-Fix-Typ, Genauigkeitsindikatoren und Satellitenzahl belastbar definieren; Farbe niemals als einziges Unterscheidungsmerkmal nutzen, Statuszeile darf Distanzanzeige nicht verdrängen. |
 
 
 ### D.2 Fahrzeugprofil- und Kalibrierverhalten – bestätigte Viererrunde 13.10.2026
@@ -222,7 +219,6 @@
 | GPS-23 | **Festgelegt – A: Referenzstrecke mindestens 1 km** | Für die GNSS-gestützte Kalibrierung des Radsensors **mindestens 1,0 km** gültige Referenzfahrt voraussetzen; längere Strecken zulassen. Ermittelten Impuls-/Distanz-Kalibrierwert erst nach Nutzerbestätigung dauerhaft speichern. | Nur hinreichend genaue GNSS-Abschnitte werten; Qualität, Impulszahl, Schlupf, Unterbrechungen und Plausibilität prüfen. Bei unzureichender Datenqualität trotz 1 km keine Kalibrierung freigeben. |
 | GPS-24 | **Festgelegt – A: schlechte GNSS-Messwerte verwerfen** | GNSS-Positionen mit unzureichender Genauigkeit, unplausiblen Positions-/Geschwindigkeitssprüngen oder unbrauchbarem Fix **nicht** für die Distanzintegration benutzen; falls angeschlossen und kalibriert, auf den Radsensor wechseln, sonst Distanz anhalten und Warnstatus anzeigen. | Empfänger-Qualitätsindikatoren, Grenzwerte, Ausreißerfilter und Hysterese vor Umsetzung definieren und durch Fahrtests verifizieren. Ungültige GNSS-Positionen weder als echte GPX-Trackpunkte noch als erfundene Strecke ausgeben. |
 | GPS-25 | **Festgelegt – A: kein Distanzsprung bei GNSS-Rückkehr** | Bei Rückkehr stabiler, ausreichend genauer GNSS-Messwerte vom Radsensor auf GNSS zurückschalten, **ohne den bisherigen Zählerstand rückwirkend anzupassen oder schlagartig zu korrigieren**. Zukünftige Distanzinkremente aus der neuen gültigen Quelle beziehen. | Kontinuität, Doppelzählung, Wechselzeitpunkt und stabile GNSS-Wiederaufnahme testen; Messquellenwechsel im CSV protokollieren. |
-| UI-32 | **Festgelegt – A: 10-m-Anzeigeauflösung** | Gesamt-, Trip-A-, Trip-B- und LEG-Distanzzähler standardmäßig mit **0,01 km (10 m)** Auflösung anzeigen, z. B. 12,34 km. **Keine zusätzliche Umschaltung auf 1-m-Anzeige als Pflicht.** | Interne Berechnung und Speicherung dürfen feiner auflösen als die Anzeige; Rundungsverhalten und ±10-m-Korrekturschritte konsistent halten. |
 
 ## E. Anzeige und Bedienelemente
 
@@ -258,7 +254,16 @@
 | UI-28 | **Festgelegt – synchroner Beleuchtungsmodus** | **Tastenringe und Display werden bezüglich der Helligkeitssteuerung als ein gemeinsames Beleuchtungssystem bedient:** bei Automatik regelt derselbe Umgebungslichtsensor beide, bei manueller Einstellung verändert dieselbe Menüvorgabe beide. Die einstellbaren Min-/Max-Werte wirken auf beide; **LED-Ringe bleiben dabei im regulären Betrieb immer sichtbar an** (MEC-34). | **Synchroner Bedienmodus bedeutet nicht gleiche Versorgungsspannung oder identisches PWM-Tastverhältnis.** Getrennte Helligkeitskennlinien/Treiber für Display-Backlight und grüne/rote Ring-LEDs zulässig, solange die wahrgenommene Helligkeit gemeinsam zu-/abnimmt; sichtbares Ring-Minimum > 0. Kein Tasterdruck darf Ringlicht ein-/ausschalten, keine zweite unabhängige LED-Helligkeitseinstellung verlangt. Tests bei Tageslicht, Nacht und manuell min/max. |
 
 
-### E.1 Rallye-Zählerbedienung – bestätigte Viererrunde 13.10.2026
+### E.1 Diagnose-/GNSS-Anzeigen und Distanzauflösung
+
+| ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
+|---|---|---|---|
+| UI-29 | **Festgelegt – A: SD-Fehleranzeige** | Bei fehlender, voller oder fehlerhafter SD zunächst eine **kurze gut sichtbare Warnmeldung** und anschließend **dauerhaftes SD-Warnsymbol** in der Statuszeile, bis Fehler behoben ist. | Haupt-Distanzanzeige nicht dauerhaft verdecken; Fehlermeldung auch bei aktivem Warnstatus erneut abrufbar; Prioritäten weiterer kritischer Warnungen und Dauer der Einblendung später abstimmen. |
+| UI-30 | **Festgelegt – A: Speicherinformation im Diagnosemenü** | Freier microSD-Speicher, Füllgrad, geschätzte verbleibende Aufzeichnungsdauer und Kartenzustand **nur im Diagnosemenü**; im Fahrdisplay ausschließlich Logging-/Fehlersymbole, keine permanente Kapazitätsanzeige. | Bereits vereinbarte unter-10-%-Warnung bleibt als kurz sichtbare Meldung und Statussymbol bestehen (STO-21/31). Schätzung anhand gemessener Datenrate statt garantierter Kapazität. |
+| UI-31 | **Festgelegt – A: Satellitenzahl + Empfangsqualität** | Im regulären Fahrdisplay **kompakte Anzahl verwendeter GNSS-Satelliten plus symbolisch/farbig dargestellten Qualitätsstatus** anzeigen; auch Zustand ohne Fix sichtbar halten. | Qualitätsstufen anhand GNSS-Fix-Typ, Genauigkeitsindikatoren und Satellitenzahl belastbar definieren; Farbe niemals als einziges Unterscheidungsmerkmal nutzen, Statuszeile darf Distanzanzeige nicht verdrängen. |
+| UI-32 | **Festgelegt – A: 10-m-Anzeigeauflösung** | Gesamt-, Trip-A-, Trip-B- und LEG-Distanzzähler standardmäßig mit **0,01 km (10 m)** Auflösung anzeigen, z. B. 12,34 km. **Keine zusätzliche Umschaltung auf 1-m-Anzeige als Pflicht.** | Interne Berechnung und Speicherung dürfen feiner auflösen als die Anzeige; Rundungsverhalten und ±10-m-Korrekturschritte konsistent halten. |
+
+### E.2 Rallye-Zählerbedienung – bestätigte Viererrunde 13.10.2026
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -268,7 +273,7 @@
 | UI-36 | **Festgelegt – A: Langdruck und Bestätigung für Reset** | Gewolltes Zurücksetzen von Gesamt-/Trip-Zählern erfordert **ausgewählten Zielzähler, langen Tastendruck und eine zusätzliche eindeutige Bestätigung**; kein versehentlicher Reset durch kurzen Tastendruck. | Bisherige Sofortaktion LEG 0 und separat geregelter bestätigter LEG-Undo bleiben unverändert. Reset-Zugang, Abbruch, Debouncing und Zeitdauer des Langdrucks in der UI festlegen. |
 
 
-### E.2 Display und Menüführung – bestätigte Viererrunde 13.10.2026
+### E.3 Display und Menüführung – bestätigte Viererrunde 13.10.2026
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -278,7 +283,7 @@
 | UI-40 | **Festgelegt – A: Tastentöne** | Standardmäßig **kurzer Signalton für jeden gültigen Tastendruck**; Warnmeldungen erhalten klar unterscheidbare Tonmuster. Die bereits beschlossene Menüoption zum Stummschalten von Tastentönen bleibt erhalten. | Lautstärke, Dauer, Verhalten bei Haltewiederholungen, Nachtbetrieb und Priorität kritischer Warnungen festlegen; keine permanenten Töne bei beschleunigten ±10-m-Wiederholungen erzeugen. |
 
 
-### E.3 Anzeigehelligkeit und Nachtmodus – bestätigte Viererrunde 13.10.2026
+### E.4 Anzeigehelligkeit und Nachtmodus – bestätigte Viererrunde 13.10.2026
 
 | ID | Status | Anforderung / Ziel | Prüfkriterium / offene technische Auslegung |
 |---|---|---|---|
@@ -353,7 +358,7 @@
 
 ## Entscheidungsprotokoll
 
-**Historische Einträge zu rechter externer microSD, Push-Push-/Card-Detect-Pflicht und Kappen gelten als durch spätere Nutzerentscheidung vom 13.10.2026 überholt. Aktueller Stand steht in STO-15–24 und im folgenden neuesten Protokolleintrag.**
+**Historische Einträge zu rechter externer microSD, Push-Push-/Card-Detect-Pflicht und Kappen gelten als durch spätere Nutzerentscheidung vom 13.10.2026 überholt. Aktueller Stand steht in STO-01–35 und im folgenden neuesten Protokolleintrag.**
 
 | Datum | ID(s) | Entscheidung | Bemerkung |
 |---|---|---|---|
