@@ -83,7 +83,7 @@
 | GPS-02 | **Wunsch** | Gesamtdistanz, Teilstrecken, manuelle Korrektur und weitere typische Tripmaster-Funktionen | Konkrete Bedienabläufe und Genauigkeitsziele festlegen |
 | GPS-03 | **Wunsch** | Anzahl verwendeter/empfangener Satelliten anzeigen | Gewünschte Kennzahl und Anzeigeformat festlegen |
 | GPS-04 | **Offen** | Genauigkeit bei Stillstand, Tunneln oder schlechter GNSS-Abdeckung | Optionaler Radsensor, Logging und Fehlerindikator? |
-| GPS-05 | **Offen** | Gewünschte GNSS-Aktualisierungsrate und Kaltstartverhalten | Nach Messanforderungen bestimmen |
+| GPS-05 | **Festgelegt** | **5 Hz GNSS-Navigationsaktualisierung** als Ziel für den Rallye-/Tripmaster-Betrieb mit u-blox MAX-M10N-00B (Full-Power-Modus). | Herstellerdatenblatt R05 nennt 10 Hz Maximum für 3 Konstellationen und 20 Hz für GPS+Galileo; **LEAP-Modus unterstützt nur 1 Hz** und darf bei 5-Hz-Betrieb nicht aktiviert werden. UART-Datendurchsatz, tatsächlich verwendete GNSS-Konstellationen, Positionierungsqualität und Kalibrierung testen; Kaltstartzeit bleibt separat zu definieren. Quelle: https://content.u-blox.com/sites/default/files/documents/MAX-M10N-00B_DataSheet_UBXDOC-963802114-13143.pdf |
 
 ## E. Anzeige und Bedienelemente
 
@@ -102,9 +102,9 @@
 | UI-11 | **Festgelegt** | **Variante C: umschaltbare Anzeigelayouts** mit mindestens einem großen Haupt-Tripzähler und alternativ zwei gleichwertigen Tripanzeigen. Die zuletzt gewählte Ansicht wird **nichtflüchtig gespeichert** und beim nächsten Start geladen. | Schriftgrößen, weitere Felder und Wechselbedienung festlegen; Speicherstrategie muss unnötige Schreibvorgänge vermeiden und Datenintegrität gewährleisten. |
 | UI-12 | **Festgelegt** | **Variante A: nur veränderte Displaybereiche (z. B. Zahlen/Statusfelder) über SPI aktualisieren**, keine aufwendigen kontinuierlichen Animationen. | SPI-Bandbreite, ILI9488-Farbformat, ESP32-S3-Speicher und sinnvolle Aktualisierungsraten prüfen; Aktualisierungen dürfen GNSS-Verarbeitung und Logging nicht blockieren. |
 | UI-13 | **Festgelegt** | **Variante A: automatische Helligkeit (UI-09) mit im Menü separat einstellbarer Mindest- und Maximalhelligkeit**; manuelle Helligkeitsregelung bleibt nutzbar. | Gültigen Regelbereich, nichtblendenden Nachtbetrieb, Werte-Persistenz und Dimmfunktion des LED-Treibers validieren; Backlight beim Motorstart gemäß PWR-18 reduzierbar. |
-| UI-14 | **Offen** | Anzahl der für den Fahrer vorgesehenen mechanischen Fronttasten (4, 5 oder 6) | V0.3 hat fünf; reguläre Tasten von versteckten Service-Tasten unterscheiden und Gehäuseplatz prüfen. |
-| UI-15 | **Offen** | Feste oder frei konfigurierbare Belegung der Bedienknöpfe | Kurz-/Langdruck, Handschuhbedienung und Schutz gegen Fehlbedienung festlegen. |
-| UI-16 | **Offen** | Sicherer Reset der Tripzähler: bestätigter Langdruck oder dedizierter Trip-Reset | Verwechslung mit MCU-Reset/Boot ausschließen; mögliche optionale Fernbedienung später prüfen. |
+| UI-14 | **Offen – zunächst Präferenz für 5** | Nutzer stimmt zunächst der 5-Tasten-Empfehlung zu, verlangt aber vor der finalen Festlegung eine **Funktions- und Ergonomieanalyse**. **Keine endgültige Tasterzahl wählen**, bevor kritische Direktaktionen und Bedienwege im Fahrzeug feststehen. | Vier, fünf und sechs handschuhtaugliche Tasten anhand der erforderlichen Direktfunktionen, Menünavigation, Fehlbedienungsrisiken und des Platzangebots um das 3,5-Zoll-Display vergleichen; Service-Boot/Reset nicht mitzählen. |
+| UI-15 | **Festgelegt** | **Variante A: feste, konsistente Tastenbelegung** für die Fahrbedienung; ergänzende Funktionen über Kurz-/Langdruck, statt beliebiger Zuweisung aller Tasten. | Konkrete Belegung und sichere Nutzung mit Handschuhen noch offen (UI-14); häufige sicherheitsrelevante Aktionen dürfen nicht von schwer merkbaren Kombinationen abhängen. |
+| UI-16 | **Festgelegt** | **Variante A: Tripzähler-Reset durch längeres Halten mit anschließender Bestätigung**, kein dedizierter unmittelbar wirksamer Reset-Taster erforderlich. | Im Fahrversuch prüfen, ob der bestätigte Reset für Roadbook-/Rallye-Einsatz schnell und zuverlässig genug bedienbar ist; getrennten Trip-A/B-Reset und potenzielle Fernbedienung erst später spezifizieren. Kein Verwechseln mit MCU-Hardware-Reset. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -135,10 +135,6 @@
 | MEC-13 | **Festgelegt** | **Variante A – 3D-gedrucktes ASA-Gehäuse** für Prototypen und kleine Stückzahlen. | Druckorientierung, Schichtverbund, Temperatur-/UV-Beständigkeit, Gewindeeinsätze, Toleranzen und Staubdichtheit prüfen; Produktionsverfahren für größere Stückzahlen bleibt offen. |
 | MEC-14 | **Festgelegt** | **Variante A – verschraubter, wiederholt zu öffnender Gehäusedeckel mit Staubdichtung**, kein dauerhaft verklebtes Gehäuse. | Dichtungsgeometrie, Anpressung, Schraub-/Gewindeeinsatz-Haltbarkeit, Zugänglichkeit und wiederholtes Öffnen testen; IP6X ist weiterhin nur Zielvorgabe. |
 | MEC-15 | **Festgelegt** | **Variante A – mechanische, deutlich fühlbare und mit Handschuhen gut bedienbare Fronttasten**, gegen Staubeintritt geschützt. | Haptik, Betätigungskraft, Tastenabstand, Langzeit-Vibration, Kappen-/Membrandichtung und sichere Bedienung prüfen; konkrete Tasterzahl aus V0.3 noch nicht neu bestätigt. |
-| MEC-12 | **Offen** | Schnellwechselhalterung: Schiebeaufnahme mit Rastverriegelung oder Bajonettverschluss | Vibrationssicherheit, Werkzeuglosigkeit und Montage in mehreren Fahrzeugen prüfen. |
-| MEC-13 | **Offen** | Gehäusefertigung: 3D-Druck (z. B. ASA) oder anderes Verfahren/Material | Mechanische Robustheit, Temperatur, Alterung, Gewindeeinsätze und Fertigungskosten beurteilen. |
-| MEC-14 | **Offen** | Gehäuse wiederholt servicefähig zu öffnen oder dauerhaft geschlossen zu fertigen | Staubdichte Fuge, Wartbarkeit von Platine/Anschlüssen und Verschraubung. |
-| MEC-15 | **Offen** | Haptisches Bedienkonzept: gut fühlbare Handschuhtaster oder flache Membrantasten | Staubschutz und zuverlässige Betätigung unter Vibration; fünf Tasten im V0.3 nur Bestandsinformation. |
 
 ## Entscheidungsprotokoll
 
@@ -165,17 +161,22 @@
 | 13.10.2026 | UI-03/04/08/09 | **Variante A für Piepser und automatische Helligkeitsregelung bestätigt.** | UI-06/07 waren zwischenzeitlich offen, jetzt Riverdi-Farbdisplay ausgewählt. |
 | 13.10.2026 | UI-06/07 | **Riverdi RVT35HITNWC00-B als gemeinsames 3,5-Zoll-Farbdisplay für Prototyp und Kleinserie gewählt** | Ansteuerung über SPI mit ESP32-S3 vorgesehen; 50-poliges 0,5-mm-FPC/ZIF, 15-V-Backlight-Treiber, Staubmontage und Lieferfähigkeit vor Serienfreigabe verifizieren. |
 | 13.10.2026 | UI-10/11/12/13 | **Vierer-Runde 7: automatischer Dark-/Light-Mode mit manueller Übersteuerung, gespeicherte umschaltbare Anzeigelayouts, partielle TFT-Aktualisierung, einstellbare Helligkeitsgrenzen** | Bedienlogik und Licht-Schwellen später konkretisieren; bisherige Einstellungen von UI-08/09 (Piepser, Umgebungslichtsensor) bleiben bestehen. |
+| 13.10.2026 | UI-14/15/16, GPS-05 | **Runde 8: feste Tastenfunktionen, bestätigter Langdruck-Tripreset, 5-Hz-GNSS**; fünf Fronttasten nur als vorläufige Präferenz | Nutzer möchte die Tastenanzahl anhand der realen Fahrbedienung nochmals prüfen; **UI-14 bleibt offen**. |
 
 ## Nächste gemeinsame Entscheidung
 
-**Nächste gemeinsame Vierer-Runde – Tasten und GPS-Messung (UI-14 bis UI-16, GPS-05):**
+**Nächste gemeinsame Entscheidung – Funktionsmatrix statt voreilig Tasten zählen (UI-14):**
 
-1. **UI-14 – Anzahl der Fronttasten:** A: **fünf** mechanische Fronttasten wie im V0.3-Entwurf (Empfehlung). B: **vier** Fronttasten (kompakter, mehr Mehrfachbelegungen). C: **sechs** Fronttasten (mehr Direktfunktionen, größerer Platzbedarf). Reset-/Boot-Servicekontakte sind dabei nicht als reguläre Bedientasten gezählt.
-2. **UI-15 – Tastenfunktionen:** A: feste, gut lernbare Belegung mit Kurz-/Langdruck für Zusatzfunktionen (Empfehlung). B: frei zuweisbare Funktionen über das Menü, mit dokumentierter Standardbelegung. Beide Varianten müssen mit Handschuhen zuverlässig bedienbar sein.
-3. **UI-16 – Tripzähler-Reset:** A: Zurücksetzen nur durch längeres Halten und anschließende Bestätigung (Empfehlung gegen Fehlbetätigung). B: eigener direkter Trip-Reset-Taster/-Eingang mit separater Fehlbedienungssicherung. Welche Tripzähler getrennt zurücksetzbar sind, wird danach festgelegt.
-4. **GPS-05 – GNSS-Aktualisierungsrate:** A: **5 Hz** als Zielwert (Empfehlung, vorbehaltlich tatsächlich unterstützter GNSS-Konstellationen). B: **1 Hz** als stromsparender Grundbetrieb. C: **10 Hz** als Zielwert, wenn das konkrete MAX-M10N-Modul, gewählte Konstellationen und Datenweg dies unterstützen. Kaltstartzeit und Genauigkeit bleiben zusätzliche, noch offene Prüfpunkte.
+Die Tasteanzahl bleibt ausdrücklich offen. Zunächst aus dem Tripmaster-Bedarf ableiten, welche Handlungen der Fahrer **ohne Menü während der Fahrt** ausführen soll:
 
-**Diese vier Punkte sind noch nicht entschieden.** Nach Bestätigung gesammelt übernehmen; keine Bauteile oder zusätzlichen Schnittstellen vorab festlegen.
+1. **Direkte Distanzkorrektur:** Sollen **+** und **−** jederzeit als eigene, sofort wirksame Knöpfe verfügbar sein? (Vorschlag: ja)
+2. **Zählerwechsel:** Sollen Trip A/Trip B per eigener Taste gewechselt werden oder genügt eine Layout-/Mode-Taste? (Vorschlag: eine gemeinsame Trip/Layout-Taste)
+3. **Reset-Ablauf:** Der bestätigte Langdruck-Reset ist gewählt (UI-16); soll er im Rallye-Betrieb zusätzlich im stehenden Fahrzeug bzw. gesichert ausgeführt werden oder auch während der Fahrt bedienbar bleiben?
+4. **Schnellzugriffe:** Welche Funktionen außer +/− sind ohne Menü nötig (z. B. Trip wechseln, Zähler anhalten/fortsetzen, Roadbook-Wegpunkt, Menü/Zurück)? Nichts davon ist schon als Hardwarepflicht festgelegt.
+
+**Vorläufige Funktionsskizze bei fünf Tasten:** [−] [TRIP] [+] [MODE/ZURÜCK] [OK]. Kurzdrücke übernehmen die Fahrfunktionen; Reset über passenden Langdruck plus Bestätigung. Nicht final: insbesondere +/−-Schrittweite, Bezug auf Trip A/B und Safety während der Fahrt stehen aus. Vier Tasten wären möglich mit Mehrfachbelegung; sechs erleichtern Direktzugriffe, vergrößern jedoch die Front und den Abdichtungsaufwand.
+
+**Technischer Stand:** u-blox MAX-M10N-00B unterstützt bei drei GNSS-Konstellationen im Full-Power-Modus max. 10 Hz (Datenblatt R05); **5 Hz sind ein konservatives Ziel**. Im stromsparenden LEAP-Modus sind nur 1 Hz möglich. Für unsere Anforderung wird der Full-Power-Modus vorgesehen.
 
 **Technische Referenz des gewählten Displays:** Riverdi RVT35HITNWC00-B, ILI9488, SPI über **50-poliges 0,5-mm-FPC** (einmalig in ZIF-Verbinder auf der PCB einstecken; keine manuelle FPC-Lötung). 4-Wire-SPI laut Datenblatt mit IM2/IM1/IM0 = 1/1/1; serieller ILI9488-Treiber benötigt typischerweise 18-Bit-Farbtransfer (RGB666) bei voller Farbdarstellung. ESP32-S3-MINI-1-N8 muss mit begrenztem RAM und partiellen Bildschirmaktualisierungen zurechtkommen. Betriebsversorgung LCD VCI 2,5–3,3 V, IOVCC 1,7–3,3 V; 15-V-/100-mA-Backlight benötigt Treiber. **Dokumentationswiderspruch:** Der Modellcode N und Mouser kennzeichnen 'kein Touch', während die Hersteller-Produktseite und Teile des Datenblatts Touch beschreiben; ohne schriftliche Klärung keine Touch-Hardware vorsehen. Das am Modul vorhandene Deckglas samt umlaufender Klebefläche ersetzt keine Staubprüfung der gesamten ASA-Gehäusefront. Die genannte Preisindikation ca. 28,83 € pro Stück (Mouser ohne gesondert ausgewiesene Steuer/Versand) ist kein garantierter Serienpreis.
 
