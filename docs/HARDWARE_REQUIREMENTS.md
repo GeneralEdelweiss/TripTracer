@@ -402,6 +402,14 @@
 | GPS-76 | **Festgelegt – C: kombinierte Radschlupf-Plausibilisierung** | Möglichen **Radschlupf über beide Verfahren** erkennen: Radsensor(en) gegen zuverlässige GNSS-Geschwindigkeit und zwei Radsensoren gegeneinander vergleichen. Reine Abweichung ist zunächst Indiz, keine sichere Fehlerzuordnung. | GNSS-Qualitätsgates, Schwellen/Hysterese, Reifenumfang, Kurvenfahrt und fehlende Signale beachten; Warnung und Ereignis aufzeichnen, ohne vorschnell defekte Sensoren zu behaupten. |
 | GPS-77 | **Festgelegt – A: zuverlässiges GNSS bei erkanntem Schlupf** | Wenn Radschlupf ausreichend plausibel erkannt ist und **zuverlässiges GNSS** zur Verfügung steht, **GNSS zur Distanzmessung nutzen**, auch wenn für dieses Profil normalerweise Radsensor-Priorität eingestellt ist. Ohne verlässliche GNSS-Referenz keine blinde Umschaltung auf einen vermeintlich besseren Wert. | Schlupferkennung muss von GPS-74 (bloße Sensorabweichung => nur Warnung) klar getrennt bleiben; sichere Rückkehr zur Profil-Priorität mit Hysterese festlegen; keine Distanzsprünge. |
 
+### D.18 Messquellenwahl und Radschlupf – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-78 | **Festgelegt – A: GNSS oder Radsensor als Profilpriorität** | Die bevorzugte Distanzquelle wird je Fahrzeugprofil über eine einfache Auswahl **„GNSS“ oder „Radsensor“** eingestellt. Im Modus „Radsensor“ bestimmt weiterhin die separat gespeicherte Priorität zwischen Radgeber 1 und 2 die primäre Radquelle (GPS-64/75). | Profilbezogene Speicherung und eindeutige Menüdarstellung; keine frei sortierbare Dreierliste oder zusätzliche manuelle Fahrtübersteuerung beschlossen. |
+| GPS-79 | **Festgelegt – A: Schlupfverdacht ab 15 % für 2 s** | Ein **möglicher Radschlupf** wird erkannt, wenn die plausible Radgeschwindigkeit über **mindestens zwei Sekunden um mindestens 15 %** von einer **ausreichend zuverlässigen GNSS-Geschwindigkeit** abweicht. Der Verdacht alleine ist noch kein eindeutiger Defektnachweis. | Kombination der beiden Radgeber gemäß GPS-76 zur Plausibilisierung verwenden; zeitliche Synchronisierung, Beschleunigung, Kurvenfahrt, niedrige Geschwindigkeiten und GNSS-Qualität berücksichtigen. 15 %/2 s sind feste Sollwerte dieser Runde, keine profilabhängige Einstelloption. |
+| GPS-80 | **Festgelegt – A: Rückkehr nach 5 s Plausibilität** | Nach einer bestätigten schlupfbedingten Umschaltung auf GNSS erst dann automatisch zum gemäß Fahrzeugprofil bevorzugten Radgeber zurückkehren, wenn dessen Messwerte **fünf Sekunden stabil und plausibel** sind. | Hysterese und erneutes Auftreten von Schlupf testen; kein Distanzsprung oder doppelt integrierter Weg beim Quellenwechsel. |
+
 ## E. Anzeige und Bedienelemente
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -491,6 +499,12 @@
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-47 | **Festgelegt – A: Radgeber-Statussymbol** | In der Fahranzeige den Radsensorzustand mit einem **kompakten, unterscheidbaren Symbol für bereit, aktiv als Messquelle oder gestört** darstellen; keine dauernde Impuls-Blinkanzeige oder zusätzliche Messwertreihe erforderlich. | Bei zwei Eingängen relevante Quelle eindeutig kennzeichnen; Fehlerstatus nicht allein über Farbe vermitteln, Statuszeile kompakt halten. |
+
+### E.8 Schlupfstatus – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| UI-48 | **Festgelegt – A: kurzer Hinweis und Statussymbol** | Bei erkanntem Schlupf einmalig einen **kurzen Hinweis** anzeigen und danach ein **kompaktes, dauerhaftes Statussymbol** mit tatsächlich aktiver Distanzquelle führen; keine periodischen Pop-ups erforderlich. | Bei kurzfristigem Grenzwertflattern Hinweise entprellen; Warnung/Ende als Ereignis in CSV erfassen, Rallye-Hauptzähler nicht verdecken. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -708,6 +722,8 @@
 | 13.10.2026 | GPS-71–74 | **Viererrunde A/A/A/A bestätigt:** sensorische Geschwindigkeitsabweichung je Profil 5–30 % in 1-%-Schritten, Werkseinstellung 10 %, Warnung erst nach 3 s, Vergleich erst ab 5 km/h, bloße Differenz löst ohne weitere Fehlerindizien keinen Radgeberwechsel aus. | Hysterese und Referenzgeschwindigkeit bei 5 km/h sowie Timer-Rücksetzen testen. |
 
 | 13.10.2026 | GPS-75–77, STO-44 | **Viererrunde B/C/A/C bestätigt:** GNSS-/Radsensor-Priorität je Fahrzeugprofil statt festem GNSS-Vorrang; Schlupferkennung aus GNSS- und Radgeber-Vergleich kombiniert; bei verlässlich erkanntem Radschlupf zuverlässiges GNSS als Distanzquelle; in jedem CSV-Datensatz Messquelle und quellenspezifischer Qualitätsindikator. | Früheren GNSS-Vorrang als überholt behandeln, Abgrenzung reine Differenz/Schlupfnachweis und konsistente Quellendefinition verifizieren. |
+
+| 13.10.2026 | GPS-78–80, UI-48 | **Viererrunde A/A/A/A bestätigt:** Profilpriorität über einfache Auswahl GNSS/Radsensor, Schlupfverdacht bei 15 % Abweichung über mindestens 2 s gegen zuverlässiges GNSS, Rückkehr zur bevorzugten Radquelle nach 5 s stabilen Messwerten, kurzer Hinweis plus dauerhaftes Statussymbol. | Schlupfverdacht nicht mit sicherem Fehlernachweis verwechseln; Quellenwechsel nur bei plausibler Zuordnung. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
