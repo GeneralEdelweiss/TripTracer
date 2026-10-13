@@ -348,10 +348,18 @@
 
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
-| GPS-56 | **Festgelegt – B: M8, 4-polig** | Optionaler Radsensoranschluss als **separater vierpoliger M8-Rundsteckverbinder**. Funktionen: geschützte +5-V-Sensorversorgung, Sensormasse, Impulseingang und **ein vierter Kontakt als Reserve**; verbindliche Pin-Nummerierung und Verwendung der Reserve noch nicht festgelegt. | Steckercodierung, Geschlecht, mechanische Zugänglichkeit, M8-Stromeingang eindeutig gegen Verwechslung unterscheiden; elektrische Belegung vor Schaltplan-/Kabelbaumfreigabe finalisieren. |
+| GPS-56 | **Festgelegt – B: M8, 4-polig** | Optionaler Radsensoranschluss als **separater vierpoliger M8-Rundsteckverbinder**. Funktionen: geschützte +5-V-Sensorversorgung, Sensormasse, Impulseingang und ****Impulseingang 2 auf dem vierten Kontakt****; verbindliche Pin-Nummerierung und Kanal 2 gemäß GPS-60 festgelegt. | Steckercodierung, Geschlecht, mechanische Zugänglichkeit, M8-Stromeingang eindeutig gegen Verwechslung unterscheiden; elektrische Belegung vor Schaltplan-/Kabelbaumfreigabe finalisieren. |
 | GPS-57 | **Festgelegt – A: ESD-, Verpol- und Überspannungsschutz** | Radimpulseingang mit **ESD-Schutz, geeigneter Begrenzung gegen Überspannung und Schutz gegen Fehlverdrahtung/Verpolung** sowie Pegelanpassung auf sichere MCU-Logikspannung auslegen. | Fahrzeugnahe Transienten, Kurzschluss auf Masse/+5 V/Bordnetz, Leckströme und 1-kHz-Signaltreue testen. Diese Schutzvorgabe ist **keine Freigabe zum normalen Betrieb mit 12-V-Sensorsignalen**. |
 | GPS-58 | **Festgelegt – A: sensortypabhängige Software-Entprellung** | **Reedkontakte mit einstellbarer Entprellzeit** im jeweiligen Fahrzeugprofil verarbeiten; bei Hall-/Open-Collector-Gebern deutlich kürzere Filterzeiten anwenden, sodass die bereits festgelegte Erfassung **bis 1 kHz** möglich bleibt. | Einstellgrenzen, Flanken-/Periodenfilter und maximale reale Fahrzeugimpulsrate validieren; keine Mehrfachzählungen oder Unterdrückung echter 1-kHz-Impulse. |
 | GPS-59 | **Festgelegt – A: Sensorversorgung begrenzen und abschalten** | Externe 5-V-Sensorversorgung erhält eine **eigene elektronische Strombegrenzung und automatische Abschaltung bei Überlast/Kurzschluss** mit auswertbarem Fehlerstatus. GNSS, Zähler, SD und Hauptversorgung laufen unabhängig weiter. | Stromlimit, Fehlererkennung, Wiederanlaufstrategie, thermische Grenzen und Kurzschluss nach Bordnetz/GND prüfen; Warn-/Fehlerereignis protokollieren. |
+
+### D.13 Doppelter Radsensoreingang und Diagnose – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| GPS-60 | **Festgelegt – B: zweiter Impulseingang am M8** | Den **vierten Kontakt** des bereits beschlossenen **4-poligen M8-Radsensorsteckers** als **zweiten getrennt auswertbaren Rad-/Weg-Impulseingang** auslegen. Die übrigen Funktionen bleiben geschützte +5 V, Sensormasse und Impulseingang 1. | Beide Eingänge unabhängig mit ESD-/Fehlverdrahtungsschutz, Pegelanpassung und Interrupt-/Zählfähigkeit bis 1 kHz prüfen; Anschluss-Pinbelegung erst nach Steckerzeichnung finalisieren. Nutzung des zweiten Kanals (z. B. redundanter Radgeber) im nächsten Schritt definieren. |
+| GPS-61 | **Festgelegt – A: automatische strombegrenzte Wiederholversuche** | Bei Überstrom/Kurzschluss schaltet die geschützte **5-V-Sensorversorgung** ab und versucht nach begrenzter Wartezeit automatisch, strombegrenzt wieder einzuschalten. Bei anhaltendem Fehler keine Neustartschleife des Hauptgeräts, Fehlerstatus protokollieren. | Versuchsintervall, Duty-Cycle, Temperaturverhalten, maximaler Fehlerstrom und Warnungsquittierung festlegen; Versorgung und GNSS bleiben unabhängig. |
+| GPS-62 | **Festgelegt – A: Sensortyp manuell je Profil** | **Reed, Hall oder Open-Collector** im jeweiligen Fahrzeugprofil manuell auswählen; die passende Entprellung und Signalbewertung wird geladen. Bei zwei Eingängen Sensortyp und Eingangszuordnung unabhängig konfigurieren, sofern beide genutzt werden. | Persistenz, gültige Sensortyp-Pegel, Eingangsfilter und Verwechslungsprüfung im Einstellungsmenü sicherstellen. |
 
 ## E. Anzeige und Bedienelemente
 
@@ -436,6 +444,12 @@
 | ID | Status | Anforderung | Prüfkriterium |
 |---|---|---|---|
 | UI-46 | **Festgelegt – A: zurückhaltender Langzeitausfall-Status** | Nach dem bereits vorgesehenen einmaligen kurzen Hinweis auf GNSS-Ausfall **dauerhaft kleines Statussymbol** samt aktiver **Radsensorquelle** (falls gültig) in der Fahrtanzeige; **keine periodischen Pop-ups**, Distanzanzeige bleibt im Vordergrund. Ohne gültige Distanzquelle Zustand als Messung nicht verfügbar kennzeichnen. | Mit GPS-17 und UI-31 konsistent; Status trotz Tag-/Nachtmodus unterscheidbar. |
+
+### E.7 Radsensor-Status – bestätigte Viererrunde 13.10.2026
+
+| ID | Status | Anforderung | Prüfkriterium |
+|---|---|---|---|
+| UI-47 | **Festgelegt – A: Radgeber-Statussymbol** | In der Fahranzeige den Radsensorzustand mit einem **kompakten, unterscheidbaren Symbol für bereit, aktiv als Messquelle oder gestört** darstellen; keine dauernde Impuls-Blinkanzeige oder zusätzliche Messwertreihe erforderlich. | Bei zwei Eingängen relevante Quelle eindeutig kennzeichnen; Fehlerstatus nicht allein über Farbe vermitteln, Statuszeile kompakt halten. |
 
 ## F. Gehäuse, Stecker und Montage
 
@@ -643,6 +657,8 @@
 | 13.10.2026 | GPS-52–55 | **Viererrunde A/A/A/A bestätigt:** geschützte strombegrenzte 5-V-Sensorversorgung, Radimpulserfassung bis 1 kHz, bei dauerhaft fehlerhafter Sensorleitung Radmessquelle sperren und wenn möglich GNSS verwenden, manuelle Kalibrierung über Radumfang plus Impulse/Umdrehung mit abgeleiteter Impulse/km-Anzeige. | Eingangsfilter/Entprellung, 5-V-Strombudget, Fehlerhysterese und Profilkalibrierung prüfen; keine direkte Impulse/km-Eingabe hinzugefügt. |
 
 | 13.10.2026 | GPS-56–59 | **Viererrunde B/A/A/A bestätigt:** separater M8-Radsensoranschluss mit vier Polen (+5 V, GND, Signal, Reserve), Eingangsschutz gegen ESD/Verpolung/Überspannung, Software-Entprellung abhängig von Reed/Hall/Open-Collector, eigene elektronische Strombegrenzung/Abschaltung der 5-V-Sensorversorgung bei Fehler. | Pinbelegung, Steckerverwechslung, 1-kHz-Filterverhalten und Kurzschlussentkopplung festlegen. |
+
+| 13.10.2026 | GPS-60–62, UI-47 | **Viererrunde B/A/A/A bestätigt:** vierter M8-Kontakt wird zweiter Impulseingang, automatische strombegrenzte Wiederholversuche bei Sensorversorgungskurzschluss, Sensorart manuell pro Fahrzeugprofil, kompakter Status bereit/aktiv/gestört in der Fahrtanzeige. | Sichere Doppelkanal-Pegelauslegung, Zuordnung im Profil, Versuchstakt und Statusanzeige prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
