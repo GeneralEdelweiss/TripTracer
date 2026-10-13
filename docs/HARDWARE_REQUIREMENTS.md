@@ -778,6 +778,15 @@
 | HW-55 | **Festgelegt – A: Temperatursensor am DC/DC-Wandler** | Den digitalen I²C-PCB-Temperatursensor **im thermisch aussagekräftigen Bereich nahe der 5-V-DC/DC-Wandlerstufe** platzieren; nicht direkt an einem elektrisch störenden Schaltknoten und mit geeigneter thermischer Kopplung/Abschirmung. | PCB-/Regler-Temperatur an Referenzpunkten vergleichen; Messwert als lokale Boardtemperatur und nicht ungeprüft als Regler-Sperrschichttemperatur interpretieren. |
 | HW-56 | **Festgelegt – A: GPIO-Belegung nach Riverdi-Verifikation** | Die **endgültige ESP32-S3-GPIO-Zuordnung erst nach Identifikation und Datenblattprüfung des konkreten Riverdi-Displays** freigeben. Zuvor vollständiges Pinbudget für USB, GNSS-UART/TIMEPULSE, Display, getrennte SD-SPI, I²C, zwei Radsensoren, sechs Tasten, LED-Treiber, SD-/Sensor-Power, BOOT/Strapping, Diagnose und JST-GH-Erweiterung prüfen. | Pin-/Strapping-/USB-Konflikte und freie Erweiterungsleitungen dokumentieren; hierarchischen Schaltplan erst mit validiertem Pinmapping elektrisch freigeben. |
 
+### Hardwareprototyp – Display-/GNSS-Bauteilverifikation (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-57 | **Festgelegt – A: bisheriges Riverdi-Modell verifizieren** | **Zuerst die bereits zuvor ausgewählte konkrete Riverdi-3,5-Zoll-Displayvariante** anhand Artikelnummer, Herstellerdatenblatt und realer Beschaffbarkeit verifizieren. Keine unbegründete Umstellung auf ein anderes Display; elektrische Schnittstelle bleibt bis zur Modellprüfung offen (HW-45). | Exakte Artikelnummer, Interface/Pinout, Spannungen, Hintergrundbeleuchtung, mechanische Maße und Bestellbarkeit nachweisen; Konflikte mit ESP32-S3-GPIO-Budget und FFC-Anschluss klären. |
+| HW-58 | **Festgelegt – A: aktive und passive GNSS-Antennen unterstützen** | Antenneneingang des **MAX-M10N über U.FL zu SMA** sowohl für **passive als auch aktive GNSS-Antennen** auslegen. Für aktive Antennen eine **geeignete schalt-/trennbare, strombegrenzte Antennen-Biasversorgung** mit RF-tauglicher Entkopplung/Schutz vorsehen; passiver Betrieb ohne störende Gleichstromversorgung sicherstellen. | MAX-M10N-Datenblatt inkl. Antennenversorgung/-diagnose, Bias-T/Induktivität, DC-Sperre, 50-Ω-Führung, ESD, Stromlimit und Betrieb ohne Bias prüfen. |
+| HW-59 | **Festgelegt – A: verriegelnder ZIF-Stecker mit Kabelsicherung** | Lösbare **FFC/FPC-Displayverbindung über verriegelnden ZIF-Stecker und zusätzliche mechanische Kabelsicherung/Zugentlastung** vorsehen, soweit das verifizierte Riverdi-Modul diese Anbindung ermöglicht. | FFC-Pitch/Kontaktseite, Verriegelungs- und Biegeradien, Schwingungsfestigkeit, Montagezugang und Platzbedarf vor Layout bestätigen. |
+| HW-60 | **Festgelegt – A: kritische Teile zuerst prüfen** | Vor der finalen Schaltplan- und GPIO-Freigabe **zuerst Riverdi-Display, MAX-M10N/GNSS-Antennenpfad und Bordnetz-/5-V-Versorgung samt eFuse/Schutz** mit tatsächlichen Herstellerunterlagen und Beschaffbarkeit verifizieren; übrige Bauteile parallel weiter konkretisieren. | Datenblattgestützte Stückliste/Anschlussliste und Schnittstellen- sowie Spannungsbilanz; keine Freigabe von Platzhaltern als fertige Lösung. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -964,6 +973,8 @@
 | 13.10.2026 | HW-49–52 | **Hardware-Viererrunde A/A/A/A bestätigt:** digitaler I²C-PCB-Temperatursensor, unabhängig geschützte/gefilterte Radimpulseingänge, gemeinsamer 3,3-V-I²C-Bus für RTC/FRAM/Licht/Temperatur und strombegrenzter elektronischer 5-V-Lastschalter für M8-Radsensorversorgung. | Adressen/Buslast, Sensorfehler-Isolation, Signalpegel/ESD und Stromlimit/Retry vor Layout nachweisen. |
 
 | 13.10.2026 | HW-53–56 | **Hardware-Viererrunde A/A/A/A bestätigt:** I²C ohne zusätzliche Isolationsschalter, je Radsensor bestückungs-/jumperseitig schaltbare Pull-ups, I²C-Temperatursensor nahe dem DC/DC-Wandler und finale ESP32-S3-Pinzuordnung nach konkreter Riverdi-Displayverifikation. | Displaymodell beschaffen/verifizieren, vollständiges GPIO-Budget sowie Pull-up-Sensorkompatibilität nachweisen. |
+
+| 13.10.2026 | HW-57–60 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Modell anhand Artikelnummer verifizieren; aktive und passive GNSS-Antennen per geschützter zuschaltbarer Biasversorgung unterstützen; verriegelnder ZIF samt FFC-Zugentlastung; kritische Display-/GNSS-/Versorgungsbauteile vor Schaltplanfreigabe priorisiert prüfen. | Herstellerdatenblätter, Kontakt-/Antennen-Bias-Plan und reale Bezugsquellen verifizieren. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
