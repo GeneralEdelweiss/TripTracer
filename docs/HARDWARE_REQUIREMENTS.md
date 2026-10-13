@@ -670,6 +670,15 @@
 | HW-07 | **Festgelegt – A: 5 V / 2 A als Auslegungsziel** | Zentralen geschützten 5-V-DC/DC-Wandler **vorläufig für 2 A Dauerstrom (10 W)** auslegen, mit Berücksichtigung von Anlauf-/Schreibspitzen, Tasten-LEDs, Display, 3,3-V-Zweig und geschütztem 5-V-Radsensorausgang. **Noch keine verifizierte Lastaufnahme oder finale Reglerfreigabe.** | Komponentenstrombilanz bei 9–36 V Eingang, Wärme, Wirkungsgrad, USB-only-Strombudget und separate Begrenzung des Sensorausgangs nachweisen. |
 | HW-08 | **Festgelegt – A: umfangreiche PCB-Testpunkte** | Auf der Hauptplatine **gut zugängliche Testpunkte** für Hauptversorgung, 5 V, 3,3 V, GND, USB-VBUS, Reset/EN, BOOT/GPIO0 sowie relevante Sensor-, Steuer- und Busleitungen vorsehen. Kein zusätzlicher Debug-Steckverbinder verpflichtend (HW-04). | Testpunkt-Geometrie, GND-Nähe, Messzugang trotz Gehäuse, ESD-/Signalintegrität sowie Fertigungsprüfbarkeit vor Layoutfreigabe prüfen. |
 
+### Hardwareprototyp – Steckverbinder, LDO und PCB-Aufbau (Viererrunde 13.10.2026, korrigiert A/A/A/B)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-09 | **Festgelegt – A: verriegelnde JST-Steckverbinder** | Die sechs Fronttaster erhalten **jeweils einen eigenen verriegelnden JST-Steckverbinder** auf der Hauptplatine. Kontaktzahl, Strombelastbarkeit und Steckerserie passend zur tatsächlichen Taster- und LED-Ring-Belegung dimensionieren. | Passende Gegenstecker, Crimpbarkeit, Vibrationssicherung, Abzugrichtung, Montagezugang und Platzbedarf prüfen. |
+| HW-10 | **Festgelegt – A: SOT-223 oder vergleichbares Power-SMD** | Den **3,3-V-LDO** in einem thermisch angemessenen **SOT-223- oder vergleichbaren Power-SMD-Gehäuse** auslegen, mit ausreichender Leiterplatten-Kupferfläche. Eine konkrete Reglerauswahl erfordert die 3,3-V-Last- und Wärmebilanz. | Worst-Case-Verlustleistung, Dropout, Reglerstabilität und erreichbare Wärmeabfuhr bei Fahrzeug-Innentemperaturen nachweisen. |
+| HW-11 | **Festgelegt – A: beidseitige SMD-Bestückung** | Die **Hauptplatine darf auf beiden PCB-Seiten mit SMD-Komponenten bestückt werden**. Die Freigabe gilt im Rahmen des bislang bevorzugten 2-Lagen-PCB mit technisch begründeter 4-Lagen-Option; keine strikte Einseitenbestückung. | Bauteilhöhen, Gehäusefreiheit, JLCPCB-Bestückbarkeit und Prüf-/Reparaturzugänglichkeit auf beiden Seiten sicherstellen. |
+| HW-12 | **Festgelegt – B: kleiner interner Erweiterungsstecker** | **Freie, nach GPIO-/Boot-Budget verfügbare ESP32-S3-Pins** sowie **GND und geeignete Versorgung** auf einen **kleinen internen Erweiterungssteckverbinder** führen. Strombegrenzung/Schutz und Pegel (3,3 V) spezifizieren; nur tatsächlich sichere, nicht von Pflichtfunktionen benötigte Pins verwenden. **Ersetzt die vorher lediglich vorgeschlagene Lösung mit Reserve-GPIO-Testpads**; bereits verpflichtende allgemeine Testpunkte (HW-08) bleiben. | GPIO-Matrix/Strapping prüfen, mechanischen Steckplatz und eindeutig dokumentierte Pinbelegung definieren; keine GPIOs mit USB-, Flash- oder Boot-Funktion versehentlich belegen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -830,6 +839,8 @@
 | 13.10.2026 | HW-01–04 | **Hardware-Viererrunde A/A/A/B bestätigt:** zentrale Hauptplatine mit kabelgebundenem Display und sechs Tastern, native ESP32-S3-USB-C-Anbindung ohne USB-UART-Brücke, zentraler geschützter 5-V-Wandler und nachgelagerte 3,3-V-Versorgung, Debugging regulär über USB-C plus bestehende Testpunkte (kein zusätzlicher Debuganschluss). | Elektrische/Montage-Schnittstellen, USB-Recovery, Last-/Wärmebudget und Quellenschaltung in KiCad und Bring-up prüfen. |
 
 | 13.10.2026 | HW-05–08 | **Hardware-Viererrunde A/B/A/A bestätigt:** 3,3-V-LDO ab zentralen 5 V (thermisch zu dimensionieren), sechs Fronttasten jeweils einzeln steckbar, 5-V-Wandler auf 2 A Dauerstrom als vorläufiges Ziel, umfangreiche Testpunkte ohne zusätzlichen Debuganschluss. | Strom- und Verlustleistungsbilanz, Steckerplatz und Testzugänglichkeit vor KiCad-Layout freigeben. |
+
+| 13.10.2026 | HW-09–12 | **Hardware-Viererrunde A/A/A/B (korrigierte Nutzerentscheidung):** sechs einzeln verriegelnde JST-Tastenstecker, 3,3-V-LDO SOT-223 oder vergleichbares Power-SMD, beidseitige SMD-Bestückung, kleiner interner Erweiterungsstecker mit freien GPIOs und Versorgung anstelle bloßer Reserve-GPIO-Testpads. | Steckertypen, Reglerwärme, beidseitige Fertigbarkeit, GPIO-/Bootbudget prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
