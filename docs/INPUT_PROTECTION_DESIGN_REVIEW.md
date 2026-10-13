@@ -61,3 +61,46 @@ Die **immer aktive 5-V-AUX-Stufe** muss **vor** K101 einen eigenen Überstrom-/V
 6. Echte **KiCad-10-ERC + DRC**, gemessene Impulse, Kontakt- und Power-Budget, 12-/24-V-Kaltstart, ACC AUS samt SD-Flush, nachfolgende Labor-/Fahrzeugtests. **Keine Fertigungsfreigabe vorher.**
 
 **Quellen:** [TI TPS26631 (Datenblatt Rev. G)](https://www.ti.com/lit/ds/symlink/tps2663.pdf); [TI TPS26630/33 EVM](https://www.ti.com/lit/ug/slvubi8a/slvubi8a.pdf); [TI LM5164-Q1](https://www.ti.com/lit/ds/symlink/lm5164.pdf); [Omron G6S-2F DC5](https://www.fa.omron.co.jp/product/item/G6S-2F_DC5/).
+
+## 5. Prüfergebnis der nächsten Auslegungsrunde (13.10.2026)
+
+**Ergebnis: noch keine sichere Verdrahtungsfreigabe für 01D.** Das vorhandene Blatt `01D_INPUT_PROTECTION.kicad_sch` enthält U401 als absichtlich unverdrahteten Kandidaten. Vor dem ersten Einschaltversuch müssen insbesondere zwei Probleme gelöst werden: (1) K101 schaltet derzeit die gesamte ungeregelte BAT+-Hauptleitung **vor** der eFuse; (2) die dauerhaft versorgte AUX-Stufe wird durch U401 **nicht** geschützt. Beide Pfade sind für 9–36 V sowie Transienten gesondert zu dimensionieren. Dies ist ein **dokumentierter Sicherheitsstopp, kein ERC-Fehler, der durch Labels oder PWR_FLAG geheilt werden könnte**.
+
+### 5.1 Verifizierte Kenndaten und konkrete vorläufige Teile
+
+| Position | Stand / Datenblattbezug | Folgerung / Status |
+|---|---|---|
+| U401, TI **TPS26631PWPT** | 4,5–60 V Betriebsbereich, 67 V abs. max.; HTSSOP-20 mit PowerPAD; externer Blocking-N-FET für Reverse Polarity/Reverse Current erforderlich. `MODE = GND` bedeutet Auto-Retry. | Kandidat **für den geschalteten Hauptzweig**, nicht für den ungeschützten Dauereingang. Industriegerät, keine behauptete Automotive-AEC-Q100-Freigabe. [TI Produktseite](https://www.ti.com/product/TPS2663/part-details/TPS26631PWPT). |
+| Q402, **BSS138-7-F** (Diodes Inc., LCSC **C40912**) | 50 V `VDS`, ±20 V `VGS`, `Ciss ≤ 50 pF` bei 10 V, `VGS(th) max. 1,5 V` bei 250 µA; SOT-23. | **Kandidat** als schneller Gate-Pulldown-FET an U401: Gate→DRV, Drain→B_GATE, Source→IN_SYS nach TI Abb. 8-7. Bauteil- und Pad-Nummern müssen vor Symbol-/Footprint-Freigabe verifiziert werden. [DigiKey](https://www.digikey.de/en/products/detail/diodes-incorporated/BSS138-7-F/717723), [LCSC](https://www.lcsc.com/de/product-detail/C40912.html). |
+| Q401, externer Blocking-N-MOSFET | Nach TI Abb. 8-7 **Source→IN_SYS, Drain→IN(1/2/3), Gate→B_GATE**. Sein `VDS`, `VGS`, Verlustleistung, SOA, Impulsrobustheit und passender SMD-Footprint sind noch **nicht** verifiziert. | **Keine freie MOSFET-Teilenummer erfinden**. Der Weg über den FET darf nicht mit einer Drahtbrücke ersetzt werden. |
+| R_ILIM, Entwurfswert bisher **7,5 kΩ** | Aus TI Gl. 8: `I_OL ≈ 18 / R_ILIM[kΩ]` → nominal **2,40 A**; mit **9,09 kΩ** wären es nominal etwa **1,98 A**. | **7,5 kΩ bleibt kein freigegebener Wert.** TPS26631 besitzt nach aktiviertem PGOOD einen kurzzeitigen **2×-Überstrommodus**. Selbst ein nominelles 2-A-Limit ist somit **keine 2-A-Obergrenze** für Relaiskontakt/Kabel. Lastspitzen, Leiterquerschnitt und Sicherungen gesondert prüfen. [TI Rev. G, § 8.3.7 und § 9.2.2](https://www.ti.com/lit/ds/symlink/tps2663.pdf). |
+| OVP, Kandidat **390 kΩ/12 kΩ** | Bei 1,2 V nominaler Schaltschwelle ca. **40,2 V**. Dauerstrom im Teiler bei 36 V: ca. **89,6 µA**, **nur falls hinter K101 versorgt**. | Für 36-V-Nennobergrenze plausibler **Startpunkt**, aber Schwellwerttoleranz, Teilerderating, EMV-Eintrag und ausreichende Reserve zum Buck-VIN-Maximum fehlen; kein Load-Dump-Beweis. |
+| UVLO und dVdT | Mit externem Blocking-FET verlangt TI für eine ungenutzte UVLO-Funktion mindestens **300 kΩ** zu IN_SYS. dVdT-Kondensator gegen GND; 100 nF ist lediglich ein noch nicht gerechneter Ausgangsrampen-Kandidat. | Die tatsächliche UVLO-Hysterese muss zum 9–36-V-Dauerbetrieb, 3-/6-V-Startprofil und Relaisverhalten passen. **Nicht UVLO auf GND legen**, da sonst die interne hohe UVLO für den 12-V-Betrieb ungünstig ist. |
+
+**TI-Originalschaltung:** [TPS2663 Rev. G, Abb. 8-7 (B_GATE/DRV), Abb. 9-2 (externes NMOS + BSS138, Schutzbeschaltung)](https://www.ti.com/lit/ds/symlink/tps2663.pdf). Die dort gezeigte **18–33-V-PLC-Anwendung** ist **nicht 1:1** auf die beschlossenen **9–36 V in 12-/24-V-Fahrzeugen** übertragbar. Besonders die UVLO/OVP-/TVS-Auswahl muss neu gerechnet werden.
+
+### 5.2 K101-Strompfad als Blocker, nicht als Nebenbedingung
+
+Herstellerangabe für **Omron G6S-2F DC5**: **2 A / 30 VDC bei ohmscher Nennlast**, **60 W** maximale DC-Schaltleistung, 2 A maximaler Kontaktstrom; die maximal zulässige Spannung **220 VDC** ist **keine Freigabe für 2 A bei 220 V**. [Omron G6S-2F DC5](https://www.fa.omron.co.jp/product/item/G6S-2F_DC5/), [Omron G6S Datenblatt](https://components.omron.com/eu-en/system/files/2023-01/datasheet_pdf/K093-E1.pdf).
+
+- Bei **36 V** entspricht die bloße **60-W-Hüllkurve** höchstens **1,67 A** für geeignete ohmsche Bedingungen; die konkrete DC-Schaltkennlinie und Kapazitätslast können **noch niedrigere** Werte erfordern. Die 2,4-A-eFuse-Grenze liegt oberhalb des 2-A-Kontaktstromlimits. Der kurzzeitige 2×-Modus verschärft den Konflikt.
+- Ein nach dem Kontakt sitzender eFuse/dVdT-Ausgangsschutz reduziert **nicht** automatisch den Kontakt-Einschaltstrom in Kondensatoren **vor U401**. Die dortige Kapazität, Serienimpedanz, Spannung und die mechanische Prellphase müssen bekannt sein.
+- **Kein K101-Footprint/Schaltplan als 36-V-tauglich freigeben**, nur weil eine 220-V-Maximalangabe auf dem Datenblatt steht. Erst maximale reale Lastaufnahme (9 V = höchster Betriebsstrom), 36-V-Schaltkurve und Kontakteinschaltstoß quantifizieren.
+
+**Entscheidung vor der finalen Verschaltung nötig:**
+
+- **A – bisherige Sollarchitektur beibehalten:** K101 schaltet BAT+ vor U401. Dann konkrete Kontakt-/Inrush-Eignung nachweisen oder ein geeignetes Mikrorelais vorschlagen. Immer-aktive AUX-Leitung benötigt separat verifizierten negativen/positiven Surge-, Verpol- und Leitungsschutz.
+- **B – mögliche kostensensible Alternative, noch NICHT beschlossen:** K101 schaltet lediglich den **stromarmen Enable-/Freigabepfad**; U401 bleibt an BAT+ vor dem Leistungspfad und wird im OFF-State abgeschaltet. Das entlastet den Kontakt von Hauptlast-/Kondensatorstrom, aber der U401-OFF-Eigenstrom (ca. 21 µA **typisch**, max./85 °C gesondert messen) erhöht den BAT+-Ruhestrom; ACC-Start, HOLD, galvanische/USB-Rückspeiseabgrenzung, Failsafe und eFuse-Ausfallmodus müssen komplett neu bewertet werden. Dies wäre eine **Architekturänderung**, keine stillschweigende Optimierung.
+
+### 5.3 Verifikation vor dem Verdrahten / vor dem Einschalten
+
+| Gate | Benötigter Nachweis |
+|---|---|
+| G1 – Fahrzeug-Transiente | Für **12 und 24 V** eine definierte Stör-/Load-Dump-/Reverse-Polarity-Prüfmatrix inklusive Quelle, Quellimpedanz, Pulsdauer und Polarität; danach erst konkrete TVS/Suppression, thermische Energie und maximalen VIN an **AUX** und **U401** berechnen. Eine nackte SMCJ36A garantiert keine sichere Begrenzung eines unsuppressed 24-V-Load-Dumps. |
+| G2 – K101 | Reale elektrische Leistungsbilanz bei 9/12/24/36 V, Ein-/Ausschaltenergie bei 36 V, Pre-eFuse-Kapazität, 2×-Pulsmodus und Relais-Nennkennlinie abgleichen. Bei Misserfolg K101/Schaltprinzip gezielt ändern, **nicht** die 2-A-Angabe umdeuten. |
+| G3 – OFF-Ruhestrom | Bei ausgeschaltetem ACC und vorhandenen BAT+ 9/12/24/36 V: **Gesamter** Dauerruhestrom inkl. LM5164-AUX, ACC-Erkennung, TVS-Leckstrom (auch warm), eFuse (je nach Architektur), Spannungsteiler und Relaislogik. Ziel **unter 100 µA**, Worst Case bei Temperatur, nicht nur typische Einzelwerte. |
+| G4 – eFuse | U401 Pinout (inkl. PowerPAD/GND), Q401/Q402-Pin-Pad-Zuordnung, UVLO/OVP/ILIM/dVdT, Retry-Dauer und thermisches Fehlerverhalten gegen TI-Datenblatt prüfen. Schutz/Abkopplung bei gleichzeitigem USB und negativem BAT/ACC. |
+| G5 – Motorstart und Abschalten | 3 V / 15 ms, anschließend 6 V über Sekunden (12-V-Zielprofil), analog 6→10 V für 24 V; Datenaufnahme ohne Reset, SD-Flush nach ACC AUS über BAT+-Selbsthaltung; **keine** garantierte Notenergie bei komplett entferntem M8. |
+| G6 – Projekt-/Hardwarefreigabe | Nach vollständiger **elektrischer** Verdrahtung: KiCad 10 projektweit ERC, ERC-Meldungen prüfen, VIN/VOUT/USB-Powerpfade und richtige Hersteller-Footprints einzeln abgleichen, PCB synchronisieren/DRC, Netzteil-/Transienten-Tests. **Bis dahin keine Fahrzeug-/Fertigungsfreigabe.** |
+
+**Umsetzungsstand dieser Runde:** Primärdatenblatt, K101-Lastkennzahlen und Q402-Kandidat geprüft; **kein 01D-Schaltplan elektrisch verbunden, kein KiCad-ERC, kein PCB-DRC, keine Last-/Surge-Messung durchgeführt.** Die sicherheitskritische Architektur- und Teileauswahl hat Vorrang vor formaler ERC-Kosmetik.
