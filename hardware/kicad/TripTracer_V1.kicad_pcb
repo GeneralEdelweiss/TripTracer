@@ -29,6 +29,7 @@
  (gr_text "35um Cu / 1.6mm FR4 / 2 Lagen bevorzugt / 4 optional" (at 103 120 0) (layer "Dwgs.User") (effects (font (size 1.2 1.2) (thickness 0.18))) (uuid "a1c93062-5725-4f5b-bd3f-00000000791a"))
  (gr_text "NICHT ROUTEN ODER FERTIGEN – PCB-Vorplatzierung, alle Netze noch ohne Zuweisung" (at 103 125 0) (layer "Dwgs.User") (effects (font (size 1.1 1.1) (thickness 0.18))) (uuid "a1c93062-5725-4f5b-bd3f-00000000791b"))
 (footprint "Tripmaster:U3_TI_LMR36510ADDAR_DDA" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000791c") (at 63 52 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-00000000006e")
  (descr "TI LMR36510ADDAR PowerPAD DDA0008B, 8+EP9, 5.4mm lead span, EP 2.71x3.4 | Status: HERSTELLER_LANDMASS_EP_MASK_PRUEFEN")
  (tags "Tripmaster")
  (attr smd)
@@ -52,6 +53,7 @@
 )
 
 (footprint "Tripmaster:L1_Bourns_SRN6045_220M" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000791d") (at 74 52 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000071")
  (descr "Bourns SRN6045-100M 22uH; current rating verify, layout: two 2x6mm pads, gap 2.3mm | Status: HERSTELLER_LANDMASS_ELEKTRIK_PRUEFEN")
  (tags "Tripmaster")
  (attr smd)
@@ -67,6 +69,7 @@
 )
 
 (footprint "Tripmaster:C_1210_3225" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000791e") (at 51 52 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000074")
 (descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
 (tags "Tripmaster") (attr smd)
 (property "Reference" "C101" (at 0 -3.150) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
@@ -78,6 +81,7 @@
 (model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
 )
 (footprint "Tripmaster:C_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000791f") (at 63 41 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000077")
  (descr "Kondensator 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -93,6 +97,7 @@
 )
 
 (footprint "Tripmaster:C_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007920") (at 56 42 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-00000000007a")
  (descr "Kondensator 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -108,6 +113,7 @@
 )
 
 (footprint "Tripmaster:C_1210_3225" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007921") (at 82 49 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-00000000007d")
 (descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
 (tags "Tripmaster") (attr smd)
 (property "Reference" "C104" (at 0 -3.150) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
@@ -119,6 +125,7 @@
 (model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
 )
 (footprint "Tripmaster:C_1210_3225" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007922") (at 89 54 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000080")
 (descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
 (tags "Tripmaster") (attr smd)
 (property "Reference" "C105" (at 0 -3.150) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
@@ -130,6 +137,7 @@
 (model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
 )
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007923") (at 81 60 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000083")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -145,6 +153,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007924") (at 86 64 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-000000000086")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -160,6 +169,7 @@
 )
 
 (footprint "Tripmaster:U1_ESP32-S3-MINI-1-N8" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007925") (at 132 70 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002ee0")
  (descr "Espressif module: 15.4x20.5 mm; 65 numbered pads including 61 GND matrix; antenna keepout | Status: DATENBLATT_GEO")
  (tags "Tripmaster")
  (attr smd)
@@ -252,6 +262,7 @@
 )
 
 (footprint "Tripmaster:J1_GCT_USB4105_GF_A_USB_C" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007926") (at 130 36 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f22")
  (descr "GCT USB4105-GF-A 16P USB 2.0 Type-C, pad geometry per KiCad10 official and GCT drawing | Status: HERSTELLER_KICAD_GEO")
  (tags "Tripmaster")
  (attr smd)
@@ -288,6 +299,7 @@
 )
 
 (footprint "Tripmaster:D2_ST_USBLC6_2SC6" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007927") (at 114 44 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f34")
  (descr "ST USBLC6-2SC6 USB2 highspeed ESD SOT23-6, 1/6 IO1 3/4 IO2 2 GND 5 VBUS | Status: STANDARD_SOT23_6_ELEKTRIK_PRUEFEN")
  (tags "Tripmaster")
  (attr smd)
@@ -307,6 +319,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007928") (at 118 35 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f3b")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -322,6 +335,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007929") (at 145 35 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f3e")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -337,6 +351,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000792a") (at 114 52 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f41")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -352,6 +367,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000792b") (at 125 52 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f44")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -367,6 +383,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000792c") (at 114 90 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f47")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -382,6 +399,7 @@
 )
 
 (footprint "Tripmaster:R_1206_3216" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000792d") (at 152 90 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f4a")
  (descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
  (tags "Tripmaster")
  (attr smd)
@@ -397,6 +415,7 @@
 )
 
 (footprint "Tripmaster:C_1210_3225" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000792e") (at 149 64 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f4d")
 (descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
 (tags "Tripmaster") (attr smd)
 (property "Reference" "C201" (at 0 -3.150) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
@@ -408,6 +427,7 @@
 (model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
 )
 (footprint "Tripmaster:C_1210_3225" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-00000000792f") (at 150 72 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f50")
 (descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
 (tags "Tripmaster") (attr smd)
 (property "Reference" "C202" (at 0 -3.150) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
@@ -419,6 +439,7 @@
 (model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
 )
 (footprint "Tripmaster:C_1210_3225" (layer "F.Cu") (uuid "a1c93062-5725-4f5b-bd3f-000000007930") (at 152 81 0)
+ (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000068/5ec18d7a-826f-4b31-8e76-000000002f53")
 (descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
 (tags "Tripmaster") (attr smd)
 (property "Reference" "C203" (at 0 -3.150) (layer "F.SilkS") (effects (font (size 0.9 0.9) (thickness 0.13))))
