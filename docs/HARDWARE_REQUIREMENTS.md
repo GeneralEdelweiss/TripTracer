@@ -805,6 +805,15 @@
 | HW-67 | **Festgelegt – A: getrennte Testeinspeisemöglichkeit** | Für den ersten Bring-up **zusätzlich zum regulären geschützten 9–36-V-M8-Bordnetzeingang einen abgesicherten 5-V-Testeinspeisepfad hinter dem Buck** vorsehen. Testversorgung so entkoppeln bzw. nur nach bewusstem Trennen/Umstecken zuschalten, dass **weder der Buck-Ausgang noch Bordnetz/USB rückgespeist** werden und 5-V-Quellen nicht gegeneinander arbeiten. | Fehler- und Verpolschutz, Spannungs-/Stromfestigkeit, eindeutige Testpunktkennzeichnung, Abschalt-/USB-Zustände und sichere Reihenfolge bei Labornetzteilbetrieb testen; Testeinspeisung nicht als ungeschützte Betriebsversorgung deklarieren. |
 | HW-68 | **Festgelegt – A: fünf Erstprototyp-PCBs** | **Fünf Hauptplatinen** der ersten PCB-Revision für Bring-up, Aufbauvarianten, Fehlersuche und Reserve fertigen lassen. Die Stückzahl der **vollständig oder teilbestückten** Platinen und der manuellen Sonderteile ist separat anhand der Bestellung/BOM festzulegen; fünf Leiterplatten bedeuten nicht automatisch fünf vollständig bestückte Geräte. | Fertigungs- und Bestückungskosten, Baugruppenaufteilung und Reserveteile auf fünf PCB-Rohlinge beziehen; Produktionsfreigabe erst nach Gerber-/BOM-/CPL-Prüfung. |
 
+### Hardwareprototyp – PCB-Fertigung und Laboreinspeisung (Viererrunde 13.10.2026)
+
+| ID | Status | Anforderung | Verifikation |
+|---|---|---|---|
+| HW-69 | **Festgelegt – A: zwei bestückte, drei unbestückte PCBs** | Für die erste Revision **fünf identische Hauptplatinen fertigen** (HW-68), davon **zwei für die maschinelle JLCPCB-SMD-Bestückung vorsehen und drei als unbestückte Reserven** behalten. Falls der Bestückungsdienst unterschiedliche PCB-/PCBA-Mindeststückzahlen vorgibt, vor Bestellung die tatsächlich verfügbare Bestellkonfiguration und Kosten offen prüfen, nicht stillschweigend fünf bestücken. | Bestellung: fünf nackte PCBs und nach Möglichkeit genau zwei PCBA; Sonderteile gemäß HW-66 manuell nachbestücken. |
+| HW-70 | **Festgelegt – A: interner zweipoliger 5-V-Laborstecker** | Die separate, abgesicherte 5-V-Testeinspeisung **über einen internen zweipoligen, möglichst verpolsicheren Steckverbinder** realisieren. Stecker und Schaltung gegen versehentliche **Rückspeisung auf Buck-Ausgang, USB-VBUS und Bordnetz/M8** sichern; klare Kennzeichnung +5V_TEST/GND und Stromlimit. | Gegenstecker/Zugänglichkeit, Kontaktstrom, Sicherung und Quellenwahl-/Trennschaltung prüfen; Labornetzteilbetrieb mit aus- und eingeschaltetem M8 und angeschlossenem USB testen. |
+| HW-71 | **Festgelegt – A: 35 µm (1 oz) Kupfer** | Erste Hauptplatine mit **nominal 35 µm / 1 oz Kupfer je Kupferlage** planen. Hochstrompfade, Schaltregler-Rückstromschleifen und thermische Flächen bei dieser Kupferdicke explizit dimensionieren. | Leiterbahn-/Kupferflächenbreite, Temperaturanstieg, Spannungsabfall, Via-Strompfade und DFM-Regeln für JLCPCB prüfen; bei unzureichender Reserve Entscheidung vor Fertigungsfreigabe neu vorlegen. |
+| HW-72 | **Festgelegt – A: 1,6 mm PCB-Dicke** | Erste Hauptplatine mit **nominal 1,6 mm Leiterplattendicke** auslegen, passend zur späteren ASA-Gehäusebefestigung und den gewählten Steckverbindern. | Stecker-/Gewindefreiräume, PCB-Steifigkeit, Gehäuseauflagen und 2-/4-Lagen-Stack-up einschließlich tatsächlich angebotenem JLCPCB-Material prüfen. |
+
 ## G. Fertigung und Verifikation
 
 | ID | Status | Anforderung / Ziel | Offene Details oder Prüfkriterium |
@@ -997,6 +1006,8 @@
 | 13.10.2026 | HW-61–64 | **Hardware-Viererrunde A/A/A/A bestätigt:** bisheriges Riverdi-Display behalten und ggf. Kabelanschluss anpassen; feste, geeignete abschaltbare GNSS-Antennen-Biasversorgung; normale SMA-Buchse am Gehäuse; geprüfte kompatible Ersatzteile in der BOM dokumentieren. | Display-/Antennen-Artikelnummer, Pigtail-Steckergeschlecht, tatsächliche Bias-Spannung und Ersatzteilkompatibilität vor Schaltplanfreigabe prüfen. |
 
 | 13.10.2026 | HW-65–68 | **Hardware-Viererrunde A/A/A/A bestätigt:** erste Revision mit allen Hardwarefunktionen auf einer Hauptplatine, JLCPCB-SMD-Bestückung plus manuelle Sonderteile, abgesicherte/entkoppelte 5-V-Laboreinspeisung hinter Buck zusätzlich zu M8 und fünf Erstprototyp-PCBs. | Testversorgung gegen Rückspeisung und Fehlbedienung sichern; Zahl maschinell bestückter PCBs separat kalkulieren. |
+
+| 13.10.2026 | HW-69–72 | **Hardware-Viererrunde A/A/A/A bestätigt:** fünf PCB-Rohlinge, nach Möglichkeit genau zwei maschinell bestückte und drei unbestückte; abgesicherter/entkoppelter zweipoliger 5-V-Laboreinspeisestecker, 35 µm Kupfer und 1,6 mm PCB-Stärke. | JLCPCB-PCBA-Mindeststückzahl, Rückspeisungsschutz sowie Strom- und Thermikreserve vor Auftragserteilung prüfen. |
 
 ## Nächste gemeinsame Entscheidung / technisches Layout-Gate
 
