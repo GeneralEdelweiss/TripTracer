@@ -1,0 +1,12 @@
+# KiCad working files
+*.kicad_prl
+*-backups/
+_autosave-*
+*.lck
+# Python/PlatformIO build artifacts
+__pycache__/
+*.pyc
+.pio/
+# Operating system
+.DS_Store
+Thumbs.db
