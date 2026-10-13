@@ -76,6 +76,14 @@ USB-VBUS --> gesondert rueckspeisefest entkoppelter USB-only MCU/SD-Pfad
 | `USB_VBUS` | separater USB-C-Pfad → 3V3/SD-Service | USB-only-MSC/ROM-Flash weiterhin möglich; darf weder BAT_SW noch Spule/Relais einschalten. |
 | `3V3_MAIN` / `5V_MAIN` | aus geschütztem Gerätpfad → Controller/Lasten | Stabil bis FRAM-/SD-Dateischluss, abschaltbare GNSS/TFT/Sensor/LED-Rails; keine ungesteuerten Backfeed-Pfade. |
 
+## 4a. KiCad-Schaltplan-Teilstufe a1 – Relais und Spulentreiber
+
+**Neue Dateien (13.10.2026):** Das bisher leere Blatt `01_Eingangsschutz.kicad_sch` enthält nun **K101 Omron G6S-2F DC5 (Pin 1 Spule+, 12 Spule−, 4 COM_A, 5 NO_A), Q111 Diodes DMN2056U-7 (Gate 1 / Source 2 / Drain 3), D111 SS36-Freilauf und R111 100-kΩ-Gate-Pulldown**. Das G6S-SMD-Footprint `Tripmaster.pretty/RLY101_Omron_G6S_2F.kicad_mod` ist aus der **Omron-Padzeichnung, Top View** erzeugt: Pad-Spalten −5,08/0/+2,54/+5,08 mm, Pad-Reihen −4/+4 mm, acht 1×2,2-mm-Pads. Der eigene `TripTracer_V1.kicad_sym` enthält **G6S_2F_DC5** sowie zusätzlich **LM5164_Q1** als Referenzsymbol mit TI-geprüften IC-Pin-Nummern 1–8 und EP. **LM5164 noch NICHT als elektrischer Schaltplan/Footprint implementiert.**
+
+Die Teilbeschaltung besitzt absichtlich **offene Schnittstellen**: `5V_AUX_COIL`, `RELAY_ENABLE_5V` (Logikausgang aus noch zu bauender ACC-/HOLD-/Failsafe-Verschaltung), `BAT_PROTECTED_BEFORE_RELAY`, `BAT_SW_BEFORE_EFUSE`. Die DC-Schutzkette sowie MCU-/USB-Versorgung sind weiter OFFEN; diese Zwischenstufe darf **nicht** als funktionierendes Einschalt-/Shutdown-System oder bestandenes ERC bezeichnet werden.
+
+**Nächster qualitätskritischer Schritt:** LM5164-Q1 als vollständigen 5V-AUX-Buck mit Feedback-/Ripple-Injektionsnetzwerk nach TI auslegen, dann 9–36-V-ACC-Detektor und HARDWARE-HOLD-Timer dimensionieren und in dasselbe Blatt einfügen; anschließend Schnittstellen, Footprints und **echten** KiCad-10-ERC prüfen. Derzeit **keine native KiCad-10-Öffnungs-, ERC- oder DRC-Prüfung**, kein getesteter 36-V-Inrush-/Kontaktlebensdauernachweis.
+
 ## 5. Abnahme-Gates – vor dem nächsten Baugruppenblatt
 
 1. **Kontakt-/Relaisdaten**: G6S-2F DC5 **Schaltkurven**, Pin-Nummern/SMD-Footprint, Spulen- und Kontaktbelastung bei −40 bis +85 °C, Vibration, Real-Inrush, Dauerstrom und 36-V-Öffnen anhand Herstellervorgaben prüfen.

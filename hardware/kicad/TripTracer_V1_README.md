@@ -23,7 +23,7 @@ Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation 
 
 | Blatt | Inhalt | Stand |
 |---|---|---|
-| `01_Eingangsschutz.kicad_sch` | Dreipoliger M8: ACC/Pin 1, GND/Pin 3, BAT+/Pin 4; geschützter BAT+-Hauptpfad mit Mikrorelais, MCU-HOLD-Selbsthaltung, Freilauf und eFuse/TVS/Verpolschutz; **keine 3-s-Pufferpflicht bei komplettem M8-Abzug** | **Noch nicht elektrisch verdrahtet oder validiert; Relais/Spulenversorgung/Schutz offen** |
+| `01_Eingangsschutz.kicad_sch` | **TEILENTWURF:** K101 Omron G6S-2F DC5 mit echtem Pad-1/12-Spulenanschluss, NO 4/5, Q111 DMN2056U-Spulentreiber, D111 SS36-Freilauf, R111 100k-Pulldown. **5V_AUX_COIL / RELAY_ENABLE_5V / Schutzketten / ACC-HOLD fehlen noch**. | **Nicht funktionsfähig als Gesamtbaugruppe; ERC/DRC nicht ausgeführt.** |
 | `02_5V_Buck.kicad_sch` | LMR36520 als Reglerkandidat, Spule, 5-V-Feedback, Bootstrap/VCC-Kondensatoren und Ausgangskondensatoren | **9 reale Symbolinstanzen mit vorläufiger Verdrahtung; Bauteilauslegung/Pin-Footprint-Freigabe offen** |
 | `03_3V3_USB.kicad_sch` | 3,3-V-LDO, Bordnetz/USB-Priorisierung, 5-V-Laborteststecker | **Noch nicht verschaltet** |
 | `04_ESP32_USB.kicad_sch` | ESP32-S3-MINI-1-N8, USB-C-Buchse, 2×5,1-kΩ-CC-Rd, USBLC6-2SC6, D+/D−-Serienwiderstände, BOOT/EN-Pull-ups, lokale Kondensatoren | **12 echte Symbolinstanzen verdrahtet; übrige GPIOs und Quellenentkopplung fehlen** |
@@ -43,6 +43,8 @@ Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation 
 Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt zwei Kupferlagen; DRC-Mindestabstände sind **vorläufig** und bei JLCPCB mit dem tatsächlichen Stack-up abzugleichen. 35 µm/1 oz bleibt verbindliches Konstruktionsziel (HW-71).
 
 ## Baugruppe 01: Relais-Vorprüfung (13.10.2026)
+
+**KiCad-Fortschritt a1:** [01_Eingangsschutz.kicad_sch](01_Eingangsschutz.kicad_sch) enthält jetzt die erste real gezeichnete **Teilbeschaltung aus K101, Q111, D111, R111** und globale Schnittstellennetze. Die Relaisschaltung allein ist **nicht vollständig selbstversorgend**: die Hilfs-5V, gültige ACC/HOLD-Logik, eFuse/Schutz und Power-On-Interlock fehlen noch. Neues [portables Relaissymbol](TripTracer_V1.kicad_sym) und [Projektfootprint](Tripmaster.pretty/RLY101_Omron_G6S_2F.kicad_mod) laut Omron-Maßzeichnung, **ohne 3D-Modell** und ohne native KiCad-Freigabe. **Noch nicht** als fertiges/DRC-geprüftes PCB-Bauteil platziert.
 
 [Technischer Designreview mit Bauteilkandidaten, Spulenrechnung, Kosten- und Kompatibilitäts-Gates](../../docs/POWER_RELAY_DESIGN_REVIEW.md). **Omron G6S-2F DC5 (C16707, Extended)** und **TI LM5164QDDARQ1 (C2072225, Kategorie offen)** sind **Kandidaten**, keine freigegebenen/platzierten KiCad-Bauteile. Aktuelle KiCad-Seite 01 enthält **noch keine realen elektrischen Verbindungen**. Keine ERC-/DRC-/Fertigungsfreigabe erfolgt.
 
