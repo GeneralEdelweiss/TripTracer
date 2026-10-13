@@ -27,6 +27,16 @@ Diese Mehrseiten-Navigation ist eine **dauerhafte Projektanforderung**, keine op
 
 **Verbindliche oberste Entwicklungsprämisse (HW-77–80):** TripTracer ist ein **preisbewusster DIY-Tripmaster mit Potenzial zur Kleinserie/Serienfertigung**, nicht ein unbegrenzt teures Entwicklungsprojekt. Bei **jeder** Hardware-, Bauteil-, Schaltungs-, PCB- und Mechanikentscheidung die **realen Gesamtkosten** mitdenken – ohne sicherheitskritische Kompromisse und ohne beschlossene Kernfunktionen zu streichen. **Es gibt noch keinen verbindlich genannten Preisdeckel oder Ziel-Verkaufspreis: keine Budgets erfinden.**
 
+### Pareto-Entscheidungsregel: hoher Nutzen fuer wenig Geld
+
+**Ausdrueckliche Nutzerpraeferenz (HW-81):** **Kein fixes Budget.** Statt maximaler Ausstattung oder minimalen Teilepreisen gilt: **Moeglichst viel wirklich gebrauchte Funktion, Qualitaet und Zuverlaessigkeit pro Euro.** „80 % der Funktion fuer 20 % des Geldes waeren perfekt“ ist ein **bildhaftes Pareto-/80-20-Ziel**, keine mathematisch einzuhaltende Quote.
+
+- Vor kostentreibenden Architektur-, Teile-, Interface-, PCB- oder Mechanikentscheidungen **eine guenstige, voll taugliche Basisvariante** gegen eine aufwendigere/Premiumvariante vergleichen. Nicht nur die absoluten Preise angeben, sondern explizit: **Was bringt der Aufpreis dem Nutzer im konkreten Einsatz?**
+- **Diminishing Returns vermeiden:** Wenn eine Option um ein Vielfaches teurer wird und nur minimalen Mehrwert fuer den vorgesehenen Tripmaster bringt, die preiswertere, zuverlaessige Variante bevorzugen. Falls ein ueberschaubarer Aufpreis erhebliche Funktions-, Sicherheits- oder Lebensdauervorteile bringt, den Aufpreis bewusst akzeptieren.
+- **80/20 NICHT als Freibrief zum Weglassen** beschlossener Funktionen oder zu gering dimensionierter Elektronik interpretieren. Verpol-/Transientenschutz, Abschaltspeicherung, robuste Versorgungs- und Kommunikationspfade, Belastungs-/Temperaturreserven sowie andere sicherheits- oder funktionskritische Anforderungen bleiben verbindlich.
+- Bei grossem Einsparpotenzial durch Aenderung einer bereits beschlossenen Anforderung **zuerst die Alternative, Einsparung, Nachteile und Abhaengigkeiten transparent vorlegen und Nutzerfreigabe einholen**, nicht heimlich Kernfunktionen ausduennen.
+- Pro Baugruppe in der Kostenbetrachtung moeglichst zwei Varianten mit **realem, quellenbasiertem Gesamtpreis und konkretem Zusatznutzen** dokumentieren. Ungepruefte Preise oder subjektive Prozentschaetzungen klar kennzeichnen; keine Scheingenauigkeit.
+
 ### Kostendisziplin bei jeder Baugruppe
 
 1. **Kosten vor der Bauteilfestlegung prüfen, nicht erst nach dem Layout:** Wo praktikabel mindestens zwei technisch gleichwertige Optionen hinsichtlich Funktion, Thermik, Langzeitverfügbarkeit, Stückpreis, Beschaffungsnebenkosten, LCSC/JLCPCB-Kategorie, Package, Löt-/Bestückungsaufwand und nötigen Zusatzbauteilen vergleichen. Nicht unnötig überdimensionieren, aber ausreichende Reserve vorsehen.
