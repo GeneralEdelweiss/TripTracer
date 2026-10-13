@@ -1,0 +1,7263 @@
+(export
+	(version "E")
+	(design
+		(source "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\TripTracer_V1.kicad_sch")
+		(date "2026-10-13T23:23:15")
+		(tool "Eeschema 10.0.6")
+		(textvar
+			(name "BOARD_THICKNESS") "1.6mm")
+		(textvar
+			(name "COPPER") "35um")
+		(textvar
+			(name "DESIGN_STAGE") "A1_NICHT_FERTIGUNGSREIF")
+		(sheet
+			(number "1")
+			(name "/")
+			(tstamps "/")
+			(title_block
+				(title "TripTracer – Hardware V1 (Entwurf)")
+				(company "TripTracer")
+				(rev "V1.0-a0 / NICHT FERTIGUNGSREIF")
+				(date "2026-10-13")
+				(source "TripTracer_V1.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "2")
+			(name "/Eingangsschutz / eFuse / HV-Puffer/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/")
+			(title_block
+				(title "TripTracer V1 - ACC/BAT+ Eingangsschutz und Relais")
+				(company)
+				(rev "a1 / RELAIS-TEILENTWURF - NICHT ERC-GEPRUEFT")
+				(date "2026-10-13")
+				(source "01_Eingangsschutz.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "3")
+			(name "/5-V-Synchronbuck (elektrischer Entwurf)/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			(title_block
+				(title "TripTracer V1 – 5 V Buck: ELEKTRISCHER ENTWURF")
+				(company)
+				(rev "a1 / TI-REF 5V 2A / ERC OFFEN")
+				(date "2026-10-13")
+				(source "02_5V_Buck.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "4")
+			(name "/3,3-V-LDO / USB- und Laboreinspeisung/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000067/")
+			(title_block
+				(title "TripTracer V1 – 3,3-V-LDO / USB- und Laboreinspeisung")
+				(company)
+				(rev "a0 / NOCH NICHT VERDRAHTET")
+				(date "2026-10-13")
+				(source "03_3V3_USB.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "5")
+			(name "/ESP32-S3 / USB-Daten / Boot/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			(title_block
+				(title "TripTracer V1 – ESP32-S3 / native USB-C – Arbeitsstand")
+				(company)
+				(rev "a1 / NICHT ERC-GEPRUEFT")
+				(date "2026-10-13")
+				(source "04_ESP32_USB.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "6")
+			(name "/MAX-M10N / RF / Bias/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000069/")
+			(title_block
+				(title "TripTracer V1 – MAX-M10N / RF / Bias")
+				(company)
+				(rev "a0 / NOCH NICHT VERDRAHTET")
+				(date "2026-10-13")
+				(source "05_GNSS.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "7")
+			(name "/Riverdi / Backlight / Tasten/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-00000000006a/")
+			(title_block
+				(title "TripTracer V1 – Riverdi / Backlight / Tasten")
+				(company)
+				(rev "a0 / NOCH NICHT VERDRAHTET")
+				(date "2026-10-13")
+				(source "06_Display_Tasten.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "8")
+			(name "/microSD / FRAM / RTC/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-00000000006b/")
+			(title_block
+				(title "TripTracer V1 – microSD / FRAM / RTC")
+				(company)
+				(rev "a0 / NOCH NICHT VERDRAHTET")
+				(date "2026-10-13")
+				(source "07_Speicher_RTC.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "9")
+			(name "/Radsensoren / JST-GH / I2C/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-00000000006c/")
+			(title_block
+				(title "TripTracer V1 – Radsensoren / JST-GH / I2C")
+				(company)
+				(rev "a0 / NOCH NICHT VERDRAHTET")
+				(date "2026-10-13")
+				(source "08_Radsensoren.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "10")
+			(name "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			(title_block
+				(title "TripTracer V1 - AUX 5V Relais-Spulenversorgung (Vorentwurf)")
+				(company)
+				(rev "a1 / VALUES PRELIMINARY / ERC NOT RUN")
+				(date "2026-10-13")
+				(source "01A_AUX_5V.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "11")
+			(name "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			(title_block
+				(title "TripTracer V1 - ACC Start / Hold-Diode Gate (PRELIMINARY)")
+				(company)
+				(rev "a2 / MCU HOLD WATCHDOG OPEN / ERC NOT RUN")
+				(date "2026-10-13")
+				(source "01B_ACC_WAKE.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "12")
+			(name "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			(title_block
+				(title "TripTracer V1 - Hardware-Timer / RELAY_HOLD")
+				(company)
+				(rev "a3 / PROVISIONAL / ERC NOT RUN")
+				(date "2026-10-13")
+				(source "01C_HOLD_TIMER.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+		(sheet
+			(number "13")
+			(name "/Eingangsschutz / eFuse / HV-Puffer/01D Kfz-Eingangsschutz/eFuse (Entwurf/GATE OFFEN)/")
+			(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/72346f29-23d6-4849-8604-2156cfdc44a1/")
+			(title_block
+				(title "TripTracer V1 - Eingangsschutz/eFuse Kandidat")
+				(company)
+				(rev "a5 / DESIGN GATE OPEN / NO WIRING / NO ERC")
+				(date "2026-10-13")
+				(source "01D_INPUT_PROTECTION.kicad_sch")
+				(comment
+					(number "1")
+					(value "")
+				)
+				(comment
+					(number "2")
+					(value "")
+				)
+				(comment
+					(number "3")
+					(value "")
+				)
+				(comment
+					(number "4")
+					(value "")
+				)
+				(comment
+					(number "5")
+					(value "")
+				)
+				(comment
+					(number "6")
+					(value "")
+				)
+				(comment
+					(number "7")
+					(value "")
+				)
+				(comment
+					(number "8")
+					(value "")
+				)
+				(comment
+					(number "9")
+					(value "")
+				)
+			)
+		)
+	)
+	(components
+		(comp
+			(ref "D111")
+			(value "SS36 - FLYBACK (CANDIDATE)")
+			(footprint "Tripmaster:D_SMA_SS36")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:D_SMA_SS36")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "SCHOTTKY")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "Eingangsschutz / eFuse / HV-Puffer")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01_Eingangsschutz.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/")
+			)
+			(tstamps "7800c154-925d-49d4-ace1-000000000016")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "K101")
+			(value "G6S-2F DC5 - C16707")
+			(footprint "Tripmaster:RLY101_Omron_G6S_2F")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:RLY101_Omron_G6S_2F")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "G6S_2F_DC5")
+				(description "Omron G6S-2F DC5, 5V 178Ohm relay DPDT; manufacturer's top-view pin numbering, 2A/30VDC resistive")
+			)
+			(property
+				(name "Sheetname")
+				(value "Eingangsschutz / eFuse / HV-Puffer")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01_Eingangsschutz.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/")
+			)
+			(tstamps "7800c154-925d-49d4-ace1-000000000009")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "10")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q111")
+			(value "DMN2056U-7")
+			(footprint "Tripmaster:Q1_Diodes_DMN2056U_7")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:Q1_Diodes_DMN2056U_7")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "NMOS")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "Eingangsschutz / eFuse / HV-Puffer")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01_Eingangsschutz.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/")
+			)
+			(tstamps "7800c154-925d-49d4-ace1-000000000013")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R111")
+			(value "100k - GATE PULLDOWN")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "Eingangsschutz / eFuse / HV-Puffer")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01_Eingangsschutz.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/")
+			)
+			(tstamps "7800c154-925d-49d4-ace1-000000000019")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C101")
+			(value "4.7uF 100V X7R VIN")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-000000000074")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C102")
+			(value "100nF BOOT-SW")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-000000000077")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C103")
+			(value "1uF VCC")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-00000000007a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C104")
+			(value "22uF 25V X7R VOUT")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-00000000007d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C105")
+			(value "22uF 25V X7R VOUT")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-000000000080")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C106")
+			(value "4.7uF 100V X7R VIN")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "be319a17-11af-4610-9bb7-000000000001")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C107")
+			(value "220nF 100V X7R HF VIN")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "be319a17-11af-4610-9bb7-000000000004")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "L101")
+			(value "10uH Bourns SRP6030VA-100M (5A Isat)")
+			(footprint "Tripmaster:L_Bourns_SRP6030VA_100M")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:L_Bourns_SRP6030VA_100M")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "L")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-000000000071")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R101")
+			(value "100k 1% FB TOP TI")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-000000000083")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R102")
+			(value "24.9k 1% FB BOTTOM TI")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-000000000086")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U101")
+			(value "LMR36520ADDAR 5V/2A CANDIDATE")
+			(footprint "Tripmaster:U3_TI_LMR36510ADDAR_DDA")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:U3_TI_LMR36510ADDAR_DDA")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "LMR36520")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "5-V-Synchronbuck (elektrischer Entwurf)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "02_5V_Buck.kicad_sch")
+			)
+			(sheetpath
+				(names "/5-V-Synchronbuck (elektrischer Entwurf)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000066/")
+			)
+			(tstamps "a26d9b0c-7f10-4e5a-a65f-00000000006e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C201")
+			(value "100nF MCU local")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f4d")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C202")
+			(value "22uF MCU bulk")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f50")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C203")
+			(value "1uF EN RC")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f53")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D201")
+			(value "USBLC6-2SC6")
+			(footprint "Tripmaster:D2_ST_USBLC6_2SC6")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:D2_ST_USBLC6_2SC6")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "USB_ESD")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f34")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J201")
+			(value "GCT USB4105-GF-A")
+			(footprint "Tripmaster:J1_GCT_USB4105_GF_A_USB_C")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:J1_GCT_USB4105_GF_A_USB_C")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "USB_C_GCT_USB4105")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f22")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "A1")
+						)
+						(pin
+							(num "A4")
+						)
+						(pin
+							(num "A5")
+						)
+						(pin
+							(num "A6")
+						)
+						(pin
+							(num "A7")
+						)
+						(pin
+							(num "A8")
+						)
+						(pin
+							(num "A9")
+						)
+						(pin
+							(num "A12")
+						)
+						(pin
+							(num "B1")
+						)
+						(pin
+							(num "B4")
+						)
+						(pin
+							(num "B5")
+						)
+						(pin
+							(num "B6")
+						)
+						(pin
+							(num "B7")
+						)
+						(pin
+							(num "B8")
+						)
+						(pin
+							(num "B9")
+						)
+						(pin
+							(num "B12")
+						)
+						(pin
+							(num "SH")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R201")
+			(value "5.1k CC1")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f3b")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R202")
+			(value "5.1k CC2")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f3e")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R203")
+			(value "22R D+")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f41")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R204")
+			(value "22R D-")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f44")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R205")
+			(value "10k BOOT PU")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f47")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R206")
+			(value "10k EN PU")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002f4a")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U201")
+			(value "ESP32-S3-MINI-1-N8")
+			(footprint "Tripmaster:U1_ESP32-S3-MINI-1-N8")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:U1_ESP32-S3-MINI-1-N8")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "ESP32_S3_MINI_1_N8")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "ESP32-S3 / USB-Daten / Boot")
+			)
+			(property
+				(name "Sheetfile")
+				(value "04_ESP32_USB.kicad_sch")
+			)
+			(sheetpath
+				(names "/ESP32-S3 / USB-Daten / Boot/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000068/")
+			)
+			(tstamps "5ec18d7a-826f-4b31-8e76-000000002ee0")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "13")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "21")
+						)
+						(pin
+							(num "22")
+						)
+						(pin
+							(num "23")
+						)
+						(pin
+							(num "24")
+						)
+						(pin
+							(num "25")
+						)
+						(pin
+							(num "26")
+						)
+						(pin
+							(num "27")
+						)
+						(pin
+							(num "28")
+						)
+						(pin
+							(num "29")
+						)
+						(pin
+							(num "30")
+						)
+						(pin
+							(num "31")
+						)
+						(pin
+							(num "32")
+						)
+						(pin
+							(num "33")
+						)
+						(pin
+							(num "34")
+						)
+						(pin
+							(num "35")
+						)
+						(pin
+							(num "36")
+						)
+						(pin
+							(num "37")
+						)
+						(pin
+							(num "38")
+						)
+						(pin
+							(num "39")
+						)
+						(pin
+							(num "40")
+						)
+						(pin
+							(num "41")
+						)
+						(pin
+							(num "44")
+						)
+						(pin
+							(num "45")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "42")
+						)
+						(pin
+							(num "43")
+						)
+						(pin
+							(num "46")
+						)
+						(pin
+							(num "47")
+						)
+						(pin
+							(num "48")
+						)
+						(pin
+							(num "49")
+						)
+						(pin
+							(num "50")
+						)
+						(pin
+							(num "51")
+						)
+						(pin
+							(num "52")
+						)
+						(pin
+							(num "53")
+						)
+						(pin
+							(num "54")
+						)
+						(pin
+							(num "55")
+						)
+						(pin
+							(num "56")
+						)
+						(pin
+							(num "57")
+						)
+						(pin
+							(num "58")
+						)
+						(pin
+							(num "59")
+						)
+						(pin
+							(num "60")
+						)
+						(pin
+							(num "61")
+						)
+						(pin
+							(num "62")
+						)
+						(pin
+							(num "63")
+						)
+						(pin
+							(num "64")
+						)
+						(pin
+							(num "65")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C204")
+			(value "22uF 16V X7R")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000223")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C205")
+			(value "22uF 16V X7R")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000226")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C206")
+			(value "3.3nF 50V X7R - CA")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000229")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C207")
+			(value "100pF 50V C0G - CB")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000232")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C1201")
+			(value "2.2uF 100V X7R")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000214")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C1202")
+			(value "2.2uF 100V X7R")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000217")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C1203")
+			(value "2.2nF 50V X7R - BST")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000220")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "L201")
+			(value "68uH - Isat>=1.75A TO VERIFY")
+			(fields
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "L")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000211")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1201")
+			(value "316k 1% - FB TOP")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000235")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1202")
+			(value "100k 1% - FB BOTTOM")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000238")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1203")
+			(value "43.2k 1% - RON")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000241")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R1204")
+			(value "180k 1% - RIPPLE RA")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000244")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U1201")
+			(value "LM5164QDDARQ1 - AUX 5V CANDIDATE")
+			(fields
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "LM5164_Q1")
+				(description "TI LM5164-Q1 6-100V buck 1A DDA SO-PowerPAD; footprint selection PENDING manufacturer drawing")
+			)
+			(property
+				(name "Sheetname")
+				(value "01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01A_AUX_5V.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01A Hilfsversorgung - LM5164-Q1 5V AUX (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/d4c3b2a1-1111-4111-8111-222222222201/")
+			)
+			(tstamps "6eaa034d-ff31-4ade-bc50-000000000201")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "6")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C301")
+			(value "10nF 50V X7R")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000021")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D301")
+			(value "BAT54WS ACC OR (C5251553)")
+			(footprint "Tripmaster:D_BAT54WS_SOD323")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:D_BAT54WS_SOD323")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "SCHOTTKY")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000024")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D302")
+			(value "BAT54WS HOLD OR (C5251553)")
+			(footprint "Tripmaster:D_BAT54WS_SOD323")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:D_BAT54WS_SOD323")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "SCHOTTKY")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000027")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q301")
+			(value "MMBT5551 (C408396)")
+			(footprint "Tripmaster:Q_SOT23_1B2E3C")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:Q_SOT23_1B2E3C")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "MMBT5551")
+				(description "NPN SOT23 B1,E2,C3 MMBT5551, package/copper verified on datasheet")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000001")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "Q302")
+			(value "MMBT5401 (C408397)")
+			(footprint "Tripmaster:Q_SOT23_1B2E3C")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:Q_SOT23_1B2E3C")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "MMBT5401")
+				(description "PNP SOT23 B1,E2,C3 MMBT5401, package/copper verified on datasheet")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000005")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R301")
+			(value "220k ACC LIMIT")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000009")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R302")
+			(value "220k BASE PULL")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000012")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R303")
+			(value "47k PNP BASE")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000015")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R304")
+			(value "220k PNP OFF")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-000000000018")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R305")
+			(value "100k ACC_DRIVE_OFF_PULLDOWN")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01B ACC-Start und HOLD-OR (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01B_ACC_WAKE.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01B ACC-Start und HOLD-OR (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/be2301bb-8455-4581-8a01-3333333301bb/")
+			)
+			(tstamps "f7ab23d0-4444-4acc-a001-999999999001")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C501")
+			(value "10uF 16V X7R (1210), DERATE")
+			(footprint "Tripmaster:C_1210_3225")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C1210")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000049")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C502")
+			(value "10nF AC falling-edge pulse")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000063")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C503")
+			(value "100nF RESET POR filter")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000077")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C504")
+			(value "10nF CONT bypass")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000084")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C505")
+			(value "100nF VDD bypass")
+			(footprint "Tripmaster:C_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "C")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000091")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D501")
+			(value "BAT54WS TRIG positive clamp")
+			(footprint "Tripmaster:D_BAT54WS_SOD323")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:D_BAT54WS_SOD323")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "SCHOTTKY")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000105")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "D502")
+			(value "BAT54WS TRIG negative clamp")
+			(footprint "Tripmaster:D_BAT54WS_SOD323")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:D_BAT54WS_SOD323")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "SCHOTTKY")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000112")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "1")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R501")
+			(value "2.2M 1% - tMAX")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000042")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R502")
+			(value "100k TRIG pull-up")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000056")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R503")
+			(value "100k RESET pull-up")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000070")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "R504")
+			(value "100k MCU hold pull-down")
+			(footprint "Tripmaster:R_1206_3216")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Tripmaster_Sym")
+				(part "R")
+				(description "")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000098")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U501")
+			(value "TLC555QDRQ1 - MONOSTABLE 24s NOM")
+			(footprint "Tripmaster:U_TLC555_SOIC8")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:U_TLC555_SOIC8")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "TLC555_Q1")
+				(description "TI TLC555-Q1 automotive CMOS monostable: GND1 TRIG2 OUT3 RESET4 CONT5 THRES6 DISCH7 VDD8")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000001")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "7")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U502")
+			(value "SN74LVC1G08-Q1 AND")
+			(footprint "Tripmaster:U_AND_SOT23_5")
+			(fields
+				(field
+					(name "Footprint") "Tripmaster:U_AND_SOT23_5")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "SN74LVC1G08_Q1")
+				(description "TI automotive single AND gate: A1 B2 GND3 Y4 VCC5 - DBV SOT23-5")
+			)
+			(property
+				(name "Sheetname")
+				(value "01C Hardware-Nachlaufbegrenzer (vorlaeufig)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01C_HOLD_TIMER.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01C Hardware-Nachlaufbegrenzer (vorlaeufig)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/44e29570-df14-4b18-a1c0-222222222201/")
+			)
+			(tstamps "904589dd-1583-4001-acce-000000000010")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "4")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "U401")
+			(value "TPS26631PWPT CANDIDATE - NOT CONNECTED")
+			(fields
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "TripTracer_V1")
+				(part "TPS26631_PWP")
+				(description "TI TPS26631 PWPT HTSSOP-20 eFuse; external reverse FET required; NO footprint/board approval yet")
+			)
+			(property
+				(name "Sheetname")
+				(value "01D Kfz-Eingangsschutz/eFuse (Entwurf/GATE OFFEN)")
+			)
+			(property
+				(name "Sheetfile")
+				(value "01D_INPUT_PROTECTION.kicad_sch")
+			)
+			(sheetpath
+				(names "/Eingangsschutz / eFuse / HV-Puffer/01D Kfz-Eingangsschutz/eFuse (Entwurf/GATE OFFEN)/")
+				(tstamps "/a26d9b0c-7f10-4e5a-a65f-000000000065/72346f29-23d6-4849-8604-2156cfdc44a1/")
+			)
+			(tstamps "72346f29-23d6-4849-8604-2156cfdc44a3")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+						(pin
+							(num "3")
+						)
+						(pin
+							(num "6")
+						)
+						(pin
+							(num "4")
+						)
+						(pin
+							(num "5")
+						)
+						(pin
+							(num "7")
+						)
+						(pin
+							(num "8")
+						)
+						(pin
+							(num "9")
+						)
+						(pin
+							(num "10")
+						)
+						(pin
+							(num "11")
+						)
+						(pin
+							(num "12")
+						)
+						(pin
+							(num "18")
+						)
+						(pin
+							(num "19")
+						)
+						(pin
+							(num "20")
+						)
+						(pin
+							(num "17")
+						)
+						(pin
+							(num "16")
+						)
+						(pin
+							(num "15")
+						)
+						(pin
+							(num "14")
+						)
+						(pin
+							(num "13")
+						)
+					)
+				)
+			)
+		)
+	)
+	(groups)
+	(variants)
+	(libparts
+		(libpart
+			(lib "TripTracer_V1")
+			(part "G6S_2F_DC5")
+			(description "Omron G6S-2F DC5, 5V 178Ohm relay DPDT; manufacturer's top-view pin numbering, 2A/30VDC resistive")
+			(docs "https://omronfs.omron.com/en_US/ecb/products/pdf/en-g6s.pdf")
+			(fields
+				(field
+					(name "Reference") "K")
+				(field
+					(name "Value") "G6S_2F_DC5")
+				(field
+					(name "Footprint") "Tripmaster:RLY101_Omron_G6S_2F")
+				(field
+					(name "Datasheet") "https://omronfs.omron.com/en_US/ecb/products/pdf/en-g6s.pdf")
+				(field
+					(name "Description") "Omron G6S-2F DC5, 5V 178Ohm relay DPDT; manufacturer's top-view pin numbering, 2A/30VDC resistive")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "COIL+")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "NC_A")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "COM_A")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "NO_A")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "NO_B")
+					(type "passive")
+				)
+				(pin
+					(num "9")
+					(name "COM_B")
+					(type "passive")
+				)
+				(pin
+					(num "10")
+					(name "NC_B")
+					(type "passive")
+				)
+				(pin
+					(num "12")
+					(name "COIL-")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "LM5164_Q1")
+			(description "TI LM5164-Q1 6-100V buck 1A DDA SO-PowerPAD; footprint selection PENDING manufacturer drawing")
+			(docs "https://www.ti.com/lit/ds/symlink/lm5164.pdf")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "LM5164_Q1")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/lm5164.pdf")
+				(field
+					(name "Description") "TI LM5164-Q1 6-100V buck 1A DDA SO-PowerPAD; footprint selection PENDING manufacturer drawing")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "VIN")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "EN/UVLO")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "RON")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "FB")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "PGOOD")
+					(type "open_collector")
+				)
+				(pin
+					(num "7")
+					(name "BST")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "SW")
+					(type "power_out")
+				)
+				(pin
+					(num "9")
+					(name "EP/GND")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "LMR36520")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "LMR36520")
+				(field
+					(name "Footprint") "Tripmaster:U3_TI_LMR36510ADDAR_DDA")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "PGND")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "VIN")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "4")
+					(name "PG")
+					(type "open_collector")
+				)
+				(pin
+					(num "5")
+					(name "FB")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "VCC")
+					(type "power_out")
+				)
+				(pin
+					(num "7")
+					(name "BOOT")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "SW")
+					(type "output")
+				)
+				(pin
+					(num "9")
+					(name "EPAD")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "MMBT5401")
+			(description "PNP SOT23 B1,E2,C3 MMBT5401, package/copper verified on datasheet")
+			(docs "https://datasheet.lcsc.com/lcsc/2410121257_LangJie-MMBT5401_C18195369.pdf")
+			(fields
+				(field
+					(name "Reference") "Q")
+				(field
+					(name "Value") "MMBT5401")
+				(field
+					(name "Footprint") "Tripmaster:Q_SOT23_1B2E3C")
+				(field
+					(name "Datasheet") "https://datasheet.lcsc.com/lcsc/2410121257_LangJie-MMBT5401_C18195369.pdf")
+				(field
+					(name "Description") "PNP SOT23 B1,E2,C3 MMBT5401, package/copper verified on datasheet")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "B")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "E")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "C")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "MMBT5551")
+			(description "NPN SOT23 B1,E2,C3 MMBT5551, package/copper verified on datasheet")
+			(docs "https://datasheet.lcsc.com/lcsc/2411211939_MDD-Microdiode-Semiconductor-MMBT5551_C408396.pdf")
+			(fields
+				(field
+					(name "Reference") "Q")
+				(field
+					(name "Value") "MMBT5551")
+				(field
+					(name "Footprint") "Tripmaster:Q_SOT23_1B2E3C")
+				(field
+					(name "Datasheet") "https://datasheet.lcsc.com/lcsc/2411211939_MDD-Microdiode-Semiconductor-MMBT5551_C408396.pdf")
+				(field
+					(name "Description") "NPN SOT23 B1,E2,C3 MMBT5551, package/copper verified on datasheet")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "B")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "E")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "C")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "SN74LVC1G08_Q1")
+			(description "TI automotive single AND gate: A1 B2 GND3 Y4 VCC5 - DBV SOT23-5")
+			(docs "https://www.ti.com/lit/ds/symlink/sn74lvc1g08-q1.pdf")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "SN74LVC1G08-Q1")
+				(field
+					(name "Footprint") "Tripmaster:U_AND_SOT23_5")
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/sn74lvc1g08-q1.pdf")
+				(field
+					(name "Description") "TI automotive single AND gate: A1 B2 GND3 Y4 VCC5 - DBV SOT23-5")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "A")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "B")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "Y")
+					(type "output")
+				)
+				(pin
+					(num "5")
+					(name "VCC")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "TLC555_Q1")
+			(description "TI TLC555-Q1 automotive CMOS monostable: GND1 TRIG2 OUT3 RESET4 CONT5 THRES6 DISCH7 VDD8")
+			(docs "https://www.ti.com/lit/ds/symlink/tlc555-q1.pdf")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "TLC555-Q1")
+				(field
+					(name "Footprint") "Tripmaster:U_TLC555_SOIC8")
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tlc555-q1.pdf")
+				(field
+					(name "Description") "TI TLC555-Q1 automotive CMOS monostable: GND1 TRIG2 OUT3 RESET4 CONT5 THRES6 DISCH7 VDD8")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "TRIG")
+					(type "input")
+				)
+				(pin
+					(num "3")
+					(name "OUT")
+					(type "output")
+				)
+				(pin
+					(num "4")
+					(name "RESET")
+					(type "input")
+				)
+				(pin
+					(num "5")
+					(name "CONT")
+					(type "input")
+				)
+				(pin
+					(num "6")
+					(name "THRES")
+					(type "input")
+				)
+				(pin
+					(num "7")
+					(name "DISCH")
+					(type "passive")
+				)
+				(pin
+					(num "8")
+					(name "VDD")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "TripTracer_V1")
+			(part "TPS26631_PWP")
+			(description "TI TPS26631 PWPT HTSSOP-20 eFuse; external reverse FET required; NO footprint/board approval yet")
+			(docs "https://www.ti.com/lit/ds/symlink/tps2663.pdf")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "TPS26631_PWP")
+				(field
+					(name "Footprint")
+				)
+				(field
+					(name "Datasheet") "https://www.ti.com/lit/ds/symlink/tps2663.pdf")
+				(field
+					(name "Description") "TI TPS26631 PWPT HTSSOP-20 eFuse; external reverse FET required; NO footprint/board approval yet")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "IN1")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "IN2")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "IN3")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "B_GATE")
+					(type "output")
+				)
+				(pin
+					(num "5")
+					(name "DRV")
+					(type "output")
+				)
+				(pin
+					(num "6")
+					(name "IN_SYS")
+					(type "power_in")
+				)
+				(pin
+					(num "7")
+					(name "UVLO")
+					(type "input")
+				)
+				(pin
+					(num "8")
+					(name "OVP")
+					(type "input")
+				)
+				(pin
+					(num "9")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "10")
+					(name "dVdT")
+					(type "passive")
+				)
+				(pin
+					(num "11")
+					(name "ILIM")
+					(type "passive")
+				)
+				(pin
+					(num "12")
+					(name "MODE")
+					(type "input")
+				)
+				(pin
+					(num "13")
+					(name "SHDN")
+					(type "input")
+				)
+				(pin
+					(num "14")
+					(name "IMON")
+					(type "output")
+				)
+				(pin
+					(num "15")
+					(name "FLT")
+					(type "open_collector")
+				)
+				(pin
+					(num "16")
+					(name "PGTH")
+					(type "input")
+				)
+				(pin
+					(num "17")
+					(name "PGOOD")
+					(type "open_collector")
+				)
+				(pin
+					(num "18")
+					(name "OUT1")
+					(type "power_out")
+				)
+				(pin
+					(num "19")
+					(name "OUT2")
+					(type "power_out")
+				)
+				(pin
+					(num "20")
+					(name "OUT3")
+					(type "power_out")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "C")
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "C")
+				(field
+					(name "Footprint") "Tripmaster:C_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "C1210")
+			(fields
+				(field
+					(name "Reference") "C")
+				(field
+					(name "Value") "C1210")
+				(field
+					(name "Footprint") "Tripmaster:C_1210_3225")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "ESP32_S3_MINI_1_N8")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "ESP32_S3_MINI_1_N8")
+				(field
+					(name "Footprint") "Tripmaster:U1_ESP32-S3-MINI-1-N8")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "3V3")
+					(type "power_in")
+				)
+				(pin
+					(num "4")
+					(name "IO0")
+					(type "bidirectional")
+				)
+				(pin
+					(num "5")
+					(name "IO1")
+					(type "bidirectional")
+				)
+				(pin
+					(num "6")
+					(name "IO2")
+					(type "bidirectional")
+				)
+				(pin
+					(num "7")
+					(name "IO3")
+					(type "bidirectional")
+				)
+				(pin
+					(num "8")
+					(name "IO4")
+					(type "bidirectional")
+				)
+				(pin
+					(num "9")
+					(name "IO5")
+					(type "bidirectional")
+				)
+				(pin
+					(num "10")
+					(name "IO6")
+					(type "bidirectional")
+				)
+				(pin
+					(num "11")
+					(name "IO7")
+					(type "bidirectional")
+				)
+				(pin
+					(num "12")
+					(name "IO8")
+					(type "bidirectional")
+				)
+				(pin
+					(num "13")
+					(name "IO9")
+					(type "bidirectional")
+				)
+				(pin
+					(num "14")
+					(name "IO10")
+					(type "bidirectional")
+				)
+				(pin
+					(num "15")
+					(name "IO11")
+					(type "bidirectional")
+				)
+				(pin
+					(num "16")
+					(name "IO12")
+					(type "bidirectional")
+				)
+				(pin
+					(num "17")
+					(name "IO13")
+					(type "bidirectional")
+				)
+				(pin
+					(num "18")
+					(name "IO14")
+					(type "bidirectional")
+				)
+				(pin
+					(num "19")
+					(name "IO15")
+					(type "bidirectional")
+				)
+				(pin
+					(num "20")
+					(name "IO16")
+					(type "bidirectional")
+				)
+				(pin
+					(num "21")
+					(name "IO17")
+					(type "bidirectional")
+				)
+				(pin
+					(num "22")
+					(name "IO18")
+					(type "bidirectional")
+				)
+				(pin
+					(num "23")
+					(name "IO19_USB_DM")
+					(type "bidirectional")
+				)
+				(pin
+					(num "24")
+					(name "IO20_USB_DP")
+					(type "bidirectional")
+				)
+				(pin
+					(num "25")
+					(name "IO21")
+					(type "bidirectional")
+				)
+				(pin
+					(num "26")
+					(name "IO26")
+					(type "bidirectional")
+				)
+				(pin
+					(num "27")
+					(name "IO47")
+					(type "bidirectional")
+				)
+				(pin
+					(num "28")
+					(name "IO33")
+					(type "bidirectional")
+				)
+				(pin
+					(num "29")
+					(name "IO34")
+					(type "bidirectional")
+				)
+				(pin
+					(num "30")
+					(name "IO48")
+					(type "bidirectional")
+				)
+				(pin
+					(num "31")
+					(name "IO35")
+					(type "bidirectional")
+				)
+				(pin
+					(num "32")
+					(name "IO36")
+					(type "bidirectional")
+				)
+				(pin
+					(num "33")
+					(name "IO37")
+					(type "bidirectional")
+				)
+				(pin
+					(num "34")
+					(name "IO38")
+					(type "bidirectional")
+				)
+				(pin
+					(num "35")
+					(name "IO39")
+					(type "bidirectional")
+				)
+				(pin
+					(num "36")
+					(name "IO40")
+					(type "bidirectional")
+				)
+				(pin
+					(num "37")
+					(name "IO41")
+					(type "bidirectional")
+				)
+				(pin
+					(num "38")
+					(name "IO42")
+					(type "bidirectional")
+				)
+				(pin
+					(num "39")
+					(name "TXD0_IO43")
+					(type "bidirectional")
+				)
+				(pin
+					(num "40")
+					(name "RXD0_IO44")
+					(type "bidirectional")
+				)
+				(pin
+					(num "41")
+					(name "IO45")
+					(type "bidirectional")
+				)
+				(pin
+					(num "42")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "43")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "44")
+					(name "IO46")
+					(type "bidirectional")
+				)
+				(pin
+					(num "45")
+					(name "EN")
+					(type "input")
+				)
+				(pin
+					(num "46")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "47")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "48")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "49")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "50")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "51")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "52")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "53")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "54")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "55")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "56")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "57")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "58")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "59")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "60")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "61")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "62")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "63")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "64")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "65")
+					(name "GND")
+					(type "power_in")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "L")
+			(fields
+				(field
+					(name "Reference") "L")
+				(field
+					(name "Value") "L")
+				(field
+					(name "Footprint") "Tripmaster:L1_Bourns_SRN6045_220M")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "NMOS")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "NMOS")
+				(field
+					(name "Footprint") "Tripmaster:Q1_Diodes_DMN2056U_7")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "G")
+					(type "input")
+				)
+				(pin
+					(num "2")
+					(name "S")
+					(type "passive")
+				)
+				(pin
+					(num "3")
+					(name "D")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "R")
+			(fields
+				(field
+					(name "Reference") "R")
+				(field
+					(name "Value") "R")
+				(field
+					(name "Footprint") "Tripmaster:R_1206_3216")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "SCHOTTKY")
+			(fields
+				(field
+					(name "Reference") "D")
+				(field
+					(name "Value") "SCHOTTKY")
+				(field
+					(name "Footprint") "Tripmaster:D_SMA_SS36")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "K")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "A")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "USB_C_GCT_USB4105")
+			(fields
+				(field
+					(name "Reference") "J")
+				(field
+					(name "Value") "USB_C_GCT_USB4105")
+				(field
+					(name "Footprint") "Tripmaster:J1_GCT_USB4105_GF_A_USB_C")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "A1")
+					(name "GND_A1")
+					(type "passive")
+				)
+				(pin
+					(num "A4")
+					(name "VBUS_A4")
+					(type "passive")
+				)
+				(pin
+					(num "A5")
+					(name "CC1")
+					(type "passive")
+				)
+				(pin
+					(num "A6")
+					(name "D+_A6")
+					(type "passive")
+				)
+				(pin
+					(num "A7")
+					(name "D-_A7")
+					(type "passive")
+				)
+				(pin
+					(num "A8")
+					(name "SBU1")
+					(type "passive")
+				)
+				(pin
+					(num "A9")
+					(name "VBUS_A9")
+					(type "passive")
+				)
+				(pin
+					(num "A12")
+					(name "GND_A12")
+					(type "passive")
+				)
+				(pin
+					(num "B1")
+					(name "GND_B1")
+					(type "passive")
+				)
+				(pin
+					(num "B4")
+					(name "VBUS_B4")
+					(type "passive")
+				)
+				(pin
+					(num "B5")
+					(name "CC2")
+					(type "passive")
+				)
+				(pin
+					(num "B6")
+					(name "D+_B6")
+					(type "passive")
+				)
+				(pin
+					(num "B7")
+					(name "D-_B7")
+					(type "passive")
+				)
+				(pin
+					(num "B8")
+					(name "SBU2")
+					(type "passive")
+				)
+				(pin
+					(num "B9")
+					(name "VBUS_B9")
+					(type "passive")
+				)
+				(pin
+					(num "B12")
+					(name "GND_B12")
+					(type "passive")
+				)
+				(pin
+					(num "SH")
+					(name "SHIELD")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
+			(lib "Tripmaster_Sym")
+			(part "USB_ESD")
+			(fields
+				(field
+					(name "Reference") "U")
+				(field
+					(name "Value") "USB_ESD")
+				(field
+					(name "Footprint") "Tripmaster:D2_ST_USBLC6_2SC6")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "IO1_IN")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "GND")
+					(type "power_in")
+				)
+				(pin
+					(num "3")
+					(name "IO2_IN")
+					(type "passive")
+				)
+				(pin
+					(num "4")
+					(name "IO2_OUT")
+					(type "passive")
+				)
+				(pin
+					(num "5")
+					(name "VBUS")
+					(type "power_in")
+				)
+				(pin
+					(num "6")
+					(name "IO1_OUT")
+					(type "passive")
+				)
+			)
+		)
+	)
+	(libraries
+		(library
+			(logical "TripTracer_V1")
+			(uri "${KIPRJMOD}/TripTracer_V1.kicad_sym")
+		)
+		(library
+			(logical "Tripmaster_Sym")
+			(uri "${KIPRJMOD}/Tripmaster_Sym.kicad_sym")
+		)
+	)
+	(nets
+		(net
+			(code "1")
+			(name "/5-V-Synchronbuck (elektrischer Entwurf)/BUCK_PGOOD")
+			(class "Default")
+			(node
+				(ref "U101")
+				(pin "4")
+				(pinfunction "PG_4")
+				(pintype "open_collector")
+			)
+		)
+		(net
+			(code "2")
+			(name "3V3_MAIN")
+			(class "Default")
+			(node
+				(ref "C505")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D501")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R501")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R502")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R503")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U501")
+				(pin "8")
+				(pinfunction "VDD_8")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U502")
+				(pin "5")
+				(pinfunction "VCC_5")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "3")
+			(name "5V_AUX_COIL")
+			(class "Default")
+			(node
+				(ref "C204")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C205")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C206")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D111")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "K101")
+				(pin "1")
+				(pinfunction "COIL+_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "L201")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q302")
+				(pin "2")
+				(pinfunction "E_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1201")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R304")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "4")
+			(name "ACC_BJT_BASE")
+			(class "Default")
+			(node
+				(ref "C301")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q301")
+				(pin "1")
+				(pinfunction "B_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R301")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R302")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "5")
+			(name "ACC_DRIVE_5V")
+			(class "Default")
+			(node
+				(ref "C502")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D301")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q302")
+				(pin "3")
+				(pinfunction "C_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R305")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "6")
+			(name "ACC_PROTECTED_IN")
+			(class "Default")
+			(node
+				(ref "R301")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "7")
+			(name "AUX_BST")
+			(class "Default")
+			(node
+				(ref "C1203")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1201")
+				(pin "7")
+				(pinfunction "BST_7")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "8")
+			(name "AUX_FB")
+			(class "Default")
+			(node
+				(ref "C207")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1201")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1202")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1201")
+				(pin "5")
+				(pinfunction "FB_5")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "9")
+			(name "AUX_RAMP")
+			(class "Default")
+			(node
+				(ref "C206")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C207")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1204")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "10")
+			(name "AUX_RON")
+			(class "Default")
+			(node
+				(ref "R1203")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1201")
+				(pin "4")
+				(pinfunction "RON_4")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "11")
+			(name "AUX_SW")
+			(class "Default")
+			(node
+				(ref "C1203")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "L201")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1204")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1201")
+				(pin "8")
+				(pinfunction "SW_8")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "12")
+			(name "BAT_PROTECTED_BEFORE_RELAY")
+			(class "Default")
+			(node
+				(ref "C1201")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C1202")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "K101")
+				(pin "4")
+				(pinfunction "COM_A_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "U1201")
+				(pin "2")
+				(pinfunction "VIN_2")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1201")
+				(pin "3")
+				(pinfunction "EN/UVLO_3")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "13")
+			(name "BAT_SW_BEFORE_EFUSE")
+			(class "Default")
+			(node
+				(ref "K101")
+				(pin "5")
+				(pinfunction "NO_A_5")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "14")
+			(name "BOOT0_RECOVERY")
+			(class "Default")
+			(node
+				(ref "R205")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U201")
+				(pin "4")
+				(pinfunction "IO0_4")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "15")
+			(name "BUCK_ENABLE")
+			(class "Default")
+			(node
+				(ref "U101")
+				(pin "3")
+				(pinfunction "EN_3")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "16")
+			(name "COIL_LOW")
+			(class "Default")
+			(node
+				(ref "D111")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "K101")
+				(pin "12")
+				(pinfunction "COIL-_12")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q111")
+				(pin "3")
+				(pinfunction "D_3")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "17")
+			(name "EN_RESET")
+			(class "Default")
+			(node
+				(ref "C203")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R206")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U201")
+				(pin "45")
+				(pinfunction "EN_45")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "18")
+			(name "GND")
+			(class "Default")
+			(node
+				(ref "C101")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C103")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C104")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C105")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C106")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C107")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C1201")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C1202")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C201")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C202")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C203")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C204")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C205")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C301")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C501")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C503")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C504")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C505")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D201")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "power_in")
+			)
+			(node
+				(ref "D502")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "A1")
+				(pinfunction "GND_A1_A1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "A12")
+				(pinfunction "GND_A12_A12")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "B1")
+				(pinfunction "GND_B1_B1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "B12")
+				(pinfunction "GND_B12_B12")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "SH")
+				(pinfunction "SHIELD_SH")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q111")
+				(pin "2")
+				(pinfunction "S_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q301")
+				(pin "2")
+				(pinfunction "E_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R102")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R111")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1202")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R1203")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R201")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R202")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R302")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R305")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R504")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U101")
+				(pin "1")
+				(pinfunction "PGND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U101")
+				(pin "9")
+				(pinfunction "EPAD_9")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1201")
+				(pin "1")
+				(pinfunction "GND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U1201")
+				(pin "9")
+				(pinfunction "EP/GND_9")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "1")
+				(pinfunction "GND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "2")
+				(pinfunction "GND_2")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "42")
+				(pinfunction "GND_42")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "43")
+				(pinfunction "GND_43")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "46")
+				(pinfunction "GND_46")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "47")
+				(pinfunction "GND_47")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "48")
+				(pinfunction "GND_48")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "49")
+				(pinfunction "GND_49")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "50")
+				(pinfunction "GND_50")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "51")
+				(pinfunction "GND_51")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "52")
+				(pinfunction "GND_52")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "53")
+				(pinfunction "GND_53")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "54")
+				(pinfunction "GND_54")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "55")
+				(pinfunction "GND_55")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "56")
+				(pinfunction "GND_56")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "57")
+				(pinfunction "GND_57")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "58")
+				(pinfunction "GND_58")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "59")
+				(pinfunction "GND_59")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "60")
+				(pinfunction "GND_60")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "61")
+				(pinfunction "GND_61")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "62")
+				(pinfunction "GND_62")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "63")
+				(pinfunction "GND_63")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "64")
+				(pinfunction "GND_64")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U201")
+				(pin "65")
+				(pinfunction "GND_65")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U501")
+				(pin "1")
+				(pinfunction "GND_1")
+				(pintype "power_in")
+			)
+			(node
+				(ref "U502")
+				(pin "3")
+				(pinfunction "GND_3")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "19")
+			(name "HOLD_TIMER_GRANTED_3V3")
+			(class "Default")
+			(node
+				(ref "D302")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U502")
+				(pin "4")
+				(pinfunction "Y_4")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "20")
+			(name "HOLD_TIME_WINDOW")
+			(class "Default")
+			(node
+				(ref "U501")
+				(pin "3")
+				(pinfunction "OUT_3")
+				(pintype "output")
+			)
+			(node
+				(ref "U502")
+				(pin "1")
+				(pinfunction "A_1")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "21")
+			(name "HV_PROTECTED_AFTER_EFUSE")
+			(class "Default")
+			(node
+				(ref "C101")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C106")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "C107")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U101")
+				(pin "2")
+				(pinfunction "VIN_2")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "22")
+			(name "MCU_HOLD_REQ")
+			(class "Default")
+			(node
+				(ref "R504")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U502")
+				(pin "2")
+				(pinfunction "B_2")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "23")
+			(name "NPN_PULLS_PNP_BASE")
+			(class "Default")
+			(node
+				(ref "Q301")
+				(pin "3")
+				(pinfunction "C_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "R303")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "24")
+			(name "Net-(D201-IO1_OUT)")
+			(class "Default")
+			(node
+				(ref "D201")
+				(pin "6")
+				(pinfunction "IO1_OUT_6")
+				(pintype "passive")
+			)
+			(node
+				(ref "R203")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "25")
+			(name "Net-(J201-CC1)")
+			(class "Default")
+			(node
+				(ref "J201")
+				(pin "A5")
+				(pinfunction "CC1_A5")
+				(pintype "passive")
+			)
+			(node
+				(ref "R201")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "26")
+			(name "Net-(J201-CC2)")
+			(class "Default")
+			(node
+				(ref "J201")
+				(pin "B5")
+				(pinfunction "CC2_B5")
+				(pintype "passive")
+			)
+			(node
+				(ref "R202")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "27")
+			(name "Net-(U101-BOOT)")
+			(class "Default")
+			(node
+				(ref "C102")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U101")
+				(pin "7")
+				(pinfunction "BOOT_7")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "28")
+			(name "Net-(U101-FB)")
+			(class "Default")
+			(node
+				(ref "R101")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R102")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U101")
+				(pin "5")
+				(pinfunction "FB_5")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "29")
+			(name "Net-(U101-SW)")
+			(class "Default")
+			(node
+				(ref "C102")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "L101")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U101")
+				(pin "8")
+				(pinfunction "SW_8")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "30")
+			(name "Net-(U101-VCC)")
+			(class "Default")
+			(node
+				(ref "C103")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U101")
+				(pin "6")
+				(pinfunction "VCC_6")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "31")
+			(name "PNP_BASE_IN")
+			(class "Default")
+			(node
+				(ref "Q302")
+				(pin "1")
+				(pinfunction "B_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R303")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R304")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "32")
+			(name "RELAY_ENABLE_5V")
+			(class "Default")
+			(node
+				(ref "D301")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D302")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "Q111")
+				(pin "1")
+				(pinfunction "G_1")
+				(pintype "input")
+			)
+			(node
+				(ref "R111")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "33")
+			(name "TIMER_CTRL")
+			(class "Default")
+			(node
+				(ref "C504")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U501")
+				(pin "5")
+				(pinfunction "CONT_5")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "34")
+			(name "TIMER_RC")
+			(class "Default")
+			(node
+				(ref "C501")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R501")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U501")
+				(pin "6")
+				(pinfunction "THRES_6")
+				(pintype "input")
+			)
+			(node
+				(ref "U501")
+				(pin "7")
+				(pinfunction "DISCH_7")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "35")
+			(name "TIMER_RESET")
+			(class "Default")
+			(node
+				(ref "C503")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R503")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U501")
+				(pin "4")
+				(pinfunction "RESET_4")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "36")
+			(name "TIMER_TRIG")
+			(class "Default")
+			(node
+				(ref "C502")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D501")
+				(pin "2")
+				(pinfunction "A_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "D502")
+				(pin "1")
+				(pinfunction "K_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "R502")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U501")
+				(pin "2")
+				(pinfunction "TRIG_2")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "37")
+			(name "USB_DM_MCU")
+			(class "Default")
+			(node
+				(ref "R204")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U201")
+				(pin "23")
+				(pinfunction "IO19_USB_DM_23")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "38")
+			(name "USB_DM_PORT")
+			(class "Default")
+			(node
+				(ref "D201")
+				(pin "3")
+				(pinfunction "IO2_IN_3")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "A7")
+				(pinfunction "D-_A7_A7")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "B7")
+				(pinfunction "D-_B7_B7")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "39")
+			(name "USB_DM_PORT_ESD")
+			(class "Default")
+			(node
+				(ref "D201")
+				(pin "4")
+				(pinfunction "IO2_OUT_4")
+				(pintype "passive")
+			)
+			(node
+				(ref "R204")
+				(pin "1")
+				(pinfunction "1_1")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "40")
+			(name "USB_DP_MCU")
+			(class "Default")
+			(node
+				(ref "R203")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U201")
+				(pin "24")
+				(pinfunction "IO20_USB_DP_24")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "41")
+			(name "USB_DP_PORT")
+			(class "Default")
+			(node
+				(ref "D201")
+				(pin "1")
+				(pinfunction "IO1_IN_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "A6")
+				(pinfunction "D+_A6_A6")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "B6")
+				(pinfunction "D+_B6_B6")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "42")
+			(name "USB_VBUS_RAW")
+			(class "Default")
+			(node
+				(ref "D201")
+				(pin "5")
+				(pinfunction "VBUS_5")
+				(pintype "power_in")
+			)
+			(node
+				(ref "J201")
+				(pin "A4")
+				(pinfunction "VBUS_A4_A4")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "A9")
+				(pinfunction "VBUS_A9_A9")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "B4")
+				(pinfunction "VBUS_B4_B4")
+				(pintype "passive")
+			)
+			(node
+				(ref "J201")
+				(pin "B9")
+				(pinfunction "VBUS_B9_B9")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "43")
+			(name "V3V3_SYS")
+			(class "Default")
+			(node
+				(ref "C201")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C202")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R205")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R206")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "U201")
+				(pin "3")
+				(pinfunction "3V3_3")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "44")
+			(name "V5_BUCK_RAW")
+			(class "Default")
+			(node
+				(ref "C104")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C105")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "L101")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+			(node
+				(ref "R101")
+				(pin "2")
+				(pinfunction "2_2")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "45")
+			(name "unconnected-(J201-SBU1-PadA8)")
+			(class "Default")
+			(node
+				(ref "J201")
+				(pin "A8")
+				(pinfunction "SBU1_A8")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "46")
+			(name "unconnected-(J201-SBU2-PadB8)")
+			(class "Default")
+			(node
+				(ref "J201")
+				(pin "B8")
+				(pinfunction "SBU2_B8")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "47")
+			(name "unconnected-(K101-COM_B-Pad9)")
+			(class "Default")
+			(node
+				(ref "K101")
+				(pin "9")
+				(pinfunction "COM_B_9")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "48")
+			(name "unconnected-(K101-NC_A-Pad3)")
+			(class "Default")
+			(node
+				(ref "K101")
+				(pin "3")
+				(pinfunction "NC_A_3")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "49")
+			(name "unconnected-(K101-NC_B-Pad10)")
+			(class "Default")
+			(node
+				(ref "K101")
+				(pin "10")
+				(pinfunction "NC_B_10")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "50")
+			(name "unconnected-(K101-NO_B-Pad8)")
+			(class "Default")
+			(node
+				(ref "K101")
+				(pin "8")
+				(pinfunction "NO_B_8")
+				(pintype "passive+no_connect")
+			)
+		)
+		(net
+			(code "51")
+			(name "unconnected-(U201-IO1-Pad5)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "5")
+				(pinfunction "IO1_5")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "52")
+			(name "unconnected-(U201-IO2-Pad6)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "6")
+				(pinfunction "IO2_6")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "53")
+			(name "unconnected-(U201-IO3-Pad7)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "7")
+				(pinfunction "IO3_7")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "54")
+			(name "unconnected-(U201-IO4-Pad8)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "8")
+				(pinfunction "IO4_8")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "55")
+			(name "unconnected-(U201-IO5-Pad9)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "9")
+				(pinfunction "IO5_9")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "56")
+			(name "unconnected-(U201-IO6-Pad10)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "10")
+				(pinfunction "IO6_10")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "57")
+			(name "unconnected-(U201-IO7-Pad11)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "11")
+				(pinfunction "IO7_11")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "58")
+			(name "unconnected-(U201-IO8-Pad12)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "12")
+				(pinfunction "IO8_12")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "59")
+			(name "unconnected-(U201-IO9-Pad13)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "13")
+				(pinfunction "IO9_13")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "60")
+			(name "unconnected-(U201-IO10-Pad14)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "14")
+				(pinfunction "IO10_14")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "61")
+			(name "unconnected-(U201-IO11-Pad15)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "15")
+				(pinfunction "IO11_15")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "62")
+			(name "unconnected-(U201-IO12-Pad16)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "16")
+				(pinfunction "IO12_16")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "63")
+			(name "unconnected-(U201-IO13-Pad17)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "17")
+				(pinfunction "IO13_17")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "64")
+			(name "unconnected-(U201-IO14-Pad18)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "18")
+				(pinfunction "IO14_18")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "65")
+			(name "unconnected-(U201-IO15-Pad19)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "19")
+				(pinfunction "IO15_19")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "66")
+			(name "unconnected-(U201-IO16-Pad20)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "20")
+				(pinfunction "IO16_20")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "67")
+			(name "unconnected-(U201-IO17-Pad21)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "21")
+				(pinfunction "IO17_21")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "68")
+			(name "unconnected-(U201-IO18-Pad22)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "22")
+				(pinfunction "IO18_22")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "69")
+			(name "unconnected-(U201-IO21-Pad25)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "25")
+				(pinfunction "IO21_25")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "70")
+			(name "unconnected-(U201-IO26-Pad26)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "26")
+				(pinfunction "IO26_26")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "71")
+			(name "unconnected-(U201-IO33-Pad28)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "28")
+				(pinfunction "IO33_28")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "72")
+			(name "unconnected-(U201-IO34-Pad29)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "29")
+				(pinfunction "IO34_29")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "73")
+			(name "unconnected-(U201-IO35-Pad31)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "31")
+				(pinfunction "IO35_31")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "74")
+			(name "unconnected-(U201-IO36-Pad32)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "32")
+				(pinfunction "IO36_32")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "75")
+			(name "unconnected-(U201-IO37-Pad33)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "33")
+				(pinfunction "IO37_33")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "76")
+			(name "unconnected-(U201-IO38-Pad34)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "34")
+				(pinfunction "IO38_34")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "77")
+			(name "unconnected-(U201-IO39-Pad35)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "35")
+				(pinfunction "IO39_35")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "78")
+			(name "unconnected-(U201-IO40-Pad36)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "36")
+				(pinfunction "IO40_36")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "79")
+			(name "unconnected-(U201-IO41-Pad37)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "37")
+				(pinfunction "IO41_37")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "80")
+			(name "unconnected-(U201-IO42-Pad38)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "38")
+				(pinfunction "IO42_38")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "81")
+			(name "unconnected-(U201-IO45-Pad41)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "41")
+				(pinfunction "IO45_41")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "82")
+			(name "unconnected-(U201-IO46-Pad44)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "44")
+				(pinfunction "IO46_44")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "83")
+			(name "unconnected-(U201-IO47-Pad27)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "27")
+				(pinfunction "IO47_27")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "84")
+			(name "unconnected-(U201-IO48-Pad30)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "30")
+				(pinfunction "IO48_30")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "85")
+			(name "unconnected-(U201-RXD0_IO44-Pad40)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "40")
+				(pinfunction "RXD0_IO44_40")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "86")
+			(name "unconnected-(U201-TXD0_IO43-Pad39)")
+			(class "Default")
+			(node
+				(ref "U201")
+				(pin "39")
+				(pinfunction "TXD0_IO43_39")
+				(pintype "bidirectional")
+			)
+		)
+		(net
+			(code "87")
+			(name "unconnected-(U401-B_GATE-Pad4)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "4")
+				(pinfunction "B_GATE_4")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "88")
+			(name "unconnected-(U401-DRV-Pad5)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "5")
+				(pinfunction "DRV_5")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "89")
+			(name "unconnected-(U401-FLT-Pad15)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "15")
+				(pinfunction "FLT_15")
+				(pintype "open_collector")
+			)
+		)
+		(net
+			(code "90")
+			(name "unconnected-(U401-GND-Pad9)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "9")
+				(pinfunction "GND_9")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "91")
+			(name "unconnected-(U401-ILIM-Pad11)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "11")
+				(pinfunction "ILIM_11")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "92")
+			(name "unconnected-(U401-IMON-Pad14)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "14")
+				(pinfunction "IMON_14")
+				(pintype "output")
+			)
+		)
+		(net
+			(code "93")
+			(name "unconnected-(U401-IN1-Pad1)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "1")
+				(pinfunction "IN1_1")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "94")
+			(name "unconnected-(U401-IN2-Pad2)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "2")
+				(pinfunction "IN2_2")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "95")
+			(name "unconnected-(U401-IN3-Pad3)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "3")
+				(pinfunction "IN3_3")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "96")
+			(name "unconnected-(U401-IN_SYS-Pad6)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "6")
+				(pinfunction "IN_SYS_6")
+				(pintype "power_in")
+			)
+		)
+		(net
+			(code "97")
+			(name "unconnected-(U401-MODE-Pad12)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "12")
+				(pinfunction "MODE_12")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "98")
+			(name "unconnected-(U401-OUT1-Pad18)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "18")
+				(pinfunction "OUT1_18")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "99")
+			(name "unconnected-(U401-OUT2-Pad19)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "19")
+				(pinfunction "OUT2_19")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "100")
+			(name "unconnected-(U401-OUT3-Pad20)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "20")
+				(pinfunction "OUT3_20")
+				(pintype "power_out")
+			)
+		)
+		(net
+			(code "101")
+			(name "unconnected-(U401-OVP-Pad8)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "8")
+				(pinfunction "OVP_8")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "102")
+			(name "unconnected-(U401-PGOOD-Pad17)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "17")
+				(pinfunction "PGOOD_17")
+				(pintype "open_collector")
+			)
+		)
+		(net
+			(code "103")
+			(name "unconnected-(U401-PGTH-Pad16)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "16")
+				(pinfunction "PGTH_16")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "104")
+			(name "unconnected-(U401-SHDN-Pad13)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "13")
+				(pinfunction "SHDN_13")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "105")
+			(name "unconnected-(U401-UVLO-Pad7)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "7")
+				(pinfunction "UVLO_7")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "106")
+			(name "unconnected-(U401-dVdT-Pad10)")
+			(class "Default")
+			(node
+				(ref "U401")
+				(pin "10")
+				(pinfunction "dVdT_10")
+				(pintype "passive")
+			)
+		)
+		(net
+			(code "107")
+			(name "unconnected-(U1201-PGOOD-Pad6)")
+			(class "Default")
+			(node
+				(ref "U1201")
+				(pin "6")
+				(pinfunction "PGOOD_6")
+				(pintype "open_collector+no_connect")
+			)
+		)
+	)
+)

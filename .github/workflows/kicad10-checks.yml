@@ -6,6 +6,7 @@ on:
     paths:
       - 'hardware/kicad/**'
       - '.github/workflows/kicad10-checks.yml'
+      - 'tools/check_kicad_hierarchy.py'
   workflow_dispatch:
 
 permissions:
@@ -38,6 +39,11 @@ jobs:
           kicad-cli version | tee reports/kicad-version.txt
           printf '%s\n' "$GITHUB_SHA" | tee reports/commit.txt
           printf 'NO manufacturing or vehicle approval.\n' > reports/STATUS.txt
+      - name: Check hierarchy and unique references
+        id: hierarchy
+        continue-on-error: true
+        run: |
+          python3 tools/check_kicad_hierarchy.py hardware/kicad/TripTracer_V1.kicad_sch | tee reports/hierarchy.json
       - name: ERC on complete root hierarchy
         id: erc
         continue-on-error: true
@@ -71,7 +77,9 @@ jobs:
           ERC: ${{ steps.erc.outcome }}
           DRC: ${{ steps.drc.outcome }}
           NETLIST: ${{ steps.netlist.outcome }}
+          HIERARCHY: ${{ steps.hierarchy.outcome }}
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
-          test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
+          test "$HIERARCHY" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success

@@ -1,0 +1,26 @@
+{
+  "reference_map": {
+    "U201": "U1201",
+    "C201": "C1201",
+    "C202": "C1202",
+    "C203": "C1203",
+    "R201": "R1201",
+    "R202": "R1202",
+    "R203": "R1203",
+    "R204": "R1204"
+  },
+  "source_unchanged_except_references": true,
+  "before_duplicate_errors": [
+    "Duplicate reference U201: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference C201: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference C202: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference C203: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference R201: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference R202: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference R203: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']",
+    "Duplicate reference R204: ['C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\01A_AUX_5V.kicad_sch', 'C:\\\\Users\\\\Josh\\\\Documents\\\\Codex\\\\2026-10-13\\\\referenced-chatgpt-conversation-this-is-an\\\\work\\\\annotation-baseline\\\\04_ESP32_USB.kicad_sch']"
+  ],
+  "after_errors": [],
+  "pages": 13,
+  "symbol_instances": 64
+}
