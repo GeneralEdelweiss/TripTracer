@@ -6,7 +6,7 @@ Diese Datei ist dein **freier Ideenspeicher** für TripTracer. Schreibe hier jed
 
 ## Neue Ideen / Wunschliste
 
-<!Funktionen (Hardware prüfen ob möglich)
+!Funktionen (Hardware prüfen ob möglich)
 - Programmierung (auch flashen) und Stromversorgung über USB-C Port
 - Eigene "Aufbereitung" und absicherung der Spannungsversorgung auf der Trägerplatine, damit auch ein selbst gebasteltes USB-Kabel, dass zb direkt von der Fahrzeugbatterie kommt angeschlossen werden kann.
 - Eine weitere Rundbuchse für die Spannungsverorgung vorsehen.
