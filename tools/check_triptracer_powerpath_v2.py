@@ -19,7 +19,7 @@ def check(p):
         "ACC_PROTECTED_IN": {("J901","2"),("R911","1"),("R916","1")},
         "ACC_EN_BIAS": {("R911","2"),("R912","1"),("D911","1")},
         "BUCK_ENABLE": {("D911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
+        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
                  ("R917","2"),("U301","1"),("U302","2")},
         "HOLD_TIMER_GRANTED_3V3": {("R914","1")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
@@ -33,7 +33,7 @@ def check(p):
         "ACC_DRIVE_5V": {("Q913","3"),("R917","1"),("R921","2")},
         "V5_BUCK_RAW": {("U301","3"),("U301","5"),("R308","1")},
         "MUX_PRI1_SENSE": {("U301","4"),("R308","2"),("R309","1")},
-        "USB_VBUS_RAW": {("U301","6")},
+        "USB_VBUS_RAW": {("U301","6"),("J201","A4"),("J201","A9"),("J201","B4"),("J201","B9")},
         "V5_SYS": {("U301","2"),("U301","7"),("U302","1"),("C303","1"),("C306","1")},
         "USB_ACTIVE_N": {("U301","8"),("R306","2"),("U201","28")},
         "MCU_HOLD_REQ": {("U201","25"),("U502","2"),("R504","1")},
@@ -81,6 +81,7 @@ def check(p):
     assert ("U911","4") not in nets["V3V3_SYS"]
     assert ("U911","3") not in nets["V3V3_SYS"]
     print("PASS: TPS2116 all eight pins exactly matched; MCP1826S VIN1/GND2/VOUT3 and ceramic output return wired")
+    print("PASS: physical USB-C J201 VBUS A4/A9/B4/B9, GND A1 and external harness J901 mapped to real source nets")
     print("PASS: native TLC555 RC/trigger/reset + gated MCU-HOLD pin topology")
     print("PASS: 16 ACC, timed HOLD, 5V priority mux, 3V3 core and USB status net connections")
 
