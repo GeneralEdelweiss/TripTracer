@@ -20,3 +20,11 @@ Verifizierter GitHub-Actions-Lauf: [38519728228](https://github.com/GeneralEdelw
 Die mittlerweile existierenden 01E/01F sind **verdrahtete, aber isolierte Entwicklungskandidaten**, kein nachgewiesenes End-to-end LM74930-Frontend. Die Entfernung von U401 TPS26631 war technisch geboten, beseitigt aber weder den echten LM74930-Versorgungspfad noch die obigen Fehler.
 
 **Fertigungsstatus:** NICHT FREIGEGEBEN.
+
+## Ergänzung: reale Pinoutkorrektur 01F – neuer nativer Check
+
+Beim erneuten Abgleich mit dem [Diodes BAS116Q-Datenblatt DS30233, Seite 1](https://www.diodes.com/datasheet/download/BAS116.pdf) wurde ein kritischer Fehler im 01F-KiCad-Symbol entdeckt: **Pin 2 ist NC und nicht eine zweite, intern verbundene Anode**. Das Bauteil hat A1, NC2 und K3. Lokale Projektbibliothek, eingebettetes Schaltplansymbol und Anoden-Pin-2-Wire wurden korrigiert. Ebenfalls wurde die interne Symbolbenennung für den N-MOS Q801 auf `NMOS_GDS_127` vereinheitlicht und dessen G1/S2/D3-Belegung mit dem [Originaldatenblatt DMN2056U](https://www.diodes.com/datasheet/download/DMN2056U.pdf) gegengeprüft. Dieser 20-V-MOSFET ist **ausschließlich** im galvanisch vom 9–30-V-Fahrzeugnetz getrennten 5-V-RC-Prototyp zulässig, nicht als Hochvolt-Eingangs-FET.
+
+Das GitHub-Actions-Skript `tools/check_kicad_custom_pinouts.py` prüft beide Pinbelegungen automatisiert. Der aktuelle Lauf [38521195946](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38521195946) bestätigt: Hierarchie, Pinout-Prüfung und nativer Netlist-Export erfolgreich. **KiCad-10-ERC bleibt mit 277 Meldungen und PCB-DRC mit fünf Meldungen / 79 Unconnected / 58 Paritätsproblemen nicht bestanden.** Der zuvor erwähnte lokale Debug-Lauf der Pinoutprüfung hatte einen Regex-Escaping-Fehler, der anschließend korrigiert und im obigen Lauf erfolgreich gegengeprüft wurde.
+
+Die 277 ERC-Meldungen gliedern sich in 226 `endpoint_off_grid`, 36 `pin_not_connected`, 7 `isolated_pin_label`, 7 `power_pin_not_driven`, 1 `pin_not_driven`; die separate 01F-Pinfehlerkorrektur hat zudem die früheren Bibliothekssymbolwarnungen beseitigt. Der LM74930-Hauptleistungspfad bleibt weiterhin nicht verdrahtet; ausdrücklich **keine Fahrzeug- oder Fertigungsfreigabe**.
