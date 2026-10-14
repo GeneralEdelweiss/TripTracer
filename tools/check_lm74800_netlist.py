@@ -48,6 +48,19 @@ def check(path):
         begin=source.find(f'(property "Reference" "{ref}"')
         assert begin>=0 and net_a in source and net_b in source, f"offboard {ref} is not drawn"
     assert 'VEHICLE_M8_EXTERNAL' in source and 'POWER_HARNESS_3WIRE' in source, "external M8 vehicle feed missing"
+    # TI LM74800 DRR0012E (TI datasheet pp.42-44): 3x3mm, 0.5mm pitch,
+    # 12x 0.62x0.25mm leads, center RTN pad 13 MUST remain isolated.
+    fref='Tripmaster:TI_LM74800_Q1_DRR0012E'
+    assert '(property "Footprint" "'+fref+'"' in source, "U921 missing TI WSON12 footprint"
+    fp=Path('hardware/kicad/Tripmaster.pretty/TI_LM74800_Q1_DRR0012E.kicad_mod').read_text('utf-8')
+    pads=re.findall(r'\\(pad "(\\d+)" smd',fp)
+    assert sorted(map(int,pads))==list(range(1,14)),f"LM74800 footprint pins 1..13 mismatch: {pads}"
+    for n in range(1,7):
+        y=-1.25+(n-1)*.5
+        assert f'(pad "{n}" smd roundrect (at -1.39 {y:g})' in fp, f"left DRR pad {n} position"
+        assert f'(pad "{13-n}" smd roundrect (at 1.39 {y:g})' in fp, f"right DRR pad {13-n} position"
+    assert '(pad "13" smd rect (at 0 0) (size 1.3 2.5)' in fp
+    assert "RTN pad13 MUST FLOAT" in fp and "(via " not in fp, "RTN pad13 must not be tied to GND"
     # Charge pump is CAP-to-VS, NOT CAP-to-GND.
     need("LM748_VS_SAFE",("C925","2"))
     # KiCad exports explicitly NC-marked pads on a synthetic unconnected net;
