@@ -15,8 +15,11 @@ POWER_SHEETS = {
     "03_3V3_USB.kicad_sch",
 }
 PARTS = {
-    "R911": ("Panasonic ERJP08F3012V 30.1k 1% 1206", "", "", "", "", "VIN startup cold-headroom update; price/availability unverified"),
-    "R915": ("Panasonic ERJP08F3012V 30.1k 1% 1206", "", "", "", "", "VIN HOLD cold-headroom update; price/availability unverified"),
+    "F901": ("Littelfuse 0997003.WXN 3A 58V", "", "", "", "", "OFFBOARD near vehicle source, replaceable holder/OEM fused circuit; price recheck"),
+    "F902": ("Littelfuse 0997002.WXN 2A 58V", "EUR", 0.886, 0.668, 0.501, "OFFBOARD; Mouser DE catalog, VAT/shipping not established; recheck"),
+    "R914": ("YAGEO RC1206FR-07154RL 154ohm 1% 1206 0.25W", "USD", 0.10, 0.047, 0.0247, "DigiKey catalog stock5000; LED drive engineering envelope, hot/cold CTR open"),
+    "R911": ("Panasonic ERJP08F2492V 24.9k 1% 1206", "", "", "", "", "VIN startup cold-headroom update; price/availability unverified"),
+    "R915": ("Panasonic ERJP08F2492V 24.9k 1% 1206", "", "", "", "", "VIN HOLD cold-headroom update; price/availability unverified"),
     "R207": ("Panasonic ERJP08F1003V 100k 1% 1206", "", "", "", "", "MCU ACC sense fault isolation; price/LCSC unverified"),
     "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
     "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
@@ -56,16 +59,17 @@ def export(src, dest):
         if sheet not in POWER_SHEETS and ref != "R207":
             continue
         mpn,curr,p1,p10,p100,status=PARTS.get(ref,("","","","","","Mfr MPN and price open"))
-        rows.append((sheet,ref,value,fp,mpn,curr,p1,p10,p100,status))
+        rows.append((sheet,ref,value,fp,mpn,curr,p1,p10,p100,status,"VEHICLE_EXTERNAL" if ref in {"F901","F902"} else "PCB"))
     rows.sort(key=lambda x:(x[0],x[1]))
     assert rows, "No power components from native KiCad hierarchy"
     refs={r[1] for r in rows}
     assert {"R207","U101","U301","U302","D901","D902","U911","Q912","D503","D912","R505","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
     with open(dest,"w",newline="",encoding="utf-8") as fh:
         writer=csv.writer(fh)
-        writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status"))
+        writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status","installation"))
         writer.writerows(rows)
-    print(f"PASS: exported {len(rows)} active schematic power components to {dest}; NOT a priced complete BOM")
+    board=sum(row[-1]=="PCB" for row in rows)
+    print(f"PASS: exported {len(rows)} native power components ({board} PCB, {len(rows)-board} vehicle-external) to {dest}; NOT a priced complete BOM")
 
 if __name__=="__main__":
     export(sys.argv[1],sys.argv[2])

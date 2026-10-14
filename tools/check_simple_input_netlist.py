@@ -26,6 +26,17 @@ def check(path):
     assert 'S5MC-13-F 5A 1000V' in data and 'D_S5MC_SMC' in data
     assert ("U101","3") in out, ("buck VIN must be protected",out)
     assert not (("D901","1") in bat or ("D901","2") in out), "reversed or shorted diode"
+    # Off-board parts can be omitted by a PCB-oriented exporter; never call
+    # the source-only harness check native connectivity in that case.
+    fuse_nodes={ref for nodes in nets.values() for ref,pin in nodes if ref in {"F901","F902"}}
+    if fuse_nodes:
+        assert fuse_nodes=={"F901","F902"}
+        for ref,src,dst in (("F901","VEHICLE_BAT_RAW","BAT_INPUT_FUSED_UNPROTECTED_TVS"),
+                            ("F902","VEHICLE_ACC_RAW","ACC_PROTECTED_IN")):
+            assert (ref,"1") in nets[src] and (ref,"2") in nets[dst], ref
+        print("PASS: native offboard BAT/ACC fuse terminals exactly mapped")
+    else:
+        print("INFO: offboard fuses absent in PCB netlist; separately source-graph checked")
     print("PASS: S5MC anode2 BAT+, cathode1 VIN; TVS5800 all six IN/GND pads; U101 VIN connected. No surge rating implied.")
 
 if __name__ == "__main__":
