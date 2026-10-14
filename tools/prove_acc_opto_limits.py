@@ -1,45 +1,25 @@
 #!/usr/bin/env python3
-"""Manufacturer-limit proof for U912 ACC sense. A FAIL verdict is a successful diagnostic test.
-
-Source: Wuerth 140356145000 datasheet rev 001.004, 2023-08-22, p.2:
-CTR min 50% only at IF=5mA,VCE=5V,TA=25C.
-VF max 1.4V at IF=10mA, IF absolute max 60mA, input power max 100mW.
-Do not interpolate a guaranteed CTR outside stated test conditions.
+"""ACC U912 retirement regression, two-transistor nominal drive calculations.
+NOT a manufacturer hot/cold or hardware test: flags unqualified cases explicitly.
 """
 from pathlib import Path
-import re
 
-SCHEMATIC = Path(__file__).resolve().parents[1]/"hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch"
-
-def verify():
-    s=SCHEMATIC.read_text()
-    assert '"R916"' in s and '"6.8k ACC LED"' in s, "R916 changed; recompute proof"
-    assert '"R917"' in s and '"47k ACC SENSE BLEED"' in s, "R917 changed; recompute proof"
-    rled, rload=6800,47000
-    vf_for_min_approx=1.4
-    for v in (9,12,24,30):
-        if_approx=(v-vf_for_min_approx)/rled
-        required_if=0.005
-        available_ic_50pct=if_approx*0.5  # hypothetical, NOT a guarantee
-        load_ih=2.31/rload
-        print(f"VIN={v}V: IF indicative {if_approx*1000:.2f}mA; "
-              f"hypothetical 50% CTR Ic {available_ic_50pct*1000:.3f}mA; "
-              f"R917 source threshold {load_ih*1000:.3f}mA")
-    if_9=(9-1.4)/rled
-    if_30=(30-1.4)/rled
-    assert if_9 < 0.005 and if_30 < 0.005
-    r_at_9=(9-1.4)/0.005
-    power_r_at_30=(30-1.4)**2/r_at_9
-    led_p_at_30=1.4*(30-1.4)/r_at_9
-    print(f"To reach IF>=5mA at VIN=9V (ideal Vf=1.4V): R916<={r_at_9:.0f}ohm; "
-          f"at 30V resistor dissipates {power_r_at_30:.3f}W, "
-          f"LED indicative {led_p_at_30*1000:.1f}mW.")
-    assert power_r_at_30>0.5
-    print("VERDICT: NOT PROVEN across 9-30V / -40..85C: "
-          "minimum CTR not specified for actual 1.1mA IF or hot/cold. "
-          "Single resistor change alone is NOT a qualified repair.")
-    print("PASS: regression correctly detects missing manufacturer guarantee; "
-          "this is NOT an ACC hardware pass.")
-
-if __name__=="__main__":
-    verify()
+s=(Path(__file__).resolve().parents[1]/"hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch").read_text()
+assert '(property "Reference" "U912"' not in s, "old low-current CTR-dependent optocoupler still active"
+assert all(f'(property "Reference" "{ref}"' in s for ref in
+           ("Q912","Q913","R916","R917","R918","R919","R920","R921"))
+assert '"100k ACC NPN base feed"' in s
+for vin in (9,12,24,30):
+    # Vbe=.7V nominal, ideal resistor (not a guaranteed temperature bound).
+    ib1=max(0,(vin-0.7)/100e3-0.7/100e3)
+    ic1=(3.3-.2)/22e3
+    if vin>=9:
+        assert ib1 > ic1/10
+    print(f"ACC={vin}V: Q912 IB={ib1*1e6:.1f}uA, IC required={ic1*1e6:.1f}uA, forced-beta<={ic1/ib1:.2f}")
+# Q913 holds output low when ACC absent, giving falling edge.
+ib2=(3.3-.7)/(22e3+22e3)
+ic2=3.3/10e3
+print(f"ACC OFF: Q913 nominal IB={ib2*1e6:.1f}uA, IC~{ic2*1e6:.1f}uA, forced-beta~{ic2/ib2:.1f}")
+assert ib2>ic2/10
+print("PASS: obsolete U912 removed; nominal two-NPN current drive sufficient under assumed VBE/hFE.")
+print("NOT PROVEN: worst-case hFE, VBE/leakage at -40..85C, input clamps, GPIO timer, ECU electrical testing.")
