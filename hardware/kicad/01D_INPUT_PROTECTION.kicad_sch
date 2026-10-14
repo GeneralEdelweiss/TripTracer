@@ -69,7 +69,7 @@
 (wire (pts (xy 215.9 134.62) (xy 231.14000000000001 134.62)) (stroke (width 0) (type default)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000035"))
 (global_label "LM74930_FLT" (shape bidirectional) (at 231.14000000000001 134.62 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000036"))
 (wire (pts (xy 165.1 165.1) (xy 149.85999999999999 165.1)) (stroke (width 0) (type default)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000037"))
-(global_label "LM74930_GND" (shape bidirectional) (at 149.85999999999999 165.1 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000038"))
+(global_label "GND" (shape bidirectional) (at 149.85999999999999 165.1 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000038"))
 (wire (pts (xy 215.9 109.22) (xy 231.14000000000001 109.22)) (stroke (width 0) (type default)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000039"))
 (global_label "LM74930_HGATE" (shape bidirectional) (at 231.14000000000001 109.22 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-00000000003a"))
 (wire (pts (xy 165.1 119.38) (xy 149.85999999999999 119.38)) (stroke (width 0) (type default)) (uuid "4a9bcf6e-1f08-4510-9e66-00000000003b"))
