@@ -19,6 +19,12 @@
 )
 
 
+(sheet (at 214 367) (size 175 28) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+ (stroke (width 0) (type solid)) (fill (color 0 0 0 0)) (uuid "79ac0001-0000-4000-8000-000000000010")
+ (property "Sheetname" "01H ACC powered cold boot and optical HOLD" (at 214 366.24 0) (effects (font (size 1.524 1.524)) (justify left bottom)))
+ (property "Sheetfile" "01H_ACC_HOLD_GATE.kicad_sch" (at 214 395.76 0) (effects (font (size 1.524 1.524)) (justify left top)))
+ (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (page "2.7"))))
+)
 (sheet_instances (path "/" (page "2")))
 (embedded_fonts no)
 )
