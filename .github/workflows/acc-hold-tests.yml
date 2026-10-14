@@ -11,6 +11,8 @@ on:
       - 'tools/check_vs_bootstrap_tradeoff.py'
       - 'tools/check_power_design_corners.py'
       - 'tools/check_power_switchover_thermal.py'
+      - 'tools/check_tps2116_priority_threshold.py'
+      - 'hardware/kicad/03_3V3_USB.kicad_sch'
       - 'tools/prove_acc_opto_limits.py'
       - '.github/workflows/acc-hold-tests.yml'
   workflow_dispatch:
@@ -45,6 +47,8 @@ jobs:
         run: python3 tools/prove_acc_opto_limits.py
       - name: Evaluate 5V mux holdup and NCV1117 thermal envelope
         run: python3 tools/check_power_switchover_thermal.py
+      - name: Check manufacturer-bounded TPS2116 priority threshold
+        run: python3 tools/check_tps2116_priority_threshold.py
       - name: Qualification reminder
         if: always()
         run: |
