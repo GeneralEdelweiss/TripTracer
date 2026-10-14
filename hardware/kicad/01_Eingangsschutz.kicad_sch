@@ -3,7 +3,7 @@
 (title_block (title "TripTracer V1 - Automotive Eingangsschutz, relayless design") (date "2026-10-14") (rev "LMR38020 MAIN BUCK / LEGACY CIRCUITS NOT APPROVED"))
 (lib_symbols)
 (text "RELAIS K101 UND ALTE RELAIS-STROMPFAD-TOPOLOGIE AUS DEM AKTIVEN SCHALTPLAN ENTFERNT; ALTSTAND IN GIT-HISTORIE." (at 191 58 0) (effects (font (size 1.7 1.7))) (uuid "c35f729c-38f9-494d-8caf-4f11b686f001"))
-(text "01D LM74930 ALTSTAND NICHT MEHR AKTIV; 01G KOSTENSPAR-SCHUTZ TEILENTWURF. 01A RELAIS-AUX 5V AUS AKTIVER HIERARCHIE ENTFERNT; 01B RELAIS-EINSCHALTSTUFE UND 01E/01F ALTERNATIVEN AUS AKTIVER HIERARCHIE ENTFERNT. 01C 555-NACHLAUF VORLAEUFIG, BUCK_ENABLE NOCH NICHT ANGESCHLOSSEN." (at 191 73 0) (effects (font (size 1.5 1.5))) (uuid "c35f729c-38f9-494d-8caf-4f11b686f002"))
+(text "01D LM74930 und 01G S5MC/TVS5800 bleiben INAKTIVE Vergleichsstaende. Neu aktiv: 01I LM74800-Q1 COMMON SOURCE; nicht freigegeben. 01A RELAIS-AUX 5V AUS AKTIVER HIERARCHIE ENTFERNT; 01B RELAIS-EINSCHALTSTUFE UND 01E/01F ALTERNATIVEN AUS AKTIVER HIERARCHIE ENTFERNT. 01C 555-NACHLAUF VORLAEUFIG, BUCK_ENABLE NOCH NICHT ANGESCHLOSSEN." (at 191 73 0) (effects (font (size 1.5 1.5))) (uuid "c35f729c-38f9-494d-8caf-4f11b686f002"))
 
 (sheet (at 25 290) (size 155 28) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
 (stroke (width 0) (type solid)) (fill (color 0 0 0 0)) (uuid "44e29570-df14-4b18-a1c0-222222222201")
@@ -13,8 +13,8 @@
 )
 (sheet (at 214 290) (size 175 28) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
  (stroke (width 0) (type solid)) (fill (color 0 0 0 0)) (uuid "72346f29-23d6-4849-8604-2156cfdc44a1")
- (property "Sheetname" "01G einfache BAT-Eingangsstufe D901/D902 (LABOR)" (at 214 289.24 0) (effects (font (size 1.524 1.524)) (justify left bottom)))
- (property "Sheetfile" "01G_SIMPLE_INPUT.kicad_sch" (at 214 318.76 0) (effects (font (size 1.524 1.524)) (justify left top)))
+ (property "Sheetname" "01I LM74800-Q1 FET Eingangsschutz (WIP)" (at 214 289.24 0) (effects (font (size 1.524 1.524)) (justify left bottom)))
+ (property "Sheetfile" "01I_LM74800_INPUT.kicad_sch" (at 214 318.76 0) (effects (font (size 1.524 1.524)) (justify left top)))
  (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (page "2.4"))))
 )
 
