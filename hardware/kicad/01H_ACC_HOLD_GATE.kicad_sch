@@ -63,8 +63,8 @@
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "Q915") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:R") (at 54.61 134.62 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001009")
 (property "Reference" "R923" (at 54.61 115.57 0) (effects (font (size 1.27 1.27))))
-(property "Value" "10k 1% 0.5W ACC" (at 54.61 119.38 0) (effects (font (size 1.27 1.27))))
-(property "MPN" "ERJP08F1002V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "100k 1% 0.66W ACC surge" (at 54.61 119.38 0) (effects (font (size 1.27 1.27))))
+(property "MPN" "ERJP08F1003V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Footprint" "Tripmaster:R_1206_3216" (at 54.61 134.62 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001010"))
@@ -72,8 +72,8 @@
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R923") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:R") (at 74.93 171.45 270) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001012")
 (property "Reference" "R924" (at 80.01 168.91 0) (effects (font (size 1.27 1.27))))
-(property "Value" "4.7k 1%" (at 80.01 172.72 0) (effects (font (size 1.27 1.27))))
-(property "MPN" "ERJP08F4701V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "100k 1% NPN base OFF" (at 80.01 172.72 0) (effects (font (size 1.27 1.27))))
+(property "MPN" "RC1206FR-07100KL" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Footprint" "Tripmaster:R_1206_3216" (at 74.93 171.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001013"))
@@ -193,7 +193,8 @@
 (text "ACC SENSE: Q912 drives inverse ACC directly to 555. D912 limits negative base voltage; unused second inverter removed." (at 264.16 205.74 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001085"))
 (symbol (lib_id "Tripmaster_Sym:R") (at 60.96 276.86 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001086")
 (property "Reference" "R916" (at 60.96 257.81 0) (effects (font (size 1.27 1.27))))
-(property "Value" "100k ACC sense" (at 60.96 261.62 0) (effects (font (size 1.27 1.27))))
+(property "Value" "100k 1% 0.66W ACC sense surge" (at 60.96 261.62 0) (effects (font (size 1.27 1.27))))
+(property "MPN" "ERJP08F1003V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Footprint" "Tripmaster:R_1206_3216" (at 60.96 276.86 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001087"))
