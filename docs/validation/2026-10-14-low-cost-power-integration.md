@@ -55,3 +55,11 @@ Run native KiCad-10 schematic hierarchy/ERC/netlist/PCB DRC in CI on every chang
 | BOM and thermal review | **Partial.** Confirmed IC price tiers; other exact MPN/thermal/TVS pulse ratings outstanding. |
 
 The remaining issues must not be disguised as five finished tasks.
+
+## EN and USB manufacturer verification — 2026-10-14
+
+**TI LMR38020-Q1, datasheet Rev B section 7.3.3:** EN below 0.95 V means OFF, above 1.4 V required to start; must never float; `VEN <= VIN+0.3V` absolute constraint. This rules out tying an unprotected vehicle ACC input to EN, and requires protection at 30V plus transient. Any MCU-HOLD signal needs fail-off and no reverse current into the unpowered 3V3 MCU. Source: https://www.ti.com/lit/ds/symlink/lmr38020-q1.pdf .
+
+**TI TPS2121:** genuine priority input selector, internally reverse-current blocking, can implement M8 first on IN1 and USB VBUS second on IN2 with PR1 properly biased. But its 2.8–22V operating voltage and max-24V pins prohibit connecting either input directly to 30V BAT+; M8 **regulated** 5V must feed IN1. TPS2121 current consumption ~300uA typ while active, thus it should only be supplied from switched 5V or USB, not continuous BAT. Sources: https://www.ti.com/product/TPS2121 and https://www.ti.com/lit/ds/symlink/tps2121.pdf .
+
+**Unresolved implementation dependency:** No dedicated regulator or independent protected startup supply presently drives BUCK_ENABLE on initial ACC assertion, and no validated 5V voltage-domain power mux currently exists. Never tie USB_VBUS_RAW directly to V5_BUCK_RAW or 3V3 SYS while this is open. The missing functions are genuine open gates to meeting user request, not optional polish.
