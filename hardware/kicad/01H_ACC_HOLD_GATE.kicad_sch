@@ -82,7 +82,7 @@
 (symbol (lib_id "Tripmaster_Sym:R") (at 151.13 119.38 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001015")
 (property "Reference" "R922" (at 151.13 100.33 0) (effects (font (size 1.27 1.27))))
 (property "Value" "100k 1% BASE LIMIT" (at 151.13 104.14 0) (effects (font (size 1.27 1.27))))
-(property "MPN" "ERJP08F1002V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "MPN" "RC1206FR-07100KL" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Footprint" "Tripmaster:R_1206_3216" (at 151.13 119.38 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001016"))
