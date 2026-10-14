@@ -309,5 +309,8 @@
 (junction (at 387 205.8) (diameter 0) (color 0 0 0 0) (uuid "5ec18d7a-826f-4b31-8e76-000000002fd7"))
 (junction (at 387 210.88) (diameter 0) (color 0 0 0 0) (uuid "5ec18d7a-826f-4b31-8e76-000000002fd8"))
 (junction (at 387 215.96) (diameter 0) (color 0 0 0 0) (uuid "5ec18d7a-826f-4b31-8e76-000000002fd9"))
+(global_label "MCU_HOLD_REQ" (shape bidirectional) (at 311.42 162.62 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "b0c6d161-5d00-4e20-8700-000000000001"))
+(global_label "USB_ACTIVE_N" (shape bidirectional) (at 311.42 177.86 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "b0c6d161-5d00-4e20-8700-000000000002"))
+(text "CONTROL PIN ASSIGNMENTS: U201 GPIO21/pin25 MCU_HOLD_REQ, GPIO33/pin28 USB_ACTIVE_N (TPS2116 ST open drain, requires pullup). Pin budget and strapping final review pending." (at 205 55 0) (effects (font (size 1.27 1.27))) (uuid "b0c6d161-5d00-4e20-8700-000000000003"))
 (sheet_instances (path "/" (page "5"))) (embedded_fonts no)
 )
