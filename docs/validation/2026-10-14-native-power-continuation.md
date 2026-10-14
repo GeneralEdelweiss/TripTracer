@@ -31,6 +31,8 @@ These are connectivity and ERC findings, not waveform, reverse-leakage, thermal 
 
 ## Newly identified electrical blocker: ACC live with BAT absent
 
+**Superseded at schematic DC topology level by [the implemented VIN-sourced startup correction](2026-10-14-acc-vin-source-fix.md), verified at d144dd2c.** The following paragraph records the pre-fix finding; transient and temperature gates remain open.
+
 01H R911 is fed from ACC_PROTECTED_IN, while U101 VIN comes from the separately fused BAT branch. With BAT disconnected/blown fuse and ACC still high, the passive R911/R912/D911/R913 path can raise BUCK_ENABLE while VIN is near zero.
 
 TI LMR38020-Q1 Rev B section 6.1 specifies EN absolute maximum VIN+0.3 V; section 6.3 recommends EN no higher than VIN. [Manufacturer datasheet](https://www.ti.com/lit/ds/symlink/lmr38020-q1.pdf).

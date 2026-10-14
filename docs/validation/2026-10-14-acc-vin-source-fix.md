@@ -1,6 +1,6 @@
 # ACC-only EN overstress correction — 2026-10-14
 
-Electrical schematic correction; native results to be appended after CI. No PCB or vehicle release.
+Electrical schematic correction; native KiCad 10.0.6 verification below. No PCB or vehicle release.
 
 ## Actual circuit
 
@@ -15,7 +15,7 @@ R911 and R915 are now 33k, R913=10k. Lower EN pull-down improves off-state leaka
 - Q915 Diodes **MMBT5401-7-F**, PNP 150V: B1/E2/C3.
   https://www.diodes.com/datasheet/download/MMBT5401.pdf
 - Both use existing local Tripmaster:Q_SOT23_1B2E3C: pads1/2 at x=-/+0.95mm, y=1.1mm; pad3 x=0,y=-1.1mm, 0.85x0.95mm lands. Pin numbering and 1.9mm pitch match SOT23; manufacturer body envelopes checked. Pad size differs from vendor minimum recommended land pattern; solder-process/courtyard/thermal qualification stays OPEN before PCB.
-- R922/R923 **Panasonic ERJP08F1002V**, 10k 1%, 1206 high-power candidate (>=0.5W required); R924 **ERJP08F4701V**, 4.7k 1%. All hand-solderable. Existing resistor footprint is reused. No new footprint file or PCB change.
+- R922/R923 **Panasonic ERJP08F1002V**, 10k 1%, 1206 high-power candidate (>=0.5W required; manufacturer product page confirms 0.66W at nominal rating conditions); R924 **ERJP08F4701V**, 4.7k 1%. All hand-solderable. Existing resistor footprint is reused. No new footprint file or PCB change.
 - LCSC IDs/JLC categories, live German stock, landed costs and 2/10/100-device purchases are **ungeprüft**, not zero. No purchase made.
 
 ## Cost decision
@@ -35,3 +35,23 @@ Still required: hot/cold DC qualification, rapid VIN collapse/EN charge injectio
 
 
 D911 package audit: replaced the inherited A1/K2 cache with explicit BAT54WS_CLAMP **K1/A2** mapping to standard Diode_SMD:D_SOD-323 cathode-pad1. D911.1 is now ACC_START_BASE, D911.2 GND; the drawn diode anode remains at ground. Candidate Diodes BAT54WS-7-F cathode-band orientation must match footprint pad1 on assembly. Source: https://www.diodes.com/datasheet/download/BAT54WS.pdf . No physical PCB was changed.
+
+## Executed native verification
+
+Verified schematic/code revision: **d144dd2cf68c2e949ef577d31cbd0ec2e84c7efb**.
+[KiCad 10.0.6 Actions run 38559910683](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38559910683), job 115838130937, completed 2026-10-14.
+
+- PASS: complete root hierarchy; existing custom pinout guard.
+- PASS: native root netlist export.
+- PASS: input diode/TVS, LMR38020 power nets.
+- PASS: exact Q914/Q915, R911/R912/R913/R922/R923/R924 and D911 startup net assertions; direct ACC divider absent.
+- PASS: 555/AND supply pins, trigger clamp polarity/POR/MCU fail-off; optical HOLD terminal connections.
+- PASS: all TPS2116 pins, MCP1826S rails, USB-C VBUS and ground/harness.
+- PASS: analytical DC corner script executed in Actions (16 combinations; min START=1.6107V; min HOLD=1.4962V; assumed-leakage OFF=0.5151V).
+- PASS: 58-component active power BOM exported, including both new transistors and all three new resistors.
+- ERC still FAIL: **34 pin_not_connected errors**, all on existing ESP32 sheet. No new ERC findings; no off-grid/library mismatch.
+- DRC still FAIL: existing 5 violations and 79 unconnected items; schematic-parity differences now 82 rather than 77 because five components were added to schematic only. PCB intentionally unchanged.
+- Full workflow correctly remains failure because ERC/DRC release gates are not satisfied.
+- [Original report artifact](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38559910683/artifacts/11890664012), SHA256 1df7091e9da3ab2232016743a3d68d4ae154066ebc31dcb3ee5a102c3d9aa573. Artifact retention is one day; this report preserves the key revision-bound findings.
+
+This closes the identified **direct DC ACC-to-EN supply path defect at schematic level**. It does not close unmeasured transient, hot/cold, negative-ACC, optical timing or hardware qualification gates listed above. No simulated/measured USB reverse-current pass is claimed; only the existing native connectivity regression passed.

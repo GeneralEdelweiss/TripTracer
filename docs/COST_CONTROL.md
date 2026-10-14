@@ -95,3 +95,8 @@ Jede neue Baugruppe startet mit **„Welchen Schutz oder welche Funktion brauche
 5. Laufende Zwischenstände und Änderungen nach jeder Baugruppe hier dokumentieren; Änderungen an `main` erst nach Review/Merge.
 
 **Keine Freigabe vor:** ERC/DRC, Pin-/Package-Kontrolle, Fahrzeugstörprofil, SOA/thermisches Derating, realer USB-Bordnetz-Rückspeiseschutz, SD-Flush, Mess- und Fertigungskostenbewertung.
+
+
+## 2026-10-14: repair ACC-only buck EN overstress
+
+[Implemented discrete startup correction](validation/2026-10-14-acc-vin-source-fix.md): +2 SOT23 BJT (Nexperia PMBT5551,215; Diodes MMBT5401-7-F), +3 1206 resistors (2x Panasonic ERJP08F1002V; 1x ERJP08F4701V); reuse D911/R912 and change R911/R913/R915 values. Native BOM now 58 power components. No new supply IC, auxiliary regulator, footprint file or PCB change. Alternatives: direct divider invalid at ACC live/BAT absent; simple diode clamp has no assured VIN+0.3V bound; second opto would add an unqualified low-current CTR dependency. Actual complete 2/10/100-device delta including VAT/shipping/assembly remains **NICHT BELASTBAR**. Exact stock, Reichelt equivalence, LCSC IDs and JLC categories ungeprüft; no prices invented and no purchase. Manufacturer confirms Panasonic P08 1206 resistors at 0.66W nominal; temperature derating and circuit pulse tests still required.
