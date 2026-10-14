@@ -46,7 +46,7 @@ def export(src, dest):
     rows.sort(key=lambda x:(x[0],x[1]))
     assert rows, "No power components from native KiCad hierarchy"
     refs={r[1] for r in rows}
-    assert {"U101","U301","U302","D901","D902","U911","U912","U501","U502"} <= refs, "Missing mandatory active power parts"
+    assert {"U101","U301","U302","D901","D902","U911","Q912","Q913","U501","U502"} <= refs, "Missing mandatory active power parts"
     with open(dest,"w",newline="",encoding="utf-8") as fh:
         writer=csv.writer(fh)
         writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status"))
