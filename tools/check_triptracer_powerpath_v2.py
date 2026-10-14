@@ -21,7 +21,6 @@ def check(p):
         "BUCK_ENABLE": {("D911","2"),("R913","1"),("U911","3"),("U101","2")},
         "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
                  ("R917","2"),("U301","1"),("U302","2")},
-        "HOLD_TIMER_GRANTED_3V3": {("R914","1")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
         "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3")},
         "BAT_INPUT_FUSED_UNPROTECTED_TVS": {("J901","1"),("D901","2")},
@@ -48,6 +47,30 @@ def check(p):
     for name,req in expect.items():
         actual=nets.get(name,set())
         assert req <= actual, f"{name} missing {sorted(req-actual)}; actual={sorted(actual)}"
+    # Check every timer IC terminal exactly, including supply pins and clamps.
+    # Positive trigger clamp: D501 A2=TRIG, K1=3V3.
+    # Negative trigger clamp: D502 A2=GND, K1=TRIG.
+    exact_timer = {
+        "U501": {"1":"GND", "2":"TIMER_TRIG", "3":"HOLD_TIME_WINDOW",
+                 "4":"TIMER_RESET", "5":"TIMER_CTRL", "6":"TIMER_RC",
+                 "7":"TIMER_RC", "8":"V3V3_SYS"},
+        "U502": {"1":"HOLD_TIME_WINDOW", "2":"MCU_HOLD_REQ", "3":"GND",
+                 "4":"HOLD_TIMER_GRANTED_3V3", "5":"V3V3_SYS"},
+        "D501": {"1":"V3V3_SYS", "2":"TIMER_TRIG"},
+        "D502": {"1":"TIMER_TRIG", "2":"GND"},
+        "C502": {"1":"ACC_DRIVE_5V", "2":"TIMER_TRIG"},
+        "C503": {"1":"TIMER_RESET", "2":"GND"},
+        "C504": {"1":"TIMER_CTRL", "2":"GND"},
+        "C505": {"1":"V3V3_SYS", "2":"GND"},
+        "R503": {"1":"V3V3_SYS", "2":"TIMER_RESET"},
+        "R504": {"1":"MCU_HOLD_REQ", "2":"GND"},
+    }
+    for ref, pins in exact_timer.items():
+        for pin, required in pins.items():
+            actual = [name for name, nodes in nets.items() if (ref, pin) in nodes]
+            assert actual == [required], (
+                f"{ref}.{pin}: expected exactly {required}, actual {actual}")
+    print("PASS: timer and AND supply pins, trigger clamp polarities, POR and fail-off pull-down")
     forbidden=[("USB_VBUS_RAW",("U301","2")),("V5_SYS",("U301","6")),
                ("V5_BUCK_RAW",("U301","6")),("BUCK_ENABLE",("U301","8"))]
     for net,node in forbidden:
