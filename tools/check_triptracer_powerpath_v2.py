@@ -19,8 +19,8 @@ def check(p):
         "ACC_PROTECTED_IN": {("J901","2"),("R911","1"),("R916","1")},
         "ACC_EN_BIAS": {("R911","2"),("R912","1"),("D911","1")},
         "BUCK_ENABLE": {("D911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("R309","2"),("C306","2"),("R307","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
-                 ("R917","2"),("U301","1"),("U302","1")},
+        "GND": {("R309","2"),("C306","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
+                 ("R917","2"),("U301","1"),("U302","2")},
         "HOLD_TIMER_GRANTED_3V3": {("R914","1")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
         "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3")},
@@ -29,14 +29,13 @@ def check(p):
         "ACC_Q912_BASE": {("R916","2"),("Q912","1"),("R918","1")},
         "ACC_INV_N": {("Q912","3"),("R919","2"),("R920","1")},
         "ACC_Q913_BASE": {("R920","2"),("Q913","1")},
-        "V3V3_SYS": {("U302","2"),("R919","1"),("R921","1"),("U201","3"),("R306","1")},
+        "V3V3_SYS": {("U302","3"),("R919","1"),("R921","1"),("U201","3"),("R306","1")},
         "ACC_DRIVE_5V": {("Q913","3"),("R917","1"),("R921","2")},
         "V5_BUCK_RAW": {("U301","3"),("U301","5"),("R308","1")},
         "MUX_PRI1_SENSE": {("U301","4"),("R308","2"),("R309","1")},
         "USB_VBUS_RAW": {("U301","6")},
-        "V5_SYS": {("U301","2"),("U301","7"),("U302","3"),("C303","1"),("C306","1")},
+        "V5_SYS": {("U301","2"),("U301","7"),("U302","1"),("C303","1"),("C306","1")},
         "USB_ACTIVE_N": {("U301","8"),("R306","2"),("U201","28")},
-        "LDO_COUT_RETURN": {("C305","2"),("R307","1")},
         "MCU_HOLD_REQ": {("U201","25"),("U502","2"),("R504","1")},
         "TIMER_TRIG": {("U501","2"),("C502","2"),("R502","2"),("D501","2"),("D502","1")},
         "TIMER_RC": {("U501","6"),("U501","7"),("R501","2"),("C501","1")},
@@ -71,17 +70,17 @@ def check(p):
         actual=[name for name,nodes in nets.items() if ("U301",pin) in nodes]
         assert actual==[required_rail], (
             f"TPS2116 pin {pin}: expected exactly {required_rail}, actual {actual}")
-    assert ("C305","2") not in nets["GND"], "NCV1117 output capacitor bypasses required ESR resistor"
+    assert ("C305","2") in nets["GND"], "MCP1826S output capacitor must return directly to GND"
     # Critical: neither source goes directly to the core LDO: only V5_SYS.
-    assert ("U302","3") not in nets["USB_VBUS_RAW"]
-    assert ("U302","3") not in nets["V5_BUCK_RAW"]
+    assert ("U302","1") not in nets["USB_VBUS_RAW"]
+    assert ("U302","1") not in nets["V5_BUCK_RAW"]
     # PR1 cannot be tied directly to VIN1: it must select USB before the buck collapses.
     assert ("U301","4") not in nets["V5_BUCK_RAW"], "PR1 improperly bypasses VIN1 priority divider"
     # The opto output transistor cannot pull the vehicle VIN/EN domain
     # directly from the MCU 3.3-V GPIO.
     assert ("U911","4") not in nets["V3V3_SYS"]
     assert ("U911","3") not in nets["V3V3_SYS"]
-    print("PASS: TPS2116 all eight pins exactly matched; VIN1/USB/VOUT and 3V3 domains isolated")
+    print("PASS: TPS2116 all eight pins exactly matched; MCP1826S VIN1/GND2/VOUT3 and ceramic output return wired")
     print("PASS: native TLC555 RC/trigger/reset + gated MCU-HOLD pin topology")
     print("PASS: 16 ACC, timed HOLD, 5V priority mux, 3V3 core and USB status net connections")
 
