@@ -1,5 +1,16 @@
 # TripPower 5V/2A – eigenstaendiges, kopierbares DC/DC-Modul
 
+## Nutzerentscheidung und Werte-Freeze zur LM74930-Schutzstufe (14.10.2026)
+
+**Fest vorgegeben: LM74930QRGERQ1 statt LM74800 fuer das NEUE eigenstaendige TripPower-Modul.** Der bisherige TripTracer-Schaltplan 01I mit LM74800 bleibt bis zur separaten Modulimplementierung unveraendert. 5V-Buck bleibt LMR38020SQDDARQ1.
+
+- [Ausfuehrliche Auslegung einschliesslich OC/SCP, 9V/202V, UV/OV, Thermik und Safety-Gates](LM74930_DIMENSIONING_2026-10-14.md)
+- [Maschinenlesbarer 24-Pin+RTN-Netzplan und Werte-/MPN-Kandidaten](lm74930_design_v1.json)
+- [Auslegungstest mit TI-Formeln und Eckwerten](../../../tools/check_trippower_lm74930_values.py) (**Python-Mathematik, KEIN KiCad ERC/DRC oder Labortest**)
+
+**Vorlaeufig 5mOhm Shunt, RSET=50Ohm, RILIM=33,2k (nom. 3,61A), RISCP=470Ohm (nom. 5,03A), CTMR=47nF+RTMR=100k Latch-Off, UVLO ~7,52V Start, OV-Abschaltung ~35,89V.** Die Vorbemessung des VIN_PROTECTED-Zweigs betraegt 1A, jedoch erst nach eigener nachgewiesener Abzweig-Sicherung/Steckerkontakt/Kabel-I2t. Thermik und SOA des bestehenden STD17NF25 bei erhoehter Eingangsleistung sind **offen**. Kein Versprechen fuer ~9V-Start bei 10k-VS-Versorgung ohne Test, keine 202V/350ms-Freigabe.
+
+
 ## Controllervergleich 14.10.2026: Schutz mit elektronischem Circuit Breaker
 
 [Vergleich LM74800-Q1 / LM74930-Q1 inkl. Kosten, Livebestand und TI-Referenz](CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md).
