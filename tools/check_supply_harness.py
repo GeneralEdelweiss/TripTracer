@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Vehicle harness / 9V constant-power envelope. Assumptions, not hardware approval."""
 import json
+import csv
+import sys
 import math
 import re
 from itertools import product
@@ -48,6 +50,20 @@ def source_fuse_check():
             if p in seen: continue
             seen.add(p); result.update(labels.get(p,set())); todo.extend(graph.get(p,set())-seen)
         return result
+    # Ensure the source graph uses actual cached/local symbol terminal positions.
+    lib=(KICAD/"TripTracer_V1.kicad_sym").read_text(encoding="utf-8")
+    for text,name in ((sch,"TripTracer_V1:OFFBOARD_FUSE"),(lib,"OFFBOARD_FUSE")):
+        sym=block(text,'(symbol "'+name+'"')
+        pins=re.findall(r'\(pin passive line \(at ([\d.-]+) ([\d.-]+) [\d.-]+\).*?\(number "([^"]+)"',sym,re.S)
+        assert sorted((n,float(x),float(y)) for x,y,n in pins)==[("1",-7.62,0.),("2",7.62,0.)]
+    j=block(sch,'(symbol (lib_id "TripTracer_V1:VEHICLE_SOURCE_3WIRE"')
+    assert '(property "Reference" "J902"' in j and '(on_board no)' in j and '(in_bom no)' in j
+    for text,name in ((sch,"TripTracer_V1:VEHICLE_SOURCE_3WIRE"),(lib,"VEHICLE_SOURCE_3WIRE")):
+        sym=block(text,'(symbol "'+name+'"')
+        pins=re.findall(r'\(pin passive line \(at ([\d.-]+) ([\d.-]+) [\d.-]+\).*?\(number "([^"]+)"',sym,re.S)
+        assert sorted((n,float(x),float(y)) for x,y,n in pins)==[("1",10.16,5.08),("2",10.16,0.),("3",10.16,-5.08)]
+    for name,y in (("VEHICLE_BAT_RAW",185.42),("VEHICLE_ACC_RAW",190.5),("GND",195.58)):
+        assert labels.get((260.35,y))=={name}
     expected={"F901":("0997003.WXN 3A 58V EXTERN","VEHICLE_BAT_RAW","BAT_INPUT_FUSED_UNPROTECTED_TVS"),
               "F902":("0997002.WXN 2A 58V EXTERN","VEHICLE_ACC_RAW","ACC_PROTECTED_IN")}
     seen=set()
@@ -126,5 +142,20 @@ def check():
         "actual terminal amplitude<=58V and prospective current<=1kA before fuse58V/1kA credit",
         "TestA202V and vehicle transient/short-circuit tests remain unmet"])
     print(json.dumps(report,indent=2))
+
+def external_bom(dest):
+    """Source-based offboard candidate BOM; never represented as native PCB output."""
+    sch=(KICAD/"01G_SIMPLE_INPUT.kicad_sch").read_text(encoding="utf-8")
+    with open(dest,"w",newline="",encoding="utf-8") as f:
+        w=csv.writer(f)
+        w.writerow(("reference","subpart","candidate_MPN","quantity","installation","condition","basis"))
+        for m in re.finditer(re.escape('(symbol (lib_id "TripTracer_V1:OFFBOARD_FUSE"'),sch):
+            b=block(sch[m.start():], '(symbol (lib_id')
+            ref=re.search(r'\(property "Reference" "([^"]+)"',b).group(1)
+            value=re.search(r'\(property "Value" "([^"]+)"',b).group(1)
+            w.writerow((ref,"fuse",value.split()[0],1,"VEHICLE_EXTERNAL","source-side fuse or qualified existing takeoff","checked schematic; not native PCB BOM"))
+            w.writerow((ref,"holder","Littelfuse 0FHM0001ZXJ-RED candidate",1,"VEHICLE_EXTERNAL","only if no qualified existing fuse position","58V lot/rating and installation to verify"))
+
 if __name__=="__main__":
     check()
+    if len(sys.argv)>1: external_bom(sys.argv[1])

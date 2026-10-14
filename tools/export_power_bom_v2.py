@@ -15,7 +15,7 @@ POWER_SHEETS = {
     "03_3V3_USB.kicad_sch",
 }
 PARTS = {
-    "F901": ("Littelfuse 0997003.WXN 3A 58V", "", "", "", "", "OFFBOARD near vehicle source, replaceable holder/OEM fused circuit; price recheck"),
+    "F901": ("Littelfuse 0997003.WXN 3A 58V", "USD", 1.04, 0.792, 0.6063, "OFFBOARD near vehicle source; DigiKey catalog observation; holder/landed costs unverified"),
     "F902": ("Littelfuse 0997002.WXN 2A 58V", "EUR", 0.886, 0.668, 0.501, "OFFBOARD; Mouser DE catalog, VAT/shipping not established; recheck"),
     "R914": ("YAGEO RC1206FR-07154RL 154ohm 1% 1206 0.25W", "USD", 0.10, 0.047, 0.0247, "DigiKey catalog stock5000; LED drive engineering envelope, hot/cold CTR open"),
     "R911": ("Panasonic ERJP08F2492V 24.9k 1% 1206", "", "", "", "", "VIN startup cold-headroom update; price/availability unverified"),

@@ -90,7 +90,7 @@ jobs:
         run: |
           python3 tools/check_simple_input_netlist.py reports/TripTracer.net | tee reports/powerpath.log
           python3 tools/check_input_protection_envelope.py | tee reports/input-protection-envelope.json
-          python3 tools/check_supply_harness.py | tee reports/supply-harness.json
+          python3 tools/check_supply_harness.py reports/vehicle-harness-candidate.csv | tee reports/supply-harness.json
       - name: Assert LMR38020-Q1 buck topology from native KiCad netlist
         id: newbuck
         continue-on-error: true
