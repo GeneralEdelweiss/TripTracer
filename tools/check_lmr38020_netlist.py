@@ -38,7 +38,14 @@ def check(netlist):
     assert ("U101", "3") not in nets["V5_BUCK_RAW"], "VIN shorted to 5V"
     assert ("U101", "8") not in nets["V5_BUCK_RAW"], "SW bypasses inductor"
     assert ("U101", "7") not in nets["SW_38020"], "BOOT shorted to SW"
-    assert ("U101", "6") in nets.get("BUCK_PG", set()), "PG net missing"
-    print("PASS: LMR38020-Q1 8 connected native power nets; input/output, SW, BOOT no-shorts")
+    # PG6 is an OPTIONAL open-drain status pin. Per TI LMR38020-Q1 datasheet
+    # Table 5-1, it may be left floating if unused. Do not connect/pull it high:
+    # with VIN absent and USB powering V3V3, a pullup could give false VIN1-good.
+    pg6 = [(name, pins) for name, pins in nets.items() if ("U101", "6") in pins]
+    assert "BUCK_PG" not in nets, "Obsolete isolated BUCK_PG label must not return"
+    assert all(pins == {("U101", "6")} for _, pins in pg6), (
+        f"Optional PG6 incorrectly wired: {pg6}"
+    )
+    print("PASS: LMR38020-Q1 8 connected native power nets; PG explicitly unused; no VIN/SW/BOOT shorts")
 if __name__ == "__main__":
     check(sys.argv[1])
