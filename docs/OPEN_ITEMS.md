@@ -1,5 +1,18 @@
 # TripTracer – offene technische Prüfungen
 
+
+## Neuer Prüfschritt 14.10.2026 – Kaufmodule vor Eigenentwicklung
+
+**Marktvergleich dokumentiert:** [COTS_POWER_SUPPLY_EVALUATION.md](COTS_POWER_SUPPLY_EVALUATION.md). Die vorläufigen Alternativen **TI LM74800-Q1 + RECOM R-78K5.0-2.0L**, **LM74930-Q1 + RECOM** und **RECOM RPH-3.0-CT mit Enable** müssen vor dem weiteren individuellen Buck-Redesign gegen die **LMR38020-Q1**-Entwicklungsbasis unter gleichen Bedingungen verglichen werden.
+
+- [ ] Vollständige **1/10/100-Stück-Gesamt-BOM** mit realer Verfügbarkeit, MwSt./Versand, Hand- oder PCBA-Bestückung und Testkosten; 11–14 € nur überholte/unvollständige Chat-Schätzung.
+- [ ] 9–30 V normal, ~9 V Startziel, RECOM 36-V-Eingangsgrenze plus OVP-Toleranzen und ISO-Transienten prüfen; Last-/Ripple-/EMV-/Thermiknachweise für 5 V / 2 A.
+- [ ] Beim LM74800 (kein Overcurrent-Limit) nachweisen, wie gefährliche Kurzschlüsse/Leitungsschäden verhindert werden; LM74930/alternative eFuse und externe Sicherungen *mit gleichem Schutzumfang* vergleichen.
+- [ ] Bei SIP3 ohne Enable zusätzlichen ACC/MCU-HOLD-Abschaltpfad und **<100 µA** BAT+-OFF-Gesamtruhestrom belegen; USB-Service, SD-Flush und Rückspeisesperre erhalten.
+- [ ] 202-V-Test-A-Referenz nicht als freigegeben übernehmen: Q1-SOA, Q2-Klemmspannung, TVS, Leiterbahnen, Sicherungen und Test B separat verifizieren. 
+- [ ] Vor Änderungen der KiCad-Baugruppen Entscheidung dokumentieren; dann Symbole/Footprints/3D, gesamtes ERC/DRC und Labortests durchführen. **Bisher keine Änderung am aktuellen Schaltplan oder BOM.**
+
+
 **AKTUELLE ENTSCHEIDUNG (13.10.2026): Variante C ist verbindlich festgelegt: LM74930-Q1 + LMR36520, relaislose ACC-/MCU-HOLD-Logik.** Keine separate TPS26631, keine fest eingelöteten Einmalsicherungen mit Auslötpflicht; **quellseitig getrennt abgesicherte** ACC-/BAT+-Kabel bleiben Pflicht. **Reichelt und andere deutsche Lieferanten zuerst prüfen, wenn Gesamtpreis inkl. MwSt./Versand/Mindestmenge und Lagerbestand konkurrenzfähig**; sonst Mouser/DigiKey/LCSC möglich. Alte Varianten nur noch Vergleichsdokumentation. Offen: FET/Footprint/Shunt-Design, 6-V-Start, ISO-Transienten, Ruhestrom, Kurzschluss-/Thermiktest, realer BOM-Korb.
 
 **Stand: 13.10.2026.** Aktiver Entwicklungsstand: [TripTracer V1](../hardware/kicad/TripTracer_V1_README.md); V0.3 ist eine historische Referenz. **Kein fertiges oder freigegebenes PCB.**
