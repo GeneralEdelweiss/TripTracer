@@ -54,8 +54,8 @@ def check():
                           (sheet, "TripTracer_V1:NMOS_GDS_127")):
         sym = block(txt, f'(symbol "{sym_name}"')
         pins = re.findall(
-            r'\\(pin\\s+(\\w+)\\s+line.*?\\(name "([^"]+)"[^\\n]*?'
-            r'\\(number "([0-9]+)"', sym)
+            r'\(pin\s+(\w+)\s+line.*?\(name "([^"]+)"[^\n]*?'
+            r'\(number "([0-9]+)"', sym)
         assert sorted(pins) == sorted([
             ("input", "G", "1"), ("passive", "S", "2"),
             ("passive", "D", "3"),
