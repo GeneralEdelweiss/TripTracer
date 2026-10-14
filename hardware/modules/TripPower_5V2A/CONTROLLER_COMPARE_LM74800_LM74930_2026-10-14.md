@@ -1,5 +1,8 @@
 # TripPower 5V/2A – LM74800-Q1 gegen LM74930-Q1
 
+> **Aktualisierung 14.10.2026: Gemeinsame Hauptsicherung statt Zweigsicherung.** Die hier urspruenglich erwaehnte getrennte Auxiliary-Sicherung ist durch den verbindlichen Systembeschluss ersetzt: `VIN_PROTECTED_UNFUSED` liegt elektrisch direkt am gemeinsamen LM74930/R301-Ausgang. **Nur eine austauschbare externe F_MAIN in der Fahrzeugleitung, nah an der Stromquelle**, wird fuer den gesamten TripTracer gefordert; alle downstream Leiterbahnen/Kabel/Stecker werden nach der tatsaechlichen Schmelz-/Fehlerenergie und FET-Kurzschlussfall dimensioniert. 3 A ist bei 9 V und voller Zusatzlast 1 A sowie heisser Umgebung keine automatisch taugliche Auswahl; 4/5 A sind Kandidaten, nicht festgelegt.
+
+
 > **Folgeentscheidung 14.10.2026:** Nutzer hat LM74930QRGERQ1 als festen Controller fuer das *neue* eigenstaendige TripPower-Modul gewaehlt. Der Originalvergleich bleibt historisch; die **konkrete vorlaeufige** Bestueckungs-/Werteberechnung steht jetzt in [LM74930_DIMENSIONING_2026-10-14.md](LM74930_DIMENSIONING_2026-10-14.md) und [lm74930_design_v1.json](lm74930_design_v1.json). Aktive TripTracer-01I-LM74800-Schaltung bleibt aktuell unveraendert. Mit Benutzerentscheidung NICHT die unqualifizierten Schaltungs- und Layout-Gates ueberspringen.
 
 
@@ -7,7 +10,7 @@
 
 ## Entscheidungsfrage
 
-Universelles, standalone nutzbares Modul fuer **9–30 V DC nominal**, 12/24-V-Fahrzeugnetze, **5 V / 2 A (10 W)** und **physischen unregulierten `VIN_PROTECTED`-Ausgang** nach Eingangsschutz. Gemeinsame Eingangs-OV/Verpol-/FET-Stufe, optional RUN_CMD (3,3-/5-V-Logik nach Pegel- und Rueckspeisungspruefung), MCU-HOLD extern im TripTracer. Nach wie vor fahrzeugseitige DC-bemessene Leitungs-Sicherung Pflicht.
+Universelles, standalone nutzbares Modul fuer **9–30 V DC nominal**, 12/24-V-Fahrzeugnetze, **5 V / 2 A (10 W)** und **physischen unregulierten `VIN_PROTECTED_UNFUSED`-Ausgang** nach Eingangsschutz. Gemeinsame Eingangs-OV/Verpol-/FET-Stufe, optional RUN_CMD (3,3-/5-V-Logik nach Pegel- und Rueckspeisungspruefung), MCU-HOLD extern im TripTracer. Nach wie vor fahrzeugseitige DC-bemessene Leitungs-Sicherung Pflicht.
 
 **Vorlaeufiges Engineering-Votum: LM74930QRGERQ1 fuer die neue eigenstaendige Platine bevorzugt. Noch NICHT als geaenderte aktive TripTracer-BOM freigegeben.** Die bestehende aktive Platine `01I_LM74800_INPUT.kicad_sch` und der nachgeschaltete `LMR38020SQDDARQ1` wurden bei diesem Vergleich NICHT geaendert. Erst vor einer bewussten Umstellung Vollkosten, 9-V-VS-Hochlauf, EN-Fail-OFF und FET-SOA nachweisen.
 
@@ -31,7 +34,7 @@ Universelles, standalone nutzbares Modul fuer **9–30 V DC nominal**, 12/24-V-F
 | Externe Quell-Sicherung | weiterhin Pflicht | weiterhin Pflicht |
 | Hochvolt-FET, low-volt-FET, VS-Zener/TVS | weiterhin erforderlich | weiterhin erforderlich |
 
-**Wichtig:** LM74930 ist eine *einstellbare Abschalt-/Circuit-Breaker*-Schutzfunktion, nicht automatisch eine dauerhaft analog begrenzende elektronische Stromquelle. Ein Fehler **vor** dem FET-/Shunt-Pfad (oder verschweisster/kurzgeschlossener FET) muss weiterhin durch externe Leitungssicherungen und Fehleranalyse beherrscht werden. Der zusaetzliche `VIN_PROTECTED`-Anschluss bekommt gemaess Modulvertrag **eigenen nachgewiesenen Abzweig-Kurzschlussschutz**, z. B. passende wartbar austauschbare DC-Sicherung oder eigenen begrenzenden Zweig; globale OCP ersetzt das nicht automatisch.
+**Wichtig:** LM74930 ist eine *einstellbare Abschalt-/Circuit-Breaker*-Schutzfunktion, nicht automatisch eine dauerhaft analog begrenzende elektronische Stromquelle. Ein Fehler **vor** dem FET-/Shunt-Pfad (oder verschweisster/kurzgeschlossener FET) muss weiterhin durch externe Leitungssicherungen und Fehleranalyse beherrscht werden. Der zusaetzliche `VIN_PROTECTED_UNFUSED`-Anschluss hat **keine separate Abzweigsicherung**. Der gemeinsame, austauschbare F_MAIN in der Fahrzeugzuleitung muss auch bei defektem Schutz-FET alle Leiterbahnen und Verbindungen sicher abdecken. OCP schaltet im Fehlerfall eventuell beide Ausgaenge ab.
 
 ## Echte TI-Referenz und sinnvolle Topologie
 
@@ -42,16 +45,16 @@ Universelles, standalone nutzbares Modul fuer **9–30 V DC nominal**, 12/24-V-F
 ```text
 VIN_FUSED -> TVS/VS-Klemme -> Q_HV / Q_IDEAL -> RSENSE ----> LMR38020 VIN -> 5V_OUT
                                                      |
-                                                     + -> separater Abzweig-Schutz -> VIN_PROTECTED (Klemme)
+                                                     + -> J302.1 VIN_PROTECTED_UNFUSED direkt (KEINE separate Sicherung)
 ```
 
-Damit erkennt LM74930 den kombinierten Eingangsstrom, auch bei externem `VIN_PROTECTED`-Kurzschluss. Die angegebene Stromgrenze bezieht sich auf **den Gesamtstrom hinter dem Rsense** und nicht direkt auf 2 A des 5-V-Ausgangs; beide Stroeme unterscheiden sich wegen Spannungswandlung.
+Damit erkennt LM74930 den kombinierten Eingangsstrom, auch bei externem `VIN_PROTECTED_UNFUSED`-Kurzschluss. Die angegebene Stromgrenze bezieht sich auf **den Gesamtstrom hinter dem Rsense** und nicht direkt auf 2 A des 5-V-Ausgangs; beide Stroeme unterscheiden sich wegen Spannungswandlung.
 
 ### AuslegungsBEISPIEL, noch kein Bauteil-Freeze
 
 Angenommen **85 % Wirkungsgrad** fuer den LMR38020 bei 5 V/2 A:
 - Buck-Eingangsstrom ca. **1,31 A bei 9 V**, **0,98 A bei 12 V**, **0,49 A bei 24 V**.
-- Bei weiteren **1 A** durch `VIN_PROTECTED` (nur als Lastannahme; Abzweig-Nennstrom noch offen) zusammen **2,31 A bei 9 V**.
+- Bei weiteren **1 A** durch `VIN_PROTECTED_UNFUSED` (nur als Lastannahme; Abzweig-Nennstrom noch offen) zusammen **2,31 A bei 9 V**.
 - Der LM74930-Referenzansatz mit hypothetisch **RSENSE=5 mOhm** und **RSET=50 Ohm** und `ILIM = 3 A` ergibt laut TI Gl. 15 **RILIM = 12 x 50 / (3 x 0.005) = 40 kOhm**. 20-mV-SCP-Schwelle entspraeche nominell **4 A**; TI spezifiziert 17,4–22 mV fuer den HV-Komparator, also allein daraus 3,48–4,4 A plus Shunttoleranz. **Nicht als qualifizierte Ausloesestromgrenze einsetzen.** 5-mOhm-Shunt-Verlust bei 3 A ~**45 mW**, vorausgesetzt geeigneter 4-Leiter-/Kelvin-Pfad.
 - Diese Zahlen dienen nur zur Topologieentscheidung; **RILIM/RSENSE/CTMR** erst nach Festlegung des maximalen externen Abzweigstroms, der Buck-Einschaltstromspitzen und des FET-SOA/I²t festschreiben. Ein ca. 1-ms-Timer nach TI ist kein Ersatz fuer die separate schnelle SCP; Kurzschluss-Impulse, Reset und Lasttransienten pruefen.
 - Der vorhandene HV-FET `STD17NF25` wird durch den Abzweig zusaetzlich warm: bei angenommenen 0,165 Ohm und 2,31 A etwa **0,88 W** rein ohmsch bei Nenn-Rds(on), ohne temperaturbedingten Anstieg. FET-/Kuehlflaechen-Upgrade oder kleinerer Abzweigstrom kann erforderlich werden.
@@ -74,10 +77,10 @@ Angenommen **85 % Wirkungsgrad** fuer den LMR38020 bei 5 V/2 A:
 
 1. **Versorgung/Kaltstart:** 9-V-Start an der 10k/VS-Zener-200V-Referenz, interne Chargepump-Stromspitze und CVs; 30V Dauerbetrieb; Stromrueckspeisung durch RUN/USB. Der Chip ist 4–65 V spezifiziert; das allein garantiert nicht die konkrete RVS-startende Schaltung.
 2. **Ruhestrom & Enable:** Vorhandene TripTracer-LM74800-ACC-HOLD-Schaltung ist nicht 1:1 mit LM74930 zu verbinden. 3,3-/5-V-RUN und ALWAYS_ON getrennt konstruieren; BAT-OFF-Ziel <100uA ueber gesamten VIN-Rohpfad inkl. OV/UV-Teiler/TVS/Leckstrom/Backfeed nachweisen. Vorheriger 660k/23.2k-OV-Teiler und dessen Toleranz wird NICHT still kopiert; LM74930-OV-Referenz ist 0,6V und anderer Pin.
-3. **Sicherheitsfunktion:** Gemeinsamer Shunt **vor beiden Lastzweigen**. Eigenes `VIN_PROTECTED`-Abzweigschutzglied **nach** Shunt. Kabelquelle und Leitungen separat absichern. Kurzschluss vor und hinter dem Shunt, FET kurzgeschlossen, OCP/SCP/Latch-Off/Auto-Retry, Shunt-Offenbruch, MOSFET-Thermik und Anlauf prüfen.
+3. **Sicherheitsfunktion:** Gemeinsamer Shunt **vor beiden Lastzweigen**. Direkter `VIN_PROTECTED_UNFUSED`-Abgriff **nach** Shunt ohne eigenen Zweigschutz. **Eine gemeinsame Hauptsicherung in der Fahrzeugzuleitung** ist Pflicht; alle Leiterbahnen/Leitungen muessen gegen diese Zeit-Strom-/I2t-Kennlinie und den FET-Kurzschlussfehler nachgewiesen werden. Kurzschluss vor und hinter dem Shunt, FET kurzgeschlossen, OCP/SCP/Latch-Off/Auto-Retry, Shunt-Offenbruch, MOSFET-Thermik und Anlauf prüfen.
 4. **Transienten:** 200-V-Test-A und begrenzter Test B gesondert; FET 250V Vds/SOA, Q2 60V-Belastung, RVS-Pulsenergie, 56/60V-Zener, TVS, OV-Schaltung, negative ISO-Transienten und realer PCB-Strompfad.
 5. **KiCad:** Eindeutiges TI RGE-24 Pad-1..24+EP landpattern mit Herstellergeometrie / lokal, echte netzlistenbasierte Native KiCad 10 ERC/DRC vor Freigabe, eigene kopierbare Platine. QFN-Handloetaufwand ggü. WSON-12 dokumentieren.
-6. **Ausgangsleistung:** Bei voller 5V/2A-Last plus externem `VIN_PROTECTED`-Verbraucher liegt der relevante **Eingangsschutz-Strom hoeher**. Kein 5A-Referenz-Schwellenwert ungeprueft als Sicherheitsabdeckung ausgeben.
+6. **Ausgangsleistung:** Bei voller 5V/2A-Last plus externem `VIN_PROTECTED_UNFUSED`-Verbraucher liegt der relevante **Eingangsschutz-Strom hoeher**. Kein 5A-Referenz-Schwellenwert ungeprueft als Sicherheitsabdeckung ausgeben.
 
 ## Quellen
 
