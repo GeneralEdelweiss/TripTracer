@@ -32,9 +32,10 @@ def check(path):
     need("LM748_HGATE_RAW",("U921","8"),("R925","1"))
     need("LM748_HGATE_POWER",("R925","2"),("Q921","1"),("C927","1"))
     need("LM748_DGATE",("U921","1"),("Q922","4"))
-    need("BUCK_ENABLE",("U921","6"),("U101","2"),("R911","2"),("R913","1"))
+    need("BUCK_ENABLE",("U921","6"),("R911","2"),("R913","1"))
+    assert ("U101","2") not in nets["BUCK_ENABLE"], "Buck EN must follow its VIN after LM748 cutoff"
     need("HV_PROTECTED_AFTER_EFUSE",("Q922","5"),("U921","9"),("U921","12"),
-         ("U101","3"),("C926","1"),("R915","1"))
+         ("U101","2"),("U101","3"),("C926","1"),("R915","1"))
     need("LM748_TVS_MID",("D921","2"),("D922","1"))
     need("LM748_CAP",("C925","1"),("U921","11"))
     # The KiCad native BOM/netlist includes on-board J901 pigtail; excludes on_board=no external fuses and M8.
