@@ -104,17 +104,23 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/export_power_bom_v2.py reports/TripTracer.net reports/power-bom-v2.csv | tee reports/power-bom.log
+      - name: Export complete hierarchical schematic PDF for review
+        id: schematicpdf
+        continue-on-error: true
+        run: |
+          kicad-cli sch export pdf -o reports/TripTracer-schematic.pdf hardware/kicad/TripTracer_V1.kicad_sch
       - name: Preserve reports even when checks fail
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: kicad10-${{ github.sha }}
           path: reports/
-          retention-days: 1
+          retention-days: 14
           if-no-files-found: error
       - name: Enforce failed checks
         if: always()
         env:
+          SCHEMATICPDF: ${{ steps.schematicpdf.outcome }}
           ERC: ${{ steps.erc.outcome }}
           DRC: ${{ steps.drc.outcome }}
           NETLIST: ${{ steps.netlist.outcome }}
@@ -128,4 +134,4 @@ jobs:
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success

@@ -15,6 +15,7 @@ POWER_SHEETS = {
     "03_3V3_USB.kicad_sch",
 }
 PARTS = {
+    "R207": ("Panasonic ERJP08F1003V 100k 1% 1206", "", "", "", "", "MCU ACC sense fault isolation; price/LCSC unverified"),
     "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
     "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
     "U302": ("MCP1826S-3302E/EB", "EUR", 1.14, "", "", "Mouser DE: 1pc EUR 1.14; DDPAK-3 improved thermal area, 10/100pc unpriced"),
@@ -34,7 +35,7 @@ PARTS = {
     "R501": ("Panasonic ERJP08F1004V 1M 1% 1206", "", "", "", "", "lower timing R for leakage margin; price unverified"),
     "C501": ("Murata GRM32ER71E226KE15L 22uF 25V X7R 1210", "", "", "", "", "effective capacitance at bias/temperature must be qualified; price unverified"),
     "Q912": ("MMBT5551 SOT23", "", "", "", "", "ACC level shifter; pricing pending"),
-    "U501": ("TLC555QDRQ1", "EUR", 1.05, 0.759, 0.605, "monostable 24s nominal; effective capacitance and edge check open"),
+    "U501": ("TLC555QDRQ1", "EUR", 1.05, 0.759, 0.605, "prearmed ACC-off timer; see model-only RC sensitivity study, not a guaranteed hold time"),
     "U502": ("SN74LVC1G08QDBVRQ1", "EUR", 0.224, 0.153, 0.117, "hardware gated timer"),
 }
 
@@ -50,14 +51,14 @@ def export(src, dest):
         value=find(r'\(value "([^"]+)"\)')
         fp=find(r'\(footprint "([^"]+)"\)')
         sheet=find(r'\(name "Sheetfile"\)\s+\(value "([^"]+)"\)')
-        if sheet not in POWER_SHEETS:
+        if sheet not in POWER_SHEETS and ref != "R207":
             continue
         mpn,curr,p1,p10,p100,status=PARTS.get(ref,("","","","","","Mfr MPN and price open"))
         rows.append((sheet,ref,value,fp,mpn,curr,p1,p10,p100,status))
     rows.sort(key=lambda x:(x[0],x[1]))
     assert rows, "No power components from native KiCad hierarchy"
     refs={r[1] for r in rows}
-    assert {"U101","U301","U302","D901","D902","U911","Q912","D503","D912","R505","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
+    assert {"R207","U101","U301","U302","D901","D902","U911","Q912","D503","D912","R505","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
     with open(dest,"w",newline="",encoding="utf-8") as fh:
         writer=csv.writer(fh)
         writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status"))

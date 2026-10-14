@@ -25,7 +25,8 @@ def check(p):
         "BAT_INPUT_FUSED_UNPROTECTED_TVS": {("J901","1"),("D901","2")},
         "VIN_HOLD_BIAS": {("R915","2"),("U911","4")},
         "ACC_Q912_BASE": {("R916","2"),("Q912","1"),("R918","1")},
-        "ACC_INV_N": {("Q912","3"),("R919","2"),("U501","2"),("R502","2"),("D503","3")},
+        "MCU_ACC_INV_N": {("R207","2"),("U201","29")},
+        "ACC_INV_N": {("R207","1"),("Q912","3"),("R919","2"),("U501","2"),("R502","2"),("D503","3")},
         "V3V3_SYS": {("U302","3"),("R919","1"),("U201","3"),("R306","1")},
         "V5_BUCK_RAW": {("U301","3"),("U301","5"),("R308","1")},
         "MUX_PRI1_SENSE": {("U301","4"),("R308","2"),("R309","1")},
@@ -43,6 +44,15 @@ def check(p):
     for name,req in expect.items():
         actual=nets.get(name,set())
         assert req <= actual, f"{name} missing {sorted(req-actual)}; actual={sorted(actual)}"
+    # MCU must observe ACC OFF without being able to clamp the timer directly.
+    for pin, required in {"1": "ACC_INV_N", "2": "MCU_ACC_INV_N"}.items():
+        actual = [name for name, nodes in nets.items() if ("R207", pin) in nodes]
+        assert actual == [required], f"ACC sense isolation R207.{pin}: {actual}"
+    assert ("U201", "29") not in nets["ACC_INV_N"], "MCU bypasses timer fault isolation"
+    assert nets["MCU_ACC_INV_N"] == {("R207", "2"), ("U201", "29")}, "ACC sense unexpectedly loaded"
+    assert nets["ACC_INV_N"] == {("Q912","3"),("R919","2"),("U501","2"),
+                                ("R502","2"),("D503","3"),("R207","1")}, "timer trigger unexpectedly loaded"
+    print("PASS: GPIO34/pad29 senses inverse ACC through R207; no direct MCU clamp of shared timer trigger")
     # Check every timer IC terminal exactly, including supply pins and clamps.
     # TRIG is now a DC inverse-ACC signal; obsolete AC coupling/clamps are absent.
     exact_timer = {
