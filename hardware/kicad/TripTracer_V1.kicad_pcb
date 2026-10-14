@@ -180,7 +180,7 @@
 			(at -2.7 0.635)
 			(size 1.55 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "BUCK_ENABLE")
+			(net "HV_PROTECTED_AFTER_EFUSE")
 			(uuid "cc6103a7-6cee-4d64-a8f3-00e4b2b3aa04")
 		)
 		(pad "3" smd rect
