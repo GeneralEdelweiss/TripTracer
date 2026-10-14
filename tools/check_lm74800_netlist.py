@@ -37,7 +37,6 @@ def check(path):
          ("U101","3"),("C926","1"),("R915","1"))
     need("LM748_TVS_MID",("D921","2"),("D922","1"))
     need("LM748_CAP",("C925","1"),("U921","11"))
-    need("GND",("C925","0")) if False else None
     # The KiCad native BOM/netlist includes on-board J901 pigtail; excludes on_board=no external fuses and M8.
     # Assert their presence in the actual schematic source; only live PCB nodes
     # are compared with the export. Source wires are explicitly mapped by names.
@@ -50,7 +49,11 @@ def check(path):
     assert 'VEHICLE_M8_EXTERNAL' in source and 'POWER_HARNESS_3WIRE' in source, "external M8 vehicle feed missing"
     # Charge pump is CAP-to-VS, NOT CAP-to-GND.
     need("LM748_VS_SAFE",("C925","2"))
-    assert ("U921","13") not in (set().union(*nets.values())), "RTN exposed pad must float"
+    # KiCad exports explicitly NC-marked pads on a synthetic unconnected net;
+    # this is correct and must not be misclassified as a GND or rail connection.
+    rtn_nets=[(name,nodes) for name,nodes in nets.items() if ("U921","13") in nodes]
+    assert all(name.startswith("unconnected-") and nodes == {("U921","13")}
+               for name,nodes in rtn_nets), f"RTN 13 must float: {rtn_nets}"
     for old in ("D901","D902","U401","Q401","Q402"):
         assert all(ref != old for nodes in nets.values() for ref,pin in nodes), f"Obsolete {old} is active"
     assert {("D923","1"),("D924","1")} <= nets["LM748_VS_SAFE"], "D_A_VS vs zener mixed up"
