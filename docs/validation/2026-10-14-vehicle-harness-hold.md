@@ -4,6 +4,7 @@ Development candidate, not a wiring/fault/vehicle approval. No PCB edit.
 
 ## Implemented changes
 - F901 **Littelfuse0997003.WXN,3A/58V** on BAT and F902 **0997002.WXN,2A/58V** on ACC are drawn as **external, replaceable** source-side fuses on01G. They are explicitly excluded from the PCB, have no PCB footprint and retain the existing M8/pigtail nets. They can represent a suitable existing fused takeoff; no device-side inline holder is prescribed.
+- J902 represents the existing three-wire vehicle takeoff, with no purchased connector, PCB footprint or PCB placement. It is excluded from both BOM and board; its source terminals make the external fuse connections explicit.
 - R911/R915 **30.1k ->24.9k1%**, candidate PanasonicERJP08F2492V, existing1206 footprints.
 - R914 **330ohm ->154ohm1%**, candidate YAGEORC1206FR-07154RL, existing1206 footprint. No added PCB component or IC.
 
@@ -50,6 +51,17 @@ For illustration, with assumed VF1.15V, thetaJA45K/W gives a thermal-only5V curr
 All stock is to recheck. No order; complete2/10/100-device landed price, shipping/minimum order, JLC categories and final cable/M8 procurement remain **NICHT BELASTBAR**.
 
 ## Validation
-New Actions coverage:288 source/diode/harness/load/efficiency corners, opto-current bounds, thermal/fuse sensitivity and actual offboard source-graph checks. Native netlist checks also verify offboard fuse terminals when included by the exporter; if omitted, the log explicitly distinguishes that from source checking. The BOM tags PCB versus vehicle-external installation.
+New Actions coverage:288 source/diode/harness/load/efficiency corners, opto-current bounds, thermal/fuse sensitivity and actual offboard source-graph checks. Native netlist checks also verify offboard fuse terminals when included by the exporter; if omitted, the log explicitly distinguishes that from source checking. The native PCB netlist intentionally omits offboard parts: its BOM contains55 PCB supply components. A separate `vehicle-harness-candidate.csv` is generated from the checked schematic fuse instances, with two required fuse entries and two conditional holder entries. It is source-derived, not claimed as native PCB output.
 
-Native run/results pending for this commit.
+Native KiCad **10.0.6**, tested commit **30fec36737bb8d484aa98e887d434822cdab41f9**, [Actions run38571650188](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38571650188):
+- Native input, LMR38020 buck, ACC startup/HOLD/timer, GPIO, USB/M8 priority mux and3V3 connection assertions **PASS**.
+- Source-derived harness/fuse graph and288 analytical corners **PASS within declared assumptions**.
+- **ERC33**, all `pin_not_connected` on the existing ESP32 page. The two isolated source-label warnings in run38570490067 were removed by drawing the actual existing source interface, not by suppressing checks. No new project/ERC exclusions.
+- **DRC5**, **79 unconnected items**, **80 schematic parity issues** remain. Overall Actions conclusion is correctly **FAIL**. No ERC/DRC/fabrication/vehicle release.
+- Native pin/net mapping before and after the offboard correction is identical for all250 exported pins; the complete comparison from9215e12 to30fec36 changes **zero PCB files**.
+- Native PCB supply BOM:55 components,0 offboard. Separate checked-source external CSV:2 fuse rows and2 conditional holder rows. J902 is an existing interface, not a purchased part.
+- The12-page native PDF was rendered; changed pages4/5 inspected. New source/fuse block fits on01G. Existing01H net-label overlays/tight transistor annotations, long title-block paths and crowded/edge text elsewhere remain **visual acceptance gates**; no complete visual release is claimed.
+
+Artifact11898476915 SHA256 `1f5edd1d8cf822a94962e57de9eebde0e8472708b0aae120402cf0eba497a8ff`, expires28Oct2026. Durable [result snapshot](2026-10-14-vehicle-harness-hold/native-results.json) stores model output, exact native counts, external CSV rows, artifact and individual report checksums. Test source remains in this repository for reproduction.
+
+**Unresolved release blockers:** D901 full-load heat at70C, opto cold/hot drive/CTR, confirmed TVS5800 procurement, actual58V transient profile, fuse/holder/connector/trace fault coordination and physical short-circuit/vehicle testing. These are not made safe by an analytical PASS.
