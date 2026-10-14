@@ -23,4 +23,13 @@ Firmware is not implemented by this schematic change. Loss of BAT before boot/HO
 ## Checks
 Native Actions exports the complete root netlist and now requires the exact six-node ACC trigger plus the isolated two-node MCU sense network, preventing accidental bypass or added timer loading. The power BOM includes R207 even though it is on the MCU sheet: **expected55 active power components**. Actions also exports the full hierarchical schematic PDF and retains evidence14days. Existing ERC/DRC failures remain enforced.
 
-Native run and results: pending for the implementation commit.
+Native KiCad **10.0.6** run [38563872524](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38563872524), implementation commit **8c058060485b60cee21cb8323e33af7bd1faff21**:
+- Root netlist, hierarchy/custom-pin guards, input/buck/complete power-path assertions and both ACC models pass.
+- Native BOM exports **55** power parts. Complete hierarchical PDF export succeeds.
+- ERC: **33 unconnected MCU pins**, down from34; no new error class. No blanket no-connect markers added.
+- Unchanged PCB:5 DRC violations,79 unrouted items;80 parity issues versus78 before the new resistor and signal. This is expected schematic/PCB divergence, not an approved PCB.
+- Overall run **FAIL**, correctly enforced because ERC/DRC remain open. Raw logs show ERC and DRC exit5 and final gate exit1.
+- [Evidence ZIP: native PDF, netlist, BOM, JSON reports and model outputs](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38563872524/artifacts/11893214074), retained14days. PDF generation is verified; no manual native-editor visual inspection is claimed.
+
+## Input-surge gate remains open
+The current D902 5.0SMDJ36A is not validated for a58V/350ms centrally clamped load dump. Its10/1000us peak-power label is not a350ms rating. Simply increasing TVS voltage is not sufficient: hot clamping must remain below the buck/opto limits, and cold breakdown and actual source impedance determine TVS current. A load-dump-rated SLD8S43A was identified as a candidate ([manufacturer datasheet](https://www.littelfuse.com/assetdocs/littelfuse_tvs_diode_sld8s_datasheet.pdf?assetguid=e72d4532-03e6-43ae-af1e-73b2cd0bb1ff)); it requires a different SMTO-263 footprint, actual price comparison and pulse/temperature qualification before substitution. It is **not fitted** or declared proven by this commit. TestA202V remains separately unmet; the existing100V D901 likewise does not establish negative ISO7637 survival. The next electrical work is the coupled diode/TVS/fuse pulse and thermal design, not removal of MCU ERC markers.
