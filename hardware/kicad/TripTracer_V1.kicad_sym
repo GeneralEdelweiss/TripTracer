@@ -248,15 +248,15 @@
  (pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
  ))
 
-(symbol "IPB17N25S3_100"
+(symbol "FQD16N25CTM"
  (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
  (property "Reference" "Q" (at 0 17.78 0) (effects (font (size 1.27 1.27))))
- (property "Value" "IPB17N25S3-100" (at 0 -17.78 0) (effects (font (size 1.27 1.27))))
- (property "Footprint" "Package_TO_SOT_SMD:TO-263-3_TabPin2" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (property "Datasheet" "https://www.infineon.com/assets/row/public/documents/10/49/infineon-ipp-b17n25s3-100-ds-en.pdf" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (property "Description" "AEC-Q101 250V D2PAK 100mOhm provisional for Q401; G1 D2/tab S3; SOA and layout unverified" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (symbol "IPB17N25S3_100_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
- (symbol "IPB17N25S3_100_1_1"
+ (property "Value" "FQD16N25CTM" (at 0 -17.78 0) (effects (font (size 1.27 1.27))))
+ (property "Footprint" "Package_TO_SOT_SMD:TO-252-3_TabPin2" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "https://datasheet.lcsc.com/datasheet/pdf/428f7bed75e2232737449efac9f886cb.pdf" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Description" "onsemi 250V DPAK 270mOhm max at VGS10V; G1 D2/tab S3; automotive qualification NOT VERIFIED; cold-crank/SOA unverified" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "FQD16N25CTM_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "FQD16N25CTM_1_1"
  (pin input line (at -15.24 0 0) (length 5.08) (name "G" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016)))))
  (pin passive line (at 15.24 5.08 180) (length 5.08) (name "D" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016)))))
  (pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
