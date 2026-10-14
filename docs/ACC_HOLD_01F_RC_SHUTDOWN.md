@@ -23,14 +23,14 @@ HOLD_CAP_5V --> [NOCH FEHLT: isolierte Einschaltverknüpfung] --> LM74930 EN
 
 | Referenz | Auswahl für den elektrischen Versuch | Validierungsstatus |
 | --- | --- | --- |
-| D801 | **Diodes Inc. BAS116Q-7-F**, AEC-Q101, SOT23, Anode pins **1+2** intern gebrückt; Kathode pin **3** | Herstellerpinout geprüft, projektlokales KiCad-Symbol ergänzt, globales `Package_TO_SOT_SMD:SOT-23` vorläufig |
+| D801 | **Diodes Inc. BAS116Q-7-F**, AEC-Q101, SOT23, **Anode Pin 1, Pin 2 NC (unbeschaltet), Kathode Pin 3** | Herstellerpinout geprüft, projektlokales KiCad-Symbol ergänzt, globales `Package_TO_SOT_SMD:SOT-23` vorläufig |
 | R801 | 220 Ω, 1206 | Ladestromstoß aus 5 V, V_f, Quellenstrom und thermische Belastung prüfen |
 | C801 | **47 µF nominal / 10 V**, 1210-Platzhalter | Hersteller-MPN fehlt; die tatsächliche C_eff bei 4–5 V/Temperatur/Alterung kann deutlich kleiner sein |
 | R802 | 330 kΩ, 1206 | 1%-Wert/Derating und Ruhestrom-Fehlerbild prüfen |
 | Q801 | Diodes DMN2056U-7, N-MOS, vorhandener projektlokaler SOT23-GDS-Footprint | Off-Leckstrom und Gate bei 3,3-V-GPIO, reale Pinout-Bestückung prüfen |
 | R803/R804 | 10 kΩ MCU-Gate-Serie, 100 kΩ Gate-Pulldown, 1206 | GPIO hochohmig/USB-only/Brownout prüfen |
 
-Die [BAS116-Datenblattrevision 13](https://www.diodes.com/datasheet/download/BAS116.pdf), Seite 2, spezifiziert einen **maximalen Rückstrom von 80 nA bei 75 V und 150 °C** sowie 5 nA bei 75 V/25 °C. Dieser *Sperrstrom* entlädt bei Diodenkathode am Kondensator und Anode an einem niederohmig LOW gehaltenen ACC-Signal das Zeitglied zusätzlich; **er liefert nicht von selbst eine Batteriequelle zum Nachladen.** Unbedingt korrekte Anodenführung, Quellen-Pulldown und jedes verbleibende BAT/USB-Rückspeiserisiko prüfen. Die Anodenpins 1/2 müssen elektrisch zusammengehören, nicht wie ein BAS116 anderer Hersteller mit NC-Pin behandeln.
+Die [BAS116-Datenblattrevision 13](https://www.diodes.com/datasheet/download/BAS116.pdf), Seite 2, spezifiziert einen **maximalen Rückstrom von 80 nA bei 75 V und 150 °C** sowie 5 nA bei 75 V/25 °C. Dieser *Sperrstrom* entlädt bei Diodenkathode am Kondensator und Anode an einem niederohmig LOW gehaltenen ACC-Signal das Zeitglied zusätzlich; **er liefert nicht von selbst eine Batteriequelle zum Nachladen.** Unbedingt korrekte Anodenführung, Quellen-Pulldown und jedes verbleibende BAT/USB-Rückspeiserisiko prüfen. **Korrektur nach Diodes-Herstellerdatenblatt DS30233 Rev. 13:** Pin 1 = Anode, Pin 2 = nicht belegt (NC), Pin 3 = Kathode. Der frühere Hinweis auf zwei verbundene Anoden war falsch. Das Symbol und die Verdrahtung D801 wurden entsprechend korrigiert. Verbindliche Quelle: https://www.diodes.com/datasheet/download/BAS116.pdf, Seite 1, Schaltbild in Draufsicht.
 
 ## Abschaltzeit – rein analytisch, nicht getestet
 
