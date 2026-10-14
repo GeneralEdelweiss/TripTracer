@@ -26,7 +26,7 @@ PARTS = {
     "U302": ("MCP1826S-3302E/EB", "EUR", 1.14, "", "", "Mouser DE: 1pc EUR 1.14; DDPAK-3 improved thermal area, 10/100pc unpriced"),
     "D901": ("Diodes S5MC-13-F 5A 1000V SMC", "USD", 1.03, 0.637, 0.4126, "DigiKey US observed14Oct2026 stock51879; no DE landed quote; cold Vf/thermal/pulse unqualified"),
     "D902": ("TI TVS5800VEBR 58V flat clamp VEB6", "USD", 0.72, 0.512, 0.4025, "DigiKey US observed14Oct2026: stock0, expected12Jan2027; NOT a purchasable/landed quote; 20A8/20us clamp75V at27C only"),
-    "L101": ("FCH0650-150M provisional 15uH", "", "", "", "", "footprint and Isat verification missing"),
+    "L101": ("FANGCHENG FCH0650-150M 15uH 5.5A-Isat catalog C20415538", "USD", "", 0.1579, 0.1234, "LCSC 14Oct2026 stock >10k, MOQ 5, 5-49pc 0.1579 USD, 50-149pc 0.1234 USD; price for 1 unknown; FCH pad geometry NOT approved: active PCB still contains Bourns 10uH footprint, do not fabricate"),
     "U911": ("Wuerth 140356145000 80V SOP4", "EUR", 0.335, 0.296, 0.248, "CTR guaranteed at IF5mA only: 9V and hot/cold pending"),
     "D911": ("Diodes BAT54WS-7-F", "", "", "", "", "SOD323 K1/A2 negative Q914 base clamp; re-used component, prices unverified"),
     "R922": ("Panasonic ERJP08F1002V 10k 1% 1206", "", "", "", "", "minimum 0.5W requirement; pricing and derating recheck"),
