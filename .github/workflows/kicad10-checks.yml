@@ -95,6 +95,7 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/check_triptracer_powerpath_v2.py reports/TripTracer.net | tee reports/powerpath-v2.log
+          python3 tools/check_acc_vin_startup.py | tee reports/acc-vin-startup.json
       - name: Export active low-cost supply BOM from native KiCad netlist
         id: powerbom
         continue-on-error: true
