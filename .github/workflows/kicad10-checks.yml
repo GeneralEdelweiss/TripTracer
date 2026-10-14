@@ -10,6 +10,7 @@ on:
       - 'tools/triage_kicad_erc.py'
       - 'tools/check_kicad_custom_pinouts.py'
       - 'tools/check_simple_input_netlist.py'
+      - 'tools/check_triptracer_powerpath_v2.py'
       - 'tools/check_lmr38020_netlist.py'
   workflow_dispatch:
 
@@ -88,6 +89,11 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/check_lmr38020_netlist.py reports/TripTracer.net | tee reports/newbuck.log
+      - name: Assert ACC cold-start HOLD GPIO USB-M8 priority 3V3 power path
+        id: newpowerpath
+        continue-on-error: true
+        run: |
+          python3 tools/check_triptracer_powerpath_v2.py reports/TripTracer.net | tee reports/powerpath-v2.log
       - name: Preserve reports even when checks fail
         if: always()
         uses: actions/upload-artifact@v4
@@ -106,8 +112,9 @@ jobs:
           PINOUTS: ${{ steps.pinouts.outcome }}
           POWERPATH: ${{ steps.powerpath.outcome }}
           NEWBUCK: ${{ steps.newbuck.outcome }}
+          NEWPOWERPATH: ${{ steps.newpowerpath.outcome }}
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
