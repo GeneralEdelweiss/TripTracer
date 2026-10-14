@@ -9,6 +9,7 @@ on:
       - 'tools/analyze_rc_shutdown.py'
       - 'tools/test_rc_shutdown_envelope.py'
       - 'tools/check_vs_bootstrap_tradeoff.py'
+      - 'tools/check_power_design_corners.py'
       - '.github/workflows/acc-hold-tests.yml'
   workflow_dispatch:
 
@@ -36,6 +37,8 @@ jobs:
         run: python3 tools/test_rc_shutdown_envelope.py
       - name: Quantify 6V VS bootstrap versus 200V pulse energy
         run: python3 tools/check_vs_bootstrap_tradeoff.py
+      - name: Evaluate current 9V ACC EN and opto corner assumptions
+        run: python3 tools/check_power_design_corners.py
       - name: Qualification reminder
         if: always()
         run: |
