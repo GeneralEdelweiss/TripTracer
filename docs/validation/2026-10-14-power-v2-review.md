@@ -1,5 +1,7 @@
 # TripTracer power V2 – implementation, price, risk review (2026-10-14)
 
+> **CURRENT LDO:** U302 MCP1826S-3302E/EB DDPAK, not the earlier NCV1117 or MCP1826S SOT-223. See final section for superseding calculations.
+
 **Development hardware only. NO approved automotive power supply, no production signoff.**
 
 ## Actual implemented KiCad 10 hierarchy
@@ -92,3 +94,20 @@ Added **C306, 22uF/10V nominal** from V5_SYS to GND in parallel with C303 (22uF 
 `VIN1_switch = VREF*(1+R308/R309) + IPR1*R308` for input leakage positive into PR1, per-node KCL. Including TI VREF limits -40..105°C, R resistors ±1%, and IPR1 ±0.1µA gives **~3.91 V minimum, ~4.32 V typical, ~4.75 V maximum**. Even with worst-case offset, 5.0V on VIN1 should select VIN1; if buck falls below this band, VIN2 (when present and valid) is favored. Unlike the direct tie, this is a meaningful failover threshold. **The worst low switch voltage may still allow the 3.3V LDO to drop out before switchover at high load**, so no guaranteed reset-free transfer.
 
 Separate CI: `tools/check_tps2116_priority_threshold.py` runs corner arithmetic and validates resistor values; `tools/check_triptracer_powerpath_v2.py` inspects the native KiCad netlist for U301 pin4, R308/R309 and checks the separate MODE/VIN1 route. Need measured actual 5V buck tolerance/ripple and USB/vehicle crossfade to pass end-to-end. Reference: https://www.ti.com/lit/ds/symlink/tps2116.pdf sections 6.5 and 7.6.1.
+
+## 2026-10-14 – ACTUAL CURRENT LDO: MCP1826S-3302E/EB in 3-pin DDPAK (TO-263)
+
+**Supersedes earlier NCV1117ST33T3G and MCP1826S-3302E/DB SOT-223 candidate discussions above.** The earlier figures are historical. U302 is now **Microchip MCP1826S-3302E/EB**, 3.3V fixed 1A LDO. Manufacturer schematic pins **1=VIN, 2=GND/tab, 3=VOUT**, footprint `Package_TO_SOT_SMD:TO-263-3_TabPin2` (actual manufacturing land pattern and tab-pad mapping still must be checked before PCB).
+
+### Electrical and efficiency rationale
+
+* **Maximum specified dropout 0.4 V at 1 A** (manufacturer -40…+125 °C table), vs the NCV1117's 1.2V max at 0.8A. MCP1826S stability with **1µF+ ceramic output capacitance** means the old 0.1-ohm output-cap ESR series resistor R307 is removed; C305 22µF nominal is tied directly to ground. Exact effective capacitance at DC bias still needs verification.
+* **Quiescent current:** MCP1826S 120µA typical and 220µA maximum, against the old NCV1117's several mA. It is supplied only after the source mux, rather than from always-on raw BAT.
+* **SOT-223 thermal risk removed from selected package:** Microchip 4-layer JEDEC reference θJA: SOT-223 62K/W, **DDPAK 31.4K/W**. With illustrative V5_SYS=5.0V, V3V3=3.3V, I3V3=0.4A and Tamb=85°C: P≈0.68W and Tj≈**106.4°C** DDPAK, versus **127.2°C** SOT-223. The manufacturer's maximum continuous junction temperature is 125°C. This is a reference-board estimate, **not an approval for a future 2-layer PCB, case temperature, actual load peaks or manufacturing**.
+* **Voltage margin before USB failover:** Earlier R308/R309 VIN1 priority threshold lower limit ~3.91V. At 0.4A, using 74mΩ max TPS2116 switch resistance, estimated V5_SYS≈3.88V. MCP1826 worst 0.4V dropout + 3.3V fixed nominal with standard 2% tolerance needs roughly 3.77V; **about 0.11V arithmetic margin**. This does not guarantee an uninterrupted handover due to dynamic timing, buck ripple and transient load changes.
+* The old onsemi LDO's ESR workaround R307 is removed; reduced component count. The new DDPAK component is listed at approximately **EUR 1.14 per piece**, current single-piece Mouser DE evidence; ten/hundred quantity prices not verified. Target price is an 80/20 preference, not an approved full-BOM number.
+* Manufacturer product-family data sheet states **AEC-Q100 reliability testing**, but the exact shipping order code's automotive grade should be reconfirmed; a special `DBVAO` code also exists for automotive SOT-223. Do not assert an automotive-certified full assembly on this basis.
+
+Validation tools updated: `tools/check_triptracer_powerpath_v2.py` now asserts the real U302 1/2/3 KiCad net-to-pin mapping and C305 direct return to ground; `tools/check_power_switchover_thermal.py` asserts DDPAK current/temperature analytical margins. Native KiCad root ERC remains not clean (last pre-change: 120 violations) and existing PCB remains intentionally untouched.
+
+Manufacturer: https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP1826-MCP1826S-1000-mA,-Low-Voltage,-Low-Quiescent-Current-LDO-Regulator-20002057C.pdf
