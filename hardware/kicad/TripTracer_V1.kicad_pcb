@@ -245,11 +245,11 @@
 			)
 		)
 	)
-	(footprint "Tripmaster:L_Bourns_SRP6030VA_100M"
+	(footprint "Tripmaster:L_FANGCHENG_FCH0650_150M"
 		(layer "F.Cu")
 		(uuid "a1c93062-5725-4f5b-bd3f-00000000791d")
 		(at 74 52)
-		(descr "Bourns SRP6030VA-100M 10uH Irms/Isat typ 5A AEC-Q200; land-pattern per Bourns PDF 8.0mm outside, 3.7mm gap, 3.4mm height. Preliminary footprint, 3D model not included.")
+		(descr "PROTOTYPE ONLY: FCH0650-150M pad geometry NOT VERIFIED with manufacturer drawing; 7.5x6.8mm outline.")
 		(tags "SRP6030VA 10uH 5A")
 		(property "Reference" "L101"
 			(at 0 -4.3 0)
@@ -262,7 +262,7 @@
 				)
 			)
 		)
-		(property "Value" "10uH Bourns SRP6030VA-100M (Isat typ 5A)"
+		(property "Value" "15uH FANGCHENG FCH0650-150M 5.5A Isat"
 			(at 0 4.3 0)
 			(layer "F.Fab")
 			(uuid "9e74db82-3bb4-48f0-95b1-ae6a4156128c")
@@ -299,8 +299,8 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
-			(start -3.6 -3.35)
-			(end 3.6 -3.35)
+			(start -3.75 -3.48)
+			(end 3.75 -3.48)
 			(stroke
 				(width 0.12)
 				(type default)
@@ -309,8 +309,8 @@
 			(uuid "e3761539-24a0-4d80-8767-bb1a785941ca")
 		)
 		(fp_line
-			(start -3.6 3.35)
-			(end 3.6 3.35)
+			(start -3.75 3.48)
+			(end 3.75 3.48)
 			(stroke
 				(width 0.12)
 				(type default)
@@ -319,8 +319,8 @@
 			(uuid "efea674c-6e7b-4c76-bdaa-509c996591b3")
 		)
 		(fp_rect
-			(start -4.25 -3.8)
-			(end 4.25 3.8)
+			(start -4.25 -3.9)
+			(end 4.25 3.9)
 			(stroke
 				(width 0.05)
 				(type default)
@@ -330,8 +330,8 @@
 			(uuid "81bc9a98-067c-4556-b81d-1ba804bf0518")
 		)
 		(fp_rect
-			(start -3.55 -3.3)
-			(end 3.55 3.3)
+			(start -3.75 -3.4)
+			(end 3.75 3.4)
 			(stroke
 				(width 0.1)
 				(type default)
@@ -446,14 +446,14 @@
 			(at -1.3 0)
 			(size 1.2 2.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "GND")
+			(net "HV_PROTECTED_AFTER_EFUSE")
 			(uuid "834ea76e-fc05-4242-a282-298b4d84b5d3")
 		)
 		(pad "2" smd rect
 			(at 1.3 0)
 			(size 1.2 2.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "HV_PROTECTED_AFTER_EFUSE")
+			(net "GND")
 			(uuid "2006aba0-b715-4bf0-9580-80bb24873501")
 		)
 		(embedded_fonts no)
@@ -486,7 +486,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF BOOT-SW"
+		(property "Value" "100nF 100V X7R BOOT-SW"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(uuid "aefd1197-36ff-41f9-bb45-9672d888bea0")
@@ -548,14 +548,14 @@
 			(at -1.55 0)
 			(size 1.3 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "Net-(U101-BOOT)")
+			(net "BOOT_38020")
 			(uuid "0f379c60-4d58-4782-9487-2f2181b4b26c")
 		)
 		(pad "2" smd rect
 			(at 1.55 0)
 			(size 1.3 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "Net-(U101-SW)")
+			(net "SW_38020")
 			(uuid "a7f3d1e2-3745-46e4-9205-eb22e6b09a76")
 		)
 		(embedded_fonts no)
@@ -571,108 +571,7 @@
 			)
 		)
 	)
-	(footprint "Tripmaster:C_1206_3216"
-		(layer "F.Cu")
-		(uuid "a1c93062-5725-4f5b-bd3f-000000007920")
-		(at 56 42)
-		(descr "Kondensator 1206 | Status: GEHAEUSESTANDARD")
-		(tags "Tripmaster")
-		(property "Reference" "C103"
-			(at 0 -2.4 0)
-			(layer "F.SilkS")
-			(uuid "13f9f736-c686-44cd-bfd5-d3efed324e02")
-			(effects
-				(font
-					(size 0.9 0.9)
-					(thickness 0.13)
-				)
-			)
-		)
-		(property "Value" "1uF VCC"
-			(at 0 2.4 0)
-			(layer "F.Fab")
-			(uuid "dc70435a-fb12-4d71-a7b7-0f0701a3daa5")
-			(effects
-				(font
-					(size 0.7 0.7)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4ab8f223-ba02-43b8-beb2-886fd1f72242")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3b0d4a0a-5018-4593-aac2-8b54481eafa0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/a26d9b0c-7f10-4e5a-a65f-00000000007a")
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_rect
-			(start -2.4 -1.2)
-			(end 2.4 1.2)
-			(stroke
-				(width 0.05)
-				(type default)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "f0b3dcd1-c19f-478b-a746-89e1e3fa5b5f")
-		)
-		(fp_rect
-			(start -1.65 -0.8)
-			(end 1.65 0.8)
-			(stroke
-				(width 0.1)
-				(type default)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "9f9b4b3f-42a0-4c83-8e95-15f0d0dc5e4d")
-		)
-		(pad "1" smd rect
-			(at -1.55 0)
-			(size 1.3 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "Net-(U101-VCC)")
-			(uuid "72d0bee1-4b16-4a68-ba2f-449a01612950")
-		)
-		(pad "2" smd rect
-			(at 1.55 0)
-			(size 1.3 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "GND")
-			(uuid "a47ac29d-fb3c-4dc9-8c57-f921ac5aa341")
-		)
-		(embedded_fonts no)
-		(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1206_3216.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
+	
 	(footprint "Tripmaster:C_1210_3225"
 		(layer "F.Cu")
 		(uuid "a1c93062-5725-4f5b-bd3f-000000007921")
@@ -752,14 +651,14 @@
 			(at -1.3 0)
 			(size 1.2 2.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "GND")
+			(net "V5_BUCK_RAW")
 			(uuid "e53073c1-ec3b-44d1-9ce2-f32266063f8b")
 		)
 		(pad "2" smd rect
 			(at 1.3 0)
 			(size 1.2 2.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "V5_BUCK_RAW")
+			(net "GND")
 			(uuid "6d65c037-a286-4274-b27f-039eff39d103")
 		)
 		(embedded_fonts no)
@@ -854,14 +753,14 @@
 			(at -1.3 0)
 			(size 1.2 2.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "GND")
+			(net "V5_BUCK_RAW")
 			(uuid "a9650842-e0d1-485d-8da3-2e3f9d3fa219")
 		)
 		(pad "2" smd rect
 			(at 1.3 0)
 			(size 1.2 2.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "V5_BUCK_RAW")
+			(net "GND")
 			(uuid "aaf11332-d980-4975-8d57-dde49b3d7698")
 		)
 		(embedded_fonts no)
@@ -956,14 +855,14 @@
 			(at -1.55 0)
 			(size 1.3 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "Net-(U101-FB)")
+			(net "V5_BUCK_RAW")
 			(uuid "a580ef0a-bea4-4aff-bc55-163c50043dee")
 		)
 		(pad "2" smd rect
 			(at 1.55 0)
 			(size 1.3 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "V5_BUCK_RAW")
+			(net "FB_5V")
 			(uuid "6db1f12e-af13-4066-8a11-25bb5da2511c")
 		)
 		(embedded_fonts no)
@@ -1058,14 +957,14 @@
 			(at -1.55 0)
 			(size 1.3 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "GND")
+			(net "FB_5V")
 			(uuid "8622caf3-d5e8-4997-b8d2-bc13489cdaf1")
 		)
 		(pad "2" smd rect
 			(at 1.55 0)
 			(size 1.3 1.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "Net-(U101-FB)")
+			(net "GND")
 			(uuid "db72e929-2323-455c-9623-8c201488c720")
 		)
 		(embedded_fonts no)
@@ -3119,4 +3018,412 @@
 		)
 	)
 	(embedded_fonts no)
+(footprint "Tripmaster:C_1210_3225"
+		(layer "F.Cu")
+		(uuid "11faced1-24cc-48f5-a000-000000001000")
+		(at 82 55)
+		(descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
+		(tags "Tripmaster")
+		(property "Reference" "C106"
+			(at 0 -3.15 0)
+			(layer "F.SilkS")
+			(uuid "11faced1-24cc-48f5-a000-000000001001")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.13)
+				)
+			)
+		)
+		(property "Value" "22uF 25V X7R VOUT"
+			(at 0 3.15 0)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001002")
+			(effects
+				(font
+					(size 0.7 0.7)
+					(thickness 0.1)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001003")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001004")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/66cb7200-c741-4ea6-8000-000000000164")
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_rect
+			(start -2.2 -1.675)
+			(end 2.2 1.675)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "11faced1-24cc-48f5-a000-000000001005")
+		)
+		(fp_rect
+			(start -1.6 -1.25)
+			(end 1.6 1.25)
+			(stroke
+				(width 0.1)
+				(type default)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001006")
+		)
+		(pad "1" smd rect
+			(at -1.3 0)
+			(size 1.2 2.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "V5_BUCK_RAW")
+			(uuid "11faced1-24cc-48f5-a000-000000001007")
+		)
+		(pad "2" smd rect
+			(at 1.3 0)
+			(size 1.2 2.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "GND")
+			(uuid "11faced1-24cc-48f5-a000-000000001008")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+(footprint "Tripmaster:C_1206_3216"
+		(layer "F.Cu")
+		(uuid "11faced1-24cc-48f5-a000-000000001009")
+		(at 56 49)
+		(descr "Kondensator 1206 | Status: GEHAEUSESTANDARD")
+		(tags "Tripmaster")
+		(property "Reference" "C107"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(uuid "11faced1-24cc-48f5-a000-000000001010")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.13)
+				)
+			)
+		)
+		(property "Value" "100nF 100V X7R VIN"
+			(at 0 2.4 0)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001011")
+			(effects
+				(font
+					(size 0.7 0.7)
+					(thickness 0.1)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001012")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001013")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/66cb7200-c741-4ea6-8000-000000000149")
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_rect
+			(start -2.4 -1.2)
+			(end 2.4 1.2)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "11faced1-24cc-48f5-a000-000000001014")
+		)
+		(fp_rect
+			(start -1.65 -0.8)
+			(end 1.65 0.8)
+			(stroke
+				(width 0.1)
+				(type default)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001015")
+		)
+		(pad "1" smd rect
+			(at -1.55 0)
+			(size 1.3 1.7)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "HV_PROTECTED_AFTER_EFUSE")
+			(uuid "11faced1-24cc-48f5-a000-000000001016")
+		)
+		(pad "2" smd rect
+			(at 1.55 0)
+			(size 1.3 1.7)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "GND")
+			(uuid "11faced1-24cc-48f5-a000-000000001017")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1206_3216.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+(footprint "Tripmaster:C_1210_3225"
+		(layer "F.Cu")
+		(uuid "11faced1-24cc-48f5-a000-000000001018")
+		(at 49 43)
+		(descr "MLCC 1210 imperial, 3.2x2.5mm nominal; PROTOTYP - Maßangaben/Padkonturen mit Herstellerdatenblatt abgleichen")
+		(tags "Tripmaster")
+		(property "Reference" "C108"
+			(at 0 -3.15 0)
+			(layer "F.SilkS")
+			(uuid "11faced1-24cc-48f5-a000-000000001019")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.13)
+				)
+			)
+		)
+		(property "Value" "4.7uF 100V X7R VIN"
+			(at 0 3.15 0)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001020")
+			(effects
+				(font
+					(size 0.7 0.7)
+					(thickness 0.1)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001021")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001022")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/e4080010-c741-4ea6-8000-000000000144")
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_rect
+			(start -2.2 -1.675)
+			(end 2.2 1.675)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "11faced1-24cc-48f5-a000-000000001023")
+		)
+		(fp_rect
+			(start -1.6 -1.25)
+			(end 1.6 1.25)
+			(stroke
+				(width 0.1)
+				(type default)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001024")
+		)
+		(pad "1" smd rect
+			(at -1.3 0)
+			(size 1.2 2.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "HV_PROTECTED_AFTER_EFUSE")
+			(uuid "11faced1-24cc-48f5-a000-000000001025")
+		)
+		(pad "2" smd rect
+			(at 1.3 0)
+			(size 1.2 2.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "GND")
+			(uuid "11faced1-24cc-48f5-a000-000000001026")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/C_1210_3225.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+(footprint "Tripmaster:R_1206_3216"
+		(layer "F.Cu")
+		(uuid "11faced1-24cc-48f5-a000-000000001027")
+		(at 52 62)
+		(descr "Widerstand 1206 | Status: GEHAEUSESTANDARD")
+		(tags "Tripmaster")
+		(property "Reference" "R103"
+			(at 0 -2.4 0)
+			(layer "F.SilkS")
+			(uuid "11faced1-24cc-48f5-a000-000000001028")
+			(effects
+				(font
+					(size 0.9 0.9)
+					(thickness 0.13)
+				)
+			)
+		)
+		(property "Value" "64.9k 1% RT"
+			(at 0 2.4 0)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001029")
+			(effects
+				(font
+					(size 0.7 0.7)
+					(thickness 0.1)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001030")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11faced1-24cc-48f5-a000-000000001031")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000066/66cb7200-c741-4ea6-8000-000000000139")
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_rect
+			(start -2.4 -1.2)
+			(end 2.4 1.2)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "11faced1-24cc-48f5-a000-000000001032")
+		)
+		(fp_rect
+			(start -1.65 -0.8)
+			(end 1.65 0.8)
+			(stroke
+				(width 0.1)
+				(type default)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "11faced1-24cc-48f5-a000-000000001033")
+		)
+		(pad "1" smd rect
+			(at -1.55 0)
+			(size 1.3 1.7)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "RT_400KHZ")
+			(uuid "11faced1-24cc-48f5-a000-000000001034")
+		)
+		(pad "2" smd rect
+			(at 1.55 0)
+			(size 1.3 1.7)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "GND")
+			(uuid "11faced1-24cc-48f5-a000-000000001035")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/Tripmaster_3dmodels.3dshapes/R_1206_3216.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 )
