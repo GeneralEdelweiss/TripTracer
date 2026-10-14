@@ -127,10 +127,10 @@
   (symbol "LM74930_Q1"
     (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
     (property "Reference" "U" (at 0 36.83 0) (effects (font (size 1.25 1.25))))
-    (property "Value" "LM74930QRGERQ1" (at 0 -36.83 0) (effects (font (size 1.25 1.25))))
+    (property "Value" "LM74930_Q1_LEGACY_DO_NOT_USE" (at 0 -36.83 0) (effects (font (size 1.25 1.25))))
     (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
-    (property "Description" "CANDIDATE ONLY: LM74930-Q1 RGE-24 manufacturer signal pin map; thermal pad RTN FLOAT and footprint NOT VERIFIED. NO schematic/ERC approval." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Description" "LEGACY DO NOT USE for new design: no pad25/footprint mapping. Choose LM74930_Q1_RGE with isolated FLOAT RTN pad25. Retained historical definition, no circuit release." (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (symbol "LM74930_Q1_0_1"
       (rectangle (start -20.32 33.02) (end 20.32 -33.02) (stroke (width 0.254) (type default)) (fill (type background))))
     (symbol "LM74930_Q1_1_1"

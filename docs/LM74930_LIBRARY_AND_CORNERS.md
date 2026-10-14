@@ -58,3 +58,7 @@ Offen: Vollständiger VS-/Gate-/Zener-Strompfad, 6-V-Kaltstart, OC/SCP-Eckwerte,
 ## 6-V-Kernlastreserve
 
 [36 Dropout-/Frontend-Sensitivitäten](validation/2026-10-14-motor-start-headroom/README.md) zeigen die offene Abhängigkeit von Kernlast, FET-Widerständen und Temperatur. 2 A bei 6 V wurden nicht zugesagt oder getestet; PWR-15/17-Kernfunktionen und 2-A-Normalbetrieb bleiben unverändert.
+
+## Historischer Symbolvorläufer eindeutig markiert
+
+LM74930_Q1 ist im aktiven Schaltplan nicht verwendet. Sein Wert und seine Beschreibung markieren ihn jetzt ausdrücklich als LEGACY_DO_NOT_USE; neue Entwürfe sollen LM74930_Q1_RGE mit RTN/EP-Pad 25 und passendem Footprint wählen. Alle Pins des historischen Symbols bleiben erhalten; die geprüfte RGE-Definition und sämtliche aktiven Schaltplaninstanzen sind unverändert. Native Symbol-Lade-/Exportprüfung ausgeführt; keine neue funktionale Baugruppe behauptet.
