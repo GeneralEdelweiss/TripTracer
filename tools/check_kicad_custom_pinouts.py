@@ -60,7 +60,27 @@ def check():
             ("input", "G", "1"), ("passive", "S", "2"),
             ("passive", "D", "3"),
         ]), (sym_name, pins)
-    print("PASS: BAS116Q A1 / NC2 / K3 and DMN2056U 1G / 2S / 3D")
+    active = (ROOT / "01D_INPUT_PROTECTION.kicad_sch").read_text()
+    expected_fets = (
+        ("IPB17N25S3_100", "TO-263-3_TabPin2"),
+        ("IPD90N10S4_06", "TO-252-3_TabPin2"),
+    )
+    for suffix, footprint in expected_fets:
+        for txt, full in ((lib, suffix), (active, f"TripTracer_V1:{suffix}")):
+            body = block(txt, f'(symbol "{full}"')
+            pins = re.findall(
+                r'\(pin\s+(\w+)\s+line.*?\(name "([^"]+)"[^\n]*?'
+                r'\(number "([0-9]+)"', body)
+            assert sorted(pins) == sorted((
+                ("input", "G", "1"), ("passive", "D", "2"),
+                ("passive", "S", "3")
+            )), (full, pins)
+            assert footprint in body, (full, "footprint mismatch")
+    q1 = block(active, '(symbol (lib_id "TripTracer_V1:IPB17N25S3_100"')
+    q2 = block(active, '(symbol (lib_id "TripTracer_V1:IPD90N10S4_06"')
+    assert '(property "Reference" "Q401"' in q1
+    assert '(property "Reference" "Q402"' in q2
+    print("PASS: BAS116Q A1 / NC2 / K3 DMN2056U and Q401/Q402 gate/drain/source pinouts")
 
 if __name__ == "__main__":
     check()
