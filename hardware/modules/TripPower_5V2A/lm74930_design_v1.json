@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "revision": "2026-10-14-B",
+  "stage": "PRELIMINARY_VALUE_DESIGN_NOT_SCHEMATIC_OR_PCB_SIGNOFF",
+  "controller": "LM74930QRGERQ1",
+  "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
+  "retained_converter": "LMR38020SQDDARQ1",
+  "nominal_input_range_v": [
+    9,
+    30
+  ],
+  "load_dump_design_target_v": 202,
+  "output_5v": {
+    "volts": 5,
+    "amps": 2,
+    "watts": 10,
+    "efficiency_assumptions": [
+      0.8,
+      0.85
+    ]
+  },
+  "aux_output": {
+    "name": "VIN_PROTECTED",
+    "max_current_design_target_a": 1,
+    "status": "PRELIMINARY_TARGET_REQUIRES_BRANCH_PROTECTION_FUSE_CONNECTOR_APPROVAL",
+    "unregulated": true
+  },
+  "nominal_total_input_max_at_9v_a": 2.30718954248366,
+  "topology": "VIN_FUSED -> Q_HV (drain VIN, source COMMON_SOURCE) -> Q_IDEAL (source COMMON_SOURCE, drain PRE_SHUNT) -> RSENSE -> protected_main; then split BUCK and protected independently fused auxiliary branch",
+  "components": [
+    {
+      "ref": "U_PROT",
+      "role": "protection controller",
+      "value": "LM74930QRGERQ1",
+      "mpn": "LM74930QRGERQ1",
+      "status": "LOCKED"
+    },
+    {
+      "ref": "R_SENSE",
+      "role": "shared pre-branch Kelvin high-side shunt",
+      "value": "5mOhm 1% >=1W 2512",
+      "mpn": "RLM25FEER005",
+      "source": "https://www.lcsc.com/de/product-detail/C185817.html",
+      "status": "ELECTRICAL_LOCKED_MPN_CANDIDATE_AEC_STATUS_UNVERIFIED"
+    },
+    {
+      "ref": "R_SET",
+      "role": "C to CS+ sense scaling",
+      "value": "50Ohm 1%",
+      "mpn": "RC1206FR-0750RL",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_ILIM",
+      "role": "ILIM to GND comparator setting",
+      "value": "33.2kOhm 1%",
+      "mpn": "RC1206FR-0733K2L",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_ISCP",
+      "role": "C to ISCP SCP level",
+      "value": "470Ohm 1%",
+      "mpn": "RC1206FR-07470RL",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "C_TMR",
+      "role": "timer capacitor to GND",
+      "value": "47nF 10% 50V X7R",
+      "mpn": null,
+      "status": "VALUE_LOCKED_MPN_VERIFY_DC_BIAS"
+    },
+    {
+      "ref": "R_TMR",
+      "role": "TMR to GND latch-off",
+      "value": "100kOhm 1%",
+      "mpn": "RC1206FR-07100KL",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_IMON",
+      "role": "IMON to GND",
+      "value": "6.8kOhm 1%",
+      "mpn": "RC1206FR-076K8L",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_OV_A",
+      "role": "raw VIN to OV high-voltage divider part A",
+      "value": "750kOhm 1% 1206 200V DC pulse-rated",
+      "mpn": "RC1206FR-07750KL",
+      "status": "VALUE_LOCKED_VOLTAGE_AND_PULSE_RATING_VERIFY"
+    },
+    {
+      "ref": "R_OV_B",
+      "role": "raw VIN to OV high-voltage divider part B",
+      "value": "750kOhm 1% 1206 200V DC pulse-rated",
+      "mpn": "RC1206FR-07750KL",
+      "status": "VALUE_LOCKED_VOLTAGE_AND_PULSE_RATING_VERIFY"
+    },
+    {
+      "ref": "R_OV_LOW",
+      "role": "OV to GND",
+      "value": "25.5kOhm 1%",
+      "mpn": "RC1206FR-0725K5L",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_UV_A",
+      "role": "raw VIN to UVLO high-voltage divider A",
+      "value": "750kOhm 1%",
+      "mpn": "RC1206FR-07750KL",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_UV_B",
+      "role": "raw VIN to UVLO high-voltage divider B",
+      "value": "750kOhm 1%",
+      "mpn": "RC1206FR-07750KL",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_UV_LOW",
+      "role": "UVLO to GND",
+      "value": "130kOhm 1%",
+      "mpn": "RC1206FR-07130KL",
+      "status": "VALUE_LOCKED_MPN_VERIFY"
+    },
+    {
+      "ref": "R_VS_A_B_C",
+      "role": "VS 200V/350ms surge feed",
+      "value": "3x3.32kOhm high-pulse resistors SERIES = 9.96k",
+      "mpn": null,
+      "status": "TOPOLOGY_AND_VALUE_CANDIDATE_PULSE_MPN_SOFT_9V_START_GATE"
+    },
+    {
+      "ref": "D_VS_Z",
+      "role": "VS to GND Zener",
+      "value": "56V 3W nominal SMB",
+      "mpn": "1SMB5943BT3G",
+      "status": "EXISTING_CANDIDATE_PULSE_TOLERANCE_GATE"
+    },
+    {
+      "ref": "D_VS_BOOST",
+      "role": "A to VS diode anode COMMON_SOURCE cathode VS",
+      "value": "200V SOD123 AEC-Q101",
+      "mpn": "BAV21WQ-7-F",
+      "source": "https://www.digikey.com/en/products/detail/diodes-incorporated/BAV21WQ-7-F/24630584",
+      "status": "PREFERRED_NEW_200V_REPLACEMENT_TEMPERATURE_STOCK_VERIFY"
+    },
+    {
+      "ref": "C_VS",
+      "role": "VS to GND local",
+      "value": "1uF effective min, 100V X7R",
+      "mpn": null,
+      "status": "SELECT_DC_BIAS_MPN"
+    },
+    {
+      "ref": "C_CAP",
+      "role": "CAP to VS local",
+      "value": "100nF min 100V X7R",
+      "mpn": "C1206C104K1RACTU",
+      "status": "EXISTING_REUSE_VERIFY"
+    },
+    {
+      "ref": "C_COMMON",
+      "role": "A/common source to GND",
+      "value": "1uF 100V X7R",
+      "mpn": null,
+      "status": "REFERENCE_EXAMPLE_VERIFY"
+    },
+    {
+      "ref": "C_DVDT",
+      "role": "HGATE to OUT slew",
+      "value": "10nF 100V X7R plus 100ohm HGATE series",
+      "mpn": null,
+      "status": "PROVISIONAL_INRUSH_SO A_GATE"
+    },
+    {
+      "ref": "Q_HV",
+      "role": "250V cut-off HV FET",
+      "value": "250V STD17NF25 165mOhm max @10V",
+      "mpn": "STD17NF25",
+      "status": "TEMP_PROTOTYPE_ONLY_THERMAL_AND_202V_SOA_UPGRADE_REVIEW"
+    },
+    {
+      "ref": "Q_IDEAL",
+      "role": "ideal diode FET",
+      "value": "60V 4.8mOhm at VGS 10V",
+      "mpn": "BUK7Y4R8-60EX",
+      "status": "CANDIDATE_VDS_GATE_AND_SOA_CHECK"
+    },
+    {
+      "ref": "TVS_HIGH",
+      "role": "input series positive transient TVS",
+      "value": "SMBJ150A",
+      "mpn": "SMBJ150A-13-F",
+      "status": "REUSE_CANDIDATE_SURGE_ENERGY_UNVERIFIED"
+    },
+    {
+      "ref": "TVS_NEGATIVE",
+      "role": "input series reverse transient TVS",
+      "value": "SMBJ33CA",
+      "mpn": "SMBJ33CA-13-F",
+      "status": "REUSE_CANDIDATE_POSITIVE_NEGATIVE_PULSE_UNVERIFIED"
+    },
+    {
+      "ref": "F_AUX",
+      "role": "own raw output short circuit protection",
+      "value": "1A nominal PROVISIONAL, suitable 30+VDC rated removable/replaceable branch fuse or eFuse",
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED_NO_UNFUSED_TERMINAL"
+    },
+    {
+      "ref": "F_SOURCE",
+      "role": "upstream vehicle fused wiring",
+      "value": "vehicle-suitable replaceable cable fuse",
+      "mpn": null,
+      "status": "REQUIRED_EXTERNAL_I2T_DC_BREAKING_VERIFY"
+    }
+  ],
+  "pin_plan": [
+    [
+      "1",
+      "DGATE",
+      "Q_IDEAL_GATE"
+    ],
+    [
+      "2",
+      "A",
+      "COMMON_SOURCE"
+    ],
+    [
+      "3",
+      "SW",
+      "NC if sensing UVLO direct raw VIN; verify data sheet choice"
+    ],
+    [
+      "4",
+      "UVLO",
+      "RAW_UVLO_DIVIDER"
+    ],
+    [
+      "5",
+      "OV",
+      "RAW_OV_DIVIDER"
+    ],
+    [
+      "6",
+      "EN",
+      "RUN_CMD_CONDITIONED / ALWAYS_ON selectable (unresolved interface)"
+    ],
+    [
+      "7",
+      "MODE",
+      "VS (reverse current block ON)"
+    ],
+    [
+      "8",
+      "NC",
+      "NC"
+    ],
+    [
+      "9",
+      "TMR",
+      "C_TMR + R_TMR to GND"
+    ],
+    [
+      "10",
+      "IMON",
+      "R_IMON to GND; test-point / optional monitor"
+    ],
+    [
+      "11",
+      "ILIM",
+      "R_ILIM to GND"
+    ],
+    [
+      "12",
+      "FLT",
+      "open-drain optional protected logic out / test point (no HV pullup)"
+    ],
+    [
+      "13",
+      "GND",
+      "GND"
+    ],
+    [
+      "14",
+      "HGATE",
+      "Q_HV_GATE via RG"
+    ],
+    [
+      "15",
+      "OUT",
+      "COMMON_SOURCE"
+    ],
+    [
+      "16",
+      "OVCLAMP",
+      "GND (OV cut-off, never linear clamp)"
+    ],
+    [
+      "17",
+      "NC",
+      "NC"
+    ],
+    [
+      "18",
+      "ISCP",
+      "R_ISCP from PRE_SHUNT"
+    ],
+    [
+      "19",
+      "CS-",
+      "POST_SHUNT_PROTECTED_MAIN, Kelvin"
+    ],
+    [
+      "20",
+      "CS+",
+      "PRE_SHUNT via R_SET, Kelvin"
+    ],
+    [
+      "21",
+      "NC",
+      "NC"
+    ],
+    [
+      "22",
+      "VS",
+      "CLAMPED_VS via R_VS + D_VS_Z + D_VS_BOOST"
+    ],
+    [
+      "23",
+      "CAP",
+      "C_CAP to VS"
+    ],
+    [
+      "24",
+      "C",
+      "PRE_SHUNT"
+    ],
+    [
+      "EP",
+      "RTN",
+      "FLOAT isolated copper; NO GND vias"
+    ]
+  ],
+  "assumptions": {
+    "R_sense_ohm": 0.005,
+    "R_set_ohm": 50,
+    "R_ilim_ohm": 33200,
+    "R_iscp_ohm": 470,
+    "C_tmr_f": 4.7e-8,
+    "R_tmr_ohm": 100000,
+    "R_imon_ohm": 6800,
+    "OV_Rtop_ohm": 1500000,
+    "OV_Rbottom_ohm": 25500,
+    "UV_Rtop_ohm": 1500000,
+    "UV_Rbottom_ohm": 130000,
+    "OV_threshold_nom_v": 0.6,
+    "UV_threshold_rising_nom_v": 0.6,
+    "UV_threshold_falling_nom_v": 0.55,
+    "manufacturer_ov_uv_input_leakage_max_a": 2e-7
+  },
+  "reference_datasheet": "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+  "reference_calc": "https://www.ti.com/tool/download/LM74930-CALC/REV-A",
+  "hard_blockers": [
+    "Input auxiliary 1A rating PROVISIONAL: independently fused branch MPN/rated DC voltage/I2t/connector not yet selected",
+    "9V start with approximately 10k VS feed + A-to-VS diode must work across -20..70C and brownouts; TI E2E confirms D1 needed",
+    "250V STD17NF25 HV FET @ hot continuous 2.4A combined current, 202V/350ms and SCP SOA not qualified",
+    "OV/UVLO at raw 202V and reverse battery; component pulse ratings/leakage at temperature",
+    "All ISO Test A/B and negative transient TVS energy, copper inductance, thermal fault tests",
+    "35V OV cut-off vs datasheet 200V reference, measured gate shutdown, backfeed",
+    "Run/ALWAYS_ON and ESP32 3.3V signal hardware-level off and power isolation not designed",
+    "Manufacturer RGE-24 footprint and RTN pad isolated, shunt Kelvin, BOM procurement, ERC/DRC NOT DONE"
+  ]
+}
