@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-14-B",
-  "stage": "PRELIMINARY_VALUE_DESIGN_NOT_SCHEMATIC_OR_PCB_SIGNOFF",
+  "revision": "2026-10-14-C_SOURCE_MAIN_FUSE_ONLY",
+  "stage": "PRELIMINARY_VALUES_ONE_COMMON_FUSED_SOURCE_NO_LOCAL_AUX_FUSE",
   "controller": "LM74930QRGERQ1",
   "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
   "retained_converter": "LMR38020SQDDARQ1",
@@ -20,13 +20,13 @@
     ]
   },
   "aux_output": {
-    "name": "VIN_PROTECTED",
+    "name": "VIN_PROTECTED_UNFUSED",
     "max_current_design_target_a": 1,
-    "status": "PRELIMINARY_TARGET_REQUIRES_BRANCH_PROTECTION_FUSE_CONNECTOR_APPROVAL",
+    "status": "1A_TARGET_ONLY_NO_AUX_FUSE; SHARED_LM74930_OCP_PLUS_EXTERNAL_SOURCE_MAIN_FUSE; PCB_SAFE_FAULT_COOPERATION_NOT_VERIFIED",
     "unregulated": true
   },
   "nominal_total_input_max_at_9v_a": 2.30718954248366,
-  "topology": "VIN_FUSED -> Q_HV (drain VIN, source COMMON_SOURCE) -> Q_IDEAL (source COMMON_SOURCE, drain PRE_SHUNT) -> RSENSE -> protected_main; then split BUCK and protected independently fused auxiliary branch",
+  "topology": "VIN_FUSED (external replaceable MAIN cable fuse near vehicle source) -> Q_HV -> Q_IDEAL -> RSENSE -> VIN_PROTECTED_UNFUSED -> buck VIN and J302.1 DIRECT (no F_AUX and no branch fuse on receiving TripTracer board)",
   "components": [
     {
       "ref": "U_PROT",
@@ -206,18 +206,11 @@
       "status": "REUSE_CANDIDATE_POSITIVE_NEGATIVE_PULSE_UNVERIFIED"
     },
     {
-      "ref": "F_AUX",
-      "role": "own raw output short circuit protection",
-      "value": "1A nominal PROVISIONAL, suitable 30+VDC rated removable/replaceable branch fuse or eFuse",
+      "ref": "F_MAIN_EXTERNAL",
+      "role": "Single, replaceable common vehicle feeder fuse upstream of ALL TripTracer board connections, including VIN_PROTECTED_UNFUSED; no separate branch fuse",
+      "value": "3A as non-binding candidate, 4A/5A alternatives depending on measured 9V max load, ambient derating, 58V DC suitability and I2t/cable rating",
       "mpn": null,
-      "status": "REQUIRED_NOT_SELECTED_NO_UNFUSED_TERMINAL"
-    },
-    {
-      "ref": "F_SOURCE",
-      "role": "upstream vehicle fused wiring",
-      "value": "vehicle-suitable replaceable cable fuse",
-      "mpn": null,
-      "status": "REQUIRED_EXTERNAL_I2T_DC_BREAKING_VERIFY"
+      "status": "REQUIRED_NOT_SELECTED_3A_MINI_58V_DERATES_TO_2A_AT_80C; 2p39A combined 9V load; 4_5A_ALTERNATIVES_REQUIRE_FAULT_CURRENT_COPPER_I2T_TEST"
     }
   ],
   "pin_plan": [
@@ -367,13 +360,27 @@
   "reference_datasheet": "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
   "reference_calc": "https://www.ti.com/tool/download/LM74930-CALC/REV-A",
   "hard_blockers": [
-    "Input auxiliary 1A rating PROVISIONAL: independently fused branch MPN/rated DC voltage/I2t/connector not yet selected",
+    "Input auxiliary 1A rating PROVISIONAL: single upstream main-source fuse DC rating/time-current/I2t, interboard wiring and connectors not yet selected",
     "9V start with approximately 10k VS feed + A-to-VS diode must work across -20..70C and brownouts; TI E2E confirms D1 needed",
     "250V STD17NF25 HV FET @ hot continuous 2.4A combined current, 202V/350ms and SCP SOA not qualified",
     "OV/UVLO at raw 202V and reverse battery; component pulse ratings/leakage at temperature",
     "All ISO Test A/B and negative transient TVS energy, copper inductance, thermal fault tests",
     "35V OV cut-off vs datasheet 200V reference, measured gate shutdown, backfeed",
     "Run/ALWAYS_ON and ESP32 3.3V signal hardware-level off and power isolation not designed",
-    "Manufacturer RGE-24 footprint and RTN pad isolated, shunt Kelvin, BOM procurement, ERC/DRC NOT DONE"
-  ]
+    "Manufacturer RGE-24 footprint and RTN pad isolated, shunt Kelvin, BOM procurement, ERC/DRC NOT DONE",
+    "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted"
+  ],
+  "main_fuse_design": {
+    "required": true,
+    "install": "external vehicle feed near source",
+    "total_source_current_9v_max_a_at_80pct": 2.388888888888889,
+    "common_fuse_examples_a": [
+      3,
+      4,
+      5
+    ],
+    "nominal_type_3a_status": "3A NOT LOCKED may be insufficient at 80C full combined load",
+    "branch_fuse_required": false,
+    "engineering_gate": "all paths after F_MAIN sized to time-current/I2t in worst MOSFET failed ON fault; make sure 12/24V DC breaking capacity"
+  }
 }
