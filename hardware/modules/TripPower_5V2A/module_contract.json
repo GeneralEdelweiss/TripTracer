@@ -155,7 +155,7 @@
     "reference_evaluation_module": "TI LMR38020QEVM",
     "protection_comparison": {
       "decision": "USER_CONFIRMED_LM74930_FOR_STANDALONE_TRIPPOWER_2026_10_14",
-      "current_active_triptracer_controller": "LM74800QDRRRQ1_UNCHANGED_WHILE_NEW_MODULAR_SCHEMATIC_NOT_CREATED",
+      "current_active_triptracer_controller": "LM74800QDRRRQ1_LEGACY_TRIPTRACER_ONLY_NEW_TRIPPOWER_HAS_LM74930_SCHEMATIC",
       "reference": "CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md",
       "design_reason": "Programmable combined-load breaker plus short-circuit protection via shared shunt upstream of VIN_PROTECTED branch; LM74800 lacks OCP",
       "recommendation_not_a_change_order": false,
@@ -217,7 +217,7 @@
     "PCB: actual independent native KiCad 10 ERC, PCB parity, routed DRC and review",
     "hardware: 9/12/24/30V 2A thermal, output ripple/EMI, short/fail-off/surge laboratory tests",
     "economics: complete competing 1,10,100pc BOM ex shipping and assembly with live pricing",
-    "Aux VIN_PROTECTED: total input/thermal budget must cover max 5V/2A and external raw-side load simultaneously; no unbounded raw output claim",
+    "Aux VIN_PROTECTED_UNFUSED: total input/thermal budget must cover max 5V/2A and external raw-side load simultaneously; no unbounded raw output claim",
     "Display: Riverdi constant-current 100mA LED driver from V5_SYS and USB source-current negotiation/derating; no forced 15V constant voltage source",
     "VIN_PROTECTED_UNFUSED: all traces, cable and connectors are protected by single shared source fuse, including if FETs fail shorted, and without branch-selective separation",
     "Main fuse 3A only initial example, 9V max loads 2.39A and 3A 58V MINI at 80C typ sustained 2A; examine 4/5A with full fault current/I2t and 12/24V rating"
@@ -238,9 +238,10 @@
     "reason": "Never fabricate mixed tax or stale retailer prices",
     "additional_required_cost_roles": [
       "VIN_PROTECTED connector",
-      "aux branch independent overcurrent limiter or appropriately rated replaceable fuse",
       "output wiring and EMI/protection",
-      "possible copper area increase"
+      "possible copper area increase",
+      "One user-supplied external replaceable common vehicle source fuse F_MAIN (not an onboard TripPower/TripTracer component)",
+      "All downstream copper and wiring for worst-case fuse clearing I2t"
     ]
   },
   "pass_status": {
@@ -255,7 +256,7 @@
     "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT",
     "input_controller_comparison": "DECIDED_LM74930_USER_APPROVED",
     "protection_values": "PRELIMINARY_PIN_AND_COMPONENT_DESIGN_RECALC_TEST_PENDING_OR_VALIDATION_ONLY",
-    "protection_schematic": "NOT_YET_IN_STANDALONE_KICAD",
+    "protection_schematic": "CREATED_01_Protection_LM74930_KICAD_SCHEMATIC_ERC_RECHECK_AFTER_UNFUSED_CHANGE",
     "standalone_native_netlist": "PREVIOUS_PASS_OLDER_NETLIST_ONLY_RECHECK_PENDING",
     "manufacturing_ready": false,
     "vehicle_ready": false,
