@@ -215,4 +215,20 @@
  (pin output line (at 22.86 5.08 180) (length 5.08) (name "Q" (effects (font (size 1.016 1.016)))) (number "5" (effects (font (size 1.016 1.016)))))
  (pin output line (at 22.86 0 180) (length 5.08) (name "~{Q}" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
 ))
+
+(symbol "BAS116Q_SOT23"
+ (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+ (property "Reference" "D" (at 0 17.78 0) (effects (font (size 1.27 1.27))))
+ (property "Value" "BAS116Q-7-F" (at 0 -17.78 0) (effects (font (size 1.27 1.27))))
+ (property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "https://www.diodes.com/datasheet/download/BAS116.pdf" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Description" "Diodes BAS116Q-7-F SOT23: A1/A2 internally shorted, K3; 80nA max reverse at 150C 75V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "BAS116Q_SOT23_0_1"
+  (rectangle (start -17.78 12.7) (end 17.78 -12.7) (stroke (width 0.254) (type default)) (fill (type background)))
+  (text "A1+A2  -->|  K3" (at 0 0 0) (effects (font (size 1.27 1.27)))))
+ (symbol "BAS116Q_SOT23_1_1"
+  (pin passive line (at -22.86 5.08 0) (length 5.08) (name "A1" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016)))))
+  (pin passive line (at -22.86 -5.08 0) (length 5.08) (name "A2" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016)))))
+  (pin passive line (at 22.86 0 180) (length 5.08) (name "K3" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
+ ))
 )
