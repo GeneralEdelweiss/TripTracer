@@ -60,3 +60,9 @@
 7. Qualified manufacturer MPN+footprint+price for each item, purchases and actual PSU BOM subtotal recalculated.
 
 **There is no permission to manufacture, install, or use the design in a vehicle at this stage.**
+
+## Update: nominal ACC-EN voltage corner test (2026-10-14)
+
+Added `tools/check_power_design_corners.py` to the ACC-HOLD GitHub Action. Run **38539941261 passed**, including nominal series-diode divider EN thresholds for 9/12/24/30V, nominal TLC555 hold interval 24.2 seconds, and approximate U912 optical-drive/CTR demands. ACC at 9V produces about 1.9V EN with ideal 100k/47k/100k passive network and 0.35V diode drop; this is above the nominal TI 1.4V startup-high guarantee but **not a worst-case low-voltage proof**. Component tolerance, wet/dirty input leakage, hot/cold photocoupler transfer ratio and practical timing remain untested. Original ERC/DRC violations remain unresolved. All manufacturer and system safety release gates stay in force.
+
+**An important caveat:** optocoupler U912 sees about 1.14mA LED current at 9V via R916 6.8k, whereas the quoted CTR minimum is specified at 5mA and 25°C. Thus the manufacturer's guaranteed transfer is *not established* in cold crank even if the schematic netlist is correct. Do not infer correct 555 trigger timing from the nominal gate-voltage test.
