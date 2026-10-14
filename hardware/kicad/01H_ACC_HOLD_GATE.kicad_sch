@@ -42,7 +42,7 @@
  (pin passive line (at 0 15.24 270) (length 5.08) (name "C" (effects (font (size 1.25 1.25)))) (number "3" (effects (font (size 1.25 1.25)))))
  (pin passive line (at 0 -15.24 90) (length 5.08) (name "E" (effects (font (size 1.25 1.25)))) (number "2" (effects (font (size 1.25 1.25)))))
  )))
-(text "ACC STARTUP: ACC only drives Q914 base. Q915 sources EN exclusively from buck VIN; no 3V3 startup dependency." (at 223.52 24.13 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001000"))
+(text "ACC STARTUP: ACC drives Q914. Q915 now sources EN from pre-output LM748_VS_SAFE (10k+56V Zener). No VOUT startup deadlock; VS source leakage, cold crank and surge pending." (at 223.52 24.13 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001000"))
 (symbol (lib_id "TripTracer_V1:PMBT5551_ACC") (at 100.33 134.62 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001001")
 (property "Reference" "Q914" (at 100.33 115.57 0) (effects (font (size 1.27 1.27))))
 (property "Value" "PMBT5551,215" (at 100.33 119.38 0) (effects (font (size 1.27 1.27))))
@@ -140,7 +140,7 @@
 (wire (pts (xy 181.61 71.12) (xy 181.61 85.09)) (stroke (width 0) (type default)) (uuid "87aacc01-1014-4000-8000-000000001047"))
 (wire (pts (xy 181.61 48.26) (xy 215.9 48.26)) (stroke (width 0) (type default)) (uuid "87aacc01-1014-4000-8000-000000001048"))
 (wire (pts (xy 215.9 48.26) (xy 215.9 69.85)) (stroke (width 0) (type default)) (uuid "87aacc01-1014-4000-8000-000000001049"))
-(global_label "HV_PROTECTED_AFTER_EFUSE" (shape bidirectional) (at 215.9 48.26 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "87aacc01-1014-4000-8000-000000001050"))
+(global_label "LM748_VS_SAFE" (shape bidirectional) (at 215.9 48.26 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "87aacc01-1014-4000-8000-000000001050"))
 (wire (pts (xy 215.9 100.33) (xy 215.9 110.49)) (stroke (width 0) (type default)) (uuid "87aacc01-1014-4000-8000-000000001051"))
 (wire (pts (xy 215.9 110.49) (xy 252.73 110.49)) (stroke (width 0) (type default)) (uuid "87aacc01-1014-4000-8000-000000001052"))
 (wire (pts (xy 275.59 110.49) (xy 302.26 110.49)) (stroke (width 0) (type default)) (uuid "87aacc01-1014-4000-8000-000000001053"))
@@ -251,7 +251,7 @@
 
 
 
-(text "LAB ONLY: check hot leakage, timing overlap at ACC fall, VIN/EN disconnect slew, reverse inputs and vehicle pulses. No vehicle approval." (at 284.48 365.76 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001135"))
+(text "LAB ONLY: LM748_VS_SAFE feeds ACC Q915 before U921 EN; U921 EN and buck EN share BUCK_ENABLE. Check cold start, hot leakage, VS charge, USB HOLD, 200V pulses. No vehicle approval." (at 284.48 365.76 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001135"))
 (sheet_instances (path "/" (page "1")))
 (symbol (lib_id "TripTracer_V1:BAT54WS_CLAMP") (at 60.96 308.61 90) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc03-1014-4000-8000-000000006014")
 (property "Reference" "D912" (at 30.48 303.53 0) (effects (font (size 1.27 1.27))))
