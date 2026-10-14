@@ -18,6 +18,14 @@ Die neue hierarchische `01E_OFF_LATCH.kicad_sch` ist auf dem aktiven Branch im g
 
 **Achtung:** Dies ist nur eine neue **Vorschaltbaugruppe** mit unversorgten externen Eingängen `ACC_VALID_5V` und `HOLD_CONTINUE_5V`; sie ersetzt noch keine Relais-/AUX-/eFuse-Schaltung und steuert `MAIN_ENABLE` **nicht**. Beim ACC-AUS muss die Zeitgeber-Freigabe vor /CLR-Low anliegen; ansonsten kann ein Race die Nachlaufphase abbrechen. Vorhandene Erläuterungen zu 13 Seiten und 64 Symbolen beziehen sich auf den **letzten nativen Validierungsstand vor 01E**. Mit 01E sind **14 Hierarchieseiten und 73 Symbolinstanzen als Soll-Struktur** entstanden; noch keine neue native ERC-/DRC-Abnahme.
 
+## 14.10.2026 – Veraltete Zusatz-eFuse entfernt
+
+Die nicht angeschlossene **TPS26631PWPT-Instanz U401** wurde aus der aktiven Unterseite `01D_INPUT_PROTECTION.kicad_sch` entfernt. Der komplette alte Schaltplankandidat ist in der Git-Historie weiterhin verfügbar. Unterseite 01D bleibt als ausdrücklich *veraltet* bezeichnete Archivmarkierung im Hierarchie-Navigator vorhanden, enthält aber **kein elektrisches Symbol**, das den neuen Projekt-ERC belastet.
+
+**Begründung:** Nutzerentscheidung Variante C vom 13.10.2026: **LM74930-Q1 und LMR36520**, keine zweite TPS26631. Deren bislang verwaiste 20-Pin-Instanz war weder Schutzfunktion noch ein freigegebener Vorentwurf. Ein Entfernen reduziert ERC-Rauschen, ist aber **keine** Umsetzung des neuen Eingangsschutzpfades; LM74930-FETs und Shunt bleiben auslegungs- und integrationspflichtig.
+
+Der Stand der Root-Hierarchie hat weiterhin 15 Seiten einschließlich 01E/01F; die Gesamtzahl an aktiven Symbolinstanzen sinkt durch das Entfernen von U401 von 80 auf 79. Native ERC-/DRC-Zahlen müssen über den aktuellen GitHub-Lauf neu ermittelt werden, bevor sie als Ergebnis eingetragen werden.
+
 ## Migration zur Variante C
 
 Der aktive Schaltplan enthält weiterhin den älteren Relais-/AUX-/TLC555-/TPS26631-Stand. Dieser wird erst durch einen vollständig ausgelegten Ersatz abgelöst; keine alten Schutzfunktionen blind entfernt. Der LM74930-Quellpfad ist noch nicht verschaltet. BUCK_ENABLE und geschützter VIN sind weiterhin ungetrieben. 3V3-/USB-Power-Path und mehrere weitere Baugruppen sind noch Platzhalter.
