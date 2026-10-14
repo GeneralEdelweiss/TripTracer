@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate source-controlled NEXT-ITERATION MPN freeze and CSV only.
 
-This does not qualify automotive electronics or assert a KiCad-implemented LM74800.
+This verifies active schematic reference mapping but NEVER qualifies electrical, thermal or vehicle use.
 """
 import csv
 import json
@@ -14,7 +14,13 @@ current=json.loads((base/"power_selection.json").read_text("utf-8"))
 assert m["decision"]=="FROZEN_FOR_NEXT_PROTOTYPE_PART_SELECTION_ONLY"
 assert m["release"]["approved_for_vehicle"] is False
 assert m["release"]["approved_for_pcb_order"] is False
-assert m["release"]["protection_circuit_present_in_active_kicad"] is False
+assert m["release"]["protection_circuit_present_in_active_kicad"] is True
+assert m["schematic_integration"]["path"] == "hardware/kicad/01I_LM74800_INPUT.kicad_sch"
+schematic = (root / m["schematic_integration"]["path"]).read_text(encoding="utf-8")
+entry = (base / "01_Eingangsschutz.kicad_sch").read_text(encoding="utf-8")
+assert '"01I_LM74800_INPUT.kicad_sch"' in entry
+for part_ref, schematic_ref in m["schematic_integration"]["ref_mapping"].items():
+    assert f'(property "Reference" "{schematic_ref}"' in schematic, (part_ref, schematic_ref)
 assert current["selection"]=="KEEP_EXISTING_COTS_AUTOMOTIVE_BUCK"
 assert current["planned_input_protection"]["controller"]=="LM74800QDRRRQ1"
 required={
@@ -45,5 +51,6 @@ calc=m["standard_passive_selection"]["ov_design_calc"]
 assert abs(calc["threshold_nominal_v"]-1.233*(1+660000/23200))<.02
 assert calc["vin_normal_max_v"]==30
 assert all(x in m["standard_passive_selection"]["selected_refs"] for x in required)
-assert not any(item["mpn"]==m["standard_passive_selection"]["reference_evm_extra_component"]["mpn_candidate"] for item in parts.values()),"EVM C10 not reviewed for circuit; must remain separate"
-print(json.dumps({"selection":"NEXT_PROTOTYPE_ONLY","standard_parts_mpn_resolved":len(required),"bom_rows":len(rows),"gate":"NOT_SCHEMATIC_OR_VEHICLE_RELEASE","OV_nominal_v":calc["threshold_nominal_v"],"PASS":True},ensure_ascii=False,indent=2))
+assert not any(item["mpn"]==m["standard_passive_selection"]["reference_evm_extra_component"]["mpn_candidate"] for item in parts.values()), "EVM C10 omitted; not a released capacitor"
+assert m["standard_passive_selection"]["reference_evm_extra_component"]["status"] == "REFERENCE_ONLY_NOT_INSTALLED_C10_OMITTED"
+print(json.dumps({"selection":"NEXT_PROTOTYPE_ONLY","standard_parts_mpn_resolved":len(required),"bom_rows":len(rows),"gate":"SCHEMATIC_INTEGRATED_BUT_NO_ERC_PCB_OR_VEHICLE_RELEASE","OV_nominal_v":calc["threshold_nominal_v"],"PASS":True},ensure_ascii=False,indent=2))
