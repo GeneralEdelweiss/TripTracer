@@ -16,13 +16,13 @@ def check(p):
             nets.setdefault(m.group(1).split("/")[-1],set()).update(
                 re.findall(r'\(ref "([^"]+)"\)\s+\(pin "([^"]+)"\)',part))
     expect = {
-        "ACC_PROTECTED_IN": {("J901","2"),("R923","1"),("R916","1")},
+        "ACC_PROTECTED_IN": {("F902","2"),("R923","1"),("R916","1")},
         "BUCK_ENABLE": {("R911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("D911","2"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("D912","2"),
+        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("U921","7"),("D911","2"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("D912","2"),
                  ("U301","1"),("U302","2")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
-        "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3"),("Q915","2"),("R912","1")},
-        "BAT_INPUT_FUSED_UNPROTECTED_TVS": {("J901","1"),("D901","2")},
+        "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3"),("Q922","5"),("U921","9"),("U921","12")},
+        "BAT_INPUT_FUSED_UNPROTECTED_TVS": {("F901","2"),("D921","1"),("Q921","2")},
         "VIN_HOLD_BIAS": {("R915","2"),("U911","4")},
         "ACC_Q912_BASE": {("R916","2"),("Q912","1"),("R918","1")},
         "MCU_ACC_INV_N": {("R207","2"),("U201","29")},
@@ -83,18 +83,18 @@ def check(p):
         for pin, required in pins.items():
             actual = [name for name, nodes in nets.items() if (ref, pin) in nodes]
             assert actual == [required], f"rearm {ref}.{pin}: {actual} != {required}"
-    for retired in ("C502","D501","D502","Q913","R917","R920","R921"):
+    for retired in ("C502","D501","D502","Q913","R917","R920"):
         assert not any(ref == retired for nodes in nets.values() for ref, pin in nodes), retired
     assert "ACC_DRIVE_5V" not in nets and "ACC_Q913_BASE" not in nets
     print("PASS: prearmed 555 TRIG on global inverse ACC, low-leak RC rearm diode and Q912 reverse-base clamp")
     # ACC has no passive positive-current path to EN: all startup energy is VIN.
     startup = {
         "Q914": {"1":"ACC_START_BASE", "2":"GND", "3":"ACC_START_SINK"},
-        "Q915": {"1":"ACC_START_PNP_BASE", "2":"HV_PROTECTED_AFTER_EFUSE", "3":"ACC_START_VIN"},
+        "Q915": {"1":"ACC_START_PNP_BASE", "2":"LM748_VS_SAFE", "3":"ACC_START_VIN"},
         "R923": {"1":"ACC_PROTECTED_IN", "2":"ACC_START_BASE"},
         "R924": {"1":"ACC_START_BASE", "2":"GND"},
         "R922": {"1":"ACC_START_SINK", "2":"ACC_START_PNP_BASE"},
-        "R912": {"1":"HV_PROTECTED_AFTER_EFUSE", "2":"ACC_START_PNP_BASE"},
+        "R912": {"1":"LM748_VS_SAFE", "2":"ACC_START_PNP_BASE"},
         "R911": {"1":"ACC_START_VIN", "2":"BUCK_ENABLE"},
         "D911": {"1":"ACC_START_BASE", "2":"GND"},
     }
