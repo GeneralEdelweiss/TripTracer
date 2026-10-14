@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""Generate provisional power BOM from KiCad native root netlist, never manual counts.
+Prices are separate procurement observations; not a fabrication-ready BOM.
+"""
+import csv
+import re
+import sys
+from pathlib import Path
+
+POWER_SHEETS = {
+    "01C_HOLD_TIMER.kicad_sch",
+    "01G_SIMPLE_INPUT.kicad_sch",
+    "01H_ACC_HOLD_GATE.kicad_sch",
+    "02_5V_Buck.kicad_sch",
+    "03_3V3_USB.kicad_sch",
+}
+PARTS = {
+    "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
+    "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
+    "U302": ("NCV1117ST33T3G", "EUR", 0.516, 0.362, 0.268, "Mouser DE"),
+    "D901": ("STPS5H100 series (exact SMC order code OPEN)", "", "", "", "", "Do not substitute DPAK package"),
+    "D902": ("Littelfuse 5.0SMDJ36A", "", "", "", "", "350ms load-dump thermal proof missing"),
+    "L101": ("FCH0650-150M provisional 15uH", "", "", "", "", "footprint and Isat verification missing"),
+    "U911": ("EL817S (package/CTR to verify)", "", "", "", "", "provisional optocoupler"),
+    "U912": ("EL817S (package/CTR to verify)", "", "", "", "", "provisional optocoupler"),
+    "U501": ("TLC555-Q1", "", "", "", "", "hardware timeout not yet characterized"),
+    "U502": ("SN74LVC1G08-Q1", "", "", "", "", "timer AND-gate"),
+}
+
+def export(src, dest):
+    data=Path(src).read_text(encoding="utf-8")
+    comps=data.split("\n\t(components",1)[1].split("\n\t(libraries",1)[0]
+    rows=[]
+    for part in comps.split("\n\t\t(comp")[1:]:
+        def find(pattern):
+            m=re.search(pattern,part)
+            return m.group(1) if m else ""
+        ref=find(r'\(ref "([^"]+)"\)')
+        value=find(r'\(value "([^"]+)"\)')
+        fp=find(r'\(footprint "([^"]+)"\)')
+        sheet=find(r'\(name "Sheetfile"\)\s+\(value "([^"]+)"\)')
+        if sheet not in POWER_SHEETS:
+            continue
+        mpn,curr,p1,p10,p100,status=PARTS.get(ref,("","","","","","Mfr MPN and price open"))
+        rows.append((sheet,ref,value,fp,mpn,curr,p1,p10,p100,status))
+    rows.sort(key=lambda x:(x[0],x[1]))
+    assert rows, "No power components from native KiCad hierarchy"
+    refs={r[1] for r in rows}
+    assert {"U101","U301","U302","D901","D902","U911","U912","U501","U502"} <= refs, "Missing mandatory active power parts"
+    with open(dest,"w",newline="",encoding="utf-8") as fh:
+        writer=csv.writer(fh)
+        writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status"))
+        writer.writerows(rows)
+    print(f"PASS: exported {len(rows)} active schematic power components to {dest}; NOT a priced complete BOM")
+
+if __name__=="__main__":
+    export(sys.argv[1],sys.argv[2])
