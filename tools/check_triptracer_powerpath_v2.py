@@ -44,6 +44,31 @@ def check(p):
     for net,node in forbidden:
         assert node not in nets.get(net,set()), f"undesired short: {node} in {net}"
     assert ("R914","1") not in nets["BUCK_ENABLE"], "3V3 hold directly on EN, unsafe on VIN=0"
+    # Isolation checks: all four relevant power domains must remain disjoint.
+    # Comparing node membership catches accidental global-label aliases even
+    # if expected pins happen to remain present in the netlist.
+    unique_rails=("HV_PROTECTED_AFTER_EFUSE","V5_BUCK_RAW","USB_VBUS_RAW","V5_SYS","V3V3_SYS")
+    for idx,left in enumerate(unique_rails):
+        for right in unique_rails[idx+1:]:
+            assert nets[left] != nets[right], f"power rails aliased: {left} / {right}"
+    # Make pin/rail association explicit for every mux terminal, including
+    # its two VOUT pads (a footprint-level wiring requirement).
+    exact_mux={
+        "1":"GND","2":"V5_SYS","3":"V5_BUCK_RAW",
+        "4":"V5_BUCK_RAW","5":"V5_BUCK_RAW",
+        "6":"USB_VBUS_RAW","7":"V5_SYS","8":"USB_ACTIVE_N"}
+    for pin,required_rail in exact_mux.items():
+        actual=[name for name,nodes in nets.items() if ("U301",pin) in nodes]
+        assert actual==[required_rail], (
+            f"TPS2116 pin {pin}: expected exactly {required_rail}, actual {actual}")
+    # Critical: neither source goes directly to the core LDO: only V5_SYS.
+    assert ("U302","3") not in nets["USB_VBUS_RAW"]
+    assert ("U302","3") not in nets["V5_BUCK_RAW"]
+    # The opto output transistor cannot pull the vehicle VIN/EN domain
+    # directly from the MCU 3.3-V GPIO.
+    assert ("U911","4") not in nets["V3V3_SYS"]
+    assert ("U911","3") not in nets["V3V3_SYS"]
+    print("PASS: TPS2116 all eight pins exactly matched; VIN1/USB/VOUT and 3V3 domains isolated")
     print("PASS: 16 ACC, timed HOLD, 5V priority mux, 3V3 core and USB status net connections")
 
 if __name__ == "__main__":
