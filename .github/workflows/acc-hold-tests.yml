@@ -8,6 +8,7 @@ on:
       - 'tools/test_acc_hold_exhaustive.py'
       - 'tools/analyze_rc_shutdown.py'
       - 'tools/test_rc_shutdown_envelope.py'
+      - 'tools/check_vs_bootstrap_tradeoff.py'
       - '.github/workflows/acc-hold-tests.yml'
   workflow_dispatch:
 
@@ -33,6 +34,8 @@ jobs:
         run: python3 tools/analyze_rc_shutdown.py
       - name: Sweep RC worst-case envelope (analytical only)
         run: python3 tools/test_rc_shutdown_envelope.py
+      - name: Quantify 6V VS bootstrap versus 200V pulse energy
+        run: python3 tools/check_vs_bootstrap_tradeoff.py
       - name: Qualification reminder
         if: always()
         run: |
