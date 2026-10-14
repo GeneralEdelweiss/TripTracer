@@ -1,5 +1,10 @@
 # TripTracer V1 – laufende Gesamtkostenkontrolle
 
+## 14.10.2026 – LM74930-Controller fuer TripPower entschieden, Schaltungswerte vorbemessen
+
+[LM74930-Dimensionierung](../hardware/modules/TripPower_5V2A/LM74930_DIMENSIONING_2026-10-14.md): LM74930QRGERQ1 als **feste Controllerwahl fuer neues Standalone-Modul**, LMR38020-Q1 bleibt. Vorbemessung 5mOhm/2512-Shunt, 50Ohm RSET, 33,2k ILIM, 470Ohm ISCP, 47nF/100k Latch und zusaetzlicher separat zu sichernder 1A-VIN_PROTECTED-Zweig. **Kostentreiber noch offen:** 2512-Shunt/MPN, AEC-geeignete 250V-HV-FET-Thermik/Spannungsimpulse, pulsfeste RVS-Widerstaende, ggf. bessere VS-Klemme, zwei UV-/OV-Teiler, separate Abzweig-Sicherung/Stecker, 24pin-RGE-QFN-Loeten und 2-/4-Lagen. Keine neuen ungeprueften Stueckpreise, kein Einkaufs-Gesamtpreis aus dem 2,81 EUR IC-Aufpreis ableiten. Bestehende TripTracer-01I-LM74800-Schaltung ist noch unveraendert.
+
+
 ## 14.10.2026 – Wiederverwendbares TripPower-Modul, LM74800 gegen LM74930
 
 [Dokumentierter TI- und Bestandsvergleich](../hardware/modules/TripPower_5V2A/CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md): Fuer eigenstaendige 9–30V/5V2A-Platine mit zusaetzlichem VIN_PROTECTED-Abzweig wird LM74930QRGERQ1 **fachlich bevorzugt, aber NICHT umgestellt oder bestellfreigegeben**. Grund ist integrierte einstellbare gemeinsame OCP-/Kurzschlussabschaltung statt LM74800 ohne eFuse-Funktion. Die separate Abzweigleitung braucht weiter eigenen Kurzschlussschutz und eine passende fahrzeugseitige Sicherung.
