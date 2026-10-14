@@ -16,6 +16,8 @@ on:
       - 'tools/check_lmr38020_pcb_pads.py'
       - 'tools/check_acc_vin_startup.py'
       - 'tools/check_acc_hold_prearm.py'
+      - 'tools/check_trippower_lm74930_values.py'
+      - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/check_cots_power_selection.py'
       - 'tools/check_power_frontend_design_freeze.py'
       - 'hardware/kicad/power_selection.json'
@@ -64,6 +66,10 @@ jobs:
         id: cots
         continue-on-error: true
         run: python3 tools/check_cots_power_selection.py | tee reports/cots-selection.json
+      - name: Check separate TripPower LM74930 protection values and 24+1 pinplan (calculation only)
+        id: trippower
+        continue-on-error: true
+        run: python3 tools/check_trippower_lm74930_values.py | tee reports/trippower-lm74930-design.json
       - name: Verify selected LM74800 MPNs and passive procurement freeze (WIP)
         id: freeze
         continue-on-error: true
@@ -136,6 +142,7 @@ jobs:
       - name: Enforce failed checks
         if: always()
         env:
+          TRIPPOWER: ${{ steps.trippower.outcome }}
           COTS: ${{ steps.cots.outcome }}
           FREEZE: ${{ steps.freeze.outcome }}
           PCBBUCK: ${{ steps.pcbbuck.outcome }}
@@ -153,4 +160,4 @@ jobs:
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$TRIPPOWER" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
