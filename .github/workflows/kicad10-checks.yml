@@ -8,6 +8,7 @@ on:
       - '.github/workflows/kicad10-checks.yml'
       - 'tools/check_kicad_hierarchy.py'
       - 'tools/triage_kicad_erc.py'
+      - 'tools/check_kicad_custom_pinouts.py'
   workflow_dispatch:
 
 permissions:
@@ -45,6 +46,10 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/check_kicad_hierarchy.py hardware/kicad/TripTracer_V1.kicad_sch | tee reports/hierarchy.json
+      - name: Check custom safety-critical symbol pinouts
+        id: pinouts
+        continue-on-error: true
+        run: python3 tools/check_kicad_custom_pinouts.py
       - name: ERC on complete root hierarchy
         id: erc
         continue-on-error: true
@@ -86,8 +91,9 @@ jobs:
           DRC: ${{ steps.drc.outcome }}
           NETLIST: ${{ steps.netlist.outcome }}
           HIERARCHY: ${{ steps.hierarchy.outcome }}
+          PINOUTS: ${{ steps.pinouts.outcome }}
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$HIERARCHY" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
