@@ -50,7 +50,17 @@ def check():
         sym = block(txt, f'(symbol "{sym_name}"')
         for suffix in ("0_1", "1_1"):
             assert f'(symbol "NMOS_GDS_127_{suffix}"' in sym
-    print("PASS: BAS116Q A1 / NC2 / K3 and NMOS graphical unit naming")
+    for txt, sym_name in ((lib, "NMOS_GDS_127"),
+                          (sheet, "TripTracer_V1:NMOS_GDS_127")):
+        sym = block(txt, f'(symbol "{sym_name}"')
+        pins = re.findall(
+            r'\\(pin\\s+(\\w+)\\s+line.*?\\(name "([^"]+)"[^\\n]*?'
+            r'\\(number "([0-9]+)"', sym)
+        assert sorted(pins) == sorted([
+            ("input", "G", "1"), ("passive", "S", "2"),
+            ("passive", "D", "3"),
+        ]), (sym_name, pins)
+    print("PASS: BAS116Q A1 / NC2 / K3 and DMN2056U 1G / 2S / 3D")
 
 if __name__ == "__main__":
     check()
