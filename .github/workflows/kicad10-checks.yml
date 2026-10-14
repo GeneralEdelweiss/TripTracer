@@ -17,6 +17,8 @@ on:
       - 'tools/check_acc_hold_prearm.py'
       - 'tools/check_input_protection_envelope.py'
       - 'tools/check_supply_harness.py'
+      - 'tools/check_cots_power_selection.py'
+      - 'hardware/kicad/power_selection.json'
   workflow_dispatch:
 
 permissions:
@@ -58,6 +60,10 @@ jobs:
         id: pinouts
         continue-on-error: true
         run: python3 tools/check_kicad_custom_pinouts.py
+      - name: Verify actual COTS power stage and release blockers
+        id: cots
+        continue-on-error: true
+        run: python3 tools/check_cots_power_selection.py | tee reports/cots-selection.json
       - name: ERC on complete root hierarchy
         id: erc
         continue-on-error: true
@@ -124,6 +130,7 @@ jobs:
       - name: Enforce failed checks
         if: always()
         env:
+          COTS: ${{ steps.cots.outcome }}
           SCHEMATICPDF: ${{ steps.schematicpdf.outcome }}
           ERC: ${{ steps.erc.outcome }}
           DRC: ${{ steps.drc.outcome }}
@@ -138,4 +145,4 @@ jobs:
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$COTS" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success

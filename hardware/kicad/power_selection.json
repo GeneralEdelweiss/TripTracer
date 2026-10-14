@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "updated_utc": "2026-10-14",
+  "project": "TripTracer V1",
+  "supply_scope": "12V/24V nominal, 9-30V normal, 5V/2A target",
+  "selection": "KEEP_EXISTING_COTS_AUTOMOTIVE_BUCK",
+  "assembled_on_active_schematic": {
+    "buck": {
+      "ref": "U101",
+      "mpn": "LMR38020SQDDARQ1",
+      "sheet": "02_5V_Buck.kicad_sch",
+      "role": "buck from protected input, EN from ACC/HOLD"
+    },
+    "front_end": {
+      "ref": "D901",
+      "mpn": "S5MC-13-F 5A 1000V",
+      "sheet": "01G_SIMPLE_INPUT.kicad_sch",
+      "blocked": "Worst-case thermals at 9V, automotive transient qualification open"
+    },
+    "transient": {
+      "ref": "D902",
+      "mpn": "TVS5800VEBR 58V VRWM",
+      "sheet": "01G_SIMPLE_INPUT.kicad_sch",
+      "blocked": "No confirmed small-quantity sourcing; not guaranteed all ISO pulses"
+    },
+    "usb_path": {
+      "ref": "U301",
+      "mpn": "TPS2116DRLR",
+      "sheet": "03_3V3_USB.kicad_sch",
+      "role": "USB-M8 power mux"
+    },
+    "regulator_3v3": {
+      "ref": "U302",
+      "mpn": "MCP1826S-3302E/EB",
+      "sheet": "03_3V3_USB.kicad_sch",
+      "blocked": "Real load and case temperature tests open"
+    }
+  },
+  "compared_cots": [
+    {
+      "mpn": "RECOM R-78K5.0-2.0L",
+      "status": "NOT_SELECTED",
+      "reason": "36V Vin limit close to 30V operating limit; 3-pin unit lacks EN, additional off-state switching required; BOM delta not justified"
+    },
+    {
+      "mpn": "RECOM RPH-3.0-CT",
+      "status": "ALTERNATIVE",
+      "reason": "55V Vin, EN, 3A, 47-pad reflow QFN; higher cost and layout/thermal qualification required"
+    },
+    {
+      "mpn": "TI LM74800-Q1",
+      "status": "NOT_SELECTED_AS_SOLE_PROTECTION",
+      "reason": "No integrated adjustable electronic OCP; would need additional short circuit protection"
+    },
+    {
+      "mpn": "TI LM74930-Q1",
+      "status": "PREFERRED_PROTECTION_REDESIGN_CANDIDATE",
+      "reason": "Integrated OCP/SCP/OV/UV control and no series diode loss; manufacturer 200V reference; VS startup/pulse stress and low off-Iq unresolved"
+    },
+    {
+      "mpn": "TI LMR38020-Q1",
+      "status": "ACTIVE_BUCK",
+      "reason": "80V input, integrated switching function and ENABLE in already wired KiCad sheet"
+    }
+  ],
+  "verified_native_topology_only": true,
+  "release": {
+    "schematic_power_netlist_guard": "PASSED_PREVIOUS_CI_NOT_CURRENT_RELEASE",
+    "global_erc": "NOT_CLEAN",
+    "pcb_drc": "NOT_CLEAN",
+    "pcb_routed": "NO",
+    "thermal_bench": "MISSING",
+    "source_verified_stock_for_D902": "NO",
+    "short_circuit_test": "MISSING",
+    "iso_16750_2_test_b": "MISSING",
+    "iso_16750_2_test_a": "MISSING",
+    "ready_to_order_pcb": false,
+    "ready_for_vehicle": false
+  },
+  "source_links": [
+    "https://www.ti.com/product/LMR38020-Q1",
+    "https://www.ti.com/product/LM74930-Q1",
+    "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+    "https://recom-power.com/de/products/switching-regulators/switching-regulators-sip/rec-p-R-78K5.0-2.0L.html",
+    "https://recom-power.com/en/rec-s-RPH-3.0.html",
+    "https://www.lcsc.com/product-detail/C415866.html"
+  ]
+}

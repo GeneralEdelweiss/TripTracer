@@ -2,6 +2,10 @@
 
 **Stand: 14.10.2026 · Status: COTS-Marktvergleich / elektrischer Konzeptkandidat, NICHT KiCad-integriert, NICHT ERC-/DRC-/Labor-/ISO-geprüft.**
 
+## Ergebnis des technischen Anschlussvergleichs
+
+[Auswahl-/Stop-Gate, 14.10.2026](COTS_POWER_DECISION_GATE.md): Der **bereits im KiCad verschaltete LMR38020SQDDARQ1** bleibt als **5-V-Stufe fuer die naechste Hardware-Iteration**. RECOM R-78K5.0-2.0L und RPH-3.0-CT bleiben echte Beschaffungsalternativen, werden **nicht** blind substituiert. Die Eingangsschutzstufe ist trotz vorhandener 01G-Topologie **nicht freigegeben**, da thermische, Verfuegbarkeits- und Fahrzeugtests fehlen. Auswahlstatus ist maschinenlesbar in `hardware/kicad/power_selection.json`; der CI-Check verifiziert tatsaechlich eingesetzte MPNs statt nur Konzepttexte.
+
 ## Verbindliche Entwicklungsstrategie (COTS first)
 
 **Vor einer eigenen Schaltung prüfen wir erst fertig kaufbare, spezifizierte Lösungen.** Reihenfolge:

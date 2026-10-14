@@ -14,3 +14,8 @@ Normalbereich9-30V, weiches Kaltstartziel etwa9V. Der alte Netzname `HV_PROTECTE
 [Aktueller Eingangsentwurf, Berechnungen und Nachweise](../../docs/validation/2026-10-14-input-flat-clamp.md). Native KiCad10-Pruefungen laufen in Actions; Schaltplan-PDF, Netzliste, BOM und Berichte werden14Tage archiviert. Bestehende ERC-/DRC-Fehler, reale Thermik/Transienten und TestA202V sind nicht freigegeben. **Kein Fahrzeugbetrieb oder Fertigungsauftrag aus diesem Stand. Keine PCB-Aenderung in diesem Arbeitsblock.**
 
 [TripTracer_V1_README.md](TripTracer_V1_README.md) enthaelt aeltere Zwischenstaende und ist ab dem gekennzeichneten Historienabschnitt **keine aktuelle Schaltungsbeschreibung**. Alte Mikrorelais-, LM74930- und LMR36520-Angaben ersetzen die aktuellen Anforderungen nicht. Die V0.3-Dateien bleiben historische Referenz.
+
+
+## Kaufteile-Entscheid und Baugruppenstatus (14.10.2026)
+
+[Nachvollziehbarer COTS-Entscheid samt konkreten Stop-Gates](../../docs/COTS_POWER_DECISION_GATE.md) und [maschinenlesbare Ist-Bestueckung](power_selection.json). COTS-first ist verbindlich, bedeutet aber **keinen blinden Austausch** einer bereits verschalteten Reglerstufe durch einen Wandler ohne EN oder mit engerer Spannungsgrenze. Die aktuell verkabelten Daten werden in CI gegen das Auswahlmanifest geprueft. **Eingangsschutz 01G bleibt entwicklungs-/beschaffungskritisch; keine Freigabe.**
