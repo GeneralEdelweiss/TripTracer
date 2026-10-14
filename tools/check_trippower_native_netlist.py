@@ -26,6 +26,8 @@ mapping={
  "F302":{"1":"VIN_PROTECTED_MAIN","2":"VIN_PROTECTED"},
  "J301":{"1":"VIN_FUSED","2":"RUN_CMD","3":"GND"},
  "J302":{"1":"VIN_PROTECTED","2":"5V_OUT","3":"GND"},
+ "R317":{"1":"RUN_CMD","2":"RUN_ISOLATED_AFTER_R"},
+ "D305":{"1":"CTRL_EN","2":"RUN_ISOLATED_AFTER_R"},
  "U101":{"2":"VIN_PROTECTED_MAIN","3":"VIN_PROTECTED_MAIN"}
 }
 for ref,pins in mapping.items():
