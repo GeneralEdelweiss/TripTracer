@@ -70,6 +70,24 @@ jobs:
         id: trippower
         continue-on-error: true
         run: python3 tools/check_trippower_lm74930_values.py | tee reports/trippower-lm74930-design.json
+      - name: TripPower independent root schematic ERC (not the TripTracer project)
+        id: trippower_erc
+        continue-on-error: true
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/trippower-erc.json hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-erc.log
+      - name: TripPower independent native netlist export
+        id: trippower_netlist
+        continue-on-error: true
+        run: |
+          kicad-cli sch export netlist -o reports/TripPower_5V2A.net \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-netlist.log
+      - name: TripPower standalone schematic PDF (not a PCB manufacturing release)
+        id: trippower_pdf
+        continue-on-error: true
+        run: |
+          kicad-cli sch export pdf -o reports/TripPower_5V2A.pdf \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-pdf.log
       - name: Verify selected LM74800 MPNs and passive procurement freeze (WIP)
         id: freeze
         continue-on-error: true
@@ -143,6 +161,9 @@ jobs:
         if: always()
         env:
           TRIPPOWER: ${{ steps.trippower.outcome }}
+          TRIPPOWER_ERC: ${{ steps.trippower_erc.outcome }}
+          TRIPPOWER_NETLIST: ${{ steps.trippower_netlist.outcome }}
+          TRIPPOWER_PDF: ${{ steps.trippower_pdf.outcome }}
           COTS: ${{ steps.cots.outcome }}
           FREEZE: ${{ steps.freeze.outcome }}
           PCBBUCK: ${{ steps.pcbbuck.outcome }}
@@ -159,5 +180,6 @@ jobs:
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
+          printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
           test "$TRIPPOWER" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
