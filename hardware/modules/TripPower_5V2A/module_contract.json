@@ -2,8 +2,8 @@
   "schema_version": 4,
   "module_name": "TripPower_5V2A",
   "target_project": "TripPower_5V2A.kicad_pro",
-  "stage": "INDEPENDENT_TWO_PAGE_KICAD10_SCHEMATIC_CREATED_ELECTRICAL_GATES_OPEN",
-  "validation": "NOT_ERC_CHECKED_AS_STANDALONE_NOT_DRC_CHECKED_NO_PROTOTYPE",
+  "stage": "INDEPENDENT_KICAD10_2_SHEET_SCHEMATIC_ERC_CLEAN_NOT_PCB_RELEASED",
+  "validation": "STANDALONE_SCHEMATIC_ERC_CLEAN_NETLIST_VERIFIED_NO_PCB_NO_BENCH_OR_VEHICLE_APPROVAL",
   "created": "2026-10-14",
   "no_manufacturing_or_vehicle_approval": true,
   "source_policy": "AGENTS.md; COTS FIRST; source-controlled manufacturer references and deliberate gates",
@@ -223,7 +223,7 @@
   "pass_status": {
     "scope_and_COTS_first": "PASS_REVIEWED",
     "standalone_schematic": "CREATED_2_PAGE_NATIVE_KICAD_10_DRAFT",
-    "standalone_erc": "NATIVE_CHECK_IN_CI_RECHECK_AFTER_LATEST_CORRECTIONS_PENDING",
+    "standalone_erc": "PASSED_NATIVE_KICAD10_0_VIOLATIONS_ALL_3_PAGES_CI_38634029401",
     "standalone_pcb": "NOT_CREATED",
     "standalone_drc": "NOT_RUN_NO_PCB",
     "bench": "NOT_TESTED",
@@ -233,9 +233,11 @@
     "input_controller_comparison": "DECIDED_LM74930_USER_APPROVED",
     "protection_values": "PRELIMINARY_PIN_AND_COMPONENT_DESIGN_RECALC_TEST_PENDING_OR_VALIDATION_ONLY",
     "protection_schematic": "NOT_YET_IN_STANDALONE_KICAD",
-    "standalone_native_netlist": "PASSED_WITH_44_CRITICAL_PIN_ASSERTIONS_ON_PRIOR_RUN; LATEST_RECHECK_PENDING",
+    "standalone_native_netlist": "PASSED_48_CRITICAL_PIN_ASSERTIONS_NATIVE_KICAD10_CI_38634029401",
     "manufacturing_ready": false,
-    "vehicle_ready": false
+    "vehicle_ready": false,
+    "standalone_pdf": "PASSED_NATIVE_KICAD10_EXPORT_3_PAGES_CI_38634029401",
+    "legacy_triptracer_project": "PREEXISTING_ROOT_ERC_33_UNCONNECTED_PINS_AND_PCB_DRC_FAIL_UNRELATED_TO_STANDALONE_TRIPPOWER"
   },
   "display_backlight_design": {
     "display": "Riverdi RVT35HITNWC00-B",
