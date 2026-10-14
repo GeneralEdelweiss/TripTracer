@@ -1,8 +1,8 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "module_name": "TripPower_5V2A",
   "target_project": "TripPower_5V2A.kicad_pro",
-  "stage": "ARCHITECTURE_AND_INTERFACE_FIXED_CONTROLLER_ALTERNATIVES_COMPARED",
+  "stage": "LM74930_CONTROLLER_LOCKED_PROTECTION_PART_VALUES_PRELIMINARY_GATE_A_OPEN",
   "validation": "NOT_ERC_CHECKED_AS_STANDALONE_NOT_DRC_CHECKED_NO_PROTOTYPE",
   "created": "2026-10-14",
   "no_manufacturing_or_vehicle_approval": true,
@@ -38,8 +38,9 @@
       "loss_budget_at_full_load_w": 2.5
     },
     "auxiliary_protected_input_voltage": "follows_fused_input_after_overvoltage_and_reverse_protection; unregulated, can collapse during cutoff; NOT 5V or fixed 15V",
-    "auxiliary_protected_max_output_current_a": null,
-    "auxiliary_protected_output_short_circuit": "MUST HAVE independently proven current-limiting or suitably DC-rated replaceable branch fuse before any exposed terminal / attached wire; LM74800 is NOT an eFuse"
+    "auxiliary_protected_max_output_current_a": 1,
+    "auxiliary_protected_output_short_circuit": "MUST HAVE independently proven current-limiting or suitably DC-rated replaceable branch fuse before any exposed terminal / attached wire; LM74800 is NOT an eFuse",
+    "auxiliary_protected_max_output_current_status": "PRELIMINARY_TARGET_TO_DIMENSION_SHARED_SHUNT; not approved to connect before separate branch fuse and connector/wire rating"
   },
   "project_boundaries": {
     "on_module": [
@@ -114,8 +115,11 @@
       "status": "SELECTED_EXISTING_KICAD_SUBSYSTEM"
     },
     "protection": {
-      "mpn": "LM74800QDRRRQ1",
-      "status": "SELECTED_REFERENCE_DESIGN_WIP_NO_OVER_CURRENT_LIMIT"
+      "mpn": "LM74930QRGERQ1",
+      "status": "LOCKED_BY_USER_FOR_STANDALONE_TRIPPOWER_DESIGN_NOT_YET_INSTALLED_IN_KICAD",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+      "design_values": "lm74930_design_v1.json",
+      "buck": "LMR38020SQDDARQ1_RETAINED"
     },
     "overcurrent_alternative": {
       "mpn": "LM74930-Q1",
@@ -127,11 +131,11 @@
     },
     "reference_evaluation_module": "TI LMR38020QEVM",
     "protection_comparison": {
-      "decision": "LM74930QRGERQ1_RECOMMENDED_FOR_NEW_STANDALONE_TRIPPOWER_NOT_FROZEN",
-      "current_active_triptracer_controller": "LM74800QDRRRQ1_UNCHANGED",
+      "decision": "USER_CONFIRMED_LM74930_FOR_STANDALONE_TRIPPOWER_2026_10_14",
+      "current_active_triptracer_controller": "LM74800QDRRRQ1_UNCHANGED_WHILE_NEW_MODULAR_SCHEMATIC_NOT_CREATED",
       "reference": "CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md",
       "design_reason": "Programmable combined-load breaker plus short-circuit protection via shared shunt upstream of VIN_PROTECTED branch; LM74800 lacks OCP",
-      "recommendation_not_a_change_order": true,
+      "recommendation_not_a_change_order": false,
       "preferred_controller_mpn": "LM74930QRGERQ1",
       "preferred_supplier_de_snapshot": {
         "vendor": "Mouser Deutschland",
@@ -161,6 +165,24 @@
         "RGE-24 hand solder reliability",
         "full BOM cost incl mounting"
       ]
+    },
+    "previous_protection": {
+      "mpn": "LM74800QDRRRQ1",
+      "status": "SELECTED_REFERENCE_DESIGN_WIP_NO_OVER_CURRENT_LIMIT",
+      "context": "CURRENT_ACTIVE_TRIPTRACER_01I_UNMODIFIED_HISTORICAL_BASELINE_NOT_FOR_NEW_MODULE"
+    },
+    "protection_settings": {
+      "model": "lm74930_design_v1.json",
+      "shunt_ohms": 0.005,
+      "r_set_ohms": 50,
+      "r_ilim_ohms": 33200,
+      "r_iscp_ohms": 470,
+      "ctmr_f": 4.7e-8,
+      "rtmr_ohms": 100000,
+      "ocp_approx_a": 3.614,
+      "scp_approx_a": 5.034,
+      "ocp_mode": "TIMED_CIRCUIT_BREAKER_LATCH_OFF",
+      "separate_aux_short_circuit_protection": "MANDATORY"
     }
   },
   "stop_gates": [
@@ -208,7 +230,9 @@
     "vin_protected_physical_connection": "REQUIRED_NOT_YET_DRAWN_OR_ROUTED",
     "vin_protected_current_rating": "NOT_DIMENSIONED",
     "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT",
-    "input_controller_comparison": "REVIEWED_PREFERENCE_DOCUMENTED_NO_SCHEMATIC_SWAP"
+    "input_controller_comparison": "DECIDED_LM74930_USER_APPROVED",
+    "protection_values": "PRELIMINARY_PIN_AND_COMPONENT_DESIGN_RECALC_TEST_PENDING_OR_VALIDATION_ONLY",
+    "protection_schematic": "NOT_YET_IN_STANDALONE_KICAD"
   },
   "display_backlight_design": {
     "display": "Riverdi RVT35HITNWC00-B",
