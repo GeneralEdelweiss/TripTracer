@@ -2,6 +2,8 @@
 
 Electrical schematic correction; native KiCad 10.0.6 verification below. No PCB or vehicle release.
 
+**Follow-on:** [prearmed ACC-off HOLD correction](2026-10-14-prearmed-acc-hold.md) supersedes the Q912/Q913 inversion and edge-trigger timer description below. The VIN-only startup correction and its evidence remain valid.
+
 ## Actual circuit
 
 Removed direct ACC -> R911/R912/D911 -> EN divider. New Q914 NPN sinks Q915 PNP base through R922. Q915 emitter is exclusively U101 VIN (HV_PROTECTED_AFTER_EFUSE); its collector feeds EN through R911. R912 pulls Q915 base to its emitter when ACC is absent. R923 feeds Q914 base from ACC; R924 ensures fail-off. Existing D911 is reused as reverse base-emitter clamp (anode ground, cathode Q914 base), rather than an ACC-to-EN OR diode. Thus ACC=30V with BAT/VIN=0 has no resistor/forward-diode supply path to EN. The new source is independent of 5V/3V3 for cold start.

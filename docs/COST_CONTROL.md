@@ -104,3 +104,5 @@ Jede neue Baugruppe startet mit **„Welchen Schutz oder welche Funktion brauche
 
 ## 2026-10-14: prearmed ACC-off HOLD, without another IC
 [Electrical change and alternatives](validation/2026-10-14-prearmed-acc-hold.md): reuse TLC555/AND/opto; remove seven obsolete edge/inversion parts, add BAS116Q D503, BAT54WS D912 and 10k R505. Net four fewer parts. R501/C501 change to 1M/22uF in their existing footprints for leakage margin. A separate RC-reset transistor was rejected for hot leakage; TMUX1101 at listed EUR 1.84/1, 1.37/10, 1.12/100 plus passives is avoided by using the unloaded Q912 inverse node. No invented savings: capacitor/resistor sourcing and complete landed 2/10/100-device delta remain **NICHT BELASTBAR**, LCSC/JLCPCB ungeprüft. No PCB work or purchase.
+
+Native KiCad 10.0.6 run 38561884651 verified the resulting **54-component** active power BOM at 623171d9; topology/state regressions pass, full ERC/DRC and hardware release remain open.

@@ -1,6 +1,6 @@
 # Prearmed ACC-off HOLD correction — 2026-10-14
 
-Schematic development, not vehicle or manufacturing approval. Native CI results will be appended.
+Schematic development, not vehicle or manufacturing approval. Native KiCad 10.0.6 results recorded below.
 
 ## Electrical change
 
@@ -34,3 +34,24 @@ tools/check_acc_hold_prearm.py follows TI's functional table and RC exponential 
 Q912 model now includes both pull-ups and initial RC discharge; assumed VBE=1V/VCE=.3V and 9V ACC give forced gain target ~7.74. Full-temperature BJT behavior remains unmeasured.
 
 ACC sensor stuck LOW or shorted RC can defeat timeout. This timer bounds a stuck MCU request with healthy ACC sensing, not every component fault. Short ACC chatter may not fully discharge C501; sufficient rearm time and waveform behavior must be bench-tested. GPIO default LOW, USB source isolation, BAT-absent DC startup fix and all automotive/thermal gates remain unchanged. Native rendered visual QA and oscilloscope measurements remain OPEN.
+
+## Executed native evidence
+
+Verified electrical/code head: **623171d983dee64fad0bc468cc35853772a39c68**.
+[Actions run 38561884651](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38561884651), job 115844715782, KiCad 10.0.6, 2026-10-14.
+
+- PASS: hierarchy and existing custom safety pinout checks.
+- PASS: native root netlist export.
+- PASS: input diode/TVS, LMR38020 topology, VIN-only startup.
+- PASS: prearmed TRIG / RC reset D503 and R505, Q912 reverse-base D912, retired parts and second-inverter nets absent.
+- PASS: all TLC555/AND terminal checks, MCU release pulldown, optical HOLD.
+- PASS: TPS2116 / MCP1826S / physical USB VBUS-GND / vehicle harness regression.
+- PASS: previous 16 startup DC corner assumptions.
+- PASS: all five prearmed HOLD scenarios and 96 declared RC sensitivity combinations. Nominal model 18.924s; sensitivity 1.963..68.126s. These results are NOT a guaranteed hardware timing specification.
+- PASS: native BOM exported **54** active supply components (previous 58).
+- ERC **FAIL**, unchanged **34** pin_not_connected errors solely on the existing ESP32 page; no new warnings/errors.
+- Existing PCB DRC **FAIL**: 5 violations, 79 unconnected items; parity 78 rather than 82 after schematic net four-part reduction. No PCB file changed.
+- Overall workflow remains failure as required by unresolved project ERC/DRC gates.
+- [Raw artifact](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38561884651/artifacts/11892481523), SHA256 **2179241bfebb80cfd156413ffe829f21f979c5e36f73a27973f930930f6fcb50**, one-day retention. This committed report preserves key observations.
+
+Netlist regression confirms the new timer uses the existing inverse ACC node and continues to feed the same MCU AND/opto/VIN-only EN path. Models demonstrate the intended prearmed sequence under stated assumptions. Oscilloscope proof of continuous power and a qualified actual deadline is still outstanding.
