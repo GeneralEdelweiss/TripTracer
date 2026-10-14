@@ -1,3 +1,5 @@
+**AKTUELLER SCHEMATIC-STATUS 14.10.2026:** LM74800-Q1-Schutzstufe aktiv in [01I](../hardware/kicad/01I_LM74800_INPUT.kicad_sch) und [Integrationbericht](LM74800_01I_INTEGRATION_2026-10-14.md). 01G nur historisch; ACC/HOLD auf LM748_VS_SAFE umgeklemmt. EVM C10/15nF ausgelassen, C924 1uF A/GND. *Offen:* native Gesamt-ERC/DRC, U921-Footprint, OVP 660k+23.2k mit 1uA Input-Leckstrom, 200V-Pulse/FET/Sicherung, 9V/USB/OFF-Messung. Ältere Absätze in diesem Dokument sind zeitlich überholt und keine aktive Architekturfreigabe.
+
 # TripTracer – offene technische Prüfungen
 
 **Update Standardteile 14.10.2026:** [Sechs bisher undefinierte OV-/Gate-/Chargepump-SMD-Positionen mit konkreten MPNs & Lagerindikationen bestimmt](POWER_FRONTEND_PASSIVES_SOURCING_2026-10-14.md). Nur Beschaffungs-MPNs geschlossen; **C10 15nF aus TI-EVM, finale Knotenzuordnung der Teile, ACC/EN, Sicherung und 9V/200V/Temperatur-Tests bleiben offen**. Aktive 01G/PCB unverändert.
