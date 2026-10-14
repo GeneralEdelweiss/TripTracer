@@ -34,6 +34,20 @@ def evaluate():
     assert cutoff_seconds(r,22e-6,4.5,vf,0)>0
     assert cutoff_seconds(r,22e-6,4.5,vf,1.5e-6)==float("inf")
     assert cutoff_seconds(r,22e-6,4.5,vf,200e-9)>cutoff_seconds(r,22e-6,4.5,vf,0)
+    # Threshold is highly sensitive to net *positive* injection.  At 2uA
+    # the bleeder no longer guarantees OFF, irrespective of capacitance.
+    for cuf in (10, 22, 47):
+        assert cutoff_seconds(r,cuf*1e-6,4.5,vf,2e-6) == float("inf")
+    # Bleed tolerances and the EN falling-threshold endpoints matter too.
+    for effective_r in (r*0.99, r, r*1.01):
+        for threshold in (0.41,0.70):
+            assert cutoff_seconds(effective_r,22e-6,4.5,threshold) > 0
+    # Time can be much shorter than nominal if 47uF MLCC loses capacity.
+    nominal = cutoff_seconds(r,47e-6,4.5,vf)
+    half_effective = cutoff_seconds(r,23.5e-6,4.5,vf)
+    assert abs(2*half_effective-nominal) < 1e-10
+    print(f"47uF nominal yields {nominal:.2f}s, 23.5uF effective {half_effective:.2f}s")
+    print("WARNING: no guaranteed OFF with >=1.24uA positive injection.")
     # Once a discharge FET pulls the cap below threshold, releasing it
     # while the ACC-qualified charging diode is reverse-biased cannot
     # restore the enable voltage without an external source.
