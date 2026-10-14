@@ -62,7 +62,7 @@ def check():
         ]), (sym_name, pins)
     active = (ROOT / "01D_INPUT_PROTECTION.kicad_sch").read_text()
     expected_fets = (
-        ("IPB17N25S3_100", "TO-263-3_TabPin2"),
+        ("FQD16N25CTM", "TO-263-3_TabPin2"),
         ("IPD90N10S4_06", "TO-252-3_TabPin2"),
     )
     for suffix, footprint in expected_fets:
@@ -76,7 +76,7 @@ def check():
                 ("passive", "S", "3")
             )), (full, pins)
             assert footprint in body, (full, "footprint mismatch")
-    q1 = block(active, '(symbol (lib_id "TripTracer_V1:IPB17N25S3_100"')
+    q1 = block(active, '(symbol (lib_id "TripTracer_V1:FQD16N25CTM"')
     q2 = block(active, '(symbol (lib_id "TripTracer_V1:IPD90N10S4_06"')
     assert '(property "Reference" "Q401"' in q1
     assert '(property "Reference" "Q402"' in q2
