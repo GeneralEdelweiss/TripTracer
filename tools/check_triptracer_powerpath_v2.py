@@ -19,7 +19,7 @@ def check(p):
         "ACC_PROTECTED_IN": {("J901","2"),("R911","1"),("R916","1")},
         "ACC_EN_BIAS": {("R911","2"),("R912","1"),("D911","1")},
         "BUCK_ENABLE": {("D911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("C306","2"),("R307","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
+        "GND": {("R309","2"),("C306","2"),("R307","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
                  ("R917","2"),("U301","1"),("U302","1")},
         "HOLD_TIMER_GRANTED_3V3": {("R914","1")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
@@ -31,7 +31,8 @@ def check(p):
         "ACC_Q913_BASE": {("R920","2"),("Q913","1")},
         "V3V3_SYS": {("U302","2"),("R919","1"),("R921","1"),("U201","3"),("R306","1")},
         "ACC_DRIVE_5V": {("Q913","3"),("R917","1"),("R921","2")},
-        "V5_BUCK_RAW": {("U301","3"),("U301","4"),("U301","5")},
+        "V5_BUCK_RAW": {("U301","3"),("U301","5"),("R308","1")},
+        "MUX_PRI1_SENSE": {("U301","4"),("R308","2"),("R309","1")},
         "USB_VBUS_RAW": {("U301","6")},
         "V5_SYS": {("U301","2"),("U301","7"),("U302","3"),("C303","1"),("C306","1")},
         "USB_ACTIVE_N": {("U301","8"),("R306","2"),("U201","28")},
@@ -57,7 +58,7 @@ def check(p):
     # its two VOUT pads (a footprint-level wiring requirement).
     exact_mux={
         "1":"GND","2":"V5_SYS","3":"V5_BUCK_RAW",
-        "4":"V5_BUCK_RAW","5":"V5_BUCK_RAW",
+        "4":"MUX_PRI1_SENSE","5":"V5_BUCK_RAW",
         "6":"USB_VBUS_RAW","7":"V5_SYS","8":"USB_ACTIVE_N"}
     for pin,required_rail in exact_mux.items():
         actual=[name for name,nodes in nets.items() if ("U301",pin) in nodes]
@@ -67,6 +68,8 @@ def check(p):
     # Critical: neither source goes directly to the core LDO: only V5_SYS.
     assert ("U302","3") not in nets["USB_VBUS_RAW"]
     assert ("U302","3") not in nets["V5_BUCK_RAW"]
+    # PR1 cannot be tied directly to VIN1: it must select USB before the buck collapses.
+    assert ("U301","4") not in nets["V5_BUCK_RAW"], "PR1 improperly bypasses VIN1 priority divider"
     # The opto output transistor cannot pull the vehicle VIN/EN domain
     # directly from the MCU 3.3-V GPIO.
     assert ("U911","4") not in nets["V3V3_SYS"]
