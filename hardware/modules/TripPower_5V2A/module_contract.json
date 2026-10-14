@@ -2,7 +2,7 @@
   "schema_version": 2,
   "module_name": "TripPower_5V2A",
   "target_project": "TripPower_5V2A.kicad_pro",
-  "stage": "ARCHITECTURE_AND_INTERFACE_FIXED_WITH_REQUIRED_VIN_PROTECTED_BRANCH",
+  "stage": "ARCHITECTURE_AND_INTERFACE_FIXED_CONTROLLER_ALTERNATIVES_COMPARED",
   "validation": "NOT_ERC_CHECKED_AS_STANDALONE_NOT_DRC_CHECKED_NO_PROTOTYPE",
   "created": "2026-10-14",
   "no_manufacturing_or_vehicle_approval": true,
@@ -125,7 +125,43 @@
       "mpn": "RECOM R-78K5.0-2.0L",
       "status": "COTS_COMPARISON_NO_ENABLE_MAX_36V"
     },
-    "reference_evaluation_module": "TI LMR38020QEVM"
+    "reference_evaluation_module": "TI LMR38020QEVM",
+    "protection_comparison": {
+      "decision": "LM74930QRGERQ1_RECOMMENDED_FOR_NEW_STANDALONE_TRIPPOWER_NOT_FROZEN",
+      "current_active_triptracer_controller": "LM74800QDRRRQ1_UNCHANGED",
+      "reference": "CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md",
+      "design_reason": "Programmable combined-load breaker plus short-circuit protection via shared shunt upstream of VIN_PROTECTED branch; LM74800 lacks OCP",
+      "recommendation_not_a_change_order": true,
+      "preferred_controller_mpn": "LM74930QRGERQ1",
+      "preferred_supplier_de_snapshot": {
+        "vendor": "Mouser Deutschland",
+        "date": "2026-10-14",
+        "stock_snapshot": 62,
+        "unit_eur_1pc": 5.39,
+        "unit_eur_10pcs": 4.13,
+        "unit_eur_100pcs": 3.47,
+        "vat_shipping": "not yet reconciled"
+      },
+      "baseline_de_snapshot": {
+        "mpn": "LM74800QDRRRQ1",
+        "vendor": "Mouser Deutschland",
+        "date": "2026-10-14",
+        "stock_snapshot": 1442,
+        "unit_eur_1pc": 2.58,
+        "unit_eur_10pcs": 1.94,
+        "unit_eur_100pcs": 1.59,
+        "vat_shipping": "not yet reconciled"
+      },
+      "open_gates": [
+        "Supplier availability sufficient for 100pc",
+        "Shunt and separate auxiliary current fault protection",
+        "9V source feed/startup",
+        "OV leakage and OFF current",
+        "FET safe operating area",
+        "RGE-24 hand solder reliability",
+        "full BOM cost incl mounting"
+      ]
+    }
   },
   "stop_gates": [
     "protection: 9V VS-chargepump dynamic startup and safe EN-off hot leakage",
@@ -171,7 +207,8 @@
     "bench": "NOT_TESTED",
     "vin_protected_physical_connection": "REQUIRED_NOT_YET_DRAWN_OR_ROUTED",
     "vin_protected_current_rating": "NOT_DIMENSIONED",
-    "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT"
+    "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT",
+    "input_controller_comparison": "REVIEWED_PREFERENCE_DOCUMENTED_NO_SCHEMATIC_SWAP"
   },
   "display_backlight_design": {
     "display": "Riverdi RVT35HITNWC00-B",
