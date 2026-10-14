@@ -11,7 +11,7 @@
 (global_label "V5_SYS" (shape bidirectional) (at 175.26 96.52 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "33aacc00-0000-4000-8000-000000000022"))
 (global_label "V3V3_SYS" (shape bidirectional) (at 205.74 96.52 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "33aacc00-0000-4000-8000-000000000023"))
 (global_label "GND" (shape bidirectional) (at 190.5 111.76 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "33aacc00-0000-4000-8000-000000000024"))
-(global_label "3V3_MAIN" (shape bidirectional) (at 205.74 96.52 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "33aacc00-0000-4000-8000-000000000025"))
+
 (symbol (lib_id "Tripmaster_Sym:C") (at 88.9 124.46 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "33aacc00-0000-4000-8000-000000000026") (property "Reference" "C301" (at 88.9 111.46 0) (effects (font (size 1.27 1.27)))) (property "Value" "10uF 10V MUX_IN1" (at 88.9 113.96 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "Tripmaster:C_1210_3225" (at 88.9 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "33aacc00-0000-4000-8000-000000000027"))(pin "2" (uuid "33aacc00-0000-4000-8000-000000000028")) (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000067" (reference "C301") (unit 1)))))
 (global_label "V5_BUCK_RAW" (shape bidirectional) (at 77.47 124.46 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "33aacc00-0000-4000-8000-000000000029"))
 (global_label "GND" (shape bidirectional) (at 100.33000000000001 124.46 0) (effects (font (size 1.0 1.0)) (justify left)) (uuid "33aacc00-0000-4000-8000-000000000030"))
