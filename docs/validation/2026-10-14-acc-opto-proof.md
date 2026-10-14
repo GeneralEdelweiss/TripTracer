@@ -1,4 +1,6 @@
-# TripTracer ACC-Erkennung U912: Datenblatt-Nachweis, 14.10.2026
+# TripTracer ACC-Erkennung U912: historischer Datenblatt-Nachweis, 14.10.2026
+> **NACHTRAG 14.10.2026 – HISTORISCHER FEHLERNACHWEIS:** Die hier bemängelte U912-Optokopplerstufe wurde in Commit `884c4aee` aus dem aktiven Schaltplan entfernt und durch Q912/Q913 (MMBT5551, zweistufiger invertierender ACC-Schaltweg) ersetzt. Die ursprünglichen U912-Werte dienen nur noch als Begründung der Änderung. Der neue Entwurf muss seine eigene Grenzwert-/Temperaturprüfung bestehen. Der Test `prove_acc_opto_limits.py` untersucht nun die neue BJT-Stufe; der Dateiname ist historisch.
+
 
 **Ergebnis: NICHT NACHGEWIESEN / KEINE SCHALTUNGSFREIGABE.** Dieser Bericht beweist anhand der Herstellergrenzwerte, warum die aktuelle Schaltung NICHT als zuverlässig für 9–30 V und -40 bis +85 °C zugesagt werden kann. Eine positive Funktionsgarantie lässt sich aus den verfügbaren Daten **nicht** ableiten.
 
