@@ -1,0 +1,135 @@
+{
+  "commit": "8374f6244d316508125e24ebcfe9006e8af97bfd",
+  "run_id": 38567117214,
+  "job_id": 115862512790,
+  "kicad": "10.0.6",
+  "overall": "FAIL: existing ERC/DRC gates enforced",
+  "erc": {
+    "total": 33,
+    "types": {
+      "pin_not_connected": 33
+    }
+  },
+  "drc": {
+    "violations": 5,
+    "unconnected": 79,
+    "parity": 80
+  },
+  "hierarchy": {
+    "pages": [
+      "/__w/TripTracer/TripTracer/hardware/kicad/TripTracer_V1.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/01_Eingangsschutz.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/01C_HOLD_TIMER.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/01G_SIMPLE_INPUT.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/02_5V_Buck.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/03_3V3_USB.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/04_ESP32_USB.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/05_GNSS.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/06_Display_Tasten.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/07_Speicher_RTC.kicad_sch",
+      "/__w/TripTracer/TripTracer/hardware/kicad/08_Radsensoren.kicad_sch"
+    ],
+    "symbol_instances": 70,
+    "errors": []
+  },
+  "layout_connectivity_identical_to_f56ba9de": true,
+  "native_models": {
+    "input-protection-envelope.json": {
+      "status": "PASS source-bound design and pad checks; no hardware or ISO qualification",
+      "test_B_scope": "terminal BAT never exceeds58V; no58V-Thevenin source assumption",
+      "clamp_20A_8_20us_27C_initially_0V_margin_to_80V_V": 5,
+      "tvs_leakage_cases": [
+        {
+          "temperature_C": 27,
+          "max_leak_A": 3e-7,
+          "power_W": 0.0000174,
+          "energy_350ms_J": 0.000006089999999999999
+        },
+        {
+          "temperature_C": 85,
+          "max_leak_A": 0.0000012,
+          "power_W": 0.0000696,
+          "energy_350ms_J": 0.000024359999999999997
+        },
+        {
+          "temperature_C": 105,
+          "max_leak_A": 0.0000024,
+          "power_W": 0.0001392,
+          "energy_350ms_J": 0.000048719999999999994
+        }
+      ],
+      "negative_pulse_static_rectifier_margin_V": 320,
+      "old_ideal40V_clamp_counterexample": {
+        "generator_V": 174,
+        "Ri_ohm": 1,
+        "line_R_ohm": 0.1,
+        "current_A": 121.09090909090907,
+        "bus_V": 52.90909090909091,
+        "central58V_clamp": "inactive"
+      },
+      "qualification_gates": [
+        "terminal waveform/tolerance and bias-dependent overshoot",
+        "hot/cold clamp at actual ISO7637 waveforms;25A8/20us is not350ms",
+        "S5MC reverse recovery, forward pulse and inrush; BAT/ACC external fuse coordination",
+        "PCB parasitics and component/trace temperatures at10W load",
+        "TVS5800 procurement: TI/DigiKey currently no confirmed stock",
+        "TestA202V/350ms remains unmet; this clamp cannot absorb that event"
+      ]
+    },
+    "acc-vin-startup.json": {
+      "status": "PASS analytical DC envelope only; NOT temperature or transient qualification",
+      "corners": 16,
+      "min_start_en": 1.5701993002655021,
+      "min_hold_en": 1.4473735639314163,
+      "off_en_assuming_51uA": 0.5151,
+      "vin_zero_acc_live": "no passive ACC-to-EN path, confirmed separately by native netlist",
+      "unverified": [
+        "-40..125C gain/leakage",
+        "ACC-off transfer timing",
+        "VIN collapse capacitive injection",
+        "reverse inputs and ISO pulses",
+        "real USB reverse current"
+      ]
+    },
+    "acc-hold-prearm.json": {
+      "status": "PASS topology/state and declared analog sensitivity models only",
+      "scenarios": [
+        "continuous HOLD at ACC off",
+        "early MCU release",
+        "stuck-high MCU deadline",
+        "ACC return and second off",
+        "USB-only stays unarmed"
+      ],
+      "sensitivity_corners": 96,
+      "modeled_min_seconds": 1.9629272988883435,
+      "modeled_max_seconds": 68.12583239955934,
+      "nominal_seconds": 18.924427834908457,
+      "q912_forced_gain_target": 7.741428759373768,
+      "open_gates": [
+        "3.3V full-temperature TLC555 thresholds/leakage",
+        "C501 effective capacitance/insulation resistance",
+        "clamp drop over temperature",
+        "short ACC chatter and waveform bench tests",
+        "sensor stuck-low or shorted RC can defeat timer",
+        "opto/MCU timing during initialization",
+        "no whole-vehicle qualification"
+      ]
+    }
+  },
+  "files_sha256": {
+    "TripTracer.net": "0144f9091a8edb4541a64dcaa35dd5d486edd42c2db2c5f004eb62cb5feb3b17",
+    "TripTracer-schematic.pdf": "30f7b8182c75ea55c4ebd47ebff0caa1acbfb8a10e14358b3ed2f90d1702962b",
+    "erc.json": "2ac83d161bd332f104b31c65198e13971a3bd2f2816a761ebc04a8abffe6e991",
+    "drc.json": "39726ffa2a80bd69b852da21885242ed37e4d11423d2c4d3252dcea6aa784a34",
+    "power-bom-v2.csv": "5d6dff68bf960f6211d1d4295430f8085e6ecbf7d350f70ad14951deaf2e9297"
+  },
+  "artifact": {
+    "id": 11896601533,
+    "sha256": "d152cc46efda1301ea8910abfe35366f6c44627c0098c1b144352d0888d1bccc",
+    "expires": "2026-10-28T12:52:48Z"
+  },
+  "pcb_changed": false,
+  "visual_review": "Native PDF pages4 and8: new input pins and moved ACC/HOLD/USB labels inspected. Not whole-project drawing or PCB release.",
+  "power_parts": 55
+}
