@@ -111,3 +111,9 @@ Separate CI: `tools/check_tps2116_priority_threshold.py` runs corner arithmetic 
 Validation tools updated: `tools/check_triptracer_powerpath_v2.py` now asserts the real U302 1/2/3 KiCad net-to-pin mapping and C305 direct return to ground; `tools/check_power_switchover_thermal.py` asserts DDPAK current/temperature analytical margins. Native KiCad root ERC remains not clean (last pre-change: 120 violations) and existing PCB remains intentionally untouched.
 
 Manufacturer: https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP1826-MCP1826S-1000-mA,-Low-Voltage,-Low-Quiescent-Current-LDO-Regulator-20002057C.pdf
+
+## Verified CI for DDPAK MCP1826S update
+
+GitHub Actions [KiCad 10 run 38551829501](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38551829501) completed with the expected **global failure** (ERC/DRC not clean), not a fabricated all-green result. Native netlist tests **PASS** for input diode + TVS, U101 LMR38020, all 8 TPS2116 mux pins, new **MCP1826S pin1=V5_SYS, pin2=GND/tab, pin3=V3V3_SYS**, capacitor C305 directly to ground, TLC555 trigger/reset/RC, MCU HOLD and J901 BAT/ACC/GND. Active supply BOM export **PASS: 53 components** after eliminating old series ESR resistor R307. Native project still has **120 ERC violations and 5 PCB DRC** (PCB work intentionally postponed).
+
+The companion ACC HOLD behavioral CI [run 38551876003](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38551876003) **PASS** for new low-dropout headroom and JEDEC reference thermal estimates; this does not prove actual PCB thermal or automotive load dump. The chosen U302 footprint/package and exact Microchip automotive grade suffix require BOM/land-pattern verification at PCB stage. Next schematic work: eliminate true ERC errors and characterize input surge/TVS energy, rather than claim manufacturing readiness.
