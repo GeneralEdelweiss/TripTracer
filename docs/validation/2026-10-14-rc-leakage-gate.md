@@ -10,4 +10,4 @@ Two alternatives remain test candidates, not a selected solution:
 
 The analog RC solution remains disconnected from MAIN_ENABLE deliberately until the worst-case leakage **and** true protected-ACC source are shown. The high-level Python model validates behavior only; it is not a hardware guarantee. `python3 tools/analyze_rc_shutdown.py` now explicitly asserts indefinite on-time for +2 µA injection and checks reduced effective capacitance.
 
-Next non-negotiable component tasks: verify the exact manufacturer's SOT-23 pinout for BAS116Q-7-F (do **not** interchange with Nexperia BAS116-Q without pin mapping); select an actual 47 µF MLCC with DC-bias curve or replace with an appropriately specified capacitor; verify 6 V cold crank charging and no USB-origin feed.
+Next non-negotiable component tasks: manufacturer's BAS116Q-7-F SOT23 pinout **A=1, NC=2, K=3** as shown on Diodes datasheet page 1 (the earlier A1/A2 statement was wrong); supplier substitutions require pinout review; select an actual 47 µF MLCC with DC-bias curve or replace with an appropriately specified capacitor; verify 6 V cold crank charging and no USB-origin feed.
