@@ -12,6 +12,9 @@ for chunk in re.split(r'\n\s*\(net ',content.split("(nets",1)[1])[1:]:
     if not m: continue
     key=m.group(1).split("/")[-1]
     nets.setdefault(key,set()).update(re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)',chunk))
+print("DIAG native report start",repr(content[:250]))
+print("DIAG KiCad net names",sorted(nets.keys())[:80])
+print("DIAG U301 refs",[(net,sorted([node for node in nodes if node[0]=="U301"])) for net,nodes in nets.items() if any(node[0]=="U301" for node in nodes)][:32])
 mapping={
  "U301": {"1":"Q2_GATE","2":"SOURCE_A","4":"UV_DIV","5":"OV_DIV","6":"CTRL_EN",
   "7":"VS_CLAMP","9":"TMR_NODE","10":"IMON_MON","11":"ILIM",
