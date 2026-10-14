@@ -12,6 +12,12 @@
 - [U201-Bibliothekskopie ohne Änderung aller 73 Pads aktualisiert](../../docs/validation/2026-10-14-esp32-library-refresh/README.md).
 - [ACC/HOLD-Kandidat und idealisierte Übergangsversuche](../../docs/ACC_HOLD_VEHICLE_SOURCE_REVIEW.md): reale USB-Isolation, Bootstrap und Hardware-Deadline noch offen.
 
+## Neu seit 14.10.2026: 01E echte OFF-Latch-Unterseite (vorläufig)
+
+Die neue hierarchische `01E_OFF_LATCH.kicad_sch` ist auf dem aktiven Branch im gemeinsamen KiCad-10-Schaltplan eingebunden. Sie enthält den **verdrahteten, noch isolierten** automobilqualifizierten FF `SN74LVC2G74QDCURQ1`, einen NPN-PRESET-Treiber, zwei Schottky-OR-Dioden, vier Widerstände und einen Entkopplungskondensator. Der neue Baustein liegt auch in der projektlokalen `TripTracer_V1.kicad_sym`. [Vollständige Netz-/Pin-/Fehlerfallbeschreibung](../../docs/ACC_HOLD_01E_KICAD_REVIEW.md).
+
+**Achtung:** Dies ist nur eine neue **Vorschaltbaugruppe** mit unversorgten externen Eingängen `ACC_VALID_5V` und `HOLD_CONTINUE_5V`; sie ersetzt noch keine Relais-/AUX-/eFuse-Schaltung und steuert `MAIN_ENABLE` **nicht**. Beim ACC-AUS muss die Zeitgeber-Freigabe vor /CLR-Low anliegen; ansonsten kann ein Race die Nachlaufphase abbrechen. Vorhandene Erläuterungen zu 13 Seiten und 64 Symbolen beziehen sich auf den **letzten nativen Validierungsstand vor 01E**. Mit 01E sind **14 Hierarchieseiten und 73 Symbolinstanzen als Soll-Struktur** entstanden; noch keine neue native ERC-/DRC-Abnahme.
+
 ## Migration zur Variante C
 
 Der aktive Schaltplan enthält weiterhin den älteren Relais-/AUX-/TLC555-/TPS26631-Stand. Dieser wird erst durch einen vollständig ausgelegten Ersatz abgelöst; keine alten Schutzfunktionen blind entfernt. Der LM74930-Quellpfad ist noch nicht verschaltet. BUCK_ENABLE und geschützter VIN sind weiterhin ungetrieben. 3V3-/USB-Power-Path und mehrere weitere Baugruppen sind noch Platzhalter.
