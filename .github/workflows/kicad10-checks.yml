@@ -16,6 +16,7 @@ on:
       - 'tools/check_lmr38020_pcb_pads.py'
       - 'tools/check_acc_vin_startup.py'
       - 'tools/check_acc_hold_prearm.py'
+      - 'tools/check_trippower_native_netlist.py'
       - 'tools/check_trippower_lm74930_values.py'
       - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/check_cots_power_selection.py'
@@ -82,6 +83,10 @@ jobs:
         run: |
           kicad-cli sch export netlist -o reports/TripPower_5V2A.net \
             hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-netlist.log
+      - name: TripPower native powerpath and VIN_PROTECTED branch assertion
+        id: trippower_path
+        continue-on-error: true
+        run: python3 tools/check_trippower_native_netlist.py reports/TripPower_5V2A.net | tee reports/trippower-powerpath.json
       - name: TripPower standalone schematic PDF (not a PCB manufacturing release)
         id: trippower_pdf
         continue-on-error: true
@@ -163,6 +168,7 @@ jobs:
           TRIPPOWER: ${{ steps.trippower.outcome }}
           TRIPPOWER_ERC: ${{ steps.trippower_erc.outcome }}
           TRIPPOWER_NETLIST: ${{ steps.trippower_netlist.outcome }}
+          TRIPPOWER_PATH: ${{ steps.trippower_path.outcome }}
           TRIPPOWER_PDF: ${{ steps.trippower_pdf.outcome }}
           COTS: ${{ steps.cots.outcome }}
           FREEZE: ${{ steps.freeze.outcome }}
@@ -180,6 +186,6 @@ jobs:
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
-          printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" >> "$GITHUB_STEP_SUMMARY"
+          printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s | Path %s\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" "$TRIPPOWER_PATH" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
           test "$TRIPPOWER" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
