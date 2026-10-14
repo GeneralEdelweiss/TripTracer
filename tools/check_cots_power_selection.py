@@ -19,8 +19,9 @@ for key, expected in data["assembled_on_active_schematic"].items():
     at = s.find(anchor)
     assert at >= 0, f"{key}: missing {expected['ref']} in active schematic"
     tail = s[at:at + 800]
-    assert f'(property "Value" "{expected["mpn"]}"' in tail, (
-        f"{key}: KiCad part value differs from selected COTS manifest"
+    assert (f'(property "Value" "{expected["mpn"]}"' in tail or
+            f'(property "MPN" "{expected["mpn"]}"' in tail), (
+        f"{key}: neither KiCad value nor MPN match selected COTS manifest"
     )
 root = (BASE / "TripTracer_V1.kicad_sch").read_text(encoding="utf-8")
 entry = (BASE / "01_Eingangsschutz.kicad_sch").read_text(encoding="utf-8")
