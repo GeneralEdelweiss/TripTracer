@@ -1,5 +1,8 @@
 # TripPower 5V/2A – eigenstaendiges, kopierbares DC/DC-Modul
 
+> **FORTSETZUNG MORGEN / NEUER CHAT:** **[START_HERE_NEXT_CHAT.md](START_HERE_NEXT_CHAT.md)** ist der **verbindliche, aktuellste Projektstand** mit Architekturbeschluss, realen KiCad-Dateien, Pruefnachweisen und priorisierten Folgearbeiten. Bei abweichenden historisch formulierten alten Abschnitten bitte diesem Handoff und den aktuellen Schaltplandateien folgen. Die eigenstaendige Schaltung hat KiCad10 ERC 0 Verletzungen und 46 native Pin-Netz-Checks im CI-Run 38636492660; **kein PCB/DRC/ISO-/Fertigungsfreigabe**. 
+
+
 ## Standalone KiCad-10-Projekt – aktiver neuer Arbeitsstand 14.10.2026
 
 **Jetzt vorhanden:** [`TripPower_5V2A.kicad_pro`](TripPower_5V2A.kicad_pro) und [Root-Schaltplan](TripPower_5V2A.kicad_sch) mit zwei echten verknuepften Schaltplanseiten [01: LM74930-Eingangsschutz](01_Protection_LM74930.kicad_sch) und [02: LMR38020 5-V-Buck](02_5V_LMR38020.kicad_sch). Die lokalen `sym-lib-table`, `fp-lib-table`, `TripPower_Sym.kicad_sym`, `TripTracer_V1.kicad_sym`, `Tripmaster_Sym.kicad_sym` und `Tripmaster.pretty/` befinden sich im selben Projektordner. **Einfach den GESAMTEN Ordner kopieren und `TripPower_5V2A.kicad_pro` in KiCad 10 oeffnen.**
