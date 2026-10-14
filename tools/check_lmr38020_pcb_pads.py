@@ -42,8 +42,28 @@ assert '(property "Value" "LMR38020SQDDARQ1"' in u
 assert '(property "Footprint" "Tripmaster:TI_LMR38020Q1_DDA_EP"' in sch
 assert pads(u)==expect,f"Physical IC pin-to-net mismatch {pads(u)}"
 assert pads(l) == {"1":"SW_38020","2":"V5_BUCK_RAW"}
-assert '15uH FCH0650-150M Isat5.5A PROVISIONAL' in sch
-assert '(footprint "Tripmaster:L_Bourns_SRP6030VA_100M"' in l
+assert '15uH FCH0650-150M Isat5.5A' in sch
+assert '(footprint "Tripmaster:L_FANGCHENG_FCH0650_150M"' in l
+
+for ref, expected in {
+    "C101":{"1":"HV_PROTECTED_AFTER_EFUSE","2":"GND"},
+    "C102":{"1":"BOOT_38020","2":"SW_38020"},
+    "C104":{"1":"V5_BUCK_RAW","2":"GND"},
+    "C105":{"1":"V5_BUCK_RAW","2":"GND"},
+    "C106":{"1":"V5_BUCK_RAW","2":"GND"},
+    "C107":{"1":"HV_PROTECTED_AFTER_EFUSE","2":"GND"},
+    "C108":{"1":"HV_PROTECTED_AFTER_EFUSE","2":"GND"},
+    "R101":{"1":"V5_BUCK_RAW","2":"FB_5V"},
+    "R102":{"1":"FB_5V","2":"GND"},
+    "R103":{"1":"RT_400KHZ","2":"GND"}
+}.items():
+    actual = pads(foot(ref))
+    assert actual == expected, f"{ref}: PCB pad nets {actual}, want {expected}"
+assert '(property "Reference" "C103"' not in pcb, "Retired 1uF VCC capacitor still on PCB"
+assert '(property "Reference" "C108"' in sch
+land = (base/"Tripmaster.pretty"/"L_FANGCHENG_FCH0650_150M.kicad_mod").read_text(encoding="utf-8")
+assert "NOT VERIFIED" in land, "Prototype FCH land-pattern misleadingly released"
+
 print(json.dumps({"pass":True,"pads":pads(u),"connected_inductor_pads":pads(l),
- "blocked":"L101 geometric land pattern is for 10uH Bourns, schematic selects 15uH FCH",
+ "blocked":"FCH pad geometry unverified with manufacturer drawing; PCB unrouted and NOT released",
  "fabrication_release":False,"vehicle_release":False},indent=2))
