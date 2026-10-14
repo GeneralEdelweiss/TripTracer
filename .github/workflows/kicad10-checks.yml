@@ -9,7 +9,7 @@ on:
       - 'tools/check_kicad_hierarchy.py'
       - 'tools/triage_kicad_erc.py'
       - 'tools/check_kicad_custom_pinouts.py'
-      - 'tools/check_lm74930_netlist.py'
+      - 'tools/check_simple_input_netlist.py'
       - 'tools/check_lmr38020_netlist.py'
   workflow_dispatch:
 
@@ -78,11 +78,11 @@ jobs:
         run: |
           kicad-cli sch export netlist -o reports/TripTracer.net \
             hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/netlist.log
-      - name: Assert LM74930 power path from native KiCad netlist
+      - name: Assert new simple input diode and TVS from native KiCad netlist
         id: powerpath
         continue-on-error: true
         run: |
-          python3 tools/check_lm74930_netlist.py reports/TripTracer.net | tee reports/powerpath.log
+          python3 tools/check_simple_input_netlist.py reports/TripTracer.net | tee reports/powerpath.log
       - name: Assert LMR38020-Q1 buck topology from native KiCad netlist
         id: newbuck
         continue-on-error: true
