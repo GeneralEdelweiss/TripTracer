@@ -17,7 +17,7 @@ POWER_SHEETS = {
 PARTS = {
     "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
     "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
-    "U302": ("MCP1826S-3302E/DB", "EUR", 0.783, "", "", "Mouser DE: 1pc EUR 0.783; 25pcs EUR 0.662 (25pcs not a 100pcs quote)"),
+    "U302": ("MCP1826S-3302E/EB", "EUR", 1.14, "", "", "Mouser DE: 1pc EUR 1.14; DDPAK-3 improved thermal area, 10/100pc unpriced"),
     "D901": ("Comchip SS510C-HF (5A 100V SMC)", "EUR", 0.998, 0.711, 0.443, "SMC matching footprint; thermal proof pending"),
     "D902": ("Littelfuse 5.0SMDJ36A", "EUR", 2.11, 1.353, 0.921, "10/1000us rated; NO 350ms load-dump approval"),
     "L101": ("FCH0650-150M provisional 15uH", "", "", "", "", "footprint and Isat verification missing"),
