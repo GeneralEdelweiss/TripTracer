@@ -15,7 +15,8 @@ def c_required(current, microseconds, max_droop):
     return current*microseconds/max_droop  # numeric value is in microfarads
 
 def main():
-    assert '"MCP1826S-3302E/DB"' in SCHEMATIC
+    assert '"MCP1826S-3302E/EB"' in SCHEMATIC
+    assert '"Package_TO_SOT_SMD:TO-263-3_TabPin2"' in SCHEMATIC
     assert '"NCV1117ST33T3G"' not in SCHEMATIC
     assert '"R307"' not in SCHEMATIC
     assert '"22uF 10V MUX_OUT_HOLDUP"' in SCHEMATIC
@@ -35,16 +36,19 @@ def main():
         req=c_required(i3v3,micros,.3)
         print(f"TPS2116 gap {micros:3d}us at 0.4A: >= {req:.1f}uF effective for 0.3V droop; current schematic 44uF nominal.")
     assert c_required(.4,8,.3)<44
-    # Datasheet MCP1826S SOT-223 reference 4-layer JEDEC thetaJA=62K/W.
+    # Datasheet MCP1826S 3-lead DDPAK θJA=31.4K/W on JEDEC 4-layer reference.
     ambient=85.0
-    rise_watts=(5.0-3.3)*i3v3
-    theta_reference=62.0
-    tj=ambient+rise_watts*theta_reference
+    loss=(5.0-3.3)*i3v3
+    theta_reference=31.4
+    tj=ambient+loss*theta_reference
     allowed=(125-ambient)/(theta_reference*(5.0-3.3))
-    print(f"MCP1826S SOT223 JEDEC 4-layer: thetaJA={theta_reference:.0f}K/W; I={i3v3:.1f}A; Tj~{tj:.1f}C @ Ta85C, above 125C continuous rating.")
-    print(f"At Ta85C nominal V5=5V, reference 4-layer maximum I3V3~{allowed:.3f}A for Tj<=125C.")
-    assert tj>125, "4-layer thermal risk detection expected at 0.4A"
-    print("PASS: identifies thermal BLOCKER. 2-layer PCB or small copper may be worse.")
+    print(f"MCP1826S DDPAK JEDEC 4-layer thetaJA={theta_reference:.1f}K/W; 0.4A and 85C ambient -> Tj~{tj:.1f}C")
+    print(f"At 85C, maximum I3V3 for Tj<=125C and nominal 5V ~{allowed:.3f}A on that reference PCB.")
+    assert tj<125, "DDPAK at 0.4A failed nominal reference-board thermal check"
+    # Reference-board condition, not an actual future 2-layer PCB/copper promise.
+    s223=ambient+loss*62
+    assert s223>125 and tj<125, "DDPAK must meaningfully improve on original SOT223 design"
+    print(f"PASS: DDPAK reference estimate reduces Tj versus SOT-223 ~{s223:.1f}C; actual copper/layout still to prove.")
     print("REMAINING: choose DDPAK/thermal-safe 3.3V regulator or verified current limit, calculate worst-case load and bench temperature.")
     print("NOT PROVEN: actual source switchover/reset behavior, USB source budget, TVS 350ms load-dump.")
 if __name__=="__main__":
