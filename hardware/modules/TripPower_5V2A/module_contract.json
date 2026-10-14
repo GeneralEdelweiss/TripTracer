@@ -1,8 +1,8 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "module_name": "TripPower_5V2A",
   "target_project": "TripPower_5V2A.kicad_pro",
-  "stage": "LM74930_CONTROLLER_LOCKED_PROTECTION_PART_VALUES_PRELIMINARY_GATE_A_OPEN",
+  "stage": "INDEPENDENT_TWO_PAGE_KICAD10_SCHEMATIC_CREATED_ELECTRICAL_GATES_OPEN",
   "validation": "NOT_ERC_CHECKED_AS_STANDALONE_NOT_DRC_CHECKED_NO_PROTOTYPE",
   "created": "2026-10-14",
   "no_manufacturing_or_vehicle_approval": true,
@@ -67,12 +67,12 @@
       "display_current_driver_on_TripTracer_load_board"
     ],
     "external_line_fuse_required": true,
-    "standalone_default_on": "PLANNED selectable configuration (hardware jumper); NOT YET IMPLEMENTED",
-    "logic_enable_mode": "PLANNED protected 3.3/5V compatible active-high command; floating=OFF; levels and interface conditioning NOT YET DESIGNED",
+    "standalone_default_on": "Draft R319=0R jumper in series with R318=100k from VS_CLAMP to EN; standalone only. D305 blocks backfeed into RUN.",
+    "logic_enable_mode": "Draft 3.3/5V active-high RUN_CMD -> R317=4.7k -> D305 reverse blocker -> LM74930 EN with 100k pull-down R316. Raw ACC never directly at RUN. Behavior with VIN=0 and powered RUN needs measurement.",
     "power_return": "Common GND; layout must protect high-current ground and switching return",
-    "output_connector_plan": "Required physical terminals VIN_FUSED, GND, 5V_OUT, VIN_PROTECTED; RUN_CMD optional. Mechanical connector MPN/pitch and pad currents NOT SELECTED.",
+    "output_connector_plan": "Schematic J301 VIN_FUSED/RUN_CMD/GND and J302 VIN_PROTECTED/5V_OUT/GND, both 3-wire solder pads. Connector/wire ratings and final PCB footprints not qualified.",
     "raw_auxiliary_branch": "from Q922 drain / U921 OUT and C926 positive = current TripTracer net HV_PROTECTED_AFTER_EFUSE, prior to U101 VIN; physical output separated through own branch protection. Do not connect to raw BAT, SW or 5V.",
-    "raw_auxiliary_branch_status": "REQUIRED_ARCHITECTURAL_SIGNAL_NOT_YET_IMPLEMENTED_ON_STANDALONE_SCHEMATIC_OR_PCB"
+    "raw_auxiliary_branch_status": "WIRED_ON_NEW_STANDALONE_SCHEMATIC: U301 C/CS-/R301 -> VIN_PROTECTED_MAIN -> F302 58V replaceable 2A candidate -> J302.pin1; PCB not created; 2A fuse not a 1A current limiter"
   },
   "proposed_external_signals": [
     {
@@ -222,17 +222,20 @@
   },
   "pass_status": {
     "scope_and_COTS_first": "PASS_REVIEWED",
-    "standalone_schematic": "NOT_CREATED",
-    "standalone_erc": "NOT_RUN",
+    "standalone_schematic": "CREATED_2_PAGE_NATIVE_KICAD_10_DRAFT",
+    "standalone_erc": "NATIVE_CHECK_IN_CI_RECHECK_AFTER_LATEST_CORRECTIONS_PENDING",
     "standalone_pcb": "NOT_CREATED",
-    "standalone_drc": "NOT_RUN",
+    "standalone_drc": "NOT_RUN_NO_PCB",
     "bench": "NOT_TESTED",
-    "vin_protected_physical_connection": "REQUIRED_NOT_YET_DRAWN_OR_ROUTED",
-    "vin_protected_current_rating": "NOT_DIMENSIONED",
+    "vin_protected_physical_connection": "WIRED_IN_SCHEMATIC_VIA_F302_J302_PAD1_NOT_PCB_ROUTED",
+    "vin_protected_current_rating": "1A_TARGET_ONLY_2A_REPLACEABLE_FUSE_CANDIDATE_CABLE_I2T_OPEN",
     "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT",
     "input_controller_comparison": "DECIDED_LM74930_USER_APPROVED",
     "protection_values": "PRELIMINARY_PIN_AND_COMPONENT_DESIGN_RECALC_TEST_PENDING_OR_VALIDATION_ONLY",
-    "protection_schematic": "NOT_YET_IN_STANDALONE_KICAD"
+    "protection_schematic": "NOT_YET_IN_STANDALONE_KICAD",
+    "standalone_native_netlist": "PASSED_WITH_44_CRITICAL_PIN_ASSERTIONS_ON_PRIOR_RUN; LATEST_RECHECK_PENDING",
+    "manufacturing_ready": false,
+    "vehicle_ready": false
   },
   "display_backlight_design": {
     "display": "Riverdi RVT35HITNWC00-B",
@@ -253,5 +256,29 @@
     "input_current_5v_a_max_vf_17v_at_85percent_efficiency": 0.4,
     "alternative_use_VIN_PROTECTED": "NOT_SELECTED; would need 9-30V-capable buck-boost constant-current driver, with own protective load branch",
     "no_display_circuit_on_trippower_module": true
+  },
+  "project_files": {
+    "entry": "TripPower_5V2A.kicad_pro",
+    "root_schematic": "TripPower_5V2A.kicad_sch",
+    "protection_schematic": "01_Protection_LM74930.kicad_sch",
+    "buck_schematic": "02_5V_LMR38020.kicad_sch",
+    "symbol_table": "sym-lib-table",
+    "footprint_table": "fp-lib-table",
+    "additional_libs": [
+      "TripPower_Sym.kicad_sym",
+      "TripTracer_V1.kicad_sym",
+      "Tripmaster_Sym.kicad_sym",
+      "Tripmaster.pretty"
+    ],
+    "pcb": "NOT_CREATED"
+  },
+  "auxiliary_branch_fuse_candidate": {
+    "holder_mpn": "178.6764.0001",
+    "fuse_mpn": "0997002.WXN",
+    "rated_v_dc": 58,
+    "nominal_fuse_a": 2,
+    "output_design_load_a": 1,
+    "status": "ELECTRICALLY_DRAWN_F302_BUT_FOOTPRINT_NOT_VERIFIED_OR_ASSIGNED; RATED_CABLE_AND_I2T_LAB_GATE",
+    "rating_conflict_note": "Nominal 2A fuse is not a hard current limiter of 1A; shared LM74930 overcurrent protects common path; physical cable and auxiliary PCB copper must be sized for clearing current."
   }
 }
