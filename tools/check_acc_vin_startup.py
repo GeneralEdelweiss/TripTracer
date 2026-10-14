@@ -1,41 +1,66 @@
 #!/usr/bin/env python3
-"""DC design envelope only. BJT temperature/dynamic bounds remain bench gates."""
+"""Bounded ACC/HOLD DC resistor checks after the LM74800/LMR38020 EN separation.
+
+NOT a SPICE/transient/hot leakage/automotive qualification. At 9V the LM74800
+charge pump draws dynamic current; VS bootstrap via D924 and capacitors must
+be measured. Values below are stress assumptions, NOT guaranteed device limits.
+"""
 from itertools import product
-import json
 from pathlib import Path
-def check():
-    sch=Path("hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch").read_text(encoding="utf-8")
-    for value in ("24.9k 1% VIN LIMIT","10k 1% EN OFF","24.9k 1% HOLD VIN",
-                  "10k 1% 0.5W ACC","4.7k 1%","10k 1% 0.5W","2.2k 1% E-B OFF"):
-        assert value in sch, "requalify envelope after value change: "+value
-    rows=[]
-    # Explicit engineering stress assumptions, NOT guaranteed device limits:
-    # VBE<=1V, NPN VCE<=0.3V, PNP VCE<=0.5V, opto VCE<=1V,
-    # EN sink leakage<=20uA; forced beta target<=10. No model of transient charge.
-    # VIN minimum6.8 covers the separate9V vehicle-source/harness envelope.
-    # Harness solver includes line/fuse/contact drop; diode cold Vf remains an engineering allowance.
-    for acc,vin in product((9.,12.,24.,30.),(6.8,10.5,22.5,28.5)):
-        ib_n=(acc-1)/(10000*1.01)-1/(4700*.99)
-        ic_n=(vin-1-.3)/(10000*.99)
-        ib_p=(vin-1-.3)/(10000*1.01)-1/(2200*.99)
-        assert ib_n>0 and ib_p>0
-        assert ic_n/ib_n<10, (acc,vin,"insufficient NPN drive")
-        en=(vin-.5)*(10000*.99)/(24900*1.01+10000*.99)-20e-6/(1/(24900*1.01)+1/(10000*.99))
-        hold=(vin-1)*(10000*.99)/(24900*1.01+10000*.99)-20e-6/(1/(24900*1.01)+1/(10000*.99))
-        assert min(en,hold)>1.4, (acc,vin,en,hold)
-        assert en<vin and hold<vin
-        assert en/(10000*.99)<10*ib_p, "insufficient PNP drive"
-        rows.append(dict(acc=acc,vin=vin,start_en_min=en,hold_en_min=hold,forced_beta_n=ic_n/ib_n))
-    # At VIN=0 both EN energy sources are absent. ACC is on a separate NPN base;
-    # no linear ACC divider into EN exists. Exact topology is checked from native netlist.
-    # Example leakage envelope: 50uA PNP + 1uA opto dark current into 10k pull-down.
-    off_en=51e-6*10000*1.01
-    assert off_en<.95
-    assert (30-1)**2/(10000*.99)<.5 # R923/R922 0.5W required, derating still apply
-    print(json.dumps({"status":"PASS analytical DC envelope only; NOT temperature or transient qualification",
-        "corners":len(rows),"min_start_en":min(r["start_en_min"] for r in rows),
-        "min_hold_en":min(r["hold_en_min"] for r in rows),"off_en_assuming_51uA":off_en,
-        "vin_zero_acc_live":"no passive ACC-to-EN path, confirmed separately by native netlist",
-        "unverified":["-40..125C gain/leakage","ACC-off transfer timing","VIN collapse capacitive injection",
-                      "reverse inputs and ISO pulses","real USB reverse current"]},indent=2))
-if __name__=="__main__": check()
+import json
+import re
+
+P=Path("hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch").read_text("utf-8")
+BUCK=Path("hardware/kicad/02_5V_Buck.kicad_sch").read_text("utf-8")
+REFS={
+    "R912":("100k 1% E-B OFF","RC1206FR-07100KL"),
+    "R922":("100k 1% BASE LIMIT","RC1206FR-07100KL"),
+    "R911":("33k 1% LM748 EN TOP","RC1206FR-0733KL"),
+    "R913":("47k 1% LM748 EN OFF","RC1206FR-0747KL"),
+}
+for ref,(value,mpn) in REFS.items():
+    i=P.index('(property "Reference" "'+ref+'"')
+    chunk=P[i:i+650]
+    assert '(property "Value" "'+value+'"' in chunk, ref
+    assert '(property "MPN" "'+mpn+'"' in chunk, ref
+
+assert '(global_label "BUCK_ENABLE" (shape bidirectional) (at 109.22 96.52 0)' not in BUCK
+assert '(global_label "HV_PROTECTED_AFTER_EFUSE" (shape bidirectional) (at 109.22 96.52 0)' in BUCK
+
+# 100k base-drive path, 100k E-B turnoff, 33k/47k LM748 EN divider.
+rPNP=100000.; rOFF=100000.; rTOP=33000.; rBOT=47000.
+assert rTOP+rBOT==80000.
+results=[]
+for acc,vs in product((9.,12.,24.,30.),(3.5,4.,6.,9.,24.,30.,56.)):
+    # 1V VBE, 0.3V Q914 VCE, 0.5V Q915 saturated drop and
+    # 1uA EN input/opto leakage are conservative illustrative assumptions.
+    npn_ib=(acc-1)/(10000*1.01)-1/(4700*.99)
+    npn_sink=max(0,(vs-1.3)/(rPNP*.99))
+    pnp_ib=max(0,(vs-1.3)/(rPNP*1.01)-1/(rOFF*.99))
+    en_divider=(vs-.5)*(rBOT*.99)/(rTOP*1.01+rBOT*.99)
+    en=en_divider-1e-6/(1/(rTOP*1.01)+1/(rBOT*.99))
+    pnp_load=max(0,(vs-.5)/(rTOP*.99+rBOT*.99))
+    assert npn_ib>0 and npn_sink/npn_ib<10,(acc,vs,"NPN")
+    assert pnp_ib>0 and pnp_load/pnp_ib<10,(acc,vs,"PNP")
+    assert 1.267<en<vs,(acc,vs,"LM748 EN nominal threshold",en)
+    results.append({"acc":acc,"vs":vs,"lm748_en":round(en,3)})
+
+# VIN-pin hazard is separately guarded by the root native KiCad netlist:
+# LM74800 can be ON while Q921 disconnects the buck VIN; its ENABLE MUST NOT
+# also reach the LMR38020 EN pin because LMR's EN_absmax is VIN+0.3V.
+# At 100C MMBT5401 collector leakage spec 50uA (at VCB=-120V)
+# plus opto 1uA can develop ~2.4V on 47k: FULL HOT OFF GUARANTEE NOT PROVEN.
+worst_hot_off_v=(50e-6+1e-6)*47000
+print(json.dumps({
+ "status":"DC CORNER CHECK ONLY; transient/hot OFF not qualified",
+ "corners":len(results),
+ "min_lm748_enable_v":min(x["lm748_en"] for x in results),
+ "buck_enable":"directly tied to its own downstream protected VIN",
+ "9V_startup":"UNVERIFIED: VS charge pump + R921=10k + D924 / 4.4uF CVS must be tested",
+ "off_leakage_risk_v_at_47k":round(worst_hot_off_v,3),
+ "blocked":[
+   "hot Q915 leakage and fail-OFF needs measured or datasheet-qualified margin",
+   "VS startup transient/charge pump including 9V and -40 to 125C",
+   "ACC chatter/HOLD transition and USB-only isolation",
+   "ISO 16750-2 load-dump/current limit/short circuit"
+ ]},indent=2))
