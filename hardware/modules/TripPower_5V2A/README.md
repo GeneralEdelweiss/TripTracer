@@ -20,7 +20,38 @@ Der derzeitige V1-Schaltplan im TripTracer-Projekt ist weiter die **einzige akti
 | `VIN_FUSED` | Eingang | Von **geeignet abgesicherter** DC-Quelle; 9–30 V Normalbetrieb. Bei Fahrzeugbetrieb geeignete, ohne Entloeten tauschbare Sicherung nahe der Quelle |
 | `GND` | gemeinsam | Modul- und Verbraucher-Masserueckleitung; geringe Schleifen und stern-/flaechenbewusstes Layout |
 | `5V_OUT` | Ausgang | 5 V / max. 2 A. Ausgangskurzschluss-, Ueberlast-, Rueckspeisungs- und Entladeverhalten pruefen |
+| **`VIN_PROTECTED`** | **Pflicht-Ausgang** | **Unregulierte Bordnetzspannung nach LM74800-Verpol-/OV-Schutz; eigener Abzweig-Kurzschlussschutz zwingend, Strombelastbarkeit noch OFFEN.** |
 | `RUN_CMD` | optionaler Eingang | Ziel: 3,3-V-/5-V-kompatibler aktiver Einschaltbefehl, schwebend = AUS im gesteuerten Modus; **eigene Schutz-/Pegelstufe erforderlich**, noch nicht konstruiert |
+
+## Verbindlicher VIN_PROTECTED-Abzweig – SICHERHEITSSPERRE
+
+Die fertige TripPower-5V/2A-Platine MUSS neben `5V_OUT` einen **physisch zugänglichen Anschluss `VIN_PROTECTED`** haben. Der Abgriff erfolgt **hinter der LM74800-Q1-Verpol-/Ueberspannungs-Abschaltstufe, vor dem LMR38020-Q1**. Der bisherige Schaltplanknoten `HV_PROTECTED_AFTER_EFUSE` liegt zwischen Q922 Drain / U921 OUT und U101 VIN und ist die vorgesehene Quelle des Abzweigs; der Name `...EFUSE` ist historisch und bedeutet **keine eFuse-Funktion**.
+
+```text
+ VIN_FUSED (9–30 V nominal; externe Quellsicherung Pflicht)
+             |
+    LM74800-Q1 + Schutz-FETs
+             |
+      VIN_PROTECTED_MAIN
+             +-------------------> LMR38020-Q1 ---> 5V_OUT / 2A
+             |
+        SEPARATER ABZWEIG-
+        KURZSCHLUSSSCHUTZ
+             |
+       VIN_PROTECTED ---> echter PCB-Anschluss + Messpunkt
+```
+
+> **KRITISCH – KEINE DIREKTE UNGESICHERTE EXTERNE LEITUNG:** Der LM74800-Q1 bietet **keine Strombegrenzung/keinen eFuse-Schutz**. Ein Kurzschluss am externen `VIN_PROTECTED`-Ausgang kann sonst die MOSFETs, Leiterbahnen, Stecker oder den Fahrzeugkabelbaum gefaehrden. Vor dem externen Abgriff muss deshalb eine **eigenstaendig dimensionierte und nachgewiesene Abzweig-Strombegrenzung oder passende, DC-bemessene, wartbar austauschbare Sicherung** vorgesehen werden. Zusaetzlich bleibt die abgesicherte Fahrzeugzuleitung zwingend. Schutz-Nennstrom, I²t, DC-Abschaltvermoegen, Kabelquerschnitt, Leiterbahn und Steckverbinder sowie thermische Fehlerfaelle sind noch **OFFEN**. Daher ist der Abzweig **noch nicht zur Benutzung oder Fertigung freigegeben**.
+
+- `VIN_PROTECTED` folgt ungefaehr der **9–30-V-Bordnetzspannung**, ist **UNGEREGELT**, **kein 15-V-Ausgang** und nicht automatisch EMV-/ripplefrei. Bei OV-Abschaltung und Last kann die Spannung verschwinden; Kurzschluss und Versorgung durch externe Verbraucher separat pruefen.
+- Die maximale zulaessige Ausgangsstromstaerke ist **noch nicht festgelegt**. Ein Zusatzverbraucher wird **zusaetzlich** zu den maximal 5 V / 2 A des Bucks in Fahrzeugquellenstrom, FET-SOA und Waermebilanz beruecksichtigt.
+- **Physische Umsetzung gesperrt bis zur Schaltung:** Der verpflichtende Anschluss, Testpunkt und separate Stromschutz sind in `module_contract.json` als Anforderungen erfasst, jedoch **noch nicht als eigenstaendige KiCad-Netze/Footprints/PCB umgesetzt**.
+
+### Bevorzugte Display-Anbindung (TripTracer, ausserhalb TripPower)
+
+Fuer das Riverdi RVT35HITNWC00-B bevorzugen wir einen separaten **5-V-auf-LED-Konstantstrom-Boost** hinter `V5_SYS` (USB-/Buck-Umschaltung). Die Hintergrundbeleuchtung benoetigt typ. ca. **15 V bei 100 mA**; es handelt sich um eine LED-Last, nicht um einen frei nutzbaren geregelten 15-V-Eingang. **TI TPS61165-Q1** ist ein noch zu verifizierender Treiberkandidat (PWM-Dimmung); die LED-Vorwaertsspannung, Stromregelung, Open-LED-Abschaltung und EMV sind zu validieren. Bei geschaetzten 85 % Effizienz beanspruchen 1,5 W LED-Ausgang **ca. 0,35 A an 5 V** und damit einen Teil des **bestehenden 2-A-Gesamtbudgets**. Bei USB-Only-Betrieb muss die zulaessige USB-Stromaufnahme separat geprueft und das Backlight ggf. abgeschaltet werden.
+
+Der `VIN_PROTECTED`-Ausgang wird **trotzdem verbindlich auf TripPower vorgesehen**, unabhaengig davon, ob der TripTracer ihn fuer das Display spaeter nutzt. Ein direkt angeschlossener Buck-/Boost-Treiber am unregulierten Hilfsausgang waere erst nach gesonderter 9–30-V- und Schutzpruefung zulassig.
 
 **Standalone statt gesteuert:** Eine spaetere klar beschriftete **hardwareseitige Bruecke `ALWAYS_ON`** soll den Wandler ohne MCU mit gesteckter Versorgung einschalten. Im TripTracer steuert eine getrennte ACC/HOLD-Anpassstufe `RUN_CMD`. Vor Schaltplan-Umsetzung der Pegelanpassung sind Funktion, Stromverbrauch, Fail-OFF und Auswirkungen auf VIN/EN verbindlich zu pruefen; eine externe MCU-3,3-V-Schiene darf **nicht** direkt die 56-V-VS-Schiene oder das Fahrzeugnetz rueckspeisen. **Eine Fehlverdrahtung von Buck-EN oberhalb Buck-VIN waere unzulaessig.**
 
