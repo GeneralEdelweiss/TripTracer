@@ -82,3 +82,13 @@ The earlier 100us and 1000us hold-up cases above were **hypothetical stress scen
 ## 2026-10-14: V5_SYS hold-up capacitor schematic change
 
 Added **C306, 22uF/10V nominal** from V5_SYS to GND in parallel with C303 (22uF nominal), raising schematic-installed nominal capacitance to 44uF. The TPS2116 5V tSW ~8us is a typical test condition and **not a max guarantee**. At 0.4A / 0.3V allowable droop, nominal 44uF gives a calculated hold-up interval of 33us if both capacitors really retain their nominal capacitance. For conservative effective 50% DC-biased capacitance, it falls to ~16.5us. These estimates ignore capacitor ESR and upstream input behaviour. Inrush on USB VBUS and during 5V buck startup must be measured against the TPS2116 current limit and 5V source. No PCB changed. Native netlist checker requires C306 net connections.
+
+## 2026-10-14: Critical TPS2116 priority-rail brownout defect FIXED in schematic
+
+**Before:** U301 PR1/pin4 was tied directly to VIN1/V5_BUCK_RAW. TI TPS2116 Rev A specifies a temperature-bounded PR1 comparator threshold **0.92–1.08 V** and recommends a VIN1/PR1 resistor divider to choose the VIN1→VIN2 transfer point. With a direct tie the buck would collapse towards ~1 V before USB takes over, making 3V3 brownout likely (even with 44uF hold-up).
+
+**Now (schematic commit bc8d189a):** U301 PR1/pin4 is on `MUX_PRI1_SENSE`, divider R308 **100 kΩ ±1%** from V5_BUCK_RAW, R309 **30.1 kΩ ±1%** to GND. U301 MODE/pin5 remains directly tied to V5_BUCK_RAW for TI Priority Mode. VIN1/pin3 remains V5_BUCK_RAW; VIN2/pin6 USB_VBUS_RAW, VOUT/pins2+7 V5_SYS. There is no USB/vehicle bypass.
+
+`VIN1_switch = VREF*(1+R308/R309) + IPR1*R308` for input leakage positive into PR1, per-node KCL. Including TI VREF limits -40..105°C, R resistors ±1%, and IPR1 ±0.1µA gives **~3.91 V minimum, ~4.32 V typical, ~4.75 V maximum**. Even with worst-case offset, 5.0V on VIN1 should select VIN1; if buck falls below this band, VIN2 (when present and valid) is favored. Unlike the direct tie, this is a meaningful failover threshold. **The worst low switch voltage may still allow the 3.3V LDO to drop out before switchover at high load**, so no guaranteed reset-free transfer.
+
+Separate CI: `tools/check_tps2116_priority_threshold.py` runs corner arithmetic and validates resistor values; `tools/check_triptracer_powerpath_v2.py` inspects the native KiCad netlist for U301 pin4, R308/R309 and checks the separate MODE/VIN1 route. Need measured actual 5V buck tolerance/ripple and USB/vehicle crossfade to pass end-to-end. Reference: https://www.ti.com/lit/ds/symlink/tps2116.pdf sections 6.5 and 7.6.1.
