@@ -8,7 +8,7 @@
 
 **Pruefung:** Die GitHub KiCad-10-Actions erzeugen einen **eigenstaendigen** ERC-JSON-Bericht, nativen Netlist-Export und dreiseitiges PDF sowie die Netzlistenpruefung [`tools/check_trippower_native_netlist.py`](../../../tools/check_trippower_native_netlist.py) fuer alle kritischen Pins. Der Teststand ist ein **Schaltplanentwurf**; bis der aktuelle Action-Lauf erfolgreich abgeschlossen ist, keine globale/ERC-Clean-Aussage und keine Freigabe behaupten. Keine eigenstaendige PCB-Datei, kein geroutetes DRC, keine Hardwaremessung.
 
-**Verbindliche Manufacturing-Gates:** Es gibt nun absichtlich **KEIN F302** auf TripPower. Die erforderliche wartbare **Abzweigsicherung F_AUX_EXT** wird auf der TripTracer-Hauptplatine unmittelbar am Eingang der Hilfsspannungsleitung vorgesehen; die kurze, noch nicht abgesicherte Zwischenverbindung muss auch bei Halbleiterfehlern sicher ausgelegt werden. Zudem sind 202-V-MOSFET-SOA/thermische Q301-Verluste, 9-V-VS-Chargepump-Start, 3x3.32k-VS-Pulsfestigkeit, das FCH0650-Spulen-Landpattern, RUN-OFF/Backfeed und EMV nicht freigegeben. Die zugelieferten Standard-Footprints und 3D-Verweise sind vor Bestellen dennoch manuell zu qualifizieren.
+**Verbindliche Manufacturing-Gates:** Es gibt nun absichtlich **KEIN F302** auf TripPower. Die einzige **wartbar austauschbare Hauptsicherung F_MAIN** muss in der Fahrzeugzuleitung vor dem TripTracer-Strompfad liegen; kein Hilfszweig-Sicherungsbauteil auf TripPower/TripTracer. Saemtliche dahinterliegenden Leiterbahnen, Stecker und Kabel muessen fuer ihren realen Zeit-Strom-/I2t-Fehlerfall dimensioniert werden. Zudem sind 202-V-MOSFET-SOA/thermische Q301-Verluste, 9-V-VS-Chargepump-Start, 3x3.32k-VS-Pulsfestigkeit, das FCH0650-Spulen-Landpattern, RUN-OFF/Backfeed und EMV nicht freigegeben. Die zugelieferten Standard-Footprints und 3D-Verweise sind vor Bestellen dennoch manuell zu qualifizieren.
 
 ## Nutzerentscheidung und Werte-Freeze zur LM74930-Schutzstufe (14.10.2026)
 
@@ -18,14 +18,14 @@
 - [Maschinenlesbarer 24-Pin+RTN-Netzplan und Werte-/MPN-Kandidaten](lm74930_design_v1.json)
 - [Auslegungstest mit TI-Formeln und Eckwerten](../../../tools/check_trippower_lm74930_values.py) (**Python-Mathematik, KEIN KiCad ERC/DRC oder Labortest**)
 
-**Vorlaeufig 5mOhm Shunt, RSET=50Ohm, RILIM=33,2k (nom. 3,61A), RISCP=470Ohm (nom. 5,03A), CTMR=47nF+RTMR=100k Latch-Off, UVLO ~7,52V Start, OV-Abschaltung ~35,89V.** Die Vorbemessung des VIN_PROTECTED-Zweigs betraegt 1A, jedoch erst nach eigener nachgewiesener Abzweig-Sicherung/Steckerkontakt/Kabel-I2t. Thermik und SOA des bestehenden STD17NF25 bei erhoehter Eingangsleistung sind **offen**. Kein Versprechen fuer ~9V-Start bei 10k-VS-Versorgung ohne Test, keine 202V/350ms-Freigabe.
+**Vorlaeufig 5mOhm Shunt, RSET=50Ohm, RILIM=33,2k (nom. 3,61A), RISCP=470Ohm (nom. 5,03A), CTMR=47nF+RTMR=100k Latch-Off, UVLO ~7,52V Start, OV-Abschaltung ~35,89V.** Der Zusatzabgriff ist mit 1A als Lastziel vorbemessen; zentrale F_MAIN-Absicherung mit Temperaturderating, Leiterbahnbelastung und Fehlerstrom-I2t ist noch nicht nachgewiesen. Thermik und SOA des bestehenden STD17NF25 bei erhoehter Eingangsleistung sind **offen**. Kein Versprechen fuer ~9V-Start bei 10k-VS-Versorgung ohne Test, keine 202V/350ms-Freigabe.
 
 
 ## Controllervergleich 14.10.2026: Schutz mit elektronischem Circuit Breaker
 
 [Vergleich LM74800-Q1 / LM74930-Q1 inkl. Kosten, Livebestand und TI-Referenz](CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md).
 
-**Ausgewaehlt fuer die neue TripPower-Platine: LM74930-Q1; Werte der Peripherie noch nicht fertigungsqualifiziert.** Gegenueber dem LM74800 bietet er OCP, schnelle Kurzschlusserkennung, Einstell-Timer, FLT und IMON. Ein gemeinsam ausgelegter Shunt **vor** der Aufteilung sichert den Gesamtpfad hinter den Schutz-FETs. Der Ausgang VIN_PROTECTED_UNFUSED bekommt **erst extern auf der angeschlossenen TripTracer-Hauptplatine** seine eigene Leitungssicherung. Die aktive TripTracer-`01I_LM74800_INPUT.kicad_sch` bleibt bis zur verifizierten Entscheidung UNVERAENDERT. 9V-Bootstrap, Ruhestrom, passende FET-/Shunt-Werte, Gate-/OV-Sicherheit, physische PCB-Anschluesse und LCSC/DE-Beschaffung sind noch offene Gate-A/B-Punkte.
+**Ausgewaehlt fuer die neue TripPower-Platine: LM74930-Q1; Werte der Peripherie noch nicht fertigungsqualifiziert.** Gegenueber dem LM74800 bietet er OCP, schnelle Kurzschlusserkennung, Einstell-Timer, FLT und IMON. Ein gemeinsam ausgelegter Shunt **vor** der Aufteilung sichert den Gesamtpfad hinter den Schutz-FETs. VIN_PROTECTED_UNFUSED hat **keine eigene Zweigsicherung**; stattdessen ist ein gemeinsamer Sicherungsschutz der Fahrzeugzuleitung vor ALLEN TripTracer-Lasten Pflicht. Die aktive TripTracer-`01I_LM74800_INPUT.kicad_sch` bleibt bis zur verifizierten Entscheidung UNVERAENDERT. 9V-Bootstrap, Ruhestrom, passende FET-/Shunt-Werte, Gate-/OV-Sicherheit, physische PCB-Anschluesse und LCSC/DE-Beschaffung sind noch offene Gate-A/B-Punkte.
 
 **Preisdelta nur Schutz-IC, Mouser DE Snapshot 14.10.2026:** +2,81 EUR/1pc, +2,19 EUR/10pcs, +1,88 EUR/100pcs gegenueber LM74800; OCP-Zusatzpassive/Kelvin-Shunt/QFN-Bestueckung sowie Versand/USt. kommen hinzu. Entscheidung ueber das vollstaendige Modul erst nach BOM auf gleichem Schutzumfang.
 
@@ -50,53 +50,54 @@ Der derzeitige V1-Schaltplan im TripTracer-Projekt ist weiter die **einzige akti
 | `VIN_FUSED` | Eingang | Von **geeignet abgesicherter** DC-Quelle; 9–30 V Normalbetrieb. Bei Fahrzeugbetrieb geeignete, ohne Entloeten tauschbare Sicherung nahe der Quelle |
 | `GND` | gemeinsam | Modul- und Verbraucher-Masserueckleitung; geringe Schleifen und stern-/flaechenbewusstes Layout |
 | `5V_OUT` | Ausgang | 5 V / max. 2 A. Ausgangskurzschluss-, Ueberlast-, Rueckspeisungs- und Entladeverhalten pruefen |
-| **`VIN_PROTECTED_UNFUSED`** | **Pflicht-Ausgang, J302.1** | **Ungeregelte Bordnetzspannung hinter LM74930-Verpol-/OV- und gemeinsamem OCP-/SCP-Schutz. KEINE eigene Abzweigsicherung auf TripPower; externe Sicherung zwingend vor Verbraucherleitung.** |
+| **`VIN_PROTECTED_UNFUSED`** | **Pflicht-Ausgang, J302.1** | **Ungeregelte Bordnetzspannung hinter LM74930-Verpol-/OV- und gemeinsamer OCP-/SCP-Stufe, ohne separate Sicherung. Eine gemeinsame austauschbare Quell-/Leitungssicherung vor TripPower ist zwingend.** |
 | `RUN_CMD` | optionaler Eingang | Ziel: 3,3-V-/5-V-kompatibler aktiver Einschaltbefehl, schwebend = AUS im gesteuerten Modus; **eigene Schutz-/Pegelstufe erforderlich**, noch nicht konstruiert |
 
-## Verbindlicher Ausgang: VIN_PROTECTED_UNFUSED – OHNE Sicherung auf TripPower
+## Verbindliche Gesamtabsicherung – genau eine Hauptsicherung in der Fahrzeugzuleitung
 
-**Nutzerentscheidung 14.10.2026:** Auf der kleinen Universalplatine gibt es **KEINE separate Schmelzsicherung und KEINEN Sicherungshalter** fuer den zusaetzlichen Bordnetzabgriff. Der physische Ausgang **`J302.1 = VIN_PROTECTED_UNFUSED`** liegt nach den LM74930-Q1-Schutz-MOSFETs **und nach dem gemeinsam fuer beide Verbraucher geltenden Strommesswiderstand R301**. Er hat die **ungeregelte Bordnetzspannung**, ungefaehr 9–30 V im erlaubten Betriebsbereich; bei OV, UV oder EN-OFF ist er nicht verlässlich verfuegbar.
+**Beschluss 14.10.2026:** Kein separater Sicherungshalter oder Schmelzsicherung fuer `VIN_PROTECTED_UNFUSED` auf **TripPower oder TripTracer**. Stattdessen wird **die komplette TripTracer-Versorgung** mit **einer wartbar austauschbaren, fuer 12-/24-V-Bordnetz geeigneten DC-Hauptsicherung** in der Fahrzeugleitung **moeglichst nah an der Energiequelle, VOR dem Kabel zur Elektronik** abgesichert. Diese Sicherung ist eine zwingende **Einbau- und Nutzungsvoraussetzung**, nicht Bestandteil der kleinen TripPower-Platine.
 
 ```text
-  Fahrzeug-BAT+ --- externe QUELL-/KABELSICHERUNG --- TripPower VIN_FUSED
-                                                    |
-                                              LM74930-Q1
-                                      (Verpolung / OV / global OCP/SCP)
-                                                    |
-                                                 R301 5mR
-                                                    |
-                       +----------------------------+----------------------+
-                       |                                                   |
-                    LMR38020                                          TripPower J302.1
-                       |                                                   |
-                   5V_OUT/2A                                   VIN_PROTECTED_UNFUSED
-                                                                           |
-                                                               KURZER, FEHLERSICHERER
-                                                               INTERBOARD-LEISTUNGSPFAD
-                                                                           |
-                                                           TripTracer: F_AUX_EXT
-                                                           ERSTE KOMPONENTE IM ZWEIG
-                                                                           |
-                                                                VIN_AUX_FUSED
-                                                                           |
-                                                             9–30V Zusatzverbraucher
+Fahrzeug BAT+ --- F_MAIN (extern; Wert zu pruefen) --- VIN_FUSED / TripPower
+                                                        |
+                                            LM74930 + Q301/Q302
+                                           OV/Verpolung/OCP/SCP
+                                                        |
+                                                 R301 5mOhm
+                                                        |
+                                        +---------------+----------------+
+                                        |                                |
+                                 LMR38020 5V/2A                  J302.1 VIN_PROTECTED_UNFUSED
+                                        |                                |
+                                     5V_OUT                    direkte Leitung/Platine zu TripTracer
+                                                                         |
+                                                               Zusatzverbraucher ohne
+                                                               eigene Schmelzsicherung
 ```
 
-> **SICHERHEITSPFLICHT DES ABNEHMERS:** `VIN_PROTECTED_UNFUSED` ist **nicht einzeln abgesichert**. Ohne zusaetzliche, fuer die reale **Gleichspannung**, Fehlerstrom und Kabel-/Leiterbahnbelastung geeignete **Abzweigsicherung bzw. elektronischen Zweigschutz** darf daran **keine Verbraucherleitung frei herausgefuehrt** werden. **Eine eigene, zugängliche und austauschbare Sicherung auf der TripTracer-Hauptplatine** muss unmittelbar nach ihrem Eingang in den Zusatzkreis angeordnet werden. Bei separater Montage muss die davorliegende Leitung/Steckverbindung auch bei durchlegiertem Schutz-MOSFET bzw. Kurzschluss **vor der Sicherung** nachweislich gegen Brand und Kabelschaeden geschuetzt sein (z. B. kurze mechanisch geschuetzte Leitung, passend zur vorgeschalteten Quellsicherung und Fehlerstromabschaltung). Nur hinter `F_AUX_EXT` heisst die Schiene `VIN_AUX_FUSED`.
+**Ein gemeinsamer Leitungsschutz reicht nur dann**, wenn **jeder** Leiterbahnabschnitt, jeder Stecker und jede Leitung **hinter `F_MAIN`** – einschliesslich der 5-V-Versorgung auf ihrem jeweiligen Stromniveau und der ungesicherten Zwischenverbindung – hinsichtlich Dauerlast, hoechstem real moeglichem Fehlerstrom, **Sicherungsausloesezeit/I²t**, Kurzschluss, thermischem Verhalten und defektem/kurzgeschlossenem Schutz-MOSFET angemessen dimensioniert ist. Bei den 5-V-Leiterbahnen sind zudem die **strombegrenzenden Eigenschaften des Bucks** gesondert nachzuweisen; ein 3-A-Bordnetz-Sicherungsetikett ersetzt diese Auslegung nicht.
 
-**Der LM74930 ist bereits ein gemeinsamer elektronischer Circuit Breaker** mit Ueberstrom- und schneller Kurzschlussabschaltung, aber **keine selektive Zweig-Sicherung**. Bei Fehler am rohen Abzweig kann er auch den 5-V-Wandler abschalten. Ein defekter/fest kurzgeschlossener MOSFET, Fehler vor R301, hohe Transienten oder falsche Verdrahtung koennen den elektronischen Schutz unwirksam machen. Die vorgeschaltete Quellsicherung wird nicht durch die Elektronik ersetzt.
+Der LM74930-Q1 ist **zusaetzlicher gemeinsamer elektronischer Circuit Breaker** (nominale OC-Schwelle ca. 3,61A; schnelle SCP ca. 5,03A), **keine unabhaengige Leitungsschmelzsicherung**. Bei einem Fehler am Zusatzabzweig koennen auch die 5 V ausfallen. Wenn ein Schutz-MOSFET kurzgeschlossen ausfaellt, ist allein die passend ausgelegte Hauptsicherung die verbleibende Schutzinstanz der Bordnetzzuleitung.
 
-- Auf **TripPower**: kein `F302`, kein Sicherungshalter, keine SMD-Sicherung. `J302.1` ist elektrisch direkt mit `VIN_PROTECTED_UNFUSED` verbunden.
-- Auf **TripTracer**: grosser, wartbar austauschbarer Sicherungshalter **am Eingang des Hilfsspannungszweigs**, Fuse-Referenz `F_AUX_EXT` **nur als System-/Schnittstellenanforderung**; im bestehenden TripTracer-Root/PCB noch **nicht implementiert**.
-- **Auslegungsziel** fuer den Hilfsausgang ist derzeit maximal **1 A Dauerlast**, keine freigegebene Absicherung oder Strombegrenzung. Bemessung von `F_AUX_EXT`, Sicherungskurve/I²t, DC-Abschaltvermoegen, Temperatur-Derating, Abzweig- und Hauptleiterbahnen, 9–30V-Stecker und Interboard-Fehlerstromfaellen ist **offen**.
-- **Universeller Einsatz ausserhalb TripTracer:** `VIN_PROTECTED_UNFUSED` nur mit geeignetem, anwendungsspezifischem **externen** Zweigschutz und geschuetzter Zuleitung nutzen; sonst ausschliesslich `5V_OUT` verwenden.
-- Name bedeutet **Verpol-/OV-geschuetzt aber UNGEREGELT und UNFUSED**. Keine feste 15-V-Spannungsquelle, kein rauschfreier Anschluss, keine 1-A-Strombegrenzung; Gesamtleistung beider Lasten und FET-SOA pruefen.
+### Hauptsicherungswert – 3A ist nur ein Kandidat
+
+| Last- bzw. Sicherungsfall | Wert / Schlussfolgerung |
+|---|---|
+| 5V x 2A, 9V Eingang, 80 % Buck-Wirkungsgrad | ca. **1,39A** Bordnetzeingangsstrom |
+| Zusaetzliche 1A Last an VIN_PROTECTED_UNFUSED (Auslegungsziel) | **2,39A** zusammen bei 9V |
+| **3A** 58V-MINI-Beispiel bei 80 Grad C Umgebung | typischer zulaessiger Dauerstrom nur ca. **2,0A** nach Littelfuse-Temperaturtabelle → bei voller kombinierter Last **zu knapp** |
+| **4A** 58V-MINI-Beispiel bei 80 Grad C | ca. **2,7A** typischer zulaessiger Dauerstrom → weniger Temperaturreserve |
+| **5A** 58V-MINI-Beispiel bei 80 Grad C | ca. **3,4A** typischer zulaessiger Dauerstrom → mehr Reserve, aber groessere zu beherrschende Fehlerenergie |
+
+Quelle fuer die Beispieltemperaturen: [Littelfuse MINI 58V, Tabelle zum Temperatur-Derating](https://www.littelfuse.com/assetdocs/automotive-passenger-car-catalog?assetguid=613475c5-28ce-4646-a46e-0a9344b7a944). **Weder 3, 4 noch 5 A sind ausgewaehlt oder freigegeben.** Ein 3-A-Schmelzeinsatz ist auch im Kurzschlussfall *keine* feste 3-A-Strombegrenzung; der Strom kann bis zum Schmelzen deutlich darueber liegen.
+
+**Pflichtpruefungen vor Freigabe:** tatsaechlicher Lastfall bei 9V und heissem Einbauort, Einschaltstrom, 12-/24-V-DC-Nennspannung und Abschaltvermoegen des gewaelten **austauschbaren** Sicherungstyps, Zeit-Strom-/I²t-Kurve, Fahrzeug-Kurzschlussstrom, thermische Stromtragfaehigkeit von 35µm-Leiterbahnen und Steckkontakten, thermisches Derating sowie Kurzschluss vor und hinter dem LM74930/bei defekten Schutz-FETs. **Ein normaler 32V-Kfz-Sicherungstyp ist nicht ohne weitere Pruefung als universelle 24V-Bordnetzloesung gesetzt.**
+
+**Wortbedeutung `VIN_PROTECTED_UNFUSED`:** Nach Verpol-/OV- und **gemeinsamem** elektronischem Ueberstromschutz, **UNGEREGELT, ohne eigene Sicherung im Zweig**; lediglich durch die **verbindliche zentrale Hauptsicherung** der Quelle abgesichert. Keine Zusage zur selektiven Abschaltung des Zusatzabgriffs oder auf feste 15V.
 
 ### Bevorzugte Display-Anbindung (TripTracer, ausserhalb TripPower)
 
-Fuer das Riverdi RVT35HITNWC00-B bevorzugen wir einen separaten **5-V-auf-LED-Konstantstrom-Boost** hinter `V5_SYS` (USB-/Buck-Umschaltung). Die Hintergrundbeleuchtung benoetigt typ. ca. **15 V bei 100 mA**; es handelt sich um eine LED-Last, nicht um einen frei nutzbaren geregelten 15-V-Eingang. **TI TPS61165-Q1** ist ein noch zu verifizierender Treiberkandidat (PWM-Dimmung); die LED-Vorwaertsspannung, Stromregelung, Open-LED-Abschaltung und EMV sind zu validieren. Bei geschaetzten 85 % Effizienz beanspruchen 1,5 W LED-Ausgang **ca. 0,35 A an 5 V** und damit einen Teil des **bestehenden 2-A-Gesamtbudgets**. Bei USB-Only-Betrieb muss die zulaessige USB-Stromaufnahme separat geprueft und das Backlight ggf. abgeschaltet werden.
-
-Der `VIN_PROTECTED_UNFUSED`-Ausgang bleibt auf TripPower vorhanden, unabhaengig davon, ob TripTracer ihn fuer das Display spaeter nutzt.
+Fuer das Riverdi RVT35HITNWC00-B bevorzugen wir einen separaten **5-V-auf-LED-Konstantstrom-Boost** hinter `V5_SYS` (USB-/Buck-Umschaltung). Die Hintergrundbeleuchtung benoetigt typ. ca. **15V bei 100mA**; es handelt sich um eine LED-Last, nicht um einen frei nutzbaren geregelten 15-V-Eingang. **TI TPS61165-Q1** ist ein zu verifizierender Treiberkandidat. Bei geschaetzten 85% Effizienz beanspruchen 1,5W LED-Ausgang ca. **0,35A an 5V** innerhalb des bestehenden 2-A-Budgets. USB-Stromaufnahme, PWM, Open-LED-Schutz und EMV bleiben gesondert zu pruefen.
 
 **Standalone statt gesteuert:** Eine spaetere klar beschriftete **hardwareseitige Bruecke `ALWAYS_ON`** soll den Wandler ohne MCU mit gesteckter Versorgung einschalten. Im TripTracer steuert eine getrennte ACC/HOLD-Anpassstufe `RUN_CMD`. Vor Schaltplan-Umsetzung der Pegelanpassung sind Funktion, Stromverbrauch, Fail-OFF und Auswirkungen auf VIN/EN verbindlich zu pruefen; eine externe MCU-3,3-V-Schiene darf **nicht** direkt die 56-V-VS-Schiene oder das Fahrzeugnetz rueckspeisen. **Eine Fehlverdrahtung von Buck-EN oberhalb Buck-VIN waere unzulaessig.**
 
@@ -119,7 +120,7 @@ Herstellerquellen: [TI LMR38020-Q1](https://www.ti.com/product/LMR38020-Q1), [TI
 
 ## Sicherheits- und Nachweisgates vor der eigenstaendigen Leiterplatte
 
-1. **Input-Schutz und Fail-Safe:** LM74800 hat keine eFuse-/OCP-Funktion. Kurzschluss zwischen Eingangs-Pads, FETs und Buck-VIN sowie defekter MOSFET: Fahrzeug-/Leitungs-Sicherung mit DC-Abschaltvermoegen, I2t und Temperatur pruefen; OCP-Alternative ggf. mit TI LM74930 kostenbewusst vergleichen. 200-V-Load-Dump Test A / Test B getrennt nachweisen.
+1. **Input-Schutz und Fail-Safe:** LM74930 hat eine gemeinsame elektronische OCP-/SCP-Abschaltung, aber keine Schmelzsicherung. Bei FET-Fehler oder vor dem Schalter nur die externe gemeinsame Quell-Sicherung F_MAIN; diese muss Kurzschluss, DC-Abschaltvermoegen, I2t und Temperatur absichern. 200-V-Load-Dump Test A / Test B getrennt nachweisen.
 2. **9-V-Kaltstart und Abschalten:** R921 10k/VS-Aufladung, D924 A→VS, heisse Transistorleckstroeme und geforderter OFF-BAT-Strom. Fuer das universelle RUN-Signal gilt **definierter, rueckspeisungsfreier Zustand**, auch wenn V5_OUT zuvor aus einem fremden USB-/Netzteil gespeist wurde.
 3. **Exakte Herstellergeometrie:** U921 RTN13 **isolierte** Kupferinsel (nicht GND); FCH0650-150M-Landpattern **noch provisorisch**; EP9 von LMR38020 thermisch anbinden. 3D-Modelle nur aus realen Quellen.
 4. **Schaltplan und PCB:** Erst nach Gate A/B eigener KiCad-10-Root mit **echten** Ein-/Ausgangsnetzen und Bauteilen, nur lokalen Symbolen/Footprints/3D. Native ERC **fuer das eigenstaendige Modul**; Routing mit Stroembahnen, Rueckstrom, Thermal-Vias, TVS-/Transientenpfaden und anschließend DRC. Der aktuelle `TripTracer_V1.kicad_pcb` ist hierfuer nicht die finale Modulplatine.
@@ -130,7 +131,7 @@ Herstellerquellen: [TI LMR38020-Q1](https://www.ti.com/product/LMR38020-Q1), [TI
 ## Arbeitsreihenfolge nach AGENTS.md
 
 - **Schritt 1 – abgeschlossen:** Diese Wiederverwendungs-/COTS-/Schnittstellenentscheidung versionieren. Bestehende TripTracer-Schaltung und BOM fuer diesen Planungsschritt nicht veraendern.
-- **Schritt 2 – SCHALTPLANENTWURF vorhanden, nicht qualifiziert:** LM74930, RUN/ALWAYS_ON, OV/UV/Breaker und VIN_PROTECTED_UNFUSED real gezeichnet. Keine Abzweigsicherung auf TripPower; TripTracer F_AUX_EXT und sichere Zwischenleitung als Pflicht. Fail-OFF, Quellsicherung, VS-Start und 200V/MOSFET-SOA offen.
+- **Schritt 2 – SCHALTPLANENTWURF vorhanden, nicht qualifiziert:** LM74930, RUN/ALWAYS_ON, OV/UV/Breaker und VIN_PROTECTED_UNFUSED real gezeichnet. Keine Abzweigsicherung auf beiden Platinen; stattdessen externe F_MAIN vor der kompletten Fahrzeugzuleitung und Nachweis aller Leiterbahnen/Stecker als Pflicht. Fail-OFF, Quellsicherung, VS-Start und 200V/MOSFET-SOA offen.
 - **Schritt 3 – offen:** Rueckkopplung/Regelkreis, Buck-Eingangsfilter und vollstaendige 5V/2A-BO-MPN-/Footprint-/DC-Bias- und thermische Verifikation. Einzelseitiger KiCad-10-ERC/Netlist-Gate plus parallele TripTracer-Regressionspruefung.
 - **Schritt 4 – TEILERFUELLT:** Separates kopierbares KiCad-10-Projekt mit Root, echten Schaltplan-Unterseiten, lokalen Symbolen/Footprints und automatischem Schaltplan-PDF erzeugt. **Eigenes PCB, DRC, 3D-Vollstaendigkeit, bestellfertige BOM und Freigabe weiterhin offen.**
 - **Schritt 5 – offen:** 2- oder 4-Lagen-Auswahl anhand EMV/Thermal, Footprints, Layout, DRC, Fertigerregeln, Kosten und USB-Rueckspeiseszenarien; Labortest-/Sicherheitsreport.
