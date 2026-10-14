@@ -10,6 +10,7 @@ on:
       - 'tools/triage_kicad_erc.py'
       - 'tools/check_kicad_custom_pinouts.py'
       - 'tools/check_lm74930_netlist.py'
+      - 'tools/check_lmr38020_netlist.py'
   workflow_dispatch:
 
 permissions:
@@ -82,6 +83,11 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/check_lm74930_netlist.py reports/TripTracer.net | tee reports/powerpath.log
+      - name: Assert LMR38020-Q1 buck topology from native KiCad netlist
+        id: newbuck
+        continue-on-error: true
+        run: |
+          python3 tools/check_lmr38020_netlist.py reports/TripTracer.net | tee reports/newbuck.log
       - name: Preserve reports even when checks fail
         if: always()
         uses: actions/upload-artifact@v4
@@ -99,8 +105,9 @@ jobs:
           HIERARCHY: ${{ steps.hierarchy.outcome }}
           PINOUTS: ${{ steps.pinouts.outcome }}
           POWERPATH: ${{ steps.powerpath.outcome }}
+          NEWBUCK: ${{ steps.newbuck.outcome }}
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
