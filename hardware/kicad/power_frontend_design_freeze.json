@@ -4,7 +4,7 @@
   "updated": "2026-10-14",
   "scope": "Planned 200V 12/24V automotive input protection",
   "decision": "FROZEN_FOR_NEXT_PROTOTYPE_PART_SELECTION_ONLY",
-  "status": "NOT_SCHEMATIC_INTEGRATED_NOT_BENCH_VALIDATED",
+  "status": "ACTIVE_SCHEMATIC_WIP_NOT_ERC_CLEAN_NOT_BENCH_VALIDATED",
   "controller": "LM74800QDRRRQ1",
   "output_buck_retained": "LMR38020SQDDARQ1",
   "reference_documents": [
@@ -281,7 +281,7 @@
     "approved_for_pcb_order": false,
     "hardware_tested": false,
     "fully_costed": false,
-    "protection_circuit_present_in_active_kicad": false
+    "protection_circuit_present_in_active_kicad": true
   },
   "open_gates": [
     "9V/6V VS feed startup current and bootstrap transient with actual 10k resistor",
@@ -315,12 +315,12 @@
       "source": "https://www.digikey.de/de/products/detail/yageo/CC1206KRX7R0BB153/8025568",
       "stock_snapshot": 3798,
       "unit_price_eur_ex_vat_1pc": 0.24,
-      "status": "REFERENCE_ONLY_NOT_IN_FROZEN_CORE_BOM_VERIFY_EVM_NET_AND_NECESSITY",
-      "reason": "TI EVM Table 6-1 includes a 15nF component not in prior proposed reduced schematic; inspect physical connection before deciding to include."
+      "status": "REFERENCE_ONLY_NOT_INSTALLED_C10_OMITTED",
+      "reason": "TI E2E states the 15nF common-source capacitor value is incorrect; TI recommends 1uF at A to GND. EVM C10 is drawn at RTN PAD13-to-GND; datasheet Table 6-1 says exposed pad RTN must float. Do not fit the EVM 15nF without clarified nodes."
     },
     "evm_extra_not_mapped": [
-      "EVM C10 15nF: verify reference node and function; not safe to omit by assumption",
-      "EVM J5/J6 jumpers/LED/display/0Ω resistor: evaluation-only items must be distinguished from required wiring"
+      "EVM C10 15nF: OMITTED; 1uF C924 common-source A-GND per TI",
+      "EVM jumpers, indicator LEDs, 0R: no power-path use in TripTracer"
     ],
     "ov_design_calc": {
       "vin_normal_min_v": 9,
@@ -337,5 +337,34 @@
       "each_upper_at_200v": 96.6,
       "note": "Nominal only; 1% tolerance, input leakage up to 1uA, temperature, surge and EN/SW disconnection must be verified; do not use 36.25V from earlier rough estimate."
     }
+  },
+  "schematic_integration": {
+    "date": "2026-10-14",
+    "path": "hardware/kicad/01I_LM74800_INPUT.kicad_sch",
+    "hierarchy_entry": "hardware/kicad/01_Eingangsschutz.kicad_sch",
+    "ref_mapping": {
+      "U_PROT": "U921",
+      "Q_HV": "Q921",
+      "Q_LV": "Q922",
+      "D_A_VS": "D924",
+      "D_VS": "D923",
+      "D_TVS_HIGH": "D921",
+      "D_TVS_LOW": "D922",
+      "R_VS": "R921",
+      "R_OV_A": "R932",
+      "R_OV_B": "R933",
+      "R_OV_BOTTOM": "R934",
+      "C_IN": "C921",
+      "C_VS_A": "C922",
+      "C_VS_B": "C923",
+      "C_A": "C924",
+      "C_CAP": "C925",
+      "C_LOAD": "C926",
+      "R_SLEW": "R925",
+      "C_SLEW": "C927"
+    },
+    "acc_enable_link": "01H Q915 emitter now sources from LM748_VS_SAFE before U921 output, avoiding boot deadlock; U921 and U101 share BUCK_ENABLE",
+    "c10_15nf": "OMITTED: 1uF at common-source A-GND per TI datasheet / E2E; EVM has 15nF C10 and exposed-pad drawing conflict; RTN PAD13 left floating",
+    "remaining": "no verified U921 pad13 footprint, no PCB parity, ERC/DRC/ISO or pulse/current-limit signoff"
   }
 }
