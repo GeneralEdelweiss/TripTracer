@@ -11,15 +11,15 @@
  (pin passive line (at 15.24 5.08 180) (length 5.08) (name "D" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016)))))
  (pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
  ))
-(symbol "TripTracer_V1:IPB17N25S3_100"
+(symbol "TripTracer_V1:FQD16N25CTM"
  (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
  (property "Reference" "Q" (at 0 17.78 0) (effects (font (size 1.27 1.27))))
- (property "Value" "IPB17N25S3-100" (at 0 -17.78 0) (effects (font (size 1.27 1.27))))
- (property "Footprint" "Package_TO_SOT_SMD:TO-263-3_TabPin2" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (property "Datasheet" "https://www.infineon.com/assets/row/public/documents/10/49/infineon-ipp-b17n25s3-100-ds-en.pdf" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (property "Description" "AEC-Q101 250V D2PAK 100mOhm provisional for Q401; G1 D2/tab S3; SOA and layout unverified" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
- (symbol "IPB17N25S3_100_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
- (symbol "IPB17N25S3_100_1_1"
+ (property "Value" "FQD16N25CTM" (at 0 -17.78 0) (effects (font (size 1.27 1.27))))
+ (property "Footprint" "Package_TO_SOT_SMD:TO-252-3_TabPin2" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "https://datasheet.lcsc.com/datasheet/pdf/428f7bed75e2232737449efac9f886cb.pdf" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Description" "onsemi 250V DPAK 270mOhm max at VGS10V; G1 D2/tab S3; automotive qualification NOT VERIFIED; cold-crank/SOA unverified" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (symbol "FQD16N25CTM_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+ (symbol "FQD16N25CTM_1_1"
  (pin input line (at -15.24 0 0) (length 5.08) (name "G" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016)))))
  (pin passive line (at 15.24 5.08 180) (length 5.08) (name "D" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016)))))
  (pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
@@ -108,7 +108,7 @@
 (wire (pts (xy 88.9 228.6) (xy 68.58 228.6)) (stroke (width 0) (type default)) (uuid "4a9bcf6e-1f08-4510-9e66-00000000004f"))
 (global_label "LM74930_CAP" (shape bidirectional) (at 68.58 228.6 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000050"))
 (wire (pts (xy 111.76 228.6) (xy 132.08 228.6)) (stroke (width 0) (type default)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000051"))
-(global_label "LM74930_VS" (shape bidirectional) (at 132.08 228.6 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000052")) (symbol (lib_id "TripTracer_V1:IPB17N25S3_100") (at 99.06 97.79 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5627bcda-3f4f-4e9d-8b30-000000000001") (property "Reference" "Q401" (at 99.06 81.28 0) (effects (font (size 1.27 1.27)))) (property "Value" "IPB17N25S3-100 PROVISIONAL 250V" (at 99.06 83.82 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "Package_TO_SOT_SMD:TO-263-3_TabPin2" (at 99.06 97.79 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5627bcda-3f4f-4e9d-8b30-000000000002")) (pin "2" (uuid "5627bcda-3f4f-4e9d-8b30-000000000003")) (pin "3" (uuid "5627bcda-3f4f-4e9d-8b30-000000000004")) (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065/72346f29-23d6-4849-8604-2156cfdc44a2" (reference "Q401") (unit 1)))))
+(global_label "LM74930_VS" (shape bidirectional) (at 132.08 228.6 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4a9bcf6e-1f08-4510-9e66-000000000052")) (symbol (lib_id "TripTracer_V1:FQD16N25CTM") (at 99.06 97.79 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5627bcda-3f4f-4e9d-8b30-000000000001") (property "Reference" "Q401" (at 99.06 81.28 0) (effects (font (size 1.27 1.27)))) (property "Value" "FQD16N25CTM LOW-COST 250V PROVISIONAL" (at 99.06 83.82 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "Package_TO_SOT_SMD:TO-252-3_TabPin2" (at 99.06 97.79 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5627bcda-3f4f-4e9d-8b30-000000000002")) (pin "2" (uuid "5627bcda-3f4f-4e9d-8b30-000000000003")) (pin "3" (uuid "5627bcda-3f4f-4e9d-8b30-000000000004")) (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065/72346f29-23d6-4849-8604-2156cfdc44a2" (reference "Q401") (unit 1)))))
 (wire (pts (xy 83.82 97.79) (xy 67.31 97.79)) (stroke (width 0) (type default)) (uuid "5627bcda-3f4f-4e9d-8b30-000000000005"))
 (global_label "Q401_GATE" (shape bidirectional) (at 67.31 97.79 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5627bcda-3f4f-4e9d-8b30-000000000006"))
 (wire (pts (xy 114.3 92.71) (xy 135.89 92.71)) (stroke (width 0) (type default)) (uuid "5627bcda-3f4f-4e9d-8b30-000000000007"))
