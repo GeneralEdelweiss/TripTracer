@@ -1,8 +1,8 @@
 {
-  "schema_version": 4,
+  "schema_version": 6,
   "module_name": "TripPower_5V2A",
   "target_project": "TripPower_5V2A.kicad_pro",
-  "stage": "INDEPENDENT_KICAD10_2_SHEET_SCHEMATIC_ERC_CLEAN_NOT_PCB_RELEASED",
+  "stage": "LM74930_STANDALONE_SCHEMATIC_UNFUSED_AUX_ONE_EXTERNAL_MAIN_FUSE_PENDING_NATIVE_RECHECK",
   "validation": "STANDALONE_SCHEMATIC_ERC_CLEAN_NETLIST_VERIFIED_NO_PCB_NO_BENCH_OR_VEHICLE_APPROVAL",
   "created": "2026-10-14",
   "no_manufacturing_or_vehicle_approval": true,
@@ -39,8 +39,29 @@
     },
     "auxiliary_protected_input_voltage": "follows_fused_input_after_overvoltage_and_reverse_protection; unregulated, can collapse during cutoff; NOT 5V or fixed 15V",
     "auxiliary_protected_max_output_current_a": 1,
-    "auxiliary_protected_output_short_circuit": "MUST HAVE independently proven current-limiting or suitably DC-rated replaceable branch fuse before any exposed terminal / attached wire; LM74800 is NOT an eFuse",
-    "auxiliary_protected_max_output_current_status": "PRELIMINARY_TARGET_TO_DIMENSION_SHARED_SHUNT; not approved to connect before separate branch fuse and connector/wire rating"
+    "auxiliary_protected_output_short_circuit": "Only common upstream vehicle source fuse and shared LM74930 OCP/SCP; no separate auxiliary branch fuse, not selectively isolated. Design all copper/cables and connectors for maximum clearing I2t/time at vehicle source short circuit and LM74930 FET stuck ON.",
+    "auxiliary_protected_max_output_current_status": "1A provisional extra load design target, not a guaranteed limit. All downstream paths protected only by shared upstream vehicle main fuse and LM74930 under normal operation.",
+    "main_vehicle_fuse": {
+      "required": true,
+      "location": "vehicle harness close to source and before ALL TripTracer module power wires",
+      "shared_for_all_TripTracer_branches": true,
+      "replaceable": true,
+      "nominal_candidate_a": 3,
+      "status": "DESIGN_EXAMPLE_NOT_SELECTED: At 9V 10W/80% + 1A AUX draws 2.39A; MINI 58V 3A derates to 2A typical at 80C.",
+      "alternatives_to_check_a": [
+        4,
+        5
+      ],
+      "selection_requirements": [
+        "12V and 24V DC voltage/interruption rating",
+        "available worst-case fault current and I2t",
+        "high ambient temperature derating",
+        "9V full load including aux and inrush",
+        "cable/connector/copper withstand when LM74930 FET shorted",
+        "fault injection and thermal test"
+      ],
+      "separate_aux_branch_fuse_required": false
+    }
   },
   "project_boundaries": {
     "on_module": [
@@ -51,9 +72,8 @@
       "physical_power_terminals",
       "testpoints",
       "reusable_footprints_models",
-      "mandatory_VIN_PROTECTED_physical_output",
-      "auxiliary_branch_fault_current_protection",
-      "testpoint_VIN_PROTECTED"
+      "mandatory_VIN_PROTECTED_UNFUSED_physical_output",
+      "testpoint_VIN_PROTECTED_UNFUSED"
     ],
     "off_module": [
       "ACC_to_RUN_adapter",
@@ -64,15 +84,18 @@
       "LCD_backlight_boost",
       "MCU_board",
       "vehicle_source_battery_fuses",
-      "display_current_driver_on_TripTracer_load_board"
+      "display_current_driver_on_TripTracer_load_board",
+      "common_replaceable_vehicle_power_source_main_fuse_upstream_all_loads"
     ],
     "external_line_fuse_required": true,
     "standalone_default_on": "Draft R319=0R jumper in series with R318=100k from VS_CLAMP to EN; standalone only. D305 blocks backfeed into RUN.",
     "logic_enable_mode": "Draft 3.3/5V active-high RUN_CMD -> R317=4.7k -> D305 reverse blocker -> LM74930 EN with 100k pull-down R316. Raw ACC never directly at RUN. Behavior with VIN=0 and powered RUN needs measurement.",
     "power_return": "Common GND; layout must protect high-current ground and switching return",
-    "output_connector_plan": "Schematic J301 VIN_FUSED/RUN_CMD/GND and J302 VIN_PROTECTED/5V_OUT/GND, both 3-wire solder pads. Connector/wire ratings and final PCB footprints not qualified.",
-    "raw_auxiliary_branch": "from Q922 drain / U921 OUT and C926 positive = current TripTracer net HV_PROTECTED_AFTER_EFUSE, prior to U101 VIN; physical output separated through own branch protection. Do not connect to raw BAT, SW or 5V.",
-    "raw_auxiliary_branch_status": "WIRED_ON_NEW_STANDALONE_SCHEMATIC: U301 C/CS-/R301 -> VIN_PROTECTED_MAIN -> F302 58V replaceable 2A candidate -> J302.pin1; PCB not created; 2A fuse not a 1A current limiter"
+    "output_connector_plan": "J301 VIN_FUSED/RUN_CMD/GND and J302 VIN_PROTECTED_UNFUSED/5V_OUT/GND. No F302, no auxiliary inline/PCB fuse required. Conductors subject to upstream fuse time-current and I2t.",
+    "raw_auxiliary_branch": "LM74930 switched FET path -> shared R301 5mOhm sense shunt -> VIN_PROTECTED_UNFUSED shared with U101 VIN and J302.1, deliberately without separate branch fuse.",
+    "raw_auxiliary_branch_status": "WIRED_UNFUSED_ON_STANDALONE_SCHEMATIC; no mainboard branch fuse expected; native KiCad ERC recheck open",
+    "separate_aux_fuse_required": false,
+    "main_vehicle_fuse_location": "Vehicle source close to battery/feed, before TripTracer power input cable"
   },
   "proposed_external_signals": [
     {
@@ -94,13 +117,13 @@
       "role": "regulated rail, overload behavior to be tested"
     },
     {
-      "name": "VIN_PROTECTED",
+      "name": "VIN_PROTECTED_UNFUSED",
       "direction": "output_required",
-      "domain": "unregulated_protected_approximately_9_30V_when_on",
-      "role": "mandatory physical exposed positive terminal via independent branch short-circuit protection; supply is raw post-LM74800 not 5V and not fixed 15V",
-      "protection": "reverse and OV cut-off share LM74800; output overcurrent, load short, wire fault must have separately proven protection",
-      "current_rating_a": "TBD after branch fault/I2t, fuse, output connector and total input power allocation",
-      "status": "NOT_YET_ON_STANDALONE_KICAD"
+      "domain": "unregulated_post_protection_9_30V",
+      "role": "Physically present at J302.1. Behind LM74930 electronic shared breaker but deliberately without additional fuse. Requires entire vehicle source feed fused externally.",
+      "protection": "Main source fuse covers all wiring, connector and PCB branches when correctly sized to time-current/I2t; shared electronic OCP/SCP may switch off both outputs. No separately protected branch and no independent continuity guarantee.",
+      "current_rating_a": "1A provisional design target only",
+      "status": "WIRED_NATIVE_SCHEMATIC_RECHECK_PENDING"
     },
     {
       "name": "RUN_CMD",
@@ -194,10 +217,10 @@
     "PCB: actual independent native KiCad 10 ERC, PCB parity, routed DRC and review",
     "hardware: 9/12/24/30V 2A thermal, output ripple/EMI, short/fail-off/surge laboratory tests",
     "economics: complete competing 1,10,100pc BOM ex shipping and assembly with live pricing",
-    "Aux VIN_PROTECTED: physical independent output connector/pad on standalone PCB tied only to safe post-LM74800 net, NOT raw BAT/SW/5V",
-    "Aux VIN_PROTECTED: independently proven branch short-circuit current limiting or appropriately DC-rated replaceable fuse; rated connector/wiring and I2t/fault injection",
     "Aux VIN_PROTECTED: total input/thermal budget must cover max 5V/2A and external raw-side load simultaneously; no unbounded raw output claim",
-    "Display: Riverdi constant-current 100mA LED driver from V5_SYS and USB source-current negotiation/derating; no forced 15V constant voltage source"
+    "Display: Riverdi constant-current 100mA LED driver from V5_SYS and USB source-current negotiation/derating; no forced 15V constant voltage source",
+    "VIN_PROTECTED_UNFUSED: all traces, cable and connectors are protected by single shared source fuse, including if FETs fail shorted, and without branch-selective separation",
+    "Main fuse 3A only initial example, 9V max loads 2.39A and 3A 58V MINI at 80C typ sustained 2A; examine 4/5A with full fault current/I2t and 12/24V rating"
   ],
   "cost_review": {
     "comparisons": [
@@ -223,17 +246,17 @@
   "pass_status": {
     "scope_and_COTS_first": "PASS_REVIEWED",
     "standalone_schematic": "CREATED_2_PAGE_NATIVE_KICAD_10_DRAFT",
-    "standalone_erc": "PASSED_NATIVE_KICAD10_0_VIOLATIONS_ALL_3_PAGES_CI_38634029401",
+    "standalone_erc": "PREVIOUS_PASS_OLDER_NETLIST_ONLY_RECHECK_AFTER_NEW_SCHEMATIC_PENDING",
     "standalone_pcb": "NOT_CREATED",
     "standalone_drc": "NOT_RUN_NO_PCB",
     "bench": "NOT_TESTED",
-    "vin_protected_physical_connection": "WIRED_IN_SCHEMATIC_VIA_F302_J302_PAD1_NOT_PCB_ROUTED",
-    "vin_protected_current_rating": "1A_TARGET_ONLY_2A_REPLACEABLE_FUSE_CANDIDATE_CABLE_I2T_OPEN",
+    "vin_protected_physical_connection": "J302.1 directly on VIN_PROTECTED_UNFUSED same common shunt net as buck; F302 removed",
+    "vin_protected_current_rating": "1A design goal, 3A source fuse unvalidated at 80C; compare 4A or 5A with wire/copper I2t",
     "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT",
     "input_controller_comparison": "DECIDED_LM74930_USER_APPROVED",
     "protection_values": "PRELIMINARY_PIN_AND_COMPONENT_DESIGN_RECALC_TEST_PENDING_OR_VALIDATION_ONLY",
     "protection_schematic": "NOT_YET_IN_STANDALONE_KICAD",
-    "standalone_native_netlist": "PASSED_48_CRITICAL_PIN_ASSERTIONS_NATIVE_KICAD10_CI_38634029401",
+    "standalone_native_netlist": "PREVIOUS_PASS_OLDER_NETLIST_ONLY_RECHECK_PENDING",
     "manufacturing_ready": false,
     "vehicle_ready": false,
     "standalone_pdf": "PASSED_NATIVE_KICAD10_EXPORT_3_PAGES_CI_38634029401",
@@ -275,12 +298,9 @@
     "pcb": "NOT_CREATED"
   },
   "auxiliary_branch_fuse_candidate": {
-    "holder_mpn": "178.6764.0001",
-    "fuse_mpn": "0997002.WXN",
-    "rated_v_dc": 58,
-    "nominal_fuse_a": 2,
-    "output_design_load_a": 1,
-    "status": "ELECTRICALLY_DRAWN_F302_BUT_FOOTPRINT_NOT_VERIFIED_OR_ASSIGNED; RATED_CABLE_AND_I2T_LAB_GATE",
-    "rating_conflict_note": "Nominal 2A fuse is not a hard current limiter of 1A; shared LM74930 overcurrent protects common path; physical cable and auxiliary PCB copper must be sized for clearing current."
+    "state": "CANCELLED_PER_USER",
+    "reference": "F302_REMOVED_FROM_KICAD",
+    "replacement": "external shared main vehicle feed fuse only",
+    "no_separate_aux_fuse_on_any_board": true
   }
 }
