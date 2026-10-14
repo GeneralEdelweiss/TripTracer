@@ -24,3 +24,6 @@ Normalbereich9-30V, weiches Kaltstartziel etwa9V. Der alte Netzname `HV_PROTECTE
 ### Auswahl fuer den naechsten Schutzprototypen
 
 Der Nutzer hat LM74800-Q1 + STD17NF25 + BUK7Y4R8-60EX und zugehoerige Bauteile fixiert. Die vermeintliche 85V-Zenerdiode ist lt. TI-EVM eine 75V-Schaltdiode von A nach VS: [Entscheid samt BOM und pruefpflichtigen Punkten](../../docs/POWER_FRONTEND_DESIGN_FREEZE_2026-10-14.md), [maschinenlesbare BOM](power_frontend_design_freeze.json). **Noch nicht in der aktiven 01G_Eingangsschutz-KiCad-Schaltung verbaut.**
+
+
+Die **6 zuvor offenen Standard-SMD-Positionen** der *geplanten* LM74800-BOM haben nun konkrete, beschaffbare MPNs; [DigiKey-Beschaffungscheck](../../docs/POWER_FRONTEND_PASSIVES_SOURCING_2026-10-14.md) sowie [maschinenlesbare Auswahl](power_frontend_design_freeze.json) und [CSV](power_frontend_order_bom.csv). Alle bisherigen Freigabesperren bleiben bestehen.

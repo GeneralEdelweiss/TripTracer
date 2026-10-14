@@ -1,5 +1,8 @@
 # TripTracer – offene technische Prüfungen
 
+**Update Standardteile 14.10.2026:** [Sechs bisher undefinierte OV-/Gate-/Chargepump-SMD-Positionen mit konkreten MPNs & Lagerindikationen bestimmt](POWER_FRONTEND_PASSIVES_SOURCING_2026-10-14.md). Nur Beschaffungs-MPNs geschlossen; **C10 15nF aus TI-EVM, finale Knotenzuordnung der Teile, ACC/EN, Sicherung und 9V/200V/Temperatur-Tests bleiben offen**. Aktive 01G/PCB unverändert.
+
+
 **JÜNGSTE TEILEENTSCHEIDUNG 14.10.2026:** [LM74800-Q1 Eingangsbauteile fixiert, inkl. geklärter 75-V-A→VS-Diode](POWER_FRONTEND_DESIGN_FREEZE_2026-10-14.md). Dies hat Vorrang gegenüber älteren LM74930-/RECOM-Entwurfspräferenzen **nur für die künftige Teileauswahl**. Bestehende reale KiCad-Schaltung 01G noch nicht ersetzt; alle Sicherheits-/Fertigungs-Gates offen.
 
 

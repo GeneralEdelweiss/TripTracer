@@ -14,6 +14,10 @@ Die **tatsächliche EVM-BOM** [LM74800EVM-CS SLVUBU4 Tabelle 6-1](https://www.ti
 
 **Zwei verschiedene Funktionen – nicht verwechseln:** D_A_VS (75-V-Schaltdiode A→VS) und D_VS (56-V-Zenerklemme VS→GND) sind **beide** erforderlich. Es wird aber **keine zusätzliche 85-V-Zenerdiode** aufgenommen. Die zuvor vorgebrachte Erklärung „85-V-Gateklemme“ war falsch.
 
+## Ergänzung 14.10.2026: alle bislang fehlenden Standard-MPNs bestimmt
+
+[Verifizierte Standard-SMD-Auswahl mit DigiKey-Beständen, Kosten und offenen EVM-Abgleichen](POWER_FRONTEND_PASSIVES_SOURCING_2026-10-14.md). **R_OV_A/B = Yageo RC1206FR-07330KL (je 330k); R_OV_BOTTOM = Yageo RC1206FR-0723K2L (23,2k); C_CAP = KEMET C1206C224K5RACTU (220nF/50V); R_SLEW = Yageo RC1206FR-07100RL (100Ω); C_SLEW = KEMET C1206C103K1RACTU (10nF/100V).** Alle bislang sechs MPN-Nullpositionen sind geschlossen. `power_frontend_order_bom.csv` ist eine **separate geplante BOM**, keine aktive KiCad-Stückliste. EVM C10 15nF, ACC/EN-Leitung und Kurzschlussschutz sind weiterhin auf Schaltungs-Ebene zu klären.
+
 ## Festgelegte Design-/BOM-Kandidaten
 | Funktion | Stück | Bevorzugte MPN bzw. festgelegter Wert | Reifegrad |
 |---|---:|---|---|
@@ -24,14 +28,14 @@ Die **tatsächliche EVM-BOM** [LM74800EVM-CS SLVUBU4 Tabelle 6-1](https://www.ti
 | D_VS, Schutzklemme | 1 | onsemi 1SMB5943BT3G, 56 V / 3 W | Pulse und VS-Spitzen offen |
 | D_TVS | 2 | SMBJ150A-13-F + SMBJ33CA-13-F | ISO-Pulse offen |
 | R_VS | 1 | Vishay CRCW121010K0FKEAHP, 10 kΩ / 0,75 W / 1210 | 0,7-J-Pulsbeständigkeit offen |
-| R_OV oben | 2 | 330 kΩ / 1 % / 1206 in Serie | MPN sowie Leckstrom-/OV-Grenzen offen |
-| R_OV unten | 1 | 23,2 kΩ / 1 % / 1206 | MPN sowie Leckstrom-/OV-Grenzen offen |
+| R_OV oben | 2 | **Yageo RC1206FR-07330KL**, 330 kΩ / 1 % / 1206 in Serie | MPN fix, Leckstrom-/OV-Grenzen offen |
+| R_OV unten | 1 | **Yageo RC1206FR-0723K2L**, 23,2 kΩ / 1 % / 1206 | MPN fix, Region-Bestand vor Bestellung prüfen |
 | C_VS | 2 | KEMET C1210C225K1RACTU, 2,2 µF 100 V | DC-Bias-Effekt offen |
 | C_A | 1 | KEMET C1210C105K1RACTU, 1 µF 100 V | Belegung gegen TI-EVM prüfen |
 | C_IN | 1 | KEMET C1210C104JARACTU, 100 nF 250 V | realer Input-Peak offen |
-| C_CAP | 1 | 220 nF 50 V X7R 1206 | MPN/effektive C offen |
+| C_CAP | 1 | **KEMET C1206C224K5RACTU**, 220 nF 50 V X7R 1206 | MPN fix, effektive C offen |
 | C_LOAD | 1 | Panasonic EEE-FK1J470P, 47 µF 63 V | Pufferung prüfen |
-| Slew-Glied | je 1 | 100 Ω / 1206 + 10 nF / 100 V X7R | genaue Netzzuordnung prüfen |
+| Slew-Glied | je 1 | **Yageo RC1206FR-07100RL**, 100 Ω + **KEMET C1206C103K1RACTU**, 10 nF / 100 V | MPNs fix, genaue Netzzuordnung prüfen |
 
 ## Pflichtprüfungen vor einem fertigen Abschnitt
 1. **VS-Bootstrap:** 9-V-Kaltstart und alle kritischen Eingangsspannungen mit aktueller Diode + 10k R + 56V Zener simulieren und messen. Besonders VS-POR und maximale Charge-Pump-Ströme. Kein Draht von A nach VS!

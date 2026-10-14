@@ -103,6 +103,9 @@
       "OV_megaohm_divider_accuracy",
       "cold_start_9V",
       "ISO 16750 test A/B"
-    ]
+    ],
+    "passives_mpns_resolved": true,
+    "passives_bom": "hardware/kicad/power_frontend_order_bom.csv",
+    "passives_docs": "docs/POWER_FRONTEND_PASSIVES_SOURCING_2026-10-14.md"
   }
 }

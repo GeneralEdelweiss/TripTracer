@@ -88,26 +88,62 @@
     {
       "role": "OV divider upper half",
       "ref": "R_OV_A",
-      "mpn": null,
+      "mpn": "RC1206FR-07330KL",
       "value": "330kΩ 1% 1206",
       "qty": 1,
-      "status": "VALUE_FIXED_EXACT_MPN_OPEN_OV_LEAKAGE_CHECK"
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 24347,
+        "unit_price_eur_ex_vat_1pc": 0.1,
+        "unit_price_eur_ex_vat_10pcs": 0.044,
+        "notes": "OV upper section 1/2; 200V input sees ~96.6V each at ideal steady state; must check pulse voltage"
+      }
     },
     {
       "role": "OV divider upper half",
       "ref": "R_OV_B",
-      "mpn": null,
+      "mpn": "RC1206FR-07330KL",
       "value": "330kΩ 1% 1206",
       "qty": 1,
-      "status": "VALUE_FIXED_EXACT_MPN_OPEN_OV_LEAKAGE_CHECK"
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 24347,
+        "unit_price_eur_ex_vat_1pc": 0.1,
+        "unit_price_eur_ex_vat_10pcs": 0.044,
+        "notes": "OV upper section 2/2; used in series, not parallel"
+      }
     },
     {
       "role": "OV divider lower",
       "ref": "R_OV_BOTTOM",
-      "mpn": null,
+      "mpn": "RC1206FR-0723K2L",
       "value": "23.2kΩ 1% 1206",
       "qty": 1,
-      "status": "VALUE_FIXED_EXACT_MPN_OPEN_OV_LEAKAGE_CHECK"
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.in/en/products/detail/yageo/RC1206FR-0723K2L/728700",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey (non-EUR lookup; DE stock unconfirmed)",
+        "url": "https://www.digikey.in/en/products/detail/yageo/RC1206FR-0723K2L/728700",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 514,
+        "unit_price_eur_ex_vat_1pc": 0.09,
+        "unit_price_eur_ex_vat_10pcs": null,
+        "notes": "DigiKey INR listing ~514 units; DigiKey IE filter previously ~2197, EU inventory and price must be rechecked at checkout"
+      }
     },
     {
       "role": "VS reservoir",
@@ -139,10 +175,22 @@
     {
       "role": "Charge pump capacitor",
       "ref": "C_CAP",
-      "mpn": null,
+      "mpn": "C1206C224K5RACTU",
       "qty": 1,
       "value": "220nF 50V X7R 1206",
-      "status": "VALUE_FIXED_EXACT_MPN_OPEN_EFFECTIVE_CAP"
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "KEMET",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1206C224K5RACTU/411250",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/kemet/C1206C224K5RACTU/411250",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 7931,
+        "unit_price_eur_ex_vat_1pc": 0.32,
+        "unit_price_eur_ex_vat_10pcs": 0.183,
+        "notes": "charge pump capacitor, effective capacitance and true datasheet node placement to check"
+      }
     },
     {
       "role": "Power output reservoir",
@@ -156,18 +204,42 @@
     {
       "role": "Gate slew resistor",
       "ref": "R_SLEW",
-      "mpn": null,
+      "mpn": "RC1206FR-07100RL",
       "qty": 1,
       "value": "100Ω 1206",
-      "status": "VALUE_FIXED_MPN_OPEN"
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07100RL/731438",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07100RL/731438",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 462929,
+        "unit_price_eur_ex_vat_1pc": 0.09,
+        "unit_price_eur_ex_vat_10pcs": 0.04,
+        "notes": "TI EVM R2 100Ω; must retain gate network orientation"
+      }
     },
     {
       "role": "Gate slew capacitor",
       "ref": "C_SLEW",
-      "mpn": null,
+      "mpn": "C1206C103K1RACTU",
       "qty": 1,
       "value": "10nF 100V X7R",
-      "status": "VALUE_FIXED_MPN_OPEN"
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "KEMET",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1206C103K1RACTU/411511",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/kemet/C1206C103K1RACTU/411511",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 265220,
+        "unit_price_eur_ex_vat_1pc": 0.2,
+        "unit_price_eur_ex_vat_10pcs": 0.112,
+        "notes": "TI EVM C4 10nF, EVM uses AEC Q200 0603; 1206 general-purpose candidate for prototype"
+      }
     }
   ],
   "diode_resolution": {
@@ -223,5 +295,47 @@
     "Rewire ACC / MCU HOLD/USB priority with standby <100uA and no back-feed",
     "D902 existing 01G TVS must not be claimed replaced until real KiCad change",
     "Full KiCad10 ERC/DRC + board parity after implementation and temperature/ISO A/B tests"
-  ]
+  ],
+  "standard_passive_selection": {
+    "status": "ALL_6_PREVIOUSLY_UNSPECIFIED_POSITION_MPNS_ASSIGNED",
+    "selection_date": "2026-10-14",
+    "selected_refs": [
+      "R_OV_A",
+      "R_OV_B",
+      "R_OV_BOTTOM",
+      "C_CAP",
+      "R_SLEW",
+      "C_SLEW"
+    ],
+    "note": "One MPN serves both 330k positions; 5 distinct MPNs, six physical parts. Selected ≠ schematic present or electrically released.",
+    "reference_evm_extra_component": {
+      "ref": "C10",
+      "value": "15nF 100V X7R",
+      "mpn_candidate": "CC1206KRX7R0BB153",
+      "source": "https://www.digikey.de/de/products/detail/yageo/CC1206KRX7R0BB153/8025568",
+      "stock_snapshot": 3798,
+      "unit_price_eur_ex_vat_1pc": 0.24,
+      "status": "REFERENCE_ONLY_NOT_IN_FROZEN_CORE_BOM_VERIFY_EVM_NET_AND_NECESSITY",
+      "reason": "TI EVM Table 6-1 includes a 15nF component not in prior proposed reduced schematic; inspect physical connection before deciding to include."
+    },
+    "evm_extra_not_mapped": [
+      "EVM C10 15nF: verify reference node and function; not safe to omit by assumption",
+      "EVM J5/J6 jumpers/LED/display/0Ω resistor: evaluation-only items must be distinguished from required wiring"
+    ],
+    "ov_design_calc": {
+      "vin_normal_min_v": 9,
+      "vin_normal_max_v": 30,
+      "upper_resistors_ohm": [
+        330000,
+        330000
+      ],
+      "lower_ohm": 23200,
+      "threshold_nominal_v": 36.31,
+      "ov_rising_reference_v": 1.233,
+      "divider_current_at_24v_uA": 35.13,
+      "divider_current_at_30v_uA": 43.91,
+      "each_upper_at_200v": 96.6,
+      "note": "Nominal only; 1% tolerance, input leakage up to 1uA, temperature, surge and EN/SW disconnection must be verified; do not use 36.25V from earlier rough estimate."
+    }
+  }
 }
