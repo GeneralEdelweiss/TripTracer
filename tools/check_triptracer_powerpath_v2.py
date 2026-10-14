@@ -17,11 +17,11 @@ def check(p):
                 re.findall(r'\(ref "([^"]+)"\)\s+\(pin "([^"]+)"\)',part))
     expect = {
         "ACC_PROTECTED_IN": {("J901","2"),("R923","1"),("R916","1")},
-        "BUCK_ENABLE": {("R911","2"),("R913","1"),("U911","3"),("U101","2")},
+        "BUCK_ENABLE": {("R911","2"),("R913","1"),("U911","3")},
         "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("U921","7"),("D911","2"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("D912","2"),
                  ("U301","1"),("U302","2")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
-        "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3"),("Q922","5"),("U921","9"),("U921","12")},
+        "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","2"),("U101","3"),("Q922","5"),("U921","9"),("U921","12")},
         "BAT_INPUT_FUSED_UNPROTECTED_TVS": {("J901","1"),("D921","1"),("Q921","2")},
         "VIN_HOLD_BIAS": {("R915","2"),("U911","4")},
         "ACC_Q912_BASE": {("R916","2"),("Q912","1"),("R918","1")},
@@ -110,6 +110,7 @@ def check(p):
                ("V5_BUCK_RAW",("U301","6")),("BUCK_ENABLE",("U301","8"))]
     for net,node in forbidden:
         assert node not in nets.get(net,set()), f"undesired short: {node} in {net}"
+    assert ("U101","2") not in nets["BUCK_ENABLE"], "LMR38020 EN must be downstream of LM74800 cutoff"
     assert ("R914","1") not in nets["BUCK_ENABLE"], "3V3 hold directly on EN, unsafe on VIN=0"
     # Isolation checks: all four relevant power domains must remain disjoint.
     # Comparing node membership catches accidental global-label aliases even
