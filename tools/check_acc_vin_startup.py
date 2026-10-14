@@ -14,6 +14,9 @@ P=Path("hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch").read_text("utf-8")
 BUCK=Path("hardware/kicad/02_5V_Buck.kicad_sch").read_text("utf-8")
 REFS={
     "R912":("100k 1% E-B OFF","RC1206FR-07100KL"),
+    "R923":("100k 1% 0.66W ACC surge","ERJP08F1003V"),
+    "R924":("100k 1% NPN base OFF","RC1206FR-07100KL"),
+    "R916":("100k 1% 0.66W ACC sense surge","ERJP08F1003V"),
     "R922":("100k 1% BASE LIMIT","RC1206FR-07100KL"),
     "R911":("33k 1% LM748 EN TOP","RC1206FR-0733KL"),
     "R913":("47k 1% LM748 EN OFF","RC1206FR-0747KL"),
@@ -29,12 +32,15 @@ assert '(global_label "HV_PROTECTED_AFTER_EFUSE" (shape bidirectional) (at 109.2
 
 # 100k base-drive path, 100k E-B turnoff, 33k/47k LM748 EN divider.
 rPNP=100000.; rOFF=100000.; rTOP=33000.; rBOT=47000.
+# Raw ACC 200V impulse: 100k R923 <=0.40W steady-equivalent; 350ms <=0.14J.
+assert 200**2/100000 < .66
+assert (200**2/100000)*.350 < .15
 assert rTOP+rBOT==80000.
 results=[]
 for acc,vs in product((9.,12.,24.,30.),(3.5,4.,6.,9.,24.,30.,56.)):
     # 1V VBE, 0.3V Q914 VCE, 0.5V Q915 saturated drop and
     # 1uA EN input/opto leakage are conservative illustrative assumptions.
-    npn_ib=(acc-1)/(10000*1.01)-1/(4700*.99)
+    npn_ib=(acc-1)/(100000*1.01)-1/(100000*.99)
     npn_sink=max(0,(vs-1.3)/(rPNP*.99))
     pnp_ib=max(0,(vs-1.3)/(rPNP*1.01)-1/(rOFF*.99))
     en_divider=(vs-.5)*(rBOT*.99)/(rTOP*1.01+rBOT*.99)
