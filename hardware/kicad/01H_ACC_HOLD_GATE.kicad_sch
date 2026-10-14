@@ -42,7 +42,7 @@
  (pin passive line (at 0 15.24 270) (length 5.08) (name "C" (effects (font (size 1.25 1.25)))) (number "3" (effects (font (size 1.25 1.25)))))
  (pin passive line (at 0 -15.24 90) (length 5.08) (name "E" (effects (font (size 1.25 1.25)))) (number "2" (effects (font (size 1.25 1.25)))))
  )))
-(text "ACC STARTUP: ACC drives Q914. Q915 now sources EN from pre-output LM748_VS_SAFE (10k+56V Zener). No VOUT startup deadlock; VS source leakage, cold crank and surge pending." (at 223.52 24.13 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001000"))
+(text "ACC STARTUP: ACC drives Q914. Q915 now sources LM748 EN from LM748_VS_SAFE (10k+56V Zener). R912/R922 = 100k bias and R911/R913 = 33k/47k reduce load on VS during 9V ACC startup. 9V charge-pump transient/hold tests OPEN." (at 223.52 24.13 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001000"))
 (symbol (lib_id "TripTracer_V1:PMBT5551_ACC") (at 100.33 134.62 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001001")
 (property "Reference" "Q914" (at 100.33 115.57 0) (effects (font (size 1.27 1.27))))
 (property "Value" "PMBT5551,215" (at 100.33 119.38 0) (effects (font (size 1.27 1.27))))
@@ -81,7 +81,7 @@
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R924") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:R") (at 151.13 119.38 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001015")
 (property "Reference" "R922" (at 151.13 100.33 0) (effects (font (size 1.27 1.27))))
-(property "Value" "10k 1% 0.5W" (at 151.13 104.14 0) (effects (font (size 1.27 1.27))))
+(property "Value" "100k 1% BASE LIMIT" (at 151.13 104.14 0) (effects (font (size 1.27 1.27))))
 (property "MPN" "ERJP08F1002V" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Footprint" "Tripmaster:R_1206_3216" (at 151.13 119.38 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
@@ -90,24 +90,24 @@
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R922") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:R") (at 181.61 59.69 270) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001018")
 (property "Reference" "R912" (at 186.69 57.15 0) (effects (font (size 1.27 1.27))))
-(property "Value" "2.2k 1% E-B OFF" (at 186.69 60.96 0) (effects (font (size 1.27 1.27))))
-(property "Footprint" "Tripmaster:R_1206_3216" (at 181.61 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "100k 1% E-B OFF" (at 186.69 60.96 0) (effects (font (size 1.27 1.27))))
+(property "MPN" "RC1206FR-07100KL" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Footprint" "Tripmaster:R_1206_3216" (at 181.61 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001019"))
 (pin "2" (uuid "87aacc01-1014-4000-8000-000000001020"))
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R912") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:R") (at 264.16 110.49 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001021")
 (property "Reference" "R911" (at 264.16 91.44 0) (effects (font (size 1.27 1.27))))
-(property "Value" "24.9k 1% VIN LIMIT" (at 264.16 95.25 0) (effects (font (size 1.27 1.27))))
-(property "Footprint" "Tripmaster:R_1206_3216" (at 264.16 110.49 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "33k 1% LM748 EN TOP" (at 264.16 95.25 0) (effects (font (size 1.27 1.27))))
+(property "MPN" "RC1206FR-0733KL" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Footprint" "Tripmaster:R_1206_3216" (at 264.16 110.49 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001022"))
 (pin "2" (uuid "87aacc01-1014-4000-8000-000000001023"))
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R911") (unit 1)))))
 (symbol (lib_id "Tripmaster_Sym:R") (at 302.26 146.05 270) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001024")
 (property "Reference" "R913" (at 307.34 143.51 0) (effects (font (size 1.27 1.27))))
-(property "Value" "10k 1% EN OFF" (at 307.34 147.32 0) (effects (font (size 1.27 1.27))))
-(property "Footprint" "Tripmaster:R_1206_3216" (at 302.26 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Value" "47k 1% LM748 EN OFF" (at 307.34 147.32 0) (effects (font (size 1.27 1.27))))
+(property "MPN" "RC1206FR-0747KL" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Footprint" "Tripmaster:R_1206_3216" (at 302.26 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
 
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001025"))
 (pin "2" (uuid "87aacc01-1014-4000-8000-000000001026"))
@@ -251,7 +251,7 @@
 
 
 
-(text "LAB ONLY: LM748_VS_SAFE feeds ACC Q915 before U921 EN; U921 EN and buck EN share BUCK_ENABLE. Check cold start, hot leakage, VS charge, USB HOLD, 200V pulses. No vehicle approval." (at 284.48 365.76 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001135"))
+(text "LAB ONLY: LM748_VS_SAFE feeds ACC Q915 before U921 EN; BUCK_ENABLE is U921 EN ONLY; U101 Buck EN is joined to its own protected VIN. Check cold start, hot leakage, VS charge, USB HOLD, 200V pulses. No vehicle approval." (at 284.48 365.76 0) (effects (font (size 1.27 1.27))) (uuid "87aacc01-1014-4000-8000-000000001135"))
 (sheet_instances (path "/" (page "1")))
 (symbol (lib_id "TripTracer_V1:BAT54WS_CLAMP") (at 60.96 308.61 90) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc03-1014-4000-8000-000000006014")
 (property "Reference" "D912" (at 30.48 303.53 0) (effects (font (size 1.27 1.27))))
