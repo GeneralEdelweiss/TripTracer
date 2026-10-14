@@ -19,9 +19,9 @@ def check(path):
         actual=nets.get(net,set())
         missing=set(pins)-actual
         assert not missing, f"{net}: missing {missing}; actual={sorted(actual)}"
-    need("ACC_PROTECTED_IN",("R923","1"),("R916","1"))
-    need("BAT_INPUT_FUSED_UNPROTECTED_TVS",("Q921","2"),("R921","1"),("D921","1"),("C921","1"))
-    need("GND",("U921","7"),("D922","2"),("D923","2"),("C924","2"),("R934","2"))
+    need("ACC_PROTECTED_IN",("J901","2"),("R923","1"),("R916","1"))
+    need("BAT_INPUT_FUSED_UNPROTECTED_TVS",("J901","1"),("Q921","2"),("R921","1"),("D921","1"),("C921","1"))
+    need("GND",("J901","3"),("U921","7"),("D922","2"),("D923","2"),("C924","2"),("R934","2"))
     need("LM748_A",("Q921","3"),("Q922","1"),("Q922","2"),("Q922","3"),("U921","2"),("D924","2"),("C924","1"),("C927","2"))
     need("LM748_VS_SAFE",("R921","2"),("D923","1"),("D924","1"),("C922","1"),("C923","1"),
          ("U921","3"),("U921","10"),("R912","1"),("Q915","2"))
@@ -38,7 +38,7 @@ def check(path):
     need("LM748_TVS_MID",("D921","2"),("D922","1"))
     need("LM748_CAP",("C925","1"),("U921","11"))
     need("GND",("C925","0")) if False else None
-    # The KiCad native BOM/netlist excludes on_board=no offboard fuses and harness.
+    # The KiCad native BOM/netlist includes on-board J901 pigtail; excludes on_board=no external fuses and M8.
     # Assert their presence in the actual schematic source; only live PCB nodes
     # are compared with the export. Source wires are explicitly mapped by names.
     source = Path("hardware/kicad/01I_LM74800_INPUT.kicad_sch").read_text("utf-8")
@@ -47,7 +47,7 @@ def check(path):
         ("F902","VEHICLE_ACC_RAW","ACC_PROTECTED_IN")):
         begin=source.find(f'(property "Reference" "{ref}"')
         assert begin>=0 and net_a in source and net_b in source, f"offboard {ref} is not drawn"
-    assert 'VEHICLE_M8_EXTERNAL' in source, "external M8 vehicle feed missing"
+    assert 'VEHICLE_M8_EXTERNAL' in source and 'POWER_HARNESS_3WIRE' in source, "external M8 vehicle feed missing"
     # Charge pump is CAP-to-VS, NOT CAP-to-GND.
     need("LM748_VS_SAFE",("C925","2"))
     assert ("U921","13") not in (set().union(*nets.values())), "RTN exposed pad must float"
