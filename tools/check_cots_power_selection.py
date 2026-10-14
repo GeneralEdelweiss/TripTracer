@@ -27,7 +27,8 @@ entry = (BASE / "01_Eingangsschutz.kicad_sch").read_text(encoding="utf-8")
 assert '"01_Eingangsschutz.kicad_sch"' in root
 for s in ("02_5V_Buck.kicad_sch", "03_3V3_USB.kicad_sch"):
     assert f'"{s}"' in root, f"{s} not in root"
-assert '"01G_SIMPLE_INPUT.kicad_sch"' in entry, "Manifest front-end is not active"
+assert '"01I_LM74800_INPUT.kicad_sch"' in entry, "LM74800 protection sheet not active"
+assert '"01G_SIMPLE_INPUT.kicad_sch"' not in entry, "Legacy D901/D902 must not remain active"
 # An unqualified historical LM74930 circuit must NEVER be counted as present.
 assert '"01D_INPUT_PROTECTION.kicad_sch"' not in entry, "Selection manifest obsolete: 01D is active"
 assert any(c["mpn"] == "TI LM74930-Q1" and c["status"] != "ACTIVE_BUCK" for c in data["compared_cots"])
