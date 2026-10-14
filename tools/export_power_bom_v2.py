@@ -15,12 +15,14 @@ POWER_SHEETS = {
     "03_3V3_USB.kicad_sch",
 }
 PARTS = {
+    "R911": ("Panasonic ERJP08F3012V 30.1k 1% 1206", "", "", "", "", "VIN startup cold-headroom update; price/availability unverified"),
+    "R915": ("Panasonic ERJP08F3012V 30.1k 1% 1206", "", "", "", "", "VIN HOLD cold-headroom update; price/availability unverified"),
     "R207": ("Panasonic ERJP08F1003V 100k 1% 1206", "", "", "", "", "MCU ACC sense fault isolation; price/LCSC unverified"),
     "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
     "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
     "U302": ("MCP1826S-3302E/EB", "EUR", 1.14, "", "", "Mouser DE: 1pc EUR 1.14; DDPAK-3 improved thermal area, 10/100pc unpriced"),
-    "D901": ("Comchip SS510C-HF (5A 100V SMC)", "EUR", 0.998, 0.711, 0.443, "SMC matching footprint; thermal proof pending"),
-    "D902": ("Littelfuse 5.0SMDJ36A", "EUR", 2.11, 1.353, 0.921, "10/1000us rated; NO 350ms load-dump approval"),
+    "D901": ("Diodes S5MC-13-F 5A 1000V SMC", "USD", 1.03, 0.637, 0.4126, "DigiKey US observed14Oct2026 stock51879; no DE landed quote; cold Vf/thermal/pulse unqualified"),
+    "D902": ("TI TVS5800VEBR 58V flat clamp VEB6", "USD", 0.72, 0.512, 0.4025, "DigiKey US observed14Oct2026: stock0, expected12Jan2027; NOT a purchasable/landed quote; 20A8/20us clamp75V at27C only"),
     "L101": ("FCH0650-150M provisional 15uH", "", "", "", "", "footprint and Isat verification missing"),
     "U911": ("Wuerth 140356145000 80V SOP4", "EUR", 0.335, 0.296, 0.248, "CTR guaranteed at IF5mA only: 9V and hot/cold pending"),
     "D911": ("Diodes BAT54WS-7-F", "", "", "", "", "SOD323 K1/A2 negative Q914 base clamp; re-used component, prices unverified"),

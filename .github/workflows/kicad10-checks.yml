@@ -15,6 +15,7 @@ on:
       - 'tools/check_lmr38020_netlist.py'
       - 'tools/check_acc_vin_startup.py'
       - 'tools/check_acc_hold_prearm.py'
+      - 'tools/check_input_protection_envelope.py'
   workflow_dispatch:
 
 permissions:
@@ -87,6 +88,7 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/check_simple_input_netlist.py reports/TripTracer.net | tee reports/powerpath.log
+          python3 tools/check_input_protection_envelope.py | tee reports/input-protection-envelope.json
       - name: Assert LMR38020-Q1 buck topology from native KiCad netlist
         id: newbuck
         continue-on-error: true

@@ -320,4 +320,18 @@
  ))
 
 (symbol "BAT54WS_CLAMP" (pin_names (offset 1.016)) (in_bom yes) (on_board yes) (property "Reference" "D" (at 0 7.62 0) (effects (font (size 1.27 1.27)))) (property "Value" "BAT54WS" (at 0 -7.62 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "Diode_SMD:D_SOD-323" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (symbol "BAT54WS_CLAMP_0_1" (rectangle (start -5.08 4) (end 5.08 -4) (stroke (width 0.254) (type default)) (fill (type background)))) (symbol "BAT54WS_CLAMP_1_1" (pin passive line (at -11.43 0 0) (length 6.35) (name "A" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27))))) (pin passive line (at 11.43 0 180) (length 6.35) (name "K" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))))
+
+(symbol "S5MC_SMC" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+(property "Reference" "D" (at 0 8.89 0) (effects (font (size 1.27 1.27)))) (property "Value" "S5MC-13-F" (at 0 -8.89 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "Tripmaster:D_S5MC_SMC" (at 0 0 0) (effects (font (size 1.27 1.27))) (hide yes)) (property "Datasheet" "https://www.diodes.com/datasheet/download/S5AC.pdf" (at 0 0 0) (effects (font (size 1.27 1.27))) (hide yes))
+(symbol "S5MC_SMC_0_1"
+(polyline (pts (xy 5.08 5.08) (xy 5.08 -5.08) (xy -5.08 0) (xy 5.08 5.08)) (stroke (width 0.254) (type default)) (fill (type none)))
+(polyline (pts (xy -5.08 5.08) (xy -5.08 -5.08)) (stroke (width 0.254) (type default)) (fill (type none))))
+(symbol "S5MC_SMC_1_1" (pin passive line (at -10.16 0 0) (length 5.08) (name "K" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27))))) (pin passive line (at 10.16 0 180) (length 5.08) (name "A" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))))
+(symbol "TVS5800_VEB" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+(property "Reference" "D" (at 0 8.89 0) (effects (font (size 1.27 1.27)))) (property "Value" "TVS5800VEBR" (at 0 -8.89 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "Tripmaster:D_TVS5800_VEB0006A" (at 0 0 0) (effects (font (size 1.27 1.27))) (hide yes)) (property "Datasheet" "https://www.ti.com/lit/ds/slvsii6/slvsii6.pdf" (at 0 0 0) (effects (font (size 1.27 1.27))) (hide yes))
+(symbol "TVS5800_VEB_0_1" (rectangle (start -5.08 7.62) (end 5.08 -7.62) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "TVS5800_VEB_1_1" (pin passive line (at -10.16 5.08 0) (length 5.08) (name "IN" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27))))) (pin passive line (at -10.16 0 0) (length 5.08) (name "IN" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27))))) (pin passive line (at -10.16 -5.08 0) (length 5.08) (name "IN" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+(pin passive line (at 10.16 5.08 180) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27))))) (pin passive line (at 10.16 0 180) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27))))) (pin passive line (at 10.16 -5.08 180) (length 5.08) (name "GND" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))))
 )
