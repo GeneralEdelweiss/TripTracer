@@ -32,3 +32,6 @@ TI EN absolute maximum VIN+0.3V and thresholds:
 https://www.ti.com/lit/ds/symlink/lmr38020-q1.pdf
 
 Still required: hot/cold DC qualification, rapid VIN collapse/EN charge injection, ACC-off start-to-HOLD overlap, timer deadline and GPIO fault injection, reverse ACC/BAT, input TVS pulse energy, USB reverse-current measurements and all prior vehicle gates. No EN hold capacitor was added, because retained EN charge during VIN collapse needs independent evaluation. Native connectivity/ERC cannot prove these analog or laboratory gates. The new 01H drawing groups actual visible wires by startup, optical hold and ACC sense; native rendered visual inspection remains to be completed.
+
+
+D911 package audit: replaced the inherited A1/K2 cache with explicit BAT54WS_CLAMP **K1/A2** mapping to standard Diode_SMD:D_SOD-323 cathode-pad1. D911.1 is now ACC_START_BASE, D911.2 GND; the drawn diode anode remains at ground. Candidate Diodes BAT54WS-7-F cathode-band orientation must match footprint pad1 on assembly. Source: https://www.diodes.com/datasheet/download/BAT54WS.pdf . No physical PCB was changed.

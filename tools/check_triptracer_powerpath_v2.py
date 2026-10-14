@@ -18,7 +18,7 @@ def check(p):
     expect = {
         "ACC_PROTECTED_IN": {("J901","2"),("R923","1"),("R916","1")},
         "BUCK_ENABLE": {("R911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("D911","1"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
+        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("D911","2"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
                  ("R917","2"),("U301","1"),("U302","2")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
         "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3"),("Q915","2"),("R912","1")},
@@ -79,7 +79,7 @@ def check(p):
         "R922": {"1":"ACC_START_SINK", "2":"ACC_START_PNP_BASE"},
         "R912": {"1":"HV_PROTECTED_AFTER_EFUSE", "2":"ACC_START_PNP_BASE"},
         "R911": {"1":"ACC_START_VIN", "2":"BUCK_ENABLE"},
-        "D911": {"1":"GND", "2":"ACC_START_BASE"},
+        "D911": {"1":"ACC_START_BASE", "2":"GND"},
     }
     for ref, pins in startup.items():
         for pin, required in pins.items():
@@ -87,7 +87,7 @@ def check(p):
             assert actual == [required], f"startup {ref}.{pin}: {actual} != {required}"
     assert "ACC_EN_BIAS" not in nets, "old direct ACC-to-EN bias route returned"
     assert ("R911","1") not in nets["ACC_PROTECTED_IN"]
-    assert ("D911","2") not in nets["BUCK_ENABLE"]
+    assert not ({("D911","1"),("D911","2")} & nets["BUCK_ENABLE"])
     print("PASS: VIN-sourced PNP startup, isolated ACC NPN drive, EN pulldown and negative base clamp")
     forbidden=[("USB_VBUS_RAW",("U301","2")),("V5_SYS",("U301","6")),
                ("V5_BUCK_RAW",("U301","6")),("BUCK_ENABLE",("U301","8"))]

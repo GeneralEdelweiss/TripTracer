@@ -22,6 +22,7 @@ PARTS = {
     "D902": ("Littelfuse 5.0SMDJ36A", "EUR", 2.11, 1.353, 0.921, "10/1000us rated; NO 350ms load-dump approval"),
     "L101": ("FCH0650-150M provisional 15uH", "", "", "", "", "footprint and Isat verification missing"),
     "U911": ("Wuerth 140356145000 80V SOP4", "EUR", 0.335, 0.296, 0.248, "CTR guaranteed at IF5mA only: 9V and hot/cold pending"),
+    "D911": ("Diodes BAT54WS-7-F", "", "", "", "", "SOD323 K1/A2 negative Q914 base clamp; re-used component, prices unverified"),
     "R922": ("Panasonic ERJP08F1002V 10k 1% 1206", "", "", "", "", "minimum 0.5W requirement; pricing and derating recheck"),
     "R923": ("Panasonic ERJP08F1002V 10k 1% 1206", "", "", "", "", "minimum 0.5W requirement; pricing and derating recheck"),
     "R924": ("Panasonic ERJP08F4701V 4.7k 1% 1206", "", "", "", "", "base pulldown; pricing unverified"),
