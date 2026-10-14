@@ -1,3 +1,5 @@
+**Aktueller Eingangsschutz (14.10.2026):** [01I LM74800-Q1 (WIP)](01I_LM74800_INPUT.kicad_sch) ist im Root-KiCad-Projekt aktiv; [Bericht](../../docs/LM74800_01I_INTEGRATION_2026-10-14.md). Alte 01G-Schaltung nur Referenz. Keine PCB-/Fahrzeugfreigabe.
+
 # TripTracer - KiCad10
 
 Oeffne **[TripTracer_V1.kicad_pro](TripTracer_V1.kicad_pro)**. Die Rootdatei `TripTracer_V1.kicad_sch` und der Hierarchie-Navigator erschliessen alle **12 aktiven Seiten** in einem Editor.
