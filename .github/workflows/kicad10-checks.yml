@@ -13,6 +13,8 @@ on:
       - 'tools/check_triptracer_powerpath_v2.py'
       - 'tools/export_power_bom_v2.py'
       - 'tools/check_lmr38020_netlist.py'
+      - 'tools/check_acc_vin_startup.py'
+      - 'tools/check_acc_hold_prearm.py'
   workflow_dispatch:
 
 permissions:
@@ -96,6 +98,7 @@ jobs:
         run: |
           python3 tools/check_triptracer_powerpath_v2.py reports/TripTracer.net | tee reports/powerpath-v2.log
           python3 tools/check_acc_vin_startup.py | tee reports/acc-vin-startup.json
+          python3 tools/check_acc_hold_prearm.py | tee reports/acc-hold-prearm.json
       - name: Export active low-cost supply BOM from native KiCad netlist
         id: powerbom
         continue-on-error: true

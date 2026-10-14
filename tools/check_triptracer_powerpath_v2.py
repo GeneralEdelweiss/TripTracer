@@ -18,24 +18,21 @@ def check(p):
     expect = {
         "ACC_PROTECTED_IN": {("J901","2"),("R923","1"),("R916","1")},
         "BUCK_ENABLE": {("R911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("D911","2"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
-                 ("R917","2"),("U301","1"),("U302","2")},
+        "GND": {("J201","A1"),("C305","2"),("R309","2"),("C306","2"),("J901","3"),("R924","2"),("D911","2"),("Q914","2"),("R913","2"),("U911","2"),("Q912","2"),("D912","2"),
+                 ("U301","1"),("U302","2")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
         "HV_PROTECTED_AFTER_EFUSE": {("R915","1"),("U101","3"),("Q915","2"),("R912","1")},
         "BAT_INPUT_FUSED_UNPROTECTED_TVS": {("J901","1"),("D901","2")},
         "VIN_HOLD_BIAS": {("R915","2"),("U911","4")},
         "ACC_Q912_BASE": {("R916","2"),("Q912","1"),("R918","1")},
-        "ACC_INV_N": {("Q912","3"),("R919","2"),("R920","1")},
-        "ACC_Q913_BASE": {("R920","2"),("Q913","1")},
-        "V3V3_SYS": {("U302","3"),("R919","1"),("R921","1"),("U201","3"),("R306","1")},
-        "ACC_DRIVE_5V": {("Q913","3"),("R917","1"),("R921","2")},
+        "ACC_INV_N": {("Q912","3"),("R919","2"),("U501","2"),("R502","2"),("D503","3")},
+        "V3V3_SYS": {("U302","3"),("R919","1"),("U201","3"),("R306","1")},
         "V5_BUCK_RAW": {("U301","3"),("U301","5"),("R308","1")},
         "MUX_PRI1_SENSE": {("U301","4"),("R308","2"),("R309","1")},
         "USB_VBUS_RAW": {("U301","6"),("J201","A4"),("J201","A9"),("J201","B4"),("J201","B9")},
         "V5_SYS": {("U301","2"),("U301","7"),("U302","1"),("C303","1"),("C306","1")},
         "USB_ACTIVE_N": {("U301","8"),("R306","2"),("U201","28")},
         "MCU_HOLD_REQ": {("U201","25"),("U502","2"),("R504","1")},
-        "TIMER_TRIG": {("U501","2"),("C502","2"),("R502","2"),("D501","2"),("D502","1")},
         "TIMER_RC": {("U501","6"),("U501","7"),("R501","2"),("C501","1")},
         "TIMER_RESET": {("U501","4"),("R503","2"),("C503","1")},
         "TIMER_CTRL": {("U501","5"),("C504","1")},
@@ -47,17 +44,13 @@ def check(p):
         actual=nets.get(name,set())
         assert req <= actual, f"{name} missing {sorted(req-actual)}; actual={sorted(actual)}"
     # Check every timer IC terminal exactly, including supply pins and clamps.
-    # Positive trigger clamp: D501 A2=TRIG, K1=3V3.
-    # Negative trigger clamp: D502 A2=GND, K1=TRIG.
+    # TRIG is now a DC inverse-ACC signal; obsolete AC coupling/clamps are absent.
     exact_timer = {
-        "U501": {"1":"GND", "2":"TIMER_TRIG", "3":"HOLD_TIME_WINDOW",
+        "U501": {"1":"GND", "2":"ACC_INV_N", "3":"HOLD_TIME_WINDOW",
                  "4":"TIMER_RESET", "5":"TIMER_CTRL", "6":"TIMER_RC",
                  "7":"TIMER_RC", "8":"V3V3_SYS"},
         "U502": {"1":"HOLD_TIME_WINDOW", "2":"MCU_HOLD_REQ", "3":"GND",
                  "4":"HOLD_TIMER_GRANTED_3V3", "5":"V3V3_SYS"},
-        "D501": {"1":"V3V3_SYS", "2":"TIMER_TRIG"},
-        "D502": {"1":"TIMER_TRIG", "2":"GND"},
-        "C502": {"1":"ACC_DRIVE_5V", "2":"TIMER_TRIG"},
         "C503": {"1":"TIMER_RESET", "2":"GND"},
         "C504": {"1":"TIMER_CTRL", "2":"GND"},
         "C505": {"1":"V3V3_SYS", "2":"GND"},
@@ -69,7 +62,21 @@ def check(p):
             actual = [name for name, nodes in nets.items() if (ref, pin) in nodes]
             assert actual == [required], (
                 f"{ref}.{pin}: expected exactly {required}, actual {actual}")
-    print("PASS: timer and AND supply pins, trigger clamp polarities, POR and fail-off pull-down")
+    print("PASS: timer and AND supply pins, direct inverse-ACC trigger, POR and fail-off pull-down")
+    rearm = {
+        "R505": {"1":"TIMER_RC", "2":"TIMER_RC_CLAMP"},
+        "D503": {"1":"TIMER_RC_CLAMP", "3":"ACC_INV_N"},
+        "D912": {"1":"ACC_Q912_BASE", "2":"GND"},
+        "R919": {"1":"V3V3_SYS", "2":"ACC_INV_N"},
+    }
+    for ref, pins in rearm.items():
+        for pin, required in pins.items():
+            actual = [name for name, nodes in nets.items() if (ref, pin) in nodes]
+            assert actual == [required], f"rearm {ref}.{pin}: {actual} != {required}"
+    for retired in ("C502","D501","D502","Q913","R917","R920","R921"):
+        assert not any(ref == retired for nodes in nets.values() for ref, pin in nodes), retired
+    assert "ACC_DRIVE_5V" not in nets and "ACC_Q913_BASE" not in nets
+    print("PASS: prearmed 555 TRIG on global inverse ACC, low-leak RC rearm diode and Q912 reverse-base clamp")
     # ACC has no passive positive-current path to EN: all startup energy is VIN.
     startup = {
         "Q914": {"1":"ACC_START_BASE", "2":"GND", "3":"ACC_START_SINK"},

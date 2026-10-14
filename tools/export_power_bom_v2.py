@@ -28,8 +28,12 @@ PARTS = {
     "R924": ("Panasonic ERJP08F4701V 4.7k 1% 1206", "", "", "", "", "base pulldown; pricing unverified"),
     "Q914": ("Nexperia PMBT5551,215", "", "", "", "", "VIN-startup sink; SOT23 B1 E2 C3; price/LCSC unverified"),
     "Q915": ("Diodes MMBT5401-7-F", "", "", "", "", "VIN-only startup source; SOT23 B1 E2 C3; price/LCSC unverified"),
+    "D503": ("Diodes BAS116Q-7-F", "", "", "", "", "low-leak RC rearm A1 NC2 K3; price unverified"),
+    "D912": ("Diodes BAT54WS-7-F", "", "", "", "", "Q912 negative base clamp K1 A2; price unverified"),
+    "R505": ("Panasonic ERJP08F1002V 10k 1% 1206", "", "", "", "", "RC discharge current limit; price unverified"),
+    "R501": ("Panasonic ERJP08F1004V 1M 1% 1206", "", "", "", "", "lower timing R for leakage margin; price unverified"),
+    "C501": ("Murata GRM32ER71E226KE15L 22uF 25V X7R 1210", "", "", "", "", "effective capacitance at bias/temperature must be qualified; price unverified"),
     "Q912": ("MMBT5551 SOT23", "", "", "", "", "ACC level shifter; pricing pending"),
-    "Q913": ("MMBT5551 SOT23", "", "", "", "", "ACC level shifter; pricing pending"),
     "U501": ("TLC555QDRQ1", "EUR", 1.05, 0.759, 0.605, "monostable 24s nominal; effective capacitance and edge check open"),
     "U502": ("SN74LVC1G08QDBVRQ1", "EUR", 0.224, 0.153, 0.117, "hardware gated timer"),
 }
@@ -53,7 +57,7 @@ def export(src, dest):
     rows.sort(key=lambda x:(x[0],x[1]))
     assert rows, "No power components from native KiCad hierarchy"
     refs={r[1] for r in rows}
-    assert {"U101","U301","U302","D901","D902","U911","Q912","Q913","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
+    assert {"U101","U301","U302","D901","D902","U911","Q912","D503","D912","R505","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
     with open(dest,"w",newline="",encoding="utf-8") as fh:
         writer=csv.writer(fh)
         writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status"))
