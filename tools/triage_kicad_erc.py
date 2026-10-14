@@ -33,6 +33,12 @@ def triage(report):
         if not total: continue
         biggest=", ".join(f"{k[0]}: {v}" for k,v in per.most_common(3))
         lines.append(f"| `{path}` | {total} | {biggest} |")
+    lines += ["", "## Exact native findings (UUID / position)", ""]
+    for sh in sheets:
+        for violation in sh.get("violations", []):
+            lines.append(f"- {sh.get('path', '?')} {violation.get('type', '?')}")
+            for item in violation.get("items", []):
+                lines.append(f"  - {item.get('uuid', '?')}: {item.get('description', '?')}; {item.get('pos', {})}")
     lines += ["","## Nächster Korrekturdurchlauf","",
               "1. Stromversorgungs- und Anschlussfehler in der aktiven Versorgung vor kosmetischen Grid-Warnungen beheben.",
               "2. Grid-Warnungen über tatsächliche Endpunkt-/Pin-Koordinaten auf KiCad-Verbindungsgitter korrigieren, nicht ignorieren.",
