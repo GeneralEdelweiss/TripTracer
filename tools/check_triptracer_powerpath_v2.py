@@ -37,7 +37,14 @@ def check(p):
         "V5_SYS": {("U301","2"),("U301","7"),("U302","3"),("C303","1"),("C306","1")},
         "USB_ACTIVE_N": {("U301","8"),("R306","2"),("U201","28")},
         "LDO_COUT_RETURN": {("C305","2"),("R307","1")},
-        "MCU_HOLD_REQ": {("U201","25")},
+        "MCU_HOLD_REQ": {("U201","25"),("U502","2"),("R504","1")},
+        "TIMER_TRIG": {("U501","2"),("C502","2"),("R502","2"),("D501","2"),("D502","1")},
+        "TIMER_RC": {("U501","6"),("U501","7"),("R501","2"),("C501","1")},
+        "TIMER_RESET": {("U501","4"),("R503","2"),("C503","1")},
+        "TIMER_CTRL": {("U501","5"),("C504","1")},
+        "HOLD_TIME_WINDOW": {("U501","3"),("U502","1")},
+        "HOLD_TIMER_GRANTED_3V3": {("U502","4"),("R914","1")},
+
     }
     for name,req in expect.items():
         actual=nets.get(name,set())
@@ -75,6 +82,7 @@ def check(p):
     assert ("U911","4") not in nets["V3V3_SYS"]
     assert ("U911","3") not in nets["V3V3_SYS"]
     print("PASS: TPS2116 all eight pins exactly matched; VIN1/USB/VOUT and 3V3 domains isolated")
+    print("PASS: native TLC555 RC/trigger/reset + gated MCU-HOLD pin topology")
     print("PASS: 16 ACC, timed HOLD, 5V priority mux, 3V3 core and USB status net connections")
 
 if __name__ == "__main__":
