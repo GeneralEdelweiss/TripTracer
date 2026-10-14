@@ -17,7 +17,7 @@ def check(netlist):
         nodes = set(re.findall(
             r'\(ref "([^"]+)"\)\s+\(pin "([^"]+)"\)', block
         ))
-        nets[name.group(1).split("/")[-1]] = nodes
+        nets.setdefault(name.group(1).split("/")[-1], set()).update(nodes)
 
     expected = {
         "BUCK_VIN_PROTECTED": {("U101", "3"), ("C101", "1"), ("C107", "1")},
