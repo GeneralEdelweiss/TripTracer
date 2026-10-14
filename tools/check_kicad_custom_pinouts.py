@@ -62,7 +62,7 @@ def check():
         ]), (sym_name, pins)
     active = (ROOT / "01D_INPUT_PROTECTION.kicad_sch").read_text()
     expected_fets = (
-        ("FQD16N25CTM", "TO-263-3_TabPin2"),
+        ("FQD16N25CTM", "TO-252-3_TabPin2"),
         ("IPD90N10S4_06", "TO-252-3_TabPin2"),
     )
     for suffix, footprint in expected_fets:
