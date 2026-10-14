@@ -20,10 +20,9 @@ def check(netlist):
         nets.setdefault(name.group(1).split("/")[-1], set()).update(nodes)
 
     expected = {
-        "HV_PROTECTED_AFTER_EFUSE": {("U101", "3"), ("C101", "1"), ("C107", "1"), ("C108", "1")},
+        "HV_PROTECTED_AFTER_EFUSE": {("U101", "2"), ("U101", "3"), ("C101", "1"), ("C107", "1"), ("C108", "1")},
         "GND": {("U101", "1"), ("U101", "9"), ("C101", "2"),
                 ("C107", "2"), ("C108", "2"), ("R102", "2"), ("R103", "2")},
-        "BUCK_ENABLE": {("U101", "2")},
         "RT_400KHZ": {("U101", "4"), ("R103", "1")},
         "FB_5V": {("U101", "5"), ("R101", "2"), ("R102", "1")},
         "BOOT_38020": {("U101", "7"), ("C102", "1")},
@@ -36,6 +35,7 @@ def check(netlist):
         assert actual is not None, f"missing exported net: {name}"
         assert required <= actual, f"{name}: missing {sorted(required - actual)}"
     assert ("C103", "1") not in nets["GND"] and "Net-(U101-VCC)" not in nets, "Retired VCC component remains"
+    assert ("U101", "2") not in nets.get("BUCK_ENABLE",set()), "LMR38020 EN must not be upstream of VIN at OV cut-off"
     assert ("U101", "3") not in nets["V5_BUCK_RAW"], "VIN shorted to 5V"
     assert ("U101", "8") not in nets["V5_BUCK_RAW"], "SW bypasses inductor"
     assert ("U101", "7") not in nets["SW_38020"], "BOOT shorted to SW"
