@@ -77,6 +77,21 @@ jobs:
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
             -o reports/trippower-erc.json hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-erc.log
+      - name: Diagnose stand-alone TripPower ERC categories
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+          p=Path('reports/trippower-erc.json')
+          if not p.exists(): print('Missing independent ERC JSON report')
+          else:
+              d=json.loads(p.read_text())
+              print('ERC JSON fields:',list(d) if isinstance(d,dict) else type(d).__name__)
+              print('ERC summary:',d.get('violations',[])[:16] if isinstance(d,dict) else str(d)[:4000])
+              print('ERC counts:',{k:v for k,v in d.items() if 'count' in k.lower()} if isinstance(d,dict) else '')
+          PY
       - name: TripPower independent native netlist export
         id: trippower_netlist
         continue-on-error: true
