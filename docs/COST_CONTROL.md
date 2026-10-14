@@ -1,5 +1,12 @@
 # TripTracer V1 – laufende Gesamtkostenkontrolle
 
+## 14.10.2026 – Wiederverwendbares TripPower-Modul, LM74800 gegen LM74930
+
+[Dokumentierter TI- und Bestandsvergleich](../hardware/modules/TripPower_5V2A/CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md): Fuer eigenstaendige 9–30V/5V2A-Platine mit zusaetzlichem VIN_PROTECTED-Abzweig wird LM74930QRGERQ1 **fachlich bevorzugt, aber NICHT umgestellt oder bestellfreigegeben**. Grund ist integrierte einstellbare gemeinsame OCP-/Kurzschlussabschaltung statt LM74800 ohne eFuse-Funktion. Die separate Abzweigleitung braucht weiter eigenen Kurzschlussschutz und eine passende fahrzeugseitige Sicherung.
+
+**Nur IC-Preissnapshot Mouser Deutschland 14.10.2026 (EUR Listenpreise, Steuer-/Versandbasis nicht abgeglichen):** LM74800 1/10/100: 2,58 / 1,94 / 1,59 EUR, LM74930 5,39 / 4,13 / 3,47 EUR; Aufpreis **2,81 / 2,19 / 1,88 EUR je Stueck**. Mouser-DE-Stock-Snapshot ca. 1.442 vs. 62; LM74930 bei LCSC als C22428070 in mehreren Tausend Einheiten gelistet. **Gleiche Schutzfunktion ist nicht ohne Rsense, TMR, RILIM und Footprint-/SOA-/9V-/VIN-Protected-Zweigschutz-Pruefung belegt.** Kein unverifizierter kompletter Preis, keine Lieferung/Bestellung, kein PCB-Swap.
+
+
 
 ## 14.10.2026 – neuer Beschaffungs- und Architektur-Gate: COTS zuerst
 
