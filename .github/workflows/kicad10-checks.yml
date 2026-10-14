@@ -7,6 +7,7 @@ on:
       - 'hardware/kicad/**'
       - '.github/workflows/kicad10-checks.yml'
       - 'tools/check_kicad_hierarchy.py'
+      - 'tools/triage_kicad_erc.py'
   workflow_dispatch:
 
 permissions:
@@ -50,6 +51,13 @@ jobs:
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
             -o reports/erc.json hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/erc.log
+      - name: Summarize ERC violations by sheet and type
+        if: always()
+        run: |
+          if test -s reports/erc.json; then
+            python3 tools/triage_kicad_erc.py reports/erc.json reports/erc-triage.md
+            cat reports/erc-triage.md >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: DRC including schematic parity
         id: drc
         continue-on-error: true
