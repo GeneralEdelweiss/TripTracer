@@ -1,5 +1,7 @@
 # TripTracer V1 – laufende Gesamtkostenkontrolle
 
+**AKTUELLE KALTSTART-ENTSCHEIDUNG (14.10.2026, ersetzt 6-V-Hartgrenze):** Ziel ist **ungefähr 9 V** während des Motorstarts, **kein hartes Mindestspannungslimit**. Unterhalb davon sind Display-Dimmung/Abschaltung und bei Bedarf ein definierter Reset/Neustart zulässig. **Keine zusätzlichen teuren Buck-/Bootstrap-/Puffer-Bauteile allein zur garantierten Weiterfunktion bei 6 V vorsehen.** Die 9–30 V als nominaler Auslegungsbereich, 12-/24-V-Fahrzeugkompatibilität und elektrische/thermische Sicherheit bei Spannungseinbrüchen und Transienten bleiben erhalten. Frühere Forderungen nach garantiertem 6-V-Betrieb in diesem Repository sind **überholt**; bestehende technische 6-V-Sensitivitätsrechnungen sind nur noch Studien, keine verpflichtende Bestehensgrenze.
+
 **NEUESTE SPANNUNGSENTSCHEIDUNG (13.10.2026):** Der Nutzer senkt die obere Dauerbetriebsgrenze von 36 V auf **ca. 30 V**. Fuer die Auslegung gilt jetzt **9–30 V Dauerbetrieb**, weiterhin 12-/24-V-Bordnetze und **6 V beim definierten Motorstart**. Die gewaehlten Automotive-/Load-Dump-Transientenziele sind davon getrennt und bleiben bestehen; Spannungen oberhalb 30 V sind keine zugesagte Dauerbetriebsbedingung. OVP-Schwelle mit Toleranzen oberhalb 30 V und unterhalb der nachgewiesenen Bauteilgrenzen dimensionieren. **Anforderungsentscheidung, kein Testnachweis.**
 
 Aeltere 36-V-Rechnungen in diesem Dokument bleiben als historische Szenarien erkennbar; sie sind keine aktuelle Dauerbetriebsanforderung.
