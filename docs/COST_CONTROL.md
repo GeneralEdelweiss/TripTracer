@@ -1,5 +1,21 @@
 # TripTracer V1 – laufende Gesamtkostenkontrolle
 
+
+## 14.10.2026 – neuer Beschaffungs- und Architektur-Gate: COTS zuerst
+
+**Vor jeder weiteren eigenentwickelten Regler-/Schutzschaltung zuerst nach fertig kaufbaren Modulen und Herstellerreferenzen suchen.** Marktvergleich, technische Eignung, gleiche Schutzfunktionen und komplette Einkaufskosten vor einem neuen KiCad-Entwurf dokumentieren. Verbindliches Beispiel: [COTS_POWER_SUPPLY_EVALUATION.md](COTS_POWER_SUPPLY_EVALUATION.md).
+
+**12/24-V → 5 V / 2 A – neuer Prototyp-Preisvergleich (keine Freigabe):**
+
+| Kandidat | Nachprüfbarer Teilpreis | Zusatzaufwand |
+| --- | --- | --- |
+| RECOM R-78K5.0-2.0L (SIP3, 6,5–36 V) | Reichelt DE **5,35 € / 1 inkl. MwSt.**, zzgl. Versand | TI LM74800-Q1/LM74930-Q1 samt externen FETs, Transienten-/Überstromschutz; Modul ohne EN braucht echten ACC-/HOLD-Abschaltpfad |
+| RECOM RPH-3.0-CT (SMD, 4,5–55 V, EN, 3 A) | Mouser DE **7,89 € / 1**, **7,76 € / 10**, zzgl. Steuern/Versand | Referenz-Peripherie, 47-Pad-QFN-Bestückung, Verpol-/Transienten-/Leitungsschutz |
+| Bisheriger TI LMR38020FSQDDARQ1 (Automotive, 4,2–80 V, 2 A) | Mouser DE **4,01 € / 1**, **3,02 € / 10**, **2,50 € / 100**, zzgl. Steuern/Versand | Induktivität, passive Bauteile, Buck-PCB/EMV-Auslegung und Schutzpfad |
+
+**Preis-/Linkstand:** Web-Recherche 14.10.2026; aktuelle Verfügbarkeit und individuelle Steuern beim Bestellen neu prüfen. **Die frühere geschätzte Spanne 11–14 € für „LM74800 + RECOM“ ist keine vollständige, geprüfte Gesamtkalkulation** (insbesondere Kurzschluss-/Brand-, ACC-/OFF-, USB-/M8-Schutz, FET-SOA und Fertigung unberücksichtigt). **Keinen Gesamtpreis aus Einzelpreisen verschiedener Währungen/Steuerarten konstruieren.** Aktuelle Bauteile im KiCad bleiben bis zum vollständigen Gegenvergleich unberührt; die Dokumentation ist kein Kauf-/Fertigungsnachweis.
+
+
 **AKTUELLE ENTWICKLUNGSAUSWAHL (14.10.2026):** **TI LMR38020-Q1** (Automotive, 4,2–80 V, 2 A, synchroner 5-V-Buck) wird als neuer bevorzugter Hauptregler übernommen. Der vorherige LM74930-Q1 + LMR36520-Entwurf bleibt als bisheriger experimenteller Referenzstand erhalten und ist **nicht mehr die Kosten-Baseline**; keine ungetestete KiCad-Schaltung als funktionsfähig ausgeben. Ziel: einfache externe Verpol-/Eingangs-/ACC-HOLD-Schutzbeschaltung mit möglichst wenig Bauteilen. **Load-Dump nach ISO 16750-2:2023 differenzieren:** Test A (ungedämpft, 24V bis 202V, 350ms) und Test B (zentral begrenzt, typ. 58V bei 24V) sind unterschiedliche Prüffälle. Für den preiswerten Grundentwurf erst Test-B-Profil mit tatsächlichem Klemmpuls, TVS-Klemmspannung bei Strom/Temperatur und 80V-Grenzen des LMR38020-Q1 bewerten; Test A bleibt als eigenständige ungeprüfte Anforderung/Restrisiko zu dokumentieren und darf nicht stillschweigend als bestanden oder ausgeschlossen gelten. 9–30V Normalbetrieb, ~9V weiches Kaltstartziel, externe BAT+/ACC-Leitungsabsicherung, sicherer Kurzschluss-/Thermikschutz, USB-Rückspeisesperre und geordneter ACC-AUS-Nachlauf bleiben bestehen. **Keine ISO-/Fertigungs-/Fahrzeugfreigabe.**
 
 **AKTUELLE KALTSTART-ENTSCHEIDUNG (14.10.2026, ersetzt 6-V-Hartgrenze):** Ziel ist **ungefähr 9 V** während des Motorstarts, **kein hartes Mindestspannungslimit**. Unterhalb davon sind Display-Dimmung/Abschaltung und bei Bedarf ein definierter Reset/Neustart zulässig. **Keine zusätzlichen teuren Buck-/Bootstrap-/Puffer-Bauteile allein zur garantierten Weiterfunktion bei 6 V vorsehen.** Die 9–30 V als nominaler Auslegungsbereich, 12-/24-V-Fahrzeugkompatibilität und elektrische/thermische Sicherheit bei Spannungseinbrüchen und Transienten bleiben erhalten. Frühere Forderungen nach garantiertem 6-V-Betrieb in diesem Repository sind **überholt**; bestehende technische 6-V-Sensitivitätsrechnungen sind nur noch Studien, keine verpflichtende Bestehensgrenze.
