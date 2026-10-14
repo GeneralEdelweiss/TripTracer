@@ -9,7 +9,7 @@ from pathlib import Path
 
 POWER_SHEETS = {
     "01C_HOLD_TIMER.kicad_sch",
-    "01G_SIMPLE_INPUT.kicad_sch",
+    "01I_LM74800_INPUT.kicad_sch",
     "01H_ACC_HOLD_GATE.kicad_sch",
     "02_5V_Buck.kicad_sch",
     "03_3V3_USB.kicad_sch",
@@ -24,8 +24,25 @@ PARTS = {
     "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
     "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
     "U302": ("MCP1826S-3302E/EB", "EUR", 1.14, "", "", "Mouser DE: 1pc EUR 1.14; DDPAK-3 improved thermal area, 10/100pc unpriced"),
-    "D901": ("Diodes S5MC-13-F 5A 1000V SMC", "USD", 1.03, 0.637, 0.4126, "DigiKey US observed14Oct2026 stock51879; no DE landed quote; cold Vf/thermal/pulse unqualified"),
-    "D902": ("TI TVS5800VEBR 58V flat clamp VEB6", "USD", 0.72, 0.512, 0.4025, "DigiKey US observed14Oct2026: stock0, expected12Jan2027; NOT a purchasable/landed quote; 20A8/20us clamp75V at27C only"),
+    "U921": ("LM74800QDRRRQ1", "", "", "", "", "SELECTED; WSON pad13 FLOAT, footprint and vehicle tests not approved"),
+    "Q921": ("STD17NF25", "", "", "", "", "250V cutoff FET; 200V SOA still unqualified"),
+    "Q922": ("BUK7Y4R8-60EX", "", "", "", "", "60V ideal diode FET; transient stresses unqualified"),
+    "D921": ("SMBJ150A-13-F", "", "", "", "", "TI 200V reference input TVS upper; surge energy unqualified"),
+    "D922": ("SMBJ33CA-13-F", "", "", "", "", "TI input TVS lower; surge energy unqualified"),
+    "D923": ("1SMB5943BT3G", "", "", "", "", "VS clamp 56V 3W; thermal pulse unqualified"),
+    "D924": ("1N4148WSQ-7-F", "", "", "", "", "A-to-VS bootstrap bypass diode, not zener"),
+    "R921": ("CRCW121010K0FKEAHP", "", "", "", "", "10k 1210; 200V/350ms resistor pulse 0.7J NOT QUALIFIED"),
+    "R932": ("RC1206FR-07330KL", "", "", "", "", "OV upper 330k 1%"),
+    "R933": ("RC1206FR-07330KL", "", "", "", "", "OV upper 330k 1%"),
+    "R934": ("RC1206FR-0723K2L", "", "", "", "", "OV lower 23.2k; 1uA input-leakage threshold error OPEN"),
+    "C921": ("C1210C104JARACTU", "", "", "", "", "Input 100nF 250V pulse unqualified"),
+    "C922": ("C1210C225K1RACTU", "", "", "", "", "VS storage 2.2uF 100V DC bias open"),
+    "C923": ("C1210C225K1RACTU", "", "", "", "", "VS storage 2.2uF 100V DC bias open"),
+    "C924": ("C1210C105K1RACTU", "", "", "", "", "1uF common-source A/GND per TI datasheet"),
+    "C925": ("C1206C224K5RACTU", "", "", "", "", "220nF CAP/VS charge pump"),
+    "C926": ("EEE-FK1J470P", "", "", "", "", "47uF 63V OUT; transient & DC bias pending"),
+    "R925": ("RC1206FR-07100RL", "", "", "", "", "100ohm HGATE series"),
+    "C927": ("C1206C103K1RACTU", "", "", "", "", "10nF slew HGATE/A node"),
     "L101": ("FANGCHENG FCH0650-150M 15uH 5.5A-Isat catalog C20415538", "USD", "", 0.1579, 0.1234, "LCSC 14Oct2026 stock >10k, MOQ 5, 5-49pc 0.1579 USD, 50-149pc 0.1234 USD; price for 1 unknown; FCH pad geometry NOT approved: active PCB still contains Bourns 10uH footprint, do not fabricate"),
     "U911": ("Wuerth 140356145000 80V SOP4", "EUR", 0.335, 0.296, 0.248, "CTR guaranteed at IF5mA only: 9V and hot/cold pending"),
     "D911": ("Diodes BAT54WS-7-F", "", "", "", "", "SOD323 K1/A2 negative Q914 base clamp; re-used component, prices unverified"),
@@ -63,7 +80,7 @@ def export(src, dest):
     rows.sort(key=lambda x:(x[0],x[1]))
     assert rows, "No power components from native KiCad hierarchy"
     refs={r[1] for r in rows}
-    assert {"R207","U101","U301","U302","D901","D902","U911","Q912","D503","D912","R505","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
+    assert {"R207","U101","U301","U302","U921","Q921","Q922","D921","D922","D923","D924","R932","R933","R934","U911","Q912","D503","D912","R505","Q914","Q915","R922","R923","R924","U501","U502"} <= refs, "Missing mandatory active power parts"
     with open(dest,"w",newline="",encoding="utf-8") as fh:
         writer=csv.writer(fh)
         writer.writerow(("sheet","reference","KiCad_value","KiCad_footprint","selected_or_candidate_MPN","price_currency","single_unit","ten_unit","hundred_unit","qualification_status","installation"))
