@@ -19,7 +19,7 @@
       "mpn": "LM74800QDRRRQ1",
       "qty": 1,
       "package": "WSON-12",
-      "status": "SELECTED_NOT_PLACED",
+      "status": "SELECTED_PLACED_ACTIVE_SCHEMATIC_FOOTPRINT_ASSIGNED_NOT_PCB_PLACED",
       "source": "https://www.ti.com/product/LM7480-Q1"
     },
     {
@@ -281,7 +281,11 @@
     "approved_for_pcb_order": false,
     "hardware_tested": false,
     "fully_costed": false,
-    "protection_circuit_present_in_active_kicad": true
+    "protection_circuit_present_in_active_kicad": true,
+    "buck_enable_vin_max_violation_resolved_in_schematic": true,
+    "acc_off_hot_leakage_proven": false,
+    "nine_volt_bootstrap_tested": false,
+    "u921_footprint_manufacturer_paste_pattern_validated": false
   },
   "open_gates": [
     "9V/6V VS feed startup current and bootstrap transient with actual 10k resistor",
@@ -363,8 +367,18 @@
       "R_SLEW": "R925",
       "C_SLEW": "C927"
     },
-    "acc_enable_link": "01H Q915 emitter now sources from LM748_VS_SAFE before U921 output, avoiding boot deadlock; U921 and U101 share BUCK_ENABLE",
+    "acc_enable_link": "01H Q915 emitter is sourced from LM748_VS_SAFE upstream; BUCK_ENABLE controls only U921 EN/UVLO. U101 LMR38020 EN is tied to its own HV_PROTECTED_AFTER_EFUSE/VIN to respect EN<=VIN+0.3V.",
     "c10_15nf": "OMITTED: 1uF at common-source A-GND per TI datasheet / E2E; EVM has 15nF C10 and exposed-pad drawing conflict; RTN PAD13 left floating",
-    "remaining": "no verified U921 pad13 footprint, no PCB parity, ERC/DRC/ISO or pulse/current-limit signoff"
+    "remaining": "U921 TI DRR0012E footprint added to active KiCad schematic but not PCB-placed or layout/thermally qualified. 9V charge-pump startup and hot OFF leakage unproven; 200V pulse/FET SOA/TVS/current limit/fusing, ERP, PCB parity, ERC/DRC and lab/ISO tests open.",
+    "u921_footprint": "Tripmaster:TI_LM74800_Q1_DRR0012E, local exact manufacturer nominal pad centers 3x3mm, RTN13 isolated; footprint paste/PCB thermal review pending",
+    "acc_drive_parts_update": {
+      "R912": "100k RC1206FR-07100KL",
+      "R922": "100k RC1206FR-07100KL",
+      "R911": "33k RC1206FR-0733KL",
+      "R913": "47k RC1206FR-0747KL",
+      "R923": "100k surge ERJP08F1003V",
+      "R924": "100k RC1206FR-07100KL",
+      "R916": "100k surge ERJP08F1003V"
+    }
   }
 }
