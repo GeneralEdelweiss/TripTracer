@@ -1,3 +1,5 @@
+**Entwicklungsrevision 14.10.2026:** [LM74800-Q1 Eingangsschutz 01I](01I_LM74800_INPUT.kicad_sch) ist im [Hierarchieblatt](01_Eingangsschutz.kicad_sch) aktiv. ACC-/HOLD-Selbsthaltung nutzt `LM748_VS_SAFE` vor der Schutz-FET-Stufe für den Kaltstart. Frühere 01G-Diode/TVS nur Referenz, 01D LM74930 ebenfalls inaktiv. [Auslegungs- und Prüfbericht](../../docs/LM74800_01I_INTEGRATION_2026-10-14.md). **Kein ERC-/DRC- oder PCB-/Fahrzeug-Gesamtfreigabe**, kein freigegebener U921-Footprint.
+
 > **Aktuell14.10.2026:** Einstieg und gueltiger aktiver Schaltungsstand stehen in [README.md](README.md); Eingangsentwurf und native Nachweise in [diesem Bericht](../../docs/validation/2026-10-14-input-flat-clamp.md). Die folgenden aelteren Zwischenstaende beschreiben historische Schaltungen. LM74930/LMR36520/Mikrorelais und feste6V-Forderungen sind keine aktuelle Baseline.
 
 ## Historische Zwischenstaende
