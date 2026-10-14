@@ -1,31 +1,31 @@
 #!/usr/bin/env python3
-"""TripTracer power switching and NCV1117 thermal capacity budgets.
-Conservative engineering bounds, NOT qualification or measured performance.
-"""
-from math import inf
+"""Data-sheet-conditioned TPS2116 transfer and NCV1117 thermal budgets.
 
-def cap_needed(i_amp, gap_seconds, allowable_droop):
-    return i_amp*gap_seconds/allowable_droop
+TPS2116 rev A section 6.6: tSW (VINx=5V, RL=10ohm, CL=10uF)
+is a TYPICAL test point (~8us), NOT a worst-case guarantee.
+No claim of successful SD writes or production qualification.
+Source: https://www.ti.com/lit/ds/symlink/tps2116.pdf
+"""
+def c_required(load_a, duration_us, droop_v):
+    return 1e6 * load_a * duration_us * 1e-6 / droop_v
 
 def main():
-    # Representative envelope only; TPS2116 manufacturer tSW max must be
-    # selected from exact variant, VIN difference and worst-case datasheet.
-    for i in (0.2,0.4,0.7):
-        for gap_us in (100,1000):
-            c=cap_needed(i,gap_us*1e-6,0.3)
-            print(f"mux transition: I={i:.1f} A, break={gap_us}us, 0.30V droop -> >= {c*1e6:.0f}uF effective")
+    load=0.4
+    print("TPS2116 5V tSW datasheet typical test: ~8us, RL=10ohm, CL=10uF")
+    for t in (8,20,100,1000):
+        req=c_required(load,t,0.3)
+        actual_droop=load*t*1e-6/22e-6
+        print(f"0.4A, {t}us: >= {req:.1f}uF effective for 0.3V droop; nominal C303=22uF gives {actual_droop:.3f}V")
+    assert abs(c_required(.4,8,.3)-10.6666666667)<.01
+    assert c_required(.4,100,.3)>133
+    # 22uF capacitor DC derating unknown; evaluate usable cap separately.
+    for eff in (10,22,44):
+        print(f"effective V5_SYS {eff}uF: ~{eff*.3/.4:.1f}us supported at 0.4A /0.3V droop")
     for i in (0.2,0.3,0.4,0.5):
-        p=(5.0-3.3)*i
-        for ambient in (60,85):
-            theta_allowed=(125-ambient)/p
-            print(f"NCV1117: I3V3={i:.1f}A, P={p:.3f}W, Tamb={ambient}C, "
-                  f"thetaJA needed <= {theta_allowed:.1f}K/W for Tj<=125C")
-    c_nom=22e-6
-    max_100us=c_nom*.3/100e-6
-    print(f"22uF nominal could support at most {max_100us:.3f}A for 100us/0.3V, "
-          "and real MLCC DC bias reduces this.")
-    assert c_nom < cap_needed(.4,100e-6,.3)
-    print("PASS: correctly flags that 22uF is insufficient at 0.4A / 100us / 0.3V droop.")
-    print("NOT PROVEN: actual TPS2116 transition time, 3V3 LDO thermals, effective MLCC capacitance.")
+        dissipated=(5-3.3)*i
+        thermal=(125-85)/dissipated
+        print(f"NCV1117 {i:.1f}A: Pd={dissipated:.3f}W; for Tamb85C, Tj<=125C needs thetaJA <= {thermal:.1f}K/W")
+    print("PASS: representative calculations. tSW 8us is typical ONLY; no guaranteed max given here.")
+    print("OPEN: measured transition while both sources present, USB current limit, MLCC derating, LDO junction temperature.")
 if __name__=="__main__":
     main()
