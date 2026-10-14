@@ -2,7 +2,7 @@
  (paper "A4")
  (title_block (title "TripPower – universal 9-30V vehicle DC to regulated 5V/2A") (date "2026-10-14") (rev "PRELIMINARY / NOT RELEASED"))
  (lib_symbols)
- (text "PORTABLE 2-SHEET CIRCUIT DRAFT. LM74930 cutoff/circuit-breaker and 5V buck. VIN_PROTECTED via separate removable fuse; NOT FOR FABRICATION." (at 30 16.51 0) (effects (font (size 1.0 1.0))) (uuid "f1512578-cc72-4c26-bf70-dbbd00000011"))
+ (text "PORTABLE 2-SHEET CIRCUIT DRAFT. LM74930 cutoff/circuit-breaker and 5V buck. VIN_PROTECTED_UNFUSED output requiring external downstream branch fuse; NOT FOR FABRICATION." (at 30 16.51 0) (effects (font (size 1.0 1.0))) (uuid "f1512578-cc72-4c26-bf70-dbbd00000011"))
  (sheet (at 25.4 35.56) (size 215.9 40.64) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
   (stroke (width 0) (type default)) (fill (color 0 0 0 0)) (uuid "f1512578-cc72-4c26-bf70-dbbd00000002")
   (property "Sheetname" "01 – LM74930 12-24V INPUT PROTECTION" (at 25.4 32 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
