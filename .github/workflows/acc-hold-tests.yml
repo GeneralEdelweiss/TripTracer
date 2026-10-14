@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/test_acc_hold_state_machine.py'
       - 'tools/test_acc_hold_exhaustive.py'
+      - 'tools/analyze_rc_shutdown.py'
       - '.github/workflows/acc-hold-tests.yml'
   workflow_dispatch:
 
@@ -27,6 +28,8 @@ jobs:
         run: python3 tools/test_acc_hold_state_machine.py
       - name: Bounded exhaustive four-step transitions
         run: python3 tools/test_acc_hold_exhaustive.py
+      - name: Bounded RC shutdown leakage sensitivity
+        run: python3 tools/analyze_rc_shutdown.py
       - name: Qualification reminder
         if: always()
         run: |
