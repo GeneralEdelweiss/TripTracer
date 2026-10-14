@@ -1,5 +1,14 @@
 # TripPower 5V/2A – eigenstaendiges, kopierbares DC/DC-Modul
 
+## Controllervergleich 14.10.2026: Schutz mit elektronischem Circuit Breaker
+
+[Vergleich LM74800-Q1 / LM74930-Q1 inkl. Kosten, Livebestand und TI-Referenz](CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md).
+
+**Aktuelle fachliche Empfehlung fuer die NEUE, kopierbare TripPower-Platine: LM74930-Q1 (noch kein Teile-Freeze).** Gegenueber dem LM74800 bietet er OCP, schnelle Kurzschlusserkennung, Einstell-Timer, FLT und IMON. Ein gemeinsam ausgelegter Shunt **vor** der Aufteilung sichert den Gesamtpfad hinter den Schutz-FETs. Der externe VIN_PROTECTED-Abzweig bekommt weiterhin seine **eigene Kurzschluss-/Leitungsabsicherung**. Die aktive TripTracer-`01I_LM74800_INPUT.kicad_sch` bleibt bis zur verifizierten Entscheidung UNVERAENDERT. 9V-Bootstrap, Ruhestrom, passende FET-/Shunt-Werte, Gate-/OV-Sicherheit, physische PCB-Anschluesse und LCSC/DE-Beschaffung sind noch offene Gate-A/B-Punkte.
+
+**Preisdelta nur Schutz-IC, Mouser DE Snapshot 14.10.2026:** +2,81 EUR/1pc, +2,19 EUR/10pcs, +1,88 EUR/100pcs gegenueber LM74800; OCP-Zusatzpassive/Kelvin-Shunt/QFN-Bestueckung sowie Versand/USt. kommen hinzu. Entscheidung ueber das vollstaendige Modul erst nach BOM auf gleichem Schutzumfang.
+
+
 **Schritt 1 / Stand 2026-10-14: Schnittstellen- und Wiederverwendungsarchitektur dokumentiert. Noch KEIN eigenstaendiges KiCad-Projekt, keine eigene Platine, kein bestandener ERC/DRC oder Prototyp. NICHT FERTIGUNGS- ODER FAHRZEUGFREIGEGEBEN.**
 
 ## Ziel
