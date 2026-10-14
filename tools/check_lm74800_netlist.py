@@ -20,12 +20,12 @@ def check(path):
         missing=set(pins)-actual
         assert not missing, f"{net}: missing {missing}; actual={sorted(actual)}"
     need("ACC_PROTECTED_IN",("J901","2"),("R923","1"),("R916","1"))
-    need("BAT_INPUT_FUSED_UNPROTECTED_TVS",("J901","1"),("Q921","2"),("R921","1"),("D921","1"),("C921","1"))
+    need("BAT_INPUT_FUSED_UNPROTECTED_TVS",("J901","1"),("Q921","2"),("R921","1"),("D921","1"),("C921","1"),("R932","1"))
     need("GND",("J901","3"),("U921","7"),("D922","2"),("D923","2"),("C924","2"),("R934","2"))
     need("LM748_A",("Q921","3"),("Q922","1"),("Q922","2"),("Q922","3"),("U921","2"),("D924","2"),("C924","1"),("C927","2"))
-    need("LM748_VS_SAFE",("R921","2"),("D923","1"),("D924","1"),("C922","1"),("C923","1"),
+    need("LM748_VS_SAFE",("U921","4"),("R921","2"),("D923","1"),("D924","1"),("C922","1"),("C923","1"),
          ("U921","3"),("U921","10"),("R912","1"),("Q915","2"))
-    need("LM748_OV_FEED",("U921","4"),("R932","1"))
+    assert "LM748_OV_FEED" not in nets, "obsolete clamped OV-divider input returned"
     need("LM748_OV_TOP_MID",("R932","2"),("R933","1"))
     need("LM748_OV",("U921","5"),("R933","2"),("R934","1"))
     need("LM748_CAP",("U921","11"),("C925","1"))
