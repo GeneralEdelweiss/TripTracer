@@ -53,7 +53,7 @@ def check(path):
     fref='Tripmaster:TI_LM74800_Q1_DRR0012E'
     assert '(property "Footprint" "'+fref+'"' in source, "U921 missing TI WSON12 footprint"
     fp=Path('hardware/kicad/Tripmaster.pretty/TI_LM74800_Q1_DRR0012E.kicad_mod').read_text('utf-8')
-    pads=re.findall(r'\\(pad "(\\d+)" smd',fp)
+    pads=re.findall(r'\(pad "(\d+)" smd',fp)
     assert sorted(map(int,pads))==list(range(1,14)),f"LM74800 footprint pins 1..13 mismatch: {pads}"
     for n in range(1,7):
         y=-1.25+(n-1)*.5
