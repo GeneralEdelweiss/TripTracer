@@ -75,7 +75,9 @@
     "iso_16750_2_test_b": "MISSING",
     "iso_16750_2_test_a": "MISSING",
     "ready_to_order_pcb": false,
-    "ready_for_vehicle": false
+    "ready_for_vehicle": false,
+    "pcb_buck_pin_net_mapping": "CORRECTED_ALL_9_PADS_AWAIT_NATIVE_CHECK",
+    "inductor_land_pattern": "NOT_APPROVED_SCH_15uH_FCH_VS_PCB_10uH_BOURNS"
   },
   "source_links": [
     "https://www.ti.com/product/LMR38020-Q1",

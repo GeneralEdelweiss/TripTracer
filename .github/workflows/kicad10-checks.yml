@@ -13,6 +13,7 @@ on:
       - 'tools/check_triptracer_powerpath_v2.py'
       - 'tools/export_power_bom_v2.py'
       - 'tools/check_lmr38020_netlist.py'
+      - 'tools/check_lmr38020_pcb_pads.py'
       - 'tools/check_acc_vin_startup.py'
       - 'tools/check_acc_hold_prearm.py'
       - 'tools/check_input_protection_envelope.py'
@@ -102,6 +103,10 @@ jobs:
         continue-on-error: true
         run: |
           python3 tools/check_lmr38020_netlist.py reports/TripTracer.net | tee reports/newbuck.log
+      - name: Check LMR38020 physical PCB pin nets
+        id: pcbbuck
+        continue-on-error: true
+        run: python3 tools/check_lmr38020_pcb_pads.py | tee reports/pcb-buck-pad-map.json
       - name: Assert ACC cold-start HOLD GPIO USB-M8 priority 3V3 power path
         id: newpowerpath
         continue-on-error: true
@@ -131,6 +136,7 @@ jobs:
         if: always()
         env:
           COTS: ${{ steps.cots.outcome }}
+          PCBBUCK: ${{ steps.pcbbuck.outcome }}
           SCHEMATICPDF: ${{ steps.schematicpdf.outcome }}
           ERC: ${{ steps.erc.outcome }}
           DRC: ${{ steps.drc.outcome }}
@@ -145,4 +151,4 @@ jobs:
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$COTS" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$COTS" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
