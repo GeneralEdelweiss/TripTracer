@@ -37,7 +37,7 @@ TI LMR38020-Q1 Rev B section 6.1 specifies EN absolute maximum VIN+0.3 V; sectio
 
 Using only an illustrative 0.35 V D911 drop and nominal 100k/47k/100k values:
 EN = (ACC/100k - 0.35*(1/100k+1/47k)) / (1/100k+1/47k+1/100k).
-This gives approximately 1.92 V at ACC=9 V and 7.01 V at ACC=30 V, against 0.3 V absolute ceiling when VIN=0. Actual internal clamp current/rail backfeed depends on the device and must not be treated as safe merely because R911 is large.
+This gives approximately 1.92 V at ACC=9 V and 7.00 V at ACC=30 V, against 0.3 V absolute ceiling when VIN=0. Actual internal clamp current/rail backfeed depends on the device and must not be treated as safe merely because R911 is large.
 
 **Not repaired or qualified in this change.** The startup path must be redesigned to reference its drive to available buck VIN, with independent ACC sensing, preserved cold start and bounded MCU hold. A generic Schottky clamp cannot simply be assumed to guarantee the +0.3 V limit over current/temperature. Verify BAT absent/ACC live, both source connection orders, reverse BAT/ACC, USB-only and ACC fall before approval. Existing TVS long-pulse/Test A/Test B gates remain open.
 
