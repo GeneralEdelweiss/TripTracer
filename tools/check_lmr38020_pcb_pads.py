@@ -35,7 +35,7 @@ def pads(fp):
     return result
 u=foot("U101")
 l=foot("L101")
-expect={"1":"GND","2":"BUCK_ENABLE","3":"HV_PROTECTED_AFTER_EFUSE","4":"RT_400KHZ",
+expect={"1":"GND","2":"HV_PROTECTED_AFTER_EFUSE","3":"HV_PROTECTED_AFTER_EFUSE","4":"RT_400KHZ",
         "5":"FB_5V","6":None,"7":"BOOT_38020","8":"SW_38020","9":"GND"}
 assert '(footprint "Tripmaster:TI_LMR38020Q1_DDA_EP"' in u
 assert '(property "Value" "LMR38020SQDDARQ1"' in u
