@@ -61,7 +61,7 @@ jobs:
         run: |
           if test -s reports/erc.json; then
             python3 tools/triage_kicad_erc.py reports/erc.json reports/erc-triage.md
-            cat reports/erc-triage.md >> "$GITHUB_STEP_SUMMARY"
+            cat reports/erc-triage.md | tee -a "$GITHUB_STEP_SUMMARY"
           fi
       - name: DRC including schematic parity
         id: drc
