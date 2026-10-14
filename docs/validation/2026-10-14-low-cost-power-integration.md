@@ -27,7 +27,7 @@ A dedicated dual-input ideal-diode/power mux is a technically attractive solutio
 
 | Item | 1 pc | 10 pcs | 100 pcs | Note |
 | --- | ---: | ---: | ---: | --- |
-| LMR38020FSQDDARQ1 | 3.92 | 2.98 | 2.49 | Automotive forced PWM; Mouser Germany listing |
+| LMR38020SQDDARQ1 | 3.92 | 2.98 | 2.49 | Automotive low-Iq variant actually placed in KiCad; Mouser Germany listing, supply availability must be reconfirmed at order |
 | TPS2121RUXR optional power mux | 2.10 | 1.57 | 1.28 | Not yet selected; USB/M8 priority possible, requires actual input wiring |
 
 LMR source: https://www.mouser.de/de/c/semiconductors/power-management-ics/voltage-regulators-voltage-controllers/switching-voltage-regulators/?series=LMR38020 .
@@ -43,3 +43,15 @@ LMR source: https://www.mouser.de/de/c/semiconductors/power-management-ics/volta
 ## KiCad validity
 
 Run native KiCad-10 schematic hierarchy/ERC/netlist/PCB DRC in CI on every change; preserve exact errors and never mask a missing real source with arbitrary power flags. Retiring unused experimental sheets reduces errors without demonstrating any electronic repair. ERC/DRC-clean, tested ACC/USB and validated thermal results remain mandatory before ordering boards.
+
+## Requested five implementation tasks – verified status
+
+| Task | Actual status as of 14 Oct 2026 |
+| --- | --- |
+| ACC MCU-HOLD with hard timeout | **Not completed.** 01C timer study remains; missing guaranteed cold-start EN driver and final shutdown gate. |
+| Retire obsolete alternatives | **Done in active hierarchy** for relay AUX 01A, relay ACC 01B, and unconnected latch/RC 01E/01F. Files remain in Git. |
+| USB-C 5V mux with M8 priority/no backfeed | **Not completed.** USB input exists at J201; no tested power routing to core; parts comparison only. |
+| Native KiCad ERC/DRC | **Run; not clean.** Run 38533356691: 179 ERC, 5 DRC, VIN diode/TVS path and LMR38020 topology regression pass. |
+| BOM and thermal review | **Partial.** Confirmed IC price tiers; other exact MPN/thermal/TVS pulse ratings outstanding. |
+
+The remaining issues must not be disguised as five finished tasks.
