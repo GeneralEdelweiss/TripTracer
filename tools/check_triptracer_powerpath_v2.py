@@ -19,7 +19,7 @@ def check(p):
         "ACC_PROTECTED_IN": {("J901","2"),("R911","1"),("R916","1")},
         "ACC_EN_BIAS": {("R911","2"),("R912","1"),("D911","1")},
         "BUCK_ENABLE": {("D911","2"),("R913","1"),("U911","3"),("U101","2")},
-        "GND": {("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
+        "GND": {("R307","2"),("J901","3"),("R912","2"),("R913","2"),("U911","2"),("Q912","2"),("Q913","2"),
                  ("R917","2"),("U301","1"),("U302","1")},
         "HOLD_TIMER_GRANTED_3V3": {("R914","1")},
         "HOLD_LED_ANODE": {("R914","2"),("U911","1")},
@@ -35,6 +35,7 @@ def check(p):
         "USB_VBUS_RAW": {("U301","6")},
         "V5_SYS": {("U301","2"),("U301","7"),("U302","3")},
         "USB_ACTIVE_N": {("U301","8"),("R306","2"),("U201","28")},
+        "LDO_COUT_RETURN": {("C305","2"),("R307","1")},
         "MCU_HOLD_REQ": {("U201","25")},
     }
     for name,req in expect.items():
@@ -62,6 +63,7 @@ def check(p):
         actual=[name for name,nodes in nets.items() if ("U301",pin) in nodes]
         assert actual==[required_rail], (
             f"TPS2116 pin {pin}: expected exactly {required_rail}, actual {actual}")
+    assert ("C305","2") not in nets["GND"], "NCV1117 output capacitor bypasses required ESR resistor"
     # Critical: neither source goes directly to the core LDO: only V5_SYS.
     assert ("U302","3") not in nets["USB_VBUS_RAW"]
     assert ("U302","3") not in nets["V5_BUCK_RAW"]
