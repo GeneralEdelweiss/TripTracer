@@ -19,3 +19,8 @@ Normalbereich9-30V, weiches Kaltstartziel etwa9V. Der alte Netzname `HV_PROTECTE
 ## Kaufteile-Entscheid und Baugruppenstatus (14.10.2026)
 
 [Nachvollziehbarer COTS-Entscheid samt konkreten Stop-Gates](../../docs/COTS_POWER_DECISION_GATE.md) und [maschinenlesbare Ist-Bestueckung](power_selection.json). COTS-first ist verbindlich, bedeutet aber **keinen blinden Austausch** einer bereits verschalteten Reglerstufe durch einen Wandler ohne EN oder mit engerer Spannungsgrenze. Die aktuell verkabelten Daten werden in CI gegen das Auswahlmanifest geprueft. **Eingangsschutz 01G bleibt entwicklungs-/beschaffungskritisch; keine Freigabe.**
+
+
+### Auswahl fuer den naechsten Schutzprototypen
+
+Der Nutzer hat LM74800-Q1 + STD17NF25 + BUK7Y4R8-60EX und zugehoerige Bauteile fixiert. Die vermeintliche 85V-Zenerdiode ist lt. TI-EVM eine 75V-Schaltdiode von A nach VS: [Entscheid samt BOM und pruefpflichtigen Punkten](../../docs/POWER_FRONTEND_DESIGN_FREEZE_2026-10-14.md), [maschinenlesbare BOM](power_frontend_design_freeze.json). **Noch nicht in der aktiven 01G_Eingangsschutz-KiCad-Schaltung verbaut.**

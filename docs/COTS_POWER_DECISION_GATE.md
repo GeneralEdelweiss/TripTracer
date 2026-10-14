@@ -1,6 +1,10 @@
 # TripTracer V1 — COTS-first Stromversorgungsentscheid und Stop-Gates
 **14.10.2026 | Branch `design/solid-state-power-v1` | Engineering-Stand, keine Fahrzeug-/Fertigungsfreigabe.**
 
+## Neuer Bauteil-Freeze des Nutzers (14.10.2026; jüngster Beschluss)
+
+[LM74800-Q1 festgelegte Eingangs-Bauteilkandidaten und geklärte 85V-Diode](POWER_FRONTEND_DESIGN_FREEZE_2026-10-14.md). Die Auswahl für den **nächsten Prototypen** ersetzt die frühere Präferenz für LM74930-Q1 als Schutzneuentwurf. TI-LMR38020-Q1 bleibt als bereits verschalteter 5V-Buck erhalten. **Die Auswahl ist noch NICHT im aktiven Eingangsschaltplan eingebaut und NICHT für Fahrzeug/Fertigung freigegeben.** Die „85-V-Diode“ ist eine A→VS-Schaltdiode, TI-EVM D6 1N4148WS-7-F; hier als automotive AEC-Q101-Variante **1N4148WSQ-7-F** ausgewählt. Keine zusätzliche 85V-Zenerdiode.
+
 ## Entscheidung für die nächste praktische Iteration
 **Die 5-V-Reglerstufe bleibt TI LMR38020SQDDARQ1 (U101, bereits im aktiven KiCad-10-Schaltplan).** Dieser industriell erhältliche Automotive-IC ist selbst ein bewährter Kauf-Funktionsblock mit TI-Referenzbeschaltung; keine proprietär neu entwickelte Buck-Topologie. Er kann auf `BUCK_ENABLE` durch bereits verschaltete ACC-/MCU-HOLD-Stufe gesteuert werden. Das 5V/2A-Ziel wird **nicht** durch eine aktuelle Messung bestätigt. Den vorhandenen USB-Umschalter TPS2116 und den 3V3-Folgeregler beibehalten, bis Tests etwas anderes nahelegen.
 
