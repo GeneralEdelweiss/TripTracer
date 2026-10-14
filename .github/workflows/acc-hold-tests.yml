@@ -1,0 +1,33 @@
+name: ACC HOLD behavioral tests
+
+on:
+  push:
+    branches: [design/solid-state-power-v1]
+    paths:
+      - 'tools/test_acc_hold_state_machine.py'
+      - 'tools/test_acc_hold_exhaustive.py'
+      - '.github/workflows/acc-hold-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acc-hold-logic:
+    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/solid-state-power-v1' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python version
+        run: python3 --version
+      - name: Directed ACC/HOLD state transitions
+        run: python3 tools/test_acc_hold_state_machine.py
+      - name: Bounded exhaustive four-step transitions
+        run: python3 tools/test_acc_hold_exhaustive.py
+      - name: Qualification reminder
+        if: always()
+        run: |
+          echo "These are behavioral model tests, not KiCad ERC, analog simulation, electrical verification or vehicle approval." >> "$GITHUB_STEP_SUMMARY"
