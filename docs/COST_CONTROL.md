@@ -1,8 +1,13 @@
 # TripTracer V1 – laufende Gesamtkostenkontrolle
 
+## 14.10.2026 – TripPower-Systementscheidung: nur eine Hauptsicherung
+
+**Keine F302-/SMD-Abzweigsicherung und kein separater Sicherungshalter auf TripPower oder TripTracer.** Die Fahrzeugzuleitung benoetigt **eine gemeinsame, wartbar austauschbare und geeignet DC-bemessene F_MAIN vor dem TripTracer-System**, moeglichst nah an der Quelle. Ausgang `VIN_PROTECTED_UNFUSED` liegt direkt hinter gemeinsamer LM74930-OCP/SCP-Schutzelektronik und Shunt, **ohne eigene selektive Absicherung**. Die Hauptsicherung muss mit **allen** Leiterbahn-, Kabel- und Steckerquerschnitten sowie Worst-Case-Fehlerenergie koordiniert werden. Ein 3-A-Typ ist nur Startkandidat; bei 9V 5V/2A plus 1A Zusatzlast sind ca. 2,39A Eingangs-Dauerstrom (80% Wirkungsgrad) denkbar; bei 80 Grad C traegt eine typische 58V-MINI 3A-Sicherung laut [Littelfuse-Tabelle](https://www.littelfuse.com/assetdocs/automotive-passenger-car-catalog?assetguid=613475c5-28ce-4646-a46e-0a9344b7a944) nur 2,0A Dauerstrom. 4A-/5A-Alternativen und entsprechende Leiterbahnen/I2t noch zu pruefen. Zusätzliche BOM-Kosten eines zweiten Sicherungshalters entfallen; kein konkreter Endpreis daraus behauptet.
+
+
 ## 14.10.2026 – LM74930-Controller fuer TripPower entschieden, Schaltungswerte vorbemessen
 
-[LM74930-Dimensionierung](../hardware/modules/TripPower_5V2A/LM74930_DIMENSIONING_2026-10-14.md): LM74930QRGERQ1 als **feste Controllerwahl fuer neues Standalone-Modul**, LMR38020-Q1 bleibt. Vorbemessung 5mOhm/2512-Shunt, 50Ohm RSET, 33,2k ILIM, 470Ohm ISCP, 47nF/100k Latch und zusaetzlicher separat zu sichernder 1A-VIN_PROTECTED-Zweig. **Kostentreiber noch offen:** 2512-Shunt/MPN, AEC-geeignete 250V-HV-FET-Thermik/Spannungsimpulse, pulsfeste RVS-Widerstaende, ggf. bessere VS-Klemme, zwei UV-/OV-Teiler, separate Abzweig-Sicherung/Stecker, 24pin-RGE-QFN-Loeten und 2-/4-Lagen. Keine neuen ungeprueften Stueckpreise, kein Einkaufs-Gesamtpreis aus dem 2,81 EUR IC-Aufpreis ableiten. Bestehende TripTracer-01I-LM74800-Schaltung ist noch unveraendert.
+[LM74930-Dimensionierung](../hardware/modules/TripPower_5V2A/LM74930_DIMENSIONING_2026-10-14.md): LM74930QRGERQ1 als **feste Controllerwahl fuer neues Standalone-Modul**, LMR38020-Q1 bleibt. Vorbemessung 5mOhm/2512-Shunt, 50Ohm RSET, 33,2k ILIM, 470Ohm ISCP, 47nF/100k Latch und zusaetzlicher VIN_PROTECTED_UNFUSED-Ausgang (1A Lastziel) ohne eigene Abzweigsicherung; nur ein gemeinsamer F_MAIN in Fahrzeugzuleitung. **Kostentreiber noch offen:** 2512-Shunt/MPN, AEC-geeignete 250V-HV-FET-Thermik/Spannungsimpulse, pulsfeste RVS-Widerstaende, ggf. bessere VS-Klemme, zwei UV-/OV-Teiler, gemeinsame Hauptsicherung/Stecker, 24pin-RGE-QFN-Loeten und 2-/4-Lagen. Keine neuen ungeprueften Stueckpreise, kein Einkaufs-Gesamtpreis aus dem 2,81 EUR IC-Aufpreis ableiten. Bestehende TripTracer-01I-LM74800-Schaltung ist noch unveraendert.
 
 
 ## 14.10.2026 – Wiederverwendbares TripPower-Modul, LM74800 gegen LM74930
