@@ -1,3 +1,5 @@
+**NACHTRAG 14.10.2026 (neuerer Stand):** Die LM74800-Schutzstufe wurde inzwischen als [aktives KiCad-Blatt 01I](../hardware/kicad/01I_LM74800_INPUT.kicad_sch) umgesetzt. Die ursprünglichen Hinweise „nicht im aktiven Schaltplan“ weiter unten sind **historisch**. Aktuelles Wiring einschließlich J901-Board-Pigtail, externen F901/F902/J902, C10-15nF-Entscheidung, ACC/HOLD und offenen Sicherheitsprüfungen: [Integrationsbericht](LM74800_01I_INTEGRATION_2026-10-14.md). Bauteilauswahl weiterhin **nicht elektrisch/fertigungstechnisch freigegeben**.
+
 # Standard-SMD-Teile der LM74800-Q1-Schutzstufe – Beschaffung 14.10.2026
 
 **Status: Bauteil- und Hersteller-MPNs festgelegt. Keine KIcad-Integration/Fahrzeug-/Fertigungsfreigabe.** Die verbindliche maschinenlesbare Auswahl ist [power_frontend_design_freeze.json](../hardware/kicad/power_frontend_design_freeze.json); [CSV für Stücklistenabgleich](../hardware/kicad/power_frontend_order_bom.csv).
