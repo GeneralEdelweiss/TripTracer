@@ -170,7 +170,7 @@
 (pin "1" (uuid "87aacc01-1014-4000-8000-000000001068"))
 (pin "2" (uuid "87aacc01-1014-4000-8000-000000001069"))
 (instances (project "TripTracer_V1" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R914") (unit 1)))))
-(symbol (lib_id "Tripmaster_Sym:R") (at 477.52 105.41 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001070")
+(symbol (lib_id "Tripmaster_Sym:R") (at 477.52 105.41 180) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "87aacc01-1014-4000-8000-000000001070")
 (property "Reference" "R915" (at 477.52 86.36 0) (effects (font (size 1.27 1.27))))
 (property "Value" "33k 1% HOLD VIN" (at 477.52 90.17 0) (effects (font (size 1.27 1.27))))
 (property "Footprint" "Tripmaster:R_1206_3216" (at 477.52 105.41 0) (effects (font (size 1.27 1.27)) (hide yes)))
