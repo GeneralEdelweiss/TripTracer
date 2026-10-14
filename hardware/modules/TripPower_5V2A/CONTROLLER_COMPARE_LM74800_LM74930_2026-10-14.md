@@ -1,5 +1,8 @@
 # TripPower 5V/2A – LM74800-Q1 gegen LM74930-Q1
 
+> **Folgeentscheidung 14.10.2026:** Nutzer hat LM74930QRGERQ1 als festen Controller fuer das *neue* eigenstaendige TripPower-Modul gewaehlt. Der Originalvergleich bleibt historisch; die **konkrete vorlaeufige** Bestueckungs-/Werteberechnung steht jetzt in [LM74930_DIMENSIONING_2026-10-14.md](LM74930_DIMENSIONING_2026-10-14.md) und [lm74930_design_v1.json](lm74930_design_v1.json). Aktive TripTracer-01I-LM74800-Schaltung bleibt aktuell unveraendert. Mit Benutzerentscheidung NICHT die unqualifizierten Schaltungs- und Layout-Gates ueberspringen.
+
+
 **14.10.2026 | AGENTS.md COTS-first- und Gate-A-/Kostenvergleich | keine Schaltungsumstellung, kein ERC/DRC, keine Produktions- oder Fahrzeugfreigabe.**
 
 ## Entscheidungsfrage
