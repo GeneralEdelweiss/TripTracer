@@ -48,6 +48,13 @@ Sobald **positiver** Leckstrom in den Kondensator mindestens `0.41 V / 330 kΩ =
 
 Reproduzierbare Rechnung: `python3 tools/analyze_rc_shutdown.py`. Dieses Tool ist eine analytische Sensitivitätsrechnung, keine native SPICE-/Laborprüfung.
 
+
+## Aktualisiertes Auslegungsgate: Positive Fremdeinspeisung
+
+Die nun automatisiert getestete Grenzrechnung zeigt einen **potenziellen harten Abschaltfehler**: Bereits `1,24 µA` dauerhaft **positiv in HOLD_CAP_5V einspeisender** Strom würde bei R802 = 330 kΩ eine Abschaltung unterhalb 0,41 V im vereinfachten Modell verhindern. Eine hohe Kapazität verlängert die Abschaltzeit zusätzlich; eine kleinere effektive MLCC-Kapazität verkürzt sie. Beides muss über Bauteiltoleranz, Temperatur und Betrieb nachgewiesen werden. Der maximale LM74930-EN-Eingangsstrom darf dabei **nicht einfach mit positivem Vorzeichen unterstellt** werden: Der konkrete Strompfad, die Richtung, zusätzliche Spannungsteiler und die Beschaltung entscheiden. Ein 200-nA-Test ist nur eine Sensitivität, kein garantierter Worst-Case.
+
+**Integrationsentscheidung dieses Review-Stands:** Das RC-Netz wird **bis zum nachgewiesenen Strompfad-/Leckstrombudget und Bootstrap weiter isoliert gehalten**; es wird nicht ungeprüft direkt auf den LM74930_EN geschaltet. Für die fertige Fahrzeugabschaltung genügt ein reines RC-/GPIO-Modell nicht. Die Hauptstromabschaltung muss auch bei MCU-GPIO-Fehlern, feuchter/verunreinigter PCB und warmen Halbleitern zuverlässig funktionieren. Die Entwicklung erfolgt parallel mit dem digitalen 01E-Kandidaten, nicht als vorschnell gewählte billigste Schaltung.
+
 ## Die entscheidenden offenen Schnittstellen
 
 1. **ACC_VALID_5V ist noch kein realer, vor Transienten geschützter, ausschließlich fahrzeuggespeister Eingang.** Zum Start darf die 5-V-Stufe nicht von sich selbst abhängen: über einen getrennten robusten ACC→LM74930_EN-Bootstrap muss der LM74930 unabhängig von V5_BUCK_RAW anlaufen.
