@@ -1,5 +1,15 @@
 # TripPower 5V/2A – eigenstaendiges, kopierbares DC/DC-Modul
 
+## Standalone KiCad-10-Projekt – aktiver neuer Arbeitsstand 14.10.2026
+
+**Jetzt vorhanden:** [`TripPower_5V2A.kicad_pro`](TripPower_5V2A.kicad_pro) und [Root-Schaltplan](TripPower_5V2A.kicad_sch) mit zwei echten verknuepften Schaltplanseiten [01: LM74930-Eingangsschutz](01_Protection_LM74930.kicad_sch) und [02: LMR38020 5-V-Buck](02_5V_LMR38020.kicad_sch). Die lokalen `sym-lib-table`, `fp-lib-table`, `TripPower_Sym.kicad_sym`, `TripTracer_V1.kicad_sym`, `Tripmaster_Sym.kicad_sym` und `Tripmaster.pretty/` befinden sich im selben Projektordner. **Einfach den GESAMTEN Ordner kopieren und `TripPower_5V2A.kicad_pro` in KiCad 10 oeffnen.**
+
+**Schaltung real elektrisch verknuepft, nicht nur textuell:** VIN_FUSED → Q301/Q302 Common Source → RSENSE 5mΩ → `VIN_PROTECTED_MAIN` → 5V-Buck und separat F302 → `VIN_PROTECTED`. Die Netze verbinden die beiden Unterseiten in der Root-Hierarchie; es sind echte Bauteilsymbole, Wires und globale Labels. Standalone `RUN_CMD` geht ueber R317 und Sperrdiode D305 zum LM74930 EN, mit R316 Pulldown. 0R-R319 ist die optionale `ALWAYS_ON`-Bestueckung. **RUN_CMD niemals direkt mit 12-/24-V-ACC verbinden**; TripTracer braucht einen separaten, geschuetzten ACC/HOLD-Logikadapter.
+
+**Pruefung:** Die GitHub KiCad-10-Actions erzeugen einen **eigenstaendigen** ERC-JSON-Bericht, nativen Netlist-Export und dreiseitiges PDF sowie die Netzlistenpruefung [`tools/check_trippower_native_netlist.py`](../../../tools/check_trippower_native_netlist.py) fuer alle kritischen Pins. Der Teststand ist ein **Schaltplanentwurf**; bis der aktuelle Action-Lauf erfolgreich abgeschlossen ist, keine globale/ERC-Clean-Aussage und keine Freigabe behaupten. Keine eigenstaendige PCB-Datei, kein geroutetes DRC, keine Hardwaremessung.
+
+**Verbindliche Manufacturing-Gates:** F302 verwendet als Candidate Littelfuse **58-V-MINI-FL1 PCB-Halter `178.6764.0001`** und **2-A-Sicherung `0997002.WXN`**. Die physische Sicherungsschnittstelle ist im Schaltplan gezeichnet, **Herstellerlandpattern/PCB-Footprint aber bewusst noch nicht zugewiesen**. Die 2-A-Sicherung ist KEINE garantierte 1-A-Begrenzung des Zusatzabgriffs; Leiterbahnen/Kabel, Schmelzintegral und LM74930-SCP muessen auf den tatsaechlichen Schutzfall abgestimmt werden. Zudem sind 202-V-MOSFET-SOA/thermische Q301-Verluste, 9-V-VS-Chargepump-Start, 3x3.32k-VS-Pulsfestigkeit, das FCH0650-Spulen-Landpattern, RUN-OFF/Backfeed und EMV nicht freigegeben. Die zugelieferten Standard-Footprints und 3D-Verweise sind vor Bestellen dennoch manuell zu qualifizieren.
+
 ## Nutzerentscheidung und Werte-Freeze zur LM74930-Schutzstufe (14.10.2026)
 
 **Fest vorgegeben: LM74930QRGERQ1 statt LM74800 fuer das NEUE eigenstaendige TripPower-Modul.** Der bisherige TripTracer-Schaltplan 01I mit LM74800 bleibt bis zur separaten Modulimplementierung unveraendert. 5V-Buck bleibt LMR38020SQDDARQ1.
@@ -20,7 +30,7 @@
 **Preisdelta nur Schutz-IC, Mouser DE Snapshot 14.10.2026:** +2,81 EUR/1pc, +2,19 EUR/10pcs, +1,88 EUR/100pcs gegenueber LM74800; OCP-Zusatzpassive/Kelvin-Shunt/QFN-Bestueckung sowie Versand/USt. kommen hinzu. Entscheidung ueber das vollstaendige Modul erst nach BOM auf gleichem Schutzumfang.
 
 
-**Schritt 1 / Stand 2026-10-14: Schnittstellen- und Wiederverwendungsarchitektur dokumentiert. Noch KEIN eigenstaendiges KiCad-Projekt, keine eigene Platine, kein bestandener ERC/DRC oder Prototyp. NICHT FERTIGUNGS- ODER FAHRZEUGFREIGEGEBEN.**
+**Stand 2026-10-14: eigenstaendiger KiCad-10-Zweiseitenschaltplan EXISTIERT, aber keine eigene geroutete Leiterplatte und keine Labor-/ISO-/Fertigungs- oder Fahrzeugfreigabe.**
 
 ## Ziel
 
@@ -65,7 +75,7 @@ Die fertige TripPower-5V/2A-Platine MUSS neben `5V_OUT` einen **physisch zugäng
 
 - `VIN_PROTECTED` folgt ungefaehr der **9–30-V-Bordnetzspannung**, ist **UNGEREGELT**, **kein 15-V-Ausgang** und nicht automatisch EMV-/ripplefrei. Bei OV-Abschaltung und Last kann die Spannung verschwinden; Kurzschluss und Versorgung durch externe Verbraucher separat pruefen.
 - Die maximale zulaessige Ausgangsstromstaerke ist **noch nicht festgelegt**. Ein Zusatzverbraucher wird **zusaetzlich** zu den maximal 5 V / 2 A des Bucks in Fahrzeugquellenstrom, FET-SOA und Waermebilanz beruecksichtigt.
-- **Physische Umsetzung gesperrt bis zur Schaltung:** Der verpflichtende Anschluss, Testpunkt und separate Stromschutz sind in `module_contract.json` als Anforderungen erfasst, jedoch **noch nicht als eigenstaendige KiCad-Netze/Footprints/PCB umgesetzt**.
+- **Aktueller KiCad-Stand:** Der VIN_PROTECTED-Abzweig ist auf der eigenen Schutzseite real verdrahtet und als J302.1 vorgesehen; F302 58V-MINI mit realem Sicherungssymbol ist im Strompfad, aber **F302-Halter-Footprint, DRC/PCB-Landpattern und I2t/Leitungsnachweise offen**.
 
 ### Bevorzugte Display-Anbindung (TripTracer, ausserhalb TripPower)
 
@@ -105,17 +115,17 @@ Herstellerquellen: [TI LMR38020-Q1](https://www.ti.com/product/LMR38020-Q1), [TI
 ## Arbeitsreihenfolge nach AGENTS.md
 
 - **Schritt 1 – abgeschlossen:** Diese Wiederverwendungs-/COTS-/Schnittstellenentscheidung versionieren. Bestehende TripTracer-Schaltung und BOM fuer diesen Planungsschritt nicht veraendern.
-- **Schritt 2 – offen:** Die eigene RUN/ALWAYS_ON-Logik und komplette geschuetzte Eingangsstufe **mit Fail-OFF, Quellenabsicherung und pruefbarem ~9V-Start** elektrisch fertig rechnen und auf echtem Schaltplan verbindlich loesen; ggf. LM74930 statt LM74800 als bewusste Kosten-/Sicherheitsentscheidung empfehlen, nicht still substituieren.
+- **Schritt 2 – SCHALTPLANENTWURF vorhanden, nicht qualifiziert:** LM74930 statt LM74800 nach Nutzerentscheid, RUN/ALWAYS_ON, OV/UV/Breaker und VIN_PROTECTED real gezeichnet. Fail-OFF, Quelle/F302, VS-Start und 200V/MOSFET-SOA als harte Datenblatt-/Laborgates offen.
 - **Schritt 3 – offen:** Rueckkopplung/Regelkreis, Buck-Eingangsfilter und vollstaendige 5V/2A-BO-MPN-/Footprint-/DC-Bias- und thermische Verifikation. Einzelseitiger KiCad-10-ERC/Netlist-Gate plus parallele TripTracer-Regressionspruefung.
-- **Schritt 4 – offen:** Erst nach bestandenen Schaltungsgates **separates kopierbares KiCad-10-Projekt** mit Root, Schaltplan-Unterseiten, eigenem PCB, lokalen Bibliotheken, nachvollziehbarer BOM, Schaltplan-PDF/SVG und Herstellerreferenzen erzeugen.
+- **Schritt 4 – TEILERFUELLT:** Separates kopierbares KiCad-10-Projekt mit Root, echten Schaltplan-Unterseiten, lokalen Symbolen/Footprints und automatischem Schaltplan-PDF erzeugt. **Eigenes PCB, DRC, 3D-Vollstaendigkeit, bestellfertige BOM und Freigabe weiterhin offen.**
 - **Schritt 5 – offen:** 2- oder 4-Lagen-Auswahl anhand EMV/Thermal, Footprints, Layout, DRC, Fertigerregeln, Kosten und USB-Rueckspeiseszenarien; Labortest-/Sicherheitsreport.
 
-**Keine fertige Platine vorgaukeln:** Der Ordner enthaelt in Schritt 1 bewusst ausschliesslich Architektur-/Pruefdokumente. Das kopierbare KiCad-Projekt entsteht **erst nach elektrisch belastbaren Schnittstellen und Herstellernachweisen**, damit nicht mehrere ungueltige Altvarianten weiterverbreitet werden.
+**Keine fertige Platine vorgaukeln:** Der Ordner enthaelt jetzt einen echten kopierbaren KiCad-Schaltplan, **aber KEIN freigegebenes PCB oder fertigungssicheres Modul**. Die Schaltplanpruefungen ersetzen keine Hersteller-Puls-/Thermik-/FET-SOA-/ESD-/ISO-Gates.
 
 ## Kurzprotokoll Schritt 1
 
 - Hersteller COTS erneut geprueft; bestehender TI LMR38020-Q1-Buck bleibt ohne Teile-Swap.
 - Signale und klare Verantwortung zwischen Modul, Quelle und TripTracer definiert.
-- Elektrische Aktivblaetter, TripTracer-Root und PCB heute **NICHT** geaendert. Kein standalone-ERC ausgefuehrt, da noch kein standalone-Schaltplan existiert.
+- Die bestehenden TripTracer-01I/02-Aktivblaetter, sein Root und PCB wurden **nicht** geaendert; separate TripPower-KiCad-Dateien gebaut und eigene KiCad-10-ERC-/Netlist-Checks im Workflow hinzugefuegt. Aktuelle CI-Ergebnisse vor einer Freigabe nachlesen.
 - Offene kritische Entscheidungen sichtbar: LM74800 ohne OCP, ~9V-VS-Start, Fail-OFF und Geometrie FCH-Spule.
 - Keine neue Bestellung, keine Kostenzusage, keine Fahrzeugfreigabe.
