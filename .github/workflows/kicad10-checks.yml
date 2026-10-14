@@ -9,15 +9,13 @@ on:
       - 'tools/check_kicad_hierarchy.py'
       - 'tools/triage_kicad_erc.py'
       - 'tools/check_kicad_custom_pinouts.py'
-      - 'tools/check_simple_input_netlist.py'
+      - 'tools/check_lm74800_netlist.py'
       - 'tools/check_triptracer_powerpath_v2.py'
       - 'tools/export_power_bom_v2.py'
       - 'tools/check_lmr38020_netlist.py'
       - 'tools/check_lmr38020_pcb_pads.py'
       - 'tools/check_acc_vin_startup.py'
       - 'tools/check_acc_hold_prearm.py'
-      - 'tools/check_input_protection_envelope.py'
-      - 'tools/check_supply_harness.py'
       - 'tools/check_cots_power_selection.py'
       - 'tools/check_power_frontend_design_freeze.py'
       - 'hardware/kicad/power_selection.json'
@@ -66,7 +64,7 @@ jobs:
         id: cots
         continue-on-error: true
         run: python3 tools/check_cots_power_selection.py | tee reports/cots-selection.json
-      - name: Verify planned LM74800 MPNs and passive procurement BOM (NOT active)
+      - name: Verify selected LM74800 MPNs and passive procurement freeze (WIP)
         id: freeze
         continue-on-error: true
         run: python3 tools/check_power_frontend_design_freeze.py | tee reports/power-front-end-freeze.json
@@ -96,13 +94,11 @@ jobs:
         run: |
           kicad-cli sch export netlist -o reports/TripTracer.net \
             hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/netlist.log
-      - name: Assert new simple input diode and TVS from native KiCad netlist
+      - name: Assert LM74800-Q1 complete power front end from native KiCad netlist
         id: powerpath
         continue-on-error: true
         run: |
-          python3 tools/check_simple_input_netlist.py reports/TripTracer.net | tee reports/powerpath.log
-          python3 tools/check_input_protection_envelope.py | tee reports/input-protection-envelope.json
-          python3 tools/check_supply_harness.py reports/vehicle-harness-candidate.csv | tee reports/supply-harness.json
+          python3 tools/check_lm74800_netlist.py reports/TripTracer.net | tee reports/powerpath.log
       - name: Assert LMR38020-Q1 buck topology from native KiCad netlist
         id: newbuck
         continue-on-error: true
@@ -119,7 +115,7 @@ jobs:
           python3 tools/check_triptracer_powerpath_v2.py reports/TripTracer.net | tee reports/powerpath-v2.log
           python3 tools/check_acc_vin_startup.py | tee reports/acc-vin-startup.json
           python3 tools/check_acc_hold_prearm.py | tee reports/acc-hold-prearm.json
-      - name: Export active low-cost supply BOM from native KiCad netlist
+      - name: Export active LM74800 plus main power chain BOM from native netlist
         id: powerbom
         continue-on-error: true
         run: |
