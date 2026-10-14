@@ -1,0 +1,13 @@
+Ref,Qty,Value,Manufacturer_MPN,Footprint,Source,Status
+U101,1,LMR38020S-Q1 5V/2A 400kHz,LMR38020SQDDARQ1,Tripmaster:TI_LMR38020Q1_DDA_EP,https://www.ti.com/product/LMR38020-Q1,selected_not_thermally_qualified
+L101,1,15uH +-20% 5A Irms 5.5A Isat,FCH0650-150M,Tripmaster:L_FANGCHENG_FCH0650_150M,https://www.lcsc.com/de/product-detail/C20415538.html,selected_footprint_geometry_UNVERIFIED
+R101,1,100k 1% FB TOP,RC1206FR-07100KL,Tripmaster:R_1206_3216,https://www.yageo.com/,MPN_candidate_value_and_TCR_check_open
+R102,1,24.9k 1% FB BOTTOM,RC1206FR-0724K9L,Tripmaster:R_1206_3216,https://www.yageo.com/,MPN_candidate_value_and_TCR_check_open
+R103,1,64.9k 1% RT approx 400kHz,RC1206FR-0764K9L,Tripmaster:R_1206_3216,https://www.yageo.com/,MPN_candidate_frequency_tolerance_open
+C101,1,4.7uF 100V X7R 1210 CIN,12101C475K4Z2A,Tripmaster:C_1210_3225,https://www.digikey.de/de/products/detail/kyocera-avx/12101C475K4Z2A/9748485,selected_bias_derating_unverified
+C108,1,4.7uF 100V X7R 1210 CIN,12101C475K4Z2A,Tripmaster:C_1210_3225,https://www.digikey.de/de/products/detail/kyocera-avx/12101C475K4Z2A/9748485,selected_bias_derating_unverified
+C107,1,100nF 100V X7R CIN high-frequency,C1206C104K1RACTU,Tripmaster:C_1206_3216,https://www.digikey.com/en/products/detail/kemet/C1206C104K1RACTU/421374,selected_position_and_parasitics_unverified
+C102,1,100nF 100V X7R BOOT-to-SW,C1206C104K1RACTU,Tripmaster:C_1206_3216,https://www.digikey.com/en/products/detail/kemet/C1206C104K1RACTU/421374,selected
+C104,1,22uF 25V X7R 1210 VOUT,GRM32ER71E226KE15L,Tripmaster:C_1210_3225,https://www.digikey.de/de/products/detail/murata-electronics/GRM32ER71E226KE15L/2039040,selected_effective_C_and_transient_unverified
+C105,1,22uF 25V X7R 1210 VOUT,GRM32ER71E226KE15L,Tripmaster:C_1210_3225,https://www.digikey.de/de/products/detail/murata-electronics/GRM32ER71E226KE15L/2039040,selected_effective_C_and_transient_unverified
+C106,1,22uF 25V X7R 1210 VOUT,GRM32ER71E226KE15L,Tripmaster:C_1210_3225,https://www.digikey.de/de/products/detail/murata-electronics/GRM32ER71E226KE15L/2039040,selected_effective_C_and_transient_unverified
