@@ -17,12 +17,13 @@ POWER_SHEETS = {
 PARTS = {
     "U101": ("LMR38020SQDDARQ1", "EUR", 3.92, 2.98, 2.49, "Mouser DE, stock recheck"),
     "U301": ("TPS2116DRLR", "EUR", 0.903, 0.646, 0.512, "Mouser DE"),
-    "U302": ("NCV1117ST33T3G", "EUR", 0.516, 0.362, 0.268, "Mouser DE"),
+    "U302": ("MCP1826S-3302E/DB", "EUR", 0.783, "", 0.662, "Mouser DE: 1 pc EUR 0.783; 25pc EUR 0.662 (100pc column not a verified 100pc price)"),
     "D901": ("Comchip SS510C-HF (5A 100V SMC)", "EUR", 0.998, 0.711, 0.443, "SMC matching footprint; thermal proof pending"),
     "D902": ("Littelfuse 5.0SMDJ36A", "EUR", 2.11, 1.353, 0.921, "10/1000us rated; NO 350ms load-dump approval"),
     "L101": ("FCH0650-150M provisional 15uH", "", "", "", "", "footprint and Isat verification missing"),
     "U911": ("Wuerth 140356145000 80V SOP4", "EUR", 0.335, 0.296, 0.248, "CTR guaranteed at IF5mA only: 9V and hot/cold pending"),
-    "U912": ("EL817S (package/CTR to verify)", "", "", "", "", "provisional optocoupler"),
+    "Q912": ("MMBT5551 SOT23", "", "", "", "", "ACC level shifter; pricing pending"),
+    "Q913": ("MMBT5551 SOT23", "", "", "", "", "ACC level shifter; pricing pending"),
     "U501": ("TLC555QDRQ1", "EUR", 1.05, 0.759, 0.605, "monostable 24s nominal; effective capacitance and edge check open"),
     "U502": ("SN74LVC1G08QDBVRQ1", "EUR", 0.224, 0.153, 0.117, "hardware gated timer"),
 }
