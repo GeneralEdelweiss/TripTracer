@@ -1,7 +1,16 @@
-# TripTracer – KiCad 10
+# TripTracer - KiCad10
 
-Der **aktive, nicht fertigungstechnisch freigegebene V1-Entwurfsstand** liegt im selben Verzeichnis. Einstiegspunkt ist **[TripTracer_V1.kicad_pro](TripTracer_V1.kicad_pro)**, nicht eine isolierte Unterseite. Über den KiCad-Hierarchie-Navigator sind die Baugruppen von `01_Eingangsschutz.kicad_sch` bis `08_Radsensoren.kicad_sch` einschließlich der untergeordneten 01A–01D-Seiten aufrufbar.
+Oeffne **[TripTracer_V1.kicad_pro](TripTracer_V1.kicad_pro)**. Die Rootdatei `TripTracer_V1.kicad_sch` und der Hierarchie-Navigator erschliessen alle **12 aktiven Seiten** in einem Editor.
 
-**Achtung (Stand 13.10.2026):** Die bestehenden Seiten 01/01A/01B/01C bilden den alten **Mikrorelais-Teilstand**, **nicht** die aktuell bevorzugte elektronische Selbsthaltung. Zur relaislosen Untersuchung und den unerledigten Sicherheitsfreigaben: [Feldstudie](../../docs/SOLID_STATE_POWER_ARCHITECTURE.md), [offene Punkte](../../docs/OPEN_ITEMS.md). Keine der beiden Topologien ist vollständig/elektrisch geprüft; **kein KiCad-10-ERC/DRC und kein Fahrzeugtest durchgeführt**.
+Der aktuelle **Labor-Entwicklungsstand** verwendet:
+- `01G_SIMPLE_INPUT`: S5MC1000V-Verpolschutz und TVS5800-58V-Klemmkandidat; Beschaffung und Fahrzeugpulspruefung offen.
+- `01H_ACC_HOLD_GATE` und `01C_HOLD_TIMER`: VIN-gespeister ACC-Start, voraktivierter Timer und optisch entkoppelte MCU-Selbsthaltung.
+- `02_5V_Buck`: LMR38020-Q1,5V/2A als Auslegungsziel.
+- `03_3V3_USB`: TPS2116-Bordnetz/USB-Prioritaet und MCP1826S-3V3-LDO.
+- `04_ESP32_USB`: GPIO21 HOLD, GPIO33 USB-Status, GPIO34 isolierte ACC-Erkennung; weitere Peripheriezuordnung offen.
 
-Die historische V0.3-Referenz `Tripmaster_V0_3.kicad_sch` mit Bibliotheken und 3D-Modellen bleibt zum Vergleich enthalten. Weitere Informationen: [TripTracer_V1_README.md](TripTracer_V1_README.md).
+Normalbereich9-30V, weiches Kaltstartziel etwa9V. Der alte Netzname `HV_PROTECTED_AFTER_EFUSE` ist eine Legacy-Schnittstelle und bedeutet **keine vorhandene eFuse**. Externe BAT-/ACC-Leitungsabsicherung bleibt erforderlich.
+
+[Aktueller Eingangsentwurf, Berechnungen und Nachweise](../../docs/validation/2026-10-14-input-flat-clamp.md). Native KiCad10-Pruefungen laufen in Actions; Schaltplan-PDF, Netzliste, BOM und Berichte werden14Tage archiviert. Bestehende ERC-/DRC-Fehler, reale Thermik/Transienten und TestA202V sind nicht freigegeben. **Kein Fahrzeugbetrieb oder Fertigungsauftrag aus diesem Stand. Keine PCB-Aenderung in diesem Arbeitsblock.**
+
+[TripTracer_V1_README.md](TripTracer_V1_README.md) enthaelt aeltere Zwischenstaende und ist ab dem gekennzeichneten Historienabschnitt **keine aktuelle Schaltungsbeschreibung**. Alte Mikrorelais-, LM74930- und LMR36520-Angaben ersetzen die aktuellen Anforderungen nicht. Die V0.3-Dateien bleiben historische Referenz.
