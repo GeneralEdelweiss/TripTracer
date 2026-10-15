@@ -1,3 +1,5 @@
+> **OV-/HGATE-Sicherheitsreview 15.10.2026:** [Q301_OV_HGATE_SHUTDOWN_2026-10-15.md](Q301_OV_HGATE_SHUTDOWN_2026-10-15.md). U301.HGATE steuert Q301 Gate nun direkt; R320=100Ω und neu C307=10nF/250V liegen als TI-dVdt-Zweig in Reihe nach GND, statt R320 inline. Ergänzte native Netzlistenprüfung, rechnerischer Start-Ladestrom 0,31A unter Idealannahmen. C303/CAP effektiv zu knapp, 202V-Hot-SOA/Anlaufdynamik **nicht validiert**; nur Entwurfsstand.
+
 > **Q301-Auswahl 15.10.2026:** Der aktive Standalone-Schaltplan verwendet vorläufig den automotivequalifizierten Vishay **SQM10250E_GE3**, 250 V, D2PAK, statt des STD17NF25. [Datenblatt-, Kosten- und Safety-Gates](Q301_FET_SELECTION_2026-10-15.md). Keine OV-202-V-SOA-, Temperatur-, Gate-Timing-, PCB- oder Fertigungsfreigabe; `F_MAIN` weiterhin extern.
 
 > **15.10.2026: TripPower-Eingangsschutz R313–315 als Vishay CRCW25123K30FKEGHP (3,3k/2512/AEC-Q200) konkretisiert; thermische, wiederholte Puls- und 9V-Start-Nachweise offen.** [Nachweis- und Sperrbericht](INPUT_STRESS_GATE_2026-10-15.md). Keine PCB-/Automotive-Freigabe.
