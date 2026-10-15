@@ -227,7 +227,7 @@
 (wire (pts (xy 289.56 264.16) (xy 284.48 264.16)) (stroke (width 0) (type default)) (uuid "f1512578-cc72-4c26-bf70-000000960025"))
 (global_label "RUN_BASE" (shape bidirectional) (at 284.48 264.16 0) (effects (font (size .9 .9)) (justify left)) (uuid "f1512578-cc72-4c26-bf70-000000960026"))
 (wire (pts (xy 320.04 259.08000000000004) (xy 325.12 259.08000000000004)) (stroke (width 0) (type default)) (uuid "f1512578-cc72-4c26-bf70-000000960027"))
-(global_label "RUN_BYPASS_NODE" (shape bidirectional) (at 325.12 259.08000000000004 0) (effects (font (size .9 .9)) (justify left)) (uuid "f1512578-cc72-4c26-bf70-000000960028"))
+(global_label "RUN_SINK_C" (shape bidirectional) (at 325.12 259.08000000000004 0) (effects (font (size .9 .9)) (justify left)) (uuid "f1512578-cc72-4c26-bf70-000000960028"))
 (wire (pts (xy 320.04 269.24) (xy 325.12 269.24)) (stroke (width 0) (type default)) (uuid "f1512578-cc72-4c26-bf70-000000960029"))
 (global_label "GND" (shape bidirectional) (at 325.12 269.24 0) (effects (font (size .9 .9)) (justify left)) (uuid "f1512578-cc72-4c26-bf70-000000960030"))
 (symbol (lib_id "Tripmaster_Sym:R") (at 78.74 236.22 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "f1512578-cc72-4c26-bf70-000000960031")

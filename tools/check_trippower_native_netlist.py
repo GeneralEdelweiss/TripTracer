@@ -26,7 +26,7 @@ mapping={
  "C309":{"1":"CTRL_EN","2":"GND"},
  "Q303":{"1":"PNP_BASE","2":"VS_CLAMP","3":"PNP_OUT"},
  "Q304":{"1":"READY_NPN_BASE","2":"RUN_BYPASS_NODE","3":"PNP_SINK"},
- "Q305":{"1":"RUN_BASE","2":"GND","3":"RUN_BYPASS_NODE"},
+ "Q305":{"1":"RUN_BASE","2":"GND","3":"RUN_SINK_C"},
  "R336":{"1":"VS_CLAMP","2":"PNP_BASE"},
  "R337":{"1":"PNP_BASE","2":"PNP_SINK"},
  "R339":{"1":"VS_READY_RESET_OD_PRELIM","2":"READY_NPN_BASE"},
@@ -49,7 +49,7 @@ mapping={
  "R318":{"1":"PNP_OUT","2":"CTRL_EN"},
  "R319":{"1":"RUN_BYPASS_NODE","2":"GND"},
  "R317":{"1":"RUN_CMD","2":"RUN_BASE"},
- "D305":{"1":"DNP_RUN_PATH","2":"DNP_RUN_SERIES"},
+ "D305":{"1":"RUN_BYPASS_NODE","3":"RUN_SINK_C"},
  "U101":{"2":"VIN_PROTECTED_UNFUSED","3":"VIN_PROTECTED_UNFUSED"}
 }
 for ref,pins in mapping.items():
@@ -70,10 +70,10 @@ assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in 
 assert ("Q303","2") in nets["VS_CLAMP"] and ("Q303","3") in nets["PNP_OUT"], "VS-only PNP source for enable"
 assert ("R318","1") in nets["PNP_OUT"] and ("R318","2") in nets["CTRL_EN"], "EN driven by VS only after PNP"
 assert ("Q304","1") in nets["READY_NPN_BASE"] and ("R339","1") in nets["VS_READY_RESET_OD_PRELIM"], "RESET buffered by Q304 NPN"
-assert ("Q304","2") in nets["RUN_BYPASS_NODE"] and ("Q305","3") in nets["RUN_BYPASS_NODE"], "RUN_NPN collector in series with ready NPN emitter"
+assert ("Q304","2") in nets["RUN_BYPASS_NODE"] and ("Q305","3") in nets["RUN_SINK_C"] and ("D305","1") in nets["RUN_BYPASS_NODE"] and ("D305","3") in nets["RUN_SINK_C"], "BAS116Q isolated series RUN drain prevents Q305 CB USB backfeed"
 assert ("R319","1") in nets["RUN_BYPASS_NODE"] and ("R319","2") in nets["GND"], "AUTO bypass ONLY RUN NPN"
 assert ("R317","2") in nets["RUN_BASE"] and ("Q305","1") in nets["RUN_BASE"], "RUN_CMD must drive Q305 BASE, not EN"
-assert ("D305","1") not in nets["CTRL_EN"] and ("D305","2") not in nets["RUN_BASE"], "old RUN direct diode D305 DNP and disconnected"
+assert ("D305","3") not in nets["CTRL_EN"] and ("D305","1") not in nets["RUN_BASE"], "D305 physical SOT23 K3 A1 is not in RUN-to-EN path"
 assert ("R316","1") in nets["CTRL_EN"] and ("C309","1") in nets["CTRL_EN"], "EN pulldown and DNP C309"
 assert ("R337","2") in nets["PNP_SINK"] and ("Q304","3") in nets["PNP_SINK"], "NPN READY must control PNP base current"
 assert ("Q305","2") in nets["GND"] and ("Q303","1") in nets["PNP_BASE"], "BJT emitter/pinout and high-side PNP base"
