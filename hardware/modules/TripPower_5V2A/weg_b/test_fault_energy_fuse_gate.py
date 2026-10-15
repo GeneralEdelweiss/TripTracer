@@ -7,7 +7,7 @@ from fault_energy_fuse_gate import (
     FUSES, PULSE_V, PULSE_S, qualification, i2t_350ms_constant,
     i2t_catalog_screen, normal_input_current, zener_branch,
     fault_resistive, prospective_short, external_cable_screen,
-    fuse_no_action_counterexample, report, fmea,
+    fuse_no_action_counterexample, direct_pin_rating_exposure, report, fmea,
 )
 
 class FuseAndEnergyGate(unittest.TestCase):
@@ -83,6 +83,16 @@ class FuseAndEnergyGate(unittest.TestCase):
         self.assertFalse(a["fuse_total_clearing_vs_copper_damage_proven"])
         high=external_cable_screen(weid,.5,.1)
         self.assertEqual(high["prospective_or_assumed_a"],400.)
+    def test_U301_A_pin_and_Q302_conditional_vds_fault_not_masked_by_D302_limiter(self):
+        r=direct_pin_rating_exposure()
+        self.assertEqual(r["LM74930_A_over_abs_by_v"],130)
+        self.assertEqual(r["Q302_conditional_VDS_v"],200)
+        self.assertTrue(r["Q302_rating_exceeded_in_this_corner"])
+        self.assertFalse(r["Vishay_hot_switching_SOA_350ms_proven"])
+        self.assertEqual(r["BAV21WQ_average_forward_current_rating_a"],.4)
+        self.assertFalse(direct_pin_rating_exposure(q302_drain_v=200)["Q302_rating_exceeded_in_this_corner"])
+        self.assertTrue(direct_pin_rating_exposure(q301_extra_overshoot_v=51)["Q301_51v_overshoot_exceeds_250v"])
+
     def test_no_unearned_safety_release_and_fmea_is_prioritized(self):
         out=report()
         for k,v in out["qualification_decision"].items():
