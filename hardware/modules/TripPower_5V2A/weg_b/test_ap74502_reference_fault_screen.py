@@ -5,7 +5,7 @@ import unittest
 from ap74502_reference_fault_screen import (
     ov_corners, supply_60v_zener, zener_open, zener_short,
     resistor_ov_200v, core_cost_eur, fault_matrix, output_current_screen,
-    evidence,
+    evidence, directed_body_diode_fault_graph,
 )
 
 class APReferenceSafetyGates(unittest.TestCase):
@@ -50,6 +50,18 @@ class APReferenceSafetyGates(unittest.TestCase):
         self.assertAlmostEqual(x["price_rows"][1]["B_minus_A_IC_only_eur"],.431)
         self.assertAlmostEqual(x["price_rows"][2]["B_minus_A_IC_only_eur"],.3345)
         self.assertFalse(x["complete_1_10_100_eur_qualifiable"])
+    def test_body_diode_direction_is_not_full_fault_redundancy(self):
+        safe=directed_body_diode_fault_graph()
+        q1=directed_body_diode_fault_graph(("Q1",))
+        q2=directed_body_diode_fault_graph(("Q2",))
+        both=directed_body_diode_fault_graph(("Q1","Q2"))
+        self.assertFalse(safe["vin_can_reach_vout"])
+        self.assertTrue(q1["vin_can_reach_vout"])
+        self.assertFalse(q2["vin_can_reach_vout"])
+        self.assertTrue(both["vin_can_reach_vout"])
+        # Direction of the diode in the Figure 15 common-source N-FETs:
+        self.assertIn(["MID_COMMON_SOURCE","VOUT_PROTECTED"],q1["diode_edges"])
+
     def test_all_faults_are_unqualified_not_false_passes(self):
         self.assertTrue(all(not fault["guaranteed"] for fault in fault_matrix()))
         x=evidence()
