@@ -1,3 +1,5 @@
+**AKTUELLE REV5-EINSPARUNG (15.10.2026):** R305 IMON und R321 FLT-Pullup in TripPower DNP, **57 aktive AUTO / 58 RUN**. [Aenderung und 36V-Entscheidung](hardware/modules/TripPower_5V2A/REV5_OPTIMIZATION_IMPLEMENTATION_2026-10-15.md). Ein 36V-TPSM ist mangels sicherer OV-UP/-DOWN-/200V-Spitzen nicht aktiv. 80V LMR38020 bleibt. 200V/350ms, 9V-Start, Q301-SOA und PCB-Gates weiter BLOCKED; REV4-Texte sind historisch.
+
 **AKTUELLE KORREKTUR TRIPPOWER (15.10.2026):** Der vom Nutzer ausdrücklich vorgegebene ungedämpfte Lastabwurf-Prüfwert für TripPower beträgt **200 V für 350 ms**, NICHT 202 V. Autoritativ ist die REV5-Baseline `hardware/modules/TripPower_5V2A/REV5_DESIGN_BASELINE.json` mit `separate_unsuppressed_load_dump_target.v = 200`; frühere 202-V-Zahlen in historischen Texten sowie TI-Beispielen sind KEIN aktuelles Projektziel. Betriebsziel 9–30 V bleibt unverändert. **REV5 statt REV4** ist der aktive Schaltplanstand. Keine Hardware-/Fertigungs-/Fahrzeugfreigabe.
 
 ## Aktuelle TripPower-Entwicklungsregeln – REV4 (15.10.2026)
