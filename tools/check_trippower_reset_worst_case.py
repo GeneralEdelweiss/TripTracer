@@ -12,7 +12,7 @@ for r in ("U302","Q303","Q304","Q305","R330","R331","R332","R333","R339"):
  assert f'(property "Reference" "{r}"' in s,r
 assert "PMBTA92-Q" in s and "PMBTA42-Q" in s and "RUN_SINK_C" in s
 assert "68k PNP OUTPUT CURRENT LIMIT" in p and "22k EN PULLDOWN" in p
-R330,R331,R332,R333,R339=825e3,100e3,1e6,1e6,1e6
+R330,R331,R332,R333,R339=715e3,100e3,1e6,1e6,1e6
 def on(a,b,c,t,h,vol,ibias):
  return (t+h)*(1+a/b+a/c)-(a/c)*vol+a*ibias
 def off(a,b,c,d,e,t,vbe,ibias,resetleak):
@@ -29,7 +29,7 @@ for factors in product((.99,1.01),repeat=5):
   corners.append((on(a,b,c,vth,h,vl,ibias),off(a,b,c,d,e,vth,vbe,ibias,ileak)[0]))
 on_min,on_max=min(x[0] for x in corners),max(x[0] for x in corners)
 off_min,off_max=min(x[1] for x in corners),max(x[1] for x in corners)
-assert 8.1<nom_on<8.3 and 5.9<nom_off<6.1  # RESET=0V nominal rise 8.22V, RESET=0.3V model ~7.97V
+assert 7.1<nom_on<7.4 and 5.3<nom_off<5.6  # RESET=0V nominal rise 8.22V, RESET=0.3V model ~7.97V
 assert on_min<nom_on<on_max and off_min<nom_off<off_max
 max_leak_uA=(.41/(22000*1.01)-.2e-6)*1e6
 PNP_power_max=65**2/(4*68000)
@@ -37,6 +37,8 @@ R318_power_max=65**2/68000
 pnp_125W=(150-125)/500
 assert 0<PNP_power_max<pnp_125W and 18<max_leak_uA<19
 assert 0.06<R318_power_max<0.07
+# REV3 experimental R330 715k reduces upper model READY threshold;
+# this also starts C308 from lower voltage, so do not infer pump success.
 # OFF precharge assumes LM74930 off 5uA, TPS3760 2.6uA,
 # Panasonic 10uA, UV divider 9uA, reset pullup 8uA;
 # 125C hot reverse leak and supply pump DO NOT have a bound.
