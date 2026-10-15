@@ -22,7 +22,7 @@ a=d["target"]
 assert a["VIN_at_connector_v"] == [9,30] and a["regulated_output_v"]==5
 assert a["regulated_continuous_output_a"]==2
 assert a["raw_auxiliary_current_design_target_a"]==1
-assert a["separate_unsuppressed_load_dump_target"]=={"v":202,"duration_s":0.35}
+assert a["separate_unsuppressed_load_dump_target"]=={"v":200,"duration_s":0.35}
 assert a["f_main_external_replaceable_required"] is True
 assert contract["requirements"]["main_vehicle_fuse"]["required"] is True
 assert contract["no_manufacturing_or_vehicle_approval"] is True
@@ -68,7 +68,7 @@ assert 'TPS38A010122DSKRQ1' in control and 'PMBTA92-Q' not in control
 
 # Caution: not worst-case charge pump input current and not vendor pulse approval.
 rvs=3*3300.0
-vin_pulse=202.0
+vin_pulse=200.0
 v_z_typ=56.0
 pulse_s=.350
 i_rvs=(vin_pulse-v_z_typ)/rvs
@@ -77,7 +77,7 @@ p_each_rvs=p_all_rvs/3
 e_each_rvs=p_each_rvs*pulse_s
 p_zener=v_z_typ*i_rvs
 e_zener=p_zener*pulse_s
-assert 0.7<p_each_rvs<0.75 and 0.24<e_each_rvs<0.27
+assert 0.69<p_each_rvs<0.71 and 0.24<e_each_rvs<0.27
 assert 0.80<p_zener<0.85 and 0.28<e_zener<0.31
 
 # Yageo AC1206FR-07750KL: 200 V continuous rating / 0.25 W at 70C.
@@ -123,7 +123,7 @@ print(json.dumps({
     "limits_using_specified_ratings_and_nominal_operating_assumptions":{
        "Yageo_AC1206_200V_continuous_250mW_reference":divider,
        "TAI_shunt_5mR_at_4A_w_nominal":round(shunt_w_at_4a,4),
-       "RVS_202V_56V_nominal_zener_current_mA":round(i_rvs*1000,3),
+       "RVS_200V_56V_nominal_zener_current_mA":round(i_rvs*1000,3),
        "RVS_each_2512_350ms_pulse_power_W":round(p_each_rvs,3),
        "RVS_each_2512_350ms_rectangular_energy_J":round(e_each_rvs,3),
        "zener_350ms_power_W":round(p_zener,3),
