@@ -82,3 +82,29 @@ REV5 historical standalone has 57 AUTO / 58 RUN positions for MUCH tougher 200V/
 ### Next objectively verifiable gate
 
 (1) Derive TPS26631 and TPS26600 EXTERNAL OVP resistor tolerances (guaranteed Vref, hysteresis) that satisfy 32V ON / 36V OFF / restart ≤32V at actual eFuse pad including diode forward drop and leakage. (2) Retrieve TI reference circuit for SHDN ACC+MCU RUN with VIN32 and VIN58, 5.5V pin ABS, <1mA parked. (3) Specify Rsource/L and measure TPS26600/31 pad VIN at 58V/350ms (ringing), short-fault RAW, vehicle fuse DC rating. (4) Set full real MPNs/footprints, perform PCB thermal and transient checks, then standalone KiCad10 complete drawing + ERC/netlist CI + PCB DRC. No free-running old 200V/125C design assumptions.
+
+
+## 6. REV6 Actual analytical divider audit, prices and CI reconciliation (15.10.2026)
+
+**Important override of earlier preliminary statements:** TPS26631 `OVP=GND` factory thresholds rising 33.2–35.4V, falling **32.7–35.0V**: after an OV event it cannot be guaranteed to restart at battery32V, particularly behind a forward Schottky. Consequently the minimal fixed-OVP A variant is invalid for R6-RESTART-08; a two-resistor external OVP divider is necessary. This is *not* a reason to reintroduce old 200V parts.
+
+Manufacturer-specified adjustable OVP comparator thresholds with temperature range, static resistor extremes and maximum signed pin leakage, computed in own `rev6_protection_gates.py`:
+
+| Candidate 0.1% resistor set | Rise MIN at device pin | Rise MAX at device pin | Fall MAX at device pin | Recommended start/stop interpretation |
+|---|---:|---:|---:|---|
+| A TPS26631 100k upper / 3.78k lower | **32.210V** | **33.685V** | **31.649V** | VIN_TPS=VIN_M8−VfSchottky. At 32V/normal full-load eFuse VIN<32, so remains ON once activated. At 32V after OV, requires Schottky Vf in near-zero-load recovery <0.351V to reach >31.649V; **must qualify Vf(T/I)**. Rising+Schottky Vf remains under36V even with ~1V drop. |
+| B TPS26600 100k upper / 3.74k lower | **32.381V** | **34.055V** | **31.275V** | Integrated reverse MOSFET, no series diode; static 32V restart and 36V cutoff works with 0.1% R. 58V pad max62V abs leaves only4V unproven dynamic margin. |
+
+Input leakage maxima A±150nA, B±100nA from actual TI datasheets; 0.1% resistor tolerance. Full integrated UVLO and **EN/SHDN** logic, 58V input dynamics and 60C thermal proof not yet included in a manufacturing design. 100k/3.78k 32V divider draws **308µA**, challenging but not automatically breaching REV6 BAT+ OFF<1mA; when combined with ACC-based leakage, mode current, PG pullup, mainboard OFF budget <0.5mA is not yet guaranteed. A/B resistor candidates do not constitute release MPNs.
+
+**Checked scope BOM, not fully purchasable:** `REV6_COTS_VENDOR_BOM_SCOPE_2026-10-15.csv` includes the M8+board connector, external automotive F_MAIN+holder, ACC logic, PWR_FAIL mainboard supervisor, USB OR-ing, passives and optional separate RAW-eFuse. No missing MPN gets a free cost. The actual confirmed *partial* totals from CI are:
+
+| Candidate | REQUIRED positions in architectural scope (on TripPower + mainboard + vehicle) | With priced MPN | TBD positions | Price floor EUR net /unit at 1 /10 /100 |
+|---|---:|---:|---:|---|
+| A TPS26631+100V Schottky+LMR80 | 35 | 12 | 23 | **14.387 / 10.304 / 8.049** |
+| B TPS26600 integral reverse+LMR80 | 34 | 11 | 23 | **13.126 / 9.409 / 7.388** |
+| C TPS26631+Schottky+RECOM module | 23 | 4 | 19 | **13.199 / 11.632 / 10.126** |
+
+These are **lower bounds** for a partially priced *system concept*, not final complete BOM prices, and the 35/34/23 are only provisional scope-position quantities, not counted KiCad placements. All line items have quantity/MPN-or-explicit-TBD/footprint-candidate/price-source for three volume tiers, incl optional RAW branch shown separately, and the external hardware allocated to relevant board/harness. Need manufacturer-specified fixed resistor MPNs and PCB layout before accurate whole-board area.
+
+**Real CI:** https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38812555462 = success, 13/13 actual Python arithmetic tests plus CSV consistency. Native KiCad10 ERC/Netlist **NOT EXECUTED**, no released REV6 schematic yet, no 58V transient /60°C 2A hardware test. The major P0 blockers are still actual pad peak at eFuse (60V OPER/67V ABS A, 62V ABS B), tolerated 32V restart after diode, +60°C thermal and complete ACC/RUN/RAW safe state. The 58V clamp must be objectively ensured at the M8 port; 200V-test-A installations remain **prohibited** without externally qualified input protection.
