@@ -13,6 +13,8 @@ on:
       - 'tools/trippower_a_start_manufacturer_bounds.py'
       - 'tools/trippower_a_q301short_stress.py'
       - 'tools/check_trippower_a_q301short_prototype.py'
+      - 'tools/check_trippower_a_guard_netlist.py'
+      - 'tools/trippower_a_architecture_decision.py'
       - '.github/workflows/trippower-a-verification.yml'
   workflow_dispatch:
 
@@ -86,6 +88,20 @@ jobs:
             reports/a-d306-prototype.net reports/a-q301short-prototype.net \
             | tee reports/a-q301short-native-netdiff.json
           python3 tools/trippower_a_q301short_stress.py > reports/a-q301short-fault-sweep.json
+      - name: Isolated AP74502HQ single-FET guard (native ERC and full netlist differential)
+        run: |
+          cp -a hardware/modules/TripPower_5V2A reports/TripPower_A_AP74502_Guard_Build
+          cp hardware/modules/TripPower_5V2A/01_Protection_LM74930_INDEPENDENT_AP74502_GUARD_PROTOTYPE.kicad_sch \
+            reports/TripPower_A_AP74502_Guard_Build/01_Protection_LM74930.kicad_sch
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/a-AP74502-erc.json reports/TripPower_A_AP74502_Guard_Build/TripPower_5V2A.kicad_sch \
+            || { cat reports/a-AP74502-erc.json; exit 1; }
+          kicad-cli sch export netlist -o reports/a-AP74502-guard.net \
+            reports/TripPower_A_AP74502_Guard_Build/TripPower_5V2A.kicad_sch
+          python3 tools/check_trippower_a_guard_netlist.py \
+            reports/TripPower_5V2A.net reports/a-AP74502-guard.net \
+            | tee reports/a-AP74502-native-netdiff.json
+          python3 tools/trippower_a_architecture_decision.py > reports/a-round5-fuse-vs-guard.json
       - name: Preserve pass/fail evidence
         if: always()
         uses: actions/upload-artifact@v4
