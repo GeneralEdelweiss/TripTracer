@@ -82,7 +82,7 @@ assert 0.80<p_zener<0.85 and 0.28<e_zener<0.31
 
 # Yageo AC1206FR-07750KL: 200 V continuous rating / 0.25 W at 70C.
 # Two 750k high-side resistors per divider, 25.5k and 130k low side.
-# This is normal topology stress at 202 V (NOT peak pin transients/faults).
+# This is normal topology stress at 200 V (NOT peak pin transients/faults).
 divider={}
 for label,bottom in (("OV",25500.0),("UVLO",130000.0)):
     i=vin_pulse/(2*750000+bottom)
