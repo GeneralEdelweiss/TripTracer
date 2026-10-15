@@ -31,8 +31,8 @@ Annahme nur zur Architekturentscheidung: Zwei HV-MOSFETs zusammen 4–12 EUR, so
 | Architektur | 1 St. EUR netto indikativ | 10 St. EUR netto indikativ | 100 St. EUR netto indikativ |
 |---|---:|---:|---:|
 | C1 | 13.52–27.52 | 10.37–20.37 | 8.17–17.67 |
-| C2 | 16.00–32.20 | 12.00–24.20 | 8.62–20.12 |
-| C3 | 23.62–40.62 | 18.54–31.54 | 14.33–27.83 |
+| C2 | 16.00–32.20 | 12.00–24.20 | 9.42–20.12 |
+| C3 | 23.62–40.62 | 18.54–31.54 | 15.33–27.83 |
 
 Alle diese Budgets **ohne** PCB, Loetpaste, Schablone, Stecker, F_MAIN, MwSt. und Versand. Erst nach MPN/Footprint-Fixierung und tatsaechlichen Warenkorbpreisen gibt es echte Vollkosten.
 
@@ -59,3 +59,14 @@ Alle diese Budgets **ohne** PCB, Loetpaste, Schablone, Stecker, F_MAIN, MwSt. un
 - TI Modul: https://www.ti.com/lit/gpn/TPSM33620-Q1
 - TI Buck: https://www.ti.com/lit/ds/symlink/lmr43620-q1.pdf
 - ADI Surge: https://www.analog.com/media/en/technical-documentation/data-sheets/436612fe.pdf
+
+## Nachtrag: 50-V-/16-V-Passivbauteile (15.10.2026)
+
+Konkrete tatsaechliche MPN-Kandidaten: C3 **C1210C105K5RACAUTO** 1uF/50V AEC-Q200, C4 **C1210C475K5RACAUTO** 4.7uF/50V AEC-Q200, C5/C9 **C1206C104K5RACTU** 0.1uF/50V (nicht AEC), C6 **C1206C105K4RACTU** 1uF/16V (nicht AEC), C7/C8 **C1210C226K4RACTU** 22uF/16V (nicht AEC). Handelslisting DigiKey DE bestaetigt bis 125 C (C4 C3 Automotive; die drei CTU Commercial-Grade). C3/4/5/6/7/8/9 sind nun mit realen MPNs hinterlegt, ihre DC-Bias-Kapazitaet, Loetprozess und Toleranzreserve sind nicht freigegeben.
+
+- C3 DigiKey 1 St. 0.48 EUR, 10 St. 0.295 EUR, 100 St. 0.1985 EUR (https://www.digikey.de/de/products/detail/kemet/C1210C105K5RACTU/502005 ist nicht C3; fuer C3 exakter AEC-Artikel: https://www.digikey.de/de/products/detail/kemet/C1210C105K5RACAUTO/3314552; Preis vor Bestellung separat bestaetigen.)
+- C4 DigiKey in stock 131,393, 0.88 EUR pro St. (https://www.digikey.de/de/products/detail/kemet/C1210C475K5RACAUTO/3315039).
+- C5/C9 DigiKey 2,290,423 stock, 0.12/0.066/0.0394 EUR bei 1/10/100 Stueck (https://www.digikey.de/de/products/detail/kemet/C1206C104K5RACTU/411524).
+- C7/C8 DigiKey 65,209 stock, 0.70/0.439/0.3065 EUR bei 1/10/100 Stueck (https://www.digikey.de/de/products/detail/kemet/C1210C226K4RACTU/5023254).
+
+Tabellenwerte C2/C3 100 St. korrigiert: Induktivitaet und zusaetzlicher Verpolschutz waren vorher in der Untergrenze uebersehen worden.
