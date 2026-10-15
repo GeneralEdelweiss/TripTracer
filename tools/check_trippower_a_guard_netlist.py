@@ -45,7 +45,12 @@ EXPECTED={
  ("U401","7"):(None,"AP_OV_SENSE"),
  ("U401","8"):(None,"VIN_A_GUARD_OUT"),
 }
-def nodes(s):return {(r,p):name for name,connections in parse_native_nets(s).items() for r,p in connections}
+def nodes(s):
+    # Native KiCad emits pseudo-nets for NC pins; these are not electrical nets.
+    # Any actual connected U401.3 pin will still be compared and rejected.
+    return {(r,p):name for name,connections in parse_native_nets(s).items()
+            if not name.startswith("unconnected-")
+            for r,p in connections if not r.startswith("#")}
 def check(base,guard,sch):
     a=nodes(base);b=nodes(guard)
     diff={k:(a.get(k),b.get(k)) for k in a.keys()|b.keys() if a.get(k)!=b.get(k)}
