@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Reproducible manufacturer-threshold vs hypothetical-fault regressions."""
 import unittest
-from trippower_a_architecture_decision import compare, ap_ov_thresholds, ap_feed, fuse_high_impedance
+from trippower_a_architecture_decision import compare, ap_ov_thresholds, ap_feed, fuse_high_impedance, q401_hot_conduction
 
 class Round5SafetyArchitectureTests(unittest.TestCase):
     def test_genuine_500vdc_fuse_not_auto_closing_hiz_fault(self):
@@ -52,6 +52,15 @@ class Round5SafetyArchitectureTests(unittest.TestCase):
         self.assertEqual(s["total_placements_run"],70)
         self.assertFalse(s["hot_FET_on_and_switching_SOA_qualified"])
         self.assertFalse(s["body_diode_single_fet_WORST_CASE_verified_in_native_netlist"])
+
+    def test_vishay_specified_hot_rds_and_double_fet_conduction(self):
+        nine=q401_hot_conduction(9)
+        thirty=q401_hot_conduction(30)
+        self.assertAlmostEqual(nine["Q401_power_w_if_this_RDS_and_load"],0.37096,places=4)
+        self.assertAlmostEqual(thirty["Q401_power_w_if_this_RDS_and_load"],0.13049,places=4)
+        self.assertGreater(nine["Q401_power_w_if_this_RDS_and_load"],
+                           thirty["Q401_power_w_if_this_RDS_and_load"])
+        self.assertTrue(nine["actual_FET_Tj_layout_and_Vgs_at9v_UNKNOWN"])
 
     def test_safe_shutdown_not_qualified(self):
         c=compare()
