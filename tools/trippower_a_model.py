@@ -182,7 +182,7 @@ class StartCase:
     pump_interval_ms: float = 2.0  # invented sensitivity parameter, NOT a bound
     ready_on_v: float = 7.51  # P02 REV5 upper preliminary threshold, NOT qualified
     ready_off_v: float = 5.42
-    timer_delay_ms: float = 250.0  # placeholder pending TPS38 CTR effective-C data
+    timer_delay_ms: float = 420.0  # TI TPS38 CTR typical: -ln(0.28)*1M*330nF = 420ms, Ceff NOT known
     source_a_can_rise: bool = True  # optimistic gate/FET/Buck assumption
     diode_drop_v: float = 0.7  # assumed D302 behaviour, not qualified
     duration_s: float = 1.50
