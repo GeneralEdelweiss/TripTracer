@@ -1,4 +1,4 @@
-# TripPower – RESET/EN-Ansteuerung Rev. 2: hochspannungsfeste VS-only-Stufe (15.10.2026)
+> **KRITISCHE KORREKTUR: REV2-Proof-Gate 15.10.2026.** Die unten stehende frühere **7.974V nominal VS_READY EIN**-Angabe ist FALSCH/ÜBERHOLT; richtig ist **8.221V EIN, 5.998V AUS**, Szenarioband 7.669–8.539 / 5.646–6.336V. Vollständig: [RESET_EN_REV2_PROOF_GATE_2026-10-15.md](RESET_EN_REV2_PROOF_GATE_2026-10-15.md). Garantierte µA-hFE, 125°C-ICEO und VIN9-Startup fehlen: **Hardware nicht freigegeben.**\n\n# TripPower – RESET/EN-Ansteuerung Rev. 2: hochspannungsfeste VS-only-Stufe (15.10.2026)
 
 **Konstruktiv behobene Fehler:** keine Q303-NMOS-Source-Follower-Hochseitenklemme, kein D306/D308-BAS70-Hot-Leckstrom mehr im hochohmigen RESET-Kreis, keine D307-Zenerklemme mit ungeklärtem Kleinstrom, **kein direkter elektrischer RUN_CMD→CTRL_EN-Strompfad**, und keine permanente EN-Ladung durch C309 (DNP). Eingebaut in eigenständige KiCad-10-Projektseiten. **ABER:** Kein belastbarer Funktions- oder ISO-/Fahrzeugnachweis für −40…+125°C/202V; siehe unten.
 
