@@ -1,0 +1,50 @@
+# TripPower Weg A – 80-V-Wandler, belastbarere Lieferteile und technische STOP-Gates
+
+Stand 2026-10-15. **Eigenständiger Branch `design/trippower-80v`, aus `design/solid-state-power-v1` abgezweigt. Nicht auf Weg B schreiben.** Quelle der Arbeit: AGENTS.md, START_HERE_NEXT_CHAT.md, REV5_DESIGN_BASELINE.json, MPM3551_SWAP_DEEP_DIVE_2026-10-15.md und die drei realen KiCad-10-Blätter.
+
+## Ziel und unveränderte Architektur
+- VIN_FUSED 9–30 V Dauerbetrieb, kurzzeitiger Start bei etwa 9 V, darunter Brownout/Reset erlaubt.
+- `5V_OUT` 5,0 V/2 A; `VIN_PROTECTED_UNFUSED` RAW-Zweig 1 A, OHNE eigene Zweigsicherung auf dem Modul.
+- **200 V / 350 ms** ungedämpfter Load-Dump als separate Entwicklungsanforderung; kein Nachweis. Externe, wartbar austauschbare F_MAIN und ausreichende Leitungs-/Stecker-/Kupferbemessung verbindlich.
+- `LM74930QRGERQ1` mit Q301/Q302, `TPS38A010122DSKRQ1` zweikanaliger Enable und `LMR38020SQDDARQ1` 4.2–80V/2A bei R103=64.9k/400kHz. **Keine Änderung** an R313–315 (3×3.3k), D301 (56V), Q301, R309 (25.5k OV), C308/C312 (2×10uF VS), C311 (330nF delay), R330 (715k VS sense), C303 (470nF) oder HGATE RC.
+- 57 aktive Bestückpositionen AUTO / 58 RUN (R305, R321 weiterhin DNP). Ein Sicherheitsteil wird nicht zur künstlichen BOM-Reduktion gestrichen.
+
+## Echte Änderungen am KiCad-Standalone-Design, nur Weg A
+
+| Ref | Quelle alt | Neu und Grund | Physischer / Nachweisstatus |
+|---|---|---|---|
+| L101 | FANGCHENG FCH0650-150M 15uH, 5A Irms / 5.5A Isat, 54mOhm, teils unbestätigter Footprint, keine öffentlich belegte AEC-Qualifikation | **Bourns SRP7050TA-150M**, 15uH +-20%, AEC-Q200, Isat **6A** nach 20%-Induktivitätsabfall, Irms **3.5A** für 40-K-Erwärmung bei 25C, DCR 81 typ / **92mOhm max**; -55 bis +150C einschließlich Selbsterwärmung. Kein neuer IC/BOM-Count. | **Echt in 02-Schaltplan/Baseline geändert.** Neuer portabler `Tripmaster.pretty/L_BOURNS_SRP7050TA_150M.kicad_mod`, Hersteller Pad-Span 8.4mm / Pad-Gap 2.5mm / Pad-Höhe 3.5mm; 2 Pads, 1=SW,2=5V. Herstellermaßzeichnung visuell geprüft; physischer Löt-/Stencildruck, 3D-Modell und KiCad10 native PCB-DRC weiterhin offen. |
+| C306 | 47uF/63V polar, ohne MPN/Qualifikation | **Panasonic EEHZC1J470P**, 47uF/63V +-20% Hybrid, AEC-Q200, ESR40mOhm, 8×10.2mm, -55..+125C, 4000h@125C. Bei Reichelt Oktober 2026 0.57EUR/Stk inkl MwSt. | **Echt in 01-Schaltplan/Baseline geändert.** Vorhandenes 8×10.5mm KiCad-Standard-Footprint als Kandidat beibehalten, polar: Pin1 VIN_PROTECTED_UNFUSED, Pin2 GND. Hersteller-Landpattern/Pad-Polarity, Ripple-Hot-Life und Output-Peaks weiterhin Testgate. |
+
+Quellen: [Bourns SRP7050TA Datasheet](https://www.bourns.com/docs/Product-Datasheets/SRP7050TA.pdf); [DigiKey Lager/Preisindikator Bourns](https://www.digikey.com/en/products/detail/bourns-inc/SRP7050TA-150M/5429680) (ca 3966 am Recherchepunkt, 1.12 USD/1, nicht brutto-EUR); [Panasonic C306](https://industrial.panasonic.com/ww/products/pt/hybrid-aluminum/models/EEHZC1J470P); [Reichelt C306](https://www.reichelt.de/de/de/shop/produkt/elko_smd_47_f_63v_4000h-400980) (0.57 EUR inkl 19% USt). Keine Preise unterschiedlicher Währungen/Steuerschemata summieren. 3D-Datei für Bourns fehlt – nicht durch fingiertes Modell ersetzen.
+
+### AEC-Q200 statt bloßer günstiger Herkunft – aber thermische Nebenwirkung ehrlich dokumentieren
+Die FANGCHENG hat 5A/5.5A und 54mOhm, die Bourns Irms3.5A/Isat6A und Rdc81/92mOhm bei25C. Der höhere maximale Rdc kann allein bei2A etwa `I² × (0.092-0.054)=0.152W` zusätzliche Verlustleistung ggü FANGCHENG-Nennwert verursachen. Bei125C kann der Wicklungswiderstand weiter steigen. Das **ist kein automatischer thermischer Gewinn**, aber die temperaturfest dokumentierte, AEC-Q200-getestete Spule und nun physisch hergeleitete Padgeometrie senken Herkunft-/Footprint-Ungewissheit. Temperaturmessung an L101 bei TA125C inkl Buck-/Umgebungsheizung notwendig; maximale Bourns-Bauteiltemperatur150C einschließlich Eigenerwärmung beachten.
+
+## Kritischer 2A/30V Wandler-Gate P08
+Der TI [LMR38020-Q1](https://www.ti.com/lit/ds/symlink/lmr38020-q1.pdf) spezifiziert bei der 2A-Version **I_HS_LIMIT min2.6A**, 64.9k Schaltfrequenz **320/400/480kHz** min/typ/max, keine ideale garantie eines echten 2A-Ausgangs bei +125C ohne ausreichend wirksames L. Bourns L=15uH +/-20% bei25C **ohne garantierte Mindestinduktivität über vollen DC-Bias/T**.
+- Idealisierte CCM-Ripple-Rechnung `ΔIL=(VIN-5)*(5/VIN)/(L·f)` mit VIN30, L12uH (=15u -20%), f320k: **1.085A p-p**, Peak bei 2A=**2.543A**, nur **57mA** Abstand zum TI-Mindeststromlimit 2.6A. Das ist **keine belastbare 2A/30V-All-Temperature-Reserve**.
+- Illustratives **zusätzliches** 20% L-Bias-Absinken 12u→9.6u: Peak **2.678A > I_HS_LIMIT_min**. Dies ist eine Sensitivität, **kein** unterstelltes bestätigtes Bourns-Kennfeld. Benötigt Hersteller-L(I_DC,T) und transienten 2A-Nachweis im Layout. Nicht bei 125C "funktioniert garantiert" behaupten.
+- **C104/C105/C106: 3×22uF unverändert**, weil TI für 5V/400kHz exemplarisch exakt die dreifache Ausgangskapazität empfiehlt und Transienten-/Stabilitätswerte sonst neu zu validieren wären. [TI LMR38020 Datenblatt](https://www.ti.com/lit/ds/symlink/lmr38020-q1.pdf).
+- R103 zur Frequenzwahl bleibt Pflicht. Kein LMR38020-PG-Pullup hinzugefügt; analoges PGood optional, zusätzliche Komponente würde wenig sicherheitsrelevanten Nutzen bringen.
+- Als mögliche **spätere** stabilitäts-/thermisch geeignete Alternative anstelle L101: **18uH-AEC-Q200** mit Isat/Irms ausreichend sowie L(I_DC,T)-Daten; kein unvalidierter neuer 3D/Footprint-Tausch. Würth 744393465180 18uH/7.2A/6.8A/37.3mOhm (größere Bauhöhe ~6.1mm) hat bei Händlerangabe nur bis **+125C Bauteiltemperatur**, im maximalen +125C-Umgebungsziel fraglich; vor der Wahl Wurth-Normbedingungen klären.
+
+## 9-V-Anlauf / P01 – kein gefälschter Garantiewert
+Die TI-EVM zeigt 10k VS-Feed und A→VS-Nachladediode; die EVM-Startup-Kurve wurde bei12V, **nicht 9V** dokumentiert. TripPower hat R313–315=9.9k und D302 SOURCE_A→VS, nach der ersten FET-Öffnung; es existiert **kein unabhängiger 9-V-Nachladepfad von VIN zur VS nach Q301 ohne deren Quelle**.
+- Bei VIN9 und nur `VS_READY_ON_max_scenario=7.510V` stellt der 9.9k-Pfad statisch `(9-7.510)/9900=150.5uA` bereit. Das TI-LM74930-IQ-Max **780uA bei anderen Testbedingungen (VS12V)** ist weder ein garantiertes 9V-Anlaufmodell noch gleichzusetzen mit CAP-Pumpen-Anlauf. C302+C308+C312 nominal21uF bieten nur temporäre Ladungsreserve, Ceff, Leak bei125C und echte I_VS(t) unbekannt.
+- Weg A ändert RVS **nicht**, weil geringerer RVS die 200V/350ms Pulsenergie und Zenerheizung erhöht. Kein ungedecktes neues Boot-IC.
+- P01-Testschritte: **erst 9V/25C / NULL last** mit AUTO und aktivem RUN, langsamer VIN-Ramp und warmem Wiedereinschalten; dann 2A/30V und Zwischenlasten; jeweils oszillografisch VS, `CAP_PUMP–VS_CLAMP` differential, `CTRL_EN`, Q301-Gate zu SOURCE_A, VIN_PROTECTED_UNFUSED, 5V_OUT; bei Labormessung eindeutig isolierte sichere Spannungsquelle/Strombegrenzung. Bei 9V zuerst ohne HV-Puls testen und D302 erst bei leitender Q301 als Nachladepfad werten.
+- Ein stabiler 5V-Schaltregler kann den vorgeordneten LM74930-Start nicht heilen. Bleibt P01 **BLOCKED** bis Hersteller- oder physischer Nachweis.
+
+## 200V / 350ms Schutz und SOA P03/P04 – reale Hot-Corner
+Bei **200V** an VIN_FUSED, 56V *nominale* VS-Zener und R313–315=3×3.3k: `I=(200-56)/9900=14.545mA`. Je R=0.698W, in350ms **0.244J** (vereinfachter Rechteckpuls). Die Zener bekäme nominal `56V×14.545mA=0.815W`, **0.285J**; Zener temperaturabhängig und Hersteller-Spannungstoleranz fehlen.
+- Vishay [CRCW-HP e3 Datenblatt](https://www.vishay.com/docs/20043/crcwhpe3.pdf): P70 für2512-HP **1.5W**, max Filmtemperatur155C, bei125C beträgt unter angenommener linearer stationärer Derating-Regel nur ca `1.5W×(155-125)/(155-70)=0.529W`. **0.698W für350ms ist *nicht* automatisch unzulässig**, aber auch *nicht* durch die 1.5W/70C-Nennleistung bei heißem Puls gedeckt. Die konkrete Einzelimpulskurve, thermische Starttemperatur, Wiederholrate und Montagefläche müssen qualifiziert werden.
+- Q301 SQM10250E_GE3 mit 250V VDS: am 200V-Eingang bleiben ohne Überschwingen **50V nominelle VDS-Reserve**. OV-Abschaltung HGATE mit bis7us Debounce plus Gate/Miller-/Leitungsdynamik. **Nicht** 200V über volle350ms als 2A lineare FET-Dauerleistung rechnen; reale kritische SOA liegt beim Ein-/Abschaltübergang, Wiederanschluss, Hot-Short und eventuell falsch gesteuertem HGATE. OSC auf `V_DS_Q301`, I_Q301 und Gate-Diff, am heißem Eckpunkt nötig. Keine direkte statische Bauteilgarantie.
+- Unverändert: D303/D304 TVS (Polarity +/−), Q302 60V, C306 63V, D301 56V, TPS38 VDD/RESET≤65V. **Spannung jeder einzelnen nachgeschalteten Pin-/Kapazitätsdomäne** über den Puls prüfen. 80V-Buck nimmt keinen 200V-Rohpuls entgegen.
+- Funktionale sichere Abschaltung und Neustart im 200V-Ereignis priorisieren, nicht SD-Datengarantie. F_MAIN als einzige austauschbare, externe Sicherung muss Kabel/Stecker und Leiterbahnen bis zum Modul/RAW-Zweig inklusive FET-kurzgeschlossen-Einzelfehler schützen; F_MAIN Nennstrom/I²t noch nicht festgelegt.
+
+## CI / Prüfregeln (nur unabhängiger Branch)
+- Neues `tools/check_trippower_80v_branch_a.py` liefert nachprüfbare MPN/Pins/Padgeometrie und konservative arithmetische Stressindikatoren, ausdrücklich **NO HARDWARE APPROVAL**.
+- `tools/check_trippower_native_netlist.py` prüft in Weg A physische L101.P1=SW_38020, P2=5V_OUT, C306.P1=VIN_PROTECTED_UNFUSED, P2=GND zusätzlich.
+- Branch-eigene `.github/workflows/trippower-standalone.yml` startet nur bei `design/trippower-80v` und führt eigene Quelle-/Grenzenprüfung und native KiCad10 ERC/Netlist aus; voller DRC nicht möglich, weil keine eigenständige geroutete `.kicad_pcb` existiert. **GitHub Action-Ergebnis nach Commit prüfen**; grüne Ergebnisse = Quellen-/ERC-Konsistenz, keine Fahrzeugfreigabe.
+- Unverändert: `REV5_DESIGN_BASELINE.json` `automotive_released=false`, `manufacturing_released=false`, `nine_volt_start_guaranteed=false`. P01–P10 bleiben Engineering-STOP-Gates.
