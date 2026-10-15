@@ -1,0 +1,7 @@
+Action,Ref,Mode,MPN,Manufacturer,Nominal,Package,KiCad_Footprint,Qty_Delta,EUR_1_ex_VAT,EUR_10_ex_VAT,EUR_100_ex_VAT,Stock_snapshot,Supplier_URL,Electrical_Bounds,Decision
+KEEP,D301,AUTO+RUN,1SMB5943BT3G,onsemi,56V_3W_5pct,SMB,Diode_SMD:D_SMB,0,,,,,https://www.onsemi.com/pdf/datasheet/1smb5913bt3-d,"3W TL75C; 1W TL125C; nominal Vz 56V ±5% at Izt6.7mA; open-fault vulnerable",BASELINE_UNCHANGED
+ADD_PROTOTYPE_ONLY,D306,AUTO+RUN,ACZRC5370B-G,Comchip,56V_5W_5pct_AEC-Q101,SMC,Diode_SMD:D_SMC,+1,1.23,0.776,0.5138,"613 in stock DigiKey Germany (2026-10-15 snapshot)",https://www.digikey.de/en/products/detail/comchip-technology/ACZRC5370B-G/5020125,"36? no: VR42.6V IRmax 0.5uA at data sheet test; Zztmax35ohm at IzT; 125C loaded junction and Vz at 15mA unqualified",PROTO_ONLY_NO_FAB
+KEEP,Q301,AUTO+RUN,SQM10250E_GE3,Vishay,250V_30mohm_max_25C_AEC-Q101,D2PAK,Package_TO_SOT_SMD:TO-263-3_TabPin2,0,,,,,https://www.vishay.com/docs/75035/sqm10250e.pdf,"Hot SOA and 200V turnoff not proven",NO_SWAP
+RESEARCH_ONLY,Q301_ALT,AUTO+RUN,SQM35N30-97_GE3,Vishay,300V_97mohm_max_25C_AEC-Q101,D2PAK,Package_TO_SOT_SMD:TO-263-3_TabPin2,0,4.48,2.963,2.1059,"1150 in stock DigiKey Germany (snapshot)",https://www.digikey.de/en/products/detail/vishay-siliconix/SQM35N30-97-GE3/7566806,"300V grants +50V nominal margin but +0.382W at I2.389A compared with 30mohm and hot SOA still unknown; Qg130nC vs75nC",REJECT_AS_SIMPLE_DROPIN
+SUMMARY_FITTED,AUTO,,,,,,,58,,,,,,,"57 existing +1 D306",ONLY_ALTERNATE_SCHEMATIC
+SUMMARY_FITTED,RUN,,,,,,,59,,,,,,,"58 existing +1 D306",ONLY_ALTERNATE_SCHEMATIC
