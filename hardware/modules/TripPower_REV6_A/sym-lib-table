@@ -1,4 +1,5 @@
 (sym_lib_table
+ (lib (name "TripPower_REV6")(type "KiCad")(uri "${KIPRJMOD}/TripPower_REV6.kicad_sym")(options "")(descr "REV6 A TPS26631 PWP20 and 100V NMOS portable custom pins"))
  (lib (name "TripPower_Sym")(type "KiCad")(uri "${KIPRJMOD}/TripPower_Sym.kicad_sym")(options "")(descr "TripPower native 3pin terminals and removable 58V MINI fuse symbols"))
  (lib (name "TripTracer_V1")(type "KiCad")(uri "${KIPRJMOD}/TripTracer_V1.kicad_sym")(options "")(descr "Portable TripPower source symbols"))
  (lib (name "Tripmaster_Sym")(type "KiCad")(uri "${KIPRJMOD}/Tripmaster_Sym.kicad_sym")(options "")(descr "Portable resistor and capacitor symbols"))
