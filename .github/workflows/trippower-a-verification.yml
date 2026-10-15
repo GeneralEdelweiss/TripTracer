@@ -118,6 +118,14 @@ jobs:
           python3 tools/check_trippower_a_pg_netlist.py \
             reports/TripPower_5V2A.net reports/a-pgood-prototype.net \
             | tee reports/a-pgood-native-delta.json
+      - name: Export all native KiCad 10 procurement BOM rows for REV5 and PG prototype
+        run: |
+          kicad-cli sch export bom \
+            -o reports/a-rev5-all-positions-bom.csv \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
+          kicad-cli sch export bom \
+            -o reports/a-pgood-all-positions-bom.csv \
+            reports/TripPower_A_PGOOD_Build/TripPower_5V2A.kicad_sch
       - name: Preserve pass/fail evidence
         if: always()
         uses: actions/upload-artifact@v4
