@@ -57,6 +57,33 @@ assert on_min>6., "Do not model initial charge-pump release below TI VS>=6V CAP-
 OFF_UA=34.6
 C_VS=11e-6
 TDELAY=.28
+# TPS3760-Q1 Rev.B §7.3.4.1 Eq.1–3 / §6.5: RCTR 877k/1M/1147k.
+# Conditional ceramic 220nF capacitor envelope: initial +/-10% multiplied by
+# X7R-temperature +/-15%. C311 MPN is still PENDING, hence these extremes
+# ARE NOT guaranteed for the actual build. DC-bias, aging and leakage excluded.
+C_CTR_NOM=220e-9
+CTR_R_MIN=877e3
+CTR_R_TYP=1e6
+CTR_R_MAX=1147e3
+C_CTR_ASSUMED_MIN=C_CTR_NOM*.90*.85
+C_CTR_ASSUMED_MAX=C_CTR_NOM*1.10*1.15
+TCTR_CONDITIONAL_MIN=-math.log(.31)*CTR_R_MIN*C_CTR_ASSUMED_MIN
+TCTR_TYP=-math.log(.28)*CTR_R_TYP*C_CTR_NOM
+TCTR_CONDITIONAL_MAX=-math.log(.25)*CTR_R_MAX*C_CTR_ASSUMED_MAX
+assert .17<TCTR_CONDITIONAL_MIN<.18
+assert .279<TCTR_TYP<.282
+assert .44<TCTR_CONDITIONAL_MAX<.45
+def vs_after_reset_delay(vin,threshold,delay_s):
+    v_eq=vin-RVS*OFF_UA*1e-6
+    return v_eq-(v_eq-threshold)*math.exp(-delay_s/(RVS*C_VS))
+VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE=vs_after_reset_delay(
+    9.,on_max,TCTR_CONDITIONAL_MIN)
+assert 8.3<VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE<8.5
+# This is *not* a bound on real start: OFF_UA, C_VS and upper READY voltage
+# aren't guaranteed, nor is pump I(VS,t), and RESET could reassert.
+VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH=(
+    (VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE-6.)*8.5e-6/0.003031)
+assert 0.006<VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH<.0075
 VIRTUAL_OLD_ON=8.221
 VIRTUAL_OLD_ON_HIGH=8.539
 VIRTUAL_OLD_OFF=5.998
@@ -94,6 +121,19 @@ print(json.dumps({
      "TPS3760_reset_delay_TYP_ms":TDELAY*1e3,
      "TI_min_CAP_current_VS_ge_6V_NOT_VS_SUPPLY_CURRENT":True},
  "matrix":matrix,
+ "reset_C311_TPS3760_timing_conditional_not_yet_guaranteed":{
+    "RCTR_kohm_min_typ_max":[877,1000,1147],
+    "assumed_C311_nom_nF":220,
+    "assumed_initial_cap_tolerance_pct":10,
+    "assumed_X7R_temp_delta_pct":15,
+    "delay_ms_min_typ_max_under_these_assumptions":[
+        round(TCTR_CONDITIONAL_MIN*1e3,1),
+        round(TCTR_TYP*1e3,1),
+        round(TCTR_CONDITIONAL_MAX*1e3,1)],
+    "VS9_at_delay_end_for_upper_model_ready_threshold_and_34p6uA_model_V":round(VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE,3),
+    "VS9_to_6V_8p5uF_3p031ms_average_draw_limit_mA_model_ONLY":round(VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH*1e3,2),
+    "NOT_GUARANTEED":"C311 actual MPN/DC bias/aging, C308 ESR/Ceff/leak, 34.6uA OFF total, REV3 trip temp/BJT, controller dynamic VS input current, reset delay after partial discharge"
+ },
  "failure_modes_unchanged":["Actual CAP pump I(VS,t) unknown, C308 and C311 T/age/leak not qualified",
     "Reset delay at cold and hot is not necessarily 280ms",
     "PNP/NPN 20uA-gain and 125C leakage are not supplier guaranteed",
