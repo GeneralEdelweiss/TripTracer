@@ -38,6 +38,9 @@ UVLO-Widerstandsteiler `R310+R311=1,5MΩ`, `R312=130kΩ`: rising Schaltschwelle 
 
 OV-Schaltschwelle ca. 35,9V nominal, sodass 30V Normalbetrieb idealerweise unterhalb bleibt; bei Toleranz und Leakage erneut prüfen.
 
+
+**9V Spannung am Fahrzeuganschluss ≠ 9V am TripPower-Modul:** Bei 5V/2A + 1A RAW ergibt die beispielhafte 80%-Buck-Effizienz ca. 2,389A bei 9V. Mit der pessimistisch errechneten UVLO-rising-Schwelle von ca. 8,35V bleiben nur 0,65V für die komplette M8-Kabel-, F_MAIN-, Stecker- und Zuleitungsimpedanz. Für dauerhaft 9,00V vor dieser Leitung resultiert deshalb **R_total ≤ (9−8,35)/2,389 ≈ 0,272Ω**, ohne Einschaltstromreserve und unter den genannten pessimistisch/angenommenen Schwellwerten. **9V Systemstart muss am VIN_FUSED-Pin unter Last spezifiziert/gemessen werden**, nicht nur an Batteriepolen. Dieser Kabel-Spannungsabfall ist ein unabhängiges UVLO-Budget und löst das VS-Bootstrap-Problem nicht.
+
 ## 5. Startverlauf: Blockfolge
 
 1. `VIN_FUSED` steigt von 0 auf 9/12/13,8/24/30V. Bei Q301 aus sperrt die Body-Diode in VIN→SOURCE_A-Richtung. **D302 A→VS hat zunächst keine unabhängige Quelle**.
