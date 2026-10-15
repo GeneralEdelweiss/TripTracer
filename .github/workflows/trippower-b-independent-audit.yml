@@ -32,6 +32,10 @@ jobs:
         run: |
           python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_safety_b_fmea.py' -v 2>&1 | tee reports/b-fmea-tests.txt
           python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_cots_b_compare.py' -v 2>&1 | tee reports/b-cots-tests.txt
+      - name: Independent 200V OEM surge reference and body diode fault regressions
+        run: |
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_ap74502_reference_fault_screen.py' -v 2>&1 | tee reports/b-ap74502-reference-tests.txt
+          python3 hardware/modules/TripPower_5V2A/weg_b/ap74502_reference_fault_screen.py > reports/b-ap74502-reference-scenarios.json
       - name: Native KiCad 10 schematic ERC
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
