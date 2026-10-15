@@ -61,7 +61,7 @@ jobs:
           cp hardware/modules/TripPower_5V2A/01_Protection_LM74930_D301_BACKUP_PROTOTYPE.kicad_sch \
             reports/TripPower_A_Prototype_Build/01_Protection_LM74930.kicad_sch
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
-            -o reports/a-d306-prototype-erc.json reports/TripPower_A_Prototype_Build/TripPower_5V2A.kicad_sch
+            -o reports/a-d306-prototype-erc.json reports/TripPower_A_Prototype_Build/TripPower_5V2A.kicad_sch || { cat reports/a-d306-prototype-erc.json; exit 1; }
           kicad-cli sch export netlist -o reports/a-d306-prototype.net \
             reports/TripPower_A_Prototype_Build/TripPower_5V2A.kicad_sch
           python3 tools/check_trippower_a_d301_prototype.py \
