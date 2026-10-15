@@ -38,6 +38,22 @@ jobs:
         run: |
           python3 -m unittest discover -s tools -p 'test_trippower_a_rev6.py' -v 2>&1 | tee reports/rev6-model-tests.log
           python3 tools/trippower_a_rev6_limits.py > reports/rev6-source-bounds.json
+      - name: Early native netlist audit of power source and 5V domains
+        run: |
+          kicad-cli sch export netlist -o reports/rev6-a-before-ERC.net \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch
+          python3 - <<'PY'
+          import sys
+          sys.path.insert(0, 'tools')
+          from check_trippower_a_netlist import parse_native_nets
+          s=open('reports/rev6-a-before-ERC.net').read()
+          nets=parse_native_nets(s)
+          focus={'U201','U101','Q201','Q202','C203','#FLG201','#FLG202','#FLG203'}
+          for net,items in nets.items():
+              x=[(r,p) for r,p in items if r in focus]
+              if x:
+                  print(net,sorted(x))
+          PY
       - name: Native KiCad10 schematic ERC
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
