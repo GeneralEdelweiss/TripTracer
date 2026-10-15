@@ -1,0 +1,56 @@
+name: TripPower Weg C REV6 candidate screening (NO FAB APPROVAL)
+
+on:
+  push:
+    branches:
+      - "design/trippower-c"
+    paths:
+      - ".github/workflows/trippower-c-rev6-design-checks.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_protection_gates.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_COTS_VENDOR_BOM_SCOPE_2026-10-15.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_COTS_ARCHITECTURE_DECISION_2026-10-15.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  calculations-and-scoped-bom:
+    name: REV6 real Python calculations, explicit unresolved MPN check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardware/modules/TripPower_5V2A/weg_c
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check manufacturer reference thresholds and thermal/surge budget
+        run: python3 -m unittest -v rev6_protection_gates
+      - name: Output quantitative screening
+        run: python3 rev6_protection_gates.py
+      - name: Verify cost calculations are not called complete BOM costs
+        run: |
+          python3 - <<'PY'
+          import csv
+          from collections import defaultdict
+          with open("REV6_COTS_VENDOR_BOM_SCOPE_2026-10-15.csv", encoding="utf-8", newline="") as f:
+              rows = list(csv.DictReader(f))
+          assert {r["Concept"] for r in rows} == {"A","B","C"}
+          for concept in ("A","B","C"):
+              r = [x for x in rows if x["Concept"] == concept and x["Requirement"] == "required"]
+              total = sum(int(x["Qty"]) for x in r)
+              unknown = sum(int(x["Qty"]) for x in r if x["MPN"].startswith("TBD_"))
+              known = sum(int(x["Qty"]) for x in r if x["Unit1_EUR_net"])
+              sums = [sum(int(x["Qty"])*float(x["Unit"+q+"_EUR_net"])
+                      for x in r if x["Unit"+q+"_EUR_net"]) for q in ("1","10","100")]
+              assert unknown > 0, "Cannot treat nonfinal BOM as released"
+              print(f"{concept}: SCOPE {total} positions, UNKNOWN {unknown}, "
+                    f"priced {known}, PARTIAL net EUR 1/10/100 {sums}")
+          PY
+      - name: Warn explicitly that KiCad 10 ERC/Netlist and hardware tests remain open
+        run: |
+          echo "PASS in this workflow means only formula and draft scope checks."
+          echo "No complete native KiCad10 REV6 schema, ERC, netlist, PCB DRC, 58V pulse or 60C thermal clearance yet."
+          echo "Do not issue JLCPCB Gerbers from this architecture decision."
