@@ -110,6 +110,21 @@ def ap_feed():
      "30v_restart_static_possible":True
     }
 
+def q401_hot_conduction(vin):
+    """Vishay SQM10250E guaranteed max 65mOhm @VGS10V ID15A TJ125C;
+    current is hypothetical eta80% buck + RAW1A, not actual worst."""
+    assert 9<=vin<=30
+    load_a=10/(vin*.8)+1.0
+    p=load_a*load_a*.065
+    return {
+       "vin_v":vin,"main_current_a_eta80pct_RAW1A_ASSUMED":load_a,
+       "Q401_RDS_125C_MAX_OHM_at_10v_gate_15a_test":.065,
+       "Q401_power_w_if_this_RDS_and_load":p,
+       "two_Q301_Q401_power_w_if_BOTH_same_RDS_hot":2*p,
+       "actual_FET_Tj_layout_and_Vgs_at9v_UNKNOWN":True,
+       "SOA_350ms_short_circuit_unproven":True
+    }
+
 def compare():
     return {
       "required":{"VIN_normal":[9,30],"regulated_output":"5V/2A","RAW_design_a":1,
@@ -136,6 +151,7 @@ def compare():
         "total_placements_auto":69, "total_placements_run":70,
         "previous_Q307_R342_D306_not_used":True,
         "hot_FET_on_and_switching_SOA_qualified":False,
+        "Q401_conduction_max_RDS_supplier_at_Tj125_illustrative_load_9v_30v":[q401_hot_conduction(v) for v in (9,30)],
         "gate_off_max_1us_ap_test_Cgate4p7nF_VIN12_NOT_design":True,
         "body_diode_single_fet_WORST_CASE_verified_in_native_netlist":False,
         "FET_250v_margin_above200v_before_ringing":50,
