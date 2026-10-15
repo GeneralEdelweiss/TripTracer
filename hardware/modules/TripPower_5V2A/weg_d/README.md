@@ -1,5 +1,13 @@
 # TripPower Weg D – dedizierter Load-Dump-Schutz
 
+> **Aktueller technischer Entscheidungspunkt – Round 6 (2026-10-15):** NO-GO, einen einzelnen TLD8S36AH- oder Bourns-SM8S36A-Q-TVS als **vollständigen** 200-V-/350-ms-Eingangsschutz zu benutzen, solange +125°C-Puls-SOA, worst-case Padspannung/60-65-80V-Domänen und TVS-OPEN/SHORT einschließlich F_MAIN-Total-Clearing unbelegt sind. Bourns hat ein ausdrücklich 10-Pulse-Test-A-Performance-Diagramm; Schurter SPT 0001.2509 ist ein 300VDC-Sicherungs-Forschungskandidat. LTC4366-2 bleibt ein nur bedingt laborgeeigneter, teuerer Fallback. **Keine KiCad-/Fahrzeugfreigabe.**
+>
+> **Jetzt maßgeblich:**
+> - [Round-6 technischer Stop/Go-Bericht](WEG_D_ROUND6_CONDITIONAL_STOP_DECISION_2026-10-15.md)
+> - [Vollständige Funktions-/Teilpreis-BOM-Matrix 1/10/100](ROUND6_BOM_COST_MATRIX_2026-10-15.md)
+> - [Modellrechner](load_dump_scenarios.py) und [Rechentests](test_round6.py)
+> - [Chronologisches Findings-Log](FINDINGS_LOG.md)
+>
 **Separater Forschungszweig:** design/trippower-d-load-dump
 **Aufgabe:** möglichst wenige und günstige fertige Bauteile zur Beherrschung eines nicht unterdrückten **200-V-/350-ms-Load-Dump-Pulses** finden, idealerweise *nur* ein dedizierter Schutz-IC oder ein für lange Load-Dump-Pulse qualifizierter Halbleiter. Eine nur für 10/1000 µs spezifizierte TVS gilt **nicht** automatisch als geeignet.
 
