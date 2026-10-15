@@ -13,7 +13,7 @@ def verify(s):
       ("U201","6"):"VIN_FUSED",("U201","7"):"UVLO_SENSE",
       ("U201","8"):"OVP_SENSE",("U201","9"):"GND",
       ("U201","10"):"R6_DVDT",("U201","11"):"ILIM_SET",
-      ("U201","13"):"VIN_FUSED",
+      # SHDN13 is FLOATING, internal TI 2.7V pull-up, ABS5.5V -- never VIN_FUSED
       ("U201","18"):"VIN_PROTECTED_UNFUSED",
       ("U201","19"):"VIN_PROTECTED_UNFUSED",
       ("U201","20"):"VIN_PROTECTED_UNFUSED",
@@ -46,7 +46,7 @@ def verify(s):
     actual_refs={ref for ref,p in pins}
     assert not forbidden.intersection(actual_refs),forbidden.intersection(actual_refs)
     # pin12 floating is TI latch mode, deliberate NC; other diagnostic outputs unused
-    for i in (12,14,15,16,17):
+    for i in (12,13,14,15,16,17):
         assert ("U201",str(i)) not in pins,("incorrectly connected",i,pins.get(("U201",str(i))))
     r=ROOT/"01_TPS26631_REV6.kicad_sch"
     a=r.read_text()
