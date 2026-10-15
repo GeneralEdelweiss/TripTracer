@@ -18,14 +18,15 @@ VOUT = 5.0
 IOUT = 2.0
 I_RAW = 1.0
 EFFICIENCY_ASSUMED = 0.90
-MOSFET_RDS_MAX_25C = 0.097  # SQM35N30-97, 300V, 97mOhm maximum at VGS=10V
+MOSFET_RDS_MAX_25C = 0.097  # SQM35N30-97, 300V, 97mOhm max at 25C, VGS=10V
+MOSFET_RDS_MAX_125C = 0.214 # 214mOhm max at 125C, VGS=10V, no margin below 10V drive
 FET_COUNT = 2
 FET_TJ_MAX = 175.0
 BUCK_TJ_MAX = 150.0
 TA_MAX = 125.0
 OVLO_RTOP = 1_000_000.0
 OVLO_RBOT = 39_000.0
-OVLO_REFERENCE_TYP = 1.24
+OVLO_REFERENCE_TYP = 1.25  # Diodes OVLO comparator typ; EN threshold is 1.24V, not OVLO
 AP_SHUTDOWN_MAX = 1.5e-6   # VIN pin, per AP datasheet
 AP_EN_SINK_MAX = 5e-6      # may cause relevant voltage divider offsets
 
@@ -63,6 +64,10 @@ def ovlo_levels():
     divider_fraction = OVLO_RBOT / (OVLO_RTOP + OVLO_RBOT)
     return {
         "ovlo_rising_nominal_input_V": OVLO_REFERENCE_TYP / divider_fraction,
+        "ovlo_rising_min_V": 1.165 / divider_fraction,
+        "ovlo_rising_max_V": 1.333 / divider_fraction,
+        "ovlo_falling_min_V": 1.063 / divider_fraction,
+        "ovlo_falling_max_V": 1.222 / divider_fraction,
         "divider_current_30V_uA": VIN_MAX / (OVLO_RTOP + OVLO_RBOT) * 1e6,
         "ovlo_pin_at_200V": V_SURGE * divider_fraction,
         # Leakage into or out of comparator input has to be substituted from full datasheet.
@@ -77,6 +82,27 @@ def max_allowed_theta_c_per_w(power_W, ambient=TA_MAX, junction=BUCK_TJ_MAX):
 
 def buck_loss_at_efficiency(efficiency):
     return VOUT * IOUT * (1 / efficiency - 1)
+
+
+def hot_fet_loss():
+    return FET_COUNT * input_current(Conditions())**2 * MOSFET_RDS_MAX_125C
+
+
+def ovlo_threshold_conflict():
+    """Required divider ratio for guaranteed restart @30V vs cutoff before 36V."""
+    max_beta_for_30v_restart = 1.063 / 30.0
+    min_beta_for_36v_cutoff = 1.333 / 36.0
+    return max_beta_for_30v_restart, min_beta_for_36v_cutoff
+
+
+def naive_transient_voltage(rise_time_us, assumed_gate_off_us=1.0):
+    """Illustrative linear-ramp upper-side unprotected stress only, NOT validated."""
+    slope = (V_SURGE - VIN_MAX) / rise_time_us
+    return ovlo_levels()["ovlo_rising_max_V"] + slope * assumed_gate_off_us
+
+
+def buck_thermal(efficiency=0.9, theta_ja=22):
+    return TA_MAX + theta_ja * buck_loss_at_efficiency(efficiency)
 
 
 class ProtectionBudgetUnitTests(unittest.TestCase):
@@ -106,6 +132,22 @@ class ProtectionBudgetUnitTests(unittest.TestCase):
         self.assertAlmostEqual(p, 10/0.9-10)
         self.assertLess(max_allowed_theta_c_per_w(p), 25.0)
 
+    def test_worst_30v_restart_not_guaranteed(self):
+        self.assertLess(ovlo_levels()["ovlo_falling_min_V"], VIN_MAX)
+
+    def test_ap_30v_restart_and_36v_buck_margin_conflict(self):
+        beta_restart, beta_cutoff = ovlo_threshold_conflict()
+        self.assertLess(beta_restart, beta_cutoff)
+
+    def test_fast_surges_40v_buck_stress(self):
+        self.assertGreater(naive_transient_voltage(10,1), 40)
+        self.assertGreater(naive_transient_voltage(100,1), 36)
+
+    def test_125c_fet_and_buck_thermal_stress(self):
+        self.assertGreater(hot_fet_loss(), 2.0)
+        self.assertGreater(buck_thermal(0.9,54.1),150)
+        self.assertLess(buck_thermal(0.9,22),150)
+
     def test_undocumented_ovlo_leakage_is_material(self):
         self.assertGreaterEqual(ovlo_levels()["per_1uA_input_leakage_threshold_shift_V"], 1.0)
 
@@ -122,6 +164,10 @@ def report():
           (x["resistor_peak_W"], x["resistor_energy_J"], x["zener_peak_W"], x["zener_energy_J"]))
     print("OVLO 1M/39k (nominal reference): rising %.2fV, 30V I %.2fuA, pin@200V %.2fV" %
           (o["ovlo_rising_nominal_input_V"], o["divider_current_30V_uA"], o["ovlo_pin_at_200V"]))
+    print("OVLO worst rising %.2fV, falling min %.2fV: 30V restart NOT guaranteed" % (o["ovlo_rising_max_V"],o["ovlo_falling_min_V"]))
+    print("BETA for 30V restart %.6f < BETA for <36V cutoff %.6f: C1 threshold NO-GO" % ovlo_threshold_conflict())
+    print("Idealized 10us 30->200V / 1us AP turnoff Vpeak %.2fV >40V: NOT SAFE" % naive_transient_voltage(10,1))
+    print("FET @125C, 9V input theoretical Rds-hot total loss %.3fW" % hot_fet_loss())
     print("OVLO 1uA leakage changes threshold by %.2fV; actual datasheet leakage +/- and tolerance required" %
           o["per_1uA_input_leakage_threshold_shift_V"])
     for eta in (0.85, 0.90, 0.93):
