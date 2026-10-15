@@ -337,12 +337,8 @@
 
 (wire (pts (xy 350.52 132.08) (xy 355.6 132.08)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180142"))
 (global_label "GND" (shape bidirectional) (at 355.6 132.08 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180143"))
-
- (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180144"))
 (wire (pts (xy 306.07 248.92) (xy 311.15 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000191031"))
 (global_label "VIN_FUSED" (shape bidirectional) (at 311.15 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180145"))
-
- (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180146"))
 (wire (pts (xy 325.12 248.92) (xy 330.2 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000191032"))
 (global_label "EFUSE_IN" (shape bidirectional) (at 330.2 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180147"))
 (symbol (lib_id "TripPower_REV6:VEHICLE_POWER_FLAG") (at 339.09 248.92 0) (unit 1) (in_bom no) (on_board no) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000191001")
