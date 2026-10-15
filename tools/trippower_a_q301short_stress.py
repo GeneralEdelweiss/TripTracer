@@ -31,6 +31,20 @@ def direct(rsrc, v=VIN, vs=VS, vf=VF):
             "DIODES_ZENER_AND_MAIN_FUSE_ARE_NOT_SIZED_FOR_THIS":True,
             "current_is_NOT_a_real_fuse_coordination_prediction":True}
 
+def fuse_time_screen(source_r_ohm, hypothetical_zener_energy_j=0.3):
+    """Required clearing times for *assumed* 0.3J budget. NOT a fuse specification."""
+    x=direct(source_r_ohm)
+    current=x["ideal_fault_current_a"]
+    if current<=0:raise ValueError("no positive hypothetical fault current")
+    dt=hypothetical_zener_energy_j/(VS*current)
+    return {"source_R_ohm":source_r_ohm,"current_A_constant_ideal":current,
+            "Zener_energy_limit_J_HYPOTHETICAL":hypothetical_zener_energy_j,
+            "fuse_must_clear_before_us_in_this_sensitivity":dt*1e6,
+            "A2s_at_that_time_if_current_constant":current*current*dt,
+            "actual_external_FMAIN_part_and_trip_curve":None,
+            "real_source_current_waveform_and_arc_interrupt":None,
+            "safe_for_hardware":False}
+
 def limited(current_ma=1.4, r=R342,vs=VS,vin=VIN,vf=VF):
     i=current_ma/1000
     resistor_v=i*r
@@ -80,6 +94,17 @@ def study():
         "module_main_fuse_I2t_interrupt_resistance":None,
       },
       "no_limiter_hypothetical_source_impedance":[direct(r) for r in (0.1,1.0,5.0,10.0,50.0)],
+      "hypothetical_external_FMAIN_required_clearing_bound":[
+           fuse_time_screen(r) for r in (1.0,10.0,50.0)],
+      "worst_open_shunt_direct_21uF":{
+         "all_D301_D306_open_VS_can_approach_200V":True,
+         "C302_C308_C312_each_nominal_rated_V":100,
+         "C_total_nominal_uF_no_dc_bias_warranty":21,
+         "energy_in_21uF_at_200V_J":.5*21e-6*200*200,
+         "energy_in_21uF_at_56V_J":.5*21e-6*56*56,
+         "D302_current_and_time_limit_not_defined":True,
+         "IC_pins_VS_65V_operating_and_A_direct_unprotected":True
+      },
       "with_Q307_BSP135_and_R342_1p5k":{
         "Infineon_reference":"AN Applications for depletion MOSFETs: I-V depletion with gate tied to downstream end of source resistor; at high VDS saturation current affected by VGS and IDSS",
         "threshold_divided_by_R_heuristic_mA_NOT_MAX":ithreshold_ma,
