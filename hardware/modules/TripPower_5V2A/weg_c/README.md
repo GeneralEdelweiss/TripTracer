@@ -64,7 +64,7 @@ Ein fertiges RECOM-R-78K-5V/2A-Modul wurde geprueft, scheitert als direkte Empfe
 
 1. Genaues AP74502HQ-Pin-/OVLO-/EN-Verhalten bei 9 V, bei 200 V/350 ms und Rueckkehr zu 30 V; High-Ohm-Teiler inklusive Leakage/Temperatur.
 2. 200-V-Quelle definieren: Wellenform, Quellimpedanz, Kabelinduktivitaet; 200 V ist **kein** Ersatz fuer Pulsenergie. Ausschaltspitzen und 300-V-MOSFET-SOA, Hot-RDSon und Gate-ESD.
-3. Schutzversorgung 10-kOhm-Vorwiderstand: nominal 1.96 W fuer 350 ms (0.686 J), Zener nominal 0.84 W/0.294 J bei 60-V-Klemme. **Nicht** ohne spezifizierte Pulsbauteile freigeben.
+3. Schutzversorgung 10.2-kOhm-Vorwiderstand (2x 5.1k): 1.922 W fuer 350 ms (0.673 J), Zener 0.824 W/0.288 J bei angenommener 60-V-Klemme. **Nicht** ohne spezifizierte Pulsbauteile freigeben.
 4. eFuse-Limit und Leitungs-/Steckerstroeme: 2-A-5-V-Buck erfordert bei 9 V ca. 1.2–1.35 A plus RAW 1 A; Fehlerstrom kann hoeher sein als 1-A-RAW-Nennlast.
 5. Kritischster Kompaktheitsengpass: TPSM33620 mit maximaler 5-V-/2-A-Last bei +125 C und VIN=30 V. Thermisch gerechnet und an realem Board zu messen; TI-Junction max 150 C.
 6. System OFF <100 uA inklusive OVLO-Teiler, Controller-Leckstroemen, ACC, MUX und MCU bei +125 C. Keine 100k/3.5k-Dauerteiler unbedacht einsetzen.
@@ -78,7 +78,7 @@ Ein fertiges RECOM-R-78K-5V/2A-Modul wurde geprueft, scheitert als direkte Empfe
 - TI TPSM33620-Q1: https://www.ti.com/product/TPSM33620-Q1
 - TI LMR43620-Q1: https://www.ti.com/product/LMR43620-Q1
 - ADI LTC4366-2: https://www.analog.com/media/en/technical-documentation/data-sheets/436612fe.pdf
-- Infineon AUIRFS6535 300-V-HV-FET-Kandidat: https://www.infineon.com/part/AUIRFS6535
+- Infineon Vishay SQM35N30-97_GE3 300-V-HV-FET-Kandidat: https://www.infineon.com/part/SQM35N30-97_GE3
 
 ## Zusammenarbeit
 
