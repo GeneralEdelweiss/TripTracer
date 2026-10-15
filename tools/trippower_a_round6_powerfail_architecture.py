@@ -81,7 +81,7 @@ def tld_screen():
         margin_to80V_buck_operating_at25c_measured_v=80-61.2,
         margin_to60V_absolute_Q302_rating_if_across_FET_v=60-61.2,
         needs_polarity_and_open_short_FMEA=True,
-        "shorted_tvs_fuse_200vdc_fault_clearing_guaranteed":False,
+        shorted_tvs_fuse_200vdc_fault_clearing_guaranteed=False,
         can_replace_HV_guard_and_LM74930_at125c=False)
 
 def backup_pg():
