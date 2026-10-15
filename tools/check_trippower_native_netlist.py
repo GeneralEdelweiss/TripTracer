@@ -24,6 +24,13 @@ mapping={
  "C303":{"1":"CAP_PUMP","2":"VS_CLAMP"},
  "C308":{"1":"VS_CLAMP","2":"GND"},
  "C309":{"1":"CTRL_EN","2":"GND"},
+ "U302":{"1":"VS_CLAMP","3":"VS_SENSE","6":"VS_READY_RESET_OD_PRELIM","8":"GND","9":"CTR_READY","13":"GND"},
+ "R330":{"1":"VS_CLAMP","2":"VS_SENSE"},
+ "R331":{"1":"VS_SENSE","2":"GND"},
+ "R332":{"1":"VS_READY_RESET_OD_PRELIM","2":"VS_SENSE"},
+ "R333":{"1":"VS_CLAMP","2":"VS_READY_RESET_OD_PRELIM"},
+ "C310":{"1":"VS_CLAMP","2":"GND"},
+ "C311":{"1":"CTR_READY","2":"GND"},
  "Q302":{"1":"SOURCE_A","2":"SOURCE_A","3":"SOURCE_A","4":"Q2_GATE","5":"C_NODE"},
  "R301":{"1":"C_NODE","2":"VIN_PROTECTED_UNFUSED"},
  "R302":{"1":"C_NODE","2":"CS_PLUS"},
@@ -48,6 +55,7 @@ assert ("U301","3") not in nets.get("VIN_FUSED",set()),"SW must NC in direct UV 
 # All power branches have a real device in their path; no refactoring to
 # a global-label-only shortcut that defeats the LM74930 shared electronic circuit breaker.
 assert ("C308","1") in nets["VS_CLAMP"] and ("C309","1") in nets["CTRL_EN"], "VS reservoir / EN delay topology required"
+assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "Unqualified VS_READY output must not drive EN before fail-safe RUN_GATE approval"
 assert ("Q301","1") in nets["HGATE"] and ("U301","14") in nets["HGATE"], "HGATE must drive Q301 gate directly"
 assert ("R320","2") in nets["DV_DT_RC_NODE"] and ("C307","1") in nets["DV_DT_RC_NODE"], "Rg/CdVdT must be series branch to GND"
 assert ("Q301","1") not in nets["DV_DT_RC_NODE"], "Do not put R320 100ohm in HGATE series gate path"
