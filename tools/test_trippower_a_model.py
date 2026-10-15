@@ -7,7 +7,8 @@ import unittest
 from dataclasses import replace
 from trippower_a_model import (
     StartCase, pulse_study, rvs_pulse, simulate_start, startup_study,
-    vs_static_limit, zener_open, illustrative_stack_source, UNKNOWN_GATES
+    vs_static_limit, zener_open, illustrative_stack_source,
+    R_HOT125_MIN_SCALE, R_HOT125_MAX_SCALE, UNKNOWN_GATES
 )
 
 class TestSurgeBounds(unittest.TestCase):
@@ -32,6 +33,17 @@ class TestSurgeBounds(unittest.TestCase):
         self.assertAlmostEqual(
             max(data["one_rvs_short_z_min_r_min"]["resistor_energy_j"]),
             0.57717968,places=6)
+
+    def test_sourced_100ppm_per_k_hot_resistor_corner(self):
+        c=pulse_study()["pulse_cases"]
+        self.assertAlmostEqual(R_HOT125_MIN_SCALE,0.9801)
+        self.assertAlmostEqual(R_HOT125_MAX_SCALE,1.0201)
+        self.assertAlmostEqual(
+            c["r_25to125c_negative100ppm_zener_vz_min"]["resistor_energy_j"][0],
+            0.259115454789,places=6)
+        self.assertGreater(
+            c["r_25to125c_negative100ppm_zener_vz_min"]["i_ma"],
+            c["r_min_zener_vz_min_assumed"]["i_ma"])
 
     def test_hot_surge_limit_is_explicitly_unknown(self):
         p=pulse_study()
