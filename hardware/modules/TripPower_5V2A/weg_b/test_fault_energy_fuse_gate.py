@@ -23,6 +23,22 @@ class FuseAndEnergyGate(unittest.TestCase):
         self.assertFalse(q["complete_selectivity_time_energy_and_holder_proven"])
         self.assertFalse(q["safe_125C_carry_proven"])
         self.assertFalse(q["holder_200VDC_qualified"])
+    def test_genuine_mersen_automotive_fuse_still_does_not_guarantee_350ms(self):
+        m=FUSES["MERSEN_MEV55C5"]
+        self.assertTrue(m.supported_operating_to_125c)
+        self.assertEqual(m.dc_v_rating,550)
+        self.assertEqual(m.interrupt_dc_a,20000)
+        self.assertEqual(m.min_dc_break_current_a,10.)
+        self.assertEqual(m.manufacturer_max_clear_at_min_break_s,10.)
+        self.assertTrue(qualification(m,prospective_short_a=40)["fuse_clearing_range_includes_this_current"])
+        self.assertFalse(qualification(m,prospective_short_a=2.6)["fuse_clearing_range_includes_this_current"])
+        self.assertFalse(qualification(m,prospective_short_a=40)["complete_selectivity_time_energy_and_holder_proven"])
+
+    def test_weidmuller_manufacturer_temperature_spec_fails_target(self):
+        w=FUSES["WEIDMULLER_1460620000"]
+        self.assertEqual(w.manufacturer_ambient_range_c,(-5.,40.))
+        self.assertFalse(w.supported_operating_to_125c)
+
     def test_eaton_catalog_i2t_not_a_predicted_350ms_trip(self):
         e=FUSES["EATON_FWC-4A10F"]
         case=i2t_catalog_screen(e,20)
