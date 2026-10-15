@@ -1,0 +1,8 @@
+(sym_lib_table
+ (lib (name "TripPower_Sym")(type "KiCad")(uri "${KIPRJMOD}/TripPower_Sym.kicad_sym")(options "")(descr "TripPower native 3pin terminals and removable 58V MINI fuse symbols"))
+ (lib (name "TripTracer_V1")(type "KiCad")(uri "${KIPRJMOD}/TripTracer_V1.kicad_sym")(options "")(descr "Portable TripPower source symbols"))
+ (lib (name "Tripmaster_Sym")(type "KiCad")(uri "${KIPRJMOD}/Tripmaster_Sym.kicad_sym")(options "")(descr "Portable resistor and capacitor symbols"))
+ (lib (name "TripPower_PGOOD")(type "KiCad")(uri "${KIPRJMOD}/TripPower_PGOOD.kicad_sym")(options "")(descr "Portable one-pad PWR_FAIL collector output prototype"))
+ (lib (name "TripPower_AP74502")(type "KiCad")(uri "${KIPRJMOD}/TripPower_AP74502.kicad_sym")(options "")(descr "AP74502HQ exact 8-pin automotive independent HV guard prototype"))
+ (lib (name "TripPower_TPS38")(type "KiCad")(uri "${KIPRJMOD}/TripPower_TPS38.kicad_sym")(options "")(descr "TI TPS38A010122 automotive dual UV supervisor WSON10 portable"))
+)
