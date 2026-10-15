@@ -1,0 +1,71 @@
+name: TripPower Weg A REV6 10-32V practical two-sheet prototype (NO FAB)
+
+on:
+  push:
+    branches: [design/trippower-a]
+    paths:
+      - 'hardware/modules/TripPower_REV6_A/**'
+      - 'tools/trippower_a_rev6_limits.py'
+      - 'tools/test_trippower_a_rev6.py'
+      - 'tools/check_trippower_a_rev6_native_netlist.py'
+      - '.github/workflows/trippower-a-rev6.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-rev6-a:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Prepare KiCad10 and evidence area
+        run: |
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/rev6-kicad-version.txt
+          printf "REV6 isolated engineering proto, NOT manufacturer/fab/vehicle approved. 85C sensing, 58V transient source, USB and RAW connector gates remain OPEN.\n" > reports/rev6-GATE-STATUS.txt
+      - name: Test manufacturer min-max UV/OV and input envelope
+        run: |
+          python3 -m unittest discover -s tools -p 'test_trippower_a_rev6.py' -v 2>&1 | tee reports/rev6-model-tests.log
+          python3 tools/trippower_a_rev6_limits.py > reports/rev6-source-bounds.json
+      - name: Native KiCad10 schematic ERC
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/rev6-a-erc.json \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch \
+            || { cat reports/rev6-a-erc.json; exit 1; }
+      - name: Native KiCad10 hierarchical netlist pin verification
+        run: |
+          kicad-cli sch export netlist -o reports/rev6-a.net \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch
+          python3 tools/check_trippower_a_rev6_native_netlist.py reports/rev6-a.net \
+            | tee reports/rev6-native-pins.json
+      - name: Export entire true BOM for procurement (no fake totals)
+        run: |
+          kicad-cli sch export bom -o reports/rev6-a-entire-native-bom.csv \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch
+          echo 'Native KiCad BOM lines:'
+          cat reports/rev6-a-entire-native-bom.csv
+      - name: Preserve detailed source & ERC evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tripPower-A-REV6-native
+          path: reports/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: State release restrictions
+        if: always()
+        run: |
+          echo '## REV6 only engineering validation' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Do not fabricate until 58V pulse/current/abs peak, -20..+60C 2A, 85C safe-off, RAW, 1mA standby and USB isolation are qualified.' >> "$GITHUB_STEP_SUMMARY"
