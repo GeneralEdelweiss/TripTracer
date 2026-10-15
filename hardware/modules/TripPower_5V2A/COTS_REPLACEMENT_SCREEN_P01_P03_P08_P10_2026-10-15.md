@@ -1,3 +1,5 @@
+> **AKTUELLER TRIPPOWER-VERTRAG (Korrektur vom 15.10.2026): 200 V / 350 ms**, nicht 202 V. Maßgeblich ist [`REV5_DESIGN_BASELINE.json`](REV5_DESIGN_BASELINE.json); in älteren REV2–REV4-Dokumenten stehen historische 202-V-TI-Referenzrechnungen, die NICHT die jetzige Vorgabe darstellen. 9–30 V, 5 V/2 A, RAW-AUX 1 A bleiben Entwicklungsziele. SOA/Puls- und PCB-Freigaben weiterhin BLOCKED. REV5-TPS38 ist aktiver Stand.
+
 # TripPower – COTS-Ersatzprüfung über P02 hinaus (15.10.2026)
 
 > **Ergebnis: TPS38-Q1 bleibt einzige primär empfohlene IC-Architekturänderung; für den 5V-Buck und RAW-AUX wurden reale Serien-ICs/Module identifiziert, aber wegen Spannungsspielraum bzw. fehlender AEC-/Lieferbarkeit noch nicht freigegeben.** Keine Änderung der aktiven REV4-KiCad-Schaltpläne/BOM. Diese Seite ergänzt [P02 COTS TPS38](P02_COTS_TPS38_DUAL_ENABLE_2026-10-15.md) und das verbindliche [REV4-Entscheidungsregister](REV4_DECISION_REGISTER_AND_FAB_STOP.md). Sie soll unnötige erneute Markt- und Architekturwechsel vermeiden.
