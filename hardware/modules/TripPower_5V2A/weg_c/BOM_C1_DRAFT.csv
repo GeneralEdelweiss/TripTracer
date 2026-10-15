@@ -25,3 +25,5 @@
 "C7","22uF 16V 5V output","C1210C226K4RACTU","Capacitor_SMD:C_1210_3225Metric","MPN_IDENTIFIED_NOT_QUALIFIED","Commercial X7R -55..125C (not AEC-Q200); TI module needs minimum effective C"
 "C8","22uF 16V 5V output","C1210C226K4RACTU","Capacitor_SMD:C_1210_3225Metric","MPN_IDENTIFIED_NOT_QUALIFIED","Transient and high-temp 5V output cap derating"
 "C9","100nF 50V eFuse IN","C1206C104K5RACTU","Capacitor_SMD:C_1206_3216Metric","MPN_IDENTIFIED_NOT_QUALIFIED","Keep within eFuse input pin peaks at 200V event"
+"C10","4u7 50V VIN RESERVE","C1210C475K5RACAUTO","Capacitor_SMD:C_1210_3225Metric","DC_BIAS_UNQUALIFIED","Extra assembled reserve position; RAW_PROTECTED Ceff hot-bias min not established"
+"C11","22u 16V OUT RESERVE","C1210C226K4RACTU","Capacitor_SMD:C_1210_3225Metric","DC_BIAS_UNQUALIFIED","Extra assembled reserve position; +5V_TRIPPOWER Ceff hot-bias min not established"
