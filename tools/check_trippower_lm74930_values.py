@@ -13,7 +13,7 @@ ri=a["R_ilim_ohm"]
 ris=a["R_iscp_ohm"]
 ct=a["C_tmr_f"]
 assert d["controller"]=="LM74930QRGERQ1"
-assert d["load_dump_design_target_v"]==202
+assert d["load_dump_design_target_v"]==200
 assert set(str(i) for i in range(1,25)) | {"EP"}=={p[0] for p in d["pin_plan"]}
 assert "FLOAT" in dict((p[0],p[2]) for p in d["pin_plan"])["EP"]
 assert "GND" in dict((p[0],p[2]) for p in d["pin_plan"])["16"]
@@ -57,11 +57,11 @@ assert uv["max"]<9, "UVLO fails nominal 9V startup under static 1%+leakage stres
 assert 6<uv_falling<8
 divider_30=30/(a["OV_Rtop_ohm"]+a["OV_Rbottom_ohm"])+30/(a["UV_Rtop_ohm"]+a["UV_Rbottom_ohm"])
 assert divider_30<40e-6
-# At 202V, VS clamp nominal ~56V with 3 x 3.32k in series; energy for rectangular worst-case 350ms.
+# At 200V, VS clamp nominal ~56V with 3 x 3.3k in series; energy for rectangular worst-case 350ms.
 rvs=3*3300
-pvs=(202-56)**2/rvs
+pvs=(200-56)**2/rvs
 evs=pvs*.350
-pz=56*(202-56)/rvs
+pz=56*(200-56)/rvs
 assert .7<evs<.8
 # Full load combined high VDS 250V candidate FET Rds at 25C max 165mohm
 q_hv_worst_25c=(i_total**2)*.165
@@ -80,11 +80,11 @@ summary={
  "uv_start_nominal_and_leakage_bounds_v":{k:round(v,3) for k,v in uv.items()},
  "uv_falling_nominal_v":round(uv_falling,3),
  "passive_dividers_30v_uA":round(divider_30*1e6,2),
- "VS_202v_350ms_series_resistor_total_w_j":[round(pvs,3),round(evs,3)],
- "VS_202v_350ms_each_three_resistor_j":round(evs/3,3),
- "VS_zener_202v_w":round(pz,3),
+ "VS_200v_350ms_series_resistor_total_w_j":[round(pvs,3),round(evs,3)],
+ "VS_200v_350ms_each_three_resistor_j":round(evs/3,3),
+ "VS_zener_200v_w":round(pz,3),
  "HV_250V_FET_25c_max_rds_w_at_9v_full_combined_load":round(q_hv_worst_25c,3),
- "unverified":["202V thermal/surge and MOSFET SOA","9V dynamic startup/EN","VIN_PROTECTED branch current cut-off, shunt Kelvin, cold hot tolerance",
+ "unverified":["200V thermal/surge and MOSFET SOA","9V dynamic startup/EN","VIN_PROTECTED branch current cut-off, shunt Kelvin, cold hot tolerance",
  "external fuse coordination","full current-sense offset, EMI, layout and real ERC/DRC","supplier MPNs and startup inrush","TMR timing with latch resistor"]
 }
 print(json.dumps(summary,indent=2,ensure_ascii=False))
