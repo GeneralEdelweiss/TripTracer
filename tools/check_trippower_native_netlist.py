@@ -27,20 +27,12 @@ mapping={
  "D302":{"1":"VS_CLAMP","2":"SOURCE_A"},
  "C308":{"1":"VS_CLAMP","2":"GND"},
  "C312":{"1":"VS_CLAMP","2":"GND"},
- "C309":{"1":"CTRL_EN","2":"GND"},
- "Q303":{"1":"PNP_BASE","2":"VS_CLAMP","3":"PNP_OUT"},
- "Q304":{"1":"READY_NPN_BASE","2":"RUN_BYPASS_NODE","3":"PNP_SINK"},
- "Q305":{"1":"RUN_BASE","2":"GND","3":"RUN_SINK_C"},
- "R336":{"1":"VS_CLAMP","2":"PNP_BASE"},
- "R337":{"1":"PNP_BASE","2":"PNP_SINK"},
- "R339":{"1":"VS_READY_RESET_OD_PRELIM","2":"READY_NPN_BASE"},
- "R340":{"1":"READY_NPN_BASE","2":"GND"},
- "R341":{"1":"RUN_BASE","2":"GND"},
- "U302":{"1":"VS_CLAMP","3":"VS_SENSE","6":"VS_READY_RESET_OD_PRELIM","8":"GND","9":"CTR_READY","13":"GND"},
+ "U302":{"1":"VS_CLAMP","2":"VS_SENSE","3":"RUN_SENSE","4":"CTRL_EN","5":"CTRL_EN","6":"CTR_READY","10":"GND"},
  "R330":{"1":"VS_CLAMP","2":"VS_SENSE"},
  "R331":{"1":"VS_SENSE","2":"GND"},
- "R332":{"1":"VS_READY_RESET_OD_PRELIM","2":"VS_SENSE"},
- "R333":{"1":"VS_CLAMP","2":"VS_READY_RESET_OD_PRELIM"},
+ "R332":{"1":"CTRL_EN","2":"VS_SENSE"},
+ "R333":{"1":"VS_CLAMP","2":"CTRL_EN"},
+ "R341":{"1":"RUN_SENSE","2":"GND"},
  "C310":{"1":"VS_CLAMP","2":"GND"},
  "C311":{"1":"CTR_READY","2":"GND"},
  "Q302":{"1":"SOURCE_A","2":"SOURCE_A","3":"SOURCE_A","4":"Q2_GATE","5":"C_NODE"},
@@ -49,11 +41,11 @@ mapping={
  "R303":{"1":"C_NODE","2":"ISCP"},
  "J301":{"1":"VIN_FUSED","2":"RUN_CMD","3":"GND"},
  "J302":{"1":"VIN_PROTECTED_UNFUSED","2":"5V_OUT","3":"GND"},
- "R316":{"1":"CTRL_EN","2":"GND"},
- "R318":{"1":"PNP_OUT","2":"CTRL_EN"},
- "R319":{"1":"RUN_BYPASS_NODE","2":"GND"},
- "R317":{"1":"RUN_CMD","2":"RUN_BASE"},
- "D305":{"1":"RUN_BYPASS_NODE","3":"RUN_SINK_C"},
+
+
+ "R319":{"1":"VS_CLAMP","2":"RUN_SENSE"},
+ "R317":{"1":"RUN_CMD","2":"RUN_SENSE"},
+
  "U101":{"2":"VIN_PROTECTED_UNFUSED","3":"VIN_PROTECTED_UNFUSED"}
 }
 for ref,pins in mapping.items():
@@ -69,21 +61,15 @@ assert ("U301","25") not in nets.get("GND",set()),"RTN thermal pad must FLOAT"
 assert ("U301","3") not in nets.get("VIN_FUSED",set()),"SW must NC in direct UV divider prototype"
 # All power branches have a real device in their path; no refactoring to
 # a global-label-only shortcut that defeats the LM74930 shared electronic circuit breaker.
-assert ("C308","1") in nets["VS_CLAMP"] and ("C312","1") in nets["VS_CLAMP"] and ("C309","1") in nets["CTRL_EN"], "Two 100V ceramic VS reservoirs required; EN delay C309 DNP"
-assert ("D302","1") in nets["VS_CLAMP"] and ("D302","2") in nets["SOURCE_A"], "D302 manufacturer pin K1->VS, A2->SOURCE_A is the EVM A-to-VS replenishment path; must not bridge VIN_FUSED to VS"
-assert ("D302","2") not in nets["VIN_FUSED"] and ("D302","1") not in nets["VIN_FUSED"], "No permanent raw VIN bypass across 9.9k RVS"
-assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "RESET must not directly source EN"
-assert ("Q303","2") in nets["VS_CLAMP"] and ("Q303","3") in nets["PNP_OUT"], "VS-only PNP source for enable"
-assert ("R318","1") in nets["PNP_OUT"] and ("R318","2") in nets["CTRL_EN"], "EN driven by VS only after PNP"
-assert ("Q304","1") in nets["READY_NPN_BASE"] and ("R339","1") in nets["VS_READY_RESET_OD_PRELIM"], "RESET buffered by Q304 NPN"
-assert ("Q304","2") in nets["RUN_BYPASS_NODE"] and ("Q305","3") in nets["RUN_SINK_C"] and ("D305","1") in nets["RUN_BYPASS_NODE"] and ("D305","3") in nets["RUN_SINK_C"], "BAS116Q isolated series RUN drain prevents Q305 CB USB backfeed"
-assert ("R319","1") in nets["RUN_BYPASS_NODE"] and ("R319","2") in nets["GND"], "AUTO bypass ONLY RUN NPN"
-assert ("R317","2") in nets["RUN_BASE"] and ("Q305","1") in nets["RUN_BASE"], "RUN_CMD must drive Q305 BASE, not EN"
-assert ("D305","3") not in nets["CTRL_EN"] and ("D305","1") not in nets["RUN_BASE"], "D305 physical SOT23 K3 A1 is not in RUN-to-EN path"
-assert ("R316","1") in nets["CTRL_EN"] and ("C309","1") in nets["CTRL_EN"], "EN pulldown and DNP C309"
-assert ("R337","2") in nets["PNP_SINK"] and ("Q304","3") in nets["PNP_SINK"], "NPN READY must control PNP base current"
-assert ("Q305","2") in nets["GND"] and ("Q303","1") in nets["PNP_BASE"], "BJT emitter/pinout and high-side PNP base"
-assert ("C309","1") in nets["CTRL_EN"], "C309 DNP footprint left physically not fitted to prevent EN-off latency"
+assert ("C308","1") in nets["VS_CLAMP"] and ("C312","1") in nets["VS_CLAMP"]
+assert ("D302","1") in nets["VS_CLAMP"] and ("D302","2") in nets["SOURCE_A"]
+assert ("U302","4") in nets["CTRL_EN"] and ("U302","5") in nets["CTRL_EN"], "Dual open-drain wired AND to LM74930 EN"
+assert ("U302","2") in nets["VS_SENSE"] and ("U302","3") in nets["RUN_SENSE"]
+assert ("R332","1") in nets["CTRL_EN"] and ("R333","1") in nets["VS_CLAMP"], "Schmitt feedback and VS pullup"
+assert ("R319","1") in nets["VS_CLAMP"] and ("R319","2") in nets["RUN_SENSE"], "AUTO strap"
+assert ("R317","1") in nets["RUN_CMD"] and ("R317","2") in nets["RUN_SENSE"], "RUN resistor"
+assert ("R341","1") in nets["RUN_SENSE"] and ("R341","2") in nets["GND"], "RUN bleed"
+assert all((ref,"1") not in nodes for nodes in nets.values() for ref in ("Q303","Q304","Q305","R316","R318","D305","C309")), "No legacy enable BOM"
 assert ("Q301","1") in nets["HGATE"] and ("U301","14") in nets["HGATE"], "HGATE must drive Q301 gate directly"
 assert ("R320","2") in nets["DV_DT_RC_NODE"] and ("C307","1") in nets["DV_DT_RC_NODE"], "Rg/CdVdT must be series branch to GND"
 assert ("Q301","1") not in nets["DV_DT_RC_NODE"], "Do not put R320 100ohm in HGATE series gate path"
@@ -94,4 +80,4 @@ assert ("R301","2") in nets["VIN_PROTECTED_UNFUSED"],"Output must remain behind 
 assert not any(ref=="F302" for nodes in nets.values() for ref,pin in nodes),"Fuse moved to consuming mainboard, not module"
 print(json.dumps({"pass":True,"native_export":sys.argv[1],
 "nodes_checked":sum(len(x) for x in mapping.values()),
-"message":"Protected but unfused aux output shared with buck behind LM74930 shunt; external fuse ON TRIPTRACER mandatory; NOT safety/PCB approval"},indent=2))
+"message":"REV5 TPS38 dual OD with AUTO+RUN BOM options, external F_MAIN; 9V/surge/PCB not qualified"},indent=2))
