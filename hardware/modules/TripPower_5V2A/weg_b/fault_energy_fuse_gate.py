@@ -65,9 +65,10 @@ FUSES={
      origin="https://www.digikey.de/de/products/detail/weidm%C3%BCller/1460620000/22132585",
      availability="20 pcs distributor snapshot 2026-10-15; 6.3x32 cartridge",
      prices_eur_net_1_10_100=(3.08,2.361,1.8065),
-     supported_operating_to_125c=None,holder_200vdc_qualified=False,
+     supported_operating_to_125c=False,holder_200vdc_qualified=False,
      full_fault_current_range_dc_qualified=False,
-     notes="Distributor indicates 5A 500V AC/DC and 50kA; manufacturer 200VDC curves, range, hot derating & holder still needed."),
+     notes="Weidmueller manufacturer specifies -5..40C AMBIENT; fails TripPower -40..125C mounting. DC clearing curves and fuse holder also absent.",
+     manufacturer_ambient_range_c=(-5.,40.)),
  "EATON_FWC-4A10F":Fuse(
      mpn="Eaton Bussmann FWC-4A10F",
      rated_a=4,dc_v_rating=500,interrupt_dc_a=10000,
