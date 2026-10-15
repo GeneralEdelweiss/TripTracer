@@ -106,10 +106,10 @@
 (pin "3" (uuid "b63a0921-7362-49b4-b250-000000180025"))
 (instances (project "TripPower_REV6_A" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "Q201") (unit 1)))))
 
-(symbol (lib_id "TripPower_Sym:EN_PASS_NMOS_GSD") (at 248.92 157.48 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180026")
-(property "Reference" "Q202" (at 248.92 141.48 0) (effects (font (size 1 1))))
-(property "Value" "BSS138LT1G DRIVER PULLDOWN" (at 248.92 144.48 0) (effects (font (size 1 1))))
-(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 248.92 157.48 0) (effects (font (size 1 1)) (hide yes)))
+(symbol (lib_id "TripPower_Sym:EN_PASS_NMOS_GSD") (at 165.1 157.48 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180026")
+(property "Reference" "Q202" (at 165.1 141.48 0) (effects (font (size 1 1))))
+(property "Value" "BSS138LT1G DRIVER PULLDOWN" (at 165.1 144.48 0) (effects (font (size 1 1))))
+(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 165.1 157.48 0) (effects (font (size 1 1)) (hide yes)))
 (property "MPN" "BSS138LT1G" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (pin "1" (uuid "b63a0921-7362-49b4-b250-000000180027"))
 (pin "2" (uuid "b63a0921-7362-49b4-b250-000000180028"))
@@ -323,19 +323,19 @@
 (wire (pts (xy 367.03 205.74) (xy 372.11 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180132"))
 (global_label "GND" (shape bidirectional) (at 372.11 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180133"))
 
-(wire (pts (xy 417.83 205.74) (xy 422.91 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180134"))
+(wire (pts (xy 354.33 205.74) (xy 422.91 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180134"))
 (global_label "R6_DVDT" (shape bidirectional) (at 422.91 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180135"))
 
-(wire (pts (xy 440.69 205.74) (xy 445.77 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180136"))
+(wire (pts (xy 377.19 205.74) (xy 445.77 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180136"))
 (global_label "GND" (shape bidirectional) (at 445.77 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180137"))
 
-(wire (pts (xy 467.36 111.76) (xy 355.6 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180138"))
+(wire (pts (xy 350.52 111.76) (xy 355.6 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180138"))
 (global_label "VIN_FUSED" (shape bidirectional) (at 355.6 111.76 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180139"))
 
-(wire (pts (xy 467.36 121.92) (xy 355.6 121.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180140"))
+(wire (pts (xy 350.52 121.92) (xy 355.6 121.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180140"))
 (global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 355.6 121.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180141"))
 
-(wire (pts (xy 467.36 132.08) (xy 355.6 132.08)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180142"))
+(wire (pts (xy 350.52 132.08) (xy 355.6 132.08)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180142"))
 (global_label "GND" (shape bidirectional) (at 355.6 132.08 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180143"))
 
  (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180144"))
