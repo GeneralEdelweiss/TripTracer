@@ -115,6 +115,19 @@ def cap_pulse_energy(cap_f,cap_to_v=200.):
     return 0.5*cap_f*cap_to_v**2
 
 
+def unclamped_ap_vin_max_time_s(target_v=80.,source_v=200.,r_ohm=10200.,c_f=1e-6):
+    """Simplified charge-up time if AP VIN clamp is open, ignoring AP loads.
+       Ceff at high bias could be smaller, making violation still faster.
+    """
+    if not 0 < target_v < source_v:
+        raise ValueError("Invalid target voltage")
+    return -r_ohm*c_f*math.log(1-target_v/source_v)
+
+
+def unclamped_ap_vin_at_time(t_s,source_v=200.,r_ohm=10200.,c_f=1e-6):
+    return source_v*(1-math.exp(-t_s/(r_ohm*c_f)))
+
+
 class GateTests(unittest.TestCase):
     def test_exact_spec(self):
         self.assertEqual(SURGE_V,200.)
@@ -152,6 +165,10 @@ class GateTests(unittest.TestCase):
         self.assertGreater(tboard,150)
         self.assertGreater(needed_efficiency(33.5),.93)
 
+    def test_open_zener_ap_vin_reaches_80v_within_surge(self):
+        self.assertLess(unclamped_ap_vin_max_time_s(), 0.006)
+        self.assertGreater(unclamped_ap_vin_at_time(SURGE_DURATION_S), 199.0)
+
     def test_short_zener_pulse_increases_feed_energy(self):
         d=zener_supply_rectangular()
         self.assertGreater(d["R_shortZ_J"],d["R_J"])
@@ -187,6 +204,7 @@ def main():
             print(f" eta {eta:.2f}: Tj-proxy {buck_thermal(eta,theta)[0]:.1f}C")
     for ri in (1.,8.):
         print(f"200V rectangular 350ms ideal 60V TVS Ri={ri}ohm -> {tvs_absorption_rectangular(ri)}")
+    print(f"Zener OPEN idealized AP VIN reaches 80V in {1000*unclamped_ap_vin_max_time_s():.3f}ms within 350ms pulse")
     print("HV input FET D-S SHORT, ZENER OPEN/SHORT, RAW fault and ISO pulse shapes remain NO-GO.")
 
 if __name__=="__main__":
