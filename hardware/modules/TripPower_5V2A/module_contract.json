@@ -33,7 +33,7 @@
       "ISO7637_2_separate"
     ],
     "envelope": {
-      "vehicle_load_dump_a_test_v": "up_to_202v_design_target_not_validated",
+      "vehicle_load_dump_a_test_v": "up_to_200v_design_target_not_validated",
       "shutdown_total_battery_target_ua": "<100 for TripTracer vehicle system; module budget not yet allocated",
       "loss_budget_at_full_load_w": 2.5
     },
