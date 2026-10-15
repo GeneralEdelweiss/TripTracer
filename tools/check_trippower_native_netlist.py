@@ -24,12 +24,14 @@ mapping={
  "C303":{"1":"CAP_PUMP","2":"VS_CLAMP"},
  "C308":{"1":"VS_CLAMP","2":"GND"},
  "C309":{"1":"CTRL_EN","2":"GND"},
- "Q303":{"1":"EN_GATE_DRIVE","2":"CTRL_EN","3":"EN_REQUEST_RAW"},
- "R334":{"1":"VS_CLAMP","2":"EN_GATE_DRIVE"},
- "R335":{"1":"EN_GATE_DRIVE","2":"GND"},
- "D306":{"1":"EN_GATE_DRIVE","2":"VS_READY_RESET_OD_PRELIM"},
- "D307":{"1":"EN_GATE_DRIVE","2":"GND"},
- "D308":{"1":"CTRL_EN","2":"VS_READY_RESET_OD_PRELIM"},
+ "Q303":{"1":"PNP_BASE","2":"VS_CLAMP","3":"PNP_OUT"},
+ "Q304":{"1":"READY_NPN_BASE","2":"RUN_BYPASS_NODE","3":"PNP_SINK"},
+ "Q305":{"1":"RUN_BASE","2":"GND","3":"RUN_BYPASS_NODE"},
+ "R336":{"1":"VS_CLAMP","2":"PNP_BASE"},
+ "R337":{"1":"PNP_BASE","2":"PNP_SINK"},
+ "R339":{"1":"VS_READY_RESET_OD_PRELIM","2":"READY_NPN_BASE"},
+ "R340":{"1":"READY_NPN_BASE","2":"GND"},
+ "R341":{"1":"RUN_BASE","2":"GND"},
  "U302":{"1":"VS_CLAMP","3":"VS_SENSE","6":"VS_READY_RESET_OD_PRELIM","8":"GND","9":"CTR_READY","13":"GND"},
  "R330":{"1":"VS_CLAMP","2":"VS_SENSE"},
  "R331":{"1":"VS_SENSE","2":"GND"},
@@ -44,10 +46,10 @@ mapping={
  "J301":{"1":"VIN_FUSED","2":"RUN_CMD","3":"GND"},
  "J302":{"1":"VIN_PROTECTED_UNFUSED","2":"5V_OUT","3":"GND"},
  "R316":{"1":"CTRL_EN","2":"GND"},
- "R318":{"1":"VS_CLAMP","2":"AUTO_EN_LINK"},
- "R319":{"1":"AUTO_EN_LINK","2":"EN_REQUEST_RAW"},
- "R317":{"1":"RUN_CMD","2":"RUN_ISOLATED_AFTER_R"},
- "D305":{"1":"EN_REQUEST_RAW","2":"RUN_ISOLATED_AFTER_R"},
+ "R318":{"1":"PNP_OUT","2":"CTRL_EN"},
+ "R319":{"1":"RUN_BYPASS_NODE","2":"GND"},
+ "R317":{"1":"RUN_CMD","2":"RUN_BASE"},
+ "D305":{"1":"DNP_RUN_PATH","2":"DNP_RUN_SERIES"},
  "U101":{"2":"VIN_PROTECTED_UNFUSED","3":"VIN_PROTECTED_UNFUSED"}
 }
 for ref,pins in mapping.items():
@@ -64,12 +66,17 @@ assert ("U301","3") not in nets.get("VIN_FUSED",set()),"SW must NC in direct UV 
 # All power branches have a real device in their path; no refactoring to
 # a global-label-only shortcut that defeats the LM74930 shared electronic circuit breaker.
 assert ("C308","1") in nets["VS_CLAMP"] and ("C309","1") in nets["CTRL_EN"], "VS reservoir / EN delay topology required"
-assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "RESET must not directly link to EN; isolation via D306 and D308"
-assert ("Q303","2") in nets["CTRL_EN"] and ("Q303","3") in nets["EN_REQUEST_RAW"], "EN must pass through Q303 source follower only"
-assert ("D305","1") in nets["EN_REQUEST_RAW"] and ("R319","2") in nets["EN_REQUEST_RAW"], "both RUN and AUTO must connect before Q303 pass FET"
-assert ("R316","1") in nets["CTRL_EN"] and ("D308","1") in nets["CTRL_EN"], "low-EN pull-down and failsafe diode required"
-assert ("D306","2") in nets["VS_READY_RESET_OD_PRELIM"] and ("D306","1") in nets["EN_GATE_DRIVE"], "RESET must clamp Q303 gate when low"
-assert ("R334","1") in nets["VS_CLAMP"] and ("D307","2") in nets["GND"], "gate reference and 10V zener to GND must remain"
+assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "RESET must not directly source EN"
+assert ("Q303","2") in nets["VS_CLAMP"] and ("Q303","3") in nets["PNP_OUT"], "VS-only PNP source for enable"
+assert ("R318","1") in nets["PNP_OUT"] and ("R318","2") in nets["CTRL_EN"], "EN driven by VS only after PNP"
+assert ("Q304","1") in nets["READY_NPN_BASE"] and ("R339","1") in nets["VS_READY_RESET_OD_PRELIM"], "RESET buffered by Q304 NPN"
+assert ("Q304","2") in nets["RUN_BYPASS_NODE"] and ("Q305","3") in nets["RUN_BYPASS_NODE"], "RUN_NPN collector in series with ready NPN emitter"
+assert ("R319","1") in nets["RUN_BYPASS_NODE"] and ("R319","2") in nets["GND"], "AUTO bypass ONLY RUN NPN"
+assert ("R317","2") in nets["RUN_BASE"] and ("Q305","1") in nets["RUN_BASE"], "RUN_CMD must drive Q305 BASE, not EN"
+assert ("D305","1") not in nets["CTRL_EN"] and ("D305","2") not in nets["RUN_BASE"], "old RUN direct diode D305 DNP and disconnected"
+assert ("R316","1") in nets["CTRL_EN"] and ("C309","1") in nets["CTRL_EN"], "EN pulldown and DNP C309"
+assert ("R337","2") in nets["PNP_SINK"] and ("Q304","3") in nets["PNP_SINK"], "NPN READY must control PNP base current"
+assert ("Q305","2") in nets["GND"] and ("Q303","1") in nets["PNP_BASE"], "BJT emitter/pinout and high-side PNP base"
 assert ("C309","1") in nets["CTRL_EN"], "C309 DNP footprint left physically not fitted to prevent EN-off latency"
 assert ("Q301","1") in nets["HGATE"] and ("U301","14") in nets["HGATE"], "HGATE must drive Q301 gate directly"
 assert ("R320","2") in nets["DV_DT_RC_NODE"] and ("C307","1") in nets["DV_DT_RC_NODE"], "Rg/CdVdT must be series branch to GND"
