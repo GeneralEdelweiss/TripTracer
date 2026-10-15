@@ -54,7 +54,7 @@ def check(base,guard,sch):
     for ref,name in [
         ("Q401","SQM10250E_GE3"),("U401","AP74502HQTA8-7"),
         ("D401","1SMB5943BT3G"),("C401","C1210C105K1RACAUTO"),
-        ("C402","C1206C224K1RACAUTO"),("R407","AC1206FR-0710K5L")]:
+        ("C402","C1206C224K1RACAUTO"),("R407","AC1206FR-0710KL")]:
         k=sch.index(f'(property "Reference" "{ref}"')
         assert name in sch[k:k+1200],f"missing {ref} exact MPN {name}"
     for ref in ("R401","R402","R403"):
