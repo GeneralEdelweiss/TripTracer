@@ -21,6 +21,7 @@ mapping={
  "Q301":{"1":"HGATE","2":"VIN_FUSED","3":"SOURCE_A"},
  "R320":{"1":"HGATE","2":"DV_DT_RC_NODE"},
  "C307":{"1":"DV_DT_RC_NODE","2":"GND"},
+ "C303":{"1":"CAP_PUMP","2":"VS_CLAMP"},
  "Q302":{"1":"SOURCE_A","2":"SOURCE_A","3":"SOURCE_A","4":"Q2_GATE","5":"C_NODE"},
  "R301":{"1":"C_NODE","2":"VIN_PROTECTED_UNFUSED"},
  "R302":{"1":"C_NODE","2":"CS_PLUS"},
