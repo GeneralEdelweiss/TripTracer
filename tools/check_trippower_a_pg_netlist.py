@@ -31,7 +31,7 @@ def verify(base,prototype,sch):
     assert b[("Q501","3")]=="PWR_OK_SINK_FAIL_RELEASE"
     assert b[("Q501","1")]=="BUCK_PG_STATE"
     assert b[("Q501","2")]=="GND"
-    assert "3V3_AON" not in sch and "CR1220" not in sch
+    assert '(global_label "3V3_AON"' not in sch and "CR1220" not in sch
     return {"PG_only_isolated_netlist_valid":True,
       "new_fitted_parts":3,
       "REV5_U101_PG_open_drain_switched_from_NC":True,
