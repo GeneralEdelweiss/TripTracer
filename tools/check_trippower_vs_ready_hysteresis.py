@@ -44,10 +44,10 @@ assert out[0]["OFF_VS_estimate_v"]<8.5
 assert out[0]["hypothetical_pump_cases"][0]["stays_above_6v_under_model_ONLY"]
 assert not out[0]["hypothetical_pump_cases"][2]["stays_above_6v_under_model_ONLY"]
 print(json.dumps({
-"status":"DESIGN_SENSITIVITY_ONLY_NO_GUARANTEED_VIN_START_THRESHOLD",
+"status":"HISTORICAL_PRE_IMPLEMENTATION_VS_READY_TARGETS_ONLY__REAL_Q303_CIRCUIT_NOT_MODELED",
 "targets":{"VS_ready_on_nominal_v":VREADY_ON,"VS_ready_off_nominal_v":VREADY_OFF,
            "hysteresis_nominal_v":VREADY_ON-VREADY_OFF,"stable_ready_delay_nominal_ms":DELAY*1000},
-"notes":["Current AUTO-EN RC prototype has NO real VS_READY; these are proposed thresholds only",
+"notes":["HISTORICAL 8V/6V preliminary sensitivity; current KiCad has U302 R330-R333 feedback and Q303 gated AUTO/RUN, not modeled here",
          "RUN_CMD must be AND-gated by VS_READY independent of RUN high",
          "LM74930 VS pump input transient upper bound not established by TI CAP output current",
          "C308/C302 Ceff not manufacturer guaranteed in intended temp and VS clamp",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-15-OPTION_A_AUTO_EN_10UF_VS_PLUS_10UF_EN_PROTO",
+  "revision": "2026-10-15-RESET_OD_SERIES_Q303_AUTO_RUN_GATED",
   "stage": "PRELIMINARY_VALUES_ONE_COMMON_FUSED_SOURCE_NO_LOCAL_AUX_FUSE",
   "controller": "LM74930QRGERQ1",
   "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
@@ -275,11 +275,11 @@
     {
       "ref": "C_EN_DELAY_OPTION_A",
       "schematic_ref": "C309",
-      "role": "Add to existing R318=100k / R319 AUTO0R / R316=100k: CTRL_EN to GND",
+      "role": "Former AUTO_EN 10uF RC prototype, retained as native KiCad DNP at CTRL_EN to GND; reset release delay now U302 CTR/C311",
       "value": "KYOCERA AVX 10uF 50V X7R ±10% 1210 AEC-Q200, nominal RC 0.5s",
       "mpn": "12105C106K4T2A",
       "footprint": "Capacitor_SMD:C_1210_3225Metric",
-      "status": "PROTOTYPE_OPTION_A_ONLY_ALWAYS_ON; RUN_CMD_D305_BYPASS_FAST_RESTART_AND_CEFF_OPEN",
+      "status": "DNP_NOT_ASSEMBLED_REPLACED_BY_U302_C311_CTR_DELAY_AND_Q303_ENABLE_GATE",
       "supplier_de": "DigiKey DE",
       "url": "https://www.digikey.de/de/products/detail/kyocera-avx/12105C106K4T2A/9374706",
       "supplier_snapshot_2026_10_15": {
@@ -289,6 +289,77 @@
         "price_eur_net_each_100": 0.3751,
         "shipping_vat_unverified": true
       }
+    },
+    {
+      "ref": "U_VS_READY_SUPERVISOR",
+      "schematic_ref": "U302",
+      "value": "TI TPS3760A012DYYRQ1 automotive 2.7-65V 0.8V adjustable threshold 2pct internal hysteresis OD reset",
+      "mpn": "TPS3760A012DYYRQ1",
+      "status": "SELECTED_KICAD_REAL_PINOUT_AND_ERCCHECKED; EXTERNAL_SCHMITT_AND_GATE_PENDING_FULL_TOLERANCE_PROOF"
+    },
+    {
+      "ref": "Q_EN_PASS_INTERLOCK",
+      "schematic_ref": "Q303",
+      "value": "onsemi BVSS123LT1G 100V automotive SOT23 G1 S2 D3 N channel pass; drain EN_REQUEST_RAW source CTRL_EN",
+      "mpn": "BVSS123LT1G",
+      "status": "SELECTED_AUTOMOTIVE_KICAD_CANDIDATE; HOT_IDLEAK_125C_RESET_DRIVE_202V350MS_THERMAL_OPEN",
+      "supplier": "DigiKey DE",
+      "approx_eur_ex_vat_1": 0.38
+    },
+    {
+      "ref": "D_EN_GATE_RESET_CLAMP",
+      "schematic_ref": "D306",
+      "value": "Vishay Schottky 70V SOD523 cathode RESET_OD anode EN_GATE_DRIVE",
+      "mpn": "BAS70-02V-HG3-08",
+      "status": "SELECTED_KICAD_CANDIDATE; VF_TEMP_AND_REVERSE_LEAK_GATE_OPEN",
+      "supplier": "DigiKey DE",
+      "approx_eur_ex_vat_1": 0.41
+    },
+    {
+      "ref": "D_EN_GATE_ZENER",
+      "schematic_ref": "D307",
+      "value": "onsemi automotive 10V 500mW SOD123 cathode EN_GATE_DRIVE anode GND",
+      "mpn": "SZMMSZ5240BT1G",
+      "status": "SELECTED_KICAD_CANDIDATE; MICROAMP_ZENER_DYNAMIC_VGSMAX_UNQUALIFIED",
+      "supplier": "DigiKey DE",
+      "approx_eur_ex_vat_1": 0.29
+    },
+    {
+      "ref": "D_EN_FAILSAFE_CLAMP",
+      "schematic_ref": "D308",
+      "value": "Vishay Schottky 70V SOD523 cathode RESET_OD anode CTRL_EN",
+      "mpn": "BAS70-02V-HG3-08",
+      "status": "SELECTED_KICAD_CANDIDATE; EN_FALL_BELOW_0P41V_UNQUALIFIED",
+      "supplier": "DigiKey DE",
+      "approx_eur_ex_vat_1": 0.41
+    },
+    {
+      "ref": "R_EN_AUTO_SOURCE_NEW",
+      "schematic_ref": "R318",
+      "value": "22k 1% upstream VS to EN_REQUEST_RAW through R319",
+      "mpn": null,
+      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_PULSE_TEMP_TOLERANCE_GATE"
+    },
+    {
+      "ref": "R_EN_BLEED_NEW",
+      "schematic_ref": "R316",
+      "value": "5.6k 1% downstream CTRL_EN to GND",
+      "mpn": null,
+      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_TOLERANCE_HOT_OFF_GATE"
+    },
+    {
+      "ref": "R_EN_GATE_DRIVE_NEW",
+      "schematic_ref": "R334",
+      "value": "470k 1% VS to EN_GATE_DRIVE",
+      "mpn": null,
+      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_AND_9V_LEAKAGE_MARGIN_GATE"
+    },
+    {
+      "ref": "R_EN_GATE_BLEED_NEW",
+      "schematic_ref": "R335",
+      "value": "1M 1% EN_GATE_DRIVE to GND",
+      "mpn": null,
+      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_AND_TEMP_GATE"
     }
   ],
   "pin_plan": [
@@ -449,7 +520,8 @@
     "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted",
     "Q301 SQM10250E_GE3 250V D2PAK: 202V hot switching SOA / cold VDS / 48V overshoot headroom, +75nC max gate and 100ohm HGATE, VGS10V under 9V startup, real 35um PCB RthJA, and 600uA 250V/175C OFF leakage need validation",
     "C303 470nF 100V automotive X7R: supplier/MPN fixed in KiCad, but manufacturer K-SIM Ceff vs 14.1V across -40..125C and age, 9V cold charge-pump initial startup, dynamic 202V still BLOCKED",
-    "Option A RC: EN cap C309 does NOT gate external RUN_CMD D305; rapid VIN power cycle leaves EN charged; 9V VS effective capacitor and pump input current not guaranteed; prototype only; use dedicated VS_READY logic before vehicle use"
+    "Option A RC: EN cap C309 does NOT gate external RUN_CMD D305; rapid VIN power cycle leaves EN charged; 9V VS effective capacitor and pump input current not guaranteed; prototype only; use dedicated VS_READY logic before vehicle use",
+    "U302 RESET -> Q303 hardware AUTO/RUN gate implemented: at 9V hot/cold Q303 VGS and current C308/RESET leakage not proven; D308 EN <0.41V off, D307 10V gate clamp tens uA, Q303 56V/350ms ~109mW hot and D306 Schottky reverse leakage/sense thresholds require bench/simulation; C309 DNP"
   ],
   "main_fuse_design": {
     "required": true,

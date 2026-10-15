@@ -19,6 +19,7 @@ assert "0R POPULATE FOR ALWAYS_ON" in sch
 assert "VIN_PROTECTED_UNFUSED" in sch
 assert "10uF 100V VS STARTUP RESERVOIR WIP" in sch
 assert "10uF 50V EN DELAY WIP" in sch
+assert '(at 405.13 350.52 0) (unit 1) (in_bom yes) (on_board yes) (dnp yes)' in sch, "Historical RC C309 must stay DNP in current RESET design"
 assert d["load_dump_design_target_v"] == 202
 
 RVS=3*3300.0
@@ -111,9 +112,9 @@ assert 6.6<nominal9["minimum_VS_before_HGATE_ready_v"]<7.0,nominal9
 assert corner9["minimum_VS_before_HGATE_ready_v"]<6.0,corner9
 assert len(rows)==15
 print(json.dumps({
- "stage":"RC_PRECHARGE_OPTION_A_KICAD_PROTOTYPE__NEVER_SILICON_BOOT_APPROVAL",
+ "stage":"HISTORICAL_RC_PRE_SUPERVISOR_NOT_AS_BUILT_C309_DNP__NOT_SILICON_BOOT_APPROVAL",
  "source":"TI LM74930-Q1 SNOSDF6; P200 transient qualification remains OPEN",
- "schema_rc_components":"R318 100k VS->AUTO_EN; R319 0ohm fitted; R316 100k EN->GND; C309 10uF/50V EN->GND",
+ "schema_rc_components":"HISTORICAL_PRE_Q303_MODEL_ONLY: R318 100k -> R316 100k and C309 10uF; ACTUAL KiCad uses R318 22k, R316 5.6k, C309 DNP and Q303 VS_READY interlock",
  "additional_reservoir":"C308 10uF/100V Panasonic SMD in parallel with C302 1uF/100V VS->GND",
  "critical_limits":[
     "TI EN_LOW disables pump; cannot precharge CAP while EN low",
@@ -123,10 +124,10 @@ print(json.dumps({
     "10uF/100V Panasonic EEE-TG2A100P availability depends on distributor; DigiKey Germany snapshot not guaranteed",
     "When CAP pump starts, 665/780uA 12V test IQ NOT a guaranteed pump input draw; extra current in matrix is only sensitivity parameter",
     "No capacitor model as of yet proves 9V startup; model shows 6V VS violation in pessimistic assumed corner",
-    "C309 remains charged on rapid input power cycling; EN not synchronously forced low on brownout; quick restart unqualified",
+    "C309 is DNP in actual Q303 interlock; historical 10uF EN capacitor quick-restart model is no longer present",
     "VS 9.9k resistor remains required for 202V/350ms surge; no reduction",
     "Only after verified gate-on can D302 SOURCE_A->VS supply actual controller current",
-    "R318/R316 100k always-on divider draws about 150uA at VS30V independent of IQ, not compatible with total <100uA BAT-OFF if fitted and permanently connected",
+    "Historical R318/R316 100k divider has been eliminated by the Q303 series gate; do not use its quiescent current prediction for current circuit",
     "Active RUN_CMD 3.3/5V bypasses this delay on D305; controlled mode must use separate VS-qualified enable gate"
  ],
  "model_assumptions":{"i_off_uA":IQ_OFF_MAX*1e6,

@@ -82,7 +82,7 @@ hypothetical_1k_i=(surge_vin-surge_zener_v)/1000
 hypothetical_1k_r_w=hypothetical_1k_i**2*1000
 hypothetical_1k_z_w=hypothetical_1k_i*surge_zener_v
 report={
- "analysis":"9_TO_30V_STARTUP_FIRST_POWER_ON_CURRENT_ENVELOPE_ONLY",
+ "analysis":"9_TO_30V_VS_FEED_PRESTART_CURRENT_ENVELOPE_ONLY__Q303_INTERLOCK_NOT_SIMULATED",
  "status":"BLOCKED_NOT_GUARANTEED: 9V AND_12V_CONTROLLER_VS_PRECHARGE/CHARGE_PUMP; NO_SPICE_OR_LAB",
  "normal_input_range_v":[9,30],
  "current_VS_feed_total_ohm":rv_total,
@@ -111,7 +111,7 @@ report={
    "TI 665/780uA IQ tested at VS12V; actual IQ at VS4, pump source current vs supply current and VS capacitor dynamics unspecified",
    "TI direct charge-pump 1.3mA-min data valid at VS>=6V; do not treat as VS input draw",
    "C302 1uF nominal 100V may lose effective C due to DC bias/temperature, particularly when charged near 56V during surge",
-   "Default R319 0ohm AUTO_EN from VS through R318=100k to R316=100k GND causes EN threshold near VS2.1V BEFORE reserve capacitance is charged",
+   "HISTORICAL early EN issue now addressed topologically by U302 RESET-controlled Q303 series gate; actual R318=22k (upstream), R316=5.6k downstream and C309 DNP; current hot-off remains unqualified",
    "At 9V UVLO divider worst about 8.35V rising based on R1pct and max positive leakage, leaving limited source sag headroom. If 9V is measured before M8 cable+F_MAIN+connector, the approx 2.389A full-load current can drop 0.65V across ~0.27ohm, causing UVLO. Module VIN must be specified.",
    "Buck LMR38020 is rated from 4.2V startup but its 4ms typical soft-start and raw auxiliary startup must be evaluated together with 3.61A nominal LM74930 OCP",
    "202V 350ms pulse and external F_MAIN remain unqualified"
