@@ -12,7 +12,7 @@
     "raw_auxiliary_current_design_target_a": 1,
     "allow_safe_reset_below_v": 9,
     "separate_unsuppressed_load_dump_target": {
-      "v": 202,
+      "v": 200,
       "duration_s": 0.35
     },
     "temperature_ambient_target_c": [
@@ -184,7 +184,7 @@
     {
       "id": "P01",
       "severity": "CRITICAL",
-      "item": "9V startup VS dynamic I(VS,t) and 202V pulse behavior",
+      "item": "9V startup VS dynamic I(VS,t) and 200V pulse behavior",
       "needed": "Supplier bound or real scope bench proof over 9–30V startup and temperature"
     },
     {
@@ -196,13 +196,13 @@
     {
       "id": "P03",
       "severity": "CRITICAL",
-      "item": "Q301 250V/202V-350ms switching SOA and Q302 60V plus clamp peaks",
+      "item": "Q301 250V/200V-350ms switching SOA and Q302 60V plus clamp peaks",
       "needed": "Measured gate/drain transient and hot SOA/vds tolerance"
     },
     {
       "id": "P04",
       "severity": "CRITICAL",
-      "item": "R313–R315 2512 pulse energy and 56V D301 clamp at 202V",
+      "item": "R313–R315 2512 pulse energy and 56V D301 clamp at 200V",
       "needed": "Manufacturer 350ms pulse-temperature curves, Zener thermal energy and VS<65V"
     },
     {
@@ -284,9 +284,9 @@
       "fact": "CTR R internal 877/1000/1147kOhm; C311/threshold timing needs real Ceff and power-cycle test"
     },
     {
-      "ref": "TI-202V-APP",
+      "ref": "TI-200V-APP",
       "url": "https://www.ti.com/document-viewer/lit/html/SNOAAA1/GUID-A29F6540-095F-4408-8FD4-388A1740884B",
-      "fact": "unsuppressed load dump 202V/350ms architecture, not tested on our topology"
+      "fact": "unsuppressed load dump 200V/350ms architecture, not tested on our topology"
     }
   ],
   "assembly": {
