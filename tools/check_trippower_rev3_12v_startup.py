@@ -14,7 +14,9 @@ protect=(base/"01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8")
 assert '(property "Value" "715k 1% VS-SENSE REV3 12V START EXP"' in sch
 assert '(property "MPN" "CRCW1206715KFKEA"' in sch
 assert '(property "Reference" "C311"' in sch and '330nF 100V X7R AEC-Q200 CTR REV4' in sch and 'C1206C334K1RACAUTO' in sch
-assert '(property "Reference" "C308"' in protect and '10uF 100V VS STARTUP RESERVOIR' in protect
+assert '(property "Reference" "C308"' in protect and '(property "Reference" "C312"' in protect
+assert protect.count('10uF 100V VS STARTUP RESERVOIR X7R REV4')==2
+assert protect.count('KAF55CR72A106KV')==2
 assert '3.3k 2512 PULSE CANDIDATE' in protect
 RVS=9900.0
 RTOP=715e3
@@ -52,11 +54,12 @@ assert off_min>4., "Do not model nominal supervisor-off below LM74930 VS operati
 assert on_min>6., "Do not model initial charge-pump release below TI VS>=6V CAP-source-current condition"
 
 # Illustrative pre-start budget drawn from REV2 proof gate, not certified
-# at any temperature. Model constant-current load, nominal 11uF VS and
-# nominal 0.28s TPS3760 CTR delay. No controller charge-pump activity here.
+# at any temperature. Model constant-current load, nominal 21uF VS
+# (C302 1uF + C308/C312 10uF each), nominal 0.420s TPS3760 CTR delay.
+# No controller charge-pump activity here.
 OFF_UA=34.6
-C_VS=11e-6
-TDELAY=.28
+C_VS=21e-6
+TDELAY=.420
 # TPS3760-Q1 Rev.B §7.3.4.1 Eq.1–3 / §6.5: RCTR 877k/1M/1147k.
 # Conditional ceramic 330nF capacitor envelope: initial +/-10% multiplied by
 # X7R-temperature +/-15%. C311 MPN is now fixed, but an exact Ceff/aging
@@ -79,12 +82,13 @@ def vs_after_reset_delay(vin,threshold,delay_s):
     return v_eq-(v_eq-threshold)*math.exp(-delay_s/(RVS*C_VS))
 VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE=vs_after_reset_delay(
     9.,on_max,TCTR_CONDITIONAL_MIN)
-assert 8.5<VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE<8.6
+assert 8.2<VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE<8.4
 # This is *not* a bound on real start: OFF_UA, C_VS and upper READY voltage
 # aren't guaranteed, nor is pump I(VS,t), and RESET could reassert.
+VS_EFFECTIVE_CORNER_HYP=12e-6   # arbitrary sensitivity, NOT a guaranteed ceramic Ceff
 VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH=(
-    (VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE-6.)*8.5e-6/0.003031)
-assert 0.006<VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH<.0075
+    (VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE-6.)*VS_EFFECTIVE_CORNER_HYP/0.003031)
+assert .008<VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH<.010
 VIRTUAL_OLD_ON=8.221
 VIRTUAL_OLD_ON_HIGH=8.539
 VIRTUAL_OLD_OFF=5.998
@@ -108,7 +112,7 @@ for vin in (9.0,12.0,13.8,24.0,30.0):
        "guaranteed_first_start":False})
 assert matrix[0]["RVS_feed_at_model_upper_rising_threshold_ua"]>140
 assert matrix[0]["RVS_feed_at_model_upper_rising_threshold_ua"]<160
-assert matrix[0]["REV3_on_nom"]["release_vs_v"]>8.5
+assert 8.4<matrix[0]["REV3_on_nom"]["release_vs_v"]<8.6
 assert matrix[0]["REV2_comparison_nom"]["release_vs_v"]>8.5
 
 print(json.dumps({
@@ -118,7 +122,8 @@ print(json.dumps({
  "new_REV3_nominal_vs_threshold_v":{"on":round(on_nom,3),"off":round(off_nom,3)},
  "new_REV3_non_guaranteed_vs_threshold_scenario_v":{"on_min":round(on_min,3),
      "on_max":round(on_max,3),"off_min":round(off_min,3),"off_max":round(off_max,3)},
- "assumptions":{"constant_OFF_VS_consumption_ua":OFF_UA,"Ceff_vs_nominal_uF":11.,
+ "assumptions":{"constant_OFF_VS_consumption_ua":OFF_UA,"Ceff_vs_nominal_uF":21.,
+     "Ceff_pump_corner_hyp_uF":VS_EFFECTIVE_CORNER_HYP*1e6,
      "TPS3760_reset_delay_TYP_ms":TDELAY*1e3,
      "TI_min_CAP_current_VS_ge_6V_NOT_VS_SUPPLY_CURRENT":True},
  "matrix":matrix,
@@ -132,10 +137,10 @@ print(json.dumps({
         round(TCTR_TYP*1e3,1),
         round(TCTR_CONDITIONAL_MAX*1e3,1)],
     "VS9_at_delay_end_for_upper_model_ready_threshold_and_34p6uA_model_V":round(VS9_AFTER_CONDITIONAL_EARLIEST_RELEASE,3),
-    "VS9_to_6V_8p5uF_3p031ms_average_draw_limit_mA_model_ONLY":round(VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH*1e3,2),
-    "NOT_GUARANTEED":"C311 330nF MPN fixed but DC bias/aging/leak unverified; C308 ceramic effective C/leak, hypothetical 34.6uA OFF total, REV3 trip temp/BJT, dynamic VS current, partial-discharge restart"
+    "VS9_to_6V_12uF_3p031ms_average_draw_limit_mA_model_ONLY":round(VS_PUMP_TOLERABLE_AVERAGE_I_A_IF_NO_RVS_REPLENISH*1e3,2),
+    "NOT_GUARANTEED":"C311 330nF MPN fixed but DC bias/aging/leak unverified; two C308/C312 ceramic Ceff/leak unverified, hypothetical 34.6uA OFF total, REV3 trip temp/BJT, dynamic VS current, partial-discharge restart"
  },
- "failure_modes_unchanged":["Actual CAP pump I(VS,t) unknown, C308 and C311 T/age/leak not qualified",
+ "failure_modes_unchanged":["Actual CAP pump I(VS,t) unknown, C308/C312 and C311 T/age/leak not qualified",
     "Reset delay at cold and hot is not necessarily nominal 420ms",
     "PNP/NPN 20uA-gain and 125C leakage are not supplier guaranteed",
     "202V/350ms MOSFET SOA, F_MAIN and PCB thermal not released"],
