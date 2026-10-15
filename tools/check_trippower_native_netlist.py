@@ -27,9 +27,9 @@ mapping={
  "Q303":{"1":"EN_GATE_DRIVE","2":"CTRL_EN","3":"EN_REQUEST_RAW"},
  "R334":{"1":"VS_CLAMP","2":"EN_GATE_DRIVE"},
  "R335":{"1":"EN_GATE_DRIVE","2":"GND"},
- "D306":{"1":"VS_READY_RESET_OD_PRELIM","2":"EN_GATE_DRIVE"},
+ "D306":{"1":"EN_GATE_DRIVE","2":"VS_READY_RESET_OD_PRELIM"},
  "D307":{"1":"EN_GATE_DRIVE","2":"GND"},
- "D308":{"1":"VS_READY_RESET_OD_PRELIM","2":"CTRL_EN"},
+ "D308":{"1":"CTRL_EN","2":"VS_READY_RESET_OD_PRELIM"},
  "U302":{"1":"VS_CLAMP","3":"VS_SENSE","6":"VS_READY_RESET_OD_PRELIM","8":"GND","9":"CTR_READY","13":"GND"},
  "R330":{"1":"VS_CLAMP","2":"VS_SENSE"},
  "R331":{"1":"VS_SENSE","2":"GND"},
@@ -67,8 +67,8 @@ assert ("C308","1") in nets["VS_CLAMP"] and ("C309","1") in nets["CTRL_EN"], "VS
 assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "RESET must not directly link to EN; isolation via D306 and D308"
 assert ("Q303","2") in nets["CTRL_EN"] and ("Q303","3") in nets["EN_REQUEST_RAW"], "EN must pass through Q303 source follower only"
 assert ("D305","1") in nets["EN_REQUEST_RAW"] and ("R319","2") in nets["EN_REQUEST_RAW"], "both RUN and AUTO must connect before Q303 pass FET"
-assert ("R316","1") in nets["CTRL_EN"] and ("D308","2") in nets["CTRL_EN"], "low-EN pull-down and failsafe diode required"
-assert ("D306","1") in nets["VS_READY_RESET_OD_PRELIM"] and ("D306","2") in nets["EN_GATE_DRIVE"], "RESET must clamp Q303 gate when low"
+assert ("R316","1") in nets["CTRL_EN"] and ("D308","1") in nets["CTRL_EN"], "low-EN pull-down and failsafe diode required"
+assert ("D306","2") in nets["VS_READY_RESET_OD_PRELIM"] and ("D306","1") in nets["EN_GATE_DRIVE"], "RESET must clamp Q303 gate when low"
 assert ("R334","1") in nets["VS_CLAMP"] and ("D307","2") in nets["GND"], "gate reference and 10V zener to GND must remain"
 assert ("C309","1") in nets["CTRL_EN"], "C309 DNP footprint left physically not fitted to prevent EN-off latency"
 assert ("Q301","1") in nets["HGATE"] and ("U301","14") in nets["HGATE"], "HGATE must drive Q301 gate directly"
