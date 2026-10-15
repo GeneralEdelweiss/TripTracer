@@ -77,7 +77,7 @@ def tld_screen():
         stated_test_temperature_c=25,
         rated_junction_temperature_range_C=[-55,175],
         datasheet_VC_MAX_10_over_1000us_at_114A_V=58.1,
-        ten_over_1000us_limit_does_not_apply_to_350ms":True,
+        ten_over_1000us_limit_does_not_apply_to_350ms=True,
         guaranteed_max_Vc_at125c_v=None,guaranteed_min_Ri_at125c_ohm=None,
         fit_for_60V_Q302_differential_vds_proven=False,
         margin_to65V_LM74930_VS_operating_at25c_measured_v=65-61.2,
