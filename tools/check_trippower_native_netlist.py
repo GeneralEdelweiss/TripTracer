@@ -24,6 +24,12 @@ mapping={
  "C303":{"1":"CAP_PUMP","2":"VS_CLAMP"},
  "C308":{"1":"VS_CLAMP","2":"GND"},
  "C309":{"1":"CTRL_EN","2":"GND"},
+ "Q303":{"1":"EN_GATE_DRIVE","2":"CTRL_EN","3":"EN_REQUEST_RAW"},
+ "R334":{"1":"VS_CLAMP","2":"EN_GATE_DRIVE"},
+ "R335":{"1":"EN_GATE_DRIVE","2":"GND"},
+ "D306":{"1":"VS_READY_RESET_OD_PRELIM","2":"EN_GATE_DRIVE"},
+ "D307":{"1":"EN_GATE_DRIVE","2":"GND"},
+ "D308":{"1":"VS_READY_RESET_OD_PRELIM","2":"CTRL_EN"},
  "U302":{"1":"VS_CLAMP","3":"VS_SENSE","6":"VS_READY_RESET_OD_PRELIM","8":"GND","9":"CTR_READY","13":"GND"},
  "R330":{"1":"VS_CLAMP","2":"VS_SENSE"},
  "R331":{"1":"VS_SENSE","2":"GND"},
@@ -37,8 +43,11 @@ mapping={
  "R303":{"1":"C_NODE","2":"ISCP"},
  "J301":{"1":"VIN_FUSED","2":"RUN_CMD","3":"GND"},
  "J302":{"1":"VIN_PROTECTED_UNFUSED","2":"5V_OUT","3":"GND"},
+ "R316":{"1":"CTRL_EN","2":"GND"},
+ "R318":{"1":"VS_CLAMP","2":"AUTO_EN_LINK"},
+ "R319":{"1":"AUTO_EN_LINK","2":"EN_REQUEST_RAW"},
  "R317":{"1":"RUN_CMD","2":"RUN_ISOLATED_AFTER_R"},
- "D305":{"1":"CTRL_EN","2":"RUN_ISOLATED_AFTER_R"},
+ "D305":{"1":"EN_REQUEST_RAW","2":"RUN_ISOLATED_AFTER_R"},
  "U101":{"2":"VIN_PROTECTED_UNFUSED","3":"VIN_PROTECTED_UNFUSED"}
 }
 for ref,pins in mapping.items():
@@ -55,7 +64,13 @@ assert ("U301","3") not in nets.get("VIN_FUSED",set()),"SW must NC in direct UV 
 # All power branches have a real device in their path; no refactoring to
 # a global-label-only shortcut that defeats the LM74930 shared electronic circuit breaker.
 assert ("C308","1") in nets["VS_CLAMP"] and ("C309","1") in nets["CTRL_EN"], "VS reservoir / EN delay topology required"
-assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "Unqualified VS_READY output must not drive EN before fail-safe RUN_GATE approval"
+assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "RESET must not directly link to EN; isolation via D306 and D308"
+assert ("Q303","2") in nets["CTRL_EN"] and ("Q303","3") in nets["EN_REQUEST_RAW"], "EN must pass through Q303 source follower only"
+assert ("D305","1") in nets["EN_REQUEST_RAW"] and ("R319","2") in nets["EN_REQUEST_RAW"], "both RUN and AUTO must connect before Q303 pass FET"
+assert ("R316","1") in nets["CTRL_EN"] and ("D308","2") in nets["CTRL_EN"], "low-EN pull-down and failsafe diode required"
+assert ("D306","1") in nets["VS_READY_RESET_OD_PRELIM"] and ("D306","2") in nets["EN_GATE_DRIVE"], "RESET must clamp Q303 gate when low"
+assert ("R334","1") in nets["VS_CLAMP"] and ("D307","2") in nets["GND"], "gate reference and 10V zener to GND must remain"
+assert ("C309","1") in nets["CTRL_EN"], "C309 DNP footprint left physically not fitted to prevent EN-off latency"
 assert ("Q301","1") in nets["HGATE"] and ("U301","14") in nets["HGATE"], "HGATE must drive Q301 gate directly"
 assert ("R320","2") in nets["DV_DT_RC_NODE"] and ("C307","1") in nets["DV_DT_RC_NODE"], "Rg/CdVdT must be series branch to GND"
 assert ("Q301","1") not in nets["DV_DT_RC_NODE"], "Do not put R320 100ohm in HGATE series gate path"
