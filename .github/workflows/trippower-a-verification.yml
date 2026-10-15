@@ -10,6 +10,7 @@ on:
       - 'tools/check_trippower_a_netlist.py'
       - 'tools/check_trippower_a_d301_prototype.py'
       - 'tools/trippower_a_d301_backup_analysis.py'
+      - 'tools/trippower_a_start_manufacturer_bounds.py'
       - '.github/workflows/trippower-a-verification.yml'
   workflow_dispatch:
 
@@ -43,6 +44,7 @@ jobs:
         run: |
           python3 tools/trippower_a_model.py --scenario all --pretty > reports/a-200v-9v-model.json
           python3 tools/check_trippower_design_baseline.py > reports/rev5-baseline.json
+          python3 tools/trippower_a_start_manufacturer_bounds.py > reports/a-9v-TPS38-vendor-bounds.json
       - name: Run native KiCad 10 ERC (not PCB DRC)
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
