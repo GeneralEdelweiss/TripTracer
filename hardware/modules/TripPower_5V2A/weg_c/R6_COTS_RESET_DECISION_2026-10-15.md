@@ -100,3 +100,10 @@ RAW1A ist **nur ein Verbrauchsziel**: bei gemeinsamem >2A-eFuse-Überstromwert s
 - TI TPS26631: https://www.ti.com/lit/ds/symlink/tps2663.pdf
 - RECOM RPH-3.0: https://recom-power.com/en/rec-s-RPH-3.0.html
 - R6_VENDOR_PRICE_SNAPSHOT_2026-10-15.csv enthält konkrete Angebots-URLs und Lagerstandsangaben der Distributoren.
+
+## Round-6 CI-Nachweis (tatsächlich ausgeführt)
+
+Eigenständiger GitHub-Actions-Workflow .github/workflows/trippower-c-round6-cots.yml:
+https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38792445057
+
+GitHub Job-/Logprüfung vom 15.10.2026: **SUCCESS, 11/11 Python-Regressionstests, BOM-Scope-Abgleich R6-T=39/R6-M=49/R6-L=46 und Preise-Teilsummen reproduziert**. Das ist **nur** ein arithmetischer und dokumentarischer Status, keine KiCad10-ERC-/Netzlisten-/DRC-, reale 200V-/350ms-, thermische oder ISO-Freigabe. Kein qualifizierter neuer Round6-Schaltplan existiert. Sicheres Endergebnis bleibt NO-GO bis P0 abgeschlossen.
