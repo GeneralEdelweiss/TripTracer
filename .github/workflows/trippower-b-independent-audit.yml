@@ -48,6 +48,12 @@ jobs:
           set -euo pipefail
           python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_round6_safety_backup_gate.py' -v 2>&1 | tee reports/b-round6-backup-tests.txt
           python3 hardware/modules/TripPower_5V2A/weg_b/round6_safety_backup_gate.py > reports/b-round6-A-vs-D-PWR_FAIL.json
+      - name: REV6 10 to 32V 58V limited source safety and FRAM-first regressions
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_rev6_practical_safety_model.py' -v 2>&1 | tee reports/b-rev6-practical-tests.txt
+          python3 hardware/modules/TripPower_5V2A/weg_b/rev6_practical_safety_model.py > reports/b-rev6-practical-gates.json
+          echo 'Historical REV5 ERC below is not REV6 58V/70C safety qualification' > reports/REV6_TEST_NOTE.txt
       - name: Native KiCad 10 schematic ERC
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
