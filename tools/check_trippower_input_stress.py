@@ -11,7 +11,7 @@ from pathlib import Path
 BASE = Path("hardware/modules/TripPower_5V2A")
 d = json.loads((BASE / "lm74930_design_v1.json").read_text(encoding="utf-8"))
 sch = (BASE / "01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8")
-parts = {"R313": "3.32k", "R314": "3.32k", "R315": "3.32k",
+parts = {"R313": "3.3k", "R314": "3.3k", "R315": "3.3k",
          "Q301": "STD17NF25", "Q302": "BUK7Y4R8-60EX",
          "D301": "1SMB5943BT3G", "U301": "LM74930QRGERQ1"}
 for ref, token in parts.items():
@@ -19,11 +19,12 @@ for ref, token in parts.items():
     assert token in sch, f"candidate changed ({ref}); reassess input stress"
 assert '(property "Reference" "F302"' not in sch, "separate aux fuse reintroduced"
 assert "VIN_PROTECTED_UNFUSED" in sch
+assert sch.count('(property "MPN" "CRCW25123K30FKEGHP"') == 3, "must have R313-R315 vendor MPN"
 assert d["controller"] == "LM74930QRGERQ1"
 assert d["load_dump_design_target_v"] == 202
 
 VIN, DURATION = 202.0, 0.350  # Conservative rectangular PEAK stress, NOT actual ISO waveform.
-R_EACH, N = 3320.0, 3
+R_EACH, N = 3300.0, 3
 def vs_case(zener_voltage, multiplier=1.0):
     each = R_EACH * multiplier
     total = each * N
@@ -79,7 +80,7 @@ assert thermal["tj_c_85ambient_1p5x_rds_sensitivity_special_board"] > 150
 # charge-pump transient model; the A->VS diode must be retained and tested.
 vs9_hypothetical = 9 - 0.00065 * N * R_EACH
 result = {
-    "scope": "ANALYTICAL_SAFETY_SCREEN_NO_HARDWARE_OR_PULSE_PART_QUALIFICATION",
+    "scope": "ANALYTICAL_SAFETY_SCREEN_VISHAY_3P3K_CANDIDATE_NO_HARDWARE_OR_PULSE_PART_QUALIFICATION",
     "kinetic_model": "202V held as rectangular peak for 350ms, deliberately harsher than an ISO load-dump waveform; ignores wiring/source impedance and dynamic clamping",
     "vs_feed": vs,
     "ov_uv_top_dividers": divider,

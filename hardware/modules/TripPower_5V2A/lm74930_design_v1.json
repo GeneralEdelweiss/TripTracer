@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-14-C_SOURCE_MAIN_FUSE_ONLY",
+  "revision": "2026-10-15-D_PULSE_RVS_CANDIDATE_2512",
   "stage": "PRELIMINARY_VALUES_ONE_COMMON_FUSED_SOURCE_NO_LOCAL_AUX_FUSE",
   "controller": "LM74930QRGERQ1",
   "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
@@ -130,9 +130,11 @@
     {
       "ref": "R_VS_A_B_C",
       "role": "VS 200V/350ms surge feed",
-      "value": "3x3.32kOhm high-pulse resistors SERIES = 9.96k",
-      "mpn": null,
-      "status": "TOPOLOGY_AND_VALUE_CANDIDATE_PULSE_MPN_SOFT_9V_START_GATE"
+      "value": "3x3.3kOhm 2512 AEC-Q200 anti-pulse resistors SERIES = 9.9k",
+      "mpn": "CRCW25123K30FKEGHP",
+      "status": "DESIGN_CANDIDATE_CHOSEN_NOT_FAB_READY_350MS_PULSE_FIGURE_2512_TEMP_BOARD_AND_REPEAT_FAULT_GATE",
+      "source": "https://www.vishay.com/docs/20043/crcwhpe3.pdf",
+      "supplier_snapshot": "Mouser Europe: https://eu.mouser.com/en/ProductDetail/Vishay/CRCW25123K30FKEGHP ; indicative 1pc EUR 0.645, 10pc EUR 0.39, 100pc EUR 0.273 each; stock snapshot 2715-5120 varying crawls, actual price/VAT/shipping/reorder must be confirmed"
     },
     {
       "ref": "D_VS_Z",
@@ -361,7 +363,7 @@
   "reference_calc": "https://www.ti.com/tool/download/LM74930-CALC/REV-A",
   "hard_blockers": [
     "Input auxiliary 1A rating PROVISIONAL: single upstream main-source fuse DC rating/time-current/I2t, interboard wiring and connectors not yet selected",
-    "9V start with approximately 10k VS feed + A-to-VS diode must work across -20..70C and brownouts; TI E2E confirms D1 needed",
+    "9V start with approx 9.9k VS feed + A-to-VS diode across cold/hot/brownout untested; TI E2E confirms D1 needed; CRCW-HP 2512 pulse curves do not prove dynamic startup or repeated hot single faults.",
     "250V STD17NF25 HV FET @ hot continuous 2.4A combined current, 202V/350ms and SCP SOA not qualified",
     "OV/UVLO at raw 202V and reverse battery; component pulse ratings/leakage at temperature",
     "All ISO Test A/B and negative transient TVS energy, copper inductance, thermal fault tests",

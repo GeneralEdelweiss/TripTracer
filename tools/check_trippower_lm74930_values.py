@@ -57,7 +57,7 @@ assert 6<uv_falling<8
 divider_30=30/(a["OV_Rtop_ohm"]+a["OV_Rbottom_ohm"])+30/(a["UV_Rtop_ohm"]+a["UV_Rbottom_ohm"])
 assert divider_30<40e-6
 # At 202V, VS clamp nominal ~56V with 3 x 3.32k in series; energy for rectangular worst-case 350ms.
-rvs=3*3320
+rvs=3*3300
 pvs=(202-56)**2/rvs
 evs=pvs*.350
 pz=56*(202-56)/rvs

@@ -1,3 +1,5 @@
+> **15.10.2026: TripPower-Eingangsschutz R313–315 als Vishay CRCW25123K30FKEGHP (3,3k/2512/AEC-Q200) konkretisiert; thermische, wiederholte Puls- und 9V-Start-Nachweise offen.** [Nachweis- und Sperrbericht](INPUT_STRESS_GATE_2026-10-15.md). Keine PCB-/Automotive-Freigabe.
+
 # TripPower 5V/2A – eigenstaendiges, kopierbares DC/DC-Modul
 
 > **FORTSETZUNG MORGEN / NEUER CHAT:** **[START_HERE_NEXT_CHAT.md](START_HERE_NEXT_CHAT.md)** ist der **verbindliche, aktuellste Projektstand** mit Architekturbeschluss, realen KiCad-Dateien, Pruefnachweisen und priorisierten Folgearbeiten. Bei abweichenden historisch formulierten alten Abschnitten bitte diesem Handoff und den aktuellen Schaltplandateien folgen. Die eigenstaendige Schaltung hat KiCad10 ERC 0 Verletzungen und 46 native Pin-Netz-Checks im CI-Run 38636492660; **kein PCB/DRC/ISO-/Fertigungsfreigabe**. 
