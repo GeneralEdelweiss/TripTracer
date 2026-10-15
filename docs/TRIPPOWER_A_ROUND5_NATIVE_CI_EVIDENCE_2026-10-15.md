@@ -2,6 +2,17 @@
 
 **Ziel:** `F_MAIN`-allein gegen herstellerreferenzierte unabhängige AP74502HQ-Hochvolt-Abschaltung, ohne aktive REV5-Änderung.
 
+## Finales aktualisiertes Verifikationsresultat (inklusive 125°C-Q401-Leitwertmodell)
+
+**GitHub Actions:** https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38749865263
+
+- Elektrischer/Modell-HEAD: `bad572d34f6f2eac5b7b977f65f3cc84c0deb416`
+- Job `116473122811` tatsächlich `completed / success` (GitHub-Jobstatus und vollständiger Joblog geprüft).
+- **49 von 49 Python-Regressionstests**, Joblog `Ran 49 tests in 0.209s`.
+- **Vier KiCad-10-ERC-Läufe, viermal `Found 0 violations`** (REV5, D306, Q307, unabhängiger AP-Guard).
+- Native KiCad-Netzlistendifferenz: `native_pin_netlist_guard_match:true`, `changed_pin_count:31`, `new_populated_positions:12`.
+- Neu nach Hersteller-Spezifikation: Q401/SQM10250E RDS(on) max65mΩ bei TJ125°C/VGS10V/ID15A. Bei Modell 9V 2,389A ~0,371W je Q401, 30V 1,417A ~0,130W. **Keine reale Temperaturmessung und keine SOA-Freigabe.**
+
 ## Reale GitHub-Actions-Nachweise
 
 - **Vollständiger erster erfolgreicher Round5-KiCad-10-Run**: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38748812924 , SHA `c948d25f03ff622b471f8414a1879b3e1c1784f1`, Job `116469452560`, **completed / success**.
