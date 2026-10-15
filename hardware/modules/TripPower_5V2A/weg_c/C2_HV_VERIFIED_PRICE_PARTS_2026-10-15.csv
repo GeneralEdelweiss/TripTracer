@@ -1,0 +1,7 @@
+"ReferenceGroup","Qty","MPN","Manufacturer","Function","PriceSource","EUR_Unit_1_NET","EUR_Unit_10_NET","EUR_Unit_100_NET","URL"
+"U_HV","1","AP74502HQTA8-7","Diodes","Surge / reverse control","Mouser EU","0.636","0.45","0.352","https://eu.mouser.com/en/ProductDetail/Diodes-Incorporated/AP74502HQTA8-7"
+"Q_HV1_Q_HV2","2","SQM35N30-97_GE3","Vishay Siliconix","300V power MOSFET","DigiKey DE","4.48","2.963","2.1059","https://www.digikey.de/en/products/detail/vishay-siliconix/SQM35N30-97-GE3/7566806"
+"U_EFUSE","1","TPS26631PWPR","TI","60V 6A eFuse","Mouser DE","3.89","2.96","2.46","https://www.mouser.de/de/ProductDetail/Texas-Instruments/TPS26631PWPR"
+"U_BUCK","1","LM70840QRRXRQ1","TI","80V 4A buck","Mouser EU","6.3","4.86","4.11","https://eu.mouser.com/ProductDetail/Texas-Instruments/LM70840QRRXRQ1"
+"L_BUCK","1","744393445033","Wuerth","3.3uH AEC-Q200 inductor candidate","DigiKey DE","1.77","1.43","1.0872","https://www.digikey.de/de/products/detail/w%C3%BCrth-elektronik/744393445033/26976004"
+"C_BUCK_OUT_1_TO_4","4","CGA6P1X7S1A476M250AC","TDK","47uF 10V X7S from TI 8A reference (2A optimization OPEN)","DigiKey DE","2.4","1.645","1.254","https://www.digikey.de/en/products/detail/tdk-corporation/CGA6P1X7S1A476M250AC/10413496"
