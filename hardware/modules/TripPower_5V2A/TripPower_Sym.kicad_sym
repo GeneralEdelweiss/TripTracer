@@ -30,4 +30,29 @@
 (property "Description" "Vishay BAS70-02V pad1 ANODE pad2 CATHODE per vendor figure; left cathode is physical pin2, right anode pin1" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (symbol "BAS70_02V_A1_K2_0_1" (polyline (pts (xy -3 -4) (xy -3 4)) (stroke (width 0.35) (type default)) (fill (type none))) (polyline (pts (xy 3 0) (xy -3 -4) (xy -3 4) (xy 3 0)) (stroke (width 0.254) (type default)) (fill (type background))))
 (symbol "BAS70_02V_A1_K2_1_1" (pin passive line (at -10.16 0 0) (length 5.08) (name "K" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1))))) (pin passive line (at 10.16 0 180) (length 5.08) (name "A" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))))
+
+(symbol "PNP_B1_E2_C3"
+(pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 16.51 0) (effects (font (size 1 1))))
+(property "Value" "PMBTA92-Q" (at 0 13.97 0) (effects (font (size 1 1))))
+(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PMBTA92-Q.pdf" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Description" "PNP automotive high voltage 300V AEC-Q101, B1 E2 C3 SOT23; complete release needs min beta hot/cold" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(symbol "PNP_B1_E2_C3_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "PNP_B1_E2_C3_1_1"
+(pin input line (at -15.24 0 0) (length 5.08) (name "B" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))
+(pin passive line (at 15.24 -5.08 180) (length 5.08) (name "C" (effects (font (size 1 1)))) (number "3" (effects (font (size 1 1)))))
+(pin passive line (at 15.24 5.08 180) (length 5.08) (name "E" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))))
+(symbol "NPN_B1_E2_C3"
+(pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 16.51 0) (effects (font (size 1 1))))
+(property "Value" "PMBTA42-Q" (at 0 13.97 0) (effects (font (size 1 1))))
+(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/PMBTA42-Q.pdf" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Description" "NPN automotive high voltage 300V AEC-Q101, B1 E2 C3 SOT23; complete release needs min beta hot/cold" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(symbol "NPN_B1_E2_C3_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "NPN_B1_E2_C3_1_1"
+(pin input line (at -15.24 0 0) (length 5.08) (name "B" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))
+(pin passive line (at 15.24 -5.08 180) (length 5.08) (name "C" (effects (font (size 1 1)))) (number "3" (effects (font (size 1 1)))))
+(pin passive line (at 15.24 5.08 180) (length 5.08) (name "E" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))))
 )
