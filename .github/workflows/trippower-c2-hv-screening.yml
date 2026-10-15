@@ -1,0 +1,37 @@
+name: TripPower Weg C2-HV analytical safety screening (NO FAB RELEASE)
+
+on:
+  push:
+    branches:
+      - "design/trippower-c"
+    paths:
+      - ".github/workflows/trippower-c2-hv-screening.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/c2_hv_gate_checks.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/C2_HV_SAFETY_COST_DECISION_2026-10-15.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quantitative-design-gates:
+    name: Python quantitative screening only - NOT 200V test / KiCad ERC
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardware/modules/TripPower_5V2A/weg_c
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Repeat C2 worst-case model tests
+        run: python3 -m unittest -v c2_hv_gate_checks
+      - name: Print engineering safety estimates (NOT proof)
+        run: python3 c2_hv_gate_checks.py
+      - name: Verify no C2 unsafe PCB is silently marked released
+        run: |
+          echo "C2-HV: NO-GO by upstream FET-short bypass of AP switch."
+          echo "No C2 schematic or board is created at this stage."
+          echo "Native ERC/DRC on C2: NOT RUN. Device / ISO qualification: BLOCKED."
+          test ! -f TripPower_C2.kicad_pcb || { echo "PCB exists without qualified C2 safety gate"; exit 1; }
