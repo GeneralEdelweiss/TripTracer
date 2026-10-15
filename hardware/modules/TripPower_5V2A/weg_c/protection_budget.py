@@ -13,12 +13,12 @@ VIN_MAX = 30.0
 V_SURGE = 200.0
 T_SURGE = 0.350
 V_ZENER_ASSUMED = 60.0   # analytical example only, not a selected TVS guaranteed clamp
-R_VIN_FEED = 10000.0
+R_VIN_FEED = 10200.0
 VOUT = 5.0
 IOUT = 2.0
 I_RAW = 1.0
 EFFICIENCY_ASSUMED = 0.90
-MOSFET_RDS_MAX_25C = 0.185  # AUIRFS6535, 300V, 185mOhm at VGS=10V
+MOSFET_RDS_MAX_25C = 0.097  # SQM35N30-97, 300V, 97mOhm maximum at VGS=10V
 FET_COUNT = 2
 FET_TJ_MAX = 175.0
 BUCK_TJ_MAX = 150.0
@@ -89,13 +89,13 @@ class ProtectionBudgetUnitTests(unittest.TestCase):
         self.assertLess(input_current(Conditions()), 2.4)
 
     def test_inrush_not_always_equal_normal_current(self):
-        self.assertGreater(mosfet_loss(Conditions(), 1.8), 3.0)
+        self.assertGreater(mosfet_loss(Conditions(), 1.8), 1.7)
 
     def test_feed_resistor_pulse_budget(self):
         x = feed_pulse()
-        self.assertAlmostEqual(x["resistor_energy_J"], 0.686)
-        self.assertAlmostEqual(x["zener_energy_J"], 0.294)
-        self.assertAlmostEqual(x["resistor_peak_W"], 1.96)
+        self.assertAlmostEqual(x["resistor_energy_J"], 0.67255, places=4)
+        self.assertAlmostEqual(x["zener_energy_J"], 0.288235, places=4)
+        self.assertAlmostEqual(x["resistor_peak_W"], 1.9215686, places=4)
 
     def test_ovlo_nominal_above_30(self):
         self.assertGreater(ovlo_levels()["ovlo_rising_nominal_input_V"], 30.0)
@@ -116,9 +116,9 @@ def report():
     o = ovlo_levels()
     print("TRIPPOWER WEG C - RECHEN-SCREENING; NO CERTIFICATION")
     print("INPUT 9V, 5V/2A + RAW/1A: %.3f A at eta=90%%" % input_current(c))
-    print("Q1+Q2 185mOhm each at 25C: %.3f W; hot x1.8: %.3f W" %
+    print("Q1+Q2 97mOhm each at 25C: %.3f W; hot x1.8: %.3f W" %
           (mosfet_loss(c), mosfet_loss(c, 1.8)))
-    print("200V/350ms, 60V analytical clamp, 10k feed: R %.2fW / %.3fJ, clamp %.2fW / %.3fJ" %
+    print("200V/350ms, 60V analytical clamp, 10.2k feed: R %.2fW / %.3fJ, clamp %.2fW / %.3fJ" %
           (x["resistor_peak_W"], x["resistor_energy_J"], x["zener_peak_W"], x["zener_energy_J"]))
     print("OVLO 1M/39k (nominal reference): rising %.2fV, 30V I %.2fuA, pin@200V %.2fV" %
           (o["ovlo_rising_nominal_input_V"], o["divider_current_30V_uA"], o["ovlo_pin_at_200V"]))
