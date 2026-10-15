@@ -20,7 +20,7 @@ assert "VIN_PROTECTED_UNFUSED" in sch
 assert "10uF 100V VS STARTUP RESERVOIR X7R REV4" in sch
 assert "10uF 50V EN DELAY WIP" in sch
 assert '(at 405.13 350.52 0) (unit 1) (in_bom yes) (on_board yes) (dnp yes)' in sch, "Historical RC C309 must stay DNP in current RESET design"
-assert d["load_dump_design_target_v"] == 202
+assert d["load_dump_design_target_v"] == 200
 
 RVS=3*3300.0
 R_AUTO_TOP=100000.
@@ -125,7 +125,7 @@ print(json.dumps({
     "When CAP pump starts, 665/780uA 12V test IQ NOT a guaranteed pump input draw; extra current in matrix is only sensitivity parameter",
     "No capacitor model as of yet proves 9V startup; model shows 6V VS violation in pessimistic assumed corner",
     "C309 is DNP in actual Q303 interlock; historical 10uF EN capacitor quick-restart model is no longer present",
-    "VS 9.9k resistor remains required for 202V/350ms surge; no reduction",
+    "VS 9.9k resistor remains required for 200V/350ms surge; no reduction",
     "Only after verified gate-on can D302 SOURCE_A->VS supply actual controller current",
     "Historical R318/R316 100k divider has been eliminated by the Q303 series gate; do not use its quiescent current prediction for current circuit",
     "Active RUN_CMD 3.3/5V bypasses this delay on D305; controlled mode must use separate VS-qualified enable gate"
