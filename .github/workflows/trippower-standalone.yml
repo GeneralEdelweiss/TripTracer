@@ -1,8 +1,8 @@
-name: TripPower standalone engineering gates (NOT fabrication)
+name: TripPower Weg A 80V engineering gates (NOT fabrication)
 
 on:
   push:
-    branches: [design/solid-state-power-v1]
+    branches: [design/trippower-80v]
     paths:
       - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/check_trippower_*.py'
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   standalone:
-    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/solid-state-power-v1' }}
+    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/trippower-80v' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     container:
@@ -37,9 +37,11 @@ jobs:
           cp -r /home/kicad/.config/kicad "$HOME/.config/"
           kicad-cli version | tee reports/kicad-version.txt
           printf '%s\n' "$GITHUB_SHA" > reports/commit.txt
-          printf 'TripPower REV5: engineering coherence PASS is NOT 9V-start, 200V-load-dump, PCB/vehicle/manufacturing release.\n' > reports/STATUS.txt
+          printf 'TripPower Weg A REV5 80V: engineering coherence PASS is NOT 9V-start, 200V-load-dump, PCB/vehicle/manufacturing release.\n' > reports/STATUS.txt
       - name: Enforce single-source REV5 BOM (57 AUTO / 58 RUN), DNP diagnostics, pin package and rating register
         run: python3 tools/check_trippower_design_baseline.py | tee reports/rev5-baseline.json
+      - name: Check Weg A supplier pad geometry and worst-case arithmetic
+        run: python3 tools/check_trippower_80v_branch_a.py | tee reports/weg-a-80v-check.json
       - name: TI controller current limit and selected sense passives arithmetic only
         run: python3 tools/check_trippower_lm74930_values.py | tee reports/current-sense.json
       - name: Load dump power and MOSFET screening (NOT SOA approval)
@@ -67,6 +69,6 @@ jobs:
       - name: Mark limitations prominently
         if: always()
         run: |
-          printf '### TripPower REV5 stand-alone design checks\n\n' >> "$GITHUB_STEP_SUMMARY"
+          printf '### TripPower Weg A 80V – standalone design checks\n\n' >> "$GITHUB_STEP_SUMMARY"
           printf 'KiCad 10 standalone schematic checks and arithmetic only. **NO PCB exists**, no PCB DRC, no hot SOA, no 9V first-boot physical measurement, no manufacturing/vehicle release.\n\n' >> "$GITHUB_STEP_SUMMARY"
-          printf 'See hardware/modules/TripPower_5V2A/REV5_OPTIMIZATION_IMPLEMENTATION_2026-10-15.md and REV5_DESIGN_BASELINE.json for mandatory P01–P10 gates.\n' >> "$GITHUB_STEP_SUMMARY"
+          printf 'See hardware/modules/TripPower_5V2A/WEG_A_80V_ENGINEERING_2026-10-15.md and REV5_DESIGN_BASELINE.json for mandatory P01–P10 gates.\n' >> "$GITHUB_STEP_SUMMARY"
