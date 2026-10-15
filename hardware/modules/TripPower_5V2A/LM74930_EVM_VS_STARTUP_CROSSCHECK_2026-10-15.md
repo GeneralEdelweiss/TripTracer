@@ -17,7 +17,7 @@
 | VS-Pulsspeisung | 10 kΩ R13 | 9,90 kΩ aus R313/R314/R315, je 3,3 kΩ/2512 | Praktisch identisches Widerstandsniveau; Puls-Eignung der drei Bauteile separat offen |
 | Nachladediode | D8 Anode A, Kathode VS | D302 BAV21WQ-7-F, Anode SOURCE_A, Kathode VS_CLAMP | Funktion bereits im Schaltplan vorgesehen; nicht als unabhängige VIN→VS-Bootstrapquelle ausgeben |
 | VS-Klemme | D7 56 V, C18 1 µF | D301 56 V, C302 1 µF + C308 10 µF/100 V | Zusätzliches Reservoir hilft *potenziell* während kurzer Pumpenlast; Leckage/effektive Kapazität und VS-Spitzenspannung offen |
-| CAP/VS-Kondensator | EVM C5 2,2 µF auf VS; C4/C6 andere Aufgaben, Schaltplan prüfen | C303 470 nF/100 V zwischen CAP_PUMP und VS_CLAMP | **Nicht** blind EVM-Kondensatoren nach Positionsnummer übertragen; TripPower-C303 ist gegen TI-Regel vorbemessen, Ceff noch offen |
+| CAP/VS-Kondensator | separate CAP-/VS-Beschaltung gemäß Abb. 3-1; Bauteilbezeichnungen nicht mit TripPower gleichsetzen | C303 470 nF/100 V zwischen CAP_PUMP und VS_CLAMP | **Nicht** blind EVM-Kondensatoren nach Positionsnummer übertragen; TripPower-C303 ist gegen TI-Regel vorbemessen, Ceff noch offen |
 | Enable | J5 standardmäßig an 4,7-V-VREG | U302/TPS3760 mit Q303–Q305 REV2, VS-only | EVM enthält nicht unsere Hysterese, Verzögerung, AUTO/RUN und 125-°C-Leck-/µA-hFE-Probleme |
 | Datenblatt/EVM-Test | VIN 12 V, ohne angeschlossenen TripPower-Buck+RAW-Last | VIN **9–30 V**, 5 V/2 A und RAW bis 1 A als Designziel | EVM-Wellenform **nicht** als 9-V-/202-V-/Lastfreigabe werten |
 
