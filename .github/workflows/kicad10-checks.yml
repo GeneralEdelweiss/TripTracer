@@ -18,6 +18,7 @@ on:
       - 'tools/check_acc_hold_prearm.py'
       - 'tools/check_trippower_native_netlist.py'
       - 'tools/check_trippower_lm74930_values.py'
+      - 'tools/check_trippower_input_stress.py'
       - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/check_cots_power_selection.py'
       - 'tools/check_power_frontend_design_freeze.py'
@@ -71,6 +72,10 @@ jobs:
         id: trippower
         continue-on-error: true
         run: python3 tools/check_trippower_lm74930_values.py | tee reports/trippower-lm74930-design.json
+      - name: TripPower input 202V pulse and Q301 thermal screening (arithmetic, unresolved safety gates)
+        id: trippower_stress
+        continue-on-error: true
+        run: python3 tools/check_trippower_input_stress.py | tee reports/trippower-input-stress.json
       - name: TripPower independent root schematic ERC (not the TripTracer project)
         id: trippower_erc
         continue-on-error: true
@@ -181,6 +186,7 @@ jobs:
         if: always()
         env:
           TRIPPOWER: ${{ steps.trippower.outcome }}
+          TRIPPOWER_STRESS: ${{ steps.trippower_stress.outcome }}
           TRIPPOWER_ERC: ${{ steps.trippower_erc.outcome }}
           TRIPPOWER_NETLIST: ${{ steps.trippower_netlist.outcome }}
           TRIPPOWER_PATH: ${{ steps.trippower_path.outcome }}
@@ -203,4 +209,4 @@ jobs:
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s | Path %s\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" "$TRIPPOWER_PATH" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$TRIPPOWER" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$TRIPPOWER" = success && test "$TRIPPOWER_STRESS" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
