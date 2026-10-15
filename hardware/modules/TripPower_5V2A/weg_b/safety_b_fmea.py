@@ -103,6 +103,27 @@ def d302_bypass_current_example(i_amp, vz=56., duration=.350, vf=.8):
             "RVS_9p9kohm_limits_this_path":False,
             "Zener_I_V_T_and_SOA_PROVEN":False}
 
+def d302_series_resistor_conflict(vstartup=9., vsready=8., assumed_vf=.7,
+                                  i_replenish=.000780,
+                                  vs_fault=56., limit_fault_current=.015):
+    """Screen whether ONE resistor could both supply hypothetical startup VS
+    current and limit SOURCE_A=200V Q301 welded-feed fault.
+
+    TI's 780uA number was specified at VS=12V, not a measured 9V guarantee;
+    the result is a conditional design infeasibility proof for THESE assumptions.
+    """
+    if not (vstartup>vsready+assumed_vf and i_replenish>0
+            and 200>vs_fault+assumed_vf and limit_fault_current>0):
+        raise ValueError("invalid series-path assumptions")
+    rmax_start=(vstartup-vsready-assumed_vf)/i_replenish
+    rmin_fault=(200.-vs_fault-assumed_vf)/limit_fault_current
+    return {"assumed_min_replenish_mA":i_replenish*1000.,
+            "assumed_fault_current_limit_mA":limit_fault_current*1000.,
+            "max_R_for_start_ohms":rmax_start,
+            "min_R_for_200V_fault_ohms":rmin_fault,
+            "one_resistor_satisfies_both":rmin_fault<=rmax_start,
+            "assumptions_not_supplier_start_or_safe_pulse_guarantee":True}
+
 def q301_turnoff_screen(vpulse=200., vds_max=250., current=2.389):
     return {"ideal_off_Q301_VDS":vpulse,
             "VDS_ideal_headroom":vds_max-vpulse,
@@ -141,6 +162,7 @@ def report(nets=None):
         "D301_open_5uF_zero_load":d301_open(ceff_f=5e-6),
         "D302_feed_from_source_A_with_welded_Q301_assumed_current": [
             d302_bypass_current_example(i) for i in (0.02,0.1,0.25,1.0)],
+        "D302_series_resistor_tradeoff":d302_series_resistor_conflict(),
         "q301":q301_turnoff_screen(),
         "nominal_RVS_zener_pulse":shunt_zener_pulse(),
         "D303_D304_VBR_min_sum_at_individual_test_current_V":167+36.7,
