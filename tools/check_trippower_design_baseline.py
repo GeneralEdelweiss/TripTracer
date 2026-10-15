@@ -63,7 +63,8 @@ control=(base/"03_VS_READY_TPS3760.kicad_sch").read_text()
 assert protection.count('(property "Value" "10uF 100V VS STARTUP RESERVOIR X7R REV4"')==2
 assert '0R AUTO VS TO RUN_SENSE; DNP IN RUN' in protection
 assert 'D305' not in protection and 'D302' in protection
-assert '715k 1% VS_READY VIN TOP' in control\nassert 'TPS38A010122DSKRQ1' in control and 'PMBTA92-Q' not in control
+assert '715k 1% VS_READY VIN TOP' in control
+assert 'TPS38A010122DSKRQ1' in control and 'PMBTA92-Q' not in control
 
 # Caution: not worst-case charge pump input current and not vendor pulse approval.
 rvs=3*3300.0
