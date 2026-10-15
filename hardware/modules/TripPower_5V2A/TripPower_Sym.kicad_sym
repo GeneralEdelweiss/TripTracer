@@ -11,3 +11,15 @@
  ))
 
 )
+(symbol "EN_PASS_NMOS_GSD" (pin_names (offset 0.762)) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 16 0) (effects (font (size 1.27 1.27))))
+(property "Value" "BVSS123LT1G" (at 0 -16 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Description" "Automotive BVSS123LT1G 100V onsemi, pin1 G pin2 S pin3 D, series pass CTRL_EN lock; IDSS 60uA at 125C/100V, gate clamped externally, 202V surge thermal WIP" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(symbol "EN_PASS_NMOS_GSD_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "EN_PASS_NMOS_GSD_1_1"
+ (pin input line (at -15.24 0 0) (length 5.08) (name "G" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016)))))
+ (pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016)))))
+ (pin passive line (at 15.24 5.08 180) (length 5.08) (name "D" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
+))
+)
