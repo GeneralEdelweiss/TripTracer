@@ -48,7 +48,7 @@ def ap_screen():
         vendor_VIN_and_SRC_differential_allowance_v=0.,
         vendor_guaranteed_9V_start_with_9p9k_feed=False,
         scenarios={
-          str(v):{
+          str(int(v)):{
             "typ62uA_25C_Rds30mOhm_illustrative":current_scenario(v,AP_I_TYP),
             "max84uA_datasheet12V_illustrative":current_scenario(v,AP_I_MAX),
             "lowIQ1uA_example":current_scenario(v,1e-6),
