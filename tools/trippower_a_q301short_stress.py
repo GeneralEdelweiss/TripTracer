@@ -54,6 +54,15 @@ def study():
     # source resistance; an intentionally optimistic simple ohmic comparison.
     headroom_9v_ma=max(0,(9-8-VF)/(R342+BSP135_RDS0_MAX))*1e3
     vs_precharge_irvs_ma=(9-8)/9900*1e3
+    # Datasheet BSP135 RthJA max 115K/W minimal footprint, 70K/W on the
+    # *specified 6cm2 70um copper vendor board*, not on a real TripPower PCB.
+    steady_limit_minimal_W=(150-125)/115
+    steady_limit_vendor_6cm2_W=(150-125)/70
+    # Comchip ACZRC5370B-G catalog 5W at TL75C; Fig1 linear to zero TL150C.
+    # Sole fixed 56V, 14.84mA normal RVS case is 0.831W.
+    # No real board temperature prediction from ambient alone.
+    d306_nominal_200v_W=56*(200-56)/(9900*.9801)
+    d306_TL_limit_c=150-15*d306_nominal_200v_W
     return {
       "fault":"Q301_DRAIN_SOURCE_SHORT_AT_200V_FOR_350MS",
       "scope":"THEORETICAL_FAULT_AND_VENDOR_TOPOLOGY_SCREEN_ONLY",
@@ -78,6 +87,25 @@ def study():
         "BSP135_125C_allowable_350ms_energy_J":None,
         "BSP135_Vgs_threshold_not_guaranteed_current_limit":True,
         "saturated_vs_linear_9v_behaviour_not_vendor_bound":True
+      },
+      "BSP135_vendor_hot_board_derating":{
+         "reference_BSP135_solderpoint_rth_K_per_W":25,
+         "RthJA_max_K_per_W_min_footprint":115,
+         "RthJA_max_K_per_W_on_vendor_6cm2_70um_board":70,
+         "125C_steady_power_limit_from_150C_Tj_on_min_footprint_W":steady_limit_minimal_W,
+         "125C_steady_power_limit_on_vendor_6cm2_board_W":steady_limit_vendor_6cm2_W,
+         "125C_0p35s_transient_rthja_max_on_ACTUAL_PCB_KperW":None,
+         "pulse_SO_A_at_200V_125C":None,
+         "R342_AC1206FR_071K5L_AEC_Q200":True
+      },
+      "D306_vendor_5w_thermal_reference":{
+         "MPN":"ACZRC5370B-G",
+         "5W_condition":"Lead temperature TL=75C, 5mm 1oz lands per Comchip page 1",
+         "TL_derating_W_per_K_linear_graph":5/75,
+         "max_lead_temperature_C_if_0p831W_steady_continuous":d306_TL_limit_c,
+         "actual_TL_at_ambient125C_and_load":None,
+         "125C_ambient_alone_does_NOT_prove_5W":True,
+         "350ms_starting_at_125C_ZthL_real_PCB":None
       },
       "9v_start":{
         "vin_V":9.0,"vs_assumed_V":8.0,"D302_vf_assumed_V":VF,
