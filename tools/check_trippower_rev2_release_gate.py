@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Documented, strict safety-evidence gate for current TripPower REV2.
 Script success means calculations/data limitations are correctly preserved,
-NOT that 9-30V operation or 202V safety is proven. No fabricated SPICE.
+NOT that 9-30V operation or 200V safety is proven. No fabricated SPICE.
 """
 import json
 from pathlib import Path
@@ -104,7 +104,7 @@ print(json.dumps({
  "lower_ready_threshold_reduces_initial_C308_hold_up_energy":"NEEDS_MEASUREMENT",
  "start_guaranteed":False},
  "safety": {"9_to_30V_start_certified":False,
- "202V_350ms_load_dump_SOA_proven":False,
+ "200V_350ms_load_dump_SOA_proven":False,
  "external_F_MAIN_fault_coordination_proven":False,
  "automotive_manufacturing_release":False},
  "required_next_evidence":["Manufacturer guaranteed all-temp min hFE and max leakage at 10-100uA, or change active circuit",
