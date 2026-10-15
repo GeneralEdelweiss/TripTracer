@@ -69,6 +69,25 @@ def zener_open(vin=VIN_PULSE_V, initial_vs_v=0.0, ceff_f=CAP_VS_NOMINAL_F):
             "model":"OPEN D301, zero load/leak, no internal VS clamp; NOT a prediction",
             "qualified":False}
 
+def illustrative_stack_source(v_open_v, source_r_ohm, assumed_stack_v,
+                              duration_s):
+    """SENSITIVITY ONLY: fictitious ideal stack voltage, not a TVS I-V curve.
+
+    Never use this as a power or surge qualification of D303/D304.
+    """
+    if source_r_ohm<=0 or duration_s<0:
+        raise ValueError("finite positive source R and nonnegative pulse required")
+    i=max(0.0,(v_open_v-assumed_stack_v)/source_r_ohm)
+    return {
+        "v_open_v":v_open_v, "source_r_ohm":source_r_ohm,
+        "assumed_stack_voltage_v_NOT_VENDOR_CURVE":assumed_stack_v,
+        "duration_s":duration_s, "i_a_if_assumed_clamp":i,
+        "stack_power_w":i*assumed_stack_v,
+        "stack_energy_j":i*assumed_stack_v*duration_s,
+        "power_split_between_d303_d304_unknown":True,
+        "voltage_curve_and_SOA_certified":False,
+    }
+
 def pulse_study():
     nominal=rvs_pulse()
     r_min=1-R_TOL
@@ -106,6 +125,11 @@ def pulse_study():
            "d304_short":"D303 ~167-192.5V breakdown alone; hot current/SOA unproven",
            "d303_reversed":"Forward polarity on +VIN; D304 alone ~37-42V; wiring/power danger"
         }
+      },
+      "overshoot_source_impedance_SENSITIVITY_NOT_SPEC": {
+        "225v_100us_1ohm_assume220v_stack":illustrative_stack_source(225,1,220,100e-6),
+        "250v_100us_5ohm_assume220v_stack":illustrative_stack_source(250,5,220,100e-6),
+        "250v_350ms_5ohm_assume220v_stack_NOT_PROJECT_PROFILE":illustrative_stack_source(250,5,220,0.350),
       },
       "q301":{
         "vds_abs_max_v":Q301_VDS_ABS_MAX_V,
