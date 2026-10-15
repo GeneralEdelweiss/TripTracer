@@ -33,7 +33,7 @@ def verify(reference,alternate,sch):
                 ("U302","1"):"VS_CLAMP"}.items():
         assert b.get(k)==v,f"existing component {k} moved: {b.get(k)} expected {v}"
     assert '(property "Reference" "Q307"' in sch and "BSP135H6327XTSA1" in sch
-    assert '(property "Reference" "R342"' in sch and "RC1206FR-071K5L" in sch
+    assert '(property "Reference" "R342"' in sch and "AC1206FR-071K5L" in sch
     assert '(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"' in sch
     return {"native_10_pin_delta_pass":True, "changed_nodes":{f"{k[0]}.{k[1]}":list(v) for k,v in delta.items()},
             "Q301_DS_SHORT_EXPOSES_U301_A_AT_200V":True,
