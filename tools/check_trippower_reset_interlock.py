@@ -1,77 +1,38 @@
 #!/usr/bin/env python3
-"""Read-only TripPower TPS3760 RESET → Q303 gated LM74930 EN screening.
-Success means topology and *stated arithmetic* match KiCad, NOT guaranteed
-hot off voltage, 9V startup, ISO 16750-2, F_MAIN or automotive qualification.
-"""
+"""Current TripPower VS-only EN PNP/NPN interlock; arithmetic check, no vehicle release."""
 import json
 from pathlib import Path
-base=Path("hardware/modules/TripPower_5V2A")
-p=(base/"01_Protection_LM74930.kicad_sch").read_text("utf-8")
-s=(base/"03_VS_READY_TPS3760.kicad_sch").read_text("utf-8")
-lib=(base/"TripPower_Sym.kicad_sym").read_text("utf-8")
-d=json.loads((base/"lm74930_design_v1.json").read_text("utf-8"))
-assert d["nominal_input_range_v"]==[9,30]
-for ref,part in (
-("Q303","BVSS123LT1G"),("D306","BAS70-02V-HG3-08"),
-("D307","SZMMSZ5240BT1G"),("D308","BAS70-02V-HG3-08"),
-("R334","470k 1%"),("R335","1M 1%")):
-  assert f'(property "Reference" "{ref}"' in s,ref
-  assert part in s,part
-assert "(symbol \"EN_PASS_NMOS_GSD\"" in lib
-assert '(property "Reference" "R318"' in p and "22k VS TO AUTO_REQ" in p
-assert '(property "Reference" "R316"' in p and "5.6k EN PULLDOWN" in p
-assert '(global_label "EN_REQUEST_RAW"' in p
-assert '(global_label "EN_REQUEST_RAW"' in s
+root=Path("hardware/modules/TripPower_5V2A")
+p=(root/"01_Protection_LM74930.kicad_sch").read_text()
+s=(root/"03_VS_READY_TPS3760.kicad_sch").read_text()
+l=(root/"TripPower_Sym.kicad_sym").read_text()
+for ref,value in [("Q303","PMBTA92-Q"),("Q304","PMBTA42-Q"),("Q305","PMBTA42-Q"),("R336","47k"),("R337","220k"),("R339","1M"),("R340","1M"),("R341","100k")]:
+ assert f'(property "Reference" "{ref}"' in s and value in s,ref
+assert '(symbol "PNP_B1_E2_C3"' in l and '(symbol "NPN_B1_E2_C3"' in l
+assert "68k PNP OUTPUT CURRENT LIMIT" in p and "22k EN PULLDOWN" in p
+assert "825k 1% VS-SENSE" in s and "1M 1% RESET FEEDBACK" in s
+assert "BAS116Q_A1_K3_NC2" in p and "RUN_SINK_C" in p
 assert '(at 405.13 350.52 0) (unit 1) (in_bom yes) (on_board yes) (dnp yes)' in p
-# Conservative comparator specs are guaranteed for stated datasheet tests:
-ven_rise_max=1.05
-ven_fall_min=.41
-r_auto=22e3
-r_out=5.6e3
-r_run=4.7e3
-min_vs_ready_candidate=8
-run_nominal=3.3
-d305_assumed_vf=.8
-auto_en_resistive_limit=min_vs_ready_candidate*r_out/(r_auto+r_out)
-run_en_resistive_limit=(run_nominal-d305_assumed_vf)*r_out/(r_run+r_out)
-leak_bvss_max_125a=60e-6  # TJ 125C at VDS100V VGS0, not at schottky Vf gate
-leak_out_model=leak_bvss_max_125a*r_out
-r_top_gate=470e3
-r_btm_gate=1e6
-gate_ideal_8v=8*r_btm_gate/(r_top_gate+r_btm_gate)
-gate_8v_3ua_zener_leak_sensitivity=(8/r_top_gate-3e-6)/(1/r_top_gate+1/r_btm_gate)
-# Q303 dissipates from R318 while VS high; source follower, no measured drain current
-p30_inrush_sensitivity=(30-7)**2/r_auto
-p56_surge_sensitivity=(56-7)**2/r_auto
-assert auto_en_resistive_limit>ven_rise_max
-assert run_en_resistive_limit>ven_rise_max
-assert leak_out_model+0.2e-6*r_out < ven_fall_min  # only if VGS remains <=0!
-assert p56_surge_sensitivity>0.1 and p30_inrush_sensitivity<0.03
-assert 5.4 <gate_ideal_8v <5.5 and gate_8v_3ua_zener_leak_sensitivity>4.0
-print(json.dumps({
- "check":"TPS3760_RESET_INTERLOCK_KICAD_TOPOLOGY_AND_ARITHMETIC",
- "pass":True,
- "release":False,
- "gating":"Q303 N-FET drain EN_REQUEST_RAW source CTRL_EN; RESET LOW clamps gate D306 and EN D308",
- "AUTO_then_Q303":"VS via R31822k R3190R to EN_REQUEST_RAW; R316 5.6k CTRL_EN to ground",
- "RUN_then_Q303":"RUN_CMD via R3174.7k D305 to EN_REQUEST_RAW; no direct RUN-to-CTRL_EN net",
- "C309":"DNP; CTR C311 produces adjustable reset release delay",
- "bounds":{
-   "LM74930_VENR_max_v":ven_rise_max,
-   "LM74930_VENF_min_v":ven_fall_min,
-   "VS_8V_AUTO_ohmic_ideal_EN_v":round(auto_en_resistive_limit,3),
-   "3p3V_RUN_assumed_D305Vf_0p8V_ohmic_EN_v":round(run_en_resistive_limit,3),
-   "onsemi_Q303_IDSS_125C_100V_60ua_hypothetical_off_EN_v":round(leak_out_model,3),
-   "Q303_GATE_8V_no_zener_leak_v":round(gate_ideal_8v,3),
-   "Q303_GATE_8V_with_hyp_3ua_zener_leak_v":round(gate_8v_3ua_zener_leak_sensitivity,3),
-   "Q303_30V_source7V_hyp_continuous_W":round(p30_inrush_sensitivity,3),
-   "Q303_56V_source7V_hyp_350ms_W":round(p56_surge_sensitivity,3),
- },
- "blocked":[
-  "Cold and hot VGS variation and MOSFET source-follower min EN; gate Zener 10V breakdown specified at high test current, only tens of uA in actual circuit",
-  "Q303 hot 125C IDSS guaranteed only at VGS0 and VDS100V, D306 clamp gate may be +Vf, D308 Vf/leak at 125C not qualified",
-  "Q303 transient thermal at 56V VS 350ms may exceed thermal derated DC; P56 model is 109mW",
-  "U302 RESET VDD below VPOR1.4V undefined, input EN must remain LOW on first bootstrap",
-  "9V startup and protection 202V 350ms Q301 SOA, external F_MAIN not approved",
-  "R334/R335 & upstream series resistors component MPNs and mechanical DRC not selected",
- ],},indent=2,ensure_ascii=False))
+vout=8*22/(68+22)
+ib_pnp=max(0,(8-.7)/220e3-.7/47e3)
+ib_ready=max(0,(8-.7)/(1e6+1e6)-.7/1e6)
+pmax=65**2/(4*68e3)
+rmax=65**2/68e3
+offlimit=(.41/22e3-.2e-6)*1e6
+assert vout>1.05 and ib_pnp>0 and ib_ready>0
+assert pmax<.016 and .06<rmax<.07 and offlimit>18
+print(json.dumps({"stage":"NEW_VS_ONLY_ENABLE_SWITCH_ARITHMETIC","pass":True,
+ "vehicle_release":False,
+ "vs_supply":"Q303 PNP emitter to VS, collector through R318 68k to CTRL_EN",
+ "interlock":"Q304 RESET-high NPN in series with Q305 RUN-high NPN; R319 0R bypasses RUN in AUTO",
+ "usb_backfeed":"D305 BAS116Q SOT23 K3/A1/NC2 reverse-blocks RUN_BASE Q305 collector feed",
+ "math":{"VS8_ideal_EN_v":round(vout,3),"PNP_8V_base_drive_uA":round(ib_pnp*1e6,2),
+ "READY_NPN_8V_base_drive_uA":round(ib_ready*1e6,2),
+ "NPN_min_gain_needed_nominal":round(ib_pnp/ib_ready,1),
+ "PNP_upper_power_w_at_VS65_resistoronly":round(pmax,4),
+ "R318_upper_power_w_at_VS65":round(rmax,4),
+ "PNP_125C_max_allowed_leak_uA_at_EN":round(offlimit,2)},
+ "blockers":["No min hFE at 20uA and cold/hot; cannot guarantee RUN/AUTO on",
+ "No max 125C PNP collector leakage; cannot guarantee EN<0.41V",
+ "R332 hysteresis influenced by RESET base load, R330825k/R3321M is provisional",
+ "202V SOA, F_MAIN, 9V charge pump, prototype thermal/DRC remain blocked"]},indent=2))
