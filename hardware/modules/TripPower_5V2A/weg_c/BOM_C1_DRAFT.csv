@@ -17,7 +17,7 @@
 "D1","56V suppressor example","SMCJ56A-13-F","Diode_SMD:D_SMC","HV_CLAMP_UNQUALIFIED","Not an approved 200V/350ms voltage clamp; must validate clamping at pulse current"
 "D2","RUN_CMD diode example","BAV21W-7-F","Diode_SMD:D_SOD-123","PINOUT_FOOTPRINT_UNQUALIFIED","Anode RUN, cathode EN, no backfeeding claim without test"
 "C1","1uF 100V AP supply","C1210C105K1RACAUTO","Capacitor_SMD:C_1210_3225Metric","DRAFT","Biased effective C, surge clamp and ESR verify"
-"C2","100nF 100V AP VCAP","C1206C104K1RACAUTO","Capacitor_SMD:C_1206_3216Metric","DRAFT","Manufacturer recommended C and polarity pin references verify"
+"C2","220nF 100V AP VCAP","C1206C224K1RACAUTO","Capacitor_SMD:C_1206_3216Metric","DRAFT","Manufacturer recommended C and polarity pin references verify"
 "C3","1uF 50V eFuse OUT","C1210C105K5RACAUTO","Capacitor_SMD:C_1210_3225Metric","MPN_IDENTIFIED_NOT_QUALIFIED","50V automotive X7R MLCC DC bias at 30V and upstream cutoff surge must verify"
 "C4","4.7uF 50V buck VIN","C1210C475K5RACAUTO","Capacitor_SMD:C_1210_3225Metric","MPN_IDENTIFIED_NOT_QUALIFIED","Check TI module required effective input capacitance and ceramic DC bias"
 "C5","100nF 50V buck HF input","C1206C104K5RACTU","Capacitor_SMD:C_1206_3216Metric","MPN_IDENTIFIED_NOT_QUALIFIED","Input voltage overshoot must stay <36V Buck VIN max"
