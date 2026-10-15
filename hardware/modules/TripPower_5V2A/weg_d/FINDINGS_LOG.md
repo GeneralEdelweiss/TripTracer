@@ -2,6 +2,28 @@
 
 **Scope:** dedizierter Load-Dump-IC bzw. speziell für 200V/350ms ausgelegter passiver Schutz. Änderungen nur auf design/trippower-d-load-dump.
 
+## 2026-10-15 – REV6, Nachtrag: 58-V-begrenzter Eingang statt 200-V-Test-A
+
+**[ANFORDERUNGSWECHSEL – verbindlich]** docs/TRIPPOWER_V1_PRACTICAL_REQUIREMENTS_REV6_2026-10-15.md hat Vorrang. 10..32V, OV-OFF >32..≤36, 36V/400ms, nur **58V/350ms am M8-Connector nach Fahrzeugklemme**, Ta -20..70°C, 5V/2A bis +60°C, sichere Abschaltung +85°C, RAW0.5A, BAT-OFF<1mA (Ziel0.5mA), FRAM-first und einfache fail-high PG-Schnittstelle. Früherer 200V/125°C-STOP ist **HISTORISCH** für V1, aber die Fehlermethodik bleibt relevant. Die 200V-Schutzstufe bleibt optionale externe Nachrüstung, nicht V1-BOM.
+
+**[ARCHITEKTURMATRIX, HERSTELLER]** V1 80V-LMR38020-Buck ohne eigenständige OVP/Verpol/RAW-OCP -> **NO-GO als vollständiger REV6-Schutz**. V2 TI TPS26631 plus kleine SMBJ58A -> **NO-GO mangels lokaler Max-Padbeweis**: eFuse VIN 60V operating/67V abs, TVS max93.6V bei geprüftem Puls, kein sicheres 67V-Clamp. V3 **ADI LTC4368HMS-2#WPBF** 60V Betrieb/100V VIN fault, separate abs VOUT/SENSE80V, 2 externe antiparallele 100V-MOSFETs, OV/UV/OCP/Rückstrom -> **KONDITIONALER ARCHITEKTUR-GO**, nicht freigegebene Leiterplatte. ADI-24V-Herstellerreferenz und Distributor-Präzisionsgrenzen dokumentiert: [technischer REV6-Bericht](REV6_58V_ARCHITECTURE_STOPGO_2026-10-15.md).
+
+**[BESONDERS WICHTIG – SHUTDOWN- UND RESTART-TOLERANZEN]** OV rising=0.4925..0.5075V, Hysterese20..32mV. Proposed Teiler top-down 475k/1.5M/121k/30.2k (effektiv je ≤±0.25% über Fertigung+TCR+Ta) -> OV trip **34.50..35.91V**, OV-fall/recover **32.26..34.49V** (ohne ~±0.02V+ je relevanten Sense-Pin-Leckstrom und PCB). Standard ±1%-Widerstände reichen für die gleichzeitigen worst-case 36V-Aus /32V-Restart **nicht**. Reproduzierbar [rev6_limits.py](rev6_limits.py) und [test_rev6.py](test_rev6.py), derzeit keine native KiCad/CI-Ausführung behauptet. Bisher kein exakter 0.1%-MPN/CT. **PROVISIONELL, nicht abnahmefähig**.
+
+**[SHUNT-/LEISTUNGSAUSLEGUNG, RECHNUNG]** 15mΩ-Sense => Stromtrip 2.67..4.0A (40..60mV, ohne Shunt-Toleranz). 5V2A@10V η80% +0.5A RAW -> 1.75A Modell-Eingang, gemessener η/Ipeak fehlt. Der RAW-Abzweig und sein 0.5A-Kurzschluss müssen separat abgesichert/begrenzt werden. Bei T_A60°C + 32V 2A sinkt die tatsächliche Regler-Thermikmarge; 85°C ambient sicher OFF aus IC-Tj150°C-Thermikauslösung zu folgern ist ein Fehler: **Temperatursensor/SHDN MPN noch offen**.
+
+**[KURZPULS-TV S optional]** TI TVS5800 58V VRWM und 75V max bei spezifischem 25A/8–20µs kann gegen HF-Ringing helfen, besitzt aber kein 350ms-58V-Derating-Prädikat und ist catalog/6pin-QFN. SMBJ58A clamped bis93.6V bei 10/1000us, NICHT als unter67V- oder unter80V-Begrenzer. TVS-OPEN/SHORT nur in komplett durch F_MAIN qualifizierter Architektur akzeptieren. NO TVS in Leit-BOM ohne nachgewiesenen Nutzen/Messwerte.
+
+**[F_MAIN]** Littelfuse 0997004.WXN **4A, 58VDC, 1kA DC** und -40..125°C erster Kandidat. OEM-typisches Hot-Derating ~2.4A bei Ta80°C; 3A-Typ nur ~1.8A, kritisch bei modeliertem 1.75A. 4A Short-/Arc/Total Clearing, Kabel/Pin/Masse und **mind.58VDC zugelassener Sicherungshalter** offen; die häufigen Shop-MINI-Halter sind nur **32VDC**, NICHT automatisch passend. Höherer DC-Typ bei höherem tatsächlichen Fuse-Voltage-Transient. Keine unzulässig verschmolzene PCB-Sicherung.
+
+**[FRAM-FIRST, KEIN MCU-SD-BACKUPZWANG]** Ein abruptes Abziehen erlaubt 0 Vorwarnzeit. FRAM muss bereits committed sein. Ein fail-high-PWR_FAIL vom echten MAIN_5V-Good und localem UV-Latch wird durch TripTracer-AON-Domain gepullt, **nicht** permanent von CR1220 versorgt. LTC FAULT ist **LOW bei FAULT**, also nicht direkt fail-HIGH. Keine Backfeed-Pfade in Main/BAT+/ACC/RAW/USB; Thermik- und USB-GND-Reversetest nötig.
+
+**[KOSTEN]** siehe [REV6_BOM_COST_DECISION_2026-10-15.md](REV6_BOM_COST_DECISION_2026-10-15.md): bepreiste **Bauteil-Teilgruppen** (1/10/100 €/Gerät netto) V1 4.800/3.644/2.990; V2 9.110/6.854/5.608; V3 LTC4368+2xSiR870+LMR+F_MAIN **18.230/13.344/10.631**. Kein fertiger Gesamt-BOM-Preis: exakter 100V-AEC-FET, Kelvin-Shunt, 0.1%-R, RETRY, F_MAIN-Halter, Thermal-off, RAW, Buckpassives, USB/PG sind **TBD**. LTC #W automotive Mouser 833 sofort lagernd, 7.57/5.88/4.99€ für1/10/100; #PBF ohne W nicht gleichsetzen. SiR870 100V ist nur Demo-Kosten- und Funktionsvergleich, AEC/Serienstand ungeprüft.
+
+**[EIGENE NO-GO-/GO-ENTSCHEIDUNG]** V3 bestes und einfachstes *technisch plausibles Gesamt-Schutz-IC*, aber **NO-GO für freizugebenden KiCad-V1-Prototyp** bis (1) M8/L/58V local pad max, (2) F_MAIN/58V-Halter, (3) exact AEC100V FET/shunt/passive, (4) 85°C-Hot-off, (5) RAW-Ausgangsfehler geklärt. KiCad10-CLI ist in aktueller Arbeitsumgebung nicht vorhanden; kein native ERC/Netlist-/DRC behauptet. REV5, A/B/C unberührt.
+
+---
+
 ## 2026-10-15 – Round 6: definitive konditionale Stop/Go-Entscheidung
 
 **[MANAGEMENT REVIEW VERARBEITET]** docs/TRIPPOWER_A_B_C_D_REVIEW_ROUND6_2026-10-15.md auf design/trippower-review; aktueller REV5/Backup-Scope unverändert. Vollständiger Prüfbericht: [WEG_D_ROUND6_CONDITIONAL_STOP_DECISION_2026-10-15.md](WEG_D_ROUND6_CONDITIONAL_STOP_DECISION_2026-10-15.md). [BOM und Kosten](ROUND6_BOM_COST_MATRIX_2026-10-15.md), [reproduzierbarer Szenario-Rechner](load_dump_scenarios.py), [arithmetische Tests](test_round6.py).
