@@ -43,6 +43,11 @@ jobs:
           set -euo pipefail
           python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_fault_energy_fuse_gate.py' -v 2>&1 | tee reports/b-fuse-energy-tests.txt
           python3 hardware/modules/TripPower_5V2A/weg_b/fault_energy_fuse_gate.py > reports/b-fuse-energy-125C-200V.json
+      - name: Round 6 A-guard vs D-TVS power fail and backup regressions
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_round6_safety_backup_gate.py' -v 2>&1 | tee reports/b-round6-backup-tests.txt
+          python3 hardware/modules/TripPower_5V2A/weg_b/round6_safety_backup_gate.py > reports/b-round6-A-vs-D-PWR_FAIL.json
       - name: Native KiCad 10 schematic ERC
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
