@@ -18,7 +18,8 @@ assert set(str(i) for i in range(1,25)) | {"EP"}=={p[0] for p in d["pin_plan"]}
 assert "FLOAT" in dict((p[0],p[2]) for p in d["pin_plan"])["EP"]
 assert "GND" in dict((p[0],p[2]) for p in d["pin_plan"])["16"]
 assert len(d["components"])==len(set(p["ref"] for p in d["components"]))
-assert d["aux_output"]["status"].startswith("PRELIMINARY")
+assert d["aux_output"]["status"].startswith("1A_TARGET_ONLY_NO_AUX_FUSE"), "1A raw auxiliary current is an unverified design target, not a rated output"
+assert "external" in json.dumps(d["main_fuse_design"]).lower(), "upstream replaceable F_MAIN must remain required"
 # TI Eq.15 nominal ILIM = 12*RSET/(RILIM*RSENSE); comparator tolerance 1.08..1.32V / 1.22V typ.
 ilim_nom=12*rs/(ri*r)
 ilim_low=ilim_nom*(1.08/1.22)*(.99/(1.01**2))
