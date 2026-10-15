@@ -11,13 +11,13 @@ from pathlib import Path
 BASE=Path("hardware/modules/TripPower_5V2A")
 sch=(BASE/"01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8")
 d=json.loads((BASE/"lm74930_design_v1.json").read_text(encoding="utf-8"))
-for ref, part in (("C308","EEE-TG2A100P"),("C309","12105C106K4T2A"),
+for ref, part in (("C308","KAF55CR72A106KV"),("C309","12105C106K4T2A"),
                   ("R313","CRCW25123K30FKEGHP"),("C303","C1206C474K1RECAUTO7210")):
     assert f'(property "Reference" "{ref}"' in sch, f"missing {ref}"
     assert part in sch, f"missing manufacturer MPN {part}"
 assert "0R POPULATE FOR ALWAYS_ON" in sch
 assert "VIN_PROTECTED_UNFUSED" in sch
-assert "10uF 100V VS STARTUP RESERVOIR WIP" in sch
+assert "10uF 100V VS STARTUP RESERVOIR X7R REV4" in sch
 assert "10uF 50V EN DELAY WIP" in sch
 assert '(at 405.13 350.52 0) (unit 1) (in_bom yes) (on_board yes) (dnp yes)' in sch, "Historical RC C309 must stay DNP in current RESET design"
 assert d["load_dump_design_target_v"] == 202
@@ -26,7 +26,7 @@ RVS=3*3300.0
 R_AUTO_TOP=100000.
 R_EN_DOWN=100000.
 IQ_OFF_MAX=5.e-6  # TI test EN=0; not a measured full PCB off draw
-LEAK_RESERVOIR_MAX=10.e-6  # 10uF/100V Panasonic catalogue max at RATED V
+LEAK_RESERVOIR_MAX=10.e-6  # deliberately hypothetical leakage scenario, NOT guaranteed MLCC limit
 IQ_ON_SENSITIVITY=780.e-6 # TI 12-V operating IQ(max), NOT startup bound
 CAP_F=470.e-9
 CAP_UVLO_MAX=7.9
@@ -115,13 +115,13 @@ print(json.dumps({
  "stage":"HISTORICAL_RC_PRE_SUPERVISOR_NOT_AS_BUILT_C309_DNP__NOT_SILICON_BOOT_APPROVAL",
  "source":"TI LM74930-Q1 SNOSDF6; P200 transient qualification remains OPEN",
  "schema_rc_components":"HISTORICAL_PRE_Q303_MODEL_ONLY: R318 100k -> R316 100k and C309 10uF; ACTUAL KiCad uses R318 22k, R316 5.6k, C309 DNP and Q303 VS_READY interlock",
- "additional_reservoir":"C308 10uF/100V Panasonic SMD in parallel with C302 1uF/100V VS->GND",
+ "additional_reservoir":"C308 10uF/100V KYOCERA AVX automotive Flexiterm X7R MLCC in parallel with C302 1uF/100V VS->GND (simulation topology remains historical)",
  "critical_limits":[
     "TI EN_LOW disables pump; cannot precharge CAP while EN low",
     "EN delay only applies to fitted R319 auto mode; D305/RUN_CMD bypasses it",
     "C309 50V is on EN not VS, hypothetical EN max about 28V when VS at 56V",
-    "C308 physical can mounting/ESR/cold leakage and C309 MLCC effective capacitance unverified",
-    "10uF/100V Panasonic EEE-TG2A100P availability depends on distributor; DigiKey Germany snapshot not guaranteed",
+    "C308 ceramic actual Ceff/aging/leakage versus VS voltage/temp and C309 historical X7R effective capacitance unverified",
+    "C308 KYOCERA AVX KAF55CR72A106KV 2220 land pattern / flex termination / vendor Ceff curves and availability need physical validation",
     "When CAP pump starts, 665/780uA 12V test IQ NOT a guaranteed pump input draw; extra current in matrix is only sensitivity parameter",
     "No capacitor model as of yet proves 9V startup; model shows 6V VS violation in pessimistic assumed corner",
     "C309 is DNP in actual Q303 interlock; historical 10uF EN capacitor quick-restart model is no longer present",
@@ -131,7 +131,7 @@ print(json.dumps({
     "Active RUN_CMD 3.3/5V bypasses this delay on D305; controlled mode must use separate VS-qualified enable gate"
  ],
  "model_assumptions":{"i_off_uA":IQ_OFF_MAX*1e6,
-                      "C308_leak_max_uA_at_RATED_100V":LEAK_RESERVOIR_MAX*1e6,
+                      "C308_leakage_HYPOTHETICAL_uA_NOT_DATASHEET_MAX":LEAK_RESERVOIR_MAX*1e6,
                       "i_enabled_current_uA_nonstartup_bound":IQ_ON_SENSITIVITY*1e6,
                       "CAP_charge_source_mA_min_TI_test_conditions":PUMP_CAP_OUT_I_MIN*1000,
                       "CAP_UVLO_rising_max_v":CAP_UVLO_MAX,
