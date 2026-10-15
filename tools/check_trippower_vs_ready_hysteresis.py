@@ -2,7 +2,7 @@
 """VS_READY 8V rise/6V fall and 250ms delay predesign sensitivity.
 
 All outputs explicitly preliminary: NO guarantee at any VIN, no asserted
-physical CAP pump VS draw bound; 202V/350ms and RUN path unchanged.
+physical CAP pump VS draw bound; 200V/350ms and RUN path unchanged.
 """
 import json,math
 from pathlib import Path
@@ -52,7 +52,7 @@ print(json.dumps({
          "LM74930 VS pump input transient upper bound not established by TI CAP output current",
          "C308/C302 Ceff not manufacturer guaranteed in intended temp and VS clamp",
          "Product supervisor exact 8/6 variant unavailable; TPS3760A012DYYRQ1 0.8V/2percent requires added feedback",
-         "No mechanical, 202V SOA, fuse, automotive or manufacturing release"],
+         "No mechanical, 200V SOA, fuse, automotive or manufacturing release"],
 "model":{"off_currents_uA":[5,10,2.6,0.1],
          "VS_C_nominal_uF":11,"VS_C_corner_hypothetical_uF":8.5,
          "RC_tau_nominal_ms":round(tau*1e3,1),
