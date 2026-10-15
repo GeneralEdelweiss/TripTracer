@@ -186,7 +186,7 @@
         "tolerance_percent": 10,
         "temperature_x7r_fraction_min_illustrative": 0.85,
         "min_after_tolerance_and_temperature_nf_excluding_bias_aging": 359.55,
-        "minimum_bias_retention_fraction_excluding_aging": 0.26616,
+        "minimum_bias_retention_fraction_excluding_aging": 0.2781254345709915,
         "cap_to_vs_nominal_v": [
           12.2,
           13.2
@@ -195,7 +195,9 @@
         "ti_initial_gate_enable_us_old_100nf_typ": 419.44,
         "ti_initial_gate_enable_us_new_470nf_typ": 1323.89,
         "dc_bias_curve_14p1v": "MANUFACTURER_KSIM_NOT_FETCHED_FURTHER_VERIFICATION_REQUIRED",
-        "note": "C303 is across CAP/VS, NOT VIN-to-GND; effective capacitance and full-temperature start proof open."
+        "note": "C303 is across CAP/VS, NOT VIN-to-GND; effective capacitance and full-temperature start proof open.",
+        "ti_min_effective_cap_required_nf": 100,
+        "minimum_bias_retention_note": "Use max(TI 100nF absolute minimum, 10*Ciss sum 95.7nF) = 100nF; negative tolerances / temperature / DC bias / aging still unproven."
       }
     },
     {
