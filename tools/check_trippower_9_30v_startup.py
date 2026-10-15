@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Engineering startup screening for separate TripPower LM74930 + LMR38020.
 Analytical envelope ONLY. No simulation, vendor-qualified bootstrap, or
-guaranteed power-up. Do NOT change 202V VS feed resistor without surge review.
+guaranteed power-up. Do NOT change 200V VS feed resistor without surge review.
 """
 import json
 from pathlib import Path
@@ -18,7 +18,7 @@ assert '(property "Value" "470nF 100V X7R AEC-Q200"' in sch
 assert '(property "MPN" "C1206C474K1RECAUTO7210"' in sch
 assert "LMR38020" in buck
 assert "VIN_PROTECTED_UNFUSED" in sch and "VIN_FUSED" in sch
-assert d["load_dump_design_target_v"] == 202
+assert d["load_dump_design_target_v"] == 200
 assert d["nominal_input_range_v"] == [9,30] or d["nominal_input_range_v"] == {"min":9,"max":30}
 
 rv_total=3*3300.0
@@ -77,7 +77,7 @@ r_cable_contact_limit_at_9v=(9.0-uv_worst_input_trip)/i_full_by_v(9.0)
 assert 0.25 < r_cable_contact_limit_at_9v < 0.29
 # Surge power: a 1k RVS cannot substitute 9.9k without renewed thermal/Zener tests.
 surge_zener_v=56.0
-surge_vin=202.0
+surge_vin=200.0
 hypothetical_1k_i=(surge_vin-surge_zener_v)/1000
 hypothetical_1k_r_w=hypothetical_1k_i**2*1000
 hypothetical_1k_z_w=hypothetical_1k_i*surge_zener_v
@@ -100,7 +100,7 @@ report={
  "UVLO_conservative_1pct_resistor_200na_leak_0p63v_trip_v":round(uv_worst_input_trip,2),
  "if_9v_measured_at_vehicle_not_module_max_total_series_resistance_before_UVLO_at_5v2a_raw1a_80pct_eta_ohm_idealized":round(r_cable_contact_limit_at_9v,3),
  "conditional_static_values_assume_full_Ti_12v_IQ_at_low_VS_and_are_not_simulation":matrix,
- "simplistic_1kVS_at202V_56Vzener_350ms":{
+ "simplistic_1kVS_at200V_56Vzener_350ms":{
      "series_R_peak_W":round(hypothetical_1k_r_w,2),
      "series_R_rectangular_J":round(hypothetical_1k_r_w*0.35,2),
      "zener_peak_W":round(hypothetical_1k_z_w,2),
@@ -114,13 +114,13 @@ report={
    "HISTORICAL early EN issue now addressed topologically by U302 RESET-controlled Q303 series gate; actual R318=22k (upstream), R316=5.6k downstream and C309 DNP; current hot-off remains unqualified",
    "At 9V UVLO divider worst about 8.35V rising based on R1pct and max positive leakage, leaving limited source sag headroom. If 9V is measured before M8 cable+F_MAIN+connector, the approx 2.389A full-load current can drop 0.65V across ~0.27ohm, causing UVLO. Module VIN must be specified.",
    "Buck LMR38020 is rated from 4.2V startup but its 4ms typical soft-start and raw auxiliary startup must be evaluated together with 3.61A nominal LM74930 OCP",
-   "202V 350ms pulse and external F_MAIN remain unqualified"
+   "200V 350ms pulse and external F_MAIN remain unqualified"
  ],
  "mitigation_candidates_unapproved":[
    "Maintain 9.9k pulse-rated VS resistor path with A-to-VS diode, prove startup across cold/hot and VIN 9V before change",
-   "If startup fails, engineer precharge/delayed EN and adequately derated C302 energy, and verify 202V/350ms; no design committed yet",
+   "If startup fails, engineer precharge/delayed EN and adequately derated C302 energy, and verify 200V/350ms; no design committed yet",
    "For deterministic first-start consider current-limited HV supply/alternative rated high-voltage regulator with fault/current/standby analysis",
-   "Do not bridge 9.9k with a permanent diode or simply switch to 1k: 202V 350ms Zener/R/IC protection gets compromised"
+   "Do not bridge 9.9k with a permanent diode or simply switch to 1k: 200V 350ms Zener/R/IC protection gets compromised"
  ],
  "CI_success_meaning":"arithmetic+crossfile consistency only. This report intentionally returns process success even when startup remains BLOCKED"
 }
