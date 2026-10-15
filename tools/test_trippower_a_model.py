@@ -7,7 +7,7 @@ import unittest
 from dataclasses import replace
 from trippower_a_model import (
     StartCase, pulse_study, rvs_pulse, simulate_start, startup_study,
-    vs_static_limit, zener_open, UNKNOWN_GATES
+    vs_static_limit, zener_open, illustrative_stack_source, UNKNOWN_GATES
 )
 
 class TestSurgeBounds(unittest.TestCase):
@@ -46,6 +46,18 @@ class TestSurgeBounds(unittest.TestCase):
         self.assertAlmostEqual(tvs["d303_d304_series_vbr_at_datasheet_test_current_max_v"],234.7)
         self.assertFalse(tvs["guaranteed_to_clamp_at_200v"])
         self.assertTrue(tvs["individual_vc_must_not_be_added_as_guaranteed_stack_clamp"])
+
+    def test_source_impedance_and_overshoot_duration_sensitivity(self):
+        a=illustrative_stack_source(250,5,220,100e-6)
+        b=illustrative_stack_source(250,5,220,350e-3)
+        self.assertAlmostEqual(a["i_a_if_assumed_clamp"],6.0)
+        self.assertAlmostEqual(a["stack_power_w"],1320.0)
+        self.assertAlmostEqual(a["stack_energy_j"],0.132)
+        self.assertAlmostEqual(b["stack_energy_j"],462.0)
+        self.assertFalse(a["voltage_curve_and_SOA_certified"])
+        self.assertTrue(a["power_split_between_d303_d304_unknown"])
+        with self.assertRaises(ValueError):
+            illustrative_stack_source(250,0,220,1e-4)
 
     def test_q301_51v_overshoot_exceeds_absolute_limit(self):
         q=pulse_study()["q301"]
