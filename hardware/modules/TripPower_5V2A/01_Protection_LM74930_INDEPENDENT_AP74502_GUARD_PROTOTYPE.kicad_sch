@@ -519,9 +519,9 @@
 (instances (project "TripPower_5V2A" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "U401") (unit 1)))))
 
 (wire (pts (xy 528.32 370.84) (xy 523.24 370.84)) (stroke (width 0) (type default)) (uuid "e9f46cc1-d332-487e-8f43-000000620090"))
-(global_label "GND" (shape bidirectional) (at 523.24 370.84 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "e9f46cc1-d332-487e-8f43-000000620091"))
+(global_label "AP_VIN_CLAMP" (shape bidirectional) (at 523.24 370.84 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "e9f46cc1-d332-487e-8f43-000000620091"))
 (wire (pts (xy 528.32 396.24) (xy 523.24 396.24)) (stroke (width 0) (type default)) (uuid "e9f46cc1-d332-487e-8f43-000000620092"))
-(global_label "AP_VIN_CLAMP" (shape bidirectional) (at 523.24 396.24 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "e9f46cc1-d332-487e-8f43-000000620093"))
+(global_label "GND" (shape bidirectional) (at 523.24 396.24 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "e9f46cc1-d332-487e-8f43-000000620093"))
 (wire (pts (xy 574.04 370.84) (xy 579.12 370.84)) (stroke (width 0) (type default)) (uuid "e9f46cc1-d332-487e-8f43-000000620094"))
 (global_label "AP_VCAP" (shape bidirectional) (at 579.12 370.84 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "e9f46cc1-d332-487e-8f43-000000620095"))
 (wire (pts (xy 574.04 375.92) (xy 579.12 375.92)) (stroke (width 0) (type default)) (uuid "e9f46cc1-d332-487e-8f43-000000620096"))
