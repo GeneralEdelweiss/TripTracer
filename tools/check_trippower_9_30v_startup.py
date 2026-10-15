@@ -10,7 +10,7 @@ base=Path("hardware/modules/TripPower_5V2A")
 d=json.loads((base/"lm74930_design_v1.json").read_text(encoding="utf-8"))
 sch=(base/"01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8")
 buck=(base/"02_5V_LMR38020.kicad_sch").read_text(encoding="utf-8")
-refs=("R313","R314","R315","D302","C302","C303","R316","R318","R319","Q301","Q302","U301")
+refs=("R313","R314","R315","D302","C302","C303","R319","Q301","Q302","U301")
 for ref in refs:
     assert f'(property "Reference" "{ref}"' in sch, ref
 assert sch.count('(property "MPN" "CRCW25123K30FKEGHP"') == 3
@@ -31,7 +31,7 @@ cp_uvlo_rise_max=7.9
 cp_source_typ=2.7e-3  # CAP source, NOT necessarily VS supply draw
 cp_source_min=1.3e-3  # spec at VS>=6V CAP-V(A)=7V, not at VS4V
 c_cap=470e-9
-c_vs_nom=1e-6
+c_vs_nom=21e-6
 tdrv_typ=175e-6+c_cap*cp_uvlo_rise_typ/cp_source_typ
 tdrv_sensitivity=175e-6+c_cap*cp_uvlo_rise_max/cp_source_min
 # Base static IQ current is NOT the pump charge current. The actual VS
@@ -82,7 +82,7 @@ hypothetical_1k_i=(surge_vin-surge_zener_v)/1000
 hypothetical_1k_r_w=hypothetical_1k_i**2*1000
 hypothetical_1k_z_w=hypothetical_1k_i*surge_zener_v
 report={
- "analysis":"9_TO_30V_VS_FEED_PRESTART_CURRENT_ENVELOPE_ONLY__Q303_INTERLOCK_NOT_SIMULATED",
+ "analysis":"9_TO_30V_REV5_VS_FEED_PRESTART_CURRENT_ENVELOPE_ONLY__TPS38_DUAL_OD_NOT_SIMULATED",
  "status":"BLOCKED_NOT_GUARANTEED: 9V AND_12V_CONTROLLER_VS_PRECHARGE/CHARGE_PUMP; NO_SPICE_OR_LAB",
  "normal_input_range_v":[9,30],
  "current_VS_feed_total_ohm":rv_total,
@@ -92,7 +92,7 @@ report={
  "TI_spec_IQ_at_12v_VS_max_ua":780,
  "VS_charge_pump_CAP_output_typ_ma_not_equal_to_VS_input_draw":2.7,
  "VS_charge_pump_CAP_min_ma_spec_at_VS_ge_6v_not_valid_at_4v":1.3,
- "C302_nominal_VS_uF_not_effective":c_vs_nom*1e6,
+ "C302_C308_C312_nominal_VS_uF_not_effective":c_vs_nom*1e6,
  "C303_CAP_nominal_nf":c_cap*1e9,
  "TI_C303_1p324ms_typ_startup_driver_delay_not_guaranteed":round(tdrv_typ*1000,3),
  "hypothetical_pump_min_7p9v_gate_threshold_sensitivity_ms_not_guaranteed":round(tdrv_sensitivity*1000,3),
@@ -110,8 +110,8 @@ report={
  "risk_and_differences":[
    "TI 665/780uA IQ tested at VS12V; actual IQ at VS4, pump source current vs supply current and VS capacitor dynamics unspecified",
    "TI direct charge-pump 1.3mA-min data valid at VS>=6V; do not treat as VS input draw",
-   "C302 1uF nominal 100V may lose effective C due to DC bias/temperature, particularly when charged near 56V during surge",
-   "HISTORICAL early EN issue now addressed topologically by U302 RESET-controlled Q303 series gate; actual R318=22k (upstream), R316=5.6k downstream and C309 DNP; current hot-off remains unqualified",
+   "C302 1uF plus C308/C312 2x10uF nominal 100V may lose effective capacitance due to DC bias/temperature and aging; not a guaranteed 21uF reservoir",
+   "REV5 TPS38A010122DSKRQ1 dual open-drain outputs wired to CTRL_EN, R332 external feedback. Low-level is specified by TI; actual hot RUN/VS hysteresis, I(VS,t), VIN=0 with RUN HIGH and timing remain to be tested",
    "At 9V UVLO divider worst about 8.35V rising based on R1pct and max positive leakage, leaving limited source sag headroom. If 9V is measured before M8 cable+F_MAIN+connector, the approx 2.389A full-load current can drop 0.65V across ~0.27ohm, causing UVLO. Module VIN must be specified.",
    "Buck LMR38020 is rated from 4.2V startup but its 4ms typical soft-start and raw auxiliary startup must be evaluated together with 3.61A nominal LM74930 OCP",
    "200V 350ms pulse and external F_MAIN remain unqualified"
