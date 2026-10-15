@@ -8,8 +8,8 @@ from pathlib import Path
 
 base=Path("hardware/modules/TripPower_5V2A")
 d=json.loads((base/"lm74930_design_v1.json").read_text(encoding="utf-8"))
-sch=(base/"01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8"))
-buck=(base/"02_5V_LMR38020.kicad_sch").read_text(encoding="utf-8"))
+sch=(base/"01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8")
+buck=(base/"02_5V_LMR38020.kicad_sch").read_text(encoding="utf-8")
 refs=("R313","R314","R315","D302","C302","C303","R316","R318","R319","Q301","Q302","U301")
 for ref in refs:
     assert f'(property "Reference" "{ref}"' in sch, ref
