@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-15-RESET_OD_SERIES_Q303_AUTO_RUN_GATED",
+  "revision": "2026-10-15-REV2_VS_ONLY_PNP_NPN_READY_AND_RUN_WITH_BAS116_PIN_FIX",
   "stage": "PRELIMINARY_VALUES_ONE_COMMON_FUSED_SOURCE_NO_LOCAL_AUX_FUSE",
   "controller": "LM74930QRGERQ1",
   "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
@@ -300,9 +300,9 @@
     {
       "ref": "Q_EN_PASS_INTERLOCK",
       "schematic_ref": "Q303",
-      "value": "onsemi BVSS123LT1G 100V automotive SOT23 G1 S2 D3 N channel pass; drain EN_REQUEST_RAW source CTRL_EN",
-      "mpn": "BVSS123LT1G",
-      "status": "SELECTED_AUTOMOTIVE_KICAD_CANDIDATE; HOT_IDLEAK_125C_RESET_DRIVE_202V350MS_THERMAL_OPEN",
+      "value": "Nexperia PMBTA92-Q PNP automotive 300V SOT23 B1 E2 C3, emitter VS_CLAMP collector PNP_OUT via R318 to CTRL_EN",
+      "mpn": "PMBTA92-Q",
+      "status": "REV2_SELECTED_PROTOTYPE_ONLY_125C_OFF_LEAKAGE_AND_MIN_HFE_AT_LOW_CURRENT_UNQUALIFIED",
       "supplier": "DigiKey DE",
       "approx_eur_ex_vat_1": 0.38
     },
@@ -311,55 +311,137 @@
       "schematic_ref": "D306",
       "value": "Vishay Schottky 70V SOD523 cathode RESET_OD anode EN_GATE_DRIVE",
       "mpn": "BAS70-02V-HG3-08",
-      "status": "SELECTED_KICAD_CANDIDATE; VF_TEMP_AND_REVERSE_LEAK_GATE_OPEN",
+      "status": "SUPERSEDED_REMOVED_FROM_NATIVE_KICAD_REV2_DO_NOT_PURCHASE",
       "supplier": "DigiKey DE",
-      "approx_eur_ex_vat_1": 0.41
+      "approx_eur_ex_vat_1": 0.41,
+      "historical": true
     },
     {
       "ref": "D_EN_GATE_ZENER",
       "schematic_ref": "D307",
       "value": "onsemi automotive 10V 500mW SOD123 cathode EN_GATE_DRIVE anode GND",
       "mpn": "SZMMSZ5240BT1G",
-      "status": "SELECTED_KICAD_CANDIDATE; MICROAMP_ZENER_DYNAMIC_VGSMAX_UNQUALIFIED",
+      "status": "SUPERSEDED_REMOVED_FROM_NATIVE_KICAD_REV2_DO_NOT_PURCHASE",
       "supplier": "DigiKey DE",
-      "approx_eur_ex_vat_1": 0.29
+      "approx_eur_ex_vat_1": 0.29,
+      "historical": true
     },
     {
       "ref": "D_EN_FAILSAFE_CLAMP",
       "schematic_ref": "D308",
       "value": "Vishay Schottky 70V SOD523 cathode RESET_OD anode CTRL_EN",
       "mpn": "BAS70-02V-HG3-08",
-      "status": "SELECTED_KICAD_CANDIDATE; EN_FALL_BELOW_0P41V_UNQUALIFIED",
+      "status": "SUPERSEDED_REMOVED_FROM_NATIVE_KICAD_REV2_DO_NOT_PURCHASE",
       "supplier": "DigiKey DE",
-      "approx_eur_ex_vat_1": 0.41
+      "approx_eur_ex_vat_1": 0.41,
+      "historical": true
     },
     {
       "ref": "R_EN_AUTO_SOURCE_NEW",
       "schematic_ref": "R318",
-      "value": "22k 1% upstream VS to EN_REQUEST_RAW through R319",
+      "value": "68k 1% PNP_OUT to CTRL_EN, VS-only sourced after ready+run/auto",
       "mpn": null,
-      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_PULSE_TEMP_TOLERANCE_GATE"
+      "status": "REV2_VALUE_SET_1206_PULSE_POWER_125C_MPN_PENDING"
     },
     {
       "ref": "R_EN_BLEED_NEW",
       "schematic_ref": "R316",
-      "value": "5.6k 1% downstream CTRL_EN to GND",
+      "value": "22k 1% CTRL_EN to GND; off 125C PNP collector leakage <18uA needed",
       "mpn": null,
-      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_TOLERANCE_HOT_OFF_GATE"
+      "status": "REV2_VALUE_SET_PNP_OFF_LEAKAGE_UNKNOWN"
     },
     {
       "ref": "R_EN_GATE_DRIVE_NEW",
       "schematic_ref": "R334",
       "value": "470k 1% VS to EN_GATE_DRIVE",
       "mpn": null,
-      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_AND_9V_LEAKAGE_MARGIN_GATE"
+      "status": "SUPERSEDED_REMOVED_FROM_NATIVE_KICAD_REV2_DO_NOT_PURCHASE",
+      "historical": true
     },
     {
       "ref": "R_EN_GATE_BLEED_NEW",
       "schematic_ref": "R335",
       "value": "1M 1% EN_GATE_DRIVE to GND",
       "mpn": null,
-      "status": "VALUE_SET_IN_NATIVE_KICAD; MPN_AND_TEMP_GATE"
+      "status": "SUPERSEDED_REMOVED_FROM_NATIVE_KICAD_REV2_DO_NOT_PURCHASE",
+      "historical": true
+    },
+    {
+      "ref": "Q_READY_NPN_Q304",
+      "schematic_ref": "Q304",
+      "mpn": "PMBTA42-Q",
+      "value": "300V automotive NPN B1 E2 C3, collector PNP_SINK, emitter RUN_BYPASS_NODE, base READY_NPN_BASE via R3391M",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "Q_RUN_NPN_Q305",
+      "schematic_ref": "Q305",
+      "mpn": "PMBTA42-Q",
+      "value": "300V automotive NPN B1 E2 C3, collector RUN_SINK_C, emitter GND, base RUN_BASE from R3174.7k",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "D_RUN_BACKFEED_D305",
+      "schematic_ref": "D305",
+      "mpn": "BAS116Q-7-F",
+      "value": "Automotive SOT23 BAS116Q physical A1 RUN_BYPASS_NODE / K3 RUN_SINK_C / NC2; reverse USB RUN collector feed",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_PNP_OFF",
+      "schematic_ref": "R336",
+      "mpn": null,
+      "value": "47k PNP base-to-VS pullup; OFF when READY=LOW",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_PNP_BASE_CURRENT",
+      "schematic_ref": "R337",
+      "mpn": null,
+      "value": "220k PNP_BASE to PNP_SINK collector of READY NPN",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_READY_BASE",
+      "schematic_ref": "R339",
+      "mpn": null,
+      "value": "1M RESET_OD to Q304 READY_NPN_BASE; affects hysteresis",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_READY_BASE_BLEED",
+      "schematic_ref": "R340",
+      "mpn": null,
+      "value": "1M READY_NPN_BASE to GND",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_RUN_BASE_BLEED",
+      "schematic_ref": "R341",
+      "mpn": null,
+      "value": "100k RUN_BASE to GND",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_READY_SENSE_R330",
+      "schematic_ref": "R330",
+      "mpn": null,
+      "value": "825k VS_CLAMP to VS_SENSE; adjust for RESET-high base loading",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_READY_FEEDBACK_R332",
+      "schematic_ref": "R332",
+      "mpn": null,
+      "value": "1M RESET to VS_SENSE hysteresis feedback",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
+    },
+    {
+      "ref": "R_AUTO_BYPASS_R319",
+      "schematic_ref": "R319",
+      "mpn": null,
+      "value": "0R AUTO jumper bypasses RUN NPN Q305, between RUN_BYPASS_NODE and GND",
+      "status": "REV2_NATIVE_KICAD_SELECTED_CANDIDATE; ALL_TEMPERATURE_HFE_LEAKAGE_OR_PCB_GATES_OPEN"
     }
   ],
   "pin_plan": [
@@ -520,8 +602,7 @@
     "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted",
     "Q301 SQM10250E_GE3 250V D2PAK: 202V hot switching SOA / cold VDS / 48V overshoot headroom, +75nC max gate and 100ohm HGATE, VGS10V under 9V startup, real 35um PCB RthJA, and 600uA 250V/175C OFF leakage need validation",
     "C303 470nF 100V automotive X7R: supplier/MPN fixed in KiCad, but manufacturer K-SIM Ceff vs 14.1V across -40..125C and age, 9V cold charge-pump initial startup, dynamic 202V still BLOCKED",
-    "Option A RC: EN cap C309 does NOT gate external RUN_CMD D305; rapid VIN power cycle leaves EN charged; 9V VS effective capacitor and pump input current not guaranteed; prototype only; use dedicated VS_READY logic before vehicle use",
-    "U302 RESET -> Q303 hardware AUTO/RUN gate implemented: at 9V hot/cold Q303 VGS and current C308/RESET leakage not proven; D308 EN <0.41V off, D307 10V gate clamp tens uA, Q303 56V/350ms ~109mW hot and D306 Schottky reverse leakage/sense thresholds require bench/simulation; C309 DNP"
+    "REV2 TPS3760 RESET -> Q304 NPN -> Q303 300V PNP gated by Q305 RUN / R319 AUTO: topological USB RUN backfeed and NMOS source follower removed; 125C Q303 ICEO limit <18.4uA, -40..125 min hFE at 2-20uA, loaded feedback actual 8.22/6V corners, 9V VS/bootstrap, and 202V thermal + F_MAIN all unqualified; BJT KiCad ERC/netlist not functional approval."
   ],
   "main_fuse_design": {
     "required": true,
