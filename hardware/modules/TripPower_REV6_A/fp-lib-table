@@ -1,0 +1,3 @@
+(fp_lib_table
+ (lib (name "Tripmaster")(type "KiCad")(uri "${KIPRJMOD}/Tripmaster.pretty")(options "")(descr "Portable TripPower footprints; some provisional; never fabricate without review"))
+)
