@@ -22,6 +22,9 @@ mapping={
  "R320":{"1":"HGATE","2":"DV_DT_RC_NODE"},
  "C307":{"1":"DV_DT_RC_NODE","2":"GND"},
  "C303":{"1":"CAP_PUMP","2":"VS_CLAMP"},
+ "C302":{"1":"VS_CLAMP","2":"GND"},
+ "D301":{"1":"VS_CLAMP","2":"GND"},
+ "D302":{"1":"VS_CLAMP","2":"SOURCE_A"},
  "C308":{"1":"VS_CLAMP","2":"GND"},
  "C309":{"1":"CTRL_EN","2":"GND"},
  "Q303":{"1":"PNP_BASE","2":"VS_CLAMP","3":"PNP_OUT"},
@@ -66,6 +69,8 @@ assert ("U301","3") not in nets.get("VIN_FUSED",set()),"SW must NC in direct UV 
 # All power branches have a real device in their path; no refactoring to
 # a global-label-only shortcut that defeats the LM74930 shared electronic circuit breaker.
 assert ("C308","1") in nets["VS_CLAMP"] and ("C309","1") in nets["CTRL_EN"], "VS reservoir / EN delay topology required"
+assert ("D302","1") in nets["VS_CLAMP"] and ("D302","2") in nets["SOURCE_A"], "D302 manufacturer pin K1->VS, A2->SOURCE_A is the EVM A-to-VS replenishment path; must not bridge VIN_FUSED to VS"
+assert ("D302","2") not in nets["VIN_FUSED"] and ("D302","1") not in nets["VIN_FUSED"], "No permanent raw VIN bypass across 9.9k RVS"
 assert ("U302","6") in nets["VS_READY_RESET_OD_PRELIM"] and ("U302","6") not in nets["CTRL_EN"], "RESET must not directly source EN"
 assert ("Q303","2") in nets["VS_CLAMP"] and ("Q303","3") in nets["PNP_OUT"], "VS-only PNP source for enable"
 assert ("R318","1") in nets["PNP_OUT"] and ("R318","2") in nets["CTRL_EN"], "EN driven by VS only after PNP"
