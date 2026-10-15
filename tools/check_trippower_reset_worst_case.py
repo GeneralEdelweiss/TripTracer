@@ -75,5 +75,5 @@ print(json.dumps({
  "full_automotive_vehicle_release":False,
  "blockers":["125C PNP off leakage unspecified","NPN and PNP minimum beta at 2-20uA, -40..125C unspecified",
  "RESET Sense thresholds vary with Q304 base loading and leakage",
- "9V inrush and 202V/350ms Q301 SOA/F_MAIN not tested"]
+ "9V inrush and 200V/350ms Q301 SOA/F_MAIN not tested"]
 },indent=2,ensure_ascii=False))
