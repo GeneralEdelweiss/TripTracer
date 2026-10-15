@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "filename": "TripPower_REV6_A.kicad_pro",
+    "version": 1
+  },
+  "board": {
+    "design_settings": {
+      "defaults": {
+        "board_outline_line_width": 0.05,
+        "copper_line_width": 0.2,
+        "copper_text_size_h": 1,
+        "copper_text_size_v": 1,
+        "copper_text_thickness": 0.15,
+        "track_width": 0.25,
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      "rules": {
+        "min_clearance": 0.2,
+        "min_track_width": 0.15,
+        "min_via_diameter": 0.5,
+        "min_via_drill": 0.25
+      }
+    }
+  },
+  "schematic": {},
+  "net_settings": {
+    "classes": [
+      {
+        "name": "Default",
+        "clearance": 0.2,
+        "track_width": 0.25,
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.2,
+        "uVia_diameter": 0.3,
+        "uVia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
+      }
+    ]
+  },
+  "pcbnew": {},
+  "text_variables": {
+    "DESIGN_STAGE": "A1_NICHT_FERTIGUNGSREIF",
+    "COPPER": "35um",
+    "BOARD_THICKNESS": "1.6mm"
+  }
+}
