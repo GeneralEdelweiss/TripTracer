@@ -46,7 +46,9 @@ mapping={
  "R319":{"1":"VS_CLAMP","2":"RUN_SENSE"},
  "R317":{"1":"RUN_CMD","2":"RUN_SENSE"},
 
- "U101":{"2":"VIN_PROTECTED_UNFUSED","3":"VIN_PROTECTED_UNFUSED"}
+ "U101":{"2":"VIN_PROTECTED_UNFUSED","3":"VIN_PROTECTED_UNFUSED"},
+ "L101":{"1":"SW_38020","2":"5V_OUT"},
+ "C306":{"1":"VIN_PROTECTED_UNFUSED","2":"GND"}
 }
 for ref,pins in mapping.items():
   for pin,desired in pins.items():
@@ -80,4 +82,4 @@ assert ("R301","2") in nets["VIN_PROTECTED_UNFUSED"],"Output must remain behind 
 assert not any(ref=="F302" for nodes in nets.values() for ref,pin in nodes),"Fuse moved to consuming mainboard, not module"
 print(json.dumps({"pass":True,"native_export":sys.argv[1],
 "nodes_checked":sum(len(x) for x in mapping.values()),
-"message":"REV5 TPS38 dual OD with AUTO+RUN BOM options, external F_MAIN; 9V/surge/PCB not qualified"},indent=2))
+"message":"Weg A REV5 80V: Bourns 2-pin inductor and Panasonic C306 physically sourced; 9V/surge/PCB not qualified"},indent=2))
