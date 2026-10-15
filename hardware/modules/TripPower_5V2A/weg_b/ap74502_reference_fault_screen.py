@@ -114,10 +114,35 @@ def core_cost_eur():
             "complete_1_10_100_eur_qualifiable":False,
             "quotes_are_NOT_shipping_vat_assembly_or_entire_BOM":True}
 
+def directed_body_diode_fault_graph(welded=()):
+    """Manufacturer p15 dual common-source NMOS reference, source-to-drain
+    diode direction. Q1 D=VIN/S=MID, Q2 S=MID/D=VOUT. OFF GATE:
+    Q1 diode MID -> VIN; Q2 diode MID -> VOUT. A welded FET shorts both ways.
+    This is ideal directed topological fault tracing, not analogue SOA.
+    """
+    vertices = ("VIN_FUSED", "MID_COMMON_SOURCE", "VOUT_PROTECTED")
+    paths = {
+        "Q1": ("MID_COMMON_SOURCE", "VIN_FUSED"),
+        "Q2": ("MID_COMMON_SOURCE", "VOUT_PROTECTED"),
+    }
+    edges = list(paths.values())
+    for f in welded:
+        if f not in paths: raise ValueError("unknown MOSFET")
+        a,b=paths[f]
+        edges.extend(((a,b),(b,a)))
+    reached={"VIN_FUSED"}
+    for _ in vertices:
+        reached |= {to for frm,to in edges if frm in reached}
+    return {"welded":list(welded),"fixed_gate_state":"OFF",
+            "diode_edges":[list(e) for e in paths.values()],
+            "vin_can_reach_vout": "VOUT_PROTECTED" in reached,
+            "single_fault_failsafe":not ("VOUT_PROTECTED" in reached)}
+
+
 def fault_matrix():
     return [
       {"fault":"external Q1 D-S welded","legacy_REV5":"SOURCE_A via D302 may backfeed VS",
-       "AP74502_alternative":"Other independently rated high-voltage series FET MAY interrupt 200V, if gate off and body diode reverse",
+       "AP74502_alternative":"Q1 short joins VIN to common sources; Q2 body diode forward from sources to VOUT can feed 200V even with gate OFF",
        "guaranteed":False},
       {"fault":"AP supply zener Dz OPEN","legacy_REV5":"D301 OPEN overcharges VS",
        "AP74502_alternative":"After R1, VIN IC pin can rise to 200V; only 80V ABS -> dangerous",
@@ -126,7 +151,7 @@ def fault_matrix():
        "AP74502_alternative":"10k R1 carries 20mA at 200V, 4W / 1.4J; F_MAIN cannot be relied on",
        "guaranteed":False},
       {"fault":"single external HV FET short + OVP","legacy_REV5":"Q301 short -> D302 bypass + Q302 60V exposed",
-       "AP74502_alternative":"One remaining >=200V FET provides possible redundant off",
+       "AP74502_alternative":"NOT redundant for Q1 short: Q2 intrinsic diode can conduct VIN to VOUT; Q2 short may be blocked by Q1",
        "guaranteed":False},
       {"fault":"both external FET D-S SHORT","legacy_REV5":"High voltage may propagate",
        "AP74502_alternative":"High voltage can reach TPS1HTC30 (60V), LMR38020 (80V), RAW",
@@ -156,6 +181,7 @@ def evidence():
       "9v_input_load_hypothesis":output_current_screen(),
       "costs":core_cost_eur(),
       "fault_matrix":fault_matrix(),
+      "body_diode_fault_topology":{key:directed_body_diode_fault_graph(welded) for key,welded in (("both_off",()),("Q1_welded",("Q1",)),("Q2_welded",("Q2",)),("both_welded",("Q1","Q2")))},
       "potentially_better_than_legacy_fault_isolation_without_D302":True,
       "proven_fully_safe_architecture":False,
       "200v_350ms_vendor_fet_SOA_verified":False,
