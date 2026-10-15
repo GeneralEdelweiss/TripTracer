@@ -1,0 +1,27 @@
+action,refs,quantity,manufacturer_mpn_or_value,status,note
+REMOVE,U101,1,LMR38020SQDDARQ1,BASELINE_IF_REPLACED,No common file changed
+REMOVE,L101,1,FCH0650-150M,BASELINE_IF_REPLACED,External inductor
+REMOVE,C101,1,VIN ceramic,BASELINE_IF_REPLACED,Buck input
+REMOVE,C107,1,VIN ceramic,BASELINE_IF_REPLACED,Buck input
+REMOVE,C108,1,VIN ceramic,BASELINE_IF_REPLACED,Buck input
+REMOVE,C104,1,VOUT ceramic,BASELINE_IF_REPLACED,Buck output
+REMOVE,C105,1,VOUT ceramic,BASELINE_IF_REPLACED,Buck output
+REMOVE,C106,1,VOUT ceramic,BASELINE_IF_REPLACED,Buck output
+REMOVE,C102,1,BOOT cap,BASELINE_IF_REPLACED,Integrated into TPSM
+REMOVE,R101,1,FB top,BASELINE_IF_REPLACED,Fixed 5 V TPSM eliminates feedback divider
+REMOVE,R102,1,FB bottom,BASELINE_IF_REPLACED,Fixed 5 V TPSM eliminates feedback divider
+REMOVE,R103,1,RT resistor,BASELINE_IF_REPLACED,Module frequency internal
+ADD,U_B101,1,TPSM33620S5QRDNRQ1,NOT_RELEASED,RDN11 wettable flank module 4.5x3.5mm
+ADD,C_B101,1,4.7uF >=50V X7R,MPN_PENDING,VIN min 4.7uF effective to prove under 30V bias
+ADD,C_B102,1,100nF >=50V ceramic,MPN_PENDING,Recommended HF VIN bypass; omit ONLY marketing minimum
+ADD,C_B103,1,22uF >=16V ceramic,MPN_PENDING,Output one; effective C for 5V operating point TBD
+ADD,C_B104,1,22uF >=16V ceramic,MPN_PENDING,Output two
+ADD,C_B105,1,1uF 16V ceramic,MPN_PENDING,VCC mandatory
+ADD,U_B201,1,TPS3760E012DYYRQ1,NOT_RELEASED,SOT-23-THN14 automotive OV OD
+ADD,R_B201,1,470k 1% 1206,MPN_PENDING,OV top part 1
+ADD,R_B202,1,470k 1% 1206,MPN_PENDING,OV top part 2
+ADD,R_B203,1,23.2k 1% 1206,MPN_PENDING,OV bottom
+ADD,C_B201,1,100nF >=100V X7R,MPN_PENDING,Local TPS3760 VDD bypass; VDD = VS_CLAMP scenario
+PROOF_ONLY,EN_FAILOFF_INTERLOCK,0,MPN NOT SELECTED,BLOCKED,Guaranteed off below TPS3760 VPOR and VIN0 RUN unresolved
+PROOF_ONLY,TPSM_VIN_PAD_CLAMP,0,MPN NOT SELECTED,BLOCKED,Energy rated 200V transient and 30V compatible clamp missing
+PROOF_ONLY,RINGING_DAMPER,0,MPN NOT SELECTED,BLOCKED,No dynamic VIN pad evidence or complete parts count
