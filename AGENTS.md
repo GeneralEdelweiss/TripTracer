@@ -1,3 +1,5 @@
+**AKTUELLE KORREKTUR TRIPPOWER (15.10.2026):** Der vom Nutzer ausdrücklich vorgegebene ungedämpfte Lastabwurf-Prüfwert für TripPower beträgt **200 V für 350 ms**, NICHT 202 V. Autoritativ ist die REV5-Baseline `hardware/modules/TripPower_5V2A/REV5_DESIGN_BASELINE.json` mit `separate_unsuppressed_load_dump_target.v = 200`; frühere 202-V-Zahlen in historischen Texten sowie TI-Beispielen sind KEIN aktuelles Projektziel. Betriebsziel 9–30 V bleibt unverändert. **REV5 statt REV4** ist der aktive Schaltplanstand. Keine Hardware-/Fertigungs-/Fahrzeugfreigabe.
+
 ## Aktuelle TripPower-Entwicklungsregeln – REV4 (15.10.2026)
 
 **Für `hardware/modules/TripPower_5V2A/` ist ab jetzt [REV4_DECISION_REGISTER_AND_FAB_STOP.md](hardware/modules/TripPower_5V2A/REV4_DECISION_REGISTER_AND_FAB_STOP.md) der maßgebliche aktuelle Entscheidungsstand; [REV4_DESIGN_BASELINE.json](hardware/modules/TripPower_5V2A/REV4_DESIGN_BASELINE.json) ist die einzige maschinenprüfbare KiCad-MPN/Footprint-Baseline.** Der [TripPower-Standalone-Workflow](.github/workflows/trippower-standalone.yml) prüft diese Baseline unabhängig von den vorhandenen Root-TripTracer-ERC-/DRC-Fehlern.
