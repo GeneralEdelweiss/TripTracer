@@ -16,6 +16,9 @@ VIN_PULSE_V = 200.0
 PULSE_S = 0.350
 R_VS_OHM = (3300.0, 3300.0, 3300.0)
 R_TOL = 0.01   # Vishay CRCW25123K30FKEGHP, 1 % at stated measurement conditions
+R_TCR_ABS_PER_K = 100e-6  # +/-100ppm/C, hot-body sensitivity from 25 to 125 C
+R_HOT125_MIN_SCALE = (1-R_TOL)*(1-R_TCR_ABS_PER_K*(125-25))
+R_HOT125_MAX_SCALE = (1+R_TOL)*(1+R_TCR_ABS_PER_K*(125-25))
 ZENER_NOM_V = 56.0
 ZENER_TOL = 0.05  # onsemi 1SMB5943BT3G, at manufacturer test current
 Q301_VDS_ABS_MAX_V = 250.0
@@ -95,6 +98,8 @@ def pulse_study():
       "nominal":nominal,
       "r_min_zener_vz_min_assumed":rvs_pulse(vz=ZENER_NOM_V*(1-ZENER_TOL), r_scale=r_min),
       "r_min_zener_vz_max_assumed":rvs_pulse(vz=ZENER_NOM_V*(1+ZENER_TOL), r_scale=r_min),
+      "r_25to125c_negative100ppm_zener_vz_min":rvs_pulse(
+          vz=ZENER_NOM_V*(1-ZENER_TOL), r_scale=R_HOT125_MIN_SCALE),
       "d301_short_r_min":rvs_pulse(vz=0.0,r_scale=r_min),
       "one_rvs_short_z_min_r_min":rvs_pulse(vz=ZENER_NOM_V*(1-ZENER_TOL),r_scale=r_min,short_index=1),
       "one_rvs_short_d301_short":rvs_pulse(vz=0.0,r_scale=r_min,short_index=1)
@@ -109,6 +114,14 @@ def pulse_study():
          "VIN_FUSED -> R313 -> R314 -> R315 -> VS_CLAMP; "
          "D301.K1 VS_CLAMP / A2 GND; D302.K1 VS_CLAMP / A2 SOURCE_A; "
          "D303.K1 VIN_FUSED / A2 TVS_STACK; D304(bidirectional).1 TVS_STACK / .2 GND",
+      "rvs_hot125_sensitivity": {
+        "body_from_25c_to_125c_delta_c":100,
+        "supplier_TCR_abs_ppm_per_K":100,
+        "min_scale_1pct_resistor_and_negative_TCR":R_HOT125_MIN_SCALE,
+        "max_scale_1pct_resistor_and_positive_TCR":R_HOT125_MAX_SCALE,
+        "resistor_junction_self_heating_above_125c_unknown":True,
+        "does_not_prove_pulse_load_derating":True,
+      },
       "fixed_voltage_corner_caveat":
          "56V +/-5% at specified Zener test current is NOT a guaranteed 200V pulse clamp; "
          "no T-dependent full I-V curve or worst-case hot bound is available",
@@ -249,6 +262,8 @@ def startup_study():
       "nominal_assumption_9v":s,
       "9v_high_r_min_start":replace(s,r_vs_tolerance_factor=0.99),
       "9v_high_r_max_start":replace(s,r_vs_tolerance_factor=1.01),
+      "9v_125c_negative_TCR_best_Rfeed":replace(s,r_vs_tolerance_factor=R_HOT125_MIN_SCALE),
+      "9v_125c_positive_TCR_worst_Rfeed":replace(s,r_vs_tolerance_factor=R_HOT125_MAX_SCALE),
       "9v_unspecified_high_trip_stress_8p539":replace(s,ready_on_v=8.539),
       "9v_preload_155ua_stalls_REV5_trip":replace(s,pre_ready_load_ua=155,
                                                    r_vs_tolerance_factor=1.01),
