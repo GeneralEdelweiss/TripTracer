@@ -1,0 +1,58 @@
+name: TripPower B independent safety audit (no release)
+on:
+  push:
+    branches: [design/trippower-b]
+    paths:
+      - 'hardware/modules/TripPower_5V2A/weg_b/**'
+      - '.github/workflows/trippower-b-independent-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  netlist-and-fault-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Prepare KiCad, capture environment
+        run: |
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/kicad-version.txt
+          echo 'NO LAB / NO SOA / NO 200V / NO FAB RELEASE' > reports/RELEASE_BLOCKED.txt
+      - name: B independent fault-model and component-price tests
+        run: |
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_safety_b_fmea.py' -v 2>&1 | tee reports/b-fmea-tests.txt
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_cots_b_compare.py' -v 2>&1 | tee reports/b-cots-tests.txt
+      - name: Native KiCad 10 schematic ERC
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/b-inherited-rev5-erc.json hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
+      - name: Native KiCad 10 exported netlist and adversarial source-to-VS detection
+        run: |
+          kicad-cli sch export netlist -o reports/b-rev5-actual.net \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
+          python3 hardware/modules/TripPower_5V2A/weg_b/safety_b_fmea.py \
+            --netlist reports/b-rev5-actual.net --output reports/b-netlist-fmea.json
+          python3 hardware/modules/TripPower_5V2A/weg_b/cots_b_compare.py > reports/b-core-ic-costs.json
+      - name: Preserve all evidence even if test fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trippower-b-independent-audit
+          path: reports/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Explain the meaning of green test results
+        if: always()
+        run: |
+          echo '### Independent B: test result != automotive/fabrication qualification' >> "$GITHUB_STEP_SUMMARY"
+          echo 'All 9V startup, Q301/D301/D302/200V-350ms SOA, PCB, I2t and thermal gates remain BLOCKED.' >> "$GITHUB_STEP_SUMMARY"
