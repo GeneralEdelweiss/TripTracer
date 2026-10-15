@@ -1,0 +1,54 @@
+name: TripPower Weg C Round 6 COTS decision checks (NO HARDWARE RELEASE)
+
+on:
+  push:
+    branches: ["design/trippower-c"]
+    paths:
+      - ".github/workflows/trippower-c-round6-cots.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/r6_independent_gates.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/R6_COTS_RESET_DECISION_2026-10-15.md"
+      - "hardware/modules/TripPower_5V2A/weg_c/R6_ARCHITECTURE_POSITION_SCOPE_UNRELEASED.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/R6_VENDOR_PRICE_SNAPSHOT_2026-10-15.csv"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  r6-analytical-screen:
+    name: Safety-envelope arithmetic only - not KiCad / 200V / automotive test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardware/modules/TripPower_5V2A/weg_c
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Execute energy, fault, 9/10/11V regression tests
+        run: python3 -m unittest -v r6_independent_gates
+      - name: Print calculated boundaries and explicitly open safety gates
+        run: python3 r6_independent_gates.py
+      - name: Review BOM-scope versus priced MPNs (no zero-price substitution)
+        run: |
+          python3 - <<'PY'
+          import csv
+          from collections import defaultdict
+          with open("R6_ARCHITECTURE_POSITION_SCOPE_UNRELEASED.csv", newline="", encoding="utf-8") as file:
+              rows=list(csv.DictReader(file))
+          assert set(r["Architecture"] for r in rows)=={"R6-T","R6-M","R6-L"}
+          for arch in sorted({r["Architecture"] for r in rows}):
+              entries=[x for x in rows if x["Architecture"]==arch]
+              scope=sum(int(x["Required_Position_Scope"]) for x in entries)
+              missing=sum(int(x["Required_Position_Scope"]) for x in entries if x["Proposed_MPN_or_TBD"].startswith("TBD"))
+              paid={q:sum(int(x["Required_Position_Scope"])*float(x["EUR_unit_"+q+"_net"]) for x in entries if x["EUR_unit_"+q+"_net"]) for q in ("1","10","100")}
+              assert missing>0, "Do not claim full BOM without solved P0"
+              print(f"{arch}: non-final planning scope {scope}, unsolved {missing}, priced-only net EUR {paid}")
+          print("SUCCESS means arithmetic and file consistency ONLY; FAB/ISO/200V/ERC/DRC are NOT qualified.")
+          PY
+      - name: Enforce no unsafe R6 production PCB was created
+        run: |
+          ! test -f TripPower_R6.kicad_pcb
+          ! test -f TripPower_R6.kicad_sch
+          echo "Round 6 has no qualified schematic yet. Safety P0 still OPEN."
