@@ -1,3 +1,5 @@
+> **WEG A - 80V branch-only Stand 15.10.2026:** KiCad U101 bleibt TI LMR38020-Q1; L101 Bourns SRP7050TA-150M AEC-Q200 samt portablem Footprint und C306 Panasonic EEHZC1J470P AEC-Q200 eingefroren. 57 AUTO / 58 RUN Bestückpositionen; keine neue Freigabe. [Weg-A-Bericht und Prüfmatrix](WEG_A_80V_ENGINEERING_2026-10-15.md). GitHub-Action branchtarget `design/trippower-80v`, getrennt von Weg B.
+
 > **REV5 BESTUECKUNGSOPTIMIERUNG (15.10.2026):** Aktiver TripPower-Schaltplan R305 und R321 DNP, 57 AUTO / 58 RUN. [36V-OVP-Entscheidung und Aenderungsbericht](REV5_OPTIMIZATION_IMPLEMENTATION_2026-10-15.md). Vorhandenen 80V-Buck beibehalten; keine Fabrikationsfreigabe.
 
 > **AKTUELLER TRIPPOWER-VERTRAG (Korrektur vom 15.10.2026): 200 V / 350 ms**, nicht 202 V. Maßgeblich ist [`REV5_DESIGN_BASELINE.json`](REV5_DESIGN_BASELINE.json); in älteren REV2–REV4-Dokumenten stehen historische 202-V-TI-Referenzrechnungen, die NICHT die jetzige Vorgabe darstellen. 9–30 V, 5 V/2 A, RAW-AUX 1 A bleiben Entwicklungsziele. SOA/Puls- und PCB-Freigaben weiterhin BLOCKED. REV5-TPS38 ist aktiver Stand.
