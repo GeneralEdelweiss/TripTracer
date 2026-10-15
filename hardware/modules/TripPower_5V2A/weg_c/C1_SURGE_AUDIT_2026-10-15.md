@@ -15,7 +15,7 @@
 | 1 EN/UVLO | definierter externer EIN/AUS-Pegel, Versorgungs-Transienten beachten | R5=100k von ACC; R7=47k nach GND; D2/R6 fuer RUN_CMD | Funktionelle Pegel bei ACC normal plausibel; **200-V-/negativ-Pulse an ACC, Schutz und USB-only-Leckstrom NICHT qualifiziert** |
 | 2 GND | Masse | GND | richtig |
 | 3 NC | offen | no-connect | richtig |
-| 4 VCAP | C>=0.1uF zum **lokalen IC-VIN**; im Surge-Beispiel 220nF | C2=100nF an AP_VIN | formal min, thermisch/DC-Bias min wirksame C und 200-V-Stress offen; 220nF nach Hersteller bevorzugen |
+| 4 VCAP | C>=0.1uF zum **lokalen IC-VIN**; im Surge-Beispiel 220nF | C2=220nF / 100V AEC-Q200 `C1206C224K1RACAUTO` am AP_VIN (nach Herstellerbeispiel korrigiert, Ceff nicht garantiert) | nominal nun identisch mit Herstellerbeispiel; thermisch/DC-Bias min wirksame C und 200-V-Stress offen |
 | 5 VIN | nach R1=10k; bei 200V Zener 60V nach GND; mind. **1uF effektiv** | R1+R2=10.2k; D1=SMCJ56A, C1=1uF/100V nominal | Konzept vergleichbar, **D1 max Vclamp bei ca. 13mA, Ceff bei 60V, R-Pulsenergie NICHT belegt** |
 | 6 GATE | beide Gates der antiparallelen Drain-Drain-MOSFETs (physisch gemeinsame Source) | Q1/2 gates verbunden, `AP_GATE` | vom Pinanschluss her richtig; Qg und Gate-Schutz transientsicher pruefen |
 | 7 OVLO | Zweig via VIN oder VOUT umsteckbar, fuer **OV cut-off: Roh-VIN**; R2=100k, R3=3.5k | R3=1M von BAT, R4=39k GND | Cutoff-Prinzip richtig, aber Schwellen/Leckstroeme/30-V-Rueckkehr siehe unten |
@@ -23,7 +23,7 @@
 | MOSFET Q1/Q2 | Q1-Drain an Fahrzeug, Q2-Drain am Ausgang, Sources verbunden | `BAT_FUSED_IN` -> Q1 Drain; Q2 Drain -> `HV_PROTECTED` | richtige Back-to-back-Orientierung, **kein sicheres Hochvolt-Sperren bei Q1 Drain-Source-Kurzschluss**: Q2-Bodydiode speist HV_PROTECTED aus BAT |
 | Externer Eingang | CIN=0.1uF an Roh-VIN, Ausgang COUT=220uF (Herstelleraufbau), definierte Schutzdioden fuer -Impulse | vor Q1 kein entsprechendes 200-V-taugliches CIN, nur geringe Kapazitaeten hinter Q2 | Schwingungen/Flanken/L-Induktivitaet unverifiziert, Empfehlung C1-BOM unvollstaendig |
 
-**Dokumentationsfehler gefunden:** C1 hat **kein** nach Hersteller geregeltes COUT=220uF hinter den Back-to-back-FETs. Die vorhandenen C3=1u, C4=4.7u, C5=0.1u, C9=0.1u sind nominell 5.9u, unter DC-Bias weniger. Die Diodes-Wellenformen von S.16 stammen von einem **anderen Ausgangskondensator** und duerfen nicht als C1-Verifikation gelten.
+**Dokumentationsfehler gefunden:** C1 hat **kein** nach Hersteller geregeltes COUT=220uF hinter den Back-to-back-FETs. Die vorhandenen C3=1u, C4=4.7u, C5=0.1u, C9=0.1u und C10=4.7u sind nominell 10.6u, unter DC-Bias weniger. Die Diodes-Wellenformen von S.16 stammen von einem **anderen Ausgangskondensator** und duerfen nicht als C1-Verifikation gelten.
 
 ## 2. U2 TPS26631-Pin-Korrektur
 
@@ -83,12 +83,12 @@ Einzeldefektbeispiel **Q1 D-S-KURZ**: 200V BAT -> kurz Q1 -> FET_SRC -> Q2 intri
 
 ## 6. KiCad / Libraries / BOM / Messstatus
 
-- Bestehende native KiCad-`.kicad_sch` **26 positions**; fuer U2 Pin13 `SHDN` ehemals `HV_PROTECTED` nach Herstellerbeschaltung nun **offen/No-connect**, kein weiterer MOSFET/Regler noetig.
+- Bestehende native KiCad-`.kicad_sch` **28 positions inklusive C10, C11 (zusaetzliche Bestueckkondensatoren)**; fuer U2 Pin13 `SHDN` ehemals `HV_PROTECTED` nach Herstellerbeschaltung nun **offen/No-connect**, kein weiterer MOSFET/Regler noetig.
 - Diodes **SOT28 Seite20 Hersteller-Landpattern**: Pitch 0.65mm, X0.45mm, Y0.90mm, Reihenmitten Y1=3.10mm. Lokaler Footprint `TripPowerC.pretty/SOT28_Diodes.kicad_mod` von falschem Y1=2.20 auf 3.10mm korrigiert.
 - **RDN11 ist bereits vorhanden** in `TripPowerC.pretty/TI_RDN11.kicad_mod`. Historische BOM-Behauptung **FOOTPRINT_MISSING** ist falsch und wurde in `BOM_C1_DRAFT.csv` zu `PROVISIONAL_FOOTPRINT_EXISTS_UNVERIFIED` korrigiert. Abweichungen ggü TI RDN0011B Package Outline + Land Pattern Ex. S.46/47 bleiben einzeln zu vermessen; **nicht als verifiziert behaupten**.
 - U1/VIN, U2/Pin13 und U3/GND haben vorlaeufige Bibliotheken, alle Pin-zu-Pad-Zuordnungen ausserhalb des Hersteller-Release weiterhin zu kontrollieren. Bei U2 PWP Exposed Pad Kicad Pad21 formaler Platzhalter ohne sichtbare Nummer im TI Top View — Hersteller-Landpattern pruefen.
-- In Laufzeitumgebung ist **kein `kicad-cli` installiert**. Daher **keine native KiCad10/ERC/Netlist/DRC durchgefuehrt**. Statischer Textcheck (Parenthesen-Syntax, 26 unikate Ref, 0 doppelte UUID) war erfolgreich, ist KEIN Ersatz.
-- Keine BOM-Vollkosten: J1/J2 sind nur provisorische Header mit unbekanntem MPN, + mindestens notwendiges 200-V-CIN, 220-uF-Bulk, Schutz- und EN-Beschaltung fehlen; 26 ist aktuelle bestueckte **Entwurfspositionenzahl**, nicht die Zielzahl einer fertigen Schaltung.
+- In Laufzeitumgebung ist **kein `kicad-cli` installiert**. Daher **keine native KiCad10/ERC/Netlist/DRC durchgefuehrt**. Statischer Textcheck (Parenthesen-Syntax, 28 unikate Ref, 0 doppelte UUID) war erfolgreich, ist KEIN Ersatz.
+- Keine BOM-Vollkosten: J1/J2 sind nur provisorische Header mit unbekanntem MPN, + mindestens notwendiges 200-V-CIN, 220-uF-Bulk, Schutz- und EN-Beschaltung fehlen; 28 ist die aktuelle bestueckte **Entwurfspositionenzahl**, nicht die Zielzahl einer fertigen Schaltung.
 
 ## 7. Empfohlener Fortgang, ohne unnoetige Eigenentwicklung
 
@@ -97,3 +97,8 @@ Einzeldefektbeispiel **Q1 D-S-KURZ**: 200V BAT -> kurz Q1 -> FET_SRC -> Q2 intri
 Pruefe zuerst unabhaengig beschaffbaren, temperaturfesten **80V- oder 100V-5V/2A-Buck bzw. Fertigmodul**, das bei 30V Dauerbetrieb und AP OVLO ~37V sicher mehr Spannungsreserve bietet (z.B. TI 80V-Regler mit Herstellerreferenz + separate Standardinduktivitaet). Mit Diodes Herstellerteilen 100k/3.5k waere 30V Auto-Wiederanlauf bei OVLO-FALL min 31.4V plausibel; risikoreiches Buck40V-Grenzspiel entfaellt. 200V-Puls/FET-Fehler bleiben auch dann offene Tore. Alternativ diskrete hochvoltige TVS-Absorption nur mit gepruefter Pulsenergie und externer F_MAIN, nicht ohne Nachweis.
 
 Fuer **echte Einzelbauteilfehlerfestigkeit** der 200-V-Domaene und den 125C/10W-Hotload-Nachweis sind ggf. weitere essentielle COTS-Schutz-/Waermemassnahmen erforderlich. Ohne nachgewiesene Loesung nie Fertigungs-/Fahrzeugfreigabe.
+
+
+## Nachtrag 15.10.2026: 28 statt 26 positionen und C2 angepasst
+
+Die vorliegende Branch-Version umfasst **28 eindeutig bestueckte Positionen (inklusive C10/C11)**. Vorherige 26-Zaehlungen waren vor dem bereits eingecheckten zusaetzlichen Reserve-Kondensatorpaar entstanden. `PRICED_BOM_C1_PARTIAL_2026-10-15.csv` umfasst alle 28 Referenzen, aber Preise nicht fuer alle Positionen, deshalb **keine ehrliche Vollkostensumme vorhanden**. C2 VCAP wurde auf Diodes-Referenz nominal 220nF/100V KEMET C1206C224K1RACAUTO aktualisiert. Native ERC/Netlist ist noch nicht gelaufen; Shell hier: kein `kicad-cli` vorhanden, und es wurden keine GitHub-Workflow-Laufdaten fuer den Branch gefunden.
