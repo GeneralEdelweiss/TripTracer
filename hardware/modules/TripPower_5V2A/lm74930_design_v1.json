@@ -9,7 +9,7 @@
     9,
     30
   ],
-  "load_dump_design_target_v": 202,
+  "load_dump_design_target_v": 200,
   "output_5v": {
     "volts": 5,
     "amps": 2,
@@ -163,7 +163,7 @@
       "role": "CAP to VS local",
       "value": "470nF ±10% 100V X7R 1206 AEC-Q200, CAP-to-VS",
       "mpn": "C1206C474K1RECAUTO7210",
-      "status": "SELECTED_AUTOMOTIVE_CAP_CANDIDATE; DC_BIAS_14P1V_TEMP_AGING_202V_STARTUP_BENCH_NOT_QUALIFIED",
+      "status": "SELECTED_AUTOMOTIVE_CAP_CANDIDATE; DC_BIAS_14P1V_TEMP_AGING_200V_STARTUP_BENCH_NOT_QUALIFIED",
       "footprint": "Capacitor_SMD:C_1206_3216Metric",
       "supplier_de": "Mouser DE",
       "supplier_url": "https://www.mouser.de/de/ProductDetail/KEMET/C1206C474K1RECAUTO7210",
@@ -593,16 +593,16 @@
   "hard_blockers": [
     "Input auxiliary 1A rating PROVISIONAL: single upstream main-source fuse DC rating/time-current/I2t, interboard wiring and connectors not yet selected",
     "9V start with approx 9.9k VS feed + A-to-VS diode across cold/hot/brownout untested; TI E2E confirms D1 needed; CRCW-HP 2512 pulse curves do not prove dynamic startup or repeated hot single faults.",
-    "250V STD17NF25 HV FET @ hot continuous 2.4A combined current, 202V/350ms and SCP SOA not qualified",
-    "OV/UVLO at raw 202V and reverse battery; component pulse ratings/leakage at temperature",
+    "250V STD17NF25 HV FET @ hot continuous 2.4A combined current, 200V/350ms and SCP SOA not qualified",
+    "OV/UVLO at raw 200V and reverse battery; component pulse ratings/leakage at temperature",
     "All ISO Test A/B and negative transient TVS energy, copper inductance, thermal fault tests",
     "35V OV cut-off vs datasheet 200V reference, measured gate shutdown, backfeed",
     "Run/ALWAYS_ON and ESP32 3.3V signal hardware-level off and power isolation not designed",
     "Manufacturer RGE-24 footprint and RTN pad isolated, shunt Kelvin, BOM procurement, ERC/DRC NOT DONE",
     "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted",
-    "Q301 SQM10250E_GE3 250V D2PAK: 202V hot switching SOA / cold VDS / 48V overshoot headroom, +75nC max gate and 100ohm HGATE, VGS10V under 9V startup, real 35um PCB RthJA, and 600uA 250V/175C OFF leakage need validation",
-    "C303 470nF 100V automotive X7R: supplier/MPN fixed in KiCad, but manufacturer K-SIM Ceff vs 14.1V across -40..125C and age, 9V cold charge-pump initial startup, dynamic 202V still BLOCKED",
-    "REV2 TPS3760 RESET -> Q304 NPN -> Q303 300V PNP gated by Q305 RUN / R319 AUTO: topological USB RUN backfeed and NMOS source follower removed; 125C Q303 ICEO limit <18.4uA, -40..125 min hFE at 2-20uA, loaded feedback actual 8.22/6V corners, 9V VS/bootstrap, and 202V thermal + F_MAIN all unqualified; BJT KiCad ERC/netlist not functional approval."
+    "Q301 SQM10250E_GE3 250V D2PAK: 200V hot switching SOA / cold VDS / 50V nominal static VDS headroom, +75nC max gate and 100ohm HGATE, VGS10V under 9V startup, real 35um PCB RthJA, and 600uA 250V/175C OFF leakage need validation",
+    "C303 470nF 100V automotive X7R: supplier/MPN fixed in KiCad, but manufacturer K-SIM Ceff vs 14.1V across -40..125C and age, 9V cold charge-pump initial startup, dynamic 200V still BLOCKED",
+    "REV2 TPS3760 RESET -> Q304 NPN -> Q303 300V PNP gated by Q305 RUN / R319 AUTO: topological USB RUN backfeed and NMOS source follower removed; 125C Q303 ICEO limit <18.4uA, -40..125 min hFE at 2-20uA, loaded feedback actual 8.22/6V corners, 9V VS/bootstrap, and 200V thermal + F_MAIN all unqualified; BJT KiCad ERC/netlist not functional approval."
   ],
   "main_fuse_design": {
     "required": true,
