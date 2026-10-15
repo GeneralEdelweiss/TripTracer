@@ -1,0 +1,19 @@
+#VRML V2.0 utf8
+# TPS38A010122DSKRQ1 TI DSK0010C WSON10; local dimensioned approximation (not manufacturer STEP).
+# Dimensions based on TI SNVSBI8E p40-42: body 2.5x2.5 mm, height 0.75 mm nominal, 10x0.5mm pitch.
+# KiCad VRML unit = 0.1 inch, coordinate conversion 1mm / 2.54.
+Transform { children [
+Transform { translation 0 0 0.165354 children [ Shape { appearance Appearance { material Material { diffuseColor 0.1 0.12 0.14 } } geometry Box { size 0.984252 0.984252 0.287402 } } ] }
+Transform { translation -0.456693 -0.393701 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation -0.456693 -0.19685 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation -0.456693 0 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation -0.456693 0.19685 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation -0.456693 0.393701 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation 0.456693 -0.393701 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation 0.456693 -0.19685 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation 0.456693 0 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation 0.456693 0.19685 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation 0.456693 0.393701 0.017717 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.188976 0.094488 0.035433 } } ] }
+Transform { translation 0 0 0.01378 children [ Shape { appearance Appearance { material Material { diffuseColor 0.7 0.72 0.75 } } geometry Box { size 0.472441 0.787402 0.027559 } } ] }
+Transform { translation -0.314961 -0.334646 0.312992 children [ Shape { appearance Appearance { material Material { diffuseColor 0.94 0.94 0.92 } } geometry Box { size 0.062992 0.062992 0.001969 } } ] }
+] }
