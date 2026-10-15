@@ -29,7 +29,10 @@
     "nine_volt_start_guaranteed": false,
     "purpose": "Verhindere stille MPN-/Footprint-/R-Wert-Änderungen; ein technischer Lock ersetzt niemals einen Mess-/Herstellernachweis.",
     "p02_tps38_physical_en_pin_proof": false,
-    "p02_tps38_regression_passed": false
+    "p02_tps38_regression_passed": false,
+    "branch_a_80v_only": true,
+    "l101_supplier_landpattern_geometry_review_required": true,
+    "inductor_full_temperature_validation_passed": false
   },
   "fixed_placements": {
     "01_Protection_LM74930.kicad_sch": {
@@ -184,9 +187,9 @@
         "footprint": "Tripmaster:TI_LMR38020Q1_DDA_EP"
       },
       "L101": {
-        "value": "15uH FCH0650-150M Isat5.5A",
-        "mpn": "FCH0650-150M",
-        "footprint": "Tripmaster:L_FANGCHENG_FCH0650_150M"
+        "value": "15uH Bourns SRP7050TA-150M AEC-Q200",
+        "mpn": "SRP7050TA-150M",
+        "footprint": "Tripmaster:L_BOURNS_SRP7050TA_150M"
       }
     }
   },
@@ -297,6 +300,11 @@
       "ref": "TI-200V-APP",
       "url": "https://www.ti.com/document-viewer/lit/html/SNOAAA1/GUID-A29F6540-095F-4408-8FD4-388A1740884B",
       "fact": "unsuppressed load dump 200V/350ms architecture, not tested on our topology"
+    },
+    {
+      "ref": "BOURNS-SRP7050TA",
+      "url": "https://www.bourns.com/docs/Product-Datasheets/SRP7050TA.pdf",
+      "fact": "SRP7050TA-150M, 15uH +-20%, AEC-Q200, 6A Isat (20% inductance drop), 3.5A Irms -> 40C rise at25C, 92mOhm DCR max at25C; operating -55..150C including rise, body7.3x6.6mm; PCB pad geometry 8.4mm span, 2.5mm gap, 3.5mm y per manufacturer recommended layout. Still untested at 125C with adjacent dissipation."
     }
   ],
   "assembly": {
@@ -343,6 +351,6 @@
       "REV5_AUTO_fit_expected": 57,
       "REV5_RUN_fit_expected": 58
     },
-    "note": "Single-IC dual UV control replaces PNP/NPN; correct mode selection must be enforced in PCB BOM; residual USB RUN backfeed unqualified REV5 cost reduction: R305 IMON and R321 FLT pull-up are default DNP (optional diagnostic footprints only; neither channel is routed to J302). No bypass of LM74930 surge/protection and no 36V-module swap."
+    "note": "Single-IC dual UV control replaces PNP/NPN; correct mode selection must be enforced in PCB BOM; residual USB RUN backfeed unqualified REV5 cost reduction: R305 IMON and R321 FLT pull-up are default DNP (optional diagnostic footprints only; neither channel is routed to J302). No bypass of LM74930 surge/protection and no 36V-module swap. BRANCH A 80V: L101 substituted to Bourns SRP7050TA-150M with manufacturer-based 2-pin footprint; 57 AUTO /58 RUN unchanged. Hot at 125C still unproven."
   }
 }
