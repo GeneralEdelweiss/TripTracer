@@ -35,4 +35,4 @@ print(json.dumps({"stage":"NEW_VS_ONLY_ENABLE_SWITCH_ARITHMETIC","pass":True,
  "blockers":["No min hFE at 20uA and cold/hot; cannot guarantee RUN/AUTO on",
  "No max 125C PNP collector leakage; cannot guarantee EN<0.41V",
  "R332 hysteresis influenced by RESET base load, REV3 R330715k/R3321M experimental, lower VS reserve energy",
- "202V SOA, F_MAIN, 9V charge pump, prototype thermal/DRC remain blocked"]},indent=2))
+ "200V SOA, F_MAIN, 9V charge pump, prototype thermal/DRC remain blocked"]},indent=2))
