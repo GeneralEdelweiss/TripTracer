@@ -18,6 +18,8 @@
 
 **[DEDIZIERTER IC FALLBACK]** ADI LTC4366-2 mit 9V-Untergrenze, Timer ohne C rund 1µs, -2 Auto-Retry. OEM-Beispiel 10 elektronische Positionen: Controller, IXTK90N25L2 TO264 250V, 5R, 3C. 35V-Klemme bei 200V angenommen: 1A=165W, 2A=330W linear; frühzeitiges Gate-OFF vermindert Energie, 9V-Startup aber neu zu dimensionieren. DigiKey netto LTC IC 10,42/8,174/6,996€; OEM-FET 37,57€/1, 23,5625€/100. Allein IC+OEM-FET + F_MAIN =48,870€/1 und31,0743€/100, ohne übrige Teile. FET D-S SHORT und OUT→IN-Bodydiode/back-up Rückspeisung ungelöst. **Serien-Gesamtlösung NO-GO**, bedingte Laborforschung ja.
 
+**[WICHTIGE SIGNAL-KORREKTUR]** Frühes PWR_FAIL muss an tatsächlich funktionsfähiges POWER_PATH_GOOD/PG/OV-Off gekoppelt sein, nicht allein an Vorhandensein von BAT+: bei 200V load dump kann der Eingang HIGH bleiben, während die Versorgung bereits trennt. Der Pullup darf im gesunden Fahrbetrieb die Primärzelle nicht dauerhaft entladen. PIN-/Timing-Budget weiter offen.
+
 **[NEUE BACKUP-SCHNITTSTELLE]** Fail-high PWR_FAIL: Open-Drain/Collector von VIN-GOOD aktiv low; bei vollständigem VIN-Verlust durch Backup-Pullup auf separater TripTracer-Kritikschiene high; keine Backupenergie zu BAT+/RAW/USB/5V-main. Kein CR1220/SD-Energienachweis, keine Pin- oder Interface-BOM-Freigabe. Erst Eingang-Power-Mux/RC-Strom/Leckstrom/IRQ-Latenz messen.
 
 **[BOM 1/10/100]** Teilpreise und vollständiges Register notwendiger Funktionen in ROUND6_BOM_COST_MATRIX. Keine vollständig bepreiste Schutz-Ersatzarchitektur möglich, solange 125°C, Pad-/FMAIN-/Open-Fail nicht bestanden sind. Keine Position mit 0€ kaschiert. **Nicht ERC-/DRC-geprüft; kein KiCad-Prototyp**, weil Haupt-P0 offen. Keine Änderung an A, B, C, REV5.
