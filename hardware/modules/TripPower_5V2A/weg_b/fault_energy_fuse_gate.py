@@ -172,6 +172,32 @@ def prospective_short(source_r_ohms, v=PULSE_V):
     assert source_r_ohms>0
     return v/source_r_ohms
 
+def direct_pin_rating_exposure(source_a_v=200.,q302_drain_v=0.,
+                               q301_extra_overshoot_v=0.):
+    """Manufacturer absolute specs, conditional potentials, not real waveforms:
+    U301 LM74930 A pin +70V abs; Q302 60V VDS abs; Q301 250V VDS abs.
+    MOSFET source=200 does NOT imply VDS=200 unless drain potential is known.
+    """
+    q302_vds=abs(source_a_v-q302_drain_v)
+    vds_q301_off=source_a_v+q301_extra_overshoot_v
+    return {
+      "hypothetical_SOURCE_A_v":source_a_v,
+      "LM74930_A_to_GND_abs_max_v":70.,
+      "LM74930_A_over_abs_by_v":max(0.,source_a_v-70.),
+      "Q302_VDS_abs_max_v":60.,
+      "Q302_drain_assumption_v":q302_drain_v,
+      "Q302_conditional_VDS_v":q302_vds,
+      "Q302_rating_exceeded_in_this_corner":q302_vds>60,
+      "Q301_VDS_abs_max_v":250.,
+      "Q301_normal_OFF_conditional_vds_v":vds_q301_off,
+      "Q301_51v_overshoot_exceeds_250v":200.+51.>250.,
+      "Vishay_hot_switching_SOA_350ms_proven":False,
+      "TVS_D303_D304_max_200v_clamp_proven":False,
+      "manufacturer_A_to_GND_spec":"https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+      "BAV21WQ_average_forward_current_rating_a":.4,
+      "BAV21WQ_200V_VR_is_REVERSE_not_forward_limit":True
+    }
+
 def fuse_no_action_counterexample(amps,fuse:Fuse,energy_j):
     """Below In, the fuse is not required to interrupt; do not infer it will
     have melted. Even above In a 350ms time-to-clear is manufacturer dependent.
@@ -276,6 +302,8 @@ def report():
         "normal_9V_5V2A_RAW1A_sensitivity":[normal_input_current(efficiency=eta)
                                              for eta in (.75,.80,.90)],
         "hypothetical_energy_cases":cases,
+        "faulted_direct_pin_ratings":direct_pin_rating_exposure(),
+        "conditional_Q302_drains_at_200v_SOURCE_A":[direct_pin_rating_exposure(q302_drain_v=v) for v in (0.,30.,200.)],
         "EATON_fast_short_i2t_example_not_opening_time":[
             i2t_catalog_screen(eaton,i) for i in (2.,4.,10.,20.,40.)],
         "mersen_10A_min_break_10s_max_versus_350ms":{
