@@ -1,3 +1,5 @@
+> **KORREKTUR 15.10.2026: Die folgende fruehe C1-Bevorzugung gilt nicht mehr als Fertigungsempfehlung.** C1 muss bis zur Schliessung der NO-GO-Gates gesperrt bleiben, siehe [C1_SURGE_AUDIT_2026-10-15.md](C1_SURGE_AUDIT_2026-10-15.md) und [C2_HV_80V_ALTERNATIVE_2026-10-15.md](C2_HV_80V_ALTERNATIVE_2026-10-15.md). Vorherige IC-Teilpreise lassen 2x teure 300V MOSFETs weg und duerfen **nicht** als echte BOM-Preise verstanden werden. Qualifizierte 200V-/125C-Loesung weiter ausstehend.
+
 # Weg C — Markt-, Architektur- und Vollkostenvergleich (15.10.2026)
 
 Recherche ausschliesslich auf Basis der Anforderungen, ohne Berichte/Schaltungen aus Weg A/B auszuwerten. **Preise sind Momentaufnahmen in EUR/Stueck netto (ohne MwSt./Versand), keine Angebote.** Verfuegbarkeitsstatus aendert sich. Nicht bestueckte Lieferantenartikel zaehlen nicht als fuer 100 Stueck sicher erhaeltlich.
