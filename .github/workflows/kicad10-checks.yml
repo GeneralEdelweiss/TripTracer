@@ -192,6 +192,7 @@ jobs:
         env:
           TRIPPOWER: ${{ steps.trippower.outcome }}
           TRIPPOWER_STRESS: ${{ steps.trippower_stress.outcome }}
+          TRIPPOWER_STARTUP: ${{ steps.trippower_startup_window.outcome }}
           TRIPPOWER_ERC: ${{ steps.trippower_erc.outcome }}
           TRIPPOWER_NETLIST: ${{ steps.trippower_netlist.outcome }}
           TRIPPOWER_PATH: ${{ steps.trippower_path.outcome }}
@@ -212,6 +213,6 @@ jobs:
         run: |
           printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
-          printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s | Path %s\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" "$TRIPPOWER_PATH" >> "$GITHUB_STEP_SUMMARY"
+          printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s | Path %s | 9-30V analytic %s (functional startup BLOCKED)\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" "$TRIPPOWER_PATH" "$TRIPPOWER_STARTUP" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$TRIPPOWER" = success && test "$TRIPPOWER_STRESS" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$TRIPPOWER" = success && test "$TRIPPOWER_STRESS" = success && test "$TRIPPOWER_STARTUP" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
