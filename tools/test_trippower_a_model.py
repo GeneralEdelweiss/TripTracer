@@ -75,6 +75,20 @@ class TestStartState(unittest.TestCase):
         self.assertLess((9-8.539)/9900*1e6,47)
         self.assertGreater((9-8.539)/9900*1e6,46)
 
+    def test_specified_one_percent_rvs_startup_tolerance(self):
+        lo=simulate_start(replace(StartCase(),r_vs_tolerance_factor=0.99))
+        hi=simulate_start(replace(StartCase(),r_vs_tolerance_factor=1.01))
+        self.assertGreater(lo["pre_ready_vs_equilibrium_v"],
+                           hi["pre_ready_vs_equilibrium_v"])
+        self.assertGreater(lo["first_ctrl_en_model_s"],0)
+        self.assertGreater(hi["first_ctrl_en_model_s"],0)
+
+    def test_REV5_upper_trip_stalls_with_illustrative_155ua_preload(self):
+        c=simulate_start(replace(StartCase(),pre_ready_load_ua=155,
+                                 r_vs_tolerance_factor=1.01,ready_on_v=7.51))
+        self.assertLess(c["pre_ready_vs_equilibrium_v"],7.51)
+        self.assertIsNone(c["first_ctrl_en_model_s"])
+
     def test_nominal_model_may_release_but_not_guaranteed(self):
         s=simulate_start(StartCase())
         self.assertIsNotNone(s["first_ctrl_en_model_s"])
