@@ -122,6 +122,16 @@
         "value": "0R AUTO VS TO RUN_SENSE; DNP IN RUN",
         "mpn": "RC1206JR-070RL",
         "footprint": "Tripmaster:R_1206_3216"
+      },
+      "R305": {
+        "value": "6.8k RIMON",
+        "footprint": "Tripmaster:R_1206_3216",
+        "dnp_default_auto": true
+      },
+      "R321": {
+        "value": "47k 1% FLT TO 5V",
+        "footprint": "Tripmaster:R_1206_3216",
+        "dnp_default_auto": true
       }
     },
     "03_VS_READY_TPS3760.kicad_sch": {
@@ -298,7 +308,9 @@
         ],
         "dnp": [
           "R317",
-          "R341"
+          "R341",
+          "R305",
+          "R321"
         ]
       },
       "RUN": {
@@ -307,7 +319,9 @@
           "R341"
         ],
         "dnp": [
-          "R319"
+          "R319",
+          "R305",
+          "R321"
         ]
       }
     },
@@ -326,9 +340,9 @@
     ],
     "verified_placement_count_change": {
       "REV4_fit": 71,
-      "REV5_AUTO_fit_expected": 59,
-      "REV5_RUN_fit_expected": 60
+      "REV5_AUTO_fit_expected": 57,
+      "REV5_RUN_fit_expected": 58
     },
-    "note": "Single-IC dual UV control replaces PNP/NPN; correct mode selection must be enforced in PCB BOM; residual USB RUN backfeed unqualified"
+    "note": "Single-IC dual UV control replaces PNP/NPN; correct mode selection must be enforced in PCB BOM; residual USB RUN backfeed unqualified REV5 cost reduction: R305 IMON and R321 FLT pull-up are default DNP (optional diagnostic footprints only; neither channel is routed to J302). No bypass of LM74930 surge/protection and no 36V-module swap."
   }
 }
