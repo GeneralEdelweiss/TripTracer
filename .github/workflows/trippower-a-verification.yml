@@ -6,7 +6,7 @@ on:
     paths:
       - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/trippower_a_model.py'
-      - 'tools/test_trippower_a_model.py'
+      - 'tools/test_trippower_a_*.py'
       - 'tools/check_trippower_a_netlist.py'
       - '.github/workflows/trippower-a-verification.yml'
   workflow_dispatch:
