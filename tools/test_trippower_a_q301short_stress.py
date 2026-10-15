@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Q301 failed-short regression: faults must not be mistaken for safety PASS."""
 import unittest
-from trippower_a_q301short_stress import direct,limited,study
+from trippower_a_q301short_stress import direct,limited,study,fuse_time_screen
 
 class Q301ShortTests(unittest.TestCase):
     def test_direct_d302_is_not_RVS_limited(self):
@@ -50,6 +50,20 @@ class Q301ShortTests(unittest.TestCase):
         self.assertTrue(x["U301_A_connected_to_SOURCE_A_and_exposed_to200"])
         self.assertTrue(x["Q302_60V_MOSFET_not_qualified_at200"])
         self.assertTrue(x["even_perfect_Q307_does_not_make_Q301_short_safe"])
+
+    def test_fmain_cannot_be_assumed_from_name_alone(self):
+        example=fuse_time_screen(1.0)
+        self.assertGreater(example["current_A_constant_ideal"],140)
+        self.assertLess(example["fuse_must_clear_before_us_in_this_sensitivity"],40)
+        self.assertIsNone(example["actual_external_FMAIN_part_and_trip_curve"])
+        self.assertFalse(example["safe_for_hardware"])
+
+    def test_unclamped_vs_cap_energy_and_pin_limits(self):
+        x=study()["worst_open_shunt_direct_21uF"]
+        self.assertAlmostEqual(x["energy_in_21uF_at_200V_J"],0.420,places=3)
+        self.assertGreater(x["energy_in_21uF_at_200V_J"],
+                           x["energy_in_21uF_at_56V_J"])
+        self.assertTrue(x["IC_pins_VS_65V_operating_and_A_direct_unprotected"])
 
     def test_d306_not_production_released(self):
         x=study()["D306_decision"]
