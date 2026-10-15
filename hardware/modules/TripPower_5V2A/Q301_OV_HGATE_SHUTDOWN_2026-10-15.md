@@ -1,3 +1,5 @@
+> **Fortsetzung / Korrektur C303 am 15.10.2026:** Der in Abschnitt 4 genannte alte 100nF-Stand und die dort erwogene 220nF-MPN-Suche sind ÜBERHOLT. Als neuer C303-Kandidat wurde **KEMET C1206C474K1RECAUTO7210 (470nF 100V X7R AEC-Q200)** ins eigenständige KiCad-01-Unterblatt übernommen. [Neue rechnerische Auslegung, Preise, offene K-SIM-Gates](C303_CAP_VS_SELECTION_2026-10-15.md). TI fordert **max(100nF Mindestwert, 95,7nF aus 10×Ciss) = 100nF effektive Kapazität**; altes Datum im ursprünglichen Text ist nur historische Analyse.
+
 # TripPower Q301 OV-Abschaltung und HGATE-RC – Review 15.10.2026
 
 **Scope:** Eigenständiges `TripPower_5V2A`, `design/solid-state-power-v1`. Nutzerentscheidungen unverändert: LM74930QRGERQ1, Q301 vorläufig Vishay SQM10250E_GE3 250V AEC-Q101, Q302 BUK7Y4R8-60EX, LMR38020SQDDARQ1, 9–30V Normal, ca. 9V Startziel, 5V/2A + 1A Ziel für `VIN_PROTECTED_UNFUSED`; nur eine **externe F_MAIN** (nicht 3A fix). **Nur Entwurf, kein freigegebener 202V/350ms- oder PCB-Schutz.**
