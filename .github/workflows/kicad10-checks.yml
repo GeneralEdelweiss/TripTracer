@@ -21,6 +21,7 @@ on:
       - 'tools/check_trippower_input_stress.py'
       - 'tools/check_trippower_9_30v_startup.py'
       - 'tools/check_trippower_option_a_rc_precharge.py'
+      - 'tools/check_trippower_vs_ready_hysteresis.py'
       - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/check_cots_power_selection.py'
       - 'tools/check_power_frontend_design_freeze.py'
@@ -86,6 +87,10 @@ jobs:
         id: trippower_startup_rc
         continue-on-error: true
         run: python3 tools/check_trippower_option_a_rc_precharge.py | tee reports/trippower-option-a-rc.json
+      - name: TripPower VS_READY 8V/6V hysteresis proposal (not implemented or qualified)
+        id: trippower_vs_ready_plan
+        continue-on-error: true
+        run: python3 tools/check_trippower_vs_ready_hysteresis.py | tee reports/trippower-vs-ready-plan.json
       - name: TripPower independent root schematic ERC (not the TripTracer project)
         id: trippower_erc
         continue-on-error: true
@@ -199,6 +204,7 @@ jobs:
           TRIPPOWER_STRESS: ${{ steps.trippower_stress.outcome }}
           TRIPPOWER_STARTUP: ${{ steps.trippower_startup_window.outcome }}
           TRIPPOWER_STARTUP_RC: ${{ steps.trippower_startup_rc.outcome }}
+          TRIPPOWER_VS_READY_PLAN: ${{ steps.trippower_vs_ready_plan.outcome }}
           TRIPPOWER_ERC: ${{ steps.trippower_erc.outcome }}
           TRIPPOWER_NETLIST: ${{ steps.trippower_netlist.outcome }}
           TRIPPOWER_PATH: ${{ steps.trippower_path.outcome }}
@@ -221,4 +227,4 @@ jobs:
             "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
           printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s | Path %s | 9-30V analytic %s (functional startup BLOCKED)\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" "$TRIPPOWER_PATH" "$TRIPPOWER_STARTUP" >> "$GITHUB_STEP_SUMMARY"
           printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
-          test "$TRIPPOWER" = success && test "$TRIPPOWER_STRESS" = success && test "$TRIPPOWER_STARTUP" = success && test "$TRIPPOWER_STARTUP_RC" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
+          test "$TRIPPOWER" = success && test "$TRIPPOWER_STRESS" = success && test "$TRIPPOWER_STARTUP" = success && test "$TRIPPOWER_STARTUP_RC" = success && test "$TRIPPOWER_VS_READY_PLAN" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success
