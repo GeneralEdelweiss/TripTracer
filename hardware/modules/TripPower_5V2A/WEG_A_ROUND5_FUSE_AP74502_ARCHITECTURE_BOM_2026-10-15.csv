@@ -1,0 +1,14 @@
+mode,reference,quantity,action,mpn,manufacturer,part_type,package_or_footprint,nominal_spec,supplier_or_datasheet_url,eur_1,eur_10,eur_100,inventory_snapshot_2026_10_15,provisionally_qualified
+A_guard,U401,1,ADD_AP_INDEPENDENT_OV,AP74502HQTA8-7,Diodes Incorporated,Automotive_OV_controller,Package_TO_SOT_SMD:TSOT-23-8,"AEC-Q100 -40..125C; 4..75V operating 80V ABS; SRC<=VIN ABS; single-FET ref",https://eu.mouser.com/en/ProductDetail/Diodes-Incorporated/AP74502HQTA8-7?qs=savM97goi5iCrm%252BmUqw1Nw%3D%3D,0.636,0.450,0.352,505_Mouser_Europe,NO
+A_guard,Q401,1,ADD_BLOCKING_HV_FET,SQM10250E_GE3,Vishay,250V_NMOS_D2PAK,Package_TO_SOT_SMD:TO-263-3_TabPin2,"AEC-Q101; D2 VIN_FUSED / S3 VIN_A_GUARD_OUT; hot SOA and 200V overshoot OPEN",https://www.mouser.de/de/ProductDetail/Vishay-Siliconix/SQM10250E_GE3?qs=MLItCLRbWsxnE1k2hMjzgw%3D%3D,3.85,1.98,1.80,13730_Mouser_DE,NO
+A_guard,R401-R403,3,ADD_HV_VIN_SERIES_FEED,CRCW25123K30FKEGHP,Vishay,3.3k_HV_2512_each,Resistor_SMD:R_2512_6332Metric,"total 9.9k 1pct each; 350ms 125C pulse unqualified",https://www.vishay.com/docs/20043/crcwhpe3.pdf,,,,UNKNOWN,NO
+A_guard,D401,1,ADD_INDEPENDENT_VIN_CLAMP,1SMB5943BT3G,onsemi,56V_5pct_Zener,Diode_SMD:D_SMB,"3W at TL75C; 56V min/max at datasheet current; 125C pulse unqualified",https://www.onsemi.com/pdf/datasheet/1smb5913bt3-d.pdf,,,,UNKNOWN,NO
+A_guard,C401,1,ADD_AP_VIN_BYPASS,C1210C105K1RACAUTO,KEMET,1uF_100V_AEC_Q200,Capacitor_SMD:C_1210_3225Metric,"Ceff bias temp aging OPEN",https://search.kemet.com/component-documentation/download/specsheet/C1210C105K1RACAUTO,,,,UNKNOWN,NO
+A_guard,C402,1,ADD_AP_CHARGE_PUMP,C1206C224K1RACAUTO,KEMET,220nF_100V_AEC_Q200,Capacitor_SMD:C_1206_3216Metric,"Ceff at AP_VCAP startup OPEN",https://www.digikey.com/en/products/detail/kemet/C1206C224K1RACAUTO/3315009,,,,UNKNOWN,NO
+A_guard,R404-R406,3,ADD_AP_OV_TOP_CHAIN,AC1206FR-07100KL,YAGEO,100k_1pct_AEC_Q200_each,Resistor_SMD:R_1206_3216Metric,"3x100k 0.0416W nominal each at 200V; hot/repetitive pulse open",https://www.mouser.de/de/ProductDetail/YAGEO/AC1206FR-07100KL,,,,UNKNOWN,NO
+A_guard,R407,1,ADD_AP_OV_BOTTOM,AC1206FR-0710KL,YAGEO,10k_1pct_AEC_Q200,Resistor_SMD:R_1206_3216Metric,"OV 38.75V rise typ 35.43V falling; 30V restart min fall >31V model",https://www.digikey.de/de/products/detail/yageo/AC1206FR-0710KL/6006654,0.10,0.045,0.0238,111297_DigiKey_DE,NO
+A_fuse_only,F_MAIN,1,EXTERNAL_CANDIDATE_NOT_SELECTED,A6Y3-1,Mersen,Industrial_3A_500VDC_fuse,Requires_500VDC_RATED_HOLDER,"500VDC interrupt rating; no protection against low current 200V Q301 short; 125C derating OPEN",https://www.mersen.com/en/products/a6y/a6y3-1,,,,UNKNOWN,NO
+REV5,REV5_AUTO,57,UNCHANGED_BASELINE,,,,,ACTIVE_ONLY,,,,,NO
+REV5,REV5_RUN,58,UNCHANGED_BASELINE,,,,,ACTIVE_ONLY,,,,,NO
+A_guard,GUARD_AUTO,69,PROTOTYPE_TOTAL,,,,,REV5+12_placements_no_D306_Q307_R342,,,,,NO
+A_guard,GUARD_RUN,70,PROTOTYPE_TOTAL,,,,,REV5+12_placements_no_D306_Q307_R342,,,,,NO
