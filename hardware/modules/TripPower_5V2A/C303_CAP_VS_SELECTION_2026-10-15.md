@@ -4,16 +4,16 @@
 
 ## Datenblatt-Grundlage (Hersteller)
 
-[TI LM74930-Q1 Datenblatt SNOSDF6, Abschnitt 8.2.2.2, S.25](https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf): mindestens **0.1µF** CAP-VS; für beide MOSFETs zusammen zusätzlich **C_CAP >= 10 × (Ciss_Q301 + Ciss_Q302)**. Bei Vishay `SQM10250E_GE3` (Ciss max 4050pF) plus Nexperia `BUK7Y4R8-60EX` (Ciss max 5520pF) resultieren `10 × (4050 + 5520)pF = 95.7nF`. Die zwei Ciss-Datenblattbedingungen sind nicht identisch; als nominelles strenges Vorbemessungsmaß zu verwenden, **keine getestete reale Gatelast**.
+[TI LM74930-Q1 Datenblatt SNOSDF6, Abschnitt 8.2.2.2, S.25](https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf): mindestens **0.1µF** CAP-VS; für beide MOSFETs zusammen zusätzlich **C_CAP >= 10 × (Ciss_Q301 + Ciss_Q302)**. Bei Vishay `SQM10250E_GE3` (Ciss max 4050pF) plus Nexperia `BUK7Y4R8-60EX` (Ciss max 5520pF) resultieren `10 × (4050 + 5520)pF = 95.7nF`. **Wichtig:** TI fordert daneben explizit 0,1 µF Mindestkapazität. Daher gilt als Prüfuntergrenze **max(100 nF, 95,7 nF) = 100 nF effektive Kapazität**. Die zwei Ciss-Datenblattbedingungen sind nicht identisch; als konservative Vorbemessung verwenden, **keine getestete reale Gatelast**.
 
 [TI Abschnitt 7.3.1, S.15](https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf): CAP–VS-Pumpenspannung **12.2–13.2V typisch**, Maximalwert des turn-off Schwellwerts **14.1V** laut Abschnitt 6.5; CAP–VS abs. max. **15V** laut Abschnitt 6.1. Der 100V/1206 MLCC ist bewusst weit über die anliegende differenzielle DC-Spannung hinaus spezifiziert, um **DC-Bias-Derating** klein zu halten; das ist **kein** Beleg für genügend Kapazität bei jeder Temperatur und jedem Surge.
 
-| C303 CAP | Nennwert | -10% | anschließend noch X7R -15% (ohne DC Bias/Alterung) | Vergleich zum TI-Wert 95.7nF |
+| C303 CAP | Nennwert | -10% | anschließend noch X7R -15% (ohne DC Bias/Alterung) | Vergleich zum strengeren TI-Wert 100nF |
 |---|---:|---:|---:|---|
 | Alt | 100nF | 90nF | 76.50nF | scheitert schon an Toleranz |
-| **Neu** | **470nF** | **423nF** | **359.55nF** | **Faktor 3.76 vor DC-Bias/Alterung** |
+| **Neu** | **470nF** | **423nF** | **359.55nF** | **Faktor 3.60 vor DC-Bias/Alterung** |
 
-Der neue Kondensator muss nach nominaler -10%-Toleranz und -15%-Temperaturannahme zusätzlich mindestens `95.7/359.55 = 26.6166%` seiner Kapazität unter DC-Bias behalten, sofern **Alterung, Messgenauigkeit und weitere Sicherheitsreserven noch separat berücksichtigt** sind. Anders formuliert: Diese `26.6%` sind eine rechnerische **untere Schwelle ohne Alterung**, **nicht** die bestätigte KEMET-Kurve. **Verbindlicher Gate:** KEMET K-SIM / Herstellerdaten des exakten MPNs für VCAP–VS **bis 14.1V** über vorgesehenen Temperatur- und Lebensdauerbereich abrufen und als `Ceff_min >95.7nF` nachweisen; zusätzlich angemessene Reserve verlangen.
+Der neue Kondensator muss nach nominaler -10%-Toleranz und -15%-Temperaturannahme zusätzlich mindestens `100/359.55 = 27.8125%` seiner Kapazität unter DC-Bias behalten, sofern **Alterung, Messgenauigkeit und weitere Sicherheitsreserven noch separat berücksichtigt** sind. Anders formuliert: Diese `27.8%` sind eine rechnerische **untere Schwelle ohne Alterung**, **nicht** die bestätigte KEMET-Kurve. **Verbindlicher Gate:** KEMET K-SIM / Herstellerdaten des exakten MPNs für VCAP–VS **bis 14.1V** über vorgesehenen Temperatur- und Lebensdauerbereich abrufen und als `Ceff_min >=100nF` nachweisen; zusätzlich angemessene Reserve verlangen.
 
 ## Startverzögerung beim Aufladen der Ladungspumpe
 
