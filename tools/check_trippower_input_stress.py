@@ -12,7 +12,7 @@ BASE = Path("hardware/modules/TripPower_5V2A")
 d = json.loads((BASE / "lm74930_design_v1.json").read_text(encoding="utf-8"))
 sch = (BASE / "01_Protection_LM74930.kicad_sch").read_text(encoding="utf-8")
 parts = {"R313": "3.3k", "R314": "3.3k", "R315": "3.3k",
-         "Q301": "STD17NF25", "Q302": "BUK7Y4R8-60EX",
+         "Q301": "SQM10250E_GE3", "Q302": "BUK7Y4R8-60EX",
          "D301": "1SMB5943BT3G", "U301": "LM74930QRGERQ1"}
 for ref, token in parts.items():
     assert f'(property "Reference" "{ref}"' in sch, f"missing {ref}"
@@ -54,28 +54,28 @@ divider = {
 }
 assert 95 < divider["ov_each_750k_v_at_202v_nom"] < 105
 
-# Full-load thermal screen for Q301. ST RthJA=50 K/W requires 1 inch^2 FR-4,
-# 2 oz copper, and cannot be used as a guaranteed 35-um compact PCB value.
+# Vishay SQM10250E_GE3 250V AEC-Q101, specified maxima at VGS=10V.
+# Hot RDS values are measured in short-pulse datasheet conditions, not 350ms SOA.
 i9 = 10/(9*0.80) + d["aux_output"]["max_current_design_target_a"]
-rds25_max = 0.165  # STD17NF25 max only at VGS=10V; not hot maximum.
-p25 = i9**2 * rds25_max
+rds_max = {"25C":0.0300,"125C":0.0650,"175C":0.0868}
+p = {k:i9*i9*v for k,v in rds_max.items()}
+rth_reference = 40.0  # K/W; Vishay 1 inch square 2oz FR4 PCB only!
 ta = 85.0
-rth_example = 50.0
-temp_25_rds = ta + p25*rth_example
-hot_factor = 1.5 # Sensitivity factor ONLY; NOT an ST guaranteed multiplier.
-temp_hot_example = ta + p25*hot_factor*rth_example
 thermal = {
-    "input_current_9v_full_load_a_80pct_eff": round(i9,3),
-    "std17nf25_rds25_max_at_vgs10_ohms": rds25_max,
-    "p_w_using_rds25_max": round(p25, 3),
-    "rthja_k_per_w_st_special_large_2oz_test_board": rth_example,
-    "tj_c_85ambient_rds25_and_special_board_illustrative": round(temp_25_rds,1),
-    "tj_c_85ambient_1p5x_rds_sensitivity_special_board": round(temp_hot_example,1),
-    "rds_multiplier_1p5_is_assumed_not_guaranteed": True
+    "q301_mpn": "SQM10250E_GE3",
+    "input_current_a_at_9v_5v2a_80pct_plus_aux1a":round(i9,3),
+    "rds_max_ohms_vgs10":rds_max,
+    "conduction_losses_w":{k:round(v,3) for k,v in p.items()},
+    "predecessor_25c_loss_w":round(i9*i9*0.165,3),
+    "rthja_example_special_2oz_board_k_per_w":rth_reference,
+    "tj_c_85ambient_at_hot175c_max_rds_and_reference_board":round(ta+p["175C"]*rth_reference,1),
+    "rthja_limit_for_125c_tj_at_85c_k_per_w":round((125-ta)/p["175C"],1),
+    "qg_max_nC":75,
+    "idss_max_uA_at_250v_175c":600
 }
-assert 0.9 < p25 < 1.0
-assert thermal["tj_c_85ambient_1p5x_rds_sensitivity_special_board"] > 150
-
+assert 0.48 < p["175C"] < 0.51
+assert 0.16 < p["25C"] < 0.18
+assert thermal["tj_c_85ambient_at_hot175c_max_rds_and_reference_board"] < 110
 # Rough startup sensitivity ONLY: 0.65 mA typical Iq is not an accurate
 # charge-pump transient model; the A->VS diode must be retained and tested.
 vs9_hypothetical = 9 - 0.00065 * N * R_EACH
@@ -86,7 +86,7 @@ result = {
     "ov_uv_top_dividers": divider,
     "q301_thermal_screen": thermal,
     "vs_9v_at_hypothetical_0p65ma_typical_iq_v_no_boost": round(vs9_hypothetical, 2),
-    "status": "BLOCKED: NO_RVS_MPN_PULSE_CURVE; Q301_HOT_RDS_PCB_THERMAL_AND_SOA; 9V_DYNAMIC_START; ZENER_TVS_PULSE",
+    "status": "BLOCKED: NO_RVS_MPN_PULSE_CURVE; Q301_SOA_GATE_CHARGE_PCB_THERMAL_HOT_LEAKAGE; 9V_DYNAMIC_START; ZENER_TVS_PULSE",
     "next_proofs": [
         "manufacturer 350ms pulse power and voltage curves for three actual VS resistor MPNs at max temperature, including repeated pulses",
         "Q301 real gate VGS, RDS(T), board RthJA and switching/inrush/202V SOA; choose replacement if needed",
