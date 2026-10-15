@@ -32,7 +32,8 @@
     "p02_tps38_regression_passed": false,
     "branch_a_80v_only": true,
     "l101_supplier_landpattern_geometry_review_required": true,
-    "inductor_full_temperature_validation_passed": false
+    "inductor_full_temperature_validation_passed": false,
+    "c306_supplier_polarity_pad_check_pending": true
   },
   "fixed_placements": {
     "01_Protection_LM74930.kicad_sch": {
@@ -135,6 +136,11 @@
         "value": "47k 1% FLT TO 5V",
         "footprint": "Tripmaster:R_1206_3216",
         "dnp_default_auto": true
+      },
+      "C306": {
+        "value": "47uF 63V Panasonic ZC AEC-Q200",
+        "mpn": "EEHZC1J470P",
+        "footprint": "Capacitor_SMD:CP_Elec_8x10.5"
       }
     },
     "03_VS_READY_TPS3760.kicad_sch": {
@@ -305,6 +311,11 @@
       "ref": "BOURNS-SRP7050TA",
       "url": "https://www.bourns.com/docs/Product-Datasheets/SRP7050TA.pdf",
       "fact": "SRP7050TA-150M, 15uH +-20%, AEC-Q200, 6A Isat (20% inductance drop), 3.5A Irms -> 40C rise at25C, 92mOhm DCR max at25C; operating -55..150C including rise, body7.3x6.6mm; PCB pad geometry 8.4mm span, 2.5mm gap, 3.5mm y per manufacturer recommended layout. Still untested at 125C with adjacent dissipation."
+    },
+    {
+      "ref": "PANASONIC-ZC-C306",
+      "url": "https://industrial.panasonic.com/ww/products/pt/hybrid-aluminum/models/EEHZC1J470P",
+      "fact": "EEHZC1J470P Panasonic 47uF +/-20%/63V hybrid polarized, 8.0mm diameter x10.2mm height, 40mOhm ESR, ripple 1100mA@100kHz; -55..+125C, 4000h@125C, vendor series ZC AEC-Q200. Exact KiCad pad/polarity vs manufacturer drawing, maximum 200V downstream transient and end-of-life derating NOT yet physically confirmed."
     }
   ],
   "assembly": {
