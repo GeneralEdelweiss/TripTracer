@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""TripPower REV4 machine-checked BOM/constraint lock and transparent limits.
+"""TripPower REV5 machine-checked BOM/constraint lock and transparent limits.
 
 A passing status means the *committed KiCad properties* match the controlled
 engineering baseline, NOT that a first-run, thermal, load dump, PCB or vehicle
 operating envelope is guaranteed. This is intentionally read-only.
-Sources are linked in REV4_DESIGN_BASELINE.json.
+Sources are linked in REV5_DESIGN_BASELINE.json.
 """
 import json
 import math
@@ -14,7 +14,7 @@ from pathlib import Path
 base = Path("hardware/modules/TripPower_5V2A")
 d = json.loads((base / "REV4_DESIGN_BASELINE.json").read_text(encoding="utf-8"))
 contract = json.loads((base / "module_contract.json").read_text(encoding="utf-8"))
-assert d["schema_version"] == 1 and d["stage"] == "REV4_ENGINEERING_BASELINE_ONLY"
+assert d["schema_version"] == 1 and d["stage"] == "REV5_ENGINEERING_BASELINE_ONLY"
 assert d["authorization"]["schematic_baseline_locked"] is True
 for unsafe in ("automotive_released","manufacturing_released","pcb_routed","nine_volt_start_guaranteed"):
     assert d["authorization"][unsafe] is False, unsafe
@@ -45,15 +45,25 @@ for sheet, components in d["fixed_placements"].items():
             if key in expected:
                 actual=property_value(block,field)
                 assert actual==expected[key], f"{sheet}:{ref} {field}: {actual!r} != expected {expected[key]!r}"
+        if "dnp_default_auto" in expected:
+            header=schematic.rfind("(symbol (lib_id",0,at)
+            assert header>=0 and "(dnp yes)" in schematic[header:at], f"{ref} should be DNP in AUTO"
         checked.append(f"{sheet}:{ref}")
 
 assert len(checked)>=20, "BOM lock was truncated"
+assert d["assembly"]["default_mode"]=="AUTO"
+assert d["assembly"]["verified_placement_count_change"]=={"REV4_fit":71,"REV5_AUTO_fit_expected":59,"REV5_RUN_fit_expected":60}
+all_schematics=[(base/sh).read_text(encoding="utf-8") for sh in d["fixed_placements"]]
+all_active=sum(len(re.findall(r'\\(symbol \\(lib_id [^\\n]+\\(dnp no\\)',t)) for t in all_schematics)
+assert all_active==59, f"unexpected actual pick-and-place placements: {all_active} vs 59"
+assert all(ref not in all_schematics[0]+all_schematics[1]+all_schematics[2] for ref in ("(property \\"Reference\\" \\"Q303\\"","(property \\"Reference\\" \\"Q304\\"","(property \\"Reference\\" \\"Q305\\"")), "obsolete BJT must be physically gone"
+
 protection=(base/"01_Protection_LM74930.kicad_sch").read_text()
 control=(base/"03_VS_READY_TPS3760.kicad_sch").read_text()
 assert protection.count('(property "Value" "10uF 100V VS STARTUP RESERVOIR X7R REV4"')==2
-assert '0R POPULATE FOR ALWAYS_ON' in protection
-assert 'D305' in protection and 'D302' in protection
-assert '715k 1% VS-SENSE REV3 12V START EXP' in control
+assert '0R AUTO VS TO RUN_SENSE; DNP IN RUN' in protection
+assert 'D305' not in protection and 'D302' in protection
+assert '715k 1% VS_READY VIN TOP' in control\nassert 'TPS38A010122DSKRQ1' in control and 'PMBTA92-Q' not in control
 
 # Caution: not worst-case charge pump input current and not vendor pulse approval.
 rvs=3*3300.0
@@ -105,6 +115,10 @@ print(json.dumps({
     "result":"PASS_SOURCE_LOCK_ONLY__HARDWARE_RELEASE_BLOCKED",
     "baseline":d["stage"],"hardware_schematic_properties_locked":len(checked),
     "locked_references":checked,
+    "assembly_mode_default":"AUTO",
+    "component_placements_rev4":71,
+    "component_placements_rev5_auto":all_active,
+    "component_placements_saved":71-all_active,
     "limits_using_specified_ratings_and_nominal_operating_assumptions":{
        "Yageo_AC1206_200V_continuous_250mW_reference":divider,
        "TAI_shunt_5mR_at_4A_w_nominal":round(shunt_w_at_4a,4),
@@ -115,7 +129,7 @@ print(json.dumps({
        "zener_350ms_energy_J":round(e_zener,3),
        "9V_7p510V_READY_RVS_feed_uA_model_only":round(i_rvs_ready_9v*1e6,2),
        "VS_total_MLCC_nominal_uF_NOT_CEFF_MIN":c_nom_uF,
-       "C311_TPS3760_typical_reset_delay_ms_not_min":round(t_delay_typ*1000,2)
+       "C311_TPS38_typical_reset_delay_ms_not_min":round(t_delay_typ*1000,2)
      },
     "unresolved_stop_gate_ids":[x["id"] for x in critical],
     "vehicle_released":False,"pcb_fabrication_released":False,
