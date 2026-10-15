@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-15-C303_KEMET_470NF_CAP_VS_SELECTED_CANDIDATE",
+  "revision": "2026-10-15-OPTION_A_AUTO_EN_10UF_VS_PLUS_10UF_EN_PROTO",
   "stage": "PRELIMINARY_VALUES_ONE_COMMON_FUSED_SOURCE_NO_LOCAL_AUX_FUSE",
   "controller": "LM74930QRGERQ1",
   "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
@@ -154,9 +154,9 @@
     {
       "ref": "C_VS",
       "role": "VS to GND local",
-      "value": "1uF effective min, 100V X7R",
+      "value": "1uF 100V MLCC existing C302; nominal only; effective C(V,T) and MPN needed",
       "mpn": null,
-      "status": "SELECT_DC_BIAS_MPN"
+      "status": "RETAINED_HF_BYPASS_PROTOTYPE_MAIN_C308_SEPARATE_NOT_FINAL"
     },
     {
       "ref": "C_CAP",
@@ -250,6 +250,45 @@
       "value": "3A as non-binding candidate, 4A/5A alternatives depending on measured 9V max load, ambient derating, 58V DC suitability and I2t/cable rating",
       "mpn": null,
       "status": "REQUIRED_NOT_SELECTED_3A_MINI_58V_DERATES_TO_2A_AT_80C; 2p39A combined 9V load; 4_5A_ALTERNATIVES_REQUIRE_FAULT_CURRENT_COPPER_I2T_TEST"
+    },
+    {
+      "ref": "C_VS_RESERVOIR_OPTION_A",
+      "schematic_ref": "C308",
+      "role": "Add to C302 in parallel VS_CLAMP to GND",
+      "value": "Panasonic 10uF 100V ±20% SMD aluminium, TG automotive 125C; 8mm dia",
+      "mpn": "EEE-TG2A100P",
+      "footprint": "Capacitor_SMD:CP_Elec_8x10.5",
+      "status": "PROTOTYPE_OPTION_A_NOT_DC_BIAS_OR_STARTUP_QUALIFIED; COLD_ESR_SMD_PAD_56V_SURGE_AND_SUPPLY_STOCK_OPEN",
+      "supplier_de": "Mouser DE",
+      "url": "https://www.mouser.de/de/ProductDetail/Panasonic-Industry/EEE-TG2A100P",
+      "supplier_snapshot_2026_10_15": {
+        "stock": 0,
+        "on_order": 6499,
+        "restock_expected": "2026-11-06",
+        "price_eur_net_each_1": 1.11,
+        "price_eur_net_each_10": 0.678,
+        "price_eur_net_each_100": 0.494,
+        "shipping_vat_unverified": true
+      },
+      "alt_mpn_not_drop_in": "EEE-TG2A220P 22uF/100V, 10mm; changes RC timing"
+    },
+    {
+      "ref": "C_EN_DELAY_OPTION_A",
+      "schematic_ref": "C309",
+      "role": "Add to existing R318=100k / R319 AUTO0R / R316=100k: CTRL_EN to GND",
+      "value": "KYOCERA AVX 10uF 50V X7R ±10% 1210 AEC-Q200, nominal RC 0.5s",
+      "mpn": "12105C106K4T2A",
+      "footprint": "Capacitor_SMD:C_1210_3225Metric",
+      "status": "PROTOTYPE_OPTION_A_ONLY_ALWAYS_ON; RUN_CMD_D305_BYPASS_FAST_RESTART_AND_CEFF_OPEN",
+      "supplier_de": "DigiKey DE",
+      "url": "https://www.digikey.de/de/products/detail/kyocera-avx/12105C106K4T2A/9374706",
+      "supplier_snapshot_2026_10_15": {
+        "stock_approx": 47094,
+        "price_eur_net_each_1": 0.83,
+        "price_eur_net_each_10": 0.53,
+        "price_eur_net_each_100": 0.3751,
+        "shipping_vat_unverified": true
+      }
     }
   ],
   "pin_plan": [
@@ -409,7 +448,8 @@
     "Manufacturer RGE-24 footprint and RTN pad isolated, shunt Kelvin, BOM procurement, ERC/DRC NOT DONE",
     "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted",
     "Q301 SQM10250E_GE3 250V D2PAK: 202V hot switching SOA / cold VDS / 48V overshoot headroom, +75nC max gate and 100ohm HGATE, VGS10V under 9V startup, real 35um PCB RthJA, and 600uA 250V/175C OFF leakage need validation",
-    "C303 470nF 100V automotive X7R: supplier/MPN fixed in KiCad, but manufacturer K-SIM Ceff vs 14.1V across -40..125C and age, 9V cold charge-pump initial startup, dynamic 202V still BLOCKED"
+    "C303 470nF 100V automotive X7R: supplier/MPN fixed in KiCad, but manufacturer K-SIM Ceff vs 14.1V across -40..125C and age, 9V cold charge-pump initial startup, dynamic 202V still BLOCKED",
+    "Option A RC: EN cap C309 does NOT gate external RUN_CMD D305; rapid VIN power cycle leaves EN charged; 9V VS effective capacitor and pump input current not guaranteed; prototype only; use dedicated VS_READY logic before vehicle use"
   ],
   "main_fuse_design": {
     "required": true,
