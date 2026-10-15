@@ -91,7 +91,8 @@ gate_source_current_a = {"min":39e-6, "typ":55e-6, "max":75e-6}
 inrush = {k:out_cap_f*i/dvdt_nominal_f for k,i in gate_source_current_a.items()}
 # Charge-pump decoupler check: TI 10x sum of two MOSFET Ciss. Ciss max at
 # Vishay 4.05nF and Nexperia 5.52nF (rated conditions differ).
-cap_min_est_f = 10*(4050e-12+5520e-12)
+cap_ciss_10x_f = 10*(4050e-12+5520e-12)
+cap_min_est_f = max(100e-9, cap_ciss_10x_f)  # TI explicit 100nF MINIMUM also applies
 cap_placed_f = 470e-9  # KEMET C1206C474K1RECAUTO7210 selected design candidate
 x7r_tolerance_factor = 0.90
 x7r_temperature_factor = 0.85  # X7R maximum deviation; not a DC-bias model
@@ -103,7 +104,7 @@ ti_initial_driver_delay_s_new_1p3mA_illustrative = 175e-6 + cap_placed_f*6.6/1.3
 assert 0.30<inrush["typ"]<0.32
 assert cap_placed_f > cap_min_est_f
 assert cap_after_tol_and_temp_f > cap_min_est_f
-assert 0.26 < required_dc_bias_retention_fraction_no_aging < 0.27
+assert 0.27 < required_dc_bias_retention_fraction_no_aging < 0.28
 assert 1.32e-3 < ti_initial_driver_delay_s_new < 1.33e-3
 assert d["components"][[i["ref"] for i in d["components"]].index("C_CAP")]["mpn"] == "C1206C474K1RECAUTO7210"
 assert '(property "MPN" "C1206C474K1RECAUTO7210"' in sch
@@ -128,7 +129,9 @@ gate_screen = {
     "with_external_gate_to_GND_C_charge_sensitivity_us_not_switching_time":cap_charge_sensitivity_us,
     "Q301_Ciss_max_pF":4050,
     "Q302_Ciss_max_pF":5520,
-    "CAP_10x_Ciss_required_nominal_min_nF":round(cap_min_est_f*1e9,1),
+    "CAP_10x_Ciss_required_nominal_min_nF":round(cap_ciss_10x_f*1e9,1),
+    "CAP_TI_absolute_minimum_external_capacitance_nF":100.0,
+    "CAP_design_min_effective_required_nF":round(cap_min_est_f*1e9,1),
     "C303_CAP_installed_nominal_nF":round(cap_placed_f*1e9,1),
     "C303_at_minus10pct_nF":round(cap_placed_f*0.90*1e9,1),
     "C303_after_minus10pct_and_X7R_minus15pct_nF_excluding_bias_aging":round(cap_after_tol_and_temp_f*1e9,2),
@@ -136,7 +139,7 @@ gate_screen = {
     "C303_typical_TI_initial_driver_delay_ms_old":round(ti_initial_driver_delay_s_old*1e3,3),
     "C303_typical_TI_initial_driver_delay_ms_new":round(ti_initial_driver_delay_s_new*1e3,3),
     "C303_illustrative_1p3mA_TI_initial_driver_delay_ms":round(ti_initial_driver_delay_s_new_1p3mA_illustrative*1e3,3),
-    "C303_effective_value_and_DC_bias_GATE":"CANDIDATE; require KEMET K-SIM 14.1V temperature aging Ceff and 9V dynamic chargepump validation; no fabricated effective-cap claim",
+    "C303_effective_value_and_DC_bias_GATE":"CANDIDATE; require KEMET K-SIM 14.1V temperature aging Ceff >= 100nF and 9V dynamic chargepump validation; no fabricated effective-cap claim",
 }
 assert '(property "Reference" "C307"' in sch and 'C1206C103JARECAUTO' in sch
 assert '(property "Value" "100R dVdt-C SERIES (TI)"' in sch
@@ -153,7 +156,7 @@ result = {
     "status": "BLOCKED: NO_RVS_MPN_PULSE_CURVE; Q301_SOA_GATE_CHARGE_PCB_THERMAL_HOT_LEAKAGE; 9V_DYNAMIC_START; ZENER_TVS_PULSE",
     "next_proofs": [
         "C307 effective 250V 10nF vs gate absolute HV excursions, transient 202V case and board tracking",
-        "C303 KEMET 470nF 100V X7R AEC-Q200: obtain vendor K-SIM effective C under 14.1V, full temperature, aging; confirm >95.7nF; verify 9V startup",
+        "C303 KEMET 470nF 100V X7R AEC-Q200: obtain vendor K-SIM effective C under 14.1V, full temperature, aging; confirm >=100nF (TI explicit min exceeds 95.7nF 10xCiss); verify 9V startup",
         "R320+CdVdt C307 nominal startup inrush and HGATE dynamic off/SOA lab validation",
         "manufacturer 350ms pulse power and voltage curves for three actual VS resistor MPNs at max temperature, including repeated pulses",
         "Q301 real gate VGS, RDS(T), board RthJA and switching/inrush/202V SOA; choose replacement if needed",
