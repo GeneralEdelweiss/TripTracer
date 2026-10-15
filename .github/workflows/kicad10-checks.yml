@@ -110,7 +110,7 @@ jobs:
               d=json.loads(p.read_text())
               print('ERC JSON fields:',list(d) if isinstance(d,dict) else type(d).__name__)
               print('ERC per-sheet violations:',[(sh.get('path'),len(sh.get('violations',[])),[(v.get('type'),v.get('severity')) for v in sh.get('violations',[])[:8]]) for sh in d.get('sheets',[])])
-          print('TripPower ERC violation detail:',[(sh.get('path'),v.get('type'),v.get('description'),v.get('items')) for sh in d.get('sheets',[]) for v in sh.get('violations',[])][:40])
+              print('TripPower ERC violation detail:',[(sh.get('path'),v.get('type'),v.get('description'),v.get('items')) for sh in d.get('sheets',[]) for v in sh.get('violations',[])][:40])
               print('ERC counts:',{k:v for k,v in d.items() if 'count' in k.lower()} if isinstance(d,dict) else '')
           PY
       - name: TripPower independent native netlist export
