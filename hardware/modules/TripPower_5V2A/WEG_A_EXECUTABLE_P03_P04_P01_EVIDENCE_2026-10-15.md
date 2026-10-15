@@ -8,25 +8,25 @@
 
 Vom Repository-Stammverzeichnis:
 
-\`\`\`bash
+```bash
 python3 tools/trippower_a_model.py --scenario pulse --pretty
 python3 tools/trippower_a_model.py --scenario startup --pretty
 python3 tools/trippower_a_model.py --scenario worst_9v --pretty
 python3 -m unittest discover -s tools -p 'test_trippower_a_*.py' -v
-\`\`\`
+```
 
 Native KiCad-10-Prüfung (nicht durch die Python-Simulation ersetzbar):
 
-\`\`\`bash
+```bash
 kicad-cli sch erc --severity-all --exit-code-violations --format json \
   -o trippower-a-erc.json hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
 kicad-cli sch export netlist -o trippower-a.net \
   hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
 python3 tools/check_trippower_native_netlist.py trippower-a.net
 python3 tools/check_trippower_a_netlist.py trippower-a.net
-\`\`\`
+```
 
-Der eigene Workflow \`.github/workflows/trippower-a-verification.yml\` führt diese Schritte im **KiCad-10-Container** auf jedem passenden Push in Weg A aus, legt maschinenlesbare JSON-Ergebnisse und den nativen Netzlistenexport als Action-Artefakte ab. CI-Grün bedeutet **nur** reproduzierbare Arithmetik, korrekte nachgeprüfte Pin-Netze und ERC-Kohärenz. Es kann weder ein fehlendes RC-Minimum noch fehlende Hot-SOA-Kurven ersetzen.
+Der eigene Workflow `.github/workflows/trippower-a-verification.yml` führt diese Schritte im **KiCad-10-Container** auf jedem passenden Push in Weg A aus, legt maschinenlesbare JSON-Ergebnisse und den nativen Netzlistenexport als Action-Artefakte ab. CI-Grün bedeutet **nur** reproduzierbare Arithmetik, korrekte nachgeprüfte Pin-Netze und ERC-Kohärenz. Es kann weder ein fehlendes RC-Minimum noch fehlende Hot-SOA-Kurven ersetzen.
 
 ## 2. Tatsächlicher Signal- und Schutzpfad: Netzliste und Polarität
 
@@ -51,7 +51,7 @@ Die Prüfung wird auf der **exportierten KiCad-Hierarchie-Netzliste** durchgefü
 
 Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dynamischen Widerstand, 350 ms Rechteck, R-Toleranz ±1 % bei Referenzbedingung. Das ist ein **elektrisches Bemessungsscreening** und keine Hersteller-Pulsfreigabe; bei heißem 125-°C-Start und bei Wiederholung kommt zusätzliche Temperatur-/Puls-Deratingprüfung hinzu.
 
-\`I=(V_IN−V_Z)/ΣR; P_Ri=I² R_i; E_Ri=P_Ri·0,350 s; P_Z=V_Z I; E_Z=P_Z·0,350 s.\`
+`I=(V_IN−V_Z)/ΣR; P_Ri=I² R_i; E_Ri=P_Ri·0,350 s; P_Z=V_Z I; E_Z=P_Z·0,350 s.`
 
 | Fall | I VS-Zweig | E je vorhandenem R | E D301 |
 | --- | ---: | ---: | ---: |
@@ -64,7 +64,7 @@ Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dyn
 
 **Grenzen:** 56 V ±5 % gelten für den Zener bei spezifiziertem Prüfstrom, nicht zwangsläufig beim tatsächlichen 200-V-Pulsstrom und Temperatur. Die 2512-HP-Nennleistung allein ist kein 350-ms-Pulsenergie-/125-°C-/Mehrfachimpuls-Nachweis. Für diesen exakten Vishay-MPN sind die Temperatur-/Pulsentlastungskurven, Layout- und Wiederholungsabstände erforderlich. R-TCR und R-Pulsdrift werden noch **nicht** als nachgewiesene Grenzen eingesetzt.
 
-**D301 OFFEN, neuer harter Prüffall** (ideale Ceff=21 µF, kein VS-Laststrom, SOURCE_A=0, daher D302 reverse, keine weiteren internen Schutzwege angenommen): \`VS(t)=200−(200−VS0)exp(−t/(9900·Ceff))\`.
+**D301 OFFEN, neuer harter Prüffall** (ideale Ceff=21 µF, kein VS-Laststrom, SOURCE_A=0, daher D302 reverse, keine weiteren internen Schutzwege angenommen): `VS(t)=200−(200−VS0)exp(−t/(9900·Ceff))`.
 - VS0=0 V: nach 350 ms **162,86 V**, VS=65 V bereits nach **81,71 ms**, VS=100 V nach **144,11 ms**.
 - VS0=56 V: nach 350 ms **173,26 V**, VS=65 V nach **13,42 ms**, VS=100 V nach **75,81 ms**.
 - Mit kleinerem wirksamen Ceff erhöht sich die Anstiegsgeschwindigkeit. Es handelt sich um eine idealisierte **Fehlerfallobergrenze ohne Laststrom**, keine Behauptung, das echte IC würde tatsächlich diese Spannung erreichen: Leckagen, ggf. interne Begrenzung, Zener-Failure-Mode und tatsächliches Ceff sind unbekannt. **Der Einzelfehlerpfad ist jedoch nicht abgesichert nachgewiesen.**
@@ -73,17 +73,17 @@ Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dyn
 
 ## 4. Ausführbares 9-V-Erststart-/Wiederanlaufmodell
 
-\`StartCase\` im Skript integriert den precharge/pump/source-**Zustandsautomaten**, den VS-RC-Speiseweg, \`Ceff\`, Freigabe- und Abschaltschwelle, modellierte Vorstartleckage, beispielhafte aktive VS-Last und zusätzlich **freie Pumpenlast**. Restladung ist in \`initial_vs_v\`, teilweise geladener Reset-Timer in \`initial_timer_fraction\` parametrisiert. Die beiden Hersteller-1%-Ecken werden als \`r_vs_tolerance_factor=0.99/1.01\` untersucht. Nach angenommenem SOURCE_A-Hochlauf darf D302 in der Simulation idealisiert nachspeisen; dies ist ausdrücklich ein **optimistischer Grenzfall**, keine garantierte Stromlieferfähigkeit oder FET-Einschaltzeit.
+`StartCase` im Skript integriert den precharge/pump/source-**Zustandsautomaten**, den VS-RC-Speiseweg, `Ceff`, Freigabe- und Abschaltschwelle, modellierte Vorstartleckage, beispielhafte aktive VS-Last und zusätzlich **freie Pumpenlast**. Restladung ist in `initial_vs_v`, teilweise geladener Reset-Timer in `initial_timer_fraction` parametrisiert. Die beiden Hersteller-1%-Ecken werden als `r_vs_tolerance_factor=0.99/1.01` untersucht. Nach angenommenem SOURCE_A-Hochlauf darf D302 in der Simulation idealisiert nachspeisen; dies ist ausdrücklich ein **optimistischer Grenzfall**, keine garantierte Stromlieferfähigkeit oder FET-Einschaltzeit.
 
 Für 9 V / drei nominale 3,3-kΩ gilt statisch:
 - Bei VS=8 V liefert RVS nur **101 µA** (ohne die tatsächlich abzuziehenden Leckströme).
 - Bei modellierten 35 µA Gesamtabzug vor der Freigabe folgt ideal VS∞=**8,6535 V**.
 - Bei angenommener ungünstiger REV5-VS_READY-Einschaltschwelle 7,51 V verbleiben ideal ca. **150,5 µA** RVS-Speisestrom. Die Schwelle basiert auf der bisherigen REV5-P02-Toleranzrechnung, **nicht** auf einer vollständig neu nachgerechneten Garantie.
 - Bei angenommenen 155 µA Vorstartlast und RVS +1 % kann VS ideal nur bis ca. **7,45 V** laden: das Skript erwartet korrekt **keine Freigabe**. 155 µA ist eine bewusste **hypothetische Testlast**, kein belegter TI-Extremwert.
-- Der TI-IQ-Grenzwert 780 µA stammt aus spezifizierten **12-V-/EN=2-V-Bedingungen** und darf nicht als maximale 9-V-/Pumpenlast missverstanden werden. Zusätzliche \`additional_pump_ma\`/Pumpenzeit sind Sensitivitätsparameter. \`Ceff\`=21 µF ist Bestückungsnennwert; 4 µF ausdrücklich eine nicht zugesicherte Prüfannahme.
-- Ein Grenztest \`ready_on_v=8.539\` steht **nur** für einen besonders hohen hypothetischen Trip-/historischen REV2-Sensitivitätsfall, **nicht** als aktueller REV5-Sollwert.
+- Der TI-IQ-Grenzwert 780 µA stammt aus spezifizierten **12-V-/EN=2-V-Bedingungen** und darf nicht als maximale 9-V-/Pumpenlast missverstanden werden. Zusätzliche `additional_pump_ma`/Pumpenzeit sind Sensitivitätsparameter. `Ceff`=21 µF ist Bestückungsnennwert; 4 µF ausdrücklich eine nicht zugesicherte Prüfannahme.
+- Ein Grenztest `ready_on_v=8.539` steht **nur** für einen besonders hohen hypothetischen Trip-/historischen REV2-Sensitivitätsfall, **nicht** als aktueller REV5-Sollwert.
 
-Ergebnis ist ausschließlich das modellierte Zeitpunktspaar \`first_ctrl_en_model_s\` / \`first_source_a_model_s\`, VS-Minimum während hypothetischer Pumpe und Restart-Zähler. Alle Konfigurationen tragen explizit \`guaranteed_9v_start=false\`. Der reale TPS38-Reset/CTR-Auf- und Entladevorgang, RUN-SENSE/Feedback-Verkopplung, VIN=0/RUN-HIGH und LM74930-VS-Stromspitzen sind **nicht** durch ein generisches RC-Modell zertifizierbar.
+Ergebnis ist ausschließlich das modellierte Zeitpunktspaar `first_ctrl_en_model_s` / `first_source_a_model_s`, VS-Minimum während hypothetischer Pumpe und Restart-Zähler. Alle Konfigurationen tragen explizit `guaranteed_9v_start=false`. Der reale TPS38-Reset/CTR-Auf- und Entladevorgang, RUN-SENSE/Feedback-Verkopplung, VIN=0/RUN-HIGH und LM74930-VS-Stromspitzen sind **nicht** durch ein generisches RC-Modell zertifizierbar.
 
 ## 5. Nächste technische Stop-/Freigabekriterien
 
@@ -101,5 +101,5 @@ Ergebnis ist ausschließlich das modellierte Zeitpunktspaar \`first_ctrl_en_mode
 - [Vishay CRCW-HP](https://www.vishay.com/docs/20043/crcwhpe3.pdf): konkreten CRCW25123K30FKEGHP inklusive Puls-/125-°C-/Wiederholbedingungen zur Freigabe heranziehen.
 - [onsemi 1SMB5943BT3G](https://www.onsemi.com/pdf/datasheet/1smb5913bt3-d.pdf): VZ 56 V ±5 % bei Prüfstrom, nicht automatisch harte VS-Klemme für alle 200-V-Transienten.
 - [Diodes SMBJ150A](https://www.diodes.com/part/view/SMBJ150A), [SMBJ33CA](https://www.diodes.com/part/view/SMBJ33CA): Vergleichs-/Pulsbedingungen getrennt.
-- **Neu im Repository:** \`tools/trippower_a_model.py\`, \`tools/test_trippower_a_model.py\`, \`tools/test_trippower_a_netlist.py\`, \`tools/check_trippower_a_netlist.py\`, \`.github/workflows/trippower-a-verification.yml\` und dieser Bericht.
+- **Neu im Repository:** `tools/trippower_a_model.py`, `tools/test_trippower_a_model.py`, `tools/test_trippower_a_netlist.py`, `tools/check_trippower_a_netlist.py`, `.github/workflows/trippower-a-verification.yml` und dieser Bericht.
 - **Gates:** P01/P02/P03/P04/P05/P06/P07/P08/P09/P10 weiterhin **OPEN/BLOCKED**. Native ERC und Netzlistentopologie sind **Teilprüfungen**, nicht die Freigabe.
