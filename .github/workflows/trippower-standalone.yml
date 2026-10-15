@@ -37,8 +37,8 @@ jobs:
           cp -r /home/kicad/.config/kicad "$HOME/.config/"
           kicad-cli version | tee reports/kicad-version.txt
           printf '%s\n' "$GITHUB_SHA" > reports/commit.txt
-          printf 'TripPower REV5: engineering coherence PASS is NOT 9V-start, 202V-load-dump, PCB/vehicle/manufacturing release.\n' > reports/STATUS.txt
-      - name: Enforce single-source REV5 BOM, pin package and rating register
+          printf 'TripPower REV5: engineering coherence PASS is NOT 9V-start, 200V-load-dump, PCB/vehicle/manufacturing release.\n' > reports/STATUS.txt
+      - name: Enforce single-source REV5 BOM (57 AUTO / 58 RUN), DNP diagnostics, pin package and rating register
         run: python3 tools/check_trippower_design_baseline.py | tee reports/rev5-baseline.json
       - name: TI controller current limit and selected sense passives arithmetic only
         run: python3 tools/check_trippower_lm74930_values.py | tee reports/current-sense.json
@@ -69,4 +69,4 @@ jobs:
         run: |
           printf '### TripPower REV5 stand-alone design checks\n\n' >> "$GITHUB_STEP_SUMMARY"
           printf 'KiCad 10 standalone schematic checks and arithmetic only. **NO PCB exists**, no PCB DRC, no hot SOA, no 9V first-boot physical measurement, no manufacturing/vehicle release.\n\n' >> "$GITHUB_STEP_SUMMARY"
-          printf 'See hardware/modules/TripPower_5V2A/REV5_DECISION_REGISTER_AND_FAB_STOP.md for mandatory P01–P10 gates.\n' >> "$GITHUB_STEP_SUMMARY"
+          printf 'See hardware/modules/TripPower_5V2A/REV5_OPTIMIZATION_IMPLEMENTATION_2026-10-15.md and REV5_DESIGN_BASELINE.json for mandatory P01–P10 gates.\n' >> "$GITHUB_STEP_SUMMARY"
