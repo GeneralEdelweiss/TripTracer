@@ -28,6 +28,8 @@ def verify(reference,alternate,sch):
     delta={k:(a.get(k),b.get(k)) for k in set(a)|set(b) if a.get(k)!=b.get(k)}
     assert delta==expected,f"native netlist mutation mismatch: {delta} expected {expected}"
     for k,v in {("D302","2"):"SOURCE_A",("Q301","2"):"VIN_FUSED",("Q301","3"):"SOURCE_A",
+                ("U301","15"):"SOURCE_A", ("Q302","1"):"SOURCE_A", ("Q302","2"):"SOURCE_A", ("Q302","3"):"SOURCE_A",
+                ("C302","1"):"VS_CLAMP", ("C308","1"):"VS_CLAMP", ("C312","1"):"VS_CLAMP",
                 ("D301","1"):"VS_CLAMP",("D306","1"):"VS_CLAMP",
                 ("U301","2"):"SOURCE_A",("U301","22"):"VS_CLAMP",
                 ("U302","1"):"VS_CLAMP"}.items():
@@ -36,7 +38,14 @@ def verify(reference,alternate,sch):
     assert '(property "Reference" "R342"' in sch and "AC1206FR-071K5L" in sch
     assert '(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"' in sch
     return {"native_10_pin_delta_pass":True, "changed_nodes":{f"{k[0]}.{k[1]}":list(v) for k,v in delta.items()},
-            "Q301_DS_SHORT_EXPOSES_U301_A_AT_200V":True,
+            "native_short_fault_path":[
+         "VIN_FUSED(Q301.D2) => welded Q301.D2-S3 => SOURCE_A",
+         "SOURCE_A(D302.A2) => forward D302 => VS_CLAMP(D302.K1)",
+         "R313-R315 on independent VIN_FUSED->VS path bypassed",
+         "SOURCE_A(U301 pins2/15, Q302 source pins1/2/3) directly follows input"
+       ],
+      "on_Q301short_bare_U301_A_and_Q302_sources_V":200,
+      "Q301_DS_SHORT_EXPOSES_U301_A_AT_200V":True,
             "D302_backfeed_has_current_limiting_branch":True,
             "FET_Q307_current_hot_SOA_qualified":False,"full_safety_qualified":False}
 
