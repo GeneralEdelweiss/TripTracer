@@ -42,7 +42,7 @@ D305 ist Diodes [BAS116Q-7-F](https://www.diodes.com/datasheet/download/BAS116.p
 | Bereich | Berechnung |
 |---|---|
 | AUTO READY bei VS8V, ideal durchgeschalteter PNP | `VEN=8×22/(68+22)=1.956V`, über LM74930 ENR(max) 1.05V |
-| Freigabeschwelle nominal | `R330=825k, R331=100k, R332=1M, R333=1M` + NPN-Q304-Basislast R3391M: ca. **7.974V** |
+| Freigabeschwelle nominal | `R330=825k, R331=100k, R332=1M, R333=1M` + NPN-Q304-Basislast R3391M: ca. **8.221V bei RESET_LOW=0V bzw. 7.974V bei RESET_LOW=0.3V** |
 | Rückfall nominal | mit NPN VBE **angenommen** 0.7V: ca. **5.998V** |
 | VS-Puffer bei VIN9V vor Freigabe | Beispiel mit LM74930 OFF5µA, TPS3760 max2.6µA, C308 10µA, Sense/R333 ~17µA: `VS≈8.66V` - **keine garantierte Heiß-/Kaltreserve** |
 | Q303 Basis bei VS8V | `(8−0.7)/220k−0.7/47k≈18.3µA`; Q304 benötigt wegen 1M Pullup/Basisteiler nur etwa 2–3µA Basisstrom |
@@ -53,7 +53,7 @@ D305 ist Diodes [BAS116Q-7-F](https://www.diodes.com/datasheet/download/BAS116.p
 **Die Grenzen der Auslegung sind ausdrücklich offen:** 
 1. Nexperia PMBTA92-Q/PMBTA42-Q nennen hFE_min bei **1mA bzw. 10mA unter 25°C/kurzem Puls**, nicht bei Q304-I_B ~2–3µA und Q303-I_C ~90µA über −40…125°C. Die Schaltung muss bei −40/25/85/125°C mit realen Transistor- und Leckmodellen plus Messung zeigen, dass sie **EN HIGH >1.05V** sicher erreicht.
 2. Q303 collector leakage `ICEO/ICBO` über 125°C bei unserer Anschlussart ist **nicht** mit ≥18µA-Garantie dokumentiert. Eine qualifizierte alternative Transistor-MPN, starker pulldown / höhere Ausgangsspeisung oder integrierte Ausgabestufe wäre zur Garantie erforderlich.
-3. U302 RESET high ist **kein idealer Spannungsausgang**; Q304 zieht Basisstrom durch R3331M/R3391M, was die Schmitt-Hysterese verändert. Die 7.974/5.998V gelten nur bei modelliertem VBE 0.7V ohne HFE-/Ceff-/Temperatur-/Leckeffekte; korrespondierendes [Rechenprogramm](../../../tools/check_trippower_reset_worst_case.py) gibt Szenariobänder aus, keine garantierten Trip-Punkte.
+3. U302 RESET high ist **kein idealer Spannungsausgang**; Q304 zieht Basisstrom durch R3331M/R3391M, was die Schmitt-Hysterese verändert. Die 8.221/5.998V bei RESET_LOW=0V (8.221/5.998 (bei LOW=0V), 7.974/5.998 (bei LOW=0.3V)V bei RESET_LOW=0.3V) gelten nur bei modelliertem VBE 0.7V ohne HFE-/Ceff-/Temperatur-/Leckeffekte; korrespondierendes [Rechenprogramm](../../../tools/check_trippower_reset_worst_case.py) gibt Szenariobänder aus, keine garantierten Trip-Punkte.
 4. `D305` SOT23-K3/A1/NC2 ist gegen USB→VS-Rückspeisung so gepolt, aber Garantie gegen alle Halbleiterleck-/ESD-Wege, insbesondere wenn Q305 B high bei VIN0, erfordert Tests.
 5. 202V/350ms Load-Dump- und heißer Q301 SOA/F_MAIN/Q302/OCP/C303–CAP sind **nicht freigegeben**. KiCad-ERC und Netzliste belegen nur Beschaltung, kein Fahrzeugverhalten. **Keine Platine fertigen**.
 
