@@ -1,3 +1,13 @@
+## Aktuelle TripPower-Entwicklungsregeln – REV4 (15.10.2026)
+
+**Für `hardware/modules/TripPower_5V2A/` ist ab jetzt [REV4_DECISION_REGISTER_AND_FAB_STOP.md](hardware/modules/TripPower_5V2A/REV4_DECISION_REGISTER_AND_FAB_STOP.md) der maßgebliche aktuelle Entscheidungsstand; [REV4_DESIGN_BASELINE.json](hardware/modules/TripPower_5V2A/REV4_DESIGN_BASELINE.json) ist die einzige maschinenprüfbare KiCad-MPN/Footprint-Baseline.** Der [TripPower-Standalone-Workflow](.github/workflows/trippower-standalone.yml) prüft diese Baseline unabhängig von den vorhandenen Root-TripTracer-ERC-/DRC-Fehlern.
+
+Für neue Entwicklungsanfragen zuerst **diese beiden Dateien und den aktuellen KiCad-Schaltplan** lesen. Historische Berichte und widersprüchliche `START_HERE_NEXT_CHAT.md`-Abschnitte sind **kein** Anlass, bereits gelöste Fragen oder festgelegte Bauteile zu verwerfen. Neue Änderung nur bei dokumentiertem Hersteller-Grenzwert, reproduzierbarem Fehler oder konkreter Verbesserung; mit Vorher/Nachher, Nachweis, Kosten-/Risiko-Nebenwirkungen, Regression-Check und Commit. **Kein Blindtausch** an R313–315, Q301, Q303–Q305, C308/312, C311, R330 oder Schutz-Architektur. Herstellerreferenz/COTS FIRST beibehalten.
+
+**Status:** REV4-Bauteil-/Schaltplan-Baseline festgelegt, jedoch **nicht** als 9V-/Temperatur-/202V-/PCB-/Fertigungs-/Fahrzeugfunktion nachgewiesen. Hardware-/ISO-Freigabe und eigenständiges PCB-DRC bis zur formalen Schließung aller relevanten P01–P10-Gates untersagt. Ein grüner Standalone-Workflow garantiert nur ERC, Netlist, arithmetische und MPN-Konsistenz.
+
+---
+
 # TripTracer – Regeln fuer KI/Codex
 
 
