@@ -32,7 +32,7 @@ AP74502HQ-OvLO mit Rtop=1M, Rbot=35k (beide ±1%) und IOV bis 110nA, konservativ
 |---|---|---|
 | Eingangs-Q1 Drain–Source **Kurzschluss** | VIN=200V -> Q1 kurz -> gemeinsame Sources -> **Q2 Bodydiode** -> HV_PROTECTED -> TPS26631-IN | Etwa 200V minus Vf am 67V-absolute-max-eFuse; bei offenem/nicht ausloesendem eFuse kann LM70840 (87.5V abs) ebenfalls geschaedigt werden. **Nicht durch OVLO oder Gate LOW vermeidbar.** |
 | Ausgangs-Q2 Drain–Source kurz | Q1-Bodydiode bei MOSFETs common-source ist in anderer Richtung orientiert; **nicht als symmetrischer 200V-Durchgang anzunehmen** | Reverse/ring currents, Q1-SOA und nachgeschaltete C-Abschaltung noch testen; Ausgangsauftrennung/Verpolschutz anders betroffen. |
-| VIN-Zener **offen** | 200V-Impuls ueber R1+R2 -> AP VIN Kondensator; Potential steigt gegen 200V | AP VIN 80V abs kann verletzt werden, der Controller wird unzuverlaessig/defekt; unkontrollierte Gate-Stellung und Energie im FET moeglich. |
+| VIN-Zener **offen** | 200V-Impuls ueber R1+R2 -> AP VIN Kondensator; Potential steigt gegen 200V | Bei R=10.2k,Cnom=1uF und vereinfacht ohne Eigenlast: AP VIN erreicht 80V nach ca. **5.21ms**, also deutlich vor 350ms; AP VIN 80V abs kann verletzt werden, der Controller wird unzuverlaessig/defekt; unkontrollierte Gate-Stellung und Energie im FET moeglich. |
 | VIN-Zener **kurz** | 200V direkt ueber insgesamt 10.2kOhm nach Masse | 3.922W Puls, **1.373J in 350ms** insgesamt, bei gleichen 5.1k je **0.686J**; resistiver Bauteilbrand unterhalb F_MAIN-Ausloesestrom moeglich. |
 | MOSFET-Switching-Loss/SOA / Schutzzener soft short | Trotz 300V VDS koennen FET, R oder TVS thermisch versagen | Pulsenergie/HotSOA 350ms ist **nicht** 300V-Nennwert. |
 
@@ -95,3 +95,8 @@ Aktuelle belegbare europaeische Brutto-/Nettofrage: Die folgenden Web-Angebote s
 
 - Ausfuehrbare quantitative Regression: \`python3 -m unittest -v c2_hv_gate_checks\` und \`python3 c2_hv_gate_checks.py\`. Zeitbereich idealisierter Worst-Slew und Sicherheitsgrenzen ist statisch, keine Spice-/physische Simulation mit echtem Datenblatt-/Layoutmodell.
 - **Native KiCad10 ERC/Netlist fuer C2 nicht moeglich, da bewusst kein als sicher plausibler C2-Schaltplan erstellt wurde**. Keine DRC-Behauptung; keine Hardware-/200V/350ms-/ISO-/125C-Freigabe. Die Tests koennen ueber eine eigene Weg-C-GitHub-Action wiederholt werden, sagen aber nichts ueber Boardfreigabe.
+
+
+## Automatisch ausgefuehrter Check (GitHub Actions, belastbarer Status)
+
+Workflow `.github/workflows/trippower-c2-hv-screening.yml` ist angelegt. Erste vollstaendige Ausfuehrung am 15.10.2026: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38748211708 **SUCCESS; 10/10 mathematische Regressionstests erfolgreich**. Nachtrag `c2_hv_gate_checks.py`: zusaetzlicher Zener-OPEN-RC-Grenztest; zukuenftiger aktualisierter Lauf separat bestaetigen. **Keine** ERC/Netlist, kein KiCad-C2-Schaltplan, kein PCB/DRC oder ISO-Pulsversuch. Ein gruenes GitHub-Joblabel bestaetigt nur die in Python formulierten Rechenannahmen. Vollpreis-MPNs der 10 bereits bepreisten theoretischen Positionen: `C2_HV_VERIFIED_PRICE_PARTS_2026-10-15.csv`. 
