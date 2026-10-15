@@ -19,6 +19,7 @@ on:
       - 'tools/check_trippower_native_netlist.py'
       - 'tools/check_trippower_lm74930_values.py'
       - 'tools/check_trippower_input_stress.py'
+      - 'tools/check_trippower_9_30v_startup.py'
       - 'hardware/modules/TripPower_5V2A/**'
       - 'tools/check_cots_power_selection.py'
       - 'tools/check_power_frontend_design_freeze.py'
@@ -76,6 +77,10 @@ jobs:
         id: trippower_stress
         continue-on-error: true
         run: python3 tools/check_trippower_input_stress.py | tee reports/trippower-input-stress.json
+      - name: TripPower 9-30V first power-on VS/bootstrap screen (analytical; startup BLOCKED)
+        id: trippower_startup_window
+        continue-on-error: true
+        run: python3 tools/check_trippower_9_30v_startup.py | tee reports/trippower-9-30v-startup.json
       - name: TripPower independent root schematic ERC (not the TripTracer project)
         id: trippower_erc
         continue-on-error: true
