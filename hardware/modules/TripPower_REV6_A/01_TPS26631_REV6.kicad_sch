@@ -64,7 +64,7 @@
 (symbol "VEHICLE_POWER_FLAG_0_1" (rectangle (start -2.54 2.54) (end 2.54 -2.54) (stroke (width 0.254) (type default)) (fill (type none))))
 (symbol "VEHICLE_POWER_FLAG_1_1"
 (pin power_out line (at 0 0 90) (length 0) (name "Power" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1))))))))
-(text "TI TPS26631 PWPR Fig9-2-derived power stage: 10..32V; OV <=36 via R201..203, 58V 350ms only certified conditioned input <60V incl ringing. ILIM nominal3A. Q201 body diode orientation, Q202 fast off, external F_MAIN. TPS26631 industrial NOT AEC, thermals/ESD/RAW/USB/open-pin/temperature NOT qualified." (at 27.94 34.29 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180148"))
+(text "TI TPS26631 PWPR Fig9-2-derived power stage: 10..32V; OV <=36 via R201..203, 58V 350ms only certified conditioned input <60V incl ringing. ILIM nominal3A. SHDN13 floats per TI internal pull-up, MUST NOT connect to 58V (ABS max5.5V). Q201 body diode orientation, Q202 fast off, external F_MAIN. TPS26631 industrial NOT AEC, thermals/ESD/RAW/USB/open-pin/temperature NOT qualified." (at 27.94 34.29 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180148"))
 (text "R201=402k R202=49k9 R203=16k5: OV rise 34.07V typ / 32.34..35.86V modeled limits, UV rise 8.47V typ. Need verify OVP leak/TCR/tol, 10V loaded start, 32V survival; not production. No extra 200V high voltage network." (at 27.94 43.18 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180149"))
 (text "WARNING: 58V at connector must already include wiring overshoots. eFuse ABS 67V, MAX recommended 60V. TMP 85C safe-off not implemented, must be implemented before FAB. RAW testpad not 0.5A-rated connector." (at 27.94 50.8 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180150"))
 
@@ -245,8 +245,7 @@
 (wire (pts (xy 279.4 147.32) (xy 284.48 147.32)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180081"))
 (global_label "ILIM_SET" (shape bidirectional) (at 284.48 147.32 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180082"))
 
-(wire (pts (xy 279.4 137.16) (xy 284.48 137.16)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180083"))
-(global_label "VIN_FUSED" (shape bidirectional) (at 284.48 137.16 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180084"))
+(no_connect (at 279.4 137.16) (uuid "b63a0921-7362-49b4-b250-000000191041"))
 
 (wire (pts (xy 279.4 111.76) (xy 284.48 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180085"))
 (global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 284.48 111.76 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180086"))
