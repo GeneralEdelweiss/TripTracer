@@ -31,4 +31,3 @@
 (symbol "BAS70_02V_A1_K2_0_1" (polyline (pts (xy -3 -4) (xy -3 4)) (stroke (width 0.35) (type default)) (fill (type none))) (polyline (pts (xy 3 0) (xy -3 -4) (xy -3 4) (xy 3 0)) (stroke (width 0.254) (type default)) (fill (type background))))
 (symbol "BAS70_02V_A1_K2_1_1" (pin passive line (at -10.16 0 0) (length 5.08) (name "K" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1))))) (pin passive line (at 10.16 0 180) (length 5.08) (name "A" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))))
 )
-)
