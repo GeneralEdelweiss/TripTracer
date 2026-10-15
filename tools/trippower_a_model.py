@@ -138,11 +138,12 @@ class StartCase:
     initial_vs_v: float = 0.0
     initial_timer_fraction: float = 0.0
     ceff_uf: float = 21.0  # installed nominal; real Ceff unknown
+    r_vs_tolerance_factor: float = 1.0  # 0.99..1.01 at specified R accuracy
     pre_ready_load_ua: float = 35.0  # illustrative, NOT TI max
     enabled_iq_ua: float = 780.0  # TI max measured @ VS=12V/EN=2V; not dynamic max
     additional_pump_ma: float = 2.0  # invented sensitivity parameter, NOT a spec
     pump_interval_ms: float = 2.0  # invented sensitivity parameter, NOT a bound
-    ready_on_v: float = 7.51  # illustrative threshold corner, not whole IC guarantee
+    ready_on_v: float = 7.51  # P02 REV5 upper preliminary threshold, NOT qualified
     ready_off_v: float = 5.42
     timer_delay_ms: float = 250.0  # placeholder pending TPS38 CTR effective-C data
     source_a_can_rise: bool = True  # optimistic gate/FET/Buck assumption
@@ -155,7 +156,7 @@ def vs_static_limit(vin, pre_ua, r=9900.0):
     return max(0.0, vin-r*pre_ua*1e-6)
 
 def simulate_start(s:StartCase):
-    if s.ceff_uf<=0 or s.dt_s<=0 or s.timer_delay_ms<=0:
+    if s.ceff_uf<=0 or s.dt_s<=0 or s.timer_delay_ms<=0 or s.r_vs_tolerance_factor<=0:
         raise ValueError("invalid positive time/capacitance")
     if not 0<=s.initial_timer_fraction<=1:
         raise ValueError("timer initial fraction outside [0,1]")
@@ -193,7 +194,7 @@ def simulate_start(s:StartCase):
             current=s.enabled_iq_ua*1e-6
         else:
             current=s.pre_ready_load_ua*1e-6
-        R=sum(R_VS_OHM)
+        R=sum(R_VS_OHM)*s.r_vs_tolerance_factor
         C=s.ceff_uf*1e-6
         equilibrium=s.vin_v-R*current
         vs=equilibrium+(vs-equilibrium)*math.exp(-s.dt_s/(R*C))
@@ -203,7 +204,7 @@ def simulate_start(s:StartCase):
             trace.append([round(t,5),round(vs,4),phase])
     return {
         "parameters":asdict(s),"pre_ready_vs_equilibrium_v":vs_static_limit(
-            s.vin_v,s.pre_ready_load_ua),
+            s.vin_v,s.pre_ready_load_ua, sum(R_VS_OHM)*s.r_vs_tolerance_factor),
         "first_ctrl_en_model_s":first_en_s,
         "first_source_a_model_s":first_source_s,
         "min_pump_vs_model_v":minimum_pump_vs,
@@ -222,8 +223,11 @@ def startup_study():
     s=StartCase()
     setups={
       "nominal_assumption_9v":s,
-      "9v_pessimistic_threshold_8p539":replace(s,ready_on_v=8.539),
-      "9v_high_75ua_preload":replace(s,pre_ready_load_ua=75),
+      "9v_high_r_min_start":replace(s,r_vs_tolerance_factor=0.99),
+      "9v_high_r_max_start":replace(s,r_vs_tolerance_factor=1.01),
+      "9v_unspecified_high_trip_stress_8p539":replace(s,ready_on_v=8.539),
+      "9v_preload_155ua_stalls_REV5_trip":replace(s,pre_ready_load_ua=155,
+                                                   r_vs_tolerance_factor=1.01),
       "9v_low_ceff_4uf_big_pump":replace(s,ceff_uf=4,additional_pump_ma=8,pump_interval_ms=10),
       "9v_restored_partial_timer":replace(s,initial_vs_v=8.0,initial_timer_fraction=0.75),
       "9v_vin0_run_high_unqualified":replace(s,vin_v=0,initial_vs_v=0,source_a_can_rise=False),
@@ -246,7 +250,8 @@ def main():
     elif a.scenario=="startup": out=startup_study()
     elif a.scenario=="worst_9v":
         out=simulate_start(replace(StartCase(),ceff_uf=4,additional_pump_ma=8,
-                                   pump_interval_ms=10,ready_on_v=8.539))
+                                   pump_interval_ms=10,ready_on_v=7.51,
+                                   r_vs_tolerance_factor=1.01))
     else:out={"200v_pulse":pulse_study(),"9v_start":startup_study()}
     print(json.dumps(out,indent=2 if a.pretty else None,sort_keys=True,
                      allow_nan=False))
