@@ -18,7 +18,9 @@ mapping={
   "12":"FAULT_OC_N","13":"GND","14":"HGATE","15":"SOURCE_A","16":"GND",
   "18":"ISCP","19":"VIN_PROTECTED_UNFUSED","20":"CS_PLUS","22":"VS_CLAMP",
   "23":"CAP_PUMP","24":"C_NODE"},
- "Q301":{"1":"Q1_GATE","2":"VIN_FUSED","3":"SOURCE_A"},
+ "Q301":{"1":"HGATE","2":"VIN_FUSED","3":"SOURCE_A"},
+ "R320":{"1":"HGATE","2":"DV_DT_RC_NODE"},
+ "C307":{"1":"DV_DT_RC_NODE","2":"GND"},
  "Q302":{"1":"SOURCE_A","2":"SOURCE_A","3":"SOURCE_A","4":"Q2_GATE","5":"C_NODE"},
  "R301":{"1":"C_NODE","2":"VIN_PROTECTED_UNFUSED"},
  "R302":{"1":"C_NODE","2":"CS_PLUS"},
@@ -42,6 +44,9 @@ assert ("U301","25") not in nets.get("GND",set()),"RTN thermal pad must FLOAT"
 assert ("U301","3") not in nets.get("VIN_FUSED",set()),"SW must NC in direct UV divider prototype"
 # All power branches have a real device in their path; no refactoring to
 # a global-label-only shortcut that defeats the LM74930 shared electronic circuit breaker.
+assert ("Q301","1") in nets["HGATE"] and ("U301","14") in nets["HGATE"], "HGATE must drive Q301 gate directly"
+assert ("R320","2") in nets["DV_DT_RC_NODE"] and ("C307","1") in nets["DV_DT_RC_NODE"], "Rg/CdVdT must be series branch to GND"
+assert ("Q301","1") not in nets["DV_DT_RC_NODE"], "Do not put R320 100ohm in HGATE series gate path"
 assert ("Q302","5") in nets["C_NODE"] and ("R301","1") in nets["C_NODE"]
 assert ("U101","3") in nets["VIN_PROTECTED_UNFUSED"]
 assert ("J302","1") in nets["VIN_PROTECTED_UNFUSED"],"Output is intentionally UNFUSED on module"
