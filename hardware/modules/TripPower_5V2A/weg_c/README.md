@@ -1,3 +1,5 @@
+> **AKTUELLE SICHERHEITSENTSCHEIDUNG 15.10.2026: C1 NO-GO / KEINE BESTELLUNG.** Der AP74502HQ mit bisherigem 1M/39k-OVLO-Teiler garantiert weder Wiederanlauf bei 30V noch trotz 1us nomineller GATE-Abschaltung sicheren Betrieb des TPSM33620S5 (40V abs). Schwere TPS26631-SHDN-Fehlverdrahtung wurde korrigiert. Es fehlt zudem ein nachgewiesener Q1-D/S-Kurzschluss-Schutzpfad, die 200V-Energie sowie 125C-Thermik. Pin-Audit: [C1_SURGE_AUDIT_2026-10-15.md](C1_SURGE_AUDIT_2026-10-15.md). Neue unabhaengige Entwicklungsrichtung: [C2_HV_80V_ALTERNATIVE_2026-10-15.md](C2_HV_80V_ALTERNATIVE_2026-10-15.md). **Die folgenden C1-Praeferenzen sind historische erste Studien und keine aktuelle Bauempfehlung.**
+
 # TripPower Weg C – unabhaengiger COTS-Entwurf (15.10.2026)
 
 **Status:** Schaltungsarchitektur als eigenstaendige Ingenieurvariante ausgewaehlt; **keine Fertigungs-, Fahrzeug- oder 200-V-Prueffreigabe**. Weg A, Weg B und bestehender REV5 sind unveraendert.
