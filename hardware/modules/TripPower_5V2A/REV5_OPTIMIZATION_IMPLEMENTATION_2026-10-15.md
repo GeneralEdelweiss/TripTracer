@@ -1,3 +1,5 @@
+> **KORREKTUR NACH DATENBLATT-TIEFENPRUEFUNG:** Die im letzten Abschnitt erwaehnte MPM3551-AEC1-Variante ist **kein bevorzugter Ersatz mehr**. Exakt gelisteter MPM3551GQWE-AEC1-Z hat externe VBOOT-/VCC-/FB-Beschaltung; tatsaechlich netto nur ~1 Bestueckposition weniger als REV5-LMR38020, kritisch bei 125C/2A und 36V/40V/42V-VIN. Ausfuehrlicher Nachweis: [MPM3551_SWAP_DEEP_DIVE_2026-10-15.md](MPM3551_SWAP_DEEP_DIVE_2026-10-15.md). Keine KiCad-/MPN-Aenderung.
+
 # TripPower REV5 – Bestueckungsoptimierung und 36V-Powermodul (2026-10-15)
 
 **Im aktiven KiCad implementiert: zwei DNP-Einsparungen; kein Buck-Wechsel.** Entwicklungsziel bleibt 9–30V, 5V/2A, RAW-AUX 1A, -40..+125C und **200V/350ms ungedeckelter Load-Dump**. Die festgelegte externe, austauschbare F_MAIN bleibt erforderlich. Kein Hardware-/Fahrzeug-/PCB-Fab-Release.
