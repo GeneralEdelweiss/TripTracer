@@ -1,0 +1,26 @@
+name: TripPower Weg B feasibility gates (NO-GO)
+on:
+  push:
+    branches:
+      - design/trippower-b
+    paths:
+      - 'hardware/modules/TripPower_5V2A/weg_b/**'
+      - '.github/workflows/trippower-weg-b-feasibility.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run unit regressions
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_*.py' -v
+      - name: Export structured NO-GO evidence
+        run: |
+          python3 hardware/modules/TripPower_5V2A/weg_b/verify_b_feasibility.py > /tmp/trippower-b-gates.json
+          python3 -c 'import json; d=json.load(open("/tmp/trippower-b-gates.json")); assert d["classification"] == "NO_GO_AS_SIMPLE_REV5_BUCK_SWAP"; assert d["pass_gates"]["VIN_PAD_WORST_CASE_PROVEN"] is False'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trippower-weg-b-no-go-model
+          path: /tmp/trippower-b-gates.json
