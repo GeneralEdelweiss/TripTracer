@@ -54,9 +54,9 @@ assert len(checked)>=20, "BOM lock was truncated"
 assert d["assembly"]["default_mode"]=="AUTO"
 assert d["assembly"]["verified_placement_count_change"]=={"REV4_fit":71,"REV5_AUTO_fit_expected":59,"REV5_RUN_fit_expected":60}
 all_schematics=[(base/sh).read_text(encoding="utf-8") for sh in d["fixed_placements"]]
-all_active=sum(len(re.findall(r'\\(symbol \\(lib_id [^\\n]+\\(dnp no\\)',t)) for t in all_schematics)
+all_active=sum(1 for text in all_schematics for row in text.splitlines() if row.lstrip().startswith("(symbol (lib_id ") and "(dnp no)" in row)
 assert all_active==59, f"unexpected actual pick-and-place placements: {all_active} vs 59"
-assert all(ref not in all_schematics[0]+all_schematics[1]+all_schematics[2] for ref in ("(property \\"Reference\\" \\"Q303\\"","(property \\"Reference\\" \\"Q304\\"","(property \\"Reference\\" \\"Q305\\"")), "obsolete BJT must be physically gone"
+assert all('(property "Reference" "'+ref+'"' not in "".join(all_schematics) for ref in ("Q303","Q304","Q305")), "obsolete BJT must be physically gone"
 
 protection=(base/"01_Protection_LM74930.kicad_sch").read_text()
 control=(base/"03_VS_READY_TPS3760.kicad_sch").read_text()
