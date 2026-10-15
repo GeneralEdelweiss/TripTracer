@@ -15,4 +15,14 @@
 (pin input line (at 22.86 -7.62 180) (length 8.86) (name "OVLO" (effects (font (size 1 1)))) (number "7" (effects (font (size 1 1)))))
 (pin input line (at 22.86 -12.7 180) (length 8.86) (name "SRC" (effects (font (size 1 1)))) (number "8" (effects (font (size 1 1)))))
 ))
+(symbol "AP_VIN_FEED_FLAG" (pin_names (offset 0)) (in_bom no) (on_board no)
+ (property "Reference" "#FLG" (at 0 3.81 0) (effects (font (size 1 1))))
+ (property "Value" "AP_VIN_FEED_FLAG" (at 0 -3.81 0) (effects (font (size 1 1))))
+ (symbol "AP_VIN_FEED_FLAG_0_1"
+  (polyline (pts (xy -2.54 0) (xy -1.27 2.54) (xy 1.27 2.54) (xy 2.54 0) (xy -2.54 0))
+   (stroke (width 0.254) (type default)) (fill (type none))))
+ (symbol "AP_VIN_FEED_FLAG_1_1"
+  (pin power_out line (at 0 0 90) (length 0)
+   (name "Power" (effects (font (size 1 1))))
+   (number "1" (effects (font (size 1 1)))))))
 )
