@@ -49,7 +49,7 @@ Die Prüfung wird auf der **exportierten KiCad-Hierarchie-Netzliste** durchgefü
 
 ## 3. 200 V × 350 ms: RVS und Zener einschließlich Einzelfehler
 
-Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dynamischen Widerstand, 350 ms Rechteck, R-Toleranz ±1 % bei Referenzbedingung. Das ist ein **elektrisches Bemessungsscreening** und keine Hersteller-Pulsfreigabe; bei heißem 125-°C-Start und bei Wiederholung kommt zusätzliche Temperatur-/Puls-Deratingprüfung hinzu.
+Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dynamischen Widerstand, 350 ms Rechteck, R-Toleranz ±1 % bei Referenzbedingung; separat 100 ppm/K maximaler Betrag des R-TCR über 25→125 °C Bauteiltemperatur. Das ist ein **elektrisches Bemessungsscreening** und keine Hersteller-Pulsfreigabe; bei heißem 125-°C-Start und bei Wiederholung kommt zusätzliche Temperatur-/Puls-Deratingprüfung hinzu.
 
 `I=(V_IN−V_Z)/ΣR; P_Ri=I² R_i; E_Ri=P_Ri·0,350 s; P_Z=V_Z I; E_Z=P_Z·0,350 s.`
 
@@ -58,11 +58,12 @@ Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dyn
 | 3×3,3k, VZ=56 V (Referenz) | 14,545 mA | 0,244 J | 0,285 J |
 | Alle R −1 %, angenommen VZ=53,2 V | 14,978 mA | 0,257 J | 0,279 J |
 | Alle R −1 %, angenommen VZ=58,8 V | 14,407 mA | 0,237 J | 0,296 J |
+| Bei 125 °C R-Körpertemperatur: −1 % plus −100 ppm/K über 100 K, VZ=53,2 V | 15,129 mA | 0,259 J | 0,282 J |
 | D301 KURZSCHLUSS, alle R −1 % | 20,406 mA | 0,476 J | 0 |
 | Ein RVS KURZSCHLUSS, übrige −1 %, VZ=53,2 V | 22,467 mA | 0,577 J pro verbleibendem R | 0,418 J |
 | Ein RVS + D301 kurz (Doppelfehler) | 30,609 mA | 1,071 J pro verbleibendem R | 0 |
 
-**Grenzen:** 56 V ±5 % gelten für den Zener bei spezifiziertem Prüfstrom, nicht zwangsläufig beim tatsächlichen 200-V-Pulsstrom und Temperatur. Die 2512-HP-Nennleistung allein ist kein 350-ms-Pulsenergie-/125-°C-/Mehrfachimpuls-Nachweis. Für diesen exakten Vishay-MPN sind die Temperatur-/Pulsentlastungskurven, Layout- und Wiederholungsabstände erforderlich. R-TCR und R-Pulsdrift werden noch **nicht** als nachgewiesene Grenzen eingesetzt.
+**Grenzen:** 56 V ±5 % gelten für den Zener bei spezifiziertem Prüfstrom, nicht zwangsläufig beim tatsächlichen 200-V-Pulsstrom und Temperatur. Die 2512-HP-Nennleistung allein ist kein 350-ms-Pulsenergie-/125-°C-/Mehrfachimpuls-Nachweis. Für diesen exakten Vishay-MPN sind die Temperatur-/Pulsentlastungskurven, Layout- und Wiederholungsabstände erforderlich. Die ±100-ppm/K-Angabe ist ein dokumentierter **ohmscher Toleranz-Sensitivitätsfall bei 125 °C Widerstandstemperatur** (Skalierung 0,9801), **keine** umfassende Pulsfreigabe: Eigenheizung über 125 °C, R-Pulsdrift, konkrete Leiterplatten-Wärmesenke und Wiederholung fehlen. Lieferantenseiten widersprechen sich teilweise bei der Nennleistung 1,5/2 W; Herstellerdatenblatt und Derating des **exakten MPN** haben Vorrang.
 
 **D301 OFFEN, neuer harter Prüffall** (ideale Ceff=21 µF, kein VS-Laststrom, SOURCE_A=0, daher D302 reverse, keine weiteren internen Schutzwege angenommen): `VS(t)=200−(200−VS0)exp(−t/(9900·Ceff))`.
 - VS0=0 V: nach 350 ms **162,86 V**, VS=65 V bereits nach **81,71 ms**, VS=100 V nach **144,11 ms**.
@@ -73,7 +74,7 @@ Annahme der folgenden Tabelle: steifer, idealer Eingang, konstanter V_Z ohne dyn
 
 ## 4. Ausführbares 9-V-Erststart-/Wiederanlaufmodell
 
-`StartCase` im Skript integriert den precharge/pump/source-**Zustandsautomaten**, den VS-RC-Speiseweg, `Ceff`, Freigabe- und Abschaltschwelle, modellierte Vorstartleckage, beispielhafte aktive VS-Last und zusätzlich **freie Pumpenlast**. Restladung ist in `initial_vs_v`, teilweise geladener Reset-Timer in `initial_timer_fraction` parametrisiert. Die beiden Hersteller-1%-Ecken werden als `r_vs_tolerance_factor=0.99/1.01` untersucht. Nach angenommenem SOURCE_A-Hochlauf darf D302 in der Simulation idealisiert nachspeisen; dies ist ausdrücklich ein **optimistischer Grenzfall**, keine garantierte Stromlieferfähigkeit oder FET-Einschaltzeit.
+`StartCase` im Skript integriert den precharge/pump/source-**Zustandsautomaten**, den VS-RC-Speiseweg, `Ceff`, Freigabe- und Abschaltschwelle, modellierte Vorstartleckage, beispielhafte aktive VS-Last und zusätzlich **freie Pumpenlast**. Restladung ist in `initial_vs_v`, teilweise geladener Reset-Timer in `initial_timer_fraction` parametrisiert. Die beiden Hersteller-1%-Ecken werden als `r_vs_tolerance_factor=0.99/1.01` untersucht; zusätzlich 125-°C-R-Körper-TCR-Ecken 0,9801/1,0201. Ein Widerstandskörper kann beim Puls heißer als die Umgebung werden, sodass dies keine Obergrenze garantiert. Nach angenommenem SOURCE_A-Hochlauf darf D302 in der Simulation idealisiert nachspeisen; dies ist ausdrücklich ein **optimistischer Grenzfall**, keine garantierte Stromlieferfähigkeit oder FET-Einschaltzeit.
 
 Für 9 V / drei nominale 3,3-kΩ gilt statisch:
 - Bei VS=8 V liefert RVS nur **101 µA** (ohne die tatsächlich abzuziehenden Leckströme).
@@ -98,7 +99,7 @@ Ergebnis ist ausschließlich das modellierte Zeitpunktspaar `first_ctrl_en_model
 - [Vishay SQM10250E](https://www.vishay.com/docs/75035/sqm10250e.pdf): 250-V-VDS, ±20-V-VGS, 84-mJ-UIS ist kein 350-ms-linear-SOA.
 - [TI LM74930-Q1](https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf): VS-Betriebsgrenzen, Gate- und EN-Logik; keine freigegebene 9-V-Dynamik für diese Platine.
 - [TI TPS38-Q1](https://www.ti.com/lit/ds/symlink/tps38-q1.pdf): reale Reset-/OD-Pegel, VDD-/CTR-Grenzen; dynamische Restladung noch offen.
-- [Vishay CRCW-HP](https://www.vishay.com/docs/20043/crcwhpe3.pdf): konkreten CRCW25123K30FKEGHP inklusive Puls-/125-°C-/Wiederholbedingungen zur Freigabe heranziehen.
+- [Vishay CRCW-HP](https://www.vishay.com/docs/20043/crcwhpe3.pdf) und [CRCW25123K30FKEGHP-Teiledaten](https://www.digikey.de/de/products/detail/vishay-dale/CRCW25123K30FKEGHP/5327190): 1 % und ±100 ppm/°C sind modelliert; konkrete 350-ms-Puls-/125-°C-/Wiederholbedingungen noch zur Freigabe heranziehen.
 - [onsemi 1SMB5943BT3G](https://www.onsemi.com/pdf/datasheet/1smb5913bt3-d.pdf): VZ 56 V ±5 % bei Prüfstrom, nicht automatisch harte VS-Klemme für alle 200-V-Transienten.
 - [Diodes SMBJ150A](https://www.diodes.com/part/view/SMBJ150A), [SMBJ33CA](https://www.diodes.com/part/view/SMBJ33CA): Vergleichs-/Pulsbedingungen getrennt.
 - **Neu im Repository:** `tools/trippower_a_model.py`, `tools/test_trippower_a_model.py`, `tools/test_trippower_a_netlist.py`, `tools/check_trippower_a_netlist.py`, `.github/workflows/trippower-a-verification.yml` und dieser Bericht.
