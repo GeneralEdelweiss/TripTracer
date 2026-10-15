@@ -79,15 +79,65 @@ assert thermal["tj_c_85ambient_at_hot175c_max_rds_and_reference_board"] < 110
 # Rough startup sensitivity ONLY: 0.65 mA typical Iq is not an accurate
 # charge-pump transient model; the A->VS diode must be retained and tested.
 vs9_hypothetical = 9 - 0.00065 * N * R_EACH
+# TI SNOSDF6 Figure 7-2 / Eq. 2: R320 should be in series with C307 to
+# GND, not placed in the HGATE-to-Q301-gate path. These are NOMINAL
+# startup-slew estimates, not predicted or guaranteed physical inrush currents.
+# COUT includes C306=47uF + 2x4.7uF buck input MLCC + 0.1uF HF.
+# C307 X7R bias/temp derating, other parasitics, source 9V startup and Buck
+# input nonconstant current mean real inrush must be measured.
+out_cap_f = 47e-6 + 2*4.7e-6 + 0.1e-6
+dvdt_nominal_f = 10e-9
+gate_source_current_a = {"min":39e-6, "typ":55e-6, "max":75e-6}
+inrush = {k:out_cap_f*i/dvdt_nominal_f for k,i in gate_source_current_a.items()}
+# Charge-pump decoupler check: TI 10x sum of two MOSFET Ciss. Ciss max at
+# Vishay 4.05nF and Nexperia 5.52nF (rated conditions differ).
+cap_min_est_f = 10*(4050e-12+5520e-12)
+cap_placed_f = 100e-9
+assert 0.30<inrush["typ"]<0.32
+assert cap_placed_f>cap_min_est_f
+assert cap_placed_f*0.9<cap_min_est_f, "100nF cannot meet 10x rule at -10% tolerance"
+# Simplistic Q/I lower-bound-like ratios, not switching-time predictions:
+q301_qg_max_c = 75e-9
+hg_sink_min_a = 128e-3
+q_over_i_us = q301_qg_max_c/hg_sink_min_a*1e6
+# 10nF high-side gate-to-GND CdVdt (not gate-to-source!) can charge to
+# substantial absolute voltage; real HGATE sink current is not constant.
+cap_charge_sensitivity_us = {str(v):round((q301_qg_max_c + dvdt_nominal_f*v)/hg_sink_min_a*1e6,2)
+                             for v in (40,100,200)}
+gate_screen = {
+    "output_cap_total_nominal_uF":round(out_cap_f*1e6,2),
+    "CdVdt_C307_nominal_nF":10,
+    "Rg_R320_ohms":100,
+    "nominal_startup_inrush_a_by_source_driver_current":{k:round(v,3) for k,v in inrush.items()},
+    "scope":"TI simplified dV/dt formula ONLY; not total startup input current nor max",
+    "Q301_Qg_max_nC_test_VDS125V_ID10A":75,
+    "HGATE_min_sink_mA":128,
+    "Qg_over_min_sink_us_not_guaranteed":round(q_over_i_us,3),
+    "with_external_gate_to_GND_C_charge_sensitivity_us_not_switching_time":cap_charge_sensitivity_us,
+    "Q301_Ciss_max_pF":4050,
+    "Q302_Ciss_max_pF":5520,
+    "CAP_10x_Ciss_required_nominal_min_nF":round(cap_min_est_f*1e9,1),
+    "C303_CAP_installed_nominal_nF":round(cap_placed_f*1e9,1),
+    "C303_at_minus10pct_nF":round(cap_placed_f*0.90*1e9,1),
+    "C303_effective_value_and_DC_bias_GATE":"BLOCKED; 100nF at -10% below TI recommended nominal floor",
+}
+assert '(property "Reference" "C307"' in sch and 'C1206C103JARECAUTO' in sch
+assert '(property "Value" "100R dVdt-C SERIES (TI)"' in sch
+assert '"Q1_GATE"' not in sch, "must no longer connect via 100ohm resistor"
+
 result = {
     "scope": "ANALYTICAL_SAFETY_SCREEN_VISHAY_3P3K_CANDIDATE_NO_HARDWARE_OR_PULSE_PART_QUALIFICATION",
     "kinetic_model": "202V held as rectangular peak for 350ms, deliberately harsher than an ISO load-dump waveform; ignores wiring/source impedance and dynamic clamping",
     "vs_feed": vs,
+    "hg_overvoltage_gate_derived_screen":gate_screen,
     "ov_uv_top_dividers": divider,
     "q301_thermal_screen": thermal,
     "vs_9v_at_hypothetical_0p65ma_typical_iq_v_no_boost": round(vs9_hypothetical, 2),
     "status": "BLOCKED: NO_RVS_MPN_PULSE_CURVE; Q301_SOA_GATE_CHARGE_PCB_THERMAL_HOT_LEAKAGE; 9V_DYNAMIC_START; ZENER_TVS_PULSE",
     "next_proofs": [
+        "C307 effective 250V 10nF vs gate absolute HV excursions, transient 202V case and board tracking",
+        "C303 CAP-VS 100nF effective value under DC bias/temperature; consider 220nF candidate only after MPN proof",
+        "R320+CdVdt C307 nominal startup inrush and HGATE dynamic off/SOA lab validation",
         "manufacturer 350ms pulse power and voltage curves for three actual VS resistor MPNs at max temperature, including repeated pulses",
         "Q301 real gate VGS, RDS(T), board RthJA and switching/inrush/202V SOA; choose replacement if needed",
         "D301 zener clamp tolerance and surge power versus temperature; Q302 voltage/gate stress; RAW OV/UV divider pulse and leakage",
