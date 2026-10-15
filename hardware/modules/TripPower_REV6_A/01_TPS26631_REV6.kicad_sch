@@ -65,7 +65,7 @@
 (symbol "VEHICLE_POWER_FLAG_1_1"
 (pin power_out line (at 0 0 90) (length 0) (name "Power" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1))))))))
 (text "TI TPS26631 PWPR Fig9-2-derived power stage: 10..32V; OV <=36 via R201..203, 58V 350ms only certified conditioned input <60V incl ringing. ILIM nominal3A. Q201 body diode orientation, Q202 fast off, external F_MAIN. TPS26631 industrial NOT AEC, thermals/ESD/RAW/USB/open-pin/temperature NOT qualified." (at 27.94 34.29 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180148"))
-(text "R201=820k R202=86k6 R203=33k2: OVP top 33.97V typical, UVLO rising 9.42V typical. Need verify OVP leak/TCR/tol, 10V loaded start, 32V survival; not production. No extra 200V high voltage network." (at 27.94 43.18 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180149"))
+(text "R201=810k R202=100k R203=33k2: OVP rising around 34.1V typical, UVLO rising around 8.5V typical. Need verify OVP leak/TCR/tol, 10V loaded start, 32V survival; not production. No extra 200V high voltage network." (at 27.94 43.18 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180149"))
 (text "WARNING: 58V at connector must already include wiring overshoots. eFuse ABS 67V, MAX recommended 60V. TMP 85C safe-off not implemented, must be implemented before FAB. RAW testpad not 0.5A-rated connector." (at 27.94 50.8 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180150"))
 
 (symbol (lib_id "TripPower_REV6:TPS26631_PWP20") (at 248.92 127 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180000")
@@ -118,18 +118,18 @@
 
 (symbol (lib_id "Tripmaster_Sym:R") (at 64.77 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180030")
 (property "Reference" "R201" (at 64.77 189.74 0) (effects (font (size 1 1))))
-(property "Value" "820k 1pct UV_TOP" (at 64.77 192.74 0) (effects (font (size 1 1))))
+(property "Value" "810k 1pct UV_TOP" (at 64.77 192.74 0) (effects (font (size 1 1))))
 (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 64.77 205.74 0) (effects (font (size 1 1)) (hide yes)))
-(property "MPN" "AC1206FR-07820KL" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "AC1206FR-07810KL" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (pin "1" (uuid "b63a0921-7362-49b4-b250-000000180031"))
 (pin "2" (uuid "b63a0921-7362-49b4-b250-000000180032"))
 (instances (project "TripPower_REV6_A" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "R201") (unit 1)))))
 
 (symbol (lib_id "Tripmaster_Sym:R") (at 116.84 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180033")
 (property "Reference" "R202" (at 116.84 189.74 0) (effects (font (size 1 1))))
-(property "Value" "86.6k 1pct UV_MID" (at 116.84 192.74 0) (effects (font (size 1 1))))
+(property "Value" "100k 1pct UV_MID" (at 116.84 192.74 0) (effects (font (size 1 1))))
 (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 116.84 205.74 0) (effects (font (size 1 1)) (hide yes)))
-(property "MPN" "AC1206FR-0786K6L" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "AC1206FR-07100KL" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (pin "1" (uuid "b63a0921-7362-49b4-b250-000000180034"))
 (pin "2" (uuid "b63a0921-7362-49b4-b250-000000180035"))
 (instances (project "TripPower_REV6_A" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "R202") (unit 1)))))
