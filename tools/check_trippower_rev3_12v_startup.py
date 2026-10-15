@@ -2,7 +2,7 @@
 """REV3 R330=715k candidate: 9V/12V VS precharge comparison with RESET delay.
 
 Illustrative RC/hysteresis sensitivity only. NO dynamic VS pump input-current
-upper bound, full-temp BJT guarantee, transient SPICE, bench or 202V release.
+upper bound, full-temp BJT guarantee, transient SPICE, bench or 200V release.
 """
 import json, math
 from itertools import product
@@ -143,6 +143,6 @@ print(json.dumps({
  "failure_modes_unchanged":["Actual CAP pump I(VS,t) unknown, C308/C312 and C311 T/age/leak not qualified",
     "Reset delay at cold and hot is not necessarily nominal 420ms",
     "PNP/NPN 20uA-gain and 125C leakage are not supplier guaranteed",
-    "202V/350ms MOSFET SOA, F_MAIN and PCB thermal not released"],
+    "200V/350ms MOSFET SOA, F_MAIN and PCB thermal not released"],
  "result":"MODEL_PASS__FUNCTIONAL_AND_VEHICLE_RELEASE_BLOCKED"
 },indent=2,ensure_ascii=False))
