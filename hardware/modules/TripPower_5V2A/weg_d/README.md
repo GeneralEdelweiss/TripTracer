@@ -8,6 +8,17 @@
 > - [Modellrechner](load_dump_scenarios.py) und [Rechentests](test_round6.py)
 > - [Chronologisches Findings-Log](FINDINGS_LOG.md)
 >
+> **NEUE VERBINDLICHE ENTSCHEIDUNG – REV6 (15.10.2026):** Für V1 gelten **10–32V normal, 36V/400ms und nur zentral begrenzte 58V/350ms am Geräteanschluss, –20..70°C, 5V2A bis+60°C, sicher OFF bei+85°C und RAW0.5A**. Die älteren 200V/125°C-Studien sind *historisch* und kein Normal-V1-Schutz. **Leitkandidat: ADI LTC4368HMS-2#WPBF + 2×100V-NMOS + Sense-R + OVP-/UVLO-Teiler, danach 80V-LMR38020-Q1.** Kein automatischer KiCad-/Automotive-/Hersteller-Temp-/F_MAIN-Go. Die 58V begrenzte Eingangsspannung muss wirklich an M8 und in den lokalen Pads einschließlich Ringing nachgewiesen werden. Eine große Load-Dump-TVS und LTC4366/200V-FET sind ausdrücklich **nicht Teil der V1-BOM**.
+>
+> **Aktuell zuerst lesen:**
+> - [REV6: Drei Varianten / technischer Entscheid / Übergabe an KiCad](REV6_58V_ARCHITECTURE_STOPGO_2026-10-15.md)
+> - [REV6 Stücklistenvergleich 1/10/100, vollständige Funktionsprüfung / Fehlteile](REV6_BOM_COST_DECISION_2026-10-15.md)
+> - [REV6 parametrische OVP-/Ringing-Rechnung](rev6_limits.py) und [Tests](test_rev6.py)
+> - [Verbindliche REV6-Anforderungen](../../../docs/TRIPPOWER_V1_PRACTICAL_REQUIREMENTS_REV6_2026-10-15.md)
+> - [Chronologisches FINDINGS_LOG](FINDINGS_LOG.md)
+>
+> **Historische** 200V/350ms/125°C NO-GO-Dateien bleiben als Archiv unverändert; sie dürfen nicht als neue 58V-No-Gos missverstanden werden. Optionale spätere ungedämpfte 200V-Kfz-Anwendungen benötigen eine **eigenständig qualifizierte externe Vorschutzbaugruppe**.
+>
 **Separater Forschungszweig:** design/trippower-d-load-dump
 **Aufgabe:** möglichst wenige und günstige fertige Bauteile zur Beherrschung eines nicht unterdrückten **200-V-/350-ms-Load-Dump-Pulses** finden, idealerweise *nur* ein dedizierter Schutz-IC oder ein für lange Load-Dump-Pulse qualifizierter Halbleiter. Eine nur für 10/1000 µs spezifizierte TVS gilt **nicht** automatisch als geeignet.
 
