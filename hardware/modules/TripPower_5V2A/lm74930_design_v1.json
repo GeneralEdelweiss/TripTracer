@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-15-D_PULSE_RVS_CANDIDATE_2512",
+  "revision": "2026-10-15-Q301_VISHAY_SQM10250E_CANDIDATE",
   "stage": "PRELIMINARY_VALUES_ONE_COMMON_FUSED_SOURCE_NO_LOCAL_AUX_FUSE",
   "controller": "LM74930QRGERQ1",
   "controller_package": "TI RGE 24pin 4x4mm VQFN; EP RTN electrically FLOAT",
@@ -182,9 +182,11 @@
     {
       "ref": "Q_HV",
       "role": "250V cut-off HV FET",
-      "value": "250V STD17NF25 165mOhm max @10V",
-      "mpn": "STD17NF25",
-      "status": "TEMP_PROTOTYPE_ONLY_THERMAL_AND_202V_SOA_UPGRADE_REVIEW"
+      "value": "250V Vishay SQM10250E_GE3: RDS max 30mOhm 25C /65mOhm 125C /86.8mOhm 175C at VGS 10V",
+      "mpn": "SQM10250E_GE3",
+      "status": "SELECTED_SCHEMATIC_CANDIDATE_NOT_SOA_THERMAL_OR_AUTOMOTIVE_APPROVED",
+      "source": "https://www.vishay.com/docs/75035/sqm10250e.pdf",
+      "footprint": "Package_TO_SOT_SMD:TO-263-3_TabPin2"
     },
     {
       "ref": "Q_IDEAL",
@@ -370,7 +372,8 @@
     "35V OV cut-off vs datasheet 200V reference, measured gate shutdown, backfeed",
     "Run/ALWAYS_ON and ESP32 3.3V signal hardware-level off and power isolation not designed",
     "Manufacturer RGE-24 footprint and RTN pad isolated, shunt Kelvin, BOM procurement, ERC/DRC NOT DONE",
-    "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted"
+    "3A main fuse only candidate: may be insufficient at 80C, 9V and full 1A auxiliary; 4A/5A selection must satisfy trace withstand during fault even with FET shorted",
+    "Q301 SQM10250E_GE3 250V D2PAK: 202V hot switching SOA / cold VDS / 48V overshoot headroom, +75nC max gate and 100ohm HGATE, VGS10V under 9V startup, real 35um PCB RthJA, and 600uA 250V/175C OFF leakage need validation"
   ],
   "main_fuse_design": {
     "required": true,
