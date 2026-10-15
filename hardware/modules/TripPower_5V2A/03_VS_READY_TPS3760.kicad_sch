@@ -100,7 +100,7 @@
 (global_label "VS_CLAMP" (shape bidirectional) (at 224.79 180.34 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "d7b50000-5a55-49d2-8a20-000000000055"))
 (wire (pts (xy 252.73 180.34) (xy 257.81 180.34)) (stroke (width 0) (type default)) (uuid "d7b50000-5a55-49d2-8a20-000000000056"))
 (global_label "CTRL_EN" (shape bidirectional) (at 257.81 180.34 0) (effects (font (size 0.9 0.9)) (justify left)) (uuid "d7b50000-5a55-49d2-8a20-000000000057"))
-(symbol (lib_id "Tripmaster_Sym:R") (at 88.9 218.44 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "d7b50000-5a55-49d2-8a20-000000000060")
+(symbol (lib_id "Tripmaster_Sym:R") (at 88.9 218.44 0) (unit 1) (in_bom yes) (on_board yes) (dnp yes) (uuid "d7b50000-5a55-49d2-8a20-000000000060")
 (property "Reference" "R341" (at 88.9 201.93 0) (effects (font (size 1 1))))
 (property "Value" "1M 1% RUN_SENSE BLEED - RUN ONLY" (at 88.9 204.47 0) (effects (font (size 1 1))))
 (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 88.9 218.44 0) (effects (font (size 1 1)) (hide yes)))
