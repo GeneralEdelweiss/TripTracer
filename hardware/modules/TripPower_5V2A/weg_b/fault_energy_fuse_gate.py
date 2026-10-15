@@ -44,6 +44,9 @@ class Fuse:
     holder_200vdc_qualified:bool
     full_fault_current_range_dc_qualified:bool
     notes:str
+    min_dc_break_current_a:float | None = None
+    manufacturer_max_clear_at_min_break_s:float | None = None
+    manufacturer_ambient_range_c:tuple[float,float] | None = None
 
 FUSES={
  "AUTO_BLADE_32V_COMPARISON_ONLY":Fuse(
@@ -73,7 +76,19 @@ FUSES={
      availability="manufacturer active 10x38; distributor stock/price unconfirmed",
      prices_eur_net_1_10_100=None,supported_operating_to_125c=None,
      holder_200vdc_qualified=False,full_fault_current_range_dc_qualified=False,
-     notes="Eaton regions disagree 500/700 DC vs generic 600 V; use only conservative 500VDC; aR partial-range semiconductor protection; catalog 5.2/32 I2t NOT a 350ms guarantee.")
+     notes="Eaton regions disagree 500/700 DC vs generic 600 V; use only conservative 500VDC; aR partial-range semiconductor protection; catalog 5.2/32 I2t NOT a 350ms guarantee."),
+ "MERSEN_MEV55C5":Fuse(
+     mpn="Mersen MEV55C5 (ferrule clip)",
+     rated_a=5,dc_v_rating=550,interrupt_dc_a=20000,
+     i2t_prearc_catalog_a2s=None,i2t_clearing_catalog_a2s=None,
+     origin="https://www.mersen.com/en/products/evpack-fuse-mev55-550-vdc-max-l-r-less-or-equal-1ms-5-50a/mev55c5",
+     availability="Manufacturer MPN current. EU secondary distributor shows ~EUR46.24/1 with RFQ, authorized stock NOT independently confirmed",
+     prices_eur_net_1_10_100=None,supported_operating_to_125c=True,
+     holder_200vdc_qualified=False, full_fault_current_range_dc_qualified=False,
+     notes="ISO8820-8 automotive family, -40..125C, 550VDC, 20kA L/R<=1ms; DC min breaking current 10A and MAX clearance time at 10A of 10s, so cannot GUARANTEE 350ms cut; ferrule needs 200VDC-appropriate accessible holder. Do NOT silently use -P 10ms table anomaly.",
+     min_dc_break_current_a=10.,
+     manufacturer_max_clear_at_min_break_s=10.0,
+     manufacturer_ambient_range_c=(-40.,125.))
 }
 
 def normal_input_current(vin=9., efficiency=.80, raw_input_a=1., vout=5.,iout=2.):
@@ -92,6 +107,14 @@ def qualification(fuse:Fuse, source_open_v=200., prospective_short_a=None):
         "DC_interrupt_capacity_sufficient_if_prospective_given":current_cap_ok,
         "complete_selectivity_time_energy_and_holder_proven":False,
         "safe_125C_carry_proven":fuse.supported_operating_to_125c is True,
+        "fuse_clearing_range_includes_this_current": (
+            prospective_short_a is not None and
+            fuse.min_dc_break_current_a is not None and
+            prospective_short_a >= fuse.min_dc_break_current_a and
+            (fuse.interrupt_dc_a is None or prospective_short_a<=fuse.interrupt_dc_a)
+        ),
+        "supplier_min_dc_break_current_a":fuse.min_dc_break_current_a,
+        "supplier_max_clear_at_min_break_s":fuse.manufacturer_max_clear_at_min_break_s,
         "full_overload_range_DC_qualified":fuse.full_fault_current_range_dc_qualified,
         "holder_200VDC_qualified":fuse.holder_200vdc_qualified}
 
@@ -234,6 +257,7 @@ def fmea():
 def report():
     weid=FUSES["WEIDMULLER_1460620000"]
     eaton=FUSES["EATON_FWC-4A10F"]
+    mersen=FUSES["MERSEN_MEV55C5"]
     cases=[
         zener_branch(5,0),
         zener_branch(20,0),
@@ -253,6 +277,15 @@ def report():
         "hypothetical_energy_cases":cases,
         "EATON_fast_short_i2t_example_not_opening_time":[
             i2t_catalog_screen(eaton,i) for i in (2.,4.,10.,20.,40.)],
+        "mersen_10A_min_break_10s_max_versus_350ms":{
+          "min_dc_break_a":mersen.min_dc_break_current_a,
+          "manufacturer_max_clear_at_min_break_seconds":mersen.manufacturer_max_clear_at_min_break_s,
+          "requested_pulse_seconds":PULSE_S,
+          "fuse_must_clear_by_350ms":False,
+          "sub_10A_200VDC_break_guarantee":False,
+          "manufacturer_pdf_url":"https://de.mersen.com/sites/default/files/medias/PIM/files/DS-EVpack-fuse-MEV55C-MEV50A-500VDC-max-L-R-less-than-2-5ms-5-800A-EN.pdf",
+          "anomalous_MEV55C5_P_10ms_pdf_table_requires_mersen_clarification":True
+        },
         "below_fuse_rating_even_if_zener_energy_high":
             fuse_no_action_counterexample(cases[2]["current_a"],weid,cases[2]["zener_energy_j"]),
         "fuse_and_harness_sensitivity":[external_cable_screen(weid,rs=.5,wire_R=.1),
