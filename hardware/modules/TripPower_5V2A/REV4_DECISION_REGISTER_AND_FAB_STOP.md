@@ -1,5 +1,7 @@
 # TripPower – verbindlicher REV4-Entscheidungsstand & Prototypen-Stoppgates (15.10.2026)
 
+> **P02 COTS-KANDIDAT QUALIFIZIERT ZUR WEITEREN ENTWICKLUNG (15.10.2026):** [TPS38A010122DSKRQ1 Zweikanal-65V-Automotive-Supervisor](P02_COTS_TPS38_DUAL_ENABLE_2026-10-15.md) statt TPS3760+Q303/Q304/Q305. Zwei OD-LOW-Ausgänge mit TI `VOL≤0.300V` @5mA/−40…125°C gegenüber LM74930 `EN_OFF≤0.410V`; OH-Vorteil mit VS-Pullup und `IEN≤200nA` modelliert. **COTS-Teilenummer real/lagernd** (Mouser DE ~4.274, 3,25€/1). **Noch kein REV5-BOM-/KiCad-Umbau**: gemeinsame OD-Feedback-Hysterese, RUN_CMD HIGH bei VIN0, Reset/CTR-Restladung, WSON-10-Footprint und 9V-VS-Startup vor Entscheidung nachweisen; 202V-SOA weiter offen. Keine Wiederholung der alten BJT-Dimensionierungszyklen.
+
 > **Dies ist der aktive Einstiegspunkt für weitere TripPower-Entwicklung.** Maschinenlesbare, CI-verbindliche Fakten: [REV4_DESIGN_BASELINE.json](REV4_DESIGN_BASELINE.json). **Verifizierungsskript:** `python3 tools/check_trippower_design_baseline.py`, KiCad 10 native standalone ERC/Netlist zusätzlich. **Ein erfolgreicher Skriptlauf bedeutet NICHT Funktions-/Fertigungs- oder Fahrzeugfreigabe.** Alte REV1/REV2/REV3-Dokumente und lange historische `START_HERE_NEXT_CHAT.md`-Abschnitte gelten nur zur Herleitung, wenn diese Seite und die JSON-Baseline etwas anderes vorsehen.
 
 ## 0. Drei verbindliche Arbeitsregeln (gegen Endlosschleifen)
