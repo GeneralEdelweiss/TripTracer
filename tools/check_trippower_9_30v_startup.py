@@ -73,6 +73,8 @@ assert matrix[0]["max_vs_feed_ma_at_vs_4v"] < i_q_typ*1000
 assert matrix[1]["max_vs_feed_ma_at_vs_4v"] < 1.0
 assert matrix[-1]["uvlo_rising_max_0p63v_pessimistic_threshold_pass"] is True
 assert abs(tdrv_typ-1.323888888888889e-3)<1e-7
+r_cable_contact_limit_at_9v=(9.0-uv_worst_input_trip)/i_full_by_v(9.0)
+assert 0.25 < r_cable_contact_limit_at_9v < 0.29
 # Surge power: a 1k RVS cannot substitute 9.9k without renewed thermal/Zener tests.
 surge_zener_v=56.0
 surge_vin=202.0
@@ -96,6 +98,7 @@ report={
  "hypothetical_pump_min_7p9v_gate_threshold_sensitivity_ms_not_guaranteed":round(tdrv_sensitivity*1000,3),
  "UVLO_nominal_turnon_v":round(req_top*(rtop+rbot)/rbot,2),
  "UVLO_conservative_1pct_resistor_200na_leak_0p63v_trip_v":round(uv_worst_input_trip,2),
+ "if_9v_measured_at_vehicle_not_module_max_total_series_resistance_before_UVLO_at_5v2a_raw1a_80pct_eta_ohm_idealized":round(r_cable_contact_limit_at_9v,3),
  "conditional_static_values_assume_full_Ti_12v_IQ_at_low_VS_and_are_not_simulation":matrix,
  "simplistic_1kVS_at202V_56Vzener_350ms":{
      "series_R_peak_W":round(hypothetical_1k_r_w,2),
@@ -109,7 +112,7 @@ report={
    "TI direct charge-pump 1.3mA-min data valid at VS>=6V; do not treat as VS input draw",
    "C302 1uF nominal 100V may lose effective C due to DC bias/temperature, particularly when charged near 56V during surge",
    "Default R319 0ohm AUTO_EN from VS through R318=100k to R316=100k GND causes EN threshold near VS2.1V BEFORE reserve capacitance is charged",
-   "At 9V UVLO divider worst about 8.35V rising based on R1pct and max positive leakage, leaving limited source sag headroom",
+   "At 9V UVLO divider worst about 8.35V rising based on R1pct and max positive leakage, leaving limited source sag headroom. If 9V is measured before M8 cable+F_MAIN+connector, the approx 2.389A full-load current can drop 0.65V across ~0.27ohm, causing UVLO. Module VIN must be specified.",
    "Buck LMR38020 is rated from 4.2V startup but its 4ms typical soft-start and raw auxiliary startup must be evaluated together with 3.61A nominal LM74930 OCP",
    "202V 350ms pulse and external F_MAIN remain unqualified"
  ],
