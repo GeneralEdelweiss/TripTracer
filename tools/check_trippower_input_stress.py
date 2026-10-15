@@ -42,7 +42,7 @@ vs = {
 }
 assert 0.23 < vs["zener_56v_nominal"]["each_resistor_rectangular_j"] < 0.27
 assert vs["zener_hard_short_single_fault_r_minus_1pct"]["each_resistor_rectangular_j"] > 0.45
-# OV/UV top sections see ~99 V each at 202 V, NOT the whole 202 V.
+# OV/UV top sections see ~99 V each at 200 V, NOT the whole 200 V.
 ov_top = d["assumptions"]["OV_Rtop_ohm"]
 uv_top = d["assumptions"]["UV_Rtop_ohm"]
 ov_bot = d["assumptions"]["OV_Rbottom_ohm"]
