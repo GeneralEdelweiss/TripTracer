@@ -28,6 +28,18 @@ class Q301ShortTests(unittest.TestCase):
         self.assertGreater(b["BSP135_power_W"],0.6)
         self.assertFalse(b["hot_SOA_proven"])
 
+    def test_infineon_hot_board_reliance_is_exposed(self):
+        t=study()["BSP135_vendor_hot_board_derating"]
+        self.assertAlmostEqual(t["125C_steady_power_limit_from_150C_Tj_on_min_footprint_W"],25/115)
+        self.assertAlmostEqual(t["125C_steady_power_limit_on_vendor_6cm2_board_W"],25/70)
+        self.assertIsNone(t["125C_0p35s_transient_rthja_max_on_ACTUAL_PCB_KperW"])
+
+    def test_comchip_nominal_power_lead_temperature_margin_is_narrow(self):
+        d=study()["D306_vendor_5w_thermal_reference"]
+        self.assertGreater(d["max_lead_temperature_C_if_0p831W_steady_continuous"],137)
+        self.assertLess(d["max_lead_temperature_C_if_0p831W_steady_continuous"],138)
+        self.assertIsNone(d["actual_TL_at_ambient125C_and_load"])
+
     def test_at_9v_not_enough_guaranteed_backfeed(self):
         x=study()["9v_start"]
         self.assertLess(x["sum_sensitivity_mA"],x["LM74930_active_Iq_12V_test_max_mA"])
