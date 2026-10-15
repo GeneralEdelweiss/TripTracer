@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 
 base = Path("hardware/modules/TripPower_5V2A")
-d = json.loads((base / "REV4_DESIGN_BASELINE.json").read_text(encoding="utf-8"))
+d = json.loads((base / "REV5_DESIGN_BASELINE.json").read_text(encoding="utf-8"))
 contract = json.loads((base / "module_contract.json").read_text(encoding="utf-8"))
 assert d["schema_version"] == 1 and d["stage"] == "REV5_ENGINEERING_BASELINE_ONLY"
 assert d["authorization"]["schematic_baseline_locked"] is True
