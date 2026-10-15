@@ -15,6 +15,8 @@ on:
       - 'tools/check_trippower_a_q301short_prototype.py'
       - 'tools/check_trippower_a_guard_netlist.py'
       - 'tools/trippower_a_architecture_decision.py'
+      - 'tools/trippower_a_round6_powerfail_architecture.py'
+      - 'tools/check_trippower_a_pg_netlist.py'
       - '.github/workflows/trippower-a-verification.yml'
   workflow_dispatch:
 
@@ -49,6 +51,7 @@ jobs:
           python3 tools/trippower_a_model.py --scenario all --pretty > reports/a-200v-9v-model.json
           python3 tools/check_trippower_design_baseline.py > reports/rev5-baseline.json
           python3 tools/trippower_a_start_manufacturer_bounds.py > reports/a-9v-TPS38-vendor-bounds.json
+          python3 tools/trippower_a_round6_powerfail_architecture.py > reports/a-r6-AP-TLD-PGOOD-sensitivity.json
       - name: Run native KiCad 10 ERC (not PCB DRC)
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
@@ -102,6 +105,19 @@ jobs:
             reports/TripPower_5V2A.net reports/a-AP74502-guard.net \
             | tee reports/a-AP74502-native-netdiff.json
           python3 tools/trippower_a_architecture_decision.py > reports/a-round5-fuse-vs-guard.json
+      - name: Validate PG interface-only alternative, preserve active REV5 unchanged
+        run: |
+          cp -a hardware/modules/TripPower_5V2A reports/TripPower_A_PGOOD_Build
+          cp hardware/modules/TripPower_5V2A/02_5V_LMR38020_PGOOD_BACKUP_INTERFACE_PROTOTYPE.kicad_sch \
+            reports/TripPower_A_PGOOD_Build/02_5V_LMR38020.kicad_sch
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/a-pgood-prototype-erc.json reports/TripPower_A_PGOOD_Build/TripPower_5V2A.kicad_sch \
+            || { cat reports/a-pgood-prototype-erc.json; exit 1; }
+          kicad-cli sch export netlist -o reports/a-pgood-prototype.net \
+            reports/TripPower_A_PGOOD_Build/TripPower_5V2A.kicad_sch
+          python3 tools/check_trippower_a_pg_netlist.py \
+            reports/TripPower_5V2A.net reports/a-pgood-prototype.net \
+            | tee reports/a-pgood-native-delta.json
       - name: Preserve pass/fail evidence
         if: always()
         uses: actions/upload-artifact@v4
