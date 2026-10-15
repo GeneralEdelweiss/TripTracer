@@ -16,7 +16,7 @@ assert '(property "MPN" "CRCW1206715KFKEA"' in sch
 assert '(property "Reference" "C311"' in sch and '330nF 100V X7R AEC-Q200 CTR REV4' in sch and 'C1206C334K1RACAUTO' in sch
 assert '(property "Reference" "C308"' in protect and '(property "Reference" "C312"' in protect
 assert protect.count('10uF 100V VS STARTUP RESERVOIR X7R REV4')==2
-assert protect.count('KAF55CR72A106KV')==2
+assert protect.count('(property "MPN" "KAF55CR72A106KV"')==2
 assert '3.3k 2512 PULSE CANDIDATE' in protect
 RVS=9900.0
 RTOP=715e3
