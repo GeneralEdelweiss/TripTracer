@@ -21,9 +21,9 @@ assert '(property "Reference" "F302"' not in sch, "separate aux fuse reintroduce
 assert "VIN_PROTECTED_UNFUSED" in sch
 assert sch.count('(property "MPN" "CRCW25123K30FKEGHP"') == 3, "must have R313-R315 vendor MPN"
 assert d["controller"] == "LM74930QRGERQ1"
-assert d["load_dump_design_target_v"] == 202
+assert d["load_dump_design_target_v"] == 200
 
-VIN, DURATION = 202.0, 0.350  # Conservative rectangular PEAK stress, NOT actual ISO waveform.
+VIN, DURATION = 200.0, 0.350  # Conservative rectangular PEAK stress, NOT actual ISO waveform.
 R_EACH, N = 3300.0, 3
 def vs_case(zener_voltage, multiplier=1.0):
     each = R_EACH * multiplier
@@ -48,11 +48,11 @@ uv_top = d["assumptions"]["UV_Rtop_ohm"]
 ov_bot = d["assumptions"]["OV_Rbottom_ohm"]
 uv_bot = d["assumptions"]["UV_Rbottom_ohm"]
 divider = {
-    "ov_each_750k_v_at_202v_nom": round(VIN*(ov_top/2)/(ov_top+ov_bot), 2),
-    "uv_each_750k_v_at_202v_nom": round(VIN*(uv_top/2)/(uv_top+uv_bot), 2),
-    "ov_each_750k_peak_w_at_202v": round((VIN/(ov_top+ov_bot))**2*(ov_top/2), 5),
+    "ov_each_750k_v_at_200v_nom": round(VIN*(ov_top/2)/(ov_top+ov_bot), 2),
+    "uv_each_750k_v_at_200v_nom": round(VIN*(uv_top/2)/(uv_top+uv_bot), 2),
+    "ov_each_750k_peak_w_at_200v": round((VIN/(ov_top+ov_bot))**2*(ov_top/2), 5),
 }
-assert 95 < divider["ov_each_750k_v_at_202v_nom"] < 105
+assert 95 < divider["ov_each_750k_v_at_200v_nom"] < 105
 
 # Vishay SQM10250E_GE3 250V AEC-Q101, specified maxima at VGS=10V.
 # Hot RDS values are measured in short-pulse datasheet conditions, not 350ms SOA.
@@ -147,7 +147,7 @@ assert '"Q1_GATE"' not in sch, "must no longer connect via 100ohm resistor"
 
 result = {
     "scope": "ANALYTICAL_SAFETY_SCREEN_VISHAY_3P3K_CANDIDATE_NO_HARDWARE_OR_PULSE_PART_QUALIFICATION",
-    "kinetic_model": "202V held as rectangular peak for 350ms, deliberately harsher than an ISO load-dump waveform; ignores wiring/source impedance and dynamic clamping",
+    "kinetic_model": "200V held as rectangular peak for 350ms, deliberately harsher than an ISO load-dump waveform; ignores wiring/source impedance and dynamic clamping",
     "vs_feed": vs,
     "hg_overvoltage_gate_derived_screen":gate_screen,
     "ov_uv_top_dividers": divider,
@@ -155,11 +155,11 @@ result = {
     "vs_9v_at_hypothetical_0p65ma_typical_iq_v_no_boost": round(vs9_hypothetical, 2),
     "status": "BLOCKED: NO_RVS_MPN_PULSE_CURVE; Q301_SOA_GATE_CHARGE_PCB_THERMAL_HOT_LEAKAGE; 9V_DYNAMIC_START; ZENER_TVS_PULSE",
     "next_proofs": [
-        "C307 effective 250V 10nF vs gate absolute HV excursions, transient 202V case and board tracking",
+        "C307 effective 250V 10nF vs gate absolute HV excursions, transient 200V case and board tracking",
         "C303 KEMET 470nF 100V X7R AEC-Q200: obtain vendor K-SIM effective C under 14.1V, full temperature, aging; confirm >=100nF (TI explicit min exceeds 95.7nF 10xCiss); verify 9V startup",
         "R320+CdVdt C307 nominal startup inrush and HGATE dynamic off/SOA lab validation",
         "manufacturer 350ms pulse power and voltage curves for three actual VS resistor MPNs at max temperature, including repeated pulses",
-        "Q301 real gate VGS, RDS(T), board RthJA and switching/inrush/202V SOA; choose replacement if needed",
+        "Q301 real gate VGS, RDS(T), board RthJA and switching/inrush/200V SOA; choose replacement if needed",
         "D301 zener clamp tolerance and surge power versus temperature; Q302 voltage/gate stress; RAW OV/UV divider pulse and leakage",
         "SPICE/bench 9V enable, A->VS boost and chargepump under 5V/2A plus extra raw 1A load",
         "main fuse coordination and both-output interconnect current/I2t including FET-short single fault"
