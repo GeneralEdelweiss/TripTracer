@@ -1,0 +1,51 @@
+name: TripPower C Round11 pinned real A23 BOM procurement audit - NO FAB
+on:
+  push:
+    branches: ["design/trippower-c"]
+    paths:
+      - ".github/workflows/trippower-c-rev6-round11-a23-procurement.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_round11_a23_cost_audit.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND11_A23_Q201_MLCC_BUCK_PROCUREMENT_2026-10-16.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pinned-a23-source-pricing-only:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Weg C branch (source under test)
+        uses: actions/checkout@v4
+      - name: Checkout pinned independent A23 commit (NOT a parallel PCB)
+        uses: actions/checkout@v4
+        with:
+          repository: GeneralEdelweiss/TripTracer
+          ref: f30f35d404e6ba549ee6202c46d660f498c36545
+          path: a23-source
+          sparse-checkout: |
+            hardware/modules/TripPower_REV6_A/REV6_A_FACTORY_OVP_23_PART_ORDER_BOM_2026-10-16.csv
+            hardware/modules/TripPower_REV6_A/01_TPS26631_REV6_FACTORY_OVP.kicad_sch
+            hardware/modules/TripPower_REV6_A/02_5V_LMR38020_FACTORY_OVP.kicad_sch
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Audit exact A23 SHA, all 23 MPN/ref/footprints, price math and variant status
+        run: |
+          python3 hardware/modules/TripPower_5V2A/weg_c/rev6_round11_a23_cost_audit.py \
+            --bom a23-source/hardware/modules/TripPower_REV6_A/REV6_A_FACTORY_OVP_23_PART_ORDER_BOM_2026-10-16.csv \
+            --protection a23-source/hardware/modules/TripPower_REV6_A/01_TPS26631_REV6_FACTORY_OVP.kicad_sch \
+            --buck a23-source/hardware/modules/TripPower_REV6_A/02_5V_LMR38020_FACTORY_OVP.kicad_sch \
+            --output round11-a23-cost-audit.csv
+      - name: Archive calculated comparison, not new A23 source
+        uses: actions/upload-artifact@v4
+        with:
+          name: C-Round11-A23-pinned-BOM-cost-matrix
+          path: round11-a23-cost-audit.csv
+      - name: Explicit electrical release prohibition
+        run: |
+          echo "This CI checks only quoted BOM arithmetic and drawn fitted-reference presence."
+          echo "No independent KiCad10 ERC/netlist or PCB DRC was executed here."
+          echo "Toshiba Q201, MLCC Ceff/ESR/ESL and 58V transients are NOT qualified."
+          echo "PCB, host RAW/temp, external harness fuses and 5V2A +60C are not released."
