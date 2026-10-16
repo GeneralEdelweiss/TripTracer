@@ -29,7 +29,8 @@ jobs:
           kicad-cli version | tee reports/a23-integrated/kicad-version.txt
       - name: Native KiCad 10 system ERC
         run: |
-          kicad-cli sch erc --severity-all --exit-code-violations --format json -o reports/a23-integrated/erc.json hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch || { cat reports/a23-integrated/erc.json; exit 1; }
+          kicad-cli sch erc --severity-all --format json -o reports/a23-integrated/erc.json hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch
+          python3 tools/check_trippower_a23_integrated_erc.py reports/a23-integrated/erc.json
       - name: Native integrated XML netlist BOM and pin semantics
         run: |
           kicad-cli sch export netlist -o reports/a23-integrated/native.net hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch
