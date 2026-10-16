@@ -64,7 +64,7 @@ def verify(s):
     # may be fitted to the 25-position module. Optional PPTC is ONLY in
     # an independently verified research netlist, never in this main build.
     assert not {r for r in actual_refs if r.startswith("F") and len(r)>1 and r[1].isdigit()}, "Unexpected TripPower fuse / PPTC in baseline"
-    placed_library_symbols=re.findall(r'\\(symbol \\(lib_id "([^"]+)"',a)
+    placed_library_symbols=re.findall(r'\(symbol \(lib_id "([^"]+)"',a)
     assert not any(any(tag in name.upper() for tag in ("FUSE","PPTC","HOLDER","THERMAL_CUTOFF")) for name in placed_library_symbols), "Unexpected fuse/PPTC/holder component placed on TripPower main circuit"
 
     assert all("BAT" not in n for n in ("BUCK_PG_STATE","PWR_OK_SINK_FAIL_RELEASE"))
