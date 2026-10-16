@@ -13,6 +13,10 @@
 - Drei native KiCad10 BOM-Exports über die gesamte Root-Hierarchie in CI: `reports/rev6-a-entire-native-bom.csv` (25), `reports/rev6-67F080-native-bom.csv` (26), `reports/rev6-RAW-PPTC-native-bom.csv` (26). Erfolgreiche Export-Logeinträge explizit geprüft. **Alle drei gelten jeweils nur für ihre eigene Variante, die beiden Zusatzoptionen nicht gemeinsam.**
 - CI-Artefakt mit JSON/ERC/Netzlisten/BOM/Simulation: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38860188766 . Kein PCB/DRC, da kein PCB angelegt.
 
+## Späteres erfolgreiches F_MAIN-/PWR55-Regressions-Gate
+
+**Getesteter Commit `a0771bc4c097ee7c28fe469ffd0b78279a0aada9`**, [GitHub Actions Run 38860575434](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38860575434), Job **116841689581**, status `completed/success`; Joblogs geprüft: **14/14 Tests**, **dreimal KiCad10 ERC 0**, nativer Hauptnetzlisten-Guard `no_replaceable_or_one_shot_fuse_or_holder_on_tripPower:true`; Sensata- und RAW-PPTC-Alternativdifferenzen unverändert **true** und **alle drei** native KiCad-Stücklisten erfolgreich exportiert. Der neue Guard prüft **bestückte KiCad-Symbole/Teile**, nicht verbotene Textworte wie `F_MAIN` in der korrekten Beschreibung externer Leitungssicherung. Dies verhindert falsche Freigaben und ebenso Fehlalarme durch die offboard-Pflicht.
+
 ## Gesicherte Aussagen und harte Stopps
 
 **Verbessert:** OVP RISING 32,334..33,996V, FALLING29,967..31,943V (Modell ±0,1% 25ppm, ±150nA und TI Sense Ecken). Main-OVP-Wiederanlauf bei **exakten stabilen 32,000V** ohne positive Welligkeit nur **~57mV worst-case** Reserve – **kein garantierter dynamischer Neustart**.
