@@ -43,6 +43,10 @@ def run(native,output,summary):
     if ref=="L101":expected="TripPowerFP:L_Bourns_SRP7050TA_150M"
     assert native_footprint==expected,("native KiCad Footprint mismatch",ref,native_footprint,expected)
     result.append(["A23_CORE",ref,"1",v["manufacturer"],v["mpn"],v["KiCad_footprint"],*[v[z] for z in COST],"A23_VENDOR_QUOTE_NOT_FAB"])
+   elif ref=="R950":
+    assert source_mpn(ref)=="AC1206FR-0710KL","Default-off 10k manufacturer MPN mismatch"
+    assert item["Footprint"]=="Resistor_SMD:R_1206_3216Metric","R950 footprint changed"
+    result.append(["A23_INTEGRATION_EXTRA",ref,"1","Yageo","AC1206FR-0710KL",item["Footprint"],"","","","LOCAL_SHDN_PULLDOWN_UNQUALIFIED_BENCH_ONLY"])
    else:
     v={key:str(value) for key,value in item.items()}
     mpn=v.get("MPN","").strip()
@@ -57,8 +61,10 @@ def run(native,output,summary):
   w=csv.writer(f);w.writerow(HEAD);w.writerows(result)
  prices={q:f"{sum((Decimal(row[6+i]) for row in result if row[0]=='A23_CORE'),Decimal(0)):.4f}" for i,q in enumerate(COST)}
  assert [prices[z] for z in COST]==["20.2570","13.5610","10.6266"],prices
- status={"A23_core_populated":23,"host_populated":len(found)-23,"offboard_not_fitted":4,
+ status={"A23_core_populated":23,"offboard_not_fitted":4,
     "A23_vendor_EUR_exVAT_module_at_quantities_1_10_100":[prices[z] for z in COST],
+    "A23_integration_extra_populated":1,
+    "host_populated":len(found)-24,
     "host_unpriced_missing_MPN_refs":sorted(host_missing),"complete_host_cost_EUR":None,
     "module_core_only_no_mounting_shipping_VAT":True,"all_required_host_85C_RAW_controls_present":False,
     "no_production_release":True}

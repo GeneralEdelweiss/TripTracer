@@ -11,6 +11,9 @@ def verify(net,bom):
     for ref,p,n in [("U921","1","EFUSE_IN"),("U921","6","VIN_FUSED"),("U921","8","GND"),
                     ("U921","12","GND"),("U921","16","GND"),
                     ("U921","18","VIN_PROTECTED_UNFUSED"),
+                    ("U921","13","A23_SHDN_SAFE_EN"),
+                    ("R950","1","A23_SHDN_SAFE_EN"),("R950","2","GND"),
+                    ("TP950","1","A23_SHDN_SAFE_EN"),
                     ("U101","2","VIN_PROTECTED_UNFUSED"),
                     ("TP502","1","5V_OUT"),("Q501","3","PWR_OK_SINK_FAIL_RELEASE"),
                     ("U201","5","PWR_OK_SINK_FAIL_RELEASE"),
@@ -53,6 +56,8 @@ def verify(net,bom):
       "ambient85_fail_safe_proven":False,"physical_m8_terminal_integration":False,
       "PWR_FAIL_at_MCU_with_host_pullup":True,
       "host_status_pullup_R907_10k_AEC_Q200":True,
+      "integration_only_local_SHDN_default_OFF_pulldown_R950":True,
+      "SHDN_signal_requires_separate_0_3p3V_valid_host_interlock":True,
       "host_M8_source_pins_present_but_deliberately_unpowered":True,
       "measurable_A23_HV_gate_and_buck_pads":True,
       "PCB_present":False,"vehicle_fab_release":False}
