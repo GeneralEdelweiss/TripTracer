@@ -13,6 +13,10 @@ on:
       - 'tools/check_trippower_a_rev6_thermo_netlist.py'
       - 'tools/check_trippower_a_rev6_raw_pptc_netlist.py'
       - 'tools/check_trippower_a_rev6_procurement.py'
+      - 'tools/trippower_a_rev6_factory_ovp.py'
+      - 'tools/test_trippower_a_rev6_factory_ovp.py'
+      - 'tools/check_trippower_a_rev6_factory_native.py'
+      - 'tools/check_trippower_a_rev6_factory_procurement.py'
       - '.github/workflows/trippower-a-rev6.yml'
   workflow_dispatch:
 
@@ -45,6 +49,8 @@ jobs:
           python3 tools/trippower_a_rev6_limits.py > reports/rev6-source-bounds.json
           python3 tools/trippower_a_rev6_ringing.py > reports/rev6-58V-input-ringing-sensitivity.json
           python3 tools/trippower_a_rev6_buck_thermal_envelope.py > reports/rev6-5V2A-buck-coil-ripple-thermal-gate.json
+          python3 -m unittest discover -s tools -p 'test_trippower_a_rev6_factory_ovp.py' -v 2>&1 | tee reports/rev6-factory-ovp-tests.log
+          python3 tools/trippower_a_rev6_factory_ovp.py > reports/rev6-factory-ovp-vendor-stress.json
       - name: Early native netlist audit of power source and 5V domains
         run: |
           kicad-cli sch export netlist -o reports/rev6-a-before-ERC.net \
@@ -115,6 +121,22 @@ jobs:
           python3 tools/check_trippower_a_rev6_procurement.py \
             reports/rev6-a-entire-native-bom.csv \
             | tee reports/rev6-a-exact-MPN-euro-procurement.json
+      - name: Native KiCad10 isolated factory-OVP 23-part ERC
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/rev6-a-factory-23-erc.json \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A_FACTORY_OVP.kicad_sch \
+            || { cat reports/rev6-a-factory-23-erc.json; exit 1; }
+      - name: Verify factory OVP native nets and full 23-part procurement
+        run: |
+          kicad-cli sch export netlist -o reports/rev6-a-factory-23.net \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A_FACTORY_OVP.kicad_sch
+          python3 tools/check_trippower_a_rev6_factory_native.py reports/rev6-a-factory-23.net \
+            | tee reports/rev6-a-factory-23-native-pins.json
+          kicad-cli sch export bom -o reports/rev6-a-factory-23-bom.csv \
+            hardware/modules/TripPower_REV6_A/TripPower_REV6_A_FACTORY_OVP.kicad_sch
+          python3 tools/check_trippower_a_rev6_factory_procurement.py reports/rev6-a-factory-23-bom.csv \
+            | tee reports/rev6-a-factory-23-costs.json
       - name: Preserve detailed source & ERC evidence
         if: always()
         uses: actions/upload-artifact@v4
