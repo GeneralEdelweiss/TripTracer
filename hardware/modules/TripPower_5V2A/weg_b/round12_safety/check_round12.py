@@ -51,7 +51,7 @@ VALUES={"R301":"180k","R302":"100k","R303":"24.9k","R304":"10k","R305":"100k","R
 SROOT=Path("hardware/modules/TripPower_5V2A/weg_b/round12_safety")
 def check(netlist,bom):
     doc=ET.parse(netlist).getroot()
-    comps={c.get("ref"):c for c in doc.findall("./components/comp") if __import__("re").fullmatch(r"[UQRCD]\\d+",c.get("ref") or "")}
+    comps={c.get("ref"):c for c in doc.findall("./components/comp") if __import__("re").fullmatch(r"[UQRCD]\d+",c.get("ref") or "")}
     assert len(comps)==len(EXPECT)==30,(len(comps),len(EXPECT))
     assert set(comps)==set(EXPECT), sorted(set(comps)^set(EXPECT))
     pins={}
