@@ -1,0 +1,4 @@
+(fp_lib_table
+ (lib (name "Tripmaster")(type "KiCad")(uri "${KIPRJMOD}/../Tripmaster.pretty")(options "")(descr "Host footprints"))
+ (lib (name "TripPowerFP")(type "KiCad")(uri "${KIPRJMOD}/../../modules/TripPower_REV6_A/Tripmaster.pretty")(options "")(descr "A23 eFuse and Bourns footprints"))
+)
