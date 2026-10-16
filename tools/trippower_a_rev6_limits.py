@@ -4,31 +4,31 @@
 Vendor: TI TPS2663 RevG p6 (OV/UV 1.176..1.224V, leak +-150nA,
 Ilimit R=k/I eq8, 60V operating, 67V ABS), TI LMR38020-Q1 80V operating
 85V absolute. Divider nodal KCL accounts for independent UV and OV leak.
-Resistors AC1206 1% +/-100ppm/K assumed; TCR manufacturer verify exact MPN.
+Resistors Yageo RT1206 BRD 0.1% +/-25ppm/K vendor rated; independent corner model.
 """
 import json
-R1,R2,R3=402000.0,49900.0,16500.0
-RSTOL=.01
-TCR=.0001
+R1,R2,R3=100000.0,12400.0,4220.0
+RSTOL=.001
+TCR=.000025
 LEAK=150e-9
 def voltage_threshold(kind,corner):
     """Independent resistor anti-correlated corners, -20..+70C for free air."""
     if corner=="typ":
         r1,r2,r3=R1,R2,R3
-        v=1.2;iuv=iov=0.
+        v=1.122 if kind=="ovp_falling" else 1.2;iuv=iov=0.
     else:
         tdelta=45.
         scale=RSTOL+TCR*tdelta
-        if kind=="ovp":
+        if kind in ("ovp","ovp_falling"):
             s=1 if corner=="max" else -1
             r1,r2,r3=R1*(1+s*scale),R2*(1+s*scale),R3*(1-s*scale)
         elif kind=="uvlo":
             s=1 if corner=="max" else -1
             r1,r2,r3=R1*(1+s*scale),R2*(1-s*scale),R3*(1-s*scale)
         else:raise ValueError(kind)
-        v=1.224 if corner=="max" else 1.176
+        v=(1.15 if corner=="max" else 1.09) if kind=="ovp_falling" else (1.224 if corner=="max" else 1.176)
         iuv=iov=LEAK*(1 if corner=="max" else -1)
-    if kind=="ovp":
+    if kind in ("ovp","ovp_falling"):
         return v*(1+(r1+r2)/r3)+iov*(r1+r2)+iuv*r1
     if kind=="uvlo":
         return v*(1+r1/(r2+r3))+iov*r1*r3/(r2+r3)+iuv*r1
@@ -65,11 +65,14 @@ def study():
     return {
       "authority":"TRIPPOWER REV6 2026-10-15, not REV5",
       "new_two_sheet_project":"hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch",
-      "range_10_32":{k:{c:voltage_threshold(k,c) for c in ("min","typ","max")} for k in ("uvlo","ovp")},
-      "R1_402k_R2_49p9k_R3_16p5k_MPN":["AC1206FR-07402KL","AC1206FR-0749K9L","AC1206FR-0716K5L"],
+      "range_10_32":{k:{c:voltage_threshold(k,c) for c in ("min","typ","max")} for k in ("uvlo","ovp","ovp_falling")},
+      "R1_100k_R2_12p4k_R3_4p22k_MPN":["RT1206BRD07100KL","RT1206BRD0712K4L","RT1206BRD074K22L"],
       "10_32_logic":{
         "ovp_does_not_trip_at_32_on_resistor_vendor_sensitivity":voltage_threshold("ovp","min")>32,
         "ovp_trips_by_36_on_resistor_vendor_sensitivity":voltage_threshold("ovp","max")<36,
+        "ovp_restart_at32_no_overshoot_sensitivity":voltage_threshold("ovp_falling","max")<32,
+        "ovp_32V_recovery_pin_margin_v":32-voltage_threshold("ovp_falling","max"),
+        "restart_requires_stable_effective_IN_SYS_at_most32_no_positive_transients":True,
         "uvlo_releases_before_10_on_sensitivity":voltage_threshold("uvlo","max")<10,
         "overshoot_and_restart_TIMING_verified":False,
       },
