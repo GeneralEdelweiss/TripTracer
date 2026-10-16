@@ -1,0 +1,69 @@
+# Weg A – REV6 Entwicklungsrunde 16.10.2026: OVP-Restart, 58V, Temperatur und RAW
+
+**Status:** Isolierte 25-Positionen-REV6-A-Architektur auf `design/trippower-a` **beibehalten und korrigiert**; zwei **getrennte, jeweils 26-Positionen**-Versuchsblätter für Temperaturschutz und RAW-PPTC. **Keine Fertigungs- oder Fahrzeugfreigabe.** Es gibt kein TripPower-PCB → **kein PCB-DRC möglich**. REV5 und andere Branches unverändert.
+
+**Vorgaben zuerst abgeglichen:** `AGENTS.md`, `docs/TRIPPOWER_V1_PRACTICAL_REQUIREMENTS_REV6_2026-10-15.md`, `docs/TRIPPOWER_FUSE_PLACEMENT_DECISION_2026-10-16.md`, PWR44–56, `docs/TRIPPOWER_ALL_BRANCHES_REVIEW_REV6_2026-10-16.md` aus `design/trippower-review`; frühere A-REV6-A-Berichte und originäre KiCad10-Schaltplan- und BOM-Dateien.
+
+## 1. Hersteller-OVLO mit garantiert modelliertem 32-V-Restart
+
+Der *alte* 402k/49.9k/16.5k-Abschaltteiler war für den bei32V verlangten **Wiederanlauf** nicht nachgewiesen. TI TPS2663 RevG §6.5: `OVP_RISING = 1.176 /1.200 /1.224 V`, `OVP_FALLING = 1.09 /1.122 /1.15 V`, Pinleckströme `±150 nA`. Beide Kanten sind separat auszuwerten, inkl. unterschiedlicher Leckstromrichtungen und Widerstandsecken. Quellen: https://www.ti.com/lit/ds/symlink/tps2663.pdf .
+
+**In der 25er-Haupt-KiCad-Schaltung ersetzt**: R201=**Yageo `RT1206BRD07100KL`** 100k 0.1%/25ppm/K, R202=**`RT1206BRD0712K4L`** 12.4k, R203=**`RT1206BRD074K22L`** 4.22k, alle 1206, 0.25W, −55..+125°C. Exakte Hersteller-MPNs und aktuelle Distributoren gelistet; Originale **nicht** weiter benutzen. Model `tools/trippower_a_rev6_limits.py` setzt Worst-TOL±0.1%, unabhängige TCR-Ecken ±25ppm/K von25 auf70°C, ±150nA Pinleck und Min/Max-Sense an; falsifizierbares konservatives Rechteck, kein Ersatz aller spannungs-/alterungsbedingten Leiterplatteneinflüsse.
+
+| Fall | Rising in V | Falling in V | Aussage |
+| --- | ---: | ---: | --- |
+| Minimum | **32.3342** | **29.9673** | 32V ON außerhalb OV an der Schaltschwelle |
+| Typisch | **33.1621** | **31.0065** | ~2.16V Hysterese bei typ. Eingang |
+| Maximum | **33.9961** | **31.9427** | **32V-Restart-Reserve statisch nur +57.3mV** |
+
+UVLO an R201/R202/R203 Modell max **8.6389V** → kein Garant für 10V-Start unter voller Systemlast; notwendige eFuse/Buck-Min- und Last-Einbrüche prüfen. Die Modellmarge zum 32V-Restart gilt **am realen IN_SYS/OVP-Pin**, inklusive Upstream-Ground-Shift, Leitungsinduktivität, transientem Ringing/Filter, Spannungstoleranz der **tatsächlichen stabilen** Fahrzeugquelle, OV-Fault-Latch und Restart-Timern. Kein Auto-Restart als mit Hardware belegt behaupten; reale 32V-Schwelle bei heiß/kalt durchgemessen vor Freigabe.
+
+## 2. 58V / 350ms — echte Pin-Marge statt fiktiv passender TVS
+
+Der **TI TPS26631PWPR** hat **4.5..60V empfohlene VIN** und **67V absolute** maximale Input-Bewertung (kurze 75V/10ms-Daten sind **keine 350ms-Zulassung**). Ein direkt an der M8-Klemme begrenzter Puls von 58V lässt **2V Betriebs- und 9V absolute Spanne am eFuse-Pin**. Die TI **LMR38020-Q1** besitzt dagegen bis80V regulären Eingang: nach eFuse-internem Kurzschluss 58V grundsätzlich unter dem Buck-VIN-Betriebsmaximum, aber seine übrigen Ports/Lasten sind damit **nicht** automatisch geschützt.
+
+Reproduzierbare kritische Beispielsensitivität in `tools/trippower_a_rev6_ringing.py`: 32→58V Eingangssprung, Leitung 0.5µH, 1µF lokales Cin, Rseries0.05Ω → ungedämpftes ideales Erstmaximum **~81.3V**, deutlich über TPS26631 abs67V. Diese RLC-Rechnung ist *keine* Fahrzeugpuls-Messung und kein garantierter realer Wellenverlauf. Eine zusätzliche **1Ω** Serien-Dämpfung wäre bei modellierten10V/5V2A/RAW0.5A (η80%, Iin1.75A) bereits **3.0625W** Verlust und **1.75V** Drop → als triviale Einbaulösung abgelehnt. Ein konventioneller **58V-Durchbruch-TVS** kann unter Hersteller-/Temp-/Pulsmargen nicht automatisch garantieren, bei Pulsenergie unter60V zu klemmen; nicht blind zusätzlichen TVS bestücken.
+
+**Nächster konkreter Hardware-Gate:** R_src/L_src des real zentral begrenzten Fahrzeugs und Stecker-/Board-/Ceff-Spektrum bestimmen, 10–32V-Eingangsüberträge bei abgeschaltetem OUT sowie 36V/400ms und begrenztem 58V/350ms aufzeichnen. **Max PIN-TPS26631 ≤60V** über gesamten Pulse/Ringing/Bounce plus L*di/dt ist **vor Übernahme ein verbindlicher Nachweis**. Falls dieser mit minimaler RC/Low-ESL-Filterung nicht reproduzierbar gelingt: **Architekturwechsel zu ≥80V/100V geeignetem Schutzcontroller** erwägen, nicht 60V-IC per Zusatz-Zener kostspielig retten. Auch eFuse-Ausgang 0V bei OVP und überlebendes Reverse-Q201/Drain/Pad-/MLCC65V und RAW auf dem Board messen.
+
+## 3. +85°C thermisch abschalten — ein echtes Ein-Bauteil-Forschungsblatt statt 3.3V-Zirkelschluss
+
+Die interne TPS26631-Thermalabschaltung schützt **nur seine eigene TJ** (typ. ~165°C), **keine** fest definierte **+85°C-Umgebung**. Ein TMP302-Q1 an der ausgeschalteten **Buck-3V3-Domäne** verliert beim Ausschalten seine Versorgung und kann ungeordnet takten; ohne eigenständige vorgelagerte 3V3 und Logik kein Hersteller-nachgewiesener sicherer Zustand.
+
+Ein einzelner **Sensata `67F080`** (TO220, *normally open*, Schließen bei **75–85°C lokaler Sensortemperatur**, laut Hersteller 80°C±5°C; bei ungefähr55°C wieder OFF) kann `U201.SHDN13` beim Heißwerden direkt nach GND ziehen, **ohne 3V3-Hilfsspannung**. Hersteller: https://www.sensata.com/sites/default/files/a/sensata-6700-series-subminiature-bimetal-disc-thermostats-datasheet.pdf , Lieferangebot Mouser EUR netto **7.85 /7.67 /6.91** bei 1/10/100, Bestand rund446. VDE/UL-Goldkontakt spezifiziert u.a. **10mA @ 5V Low-Level**, TPS26631 `SHDN` interner Pullup jedoch nur **2.7V/1MΩ → ~2.7µA**, eine ca.3700-fach niedrigere Kontaktstromklasse! Deshalb **nicht als qualifizierter 85°C-Sicherheitsausgang freigegeben** ohne schriftliche Hersteller-/Hot-/Vibration-/Alterung-µA-Schaltdaten. Temperaturdifferenz zwischen Thermostat-Kontakt, Geräteluft, Kühlplatte und PCB sowie Kontaktöffnung/Restart messen.
+
+**Isolierte native KiCad10-Variante:** `01_TPS26631_REV6_67F080_THERMAL_RESEARCH.kicad_sch`, `T201` + Portables Symbol/Herstellermaßen angenäherter 5.08mm-THT-Footprint, ein zusätzliches Gerät → **26** Bestückpositionen. Die aktive 25er-Baseline bleibt unverändert. Ein Typ und seine Größe/Kosten zu berücksichtigen, ist mehr wert als unbelegte 85°C-Schlussbehauptungen.
+
+## 4. Geschützter RAW/0.5A-Zweig — zulässiger selbst rückstellender 72V-PPTC
+
+Bisher eFuse **~3A global** mit gemeinsamer RAW-Schiene; ungeschützte Abzweigkabel, die nur0.5A erwarten, könnten bei RAW-Kurzschluss langzeitig **bis3A** aus dem ganzen Modul sehen. Kein Sicherungshalter/F_MAIN auf TripPower gemäß PWR55; **eine** selbst rückstellende Automotive-SMD-PPTC auf dem RAW-Abzweig ist nach PWR56 zulässig, sofern qualifiziert.
+
+Konkreter beschaffbarer Kandidat **Bourns `MF-LSMF075/72X-2`**, 2920 SMD, **72V Vmax**, Ihold 23°C **0.75A**, 60°C **0.50A**, 70°C **0.44A**; Itrip 23°C ~1.5A; Imax bei Vmax20A; Rmax (nach Trip)1Ω, **max Stromzeit/Hot-Watt bleiben vom Hersteller abhängig**. Herstelldaten https://bourns.com/docs/product-datasheets/mf-lsmf.pdf , Mouser EU in-stock ~3200, EUR netto **0.869/0.652/0.478** bei1/10/100. Bei **+60°C exakt Null Haltestromreserve** (auch PCB-Erwärmung) und +70°C max0.44A, daher **keine unbedingte RAW0.5A-Freigabe bis70°C**. RAW-0.5A als Ziel bis60°C, dann Derating und 0.5A-Dauerlast-Selbstheizung qualifizieren; bei 20A Eingangsstrom und 58V Pinpotential nach MOSFET-Fehler kein Kurz-/Langzeitgarantietest vorhanden.
+
+**Isolierte native KiCad10-Alternative** `01_TPS26631_REV6_RAW_PPTC_RESEARCH.kicad_sch` setzt **nur eine PPTC F201** in Serie mit `RAW_AUX_AFTER_PPTC_0P5A` vor Pad TP202, **Buck bleibt an eigener Hauptschiene vor F201**. Exakte Hersteller-footprint 2920 custom in `Tripmaster.pretty`; normale eFuse-/Buck-Pfade **elektrisch identisch**. **26** Bestückpositionen, 25er-Referenz bleibt 25. Kein Schmelzsicherungsteil und kein Halter auf Modul. Serien-/Heißshort und Fehlanschluss-Tests vor Transfer.
+
+**WICHTIG PWR56:** Die beiden Versuchsvarianten werden **nicht stillschweigend addiert**. Der gemeinsame 27-Positionen-Ansatz wäre ohne gesonderte PWR56-/Mechanik-/Materialfreigabe unzulässige kumulierte Schutzfunktion und ist **kein Schaltplan-Prototyp**.
+
+## 5. ACC/RUN/HOLD, USB, PWR_FAIL, externe Sicherungen und FRAM-first
+
+- **Nach außen:** TripPower hat eine abgesicherte *von der TripTracer-Hauptplatine über das MCU-HOLD-Relais zugeschaltete* Versorgungsleitung (`VIN_FUSED` historischer NETNAME, ausdrücklich **keine Modul-Sicherung**), GND, MAIN_5V2A, RAW-Abzweig (0.5A Entwicklungsziel) und `PWR_OK_SINK_FAIL_RELEASE`. Das Relais, getrennte **quellnahe** BAT+ und ACC-Sicherungen, M8 und deren Sicherungshalter gehören zum **Fahrzeug-/TripTracer-Hauptplatinenvertrag**, nicht zur TripPower-BOM. Die eine optionale TripTracer-Sicherung erhöht nie TripPower-Bestückpositionen.
+- **ACC-AUS:** wenn BAT+ vorhanden, muss Relais/MCU-HOLD von TripTracer weiter speisen bis SD-Unmount/Timeout; TripPower bekommt weiterhin nur zugeschaltetes VIN; beim harten GND/M8-Ausfall **keine Frühwarnzeit garantiert**.
+- **PWR_FAIL:** U101 LMR38020-Q1 PG6 (Open-Drain), R501100k zu5V_OUT, R5021M nach GND, Q501 `BVSS123LT1G` N-MOS Gate=PG, S=GND, D=`PWR_OK_SINK_FAIL_RELEASE`; TripTracer **separates**3V3-Logik-Pullup, LOW=Main OK/HIGH=fail/abgezogen. GPIO und USB/RTC/ACC/BAT haben **keine** direkten Rückspeisepfade durch Q501; Pinleckage und Host-Power-Mux bei USB-only und VIN0/RUN-high testen. PG fällt ggf. erst nach bereits abgesunkener5V-Schiene; **niemals SD-Flush versprechen**.
+- **USB/M8:** PC speist nur über isolierten USB-Service-Pfad auf **TripTracer**; niemals VIN_PROTECTED/RAW/5V-Rückstrom aus VBUS. Gleichzeitiges M8+USB priorisiert M8, USB-MSC nur nach expliziter Übergabe.
+- **FRAM-first:** laufend atomare CRC-/Seq-/Session-Commits, bei normalem ACC-off Full SD-close, bei M8-loss > 0µs Ausfall erlaubt, Neustart Recovery, RTC-Primärknopfzelle **nicht** direkt an Haupt5V/SD.
+
+## 6. BOM und belegte Beschaffung (nur wirklich bestückte TripPower-Positionen)
+
+`REV6_A_25_PART_ORDER_BOM_2026-10-15.csv` listet 25 MPNs inkl Hersteller/Footprints. **EOL Murata GRM32ER71E226KE15L C104–106** ersetzt durch aktive automotive **Taiyo Yuden `MCAST32MSB7226KPNA01`** 22µF25V X7R1210 (AEC-Q200) – gleiche Footprintklasse, aber **5V DC-Bias-Ceff aus konkretem Diagramm noch nicht nachgewiesen**. C101/C108 **KYOCERA AVX `12101C475K4Z2A`** 4.7µF100V X7R1210/FLEXITERM AEC-Q200; Induktor **Fangcheng `FCH0650-150M`** 15µH5A/Isat5.5A/DCR54mΩ (LCSC C20415538, USD-Verfügbarkeit), Landpattern/Datenblatt-Thermik bisher provisorisch.
+
+**23/25 Positionen** mit EUR-Netto-Distributoren-Staffeln nach Stand16.10.2026 bepreist (keine gemischten USD/CZK-Preise als EUR ausgeben): **bekannte Teilsumme pro Baugruppe 19.389 /12.883 /10.1371€** bei1/10/100, **kein kompletter Einkaufspreis**: `R202` 12.4k Präzisionswiderstand ist zwar bei Mouser CZ in Stückzahlen lagernd, dort nur CZK-Publikation; `L101` lieferbar LCSC **USD** mit Mindestmenge5. Beide fehlen daher in EUR-Summe. Einzelfertigung muss komplette Mengenrabatte und Beschaffungsnebenkosten bei internationalen Bestellungen aktualisieren. Externe Sicherung, Halter, Fahrzeugleitung, TripTracer-Hauptplatine, Batterie und PCB-Kosten sind *nicht* enthalten.
+
+Separate Optionsdatei `REV6_A_2026-10-16_BASE_THERMAL_RAW_PROTECTION_COST_CHOICES.csv`: Thermostat-Alternative 26Teile bekannter Preis **27.239/20.553/17.0471€** (zzgl. unbepreiste R202/L101 und Fremdkosten); PPTC-Alternative 26Teile **20.258/13.535/10.6151€**. **Keine** alte REV5-57/58-Produktion als gleich sicher/qualifiziert behaupten.
+
+## 7. Ausgeführte Tests und Freigabestopp
+
+Verifiziert GitHub Actions REV6 A: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38859420063 , getesteter SHA `581ec242b52ecb9d277e7f209f3c84724a0df9e4`, Job `116838066606` **completed/success**. **14/14 Python Regressionen**, native **KiCad 10 ERC dreimal `Found 0 violations`**, echte Netzlisten: Basis25, nur T201/U201.SHDN13 neuer Thermal-Zweig26, nur F201/TP202 neuer RAW-Zweig26, BOM-Export Basis25. Runner-Artefakte mit ERC-JSON, Modellgrenzen, Differenz-Netzlisten, optionalen Schaltplan-Kopien und BOM hochgeladen. Datum16.10.2026. Hauptschaltplan enthält **keine** F_MAIN/Polyfuse/Schmelzsicherung und wurde gegenüber REV5 nicht überschrieben.
+
+**Harte OPEN/BLOCKER:** (1) Zusicherung 32V Restart dynamisch 10/32V nach OVP, Eingangsspannungsstabilität (kleine ~57mV-Marge). (2) ≤60V an jedem TPS26631 Pin bei realem 58V/350ms inkl Ringing (schon einfacher RL/LC-Modellfall >67V). (3) +85°C OFF mit Herstellerqualifikation Mikroamp-Schalter ODER unabhängiger always-on TI-Thermosensor; bisher keine sichere Übernahme. (4) RAW0.5A Hot/Short/20A/PPTC-Derating/Stecker. (5) 5V2A bei+60°C IC-Tj/Ceff/Isat/PCBCu; magnetisches Layout/EMV. (6) Rückspeiseschutz TripTracer USB5V/BAT/ACC, FRAM-Commit/SD-Recovery, echtes <1mA BAT+-OFF bei 12/24V. (7) finaler MPN-Einkaufswarenkorb, PWP-Footprint (noch `PROVISIONAL`), **kein PCB→kein DRC**, Sicherung-Kabelkoordinierung.
+
+**Entscheidung:** Die 25-Teile-Grundarchitektur bleibt der **führende** und sicherere Ausgangspunkt; drei Hersteller-MPN neu qualifiziert, zwei auf konkreter netlist geprüfte Ein-Bauteil-Alternativen und belastbare dynamische Stop-Gates sind implementiert. Nicht „25 Teile gleich fertiges Produkt“ behaupten. **NO FAB / NO VEHICLE RELEASE**.
