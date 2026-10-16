@@ -78,6 +78,8 @@ Als aus A23 abgeleiteter **standalone D-Messprototyp** soll die A23-Hierarchie *
 - **Sichere Werkstatt-Schnittstellen:** für Strombelastung zugelassener, berührungsgeschützter DC-Eingangs-/Ausgangsverbinder mit mechanischer Zugentlastung und eindeutig getrennten \`GND\`, \`5V\`, \`RAW/OUT\`, \`PWR_FAIL\`; Quell-/Acc-Sicherung liegt **extern**. Kein F_MAIN/Halter/Einmal-Thermoschalter/PPTC ohne Nachweis auf TripPower; DNP-Teile für Untersuchungen sind nicht 23-BOM-Fitted.
 - **Noch kein tatsächlich erzeugtes KiCad-.kicad_pcb/DRC**: Aus einem präzisen Text-Layoutvertrag und elektrischen A23-Sheets kein fertiges Board behaupten. Vor GERBER: ein eigener nachweislich **nativer KiCad10-ERC + footprint-pad/MPN + PCB-DRC + Leiter-/HV-Abstand-/Temperatur-Review**; dann bestücken, bei niedriger Energie einschalten, zuletzt vor jeder Fahrzeugbewertung reale 58V-/Temp-Messung. Ein leeres Board ohne routbare/abgenommene Testpads wäre kein sinnvoller Fortschritt.
 
+**Zusätzlich maschinenlesbarer Layoutvertrag:** [21 KiCad-Netz-/Kelvin-Pad-/DNP-Zuordnungen](ROUND12_A23_LAYOUT_MEASUREMENT_DNP_NET_CONTRACT_2026-10-16.csv). Die Paare enthalten zwingend Q201 D/S/G, Q202 D/S/G, TPS BGATE/DRV jeweils **gegen IN_SYS**, C201 direkt an beiden Lötpads, BOOT−SW, 5V/RAW/PGOOD und DNP-Serien-RC-Pfade mit **eigenen** Zwischen-Netznamen. DNP nicht mit unqualifizierten MPNs bestücken; kein vorhandenes KiCad-Layout/DRC wird durch eine CSV ersetzt.
+
 ## 6. Realer Parameterstand – kein Ceff-/Coss-Wert erfunden
 
 Konkrete **nur belegte** Herstellerinformationen in [\`ROUND12_A23_PARAMETER_PROVENANCE_2026-10-16.csv\`](ROUND12_A23_PARAMETER_PROVENANCE_2026-10-16.csv):
