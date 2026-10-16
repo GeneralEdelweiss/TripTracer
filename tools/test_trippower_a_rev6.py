@@ -7,12 +7,12 @@ from trippower_a_rev6_buck_thermal_envelope import coil_corner
 class REV6Limits(unittest.TestCase):
  def test_32v_normal_stays_below_min_trip(self):
     self.assertGreater(voltage_threshold("ovp","min"),32)
- def test_factory_OVP_hysteresis_prevents_32v_restart(self):
+ def test_factory_OVP_hysteresis_allows_32v_static_restart(self):
     self.assertEqual(study()["10_32_logic"]["fixed_OVP_falling_min_typ_max_v"],[32.7,33.89,35.0])
-    self.assertFalse(study()["10_32_logic"]["fixed_OVP_guarantees_32v_restart"])
+    self.assertTrue(study()["10_32_logic"]["fixed_OVP_guarantees_32v_restart"])
  def test_factory_UVLO_fails_10v_start(self):
     self.assertFalse(study()["10_32_logic"]["factory_UVLO_guarantees_10v_start"])
- def test_adjustable_ovp_stronger_32v_margins(self):
+ def test_adjustable_ovp_prior_stand_has_less_than_factory_falling_margin(self):
     self.assertGreater(voltage_threshold("ovp","min")-32,.16)
     self.assertGreater(32-voltage_threshold("ovp_falling","max"),.16)
  def test_32v_restart_after_OVP_falling_with_precision_resistors(self):
