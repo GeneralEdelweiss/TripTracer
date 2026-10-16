@@ -1,0 +1,48 @@
+name: TripTracer A23 isolated host integration KiCad10 LAB ONLY
+on:
+  push:
+    branches: [design/trippower-a]
+    paths:
+      - 'hardware/kicad/TripTracer_A23_Integration/**'
+      - 'tools/check_trippower_a23_system_integration.py'
+      - '.github/workflows/trippower-a23-system-integration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  a23-integrated-native:
+    runs-on: ubuntu-24.04
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Initialize KiCad
+        run: |
+          mkdir -p reports/a23-integrated "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/a23-integrated/kicad-version.txt
+      - name: Native KiCad 10 system ERC
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json -o reports/a23-integrated/erc.json hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch || { cat reports/a23-integrated/erc.json; exit 1; }
+      - name: Native integrated XML netlist BOM and pin semantics
+        run: |
+          kicad-cli sch export netlist -o reports/a23-integrated/native.net hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch
+          kicad-cli sch export bom -o reports/a23-integrated/native-bom.csv hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch
+          python3 tools/check_trippower_a23_system_integration.py reports/a23-integrated/native.net reports/a23-integrated/native-bom.csv | tee reports/a23-integrated/semantic-test.json
+      - name: Artifacts even if ERC fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tripPower-A23-host-system-lab-native
+          path: reports/a23-integrated
+          retention-days: 14
+      - name: Explicit incomplete safety interface gates
+        if: always()
+        run: |
+          echo 'NO FAB / NO VEHICLE: original A23 untouched, integrated root is bench only; ACC/HOLD default OFF, +85C sensor, RAW0.5A branch limiter, M8 actual connector and 58V pad transients OPEN.' >> "$GITHUB_STEP_SUMMARY"
