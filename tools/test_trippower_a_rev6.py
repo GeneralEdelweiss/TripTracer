@@ -3,6 +3,7 @@
 import unittest
 from trippower_a_rev6_limits import study,voltage_threshold,load_sensitivity,ld_max_envelope
 from trippower_a_rev6_ringing import step_peak,hypothetical_resistor_tradeoff
+from trippower_a_rev6_buck_thermal_envelope import coil_corner
 class REV6Limits(unittest.TestCase):
  def test_32v_normal_stays_below_min_trip(self):
     self.assertGreater(voltage_threshold("ovp","min"),32)
@@ -60,6 +61,13 @@ class REV6Limits(unittest.TestCase):
     c=hypothetical_resistor_tradeoff(1.)
     self.assertAlmostEqual(c["power_dissipation_W"],3.0625,places=4)
     self.assertFalse(c["safe_part_selected"])
+ def test_15uH_vendor_inductor_stays_below_nominal_6a_saturation_screen(self):
+    self.assertLess(coil_corner(10)["inductor_peak_A"],6.)
+    self.assertLess(coil_corner(32)["inductor_peak_A"],6.)
+ def test_coil_is_not_auto_60c_thermal_proven(self):
+    x=coil_corner(32)
+    self.assertGreater(x["inductor_dc_loss_at_92mohm_W"],.36)
+    self.assertFalse(x["thermal_and_magnetic_loss_at_plus60C_PROVEN"])
  def test_legacy_requirements_not_authority(self):
     s=study()
     self.assertIn("REV6",s["authority"])
