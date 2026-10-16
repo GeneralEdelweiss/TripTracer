@@ -19,8 +19,8 @@ class TIManufacturerRound10(unittest.TestCase):
  def test_330k_real_AEC_1pct_100ppm_at_minus20_plus70_plus85(self):
     r=vendor_300k_compliance(R330)
     self.assertTrue(r["minimum_300k_per_datasheet"])
-    self.assertAlmostEqual(r["min_R_ohm"],325215)
-    self.assertAlmostEqual(r["max_R_ohm"],334785)
+    self.assertAlmostEqual(r["min_R_ohm"],324720)
+    self.assertAlmostEqual(r["max_R_ohm"],335280)
     self.assertTrue(R330["automotive_AEC_Q200"])
  def test_single_R_10v_PIN_v_vs_TI_rising_ref(self):
     a=one_resistor_UVLO()
