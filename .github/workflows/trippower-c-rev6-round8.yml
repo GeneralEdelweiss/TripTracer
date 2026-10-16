@@ -1,0 +1,56 @@
+name: TripPower C Round8 TPS26600 reference screening (NO PCB RELEASE)
+
+on:
+  push:
+    branches: ["design/trippower-c"]
+    paths:
+      - ".github/workflows/trippower-c-rev6-round8.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_round8_full_ladder_model.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND8_MATCHED_BOARD_BOM_A25_VS_C23_DRAFT.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND8_ARCHITECTURE_VERDICT_2026-10-16.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  three-res-ladder-and-price:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardware/modules/TripPower_5V2A/weg_c
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact TPS26600 three-res TI ladder and 58V RLC screening
+        run: python3 -m unittest -v rev6_round8_full_ladder_model
+      - name: Print measured-device-gates (numbers are MODEL ONLY)
+        run: python3 rev6_round8_full_ladder_model.py
+      - name: Confirm native A 25 vs unbuilt C 23 comparison, never count offboard
+        run: |
+          python3 - <<'PY'
+          import csv
+          from collections import Counter
+          p="REV6_ROUND8_MATCHED_BOARD_BOM_A25_VS_C23_DRAFT.csv"
+          with open(p,encoding="utf-8",newline="") as f: rows=list(csv.DictReader(f))
+          counts=Counter(x["Architecture"] for x in rows)
+          assert counts=={"A_REV6_NATIVE":25,"C_TPS26600_PROJECTION":23},counts
+          assert {r["CurrentPopulation"] for r in rows if r["Architecture"]=="A_REV6_NATIVE"}=={"ACTUAL_25"}
+          assert {r["CurrentPopulation"] for r in rows if r["Architecture"]=="C_TPS26600_PROJECTION"}=={"UNBUILT_ESTIMATE"}
+          assert {x["OnTripPower"] for x in rows}=={"1"}
+          assert not any("FUSE" in x["Ref"].upper() for x in rows)
+          for arch in counts:
+            subset=[x for x in rows if x["Architecture"]==arch]
+            priced=[x for x in subset if x["UnitEURnet1"]]
+            subtotals=[sum(float(x["UnitEURnet"+k]) for x in priced) for k in ("1","10","100")]
+            print(arch, "count",len(subset),"priced",len(priced),"incomplete EUR",subtotals)
+          print("A actually native, C projected ONLY. No price without MPN/stock; EOL warning applies.")
+          PY
+      - name: Manufacturing and native-KiCad gate
+        run: |
+          echo "TPS26600 62V ABS at 58V entrance is UNPROVEN for L/C overshoot."
+          echo "The candidate is not yet built; no native C-REV6 KiCad ERC/netlist is claimable."
+          echo "No on-board fuse, PPTC not chosen; install F_MAIN only vehicle-side."
+          echo "DO NOT fabricate or use in vehicle before 58V pad, 85C, RAW and pinout gates."
