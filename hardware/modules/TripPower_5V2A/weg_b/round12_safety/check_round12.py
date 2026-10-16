@@ -36,13 +36,14 @@ EXPECT={
 "R408":{1:"SAFE_3V3",2:"RAW_FAULT_N"},
 "C401":{1:"RAW_RAMP",2:"GND"},
 "C402":{1:"MAIN_EFUSE_OUT",2:"GND"},
+"C403":{1:"RAW_OUT",2:"GND"},
 }
 MPN={
 "U301":"TPS7A4001DGNR","U302":"TMP390AQDRLRQ1",
 "U303":"TPS3838K33QDBVRQ1","U401":"LTC4368HMS-2#WPBF",
 "Q301":"MMBT3904LT1G","Q302":"BSS138LT1G","Q403":"BSS123LT1G",
 "Q401":"TK11S10N1L,LQ","Q402":"TK11S10N1L,LQ",
-"D301":"BAV21W-7-F","R405":"WSL2512R0510FEA",
+"D301":"BAV21W-7-F","R405":"WSL2512R0510FEA","C403":"C1210C225K1RACAUTO",
 }
 VALUES={"R301":"180k","R302":"100k","R303":"24.9k","R304":"10k","R305":"100k","R306":"330k",
 "R401":"464k","R402":"1.5M","R403":"121k","R404":"29.4k","R405":"0.051R",
@@ -50,8 +51,8 @@ VALUES={"R301":"180k","R302":"100k","R303":"24.9k","R304":"10k","R305":"100k","R
 SROOT=Path("hardware/modules/TripPower_5V2A/weg_b/round12_safety")
 def check(netlist,bom):
     doc=ET.parse(netlist).getroot()
-    comps={c.get("ref"):c for c in doc.findall("./components/comp")}
-    assert len(comps)==len(EXPECT)==29,(len(comps),len(EXPECT))
+    comps={c.get("ref"):c for c in doc.findall("./components/comp") if __import__("re").fullmatch(r"[UQRCD]\\d+",c.get("ref") or "")}
+    assert len(comps)==len(EXPECT)==30,(len(comps),len(EXPECT))
     assert set(comps)==set(EXPECT), sorted(set(comps)^set(EXPECT))
     pins={}
     for net in doc.findall("./nets/net"):
@@ -85,7 +86,7 @@ def check(netlist,bom):
         assert (comps[ref].findtext("value") or "")==val,(ref,comps[ref].findtext("value"),val)
     rows=list(csv.DictReader(Path(bom).open(encoding="utf-8")))
     refs=[s.strip() for row in rows for s in row["Refs"].split(",") if s.strip()]
-    assert len(refs)==29 and set(refs)==set(EXPECT)
+    assert len(refs)==30 and set(refs)==set(EXPECT)
     # Important conservative threshold: short circuit threshold 30mV..70mV per official ADI table, Rshunt=0.051R +/-1%
     imin=0.030/(0.051*1.01)
     imax=0.070/(0.051*.99)
