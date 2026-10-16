@@ -1,0 +1,56 @@
+name: TripPower B R12 Independent Temp RAW KiCad10 Prototype NO FAB
+on:
+  push:
+    branches: [design/trippower-b]
+    paths:
+      - 'hardware/modules/TripPower_5V2A/weg_b/round12_safety/**'
+      - '.github/workflows/trippower-b-round12-safety.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  b-r12-temp-raw:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Prepare KiCad10 and log exact rev
+        run: |
+          set -euo pipefail
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/kicad-version.txt
+          git rev-parse HEAD | tee reports/b-git-sha.txt
+      - name: KiCad ERC on real isolated protection prototype
+        run: |
+          set -euo pipefail
+          P=hardware/modules/TripPower_5V2A/weg_b/round12_safety/TripPower_B_REV6_R12_SAFETY.kicad_sch
+          kicad-cli sch erc --severity-all --exit-code-violations --format json -o reports/r12-native-erc.json "$P" 2>&1 | tee reports/r12-native-erc-console.txt
+      - name: Export native KiCad netlist and BOM
+        run: |
+          set -euo pipefail
+          P=hardware/modules/TripPower_5V2A/weg_b/round12_safety/TripPower_B_REV6_R12_SAFETY.kicad_sch
+          kicad-cli sch export netlist --format kicadxml -o reports/r12-native-netlist.xml "$P"
+          kicad-cli sch export bom -o reports/r12-native-bom.csv "$P"
+          python3 hardware/modules/TripPower_5V2A/weg_b/round12_safety/check_round12.py reports/r12-native-netlist.xml reports/r12-native-bom.csv | tee reports/r12-native-checks.json
+      - name: Keep evidence even when ERC fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B-Round12-Temp-RAW-native-KiCad10
+          path: reports/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: No fabrication safety contract
+        if: always()
+        run: |
+          echo '### TripPower B R12: KiCad schematic-only, no fabrication' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No PCB/DRC, hardware transient measurements, SOA, +85C chamber or RAW thermal release from a green ERC.' >> "$GITHUB_STEP_SUMMARY"
