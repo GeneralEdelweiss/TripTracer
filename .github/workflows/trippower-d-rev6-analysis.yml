@@ -1,4 +1,4 @@
-name: TripPower D REV6 arithmetic checks
+name: TripPower D REV6 bench readiness and regression checks
 on:
   push:
     branches:
@@ -9,43 +9,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  static-scenarios:
+  static-bench-readiness:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install input-network solver dependencies
+      - name: Install only prior A23 calculation dependencies (no new parameter sweep)
         run: python3 -m pip install numpy scipy
-      - name: Run nine TPS26631 transient-network tests
-        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_tps26631_58v_network.py' -v
-      - name: Generate machine-readable sweep evidence (model only)
-        run: python3 hardware/modules/TripPower_5V2A/weg_d/tps26631_58v_network.py --scenario matrix > tps26631_network_matrix.json
-      - name: Upload network matrix
-        uses: actions/upload-artifact@v4
-        with:
-          name: tps26631-58v-model-matrix-not-validated
-          path: tps26631_network_matrix.json
-      - name: Check TI equation and passive M8-local RLC step model (not vendor SPICE)
-        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_tps26631_ti_eq14_passive_step.py' -v
-      - name: Export 288 M8-boundary passive RLC hypotheses (not hardware)
-        run: python3 hardware/modules/TripPower_5V2A/weg_d/tps26631_ti_eq14_passive_step.py --sweep > tps26631_round10_m8_passive_sweep.json
-      - name: Upload Round10 sensitivity matrix
-        uses: actions/upload-artifact@v4
-        with:
-          name: trippower-d-round10-passive-m8-not-vendor-spice
-          path: tps26631_round10_m8_passive_sweep.json
-      - name: Verify A23 after-M8 independent IN and IN_SYS sensitivity cases (not TI SPICE)
+      - name: Check Round12 pin mapping, source provenance and missing model markers
+        run: python3 hardware/modules/TripPower_5V2A/weg_d/round12_measurement_manifest_gate.py --check-plan
+      - name: Round12 synthetic capture-validation regression tests (NOT oscilloscope acquisitions)
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_round12_measurement_manifest_gate.py' -v
+      - name: Preserve Round11 source-vs-pin numerical baseline without new 27-case sweep
         run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_tps26631_a23_linear_nodes.py' -v
-      - name: Generate A23 after-M8 three-node sweep (scenario-only NOT qualification)
-        run: python3 hardware/modules/TripPower_5V2A/weg_d/tps26631_a23_after_m8_linear_nodes.py --sweep > tps26631_a23_after_m8_linear_sweep.json
-      - name: Upload A23 local sensitivity cases
+      - name: Previous bounded voltage/current/cost regressions
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_rev6_round8.py' -v
+      - name: Archive measurement-only specifications (NO real waveforms)
         uses: actions/upload-artifact@v4
         with:
-          name: trippower-d-a23-after-m8-linear-no-vendor-spice
-          path: tps26631_a23_after_m8_linear_sweep.json
-      - name: Run bounded voltage, current and cost tests
-        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p "test_rev6_round8.py" -v
-      - name: Print clearly labeled illustrative scenarios
-        run: python3 hardware/modules/TripPower_5V2A/weg_d/rev6_round8_compare.py
+          name: trippower-d-round12-readiness-only-no-pcb-no-hardware
+          path: |
+            hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_INSTRUMENTATION_PIN_LIMIT_MATRIX_2026-10-16.csv
+            hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_PARAMETER_PROVENANCE_2026-10-16.csv
+            hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_EMPTY_CAPTURE_MANIFEST_2026-10-16.json
+            hardware/modules/TripPower_5V2A/weg_d/WEG_D_ROUND12_A23_INSTRUMENTED_PROTOTYPE_LAB_RELEASE_2026-10-16.md
