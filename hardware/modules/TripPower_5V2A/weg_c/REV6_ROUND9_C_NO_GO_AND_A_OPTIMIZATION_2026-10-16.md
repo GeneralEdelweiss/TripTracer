@@ -66,3 +66,10 @@ TripPower-BOM: 0 Schmelzsicherungen, 0 Halter, 0 Einmal-SMD-Thermosicherungen. S
 Nachfolgende Planung für Weg A: Herstellerfactory OVP + >300k UVLO als getrennten **A23-Versuchsstand** zeichnen und echten nativen KiCad10 ERC/Netlist laufen lassen; 10/32/36/58V-Dynamik, max 60V am TPS26631 Eingangspin sowie Vout/RAW/M8/USB bei eFuse-short prüfen; VIN10 full-load Ta60C LMR/Inductor/Ceff/PCB Cu messen; +85C sichere temperaturgeführte Hauptabschaltung plus RAW-selective-PPTC/Stecker-/Leitungsfehler und FRAM-first/PWR_FAIL; nach diesen Gates getrennt System/BOM Euro 1/10/100 komplettieren. **Kein PCB- oder Fahrzeug-GO**.
 
 Quellen: https://www.ti.com/lit/ds/symlink/tps2660.pdf ; https://www.ti.com/lit/ds/symlink/tps2663.pdf ; https://www.ti.com/product/TPS4811-Q1 ; https://www.ti.com/product/TPS2662 ; https://www.analog.com/en/products/ltc4368.html ; https://www.st.com/en/automotive-analog-and-power/stpm801.html ; https://eu.mouser.com/en/ProductDetail/YAGEO/RC1206FR-07300KL ; https://www.mouser.de/ProductDetail/Analog-Devices/LTC4368HMS-2WPBF .
+
+
+## 7. Tatsächlicher CI-/Commit-Nachweis am 16.10.2026
+
+GitHub-Actions-Run https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38864413372 : Status **completed/success**, Job **verify-physics-and-matched-BOM** success, Job-ID 116853850322. Im echten GitHub-Log: **12/12 neue korrigierte OVP-Physik-/Herstellergrenzwerttests** + **39/39 ältere mit berichtigter Bedeutung geprüfte Modelle = 51/51 Rechentests**, alle OK. Aus demselben Job, echte CSV-Prüfung: A25 25 Zeilen, 23 bepreist, netto 19.389/12.883/10.1371 EUR; A23-Projektions-BOM 23 Zeilen, 22 bepreist, 19.113/12.641/9.9001 EUR. Neues UVLO-Rteil 300k per Mouser-EUR, UVLO/OVP-Hardware **nicht** auf Weg A gezeichnet oder dort verändert.
+
+Die Korrektur wurde zusätzlich im Weg-C README und in zwei älteren REV6-C-Entscheidungen ausdrücklich als ERRATUM vorangestellt. Der Run bestätigt **keine** native C-REV6-ERC-/Netzliste, PCB-DRC, 58V-Pad-/+60°C-/+85°C-Hardwareprüfung. Kein neuer C-Schaltplan / keine C-Fertigungsfreigabe.
