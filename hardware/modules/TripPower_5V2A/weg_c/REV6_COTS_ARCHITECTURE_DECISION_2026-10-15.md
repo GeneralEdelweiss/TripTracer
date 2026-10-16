@@ -1,3 +1,5 @@
+> **SPÄTERES GÜLTIGES ERRATUM 16.10.2026:** Frühere C-Rechnung setzte die OVLO-Falling-Bedingung falsch herum an. Für Wiedereinschalten bei fallenden32V braucht man **MIN(OV_FALL)>32V**, nicht MAX<32. TPS26600 einstellbare Hysterese kann diese Bedingung zusammen mit spätestens36V cutoff auch mit perfekten Widerständen NICHT erfüllen. Siehe [endgültigen Round9-Abschluss](REV6_ROUND9_C_NO_GO_AND_A_OPTIMIZATION_2026-10-16.md). 
+
 # TripPower Weg C – REV6 COTS-Neuentwurf (15.10.2026)
 
 **Verbindliche REV6-Entscheidung:** C1/C2-HV und die alten 200V-Ansätze sind Historie. Gesucht wird 10..32V/5V2A, Abschaltung 32..36V, nur am Eingang auf 58V/350ms *zentral begrenzter* Lastabwurf, -20..+70C, 2A bis Ta60C, 85C safe OFF, RAW0.5A Ziel, FRAM-first mit optionalem lokalem Backup. Einbau nur in nachweislich zentral begrenzten Fahrzeugen. Keine unabhängige 200V-Surge-Erwartung. Alle absoluten Maximalwerte gelten an Bauteilpads **inklusive Ringing**, nicht nur am M8.
