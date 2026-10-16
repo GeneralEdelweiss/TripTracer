@@ -51,9 +51,9 @@ def verify(s):
     r=ROOT/"01_TPS26631_REV6.kicad_sch"
     a=r.read_text()
     assert "TPS26631PWPR" in a and "SQM100N10-10_GE3" in a
-    assert "RT1206BRD07100KL" in a and "RT1206BRD0712K4L" in a
+    assert "RT1206BRD07100KL" in a and "RT1206BRD0712KL" in a
     assert "RT1206BRD074K22L" in a and "AC1206FR-076K04L" in a
-    assert "R201=100k R202=12k4 R203=4k22" in a
+    assert "R201=100k R202=12k R203=4k22" in a
     b=(ROOT/"02_5V_LMR38020_REV6.kicad_sch").read_text()
     assert "LMR38020SQDDARQ1" in b and "BVSS123LT1G" in b
     # Native orderable parts in root hierarchy: first 10, buck + PGOOD 15;
