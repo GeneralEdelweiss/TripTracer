@@ -2,6 +2,7 @@
 """REV6 A no-false-release tests for actual IC thresholds, thermal & price scope."""
 import unittest
 from trippower_a_rev6_limits import study,voltage_threshold,load_sensitivity,ld_max_envelope
+from trippower_a_rev6_ringing import step_peak,hypothetical_resistor_tradeoff
 class REV6Limits(unittest.TestCase):
  def test_32v_normal_stays_below_min_trip(self):
     self.assertGreater(voltage_threshold("ovp","min"),32)
@@ -42,6 +43,15 @@ class REV6Limits(unittest.TestCase):
     s=study()
     self.assertFalse(s["integrated_efuse"]["temperature_fault_off_by85c_has_specific_sensor"])
     self.assertFalse(s["fabrication_release"])
+ def test_58v_source_can_ring_above_67v_absolute_at_efuse(self):
+    c=step_peak()
+    self.assertGreater(c["ideal_1st_peak_at_pin_v"],67)
+    self.assertTrue(c["TPS26631_67v_absolute_violation_in_example"])
+    self.assertFalse(c["real_vehicle_spectrum_or_lab_proof"])
+ def test_series_resistor_solution_has_real_10v_thermal_cost(self):
+    c=hypothetical_resistor_tradeoff(1.)
+    self.assertAlmostEqual(c["power_dissipation_W"],3.0625,places=4)
+    self.assertFalse(c["safe_part_selected"])
  def test_legacy_requirements_not_authority(self):
     s=study()
     self.assertIn("REV6",s["authority"])
