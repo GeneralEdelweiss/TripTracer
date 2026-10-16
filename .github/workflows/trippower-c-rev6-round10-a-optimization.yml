@@ -1,0 +1,60 @@
+name: TripPower C Round10 A23-A24 UVLO manufacturer/cost screen (NO FAB RELEASE)
+
+on:
+  push:
+    branches: ["design/trippower-c"]
+    paths:
+      - ".github/workflows/trippower-c-rev6-round10-a-optimization.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_round10_a23_a24_uvlo_qualification.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND10_A25_A23_A24_MATCHED_COSTED_MODULE_BOM_2026-10-16.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND10_A_COMPONENTS_COST_OPTIMIZATION_2026-10-16.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  no-native-a-schematic-claims:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardware/modules/TripPower_5V2A/weg_c
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run TPS26631 TI factory OVP and 330k/68k worst-case UVLO checks
+        run: python3 -m unittest -v rev6_round10_a23_a24_uvlo_qualification
+      - name: Print exact mathematical stress limits, NOT hardware approval
+        run: python3 rev6_round10_a23_a24_uvlo_qualification.py
+      - name: Fair cost comparison exact native A25 vs unbuilt A23/A24
+        run: |
+          python3 - <<'PY'
+          import csv
+          from collections import Counter
+          p="REV6_ROUND10_A25_A23_A24_MATCHED_COSTED_MODULE_BOM_2026-10-16.csv"
+          with open(p,encoding="utf-8",newline="") as f: rows=list(csv.DictReader(f))
+          target={"A25_Native":25,"A23_FactoryOVP_OneRes":23,"A24_FactoryOVP_TwoRes":24,
+                  "A23_With_Toshiba_MOSFET":23,"A23_Toshiba_KAM_Conditional":23}
+          by=Counter(x['Configuration'] for x in rows)
+          assert by == target, (by,target)
+          for name in target:
+            sub=[x for x in rows if x["Configuration"]==name]
+            assert all(x["EUR_unit1_net"] and x["EUR_unit10_net"] and x["EUR_unit100_net"] for x in sub),name
+            assert all(x["Ref"]!="F_MAIN" for x in sub)
+            assert len(set(x["Ref"] for x in sub))==len(sub),name
+            if name!="A25_Native":
+              assert all(x["Status"]=="UNBUILT_PROJECTION_NO_NATIVE_ERC" for x in sub)
+              assert "R203" not in {x["Ref"] for x in sub}
+            sums=[round(sum(int(x["Qty"])*float(x["EUR_unit"+n+"_net"]) for x in sub),4) for n in ("1","10","100")]
+            print(name,"bestueckte Basis-Positionen",len(sub),"EUR-net MPN only 1/10/100",sums)
+          print("No extra vehicle F_MAIN, M8, TripTracer USB, RTC, optional thermal/RAW components included.")
+          print("Only A25 is native KiCad; 23 and 24 are unbuilt projections, not ERC/Netlist.")
+          PY
+      - name: Explicit qualification limitations
+        run: |
+          echo "A currently drawn R201=100k to UVLO does not meet TI >=300k reverse-FET rule."
+          echo "Proposed A23/A24 have NO independent KiCad ERC/netlist and NO 58V/350ms, 60C,85C hardware approval."
+          echo "Toshiba 100V DPAK alternative requires true gate, thermals, pinout and SOA qualification."
+          echo "Do not manufacture."
