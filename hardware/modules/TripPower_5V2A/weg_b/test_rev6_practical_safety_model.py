@@ -70,12 +70,22 @@ class Rev6PracticalSafety(unittest.TestCase):
         self.assertFalse(no_r["release_possible_on_complete_input_evidence"])
         self.assertFalse(no_r["actual_installed_vehicle_pass"])
     def test_ov_threshold_must_work_at_32_and_off_by_36(self):
-        a=ov_corner_gates(32.2,35.6,31.8,30.5)
+        # Manufacturer factory TPS26631 OV rising 33.2..35.4V,
+        # falling 32.7..35.0V: worst MIN falling 32.7 >32 => PASS static.
+        a=ov_corner_gates(33.2,35.4,35.0,32.7)
         self.assertTrue(a["all_nominal_DC_corners_consistent"])
+        self.assertTrue(a["restart_at_stable_32v"])
         self.assertFalse(a["trip_thermally_or_dynamically_proven"])
-        self.assertFalse(ov_corner_gates(32.0,35.0,31.8)["normal_32v_on_possible"])
-        self.assertFalse(ov_corner_gates(33,36.01,31.8)["shutdown_by_36v"])
-        self.assertFalse(ov_corner_gates(33,35,32.2)["restart_at_stable_32v"])
+        # A-like external divider where minimum OV falling is BELOW 32:
+        fail=ov_corner_gates(32.334,33.997,31.943,29.967)
+        self.assertTrue(fail["shutdown_by_36v"])
+        self.assertFalse(fail["restart_at_stable_32v"])
+        self.assertFalse(fail["all_nominal_DC_corners_consistent"])
+        # No falling-min input must NOT give an earned PASS:
+        self.assertFalse(ov_corner_gates(33,35,34)["restart_at_stable_32v"])
+        self.assertFalse(ov_corner_gates(32.0,35.0,35.,32.7)["normal_32v_on_possible"])
+        self.assertFalse(ov_corner_gates(33,36.01,35.,32.7)["shutdown_by_36v"])
+
     def test_below_fuse_short_can_be_thermal_hazard_even_at_32v(self):
         a=failed_silicon_power()
         self.assertLess(a["fault_a"],1.)
