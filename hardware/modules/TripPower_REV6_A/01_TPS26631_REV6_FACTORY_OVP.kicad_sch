@@ -1,0 +1,331 @@
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "b63a0921-7362-49b4-b250-000000000001") (paper "A3")
+(title_block (title "TripPower REV6 A - TPS26631 60V eFuse and 100V reverse FET") (date "2026-10-15") (rev "SCHEMATIC EXPERIMENT / NO FAB"))
+(lib_symbols (symbol "Tripmaster_Sym:R" (pin_names (offset 1.016)) (in_bom yes) (on_board yes) (property "Reference" "R" (at 0 8.89 0) (effects (font (size 1.25 1.25)))) (property "Value" "R" (at 0 -8.89 0) (effects (font (size 1.25 1.25)))) (property "Footprint" "Tripmaster:R_1206_3216" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (symbol "R_0_1" (polyline (pts (xy -6.35 0) (xy -4 0)) (stroke (width 0.254) (type default)) (fill (type none))) (polyline (pts (xy 4 0) (xy 6.35 0)) (stroke (width 0.254) (type default)) (fill (type none))) (rectangle (start -4 1.65) (end 4 -1.65) (stroke (width 0.254) (type default)) (fill (type background)))) (symbol "R_1_1" (pin passive line (at -11.43 0 0) (length 5.08) (name "1" (effects (font (size 1.25 1.25)))) (number "1" (effects (font (size 1.25 1.25))))) (pin passive line (at 11.43 0 180) (length 5.08) (name "2" (effects (font (size 1.25 1.25)))) (number "2" (effects (font (size 1.25 1.25))))) ))
+(symbol "Tripmaster_Sym:C1210" (pin_names (offset 1.016)) (in_bom yes) (on_board yes) (property "Reference" "C" (at 0 8.89 0) (effects (font (size 1.25 1.25)))) (property "Value" "C1210" (at 0 -8.89 0) (effects (font (size 1.25 1.25)))) (property "Footprint" "Tripmaster:C_1210_3225" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes))) (symbol "C1210_0_1" (polyline (pts (xy -6.35 0) (xy -1.27 0)) (stroke (width 0.254) (type default)) (fill (type none))) (polyline (pts (xy 1.27 0) (xy 6.35 0)) (stroke (width 0.254) (type default)) (fill (type none))) (polyline (pts (xy -1.27 -3.5) (xy -1.27 3.5)) (stroke (width 0.254) (type default)) (fill (type none))) (polyline (pts (xy 1.27 -3.5) (xy 1.27 3.5)) (stroke (width 0.254) (type default)) (fill (type none)))) (symbol "C1210_1_1" (pin passive line (at -11.43 0 0) (length 5.08) (name "1" (effects (font (size 1.25 1.25)))) (number "1" (effects (font (size 1.25 1.25))))) (pin passive line (at 11.43 0 180) (length 5.08) (name "2" (effects (font (size 1.25 1.25)))) (number "2" (effects (font (size 1.25 1.25))))) ))
+(symbol "TripPower_Sym:EN_PASS_NMOS_GSD" (pin_names (offset 0.762)) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 16 0) (effects (font (size 1.27 1.27))))
+(property "Value" "BVSS123LT1G" (at 0 -16 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Description" "Automotive BVSS123LT1G 100V onsemi, pin1 G pin2 S pin3 D, series pass CTRL_EN lock; IDSS 60uA at 125C/100V, gate clamped externally, 202V surge thermal WIP" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(symbol "EN_PASS_NMOS_GSD_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "EN_PASS_NMOS_GSD_1_1"
+ (pin input line (at -15.24 0 0) (length 5.08) (name "G" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016)))))
+ (pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016)))))
+ (pin passive line (at 15.24 5.08 180) (length 5.08) (name "D" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016)))))
+))
+(symbol "TripPower_PGOOD:SignalPad" (pin_names (offset 0)) (in_bom no) (on_board yes)
+(property "Reference" "TP" (at 0 5.08 0) (effects (font (size 1.27 1.27))))
+(property "Value" "PWR_FAIL_PAD" (at 0 -5.08 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(symbol "SignalPad_0_1" (rectangle (start -1.27 1.27) (end 1.27 -1.27) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "SignalPad_1_1" (pin passive line (at -5.08 0 0) (length 5.08) (name "PAD" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016)))))))
+(symbol "TripPower_REV6:TPS26631_PWP20" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+(property "Reference" "U" (at 0 40.64 0) (effects (font (size 1.27 1.27))))
+(property "Value" "TPS26631PWPR" (at 0 -40.64 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "Tripmaster:TI_TPS26631_PWP_EP" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps2663.pdf" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(symbol "TPS26631_PWP20_0_1" (rectangle (start -25.4 35.56) (end 25.4 -35.56) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "TPS26631_PWP20_1_1"
+(pin power_in line (at -30.48 25.4 0) (length 5.08) (name "IN" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))
+(pin power_in line (at -30.48 20.32 0) (length 5.08) (name "IN" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))
+(pin power_in line (at -30.48 15.24 0) (length 5.08) (name "IN" (effects (font (size 1 1)))) (number "3" (effects (font (size 1 1)))))
+(pin output line (at -30.48 5.08 0) (length 5.08) (name "B_GATE" (effects (font (size 1 1)))) (number "4" (effects (font (size 1 1)))))
+(pin output line (at -30.48 0 0) (length 5.08) (name "DRV" (effects (font (size 1 1)))) (number "5" (effects (font (size 1 1)))))
+(pin power_in line (at -30.48 10.16 0) (length 5.08) (name "IN_SYS" (effects (font (size 1 1)))) (number "6" (effects (font (size 1 1)))))
+(pin input line (at -30.48 -5.08 0) (length 5.08) (name "UVLO" (effects (font (size 1 1)))) (number "7" (effects (font (size 1 1)))))
+(pin input line (at -30.48 -10.16 0) (length 5.08) (name "OVP" (effects (font (size 1 1)))) (number "8" (effects (font (size 1 1)))))
+(pin power_in line (at -30.48 -15.24 0) (length 5.08) (name "GND" (effects (font (size 1 1)))) (number "9" (effects (font (size 1 1)))))
+(pin passive line (at -30.48 -20.32 0) (length 5.08) (name "dVdT" (effects (font (size 1 1)))) (number "10" (effects (font (size 1 1)))))
+(pin passive line (at 30.48 -20.32 180) (length 5.08) (name "ILIM" (effects (font (size 1 1)))) (number "11" (effects (font (size 1 1)))))
+(pin input line (at 30.48 -15.24 180) (length 5.08) (name "MODE" (effects (font (size 1 1)))) (number "12" (effects (font (size 1 1)))))
+(pin input line (at 30.48 -10.16 180) (length 5.08) (name "SHDN" (effects (font (size 1 1)))) (number "13" (effects (font (size 1 1)))))
+(pin output line (at 30.48 -5.08 180) (length 5.08) (name "IMON" (effects (font (size 1 1)))) (number "14" (effects (font (size 1 1)))))
+(pin open_collector line (at 30.48 0 180) (length 5.08) (name "FLT" (effects (font (size 1 1)))) (number "15" (effects (font (size 1 1)))))
+(pin input line (at 30.48 5.08 180) (length 5.08) (name "PGTH" (effects (font (size 1 1)))) (number "16" (effects (font (size 1 1)))))
+(pin open_collector line (at 30.48 10.16 180) (length 5.08) (name "PGOOD" (effects (font (size 1 1)))) (number "17" (effects (font (size 1 1)))))
+(pin power_out line (at 30.48 15.24 180) (length 5.08) (name "OUT" (effects (font (size 1 1)))) (number "18" (effects (font (size 1 1)))))
+(pin passive line (at 30.48 20.32 180) (length 5.08) (name "OUT" (effects (font (size 1 1)))) (number "19" (effects (font (size 1 1)))))
+(pin passive line (at 30.48 25.4 180) (length 5.08) (name "OUT" (effects (font (size 1 1)))) (number "20" (effects (font (size 1 1)))))
+(pin power_in line (at 0 -40.64 90) (length 5.08) (name "EP" (effects (font (size 1 1)))) (number "21" (effects (font (size 1 1)))))
+))
+(symbol "TripPower_REV6:HV_NMOS_GDS" (pin_names (offset 0.762)) (in_bom yes) (on_board yes)
+(property "Reference" "Q" (at 0 15.24 0) (effects (font (size 1.27 1.27))))
+(property "Value" "SQM100N10-10_GE3" (at 0 -15.24 0) (effects (font (size 1.27 1.27))))
+(property "Footprint" "Package_TO_SOT_SMD:TO-263-3_TabPin2" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Datasheet" "https://www.vishay.com/en/product/67027/" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(symbol "HV_NMOS_GDS_0_1" (rectangle (start -10.16 10.16) (end 10.16 -10.16) (stroke (width 0.254) (type default)) (fill (type background))))
+(symbol "HV_NMOS_GDS_1_1"
+(pin input line (at -15.24 0 0) (length 5.08) (name "G" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1)))))
+(pin passive line (at 15.24 5.08 180) (length 5.08) (name "D" (effects (font (size 1 1)))) (number "2" (effects (font (size 1 1)))))
+(pin passive line (at 15.24 -5.08 180) (length 5.08) (name "S" (effects (font (size 1 1)))) (number "3" (effects (font (size 1 1)))))))
+(symbol "TripPower_REV6:VEHICLE_POWER_FLAG" (pin_names (offset 0)) (in_bom no) (on_board no)
+(property "Reference" "#FLG" (at 0 5.08 0) (effects (font (size 1 1))))
+(property "Value" "VEHICLE_POWER_FLAG" (at 0 -5.08 0) (effects (font (size 1 1))))
+(symbol "VEHICLE_POWER_FLAG_0_1" (rectangle (start -2.54 2.54) (end 2.54 -2.54) (stroke (width 0.254) (type default)) (fill (type none))))
+(symbol "VEHICLE_POWER_FLAG_1_1"
+(pin power_out line (at 5.08 0 180) (length 5.08) (name "Power" (effects (font (size 1 1)))) (number "1" (effects (font (size 1 1))))))))
+(text "TI TPS26631 PWPR Fig9-2-derived power stage: 10..32V; OV <=36 via R201..203, 58V 350ms only certified conditioned input <60V incl ringing. ILIM nominal3A. SHDN13 floats per TI internal pull-up, MUST NOT connect to 58V (ABS max5.5V). Q201 body diode orientation, Q202 fast off, external F_MAIN. TPS26631 industrial NOT AEC, thermals/ESD/RAW/USB/open-pin/temperature NOT qualified." (at 27.94 34.29 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180148"))
+(text "R201=330k UVLO/no external rising divider; factory OVP8=GND Yageo RT 0.1pct/25ppm: OVP rising 32.223..33.880V, falling 29.864..31.833V, UV rising max8.822V; 32V static hysteresis margin0.167V. Need verify OVP leak/TCR/tol, 10V loaded start, 32V survival; not production. No extra 200V high voltage network." (at 27.94 43.18 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180149"))
+(text "WARNING: 58V at connector must already include wiring overshoots. eFuse ABS 67V, MAX recommended 60V. TMP 85C safe-off not implemented, must be implemented before FAB. RAW testpad not 0.5A-rated connector." (at 27.94 50.8 0) (effects (font (size 1.016 1.016))) (uuid "b63a0921-7362-49b4-b250-000000180150"))
+
+(symbol (lib_id "TripPower_REV6:TPS26631_PWP20") (at 248.92 127 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180000")
+(property "Reference" "U201" (at 248.92 111 0) (effects (font (size 1 1))))
+(property "Value" "TPS26631PWPR" (at 248.92 114 0) (effects (font (size 1 1))))
+(property "Footprint" "Tripmaster:TI_TPS26631_PWP_EP" (at 248.92 127 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "TPS26631PWPR" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180001"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180002"))
+(pin "3" (uuid "b63a0921-7362-49b4-b250-000000180003"))
+(pin "4" (uuid "b63a0921-7362-49b4-b250-000000180004"))
+(pin "5" (uuid "b63a0921-7362-49b4-b250-000000180005"))
+(pin "6" (uuid "b63a0921-7362-49b4-b250-000000180006"))
+(pin "7" (uuid "b63a0921-7362-49b4-b250-000000180007"))
+(pin "8" (uuid "b63a0921-7362-49b4-b250-000000180008"))
+(pin "9" (uuid "b63a0921-7362-49b4-b250-000000180009"))
+(pin "10" (uuid "b63a0921-7362-49b4-b250-000000180010"))
+(pin "11" (uuid "b63a0921-7362-49b4-b250-000000180011"))
+(pin "12" (uuid "b63a0921-7362-49b4-b250-000000180012"))
+(pin "13" (uuid "b63a0921-7362-49b4-b250-000000180013"))
+(pin "14" (uuid "b63a0921-7362-49b4-b250-000000180014"))
+(pin "15" (uuid "b63a0921-7362-49b4-b250-000000180015"))
+(pin "16" (uuid "b63a0921-7362-49b4-b250-000000180016"))
+(pin "17" (uuid "b63a0921-7362-49b4-b250-000000180017"))
+(pin "18" (uuid "b63a0921-7362-49b4-b250-000000180018"))
+(pin "19" (uuid "b63a0921-7362-49b4-b250-000000180019"))
+(pin "20" (uuid "b63a0921-7362-49b4-b250-000000180020"))
+(pin "21" (uuid "b63a0921-7362-49b4-b250-000000180021"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "U201") (unit 1)))))
+
+(symbol (lib_id "TripPower_REV6:HV_NMOS_GDS") (at 114.3 118.11 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180022")
+(property "Reference" "Q201" (at 114.3 102.11 0) (effects (font (size 1 1))))
+(property "Value" "SQM100N10-10_GE3 100V AEC" (at 114.3 105.11 0) (effects (font (size 1 1))))
+(property "Footprint" "Package_TO_SOT_SMD:TO-263-3_TabPin2" (at 114.3 118.11 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "SQM100N10-10_GE3" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180023"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180024"))
+(pin "3" (uuid "b63a0921-7362-49b4-b250-000000180025"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "Q201") (unit 1)))))
+
+(symbol (lib_id "TripPower_Sym:EN_PASS_NMOS_GSD") (at 165.1 157.48 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180026")
+(property "Reference" "Q202" (at 165.1 141.48 0) (effects (font (size 1 1))))
+(property "Value" "BSS138LT1G DRIVER PULLDOWN" (at 165.1 144.48 0) (effects (font (size 1 1))))
+(property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 165.1 157.48 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "BSS138LT1G" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180027"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180028"))
+(pin "3" (uuid "b63a0921-7362-49b4-b250-000000180029"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "Q202") (unit 1)))))
+
+(symbol (lib_id "Tripmaster_Sym:R") (at 64.77 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180030")
+(property "Reference" "R201" (at 64.77 189.74 0) (effects (font (size 1 1))))
+(property "Value" "330k 1pct 100ppm FACTORY_UVLO_BYPASS" (at 64.77 192.74 0) (effects (font (size 1 1))))
+(property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 64.77 205.74 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "AC1206FR-07330KL" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180031"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180032"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "R201") (unit 1)))))
+
+
+
+
+
+(symbol (lib_id "Tripmaster_Sym:R") (at 396.24 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180039")
+(property "Reference" "R204" (at 396.24 189.74 0) (effects (font (size 1 1))))
+(property "Value" "6.04k 1pct Vishay AEC-Q200 OCP ~3A" (at 396.24 192.74 0) (effects (font (size 1 1))))
+(property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 396.24 205.74 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "CRCW12066K04FKEAHP" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180040"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180041"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "R204") (unit 1)))))
+
+(symbol (lib_id "Tripmaster_Sym:C1210") (at 322.58 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180042")
+(property "Reference" "C201" (at 322.58 189.74 0) (effects (font (size 1 1))))
+(property "Value" "1uF 100V IN_SYS" (at 322.58 192.74 0) (effects (font (size 1 1))))
+(property "Footprint" "Capacitor_SMD:C_1210_3225Metric" (at 322.58 205.74 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "C1210C105K1RACAUTO" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180043"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180044"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "C201") (unit 1)))))
+
+(symbol (lib_id "Tripmaster_Sym:C1210") (at 355.6 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180045")
+(property "Reference" "C202" (at 355.6 189.74 0) (effects (font (size 1 1))))
+(property "Value" "1uF 100V OUTPUT" (at 355.6 192.74 0) (effects (font (size 1 1))))
+(property "Footprint" "Capacitor_SMD:C_1210_3225Metric" (at 355.6 205.74 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "C1210C105K1RACAUTO" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180046"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180047"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "C202") (unit 1)))))
+
+(symbol (lib_id "Tripmaster_Sym:C1210") (at 365.76 248.92 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180048")
+(property "Reference" "C203" (at 365.76 232.92 0) (effects (font (size 1 1))))
+(property "Value" "100nF 100V dVdt" (at 365.76 235.92 0) (effects (font (size 1 1))))
+(property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 365.76 248.92 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "C1206C104K1RACAUTO" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180049"))
+(pin "2" (uuid "b63a0921-7362-49b4-b250-000000180050"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "C203") (unit 1)))))
+
+(symbol (lib_id "TripPower_PGOOD:SignalPad") (at 355.6 111.76 0) (unit 1) (in_bom no) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180051")
+(property "Reference" "TP201" (at 355.6 95.76 0) (effects (font (size 1 1))))
+(property "Value" "VIN_FUSED terminal CHECK" (at 355.6 98.76 0) (effects (font (size 1 1))))
+(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 355.6 111.76 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180052"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "TP201") (unit 1)))))
+
+(symbol (lib_id "TripPower_PGOOD:SignalPad") (at 355.6 121.92 0) (unit 1) (in_bom no) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180053")
+(property "Reference" "TP202" (at 355.6 105.92 0) (effects (font (size 1 1))))
+(property "Value" "RAW_PROTECTED 0.5A DEVELOPMENT" (at 355.6 108.92 0) (effects (font (size 1 1))))
+(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 355.6 121.92 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180054"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "TP202") (unit 1)))))
+
+(symbol (lib_id "TripPower_PGOOD:SignalPad") (at 355.6 132.08 0) (unit 1) (in_bom no) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180055")
+(property "Reference" "TP203" (at 355.6 116.08 0) (effects (font (size 1 1))))
+(property "Value" "GND testpoint" (at 355.6 119.08 0) (effects (font (size 1 1))))
+(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 355.6 132.08 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180056"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "TP203") (unit 1)))))
+
+(symbol (lib_id "TripPower_REV6:VEHICLE_POWER_FLAG") (at 300.99 248.92 0) (unit 1) (in_bom no) (on_board no) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180057")
+(property "Reference" "#FLG201" (at 300.99 149.1 0) (effects (font (size 1 1)) (hide yes)))
+(property "Value" "VEHICLE SUPPLY (external fuse)" (at 300.99 152.1 0) (effects (font (size 1 1))))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180058"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "#FLG201") (unit 1)))))
+
+(symbol (lib_id "TripPower_REV6:VEHICLE_POWER_FLAG") (at 320.04 248.92 0) (unit 1) (in_bom no) (on_board no) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180059")
+(property "Reference" "#FLG202" (at 320.04 149.1 0) (effects (font (size 1 1)) (hide yes)))
+(property "Value" "POST Q1 SOURCE (passive)" (at 320.04 152.1 0) (effects (font (size 1 1))))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000180060"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "#FLG202") (unit 1)))))
+
+(wire (pts (xy 218.44 101.6) (xy 223.52 101.6)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180061"))
+(global_label "EFUSE_IN" (shape bidirectional) (at 223.52 101.6 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180062"))
+
+(wire (pts (xy 218.44 106.68) (xy 223.52 106.68)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180063"))
+(global_label "EFUSE_IN" (shape bidirectional) (at 223.52 106.68 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180064"))
+
+(wire (pts (xy 218.44 111.76) (xy 223.52 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180065"))
+(global_label "EFUSE_IN" (shape bidirectional) (at 223.52 111.76 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180066"))
+
+(wire (pts (xy 218.44 121.92) (xy 223.52 121.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180067"))
+(global_label "R6_B_GATE" (shape bidirectional) (at 223.52 121.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180068"))
+
+(wire (pts (xy 218.44 127) (xy 223.52 127)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180069"))
+(global_label "R6_DRV" (shape bidirectional) (at 223.52 127 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180070"))
+
+(wire (pts (xy 218.44 116.84) (xy 223.52 116.84)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180071"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 223.52 116.84 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180072"))
+
+(wire (pts (xy 218.44 132.08) (xy 223.52 132.08)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180073"))
+(global_label "UVLO_SENSE" (shape bidirectional) (at 223.52 132.08 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180074"))
+
+(wire (pts (xy 218.44 137.16) (xy 223.52 137.16)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180075"))
+(global_label "GND" (shape bidirectional) (at 223.52 137.16 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180076"))
+
+(wire (pts (xy 218.44 142.24) (xy 223.52 142.24)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180077"))
+(global_label "GND" (shape bidirectional) (at 223.52 142.24 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180078"))
+
+(wire (pts (xy 218.44 147.32) (xy 223.52 147.32)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180079"))
+(global_label "R6_DVDT" (shape bidirectional) (at 223.52 147.32 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180080"))
+
+(wire (pts (xy 279.4 147.32) (xy 284.48 147.32)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180081"))
+(global_label "ILIM_SET" (shape bidirectional) (at 284.48 147.32 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180082"))
+
+(no_connect (at 279.4 137.16) (uuid "b63a0921-7362-49b4-b250-000000191041"))
+
+(wire (pts (xy 279.4 111.76) (xy 284.48 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180085"))
+(global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 284.48 111.76 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180086"))
+
+(wire (pts (xy 279.4 106.68) (xy 284.48 106.68)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180087"))
+(global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 284.48 106.68 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180088"))
+
+(wire (pts (xy 279.4 101.6) (xy 284.48 101.6)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180089"))
+(global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 284.48 101.6 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180090"))
+
+(wire (pts (xy 279.4 142.24) (xy 284.48 142.24)) (stroke (width 0) (type default)) (uuid "aacf23b2-0000-4000-8000-000000000001"))
+(global_label "GND" (shape bidirectional) (at 284.48 142.24 0) (effects (font (size 1 1)) (justify left)) (uuid "aacf23b2-0000-4000-8000-000000000101"))
+
+(no_connect (at 279.4 132.08) (uuid "b63a0921-7362-49b4-b250-000000180092"))
+
+(no_connect (at 279.4 127) (uuid "b63a0921-7362-49b4-b250-000000180093"))
+
+(wire (pts (xy 279.4 121.92) (xy 284.48 121.92)) (stroke (width 0) (type default)) (uuid "aacf23b2-0000-4000-8000-000000000002"))
+(global_label "GND" (shape bidirectional) (at 284.48 121.92 0) (effects (font (size 1 1)) (justify left)) (uuid "aacf23b2-0000-4000-8000-000000000102"))
+
+(no_connect (at 279.4 116.84) (uuid "b63a0921-7362-49b4-b250-000000180095"))
+
+(wire (pts (xy 248.92 167.64) (xy 254 167.64)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180096"))
+(global_label "GND" (shape bidirectional) (at 254 167.64 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180097"))
+
+(wire (pts (xy 99.06 118.11) (xy 104.14 118.11)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180098"))
+(global_label "R6_B_GATE" (shape bidirectional) (at 104.14 118.11 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180099"))
+
+(wire (pts (xy 129.54 113.03) (xy 134.62 113.03)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180100"))
+(global_label "EFUSE_IN" (shape bidirectional) (at 134.62 113.03 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180101"))
+
+(wire (pts (xy 129.54 123.19) (xy 134.62 123.19)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180102"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 134.62 123.19 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180103"))
+
+(wire (pts (xy 149.86 157.48) (xy 154.94 157.48)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180104"))
+(global_label "R6_DRV" (shape bidirectional) (at 154.94 157.48 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180105"))
+
+(wire (pts (xy 180.34 162.56) (xy 185.42 162.56)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180106"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 185.42 162.56 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180107"))
+
+(wire (pts (xy 180.34 152.4) (xy 185.42 152.4)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180108"))
+(global_label "R6_B_GATE" (shape bidirectional) (at 185.42 152.4 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180109"))
+
+(wire (pts (xy 53.34 205.74) (xy 58.42 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180110"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 58.42 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180111"))
+
+(wire (pts (xy 76.2 205.74) (xy 81.28 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180112"))
+(global_label "UVLO_SENSE" (shape bidirectional) (at 81.28 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180113"))
+
+
+
+
+
+(wire (pts (xy 384.81 205.74) (xy 389.89 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180122"))
+(global_label "ILIM_SET" (shape bidirectional) (at 389.89 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180123"))
+
+(wire (pts (xy 407.67 205.74) (xy 412.75 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180124"))
+(global_label "GND" (shape bidirectional) (at 412.75 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180125"))
+
+(wire (pts (xy 311.15 205.74) (xy 316.23 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180126"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 316.23 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180127"))
+
+(wire (pts (xy 334.01 205.74) (xy 339.09 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180128"))
+(global_label "GND" (shape bidirectional) (at 339.09 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180129"))
+
+(wire (pts (xy 344.17 205.74) (xy 349.25 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180130"))
+(global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 349.25 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180131"))
+
+(wire (pts (xy 367.03 205.74) (xy 372.11 205.74)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180132"))
+(global_label "GND" (shape bidirectional) (at 372.11 205.74 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180133"))
+
+(wire (pts (xy 354.33 248.92) (xy 359.41 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180134"))
+(global_label "R6_DVDT" (shape bidirectional) (at 359.41 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180135"))
+
+(wire (pts (xy 377.19 248.92) (xy 382.27 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180136"))
+(global_label "GND" (shape bidirectional) (at 382.27 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180137"))
+
+(wire (pts (xy 350.52 111.76) (xy 355.6 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180138"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 355.6 111.76 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180139"))
+
+(wire (pts (xy 350.52 121.92) (xy 355.6 121.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180140"))
+(global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 355.6 121.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180141"))
+
+(wire (pts (xy 350.52 132.08) (xy 355.6 132.08)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180142"))
+(global_label "GND" (shape bidirectional) (at 355.6 132.08 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180143"))
+(wire (pts (xy 306.07 248.92) (xy 311.15 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000191031"))
+(global_label "VIN_FUSED" (shape bidirectional) (at 311.15 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180145"))
+(wire (pts (xy 325.12 248.92) (xy 330.2 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000191032"))
+(global_label "EFUSE_IN" (shape bidirectional) (at 330.2 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180147"))
+(symbol (lib_id "TripPower_REV6:VEHICLE_POWER_FLAG") (at 339.09 248.92 0) (unit 1) (in_bom no) (on_board no) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000191001")
+(property "Reference" "#FLG203" (at 339.09 243.84 0) (effects (font (size 1 1)) (hide yes)))
+(property "Value" "GND_SOURCE_REFERENCE" (at 339.09 254 0) (effects (font (size 1 1))))
+(pin "1" (uuid "b63a0921-7362-49b4-b250-000000191002"))
+(instances (project "TripPower_REV6_A_FACTORY_OVP" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "#FLG203") (unit 1)))))
+(wire (pts (xy 344.17 248.92) (xy 349.25 248.92)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000191033"))
+(global_label "GND" (shape bidirectional) (at 349.25 248.92 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000191003"))
+(embedded_fonts no))
