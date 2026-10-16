@@ -1,0 +1,55 @@
+name: ACC HOLD behavioral tests
+
+on:
+  push:
+    branches: [design/solid-state-power-v1]
+    paths:
+      - 'tools/test_acc_hold_state_machine.py'
+      - 'tools/test_acc_hold_exhaustive.py'
+      - 'tools/analyze_rc_shutdown.py'
+      - 'tools/test_rc_shutdown_envelope.py'
+      - 'tools/check_vs_bootstrap_tradeoff.py'
+      - 'tools/check_power_design_corners.py'
+      - 'tools/check_power_switchover_thermal.py'
+      - 'tools/check_tps2116_priority_threshold.py'
+      - 'hardware/kicad/03_3V3_USB.kicad_sch'
+      - 'tools/prove_acc_opto_limits.py'
+      - '.github/workflows/acc-hold-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acc-hold-logic:
+    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/solid-state-power-v1' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python version
+        run: python3 --version
+      - name: Directed ACC/HOLD state transitions
+        run: python3 tools/test_acc_hold_state_machine.py
+      - name: Bounded exhaustive four-step transitions
+        run: python3 tools/test_acc_hold_exhaustive.py
+      - name: Bounded RC shutdown leakage sensitivity
+        run: python3 tools/analyze_rc_shutdown.py
+      - name: Sweep RC worst-case envelope (analytical only)
+        run: python3 tools/test_rc_shutdown_envelope.py
+      - name: Quantify 6V VS bootstrap versus 200V pulse energy
+        run: python3 tools/check_vs_bootstrap_tradeoff.py
+      - name: Evaluate current 9V ACC EN and opto corner assumptions
+        run: python3 tools/check_power_design_corners.py
+      - name: Prove ACC U912 optocoupler manufacturer limits and diagnose failed guarantee
+        run: python3 tools/prove_acc_opto_limits.py
+      - name: Evaluate 5V mux holdup and NCV1117 thermal envelope
+        run: python3 tools/check_power_switchover_thermal.py
+      - name: Check manufacturer-bounded TPS2116 priority threshold
+        run: python3 tools/check_tps2116_priority_threshold.py
+      - name: Qualification reminder
+        if: always()
+        run: |
+          echo "These are behavioral model tests, not KiCad ERC, analog simulation, electrical verification or vehicle approval." >> "$GITHUB_STEP_SUMMARY"

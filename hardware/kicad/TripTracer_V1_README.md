@@ -1,6 +1,45 @@
-# TripTracer V1 – eigenständige KiCad-Projektdateien und Entwicklungsstand
+**Entwicklungsrevision 14.10.2026:** [LM74800-Q1 Eingangsschutz 01I](01I_LM74800_INPUT.kicad_sch) ist im [Hierarchieblatt](01_Eingangsschutz.kicad_sch) aktiv. ACC-/HOLD-Selbsthaltung nutzt `LM748_VS_SAFE` vor der Schutz-FET-Stufe für den Kaltstart. Frühere 01G-Diode/TVS nur Referenz, 01D LM74930 ebenfalls inaktiv. [Auslegungs- und Prüfbericht](../../docs/LM74800_01I_INTEGRATION_2026-10-14.md). **Kein ERC-/DRC- oder PCB-/Fahrzeug-Gesamtfreigabe**, kein freigegebener U921-Footprint.
 
-**Stand:** 13.10.2026, Arbeitsrevision A1. **KEINE ERC-/DRC-/Automotive-/Fertigungsfreigabe.** Die alte V0.3 bleibt unverändert als Vergleichsstand erhalten.
+> **Aktuell14.10.2026:** Einstieg und gueltiger aktiver Schaltungsstand stehen in [README.md](README.md); Eingangsentwurf und native Nachweise in [diesem Bericht](../../docs/validation/2026-10-14-input-flat-clamp.md). Die folgenden aelteren Zwischenstaende beschreiben historische Schaltungen. LM74930/LMR36520/Mikrorelais und feste6V-Forderungen sind keine aktuelle Baseline.
+
+## Historische Zwischenstaende
+
+# TripTracer V1 – KiCad-Projekt und tatsächlicher Prüfstand
+
+> **AKTUELLER STAND 14.10.2026 – aktive Variante C (noch nicht funktions-/fertigungsreif):** Der bisherige Relais-Leistungspfad K101 wurde aus `01_Eingangsschutz.kicad_sch` entfernt; die sechs Unterseiten bleiben in der KiCad-10-Hierarchie. **01D** enthält jetzt den tatsächlich verdrahteten **LM74930-Q1 U401** mit CAP/VS- und VS/GND-Stützkondensatoren, MODE=VS, 100-kΩ-EN-Fail-OFF-Pulldown, **Q401 250-V-Automotive-MOSFET-Kandidat**, Q402 100-V-Automotive-MOSFET-Kandidat, 5-mΩ-Shunt R405 und CS+/CS−/HGATE/DGATE-Anbindung. Die echte BAT-/ACC-Zuführung, geschützte VS-Versorgung für **6 V Kaltstart und 200 V Lastdump**, UV/OV/OCP-Beschaltung sowie sichere zeitlich begrenzte HOLD-Logik fehlen weiterhin. **Native KiCad-Netzlisten-Prüfung bestand 16 wesentliche Connectivity-Checks und 7 Kurzschlusschecks.** Letzter nativer Vergleich nach Relaisentfernung: **272 ERC-Meldungen, 5 DRC-Meldungen, 79 unverbundene PCB-Objekte und 63 Schaltplan-/PCB-Paritätsprobleme**. Keine Fertigungs-, ISO- oder Fahrzeugfreigabe. Siehe [LM74930-01D-Skizze](../../docs/validation/2026-10-14-lm74930-01d-core.md), [FET/Shunt-Auslegung](../../docs/validation/2026-10-14-lm74930-fets-sense.md) und [Bootstrap-Sensitivitätsrechnung](../../tools/check_vs_bootstrap_tradeoff.py).
+
+
+**Stand 14.10.2026: nicht funktions-/fertigungs-/fahrzeugfreigegeben.** Aktiv ist `design/solid-state-power-v1`; `main` wurde durch diese Arbeiten nicht geändert. Die historische V0.3 bleibt Vergleichsstand.
+
+**Verbindliches Entwicklungsziel:** Variante C mit LM74930-Q1, externen Schutz-MOSFETs/Shunt, LMR36520 5 V/2 A und relaisloser ACC/MCU-HOLD-Selbsthaltung. 9–30 V Dauerbetrieb, 6-V-Motorstartziel; separate Automotive-Transientenziele unverändert. Keine zusätzliche TPS26631 oder zum Austausch auszulötende Einmalsicherung. Fahrzeugseitige ACC-/BAT+-Leitungsabsicherung bleibt erforderlich. Maßgeblich: [Hardwareanforderungen](../../docs/HARDWARE_REQUIREMENTS.md).
+
+**Tatsächliche Prüfungen:** KiCad 10.0.6 nativ auf Windows und GitHub. Root-Hierarchie: 13 Seiten, 64 Symbolinstanzen, eindeutige Referenzen. Letzter nativer ERC 304 Meldungen. Nach aktueller PCB-Korrektur: 5 DRC-Meldungen, 79 unverbundene Verbindungen, 43 fehlende Footprints. Die Platine besitzt noch keine Leiterbahnen/Vias/Boardkontur. Richtige Netze und weniger Meldungen sind keine Fertigungsfreigabe.
+
+- [Buck-Raster, sichtbare Leitungen und unveränderte 260 Pin-Netz-Zuordnungen](../../docs/validation/2026-10-14-buck-grid/README.md).
+- [142 vorhandene Pads den echten Schaltplannetzen zugeordnet](../../docs/validation/2026-10-14-pcb-net-sync/README.md).
+- [L101 auf den ausgewählten Bourns-Footprint synchronisiert](../../docs/validation/2026-10-14-inductor-sync/README.md).
+- [U201-Bibliothekskopie ohne Änderung aller 73 Pads aktualisiert](../../docs/validation/2026-10-14-esp32-library-refresh/README.md).
+- [ACC/HOLD-Kandidat und idealisierte Übergangsversuche](../../docs/ACC_HOLD_VEHICLE_SOURCE_REVIEW.md): reale USB-Isolation, Bootstrap und Hardware-Deadline noch offen.
+
+## Neu seit 14.10.2026: 01E echte OFF-Latch-Unterseite (vorläufig)
+
+Die neue hierarchische `01E_OFF_LATCH.kicad_sch` ist auf dem aktiven Branch im gemeinsamen KiCad-10-Schaltplan eingebunden. Sie enthält den **verdrahteten, noch isolierten** automobilqualifizierten FF `SN74LVC2G74QDCURQ1`, einen NPN-PRESET-Treiber, zwei Schottky-OR-Dioden, vier Widerstände und einen Entkopplungskondensator. Der neue Baustein liegt auch in der projektlokalen `TripTracer_V1.kicad_sym`. [Vollständige Netz-/Pin-/Fehlerfallbeschreibung](../../docs/ACC_HOLD_01E_KICAD_REVIEW.md).
+
+**Achtung:** Dies ist nur eine neue **Vorschaltbaugruppe** mit unversorgten externen Eingängen `ACC_VALID_5V` und `HOLD_CONTINUE_5V`; sie ersetzt noch keine Relais-/AUX-/eFuse-Schaltung und steuert `MAIN_ENABLE` **nicht**. Beim ACC-AUS muss die Zeitgeber-Freigabe vor /CLR-Low anliegen; ansonsten kann ein Race die Nachlaufphase abbrechen. Vorhandene Erläuterungen zu 13 Seiten und 64 Symbolen beziehen sich auf den **letzten nativen Validierungsstand vor 01E**. Mit 01E sind **14 Hierarchieseiten und 73 Symbolinstanzen als Soll-Struktur** entstanden; noch keine neue native ERC-/DRC-Abnahme.
+
+## 14.10.2026 – Veraltete Zusatz-eFuse entfernt
+
+Die nicht angeschlossene **TPS26631PWPT-Instanz U401** wurde aus der aktiven Unterseite `01D_INPUT_PROTECTION.kicad_sch` entfernt. Der komplette alte Schaltplankandidat ist in der Git-Historie weiterhin verfügbar. Unterseite 01D bleibt als ausdrücklich *veraltet* bezeichnete Archivmarkierung im Hierarchie-Navigator vorhanden, enthält aber **kein elektrisches Symbol**, das den neuen Projekt-ERC belastet.
+
+**Begründung:** Nutzerentscheidung Variante C vom 13.10.2026: **LM74930-Q1 und LMR36520**, keine zweite TPS26631. Deren bislang verwaiste 20-Pin-Instanz war weder Schutzfunktion noch ein freigegebener Vorentwurf. Ein Entfernen reduziert ERC-Rauschen, ist aber **keine** Umsetzung des neuen Eingangsschutzpfades; LM74930-FETs und Shunt bleiben auslegungs- und integrationspflichtig.
+
+Der Stand der Root-Hierarchie hat weiterhin 15 Seiten einschließlich 01E/01F; die Gesamtzahl an aktiven Symbolinstanzen sinkt durch das Entfernen von U401 von 80 auf 79. Native ERC-/DRC-Zahlen müssen über den aktuellen GitHub-Lauf neu ermittelt werden, bevor sie als Ergebnis eingetragen werden.
+
+## Migration zur Variante C
+
+Der aktive Schaltplan enthält weiterhin den älteren Relais-/AUX-/TLC555-/TPS26631-Stand. Dieser wird erst durch einen vollständig ausgelegten Ersatz abgelöst; keine alten Schutzfunktionen blind entfernt. Der LM74930-Quellpfad ist noch nicht verschaltet. BUCK_ENABLE und geschützter VIN sind weiterhin ungetrieben. 3V3-/USB-Power-Path und mehrere weitere Baugruppen sind noch Platzhalter.
+
+**Aktueller LM74930-Bibliothekskandidat:** `TripTracer_V1:LM74930_Q1_RGE` mit `Tripmaster:TI_LM74930_RGE0024T_FLOAT_EP`, 24 Signalpins und elektrisch freiem RTN/EP-Pad 25. Pinout und Native-Export geprüft, vorläufige Paste/Bestückung noch offen. Der ältere `LM74930_Q1`-Vorläufer ist kein vollständiger Footprint-/EP-Kandidat und soll für die neue Baugruppe nicht gewählt werden. [Geprüfte Bibliothek und offene Gates](../../docs/LM74930_LIBRARY_AND_CORNERS.md). Noch keine Schaltplanplatzierung oder fertige Eingangsversorgung.
 
 ## Projekt in KiCad 10 öffnen
 
@@ -10,21 +49,23 @@ Projektlokale Bibliotheken über `sym-lib-table`/`fp-lib-table`: `Tripmaster_Sym
 
 ## Alle Schaltplanseiten in einem Fenster durchblättern
 
-**Nicht die acht einzelnen Baugruppendateien öffnen.** Einmal in KiCad 10 `TripTracer_V1.kicad_pro` öffnen und im Projektmanager den **Schaltplaneditor** starten (alternativ `TripTracer_V1.kicad_sch` öffnen). Dieses Root-Dokument referenziert alle acht Unterseiten über hierarchische Sheet-Symbole. Damit sind **9 Seiten insgesamt** in **einem** Schaltplanprojekt erreichbar.
+**Nicht die acht einzelnen Baugruppendateien öffnen.** Einmal in KiCad 10 `TripTracer_V1.kicad_pro` öffnen und im Projektmanager den **Schaltplaneditor** starten (alternativ `TripTracer_V1.kicad_sch` öffnen). Dieses Root-Dokument referenziert alle acht Unterseiten über hierarchische Sheet-Symbole. Zusätzlich hängen vier Schutz-Unterseiten unter `01_Eingangsschutz`: insgesamt **13 Seiten** in **einem** Schaltplanprojekt. Die Hierarchie wurde nativ geladen; der GUI-Navigator wurde noch nicht vollständig durchgeklickt.
 
-- **Hierarchie-Navigator:** Im Schaltplaneditor über das Hierarchie-Navigator-Symbol links einschalten. Die Liste zeigt das Hauptblatt und alle acht Baugruppen. Ein Klick auf einen Seitennamen wechselt direkt dorthin.
+- **Hierarchie-Navigator:** Im Schaltplaneditor über das Hierarchie-Navigator-Symbol links einschalten. Die Liste zeigt das Hauptblatt, alle acht Hauptbaugruppen und die vier verschachtelten Schutz-Unterseiten. Ein Klick auf einen Seitennamen wechselt direkt dorthin.
 - **Vorherige/nächste Seite:** Die Pfeile der oberen Symbolleiste verwenden. Alternativ auf dem Hauptblatt einen Block doppelt anklicken, um in ihn zu wechseln; mit dem Aufwärtspfeil zum Hauptblatt zurück.
 - **Dateien müssen zusammenbleiben:** `TripTracer_V1.kicad_sch` und `01_Eingangsschutz.kicad_sch` bis `08_Radsensoren.kicad_sch` im `hardware/kicad/`-Ordner belassen. Bei GitHub-Desktop-Pull wird das gesamte Projekt synchronisiert.
 - **Abnahme jeder Änderung:** Neue oder umbenannte Seiten müssen im Navigator sichtbar sein, ohne Datei-suchen-Dialog oder fehlende Unterseiten. Root-Hierarchie, elektrische Blatt-Verknüpfungen und Seitennummern prüfen; ein funktionierender Navigationsbaum belegt noch **keine** korrekte elektrische Verbindung.
 
 Die Bedienung entspricht der [offiziellen KiCad-10-Dokumentation zur Navigation zwischen Schaltplanseiten](https://docs.kicad.org/10.0/en/eeschema/eeschema.html#navigating-between-sheets). Dieser Punkt ist in `AGENTS.md` dauerhaft als Pflicht festgelegt.
 
+**Buck-Revision a1 (13.10.2026, tatsächlicher KiCad-Commit):** `02_5V_Buck.kicad_sch` ist jetzt auf die **TI LMR36520 Rev. C 5V/2A Referenzauslegung** abgestimmt: **L101=10µH Bourns SRP6030VA-100M, Isat typ. 5A (gegen ISC max. 3.6A)**; R101=100k, R102=24.9k; C101/C106=4.7µF 100V; C107=220nF 100V; C104/C105=22µF 25V. **EN ist nicht mehr an VIN gebrückt**, sondern `BUCK_ENABLE` für spätere ACC-/MCU-HOLD-Steuerung. Der neue vorläufige, projektlokale Bourns-Footprint liegt unter `Tripmaster.pretty/L_Bourns_SRP6030VA_100M.kicad_mod`; geometrische Herstellermaßgrundlage dokumentiert, **native SVG-Sichtprüfung und PCB-Footprintabgleich dokumentiert; GUI-Navigation, Routing und vollständige mechanische Freigabe stehen aus**. C-SMD-MPNs/DC-Bias, TI-EPAD-Layout, ERC/DRC, 6-V-Volllast, LM74930-Quellpfad und Ruhestrom **noch NICHT freigegeben**. Der alte `HV_PROTECTED_AFTER_EFUSE`-Label ist vorübergehend ein Legacy-Schnittstellenname, kein Beleg einer vorhandenen eFuse. Kein Fahrzeugbetrieb.
+
 ## Baugruppenstatus
 
 | Blatt | Inhalt | Stand |
 |---|---|---|
-| `01_Eingangsschutz.kicad_sch` | **TEILENTWURF:** K101 Omron G6S-2F DC5 mit echtem Pad-1/12-Spulenanschluss, NO 4/5, Q111 DMN2056U-Spulentreiber, D111 SS36-Freilauf, R111 100k-Pulldown. **5V_AUX_COIL / RELAY_ENABLE_5V / Schutzketten / ACC-HOLD fehlen noch**. | **Nicht funktionsfähig als Gesamtbaugruppe; ERC/DRC nicht ausgeführt.** |
-| `02_5V_Buck.kicad_sch` | LMR36520 als Reglerkandidat, Spule, 5-V-Feedback, Bootstrap/VCC-Kondensatoren und Ausgangskondensatoren | **9 reale Symbolinstanzen mit vorläufiger Verdrahtung; Bauteilauslegung/Pin-Footprint-Freigabe offen** |
+| `01_Eingangsschutz.kicad_sch` | **TEILENTWURF:** K101 Omron G6S-2F DC5 mit echtem Pad-1/12-Spulenanschluss, NO 4/5, Q111 DMN2056U-Spulentreiber, D111 SS36-Freilauf, R111 100k-Pulldown. **5V_AUX_COIL / RELAY_ENABLE_5V / Schutzketten / ACC-HOLD fehlen noch**. | **Nicht funktionsfähig als Gesamtbaugruppe; im fehlgeschlagenen Root-ERC enthalten.** |
+| `02_5V_Buck.kicad_sch` | LMR36520 als Reglerkandidat, Spule, 5-V-Feedback, Bootstrap/VCC-Kondensatoren und Ausgangskondensatoren | **11 Symbolinstanzen; TI-Referenzwerte korrigiert, EN getrennt von VIN; Pin-/Footprint-/ERC-/DRC-Freigabe offen** |
 | `03_3V3_USB.kicad_sch` | 3,3-V-LDO, Bordnetz/USB-Priorisierung, 5-V-Laborteststecker | **Noch nicht verschaltet** |
 | `04_ESP32_USB.kicad_sch` | ESP32-S3-MINI-1-N8, USB-C-Buchse, 2×5,1-kΩ-CC-Rd, USBLC6-2SC6, D+/D−-Serienwiderstände, BOOT/EN-Pull-ups, lokale Kondensatoren | **12 echte Symbolinstanzen verdrahtet; übrige GPIOs und Quellenentkopplung fehlen** |
 | `05_GNSS.kicad_sch` | MAX-M10N, UART/TIMEPULSE, U.FL und geschützter Antennen-Bias | **Noch nicht verschaltet** |
@@ -54,7 +95,7 @@ Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt 
 
 **KiCad-Fortschritt a2 (ACC-Start und vorbereiteter HOLD-Eingang):** Auf der neuen, hierarchischen [01B_ACC_WAKE.kicad_sch](01B_ACC_WAKE.kicad_sch) sind Q301 MMBT5551 (C408396), Q302 MMBT5401 (C408397), R301–304, C301 und D301/D302 BAT54WS (C5251553) als ein **ACCsparender Einschaltpfad** verdrahtet. Q301 steuert bei vorhandenem geschütztem Zündplus Q302 an; über D301 wird der bestehende Q111-Gate-Eingang `RELAY_ENABLE_5V` eingeschaltet. D302 ist ein **noch nicht gültig gespeister** Ausgang des späteren `HOLD_TIMER_GRANTED_3V3`-Watchdog-/Interlock-Blocks; **direkte MCU-GPIO-Selbsthaltung ist ausdrücklich nicht freigegeben**. Symbole plus vorläufige SOT23/SOD323-Footprints liegen projektlokal, Geometrie/Pin 1 noch endgültig gegen Fertiger prüfen. **Nicht elektrisch vollständig, ERC/DRC nicht ausgeführt.**
 
-**KiCad-Fortschritt a1.1 (5-V-AUX-Unterseite):** Das Relais-Eingangsblatt verlinkt nun die hierarchische [01A_AUX_5V.kicad_sch](01A_AUX_5V.kicad_sch). Dort ist der **LM5164-Q1-Hilfsbuck mit 13 Symbolinstanzen** als gekennzeichneter vorläufiger Schaltungsentwurf verdrahtet (5 V aus geschütztem BAT+, RON/FB, Type-3-Ripple, Bootstrap, Ein-/Ausgangsfilter). **U201 und L201 ohne freigegebene Footprints, ACC-Start/HOLD-Timer und vorgelagerter Kfz-Schutz fehlen; KiCad ERC/DRC nicht durchgeführt.**
+**KiCad-Fortschritt a1.1 (5-V-AUX-Unterseite):** Das Relais-Eingangsblatt verlinkt nun die hierarchische [01A_AUX_5V.kicad_sch](01A_AUX_5V.kicad_sch). Dort ist der **LM5164-Q1-Hilfsbuck mit 13 Symbolinstanzen** als gekennzeichneter vorläufiger Schaltungsentwurf verdrahtet (5 V aus geschütztem BAT+, RON/FB, Type-3-Ripple, Bootstrap, Ein-/Ausgangsfilter). **U1201 (frueher kollidierend U201) und L201 ohne freigegebene Footprints, ACC-Start/HOLD-Timer und vorgelagerter Kfz-Schutz fehlen; KiCad ERC/DRC nicht durchgeführt.**
 
 **KiCad-Fortschritt a1:** [01_Eingangsschutz.kicad_sch](01_Eingangsschutz.kicad_sch) enthält jetzt die erste real gezeichnete **Teilbeschaltung aus K101, Q111, D111, R111** und globale Schnittstellennetze. Die Relaisschaltung allein ist **nicht vollständig selbstversorgend**: die Hilfs-5V, gültige ACC/HOLD-Logik, eFuse/Schutz und Power-On-Interlock fehlen noch. Neues [portables Relaissymbol](TripTracer_V1.kicad_sym) und [Projektfootprint](Tripmaster.pretty/RLY101_Omron_G6S_2F.kicad_mod) laut Omron-Maßzeichnung, **ohne 3D-Modell** und ohne native KiCad-Freigabe. **Noch nicht** als fertiges/DRC-geprüftes PCB-Bauteil platziert.
 
@@ -64,7 +105,7 @@ Projekt-Einstellungen in `TripTracer_V1.kicad_pro`: 1,6 mm PCB-Dicke, bevorzugt 
 
 1. **V1 kann noch nicht eingeschaltet werden:** Die geschützte ACC/BAT+-Relaisversorgung, Relais-HOLD-/Failsafe-Ansteuerung, 5-V-Quellenwahl und 3,3-V-LDO sind noch nicht verdrahtet.
 2. **Buck U101:** LMR36520 ist ein **Kandidat**, noch keine Volllast-/Thermik-/90-%-Wirkungsgrad-Freigabe. Pin 1 PGND, 2 VIN, 3 EN, 4 PG, 5 FB, 6 VCC, 7 BOOT, 8 SW, thermisches Pad 9. Pin-kompatibler V0.3-LMR36510-Footprint ist **noch gegen aktuelles TI-Package-Drawing zu prüfen**. https://www.ti.com/lit/ds/symlink/lmr36520.pdf
-3. **L101:** Symbol zeigt **15 µH als vorläufigen Entwurfswert**, während der derzeit verwendete Fußabdruck den alten **Bourns-22-µH-Typ** bezeichnet. **Nicht als freigegebenen 15-µH-Bauteilsatz bestellen.** Erst L-Wert/Isat/DCR und den Hersteller-Footprint festlegen.
+3. **L101 (aktualisiert):** **10 µH Bourns SRP6030VA-100M**, I_sat typ. **5 A**, I_rms typ. **5 A**, AEC-Q200; früherer 15-µH-/22-µH-Widerspruch behoben. Footprint `Tripmaster:L_Bourns_SRP6030VA_100M` als vorläufiges Herstellerlandmuster erstellt; Feinprüfung in KiCad-10 und Temperatur/Spulen-Luftspalt/Fertigung noch offen.
 4. **USB-C:** Die D+/D−-, CC- und ESD-Grundbeschaltung ist entworfen. Die **USB-VBUS-Versorgung für Firmware/MSC ohne M8 sowie Quellen-Rückspeisesperre** fehlen auf `03_3V3_USB`. Kein Betrieb allein über USB möglich, solange diese Schaltung nicht fertig ist.
 5. **GPIOs:** ESP32-S3-MINI-1-N8 vorhanden, aber weitere Pins für Display, Tasten, GNSS, microSD, Radgeber und Erweiterung müssen konfliktfrei zugeordnet werden. GPIO0/3/45/46 und native GPIO19/20 besonders prüfen.
 6. **PCB-Fertigung:** Bei fünf nackten PCBs möglichst zwei SMD-bestückt und drei unbestückt; erst nach ERC, DRC, Bauteil-/Footprint-Abgleich und Einkaufstest zu bestellen.

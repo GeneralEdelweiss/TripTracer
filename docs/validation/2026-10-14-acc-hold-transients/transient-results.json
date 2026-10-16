@@ -1,0 +1,531 @@
+{
+  "status": "Idealized switch feedback experiment, NOT TI/buck/LAB validation",
+  "limitations": [
+    "Main power path replaced by ideal 5V source and hysteretic switch",
+    "No controller startup/gate delays, UVLO/OVP, inductance, VS clamp or motor-start sag",
+    "Generic MOS/diodes and fixed leakage stress, not manufacturer temperature models",
+    "USB isolation assumed by separate raw5 source; no USB network simulated",
+    "No hardware deadline: stuck HOLD remains powered"
+  ],
+  "cases": [
+    {
+      "vin_V": 6,
+      "scenario": "normal",
+      "points": 4055,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.030012823999393996,
+          "en_V": 4.3255351585333734,
+          "vehicle_5V_V": 4.901907755467913
+        },
+        "0.065": {
+          "time_s": 0.06501282399939465,
+          "en_V": 4.325535158533373,
+          "vehicle_5V_V": 4.901907755467913
+        },
+        "0.12": {
+          "time_s": 0.12002499999999781,
+          "en_V": 4.325526962672707,
+          "vehicle_5V_V": 4.901907754849859
+        },
+        "0.17": {
+          "time_s": 0.17002499999999562,
+          "en_V": 1.486422509335155e-18,
+          "vehicle_5V_V": 1.2498734945752833e-11
+        },
+        "0.195": {
+          "time_s": 0.19498060186037602,
+          "en_V": 1.9364748373009184,
+          "vehicle_5V_V": 4.901960441176109
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "release_HOLD_stops_power": true,
+        "ACC_restart": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 6,
+      "scenario": "usb_only",
+      "points": 4011,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4329898117308657e-18,
+          "vehicle_5V_V": 1.2491893252027332e-11
+        },
+        "0.03": {
+          "time_s": 0.029998000000000344,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.065": {
+          "time_s": 0.064998000000001,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.12": {
+          "time_s": 0.11999799999999494,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.17": {
+          "time_s": 0.16999799999998944,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.195": {
+          "time_s": 0.19499799999998668,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        }
+      },
+      "checks": {
+        "USB_only_does_not_start": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 6,
+      "scenario": "stuck_hold",
+      "points": 4042,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.030012823999393996,
+          "en_V": 4.3255351585333734,
+          "vehicle_5V_V": 4.901907755467913
+        },
+        "0.065": {
+          "time_s": 0.06501282399939465,
+          "en_V": 4.325535158533373,
+          "vehicle_5V_V": 4.901907755467913
+        },
+        "0.12": {
+          "time_s": 0.12002499999999781,
+          "en_V": 4.325526962672707,
+          "vehicle_5V_V": 4.901907754849859
+        },
+        "0.17": {
+          "time_s": 0.17002499999999232,
+          "en_V": 4.325526962672702,
+          "vehicle_5V_V": 4.901907754849859
+        },
+        "0.195": {
+          "time_s": 0.1950249999999984,
+          "en_V": 4.3255351585333734,
+          "vehicle_5V_V": 4.901907755467913
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "demonstrated_absence_of_deadline": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 6,
+      "scenario": "acc_bounce",
+      "points": 4067,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.030012823999393996,
+          "en_V": 4.3255351585333734,
+          "vehicle_5V_V": 4.901907755467913
+        },
+        "0.065": {
+          "time_s": 0.06502499999999976,
+          "en_V": 4.325535158533371,
+          "vehicle_5V_V": 4.901907755467913
+        },
+        "0.12": {
+          "time_s": 0.12002499999999783,
+          "en_V": 4.325526962672699,
+          "vehicle_5V_V": 4.901907754849859
+        },
+        "0.17": {
+          "time_s": 0.17002499999999562,
+          "en_V": 1.4864225093351685e-18,
+          "vehicle_5V_V": 1.2498734945752833e-11
+        },
+        "0.195": {
+          "time_s": 0.19498060186037003,
+          "en_V": 1.9364748373006306,
+          "vehicle_5V_V": 4.901960441176109
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "release_HOLD_stops_power": true,
+        "ACC_restart": true,
+        "bounce_held": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 9,
+      "scenario": "normal",
+      "points": 4057,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.030024641623871036,
+          "en_V": 4.3255537044127745,
+          "vehicle_5V_V": 4.9019077568658584
+        },
+        "0.065": {
+          "time_s": 0.06502464162387168,
+          "en_V": 4.3255537044127745,
+          "vehicle_5V_V": 4.9019077568658584
+        },
+        "0.12": {
+          "time_s": 0.12002499999999781,
+          "en_V": 4.325526962672708,
+          "vehicle_5V_V": 4.9019077548498595
+        },
+        "0.17": {
+          "time_s": 0.17002499999999562,
+          "en_V": 1.4864225093351321e-18,
+          "vehicle_5V_V": 1.2498734945752833e-11
+        },
+        "0.195": {
+          "time_s": 0.19497630654668355,
+          "en_V": 2.932601538188965,
+          "vehicle_5V_V": 4.901960441176158
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "release_HOLD_stops_power": true,
+        "ACC_restart": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 9,
+      "scenario": "usb_only",
+      "points": 4011,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4329898117308657e-18,
+          "vehicle_5V_V": 1.2491893252027332e-11
+        },
+        "0.03": {
+          "time_s": 0.029998000000000344,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.065": {
+          "time_s": 0.064998000000001,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.12": {
+          "time_s": 0.11999799999999494,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.17": {
+          "time_s": 0.16999799999998944,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.195": {
+          "time_s": 0.19499799999998668,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        }
+      },
+      "checks": {
+        "USB_only_does_not_start": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 9,
+      "scenario": "stuck_hold",
+      "points": 4043,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.030024641623871036,
+          "en_V": 4.3255537044127745,
+          "vehicle_5V_V": 4.9019077568658584
+        },
+        "0.065": {
+          "time_s": 0.06502464162387168,
+          "en_V": 4.3255537044127745,
+          "vehicle_5V_V": 4.9019077568658584
+        },
+        "0.12": {
+          "time_s": 0.12002499999999781,
+          "en_V": 4.325526962672708,
+          "vehicle_5V_V": 4.9019077548498595
+        },
+        "0.17": {
+          "time_s": 0.17002499999999232,
+          "en_V": 4.325526962672708,
+          "vehicle_5V_V": 4.9019077548498595
+        },
+        "0.195": {
+          "time_s": 0.1950249999999984,
+          "en_V": 4.325553704412773,
+          "vehicle_5V_V": 4.901907756865858
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "demonstrated_absence_of_deadline": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 9,
+      "scenario": "acc_bounce",
+      "points": 4069,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.030024641623871036,
+          "en_V": 4.3255537044127745,
+          "vehicle_5V_V": 4.9019077568658584
+        },
+        "0.065": {
+          "time_s": 0.06502499999999976,
+          "en_V": 4.325553704412774,
+          "vehicle_5V_V": 4.901907756865858
+        },
+        "0.12": {
+          "time_s": 0.12002499999999783,
+          "en_V": 4.325526962672707,
+          "vehicle_5V_V": 4.901907754849859
+        },
+        "0.17": {
+          "time_s": 0.17002499999999562,
+          "en_V": 1.486422509335155e-18,
+          "vehicle_5V_V": 1.2498734945752833e-11
+        },
+        "0.195": {
+          "time_s": 0.19497630654668363,
+          "en_V": 2.932601538188926,
+          "vehicle_5V_V": 4.901960441176158
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "release_HOLD_stops_power": true,
+        "ACC_restart": true,
+        "bounce_held": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 30,
+      "scenario": "normal",
+      "points": 4063,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.029975000000000276,
+          "en_V": 4.3256841393952845,
+          "vehicle_5V_V": 4.901907766674023
+        },
+        "0.065": {
+          "time_s": 0.06497500000000093,
+          "en_V": 4.3256841393952845,
+          "vehicle_5V_V": 4.901907766674023
+        },
+        "0.12": {
+          "time_s": 0.12002499999999781,
+          "en_V": 4.325526962672704,
+          "vehicle_5V_V": 4.9019077548498595
+        },
+        "0.17": {
+          "time_s": 0.17002499999999562,
+          "en_V": 1.4864225093351377e-18,
+          "vehicle_5V_V": 1.2498734945752833e-11
+        },
+        "0.195": {
+          "time_s": 0.19498323889394029,
+          "en_V": 4.183823546149334,
+          "vehicle_5V_V": 4.901960441176219
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "release_HOLD_stops_power": true,
+        "ACC_restart": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 30,
+      "scenario": "usb_only",
+      "points": 4011,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4329898117308657e-18,
+          "vehicle_5V_V": 1.2491893252027332e-11
+        },
+        "0.03": {
+          "time_s": 0.029998000000000344,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.065": {
+          "time_s": 0.064998000000001,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.12": {
+          "time_s": 0.11999799999999494,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.17": {
+          "time_s": 0.16999799999998944,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        },
+        "0.195": {
+          "time_s": 0.19499799999998668,
+          "en_V": 1.4436351379094895e-18,
+          "vehicle_5V_V": 1.249338364624685e-11
+        }
+      },
+      "checks": {
+        "USB_only_does_not_start": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 30,
+      "scenario": "stuck_hold",
+      "points": 4048,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.029975000000000276,
+          "en_V": 4.3256841393952845,
+          "vehicle_5V_V": 4.901907766674023
+        },
+        "0.065": {
+          "time_s": 0.06497500000000093,
+          "en_V": 4.3256841393952845,
+          "vehicle_5V_V": 4.901907766674023
+        },
+        "0.12": {
+          "time_s": 0.12002499999999781,
+          "en_V": 4.325526962672704,
+          "vehicle_5V_V": 4.9019077548498595
+        },
+        "0.17": {
+          "time_s": 0.17002499999999232,
+          "en_V": 4.32552696267271,
+          "vehicle_5V_V": 4.9019077548498595
+        },
+        "0.195": {
+          "time_s": 0.1950249999999984,
+          "en_V": 4.3256841393952845,
+          "vehicle_5V_V": 4.901907766674023
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "demonstrated_absence_of_deadline": true
+      },
+      "hardware_deadline_implemented": false
+    },
+    {
+      "vin_V": 30,
+      "scenario": "acc_bounce",
+      "points": 4075,
+      "samples": {
+        "0.005": {
+          "time_s": 0.004997999999999997,
+          "en_V": 1.4340343680735507e-18,
+          "vehicle_5V_V": 1.249733133527349e-11
+        },
+        "0.03": {
+          "time_s": 0.029975000000000276,
+          "en_V": 4.3256841393952845,
+          "vehicle_5V_V": 4.901907766674023
+        },
+        "0.065": {
+          "time_s": 0.06502499999999976,
+          "en_V": 4.325684139395283,
+          "vehicle_5V_V": 4.901907766674023
+        },
+        "0.12": {
+          "time_s": 0.12002499999999783,
+          "en_V": 4.325526962672703,
+          "vehicle_5V_V": 4.901907754849859
+        },
+        "0.17": {
+          "time_s": 0.17002499999999562,
+          "en_V": 1.4864225093351843e-18,
+          "vehicle_5V_V": 1.2498734945752833e-11
+        },
+        "0.195": {
+          "time_s": 0.1949832388939755,
+          "en_V": 4.18382354614941,
+          "vehicle_5V_V": 4.901960441176219
+        }
+      },
+      "checks": {
+        "ACC_start_in_idealized_model": true,
+        "HOLD_after_ACC_off": true,
+        "release_HOLD_stops_power": true,
+        "ACC_restart": true,
+        "bounce_held": true
+      },
+      "hardware_deadline_implemented": false
+    }
+  ]
+}

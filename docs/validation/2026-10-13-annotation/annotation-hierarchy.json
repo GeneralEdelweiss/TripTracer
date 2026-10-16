@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\TripTracer_V1.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\01_Eingangsschutz.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\01A_AUX_5V.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\01B_ACC_WAKE.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\01C_HOLD_TIMER.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\01D_INPUT_PROTECTION.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\02_5V_Buck.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\03_3V3_USB.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\04_ESP32_USB.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\05_GNSS.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\06_Display_Tasten.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\07_Speicher_RTC.kicad_sch",
+    "C:\\Users\\Josh\\Documents\\Codex\\2026-10-13\\referenced-chatgpt-conversation-this-is-an\\work\\TripTracer\\hardware\\kicad\\08_Radsensoren.kicad_sch"
+  ],
+  "symbol_instances": 64,
+  "errors": []
+}

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "updated_utc": "2026-10-14",
+  "project": "TripTracer V1",
+  "supply_scope": "12V/24V nominal, 9-30V normal, 5V/2A target",
+  "selection": "KEEP_EXISTING_COTS_AUTOMOTIVE_BUCK",
+  "assembled_on_active_schematic": {
+    "buck": {
+      "ref": "U101",
+      "mpn": "LMR38020SQDDARQ1",
+      "sheet": "02_5V_Buck.kicad_sch",
+      "role": "buck from protected input, EN from ACC/HOLD"
+    },
+    "front_end": {
+      "ref": "U921",
+      "mpn": "LM74800QDRRRQ1",
+      "sheet": "01I_LM74800_INPUT.kicad_sch",
+      "role": "common-source ideal diode / OV disconnect; no over-current limiting"
+    },
+    "transient": {
+      "ref": "D921",
+      "mpn": "SMBJ150A-13-F",
+      "sheet": "01I_LM74800_INPUT.kicad_sch",
+      "role": "TI 200V reference series TVS upper leg; pulse energy not qualified"
+    },
+    "usb_path": {
+      "ref": "U301",
+      "mpn": "TPS2116DRLR",
+      "sheet": "03_3V3_USB.kicad_sch",
+      "role": "USB-M8 power mux"
+    },
+    "regulator_3v3": {
+      "ref": "U302",
+      "mpn": "MCP1826S-3302E/EB",
+      "sheet": "03_3V3_USB.kicad_sch",
+      "blocked": "Real load and case temperature tests open"
+    },
+    "transient_lower": {
+      "ref": "D922",
+      "mpn": "SMBJ33CA-13-F",
+      "sheet": "01I_LM74800_INPUT.kicad_sch",
+      "role": "TVS series lower bidirectional leg; pulse energy unqualified"
+    },
+    "front_end_hv_fet": {
+      "ref": "Q921",
+      "mpn": "STD17NF25",
+      "sheet": "01I_LM74800_INPUT.kicad_sch",
+      "role": "250V high-side cutoff (SOA unverified)"
+    },
+    "front_end_lv_fet": {
+      "ref": "Q922",
+      "mpn": "BUK7Y4R8-60EX",
+      "sheet": "01I_LM74800_INPUT.kicad_sch",
+      "role": "60V ideal diode MOSFET (60V stress unverified)"
+    }
+  },
+  "compared_cots": [
+    {
+      "mpn": "RECOM R-78K5.0-2.0L",
+      "status": "NOT_SELECTED",
+      "reason": "36V Vin limit close to 30V operating limit; 3-pin unit lacks EN, additional off-state switching required; BOM delta not justified"
+    },
+    {
+      "mpn": "RECOM RPH-3.0-CT",
+      "status": "ALTERNATIVE",
+      "reason": "55V Vin, EN, 3A, 47-pad reflow QFN; higher cost and layout/thermal qualification required"
+    },
+    {
+      "mpn": "TI LM74800-Q1",
+      "status": "SELECTED_INPUT_PROTECTION_CONTOLLER_FOR_NEXT_PROTOTYPE_NOT_ACTIVE",
+      "reason": "User design-freeze: LM74800+common-source FETs from TI 200V reference; external short-circuit protection must be proven"
+    },
+    {
+      "mpn": "TI LM74930-Q1",
+      "status": "ALTERNATIVE_NOT_CURRENTLY_SELECTED",
+      "reason": "Still a comparison due integrated OCP; LM74800 selected for tested 6V/200V reference; protection safety gate remains"
+    },
+    {
+      "mpn": "TI LMR38020-Q1",
+      "status": "ACTIVE_BUCK",
+      "reason": "80V input, integrated switching function and ENABLE in already wired KiCad sheet"
+    }
+  ],
+  "verified_native_topology_only": true,
+  "release": {
+    "schematic_power_netlist_guard": "PASSED_PREVIOUS_CI_NOT_CURRENT_RELEASE",
+    "global_erc": "NOT_CLEAN",
+    "pcb_drc": "NOT_CLEAN",
+    "pcb_routed": "NO",
+    "thermal_bench": "MISSING",
+    "source_verified_stock_for_D902": "NO",
+    "short_circuit_test": "MISSING",
+    "iso_16750_2_test_b": "MISSING",
+    "iso_16750_2_test_a": "MISSING",
+    "ready_to_order_pcb": false,
+    "ready_for_vehicle": false,
+    "pcb_buck_pin_net_mapping": "CORRECTED_ALL_9_PADS_AWAIT_NATIVE_CHECK",
+    "inductor_land_pattern": "NOT_APPROVED_SCH_15uH_FCH_VS_PCB_10uH_BOURNS",
+    "protection_controller_schematic": "PRESENT_WIP_NO_ERC_OR_SAFETY_RELEASE",
+    "old_simple_input_d901_d902": "NOT_IN_ACTIVE_KICAD_HIERARCHY"
+  },
+  "source_links": [
+    "https://www.ti.com/product/LMR38020-Q1",
+    "https://www.ti.com/product/LM74930-Q1",
+    "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+    "https://recom-power.com/de/products/switching-regulators/switching-regulators-sip/rec-p-R-78K5.0-2.0L.html",
+    "https://recom-power.com/en/rec-s-RPH-3.0.html",
+    "https://www.lcsc.com/product-detail/C415866.html"
+  ],
+  "planned_input_protection": {
+    "selection_status": "ACTIVE_KICAD_WIP_NOT_ELECTRICALLY_VALIDATED",
+    "controller": "LM74800QDRRRQ1",
+    "preferred_bootstrap_diode": "1N4148WSQ-7-F",
+    "evm_bootstrap_diode": "1N4148WS-7-F",
+    "diode_role": "A anode -> VS cathode; 75V rated ordinary rectifier, NOT 85V zener",
+    "bom_path": "hardware/kicad/power_frontend_design_freeze.json",
+    "decision_document": "docs/POWER_FRONTEND_DESIGN_FREEZE_2026-10-14.md",
+    "legacy_lm74930_state": "HISTORICAL_INACTIVE_COMPARISON_ONLY",
+    "still_blocked": [
+      "short_circuit_before_buck",
+      "R_VS pulse",
+      "D_VS clamp thermal",
+      "OV_megaohm_divider_accuracy",
+      "cold_start_9V",
+      "ISO 16750 test A/B",
+      "OV divider at 660k/23.2k versus max 1uA OV pin leakage",
+      "LM74800 thermal pad 13 floating, no verified pad13 board footprint",
+      "200V surge 250V FET SOA, 60V output FET stress",
+      "C10 TI EVM 15nF omitted; datasheet 1uF A-to-GND accepted",
+      "Native ERC/DRC and prototype bench qualification"
+    ],
+    "passives_mpns_resolved": true,
+    "passives_bom": "hardware/kicad/power_frontend_order_bom.csv",
+    "passives_docs": "docs/POWER_FRONTEND_PASSIVES_SOURCING_2026-10-14.md",
+    "active_kicad_sheet": "01I_LM74800_INPUT.kicad_sch",
+    "readme": "docs/LM74800_01I_INTEGRATION_2026-10-14.md"
+  }
+}

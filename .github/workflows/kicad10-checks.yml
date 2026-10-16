@@ -1,0 +1,261 @@
+name: KiCad 10 electrical and PCB checks
+
+on:
+  push:
+    branches: [design/solid-state-power-v1]
+    paths:
+      - 'hardware/kicad/**'
+      - '.github/workflows/kicad10-checks.yml'
+      - 'tools/check_kicad_hierarchy.py'
+      - 'tools/triage_kicad_erc.py'
+      - 'tools/check_kicad_custom_pinouts.py'
+      - 'tools/check_lm74800_netlist.py'
+      - 'tools/check_triptracer_powerpath_v2.py'
+      - 'tools/export_power_bom_v2.py'
+      - 'tools/check_lmr38020_netlist.py'
+      - 'tools/check_lmr38020_pcb_pads.py'
+      - 'tools/check_acc_vin_startup.py'
+      - 'tools/check_acc_hold_prearm.py'
+      - 'tools/check_trippower_native_netlist.py'
+      - 'tools/check_trippower_lm74930_values.py'
+      - 'tools/check_trippower_input_stress.py'
+      - 'tools/check_trippower_9_30v_startup.py'
+      - 'tools/check_trippower_option_a_rc_precharge.py'
+      - 'tools/check_trippower_vs_ready_hysteresis.py'
+      - 'tools/check_trippower_reset_interlock.py'
+      - 'tools/check_trippower_reset_worst_case.py'
+      - 'tools/check_trippower_rev2_release_gate.py'
+      - 'tools/check_trippower_rev3_12v_startup.py'
+      - 'tools/check_trippower_design_baseline.py'
+      - 'hardware/modules/TripPower_5V2A/**'
+      - 'tools/check_cots_power_selection.py'
+      - 'tools/check_power_frontend_design_freeze.py'
+      - 'hardware/kicad/power_selection.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kicad10-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kicad:
+    # No hosted runs once the temporary public development phase ends.
+    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/solid-state-power-v1' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Record environment
+        run: |
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/kicad-version.txt
+          printf '%s\n' "$GITHUB_SHA" | tee reports/commit.txt
+          printf 'NO manufacturing or vehicle approval.\n' > reports/STATUS.txt
+      - name: Check hierarchy and unique references
+        id: hierarchy
+        continue-on-error: true
+        run: |
+          python3 tools/check_kicad_hierarchy.py hardware/kicad/TripTracer_V1.kicad_sch | tee reports/hierarchy.json
+      - name: Check custom safety-critical symbol pinouts
+        id: pinouts
+        continue-on-error: true
+        run: python3 tools/check_kicad_custom_pinouts.py
+      - name: Verify actual COTS power stage and release blockers
+        id: cots
+        continue-on-error: true
+        run: python3 tools/check_cots_power_selection.py | tee reports/cots-selection.json
+      - name: Check separate TripPower LM74930 protection values and 24+1 pinplan (calculation only)
+        id: trippower
+        continue-on-error: true
+        run: python3 tools/check_trippower_lm74930_values.py | tee reports/trippower-lm74930-design.json
+      - name: TripPower input 202V pulse and Q301 thermal screening (arithmetic, unresolved safety gates)
+        id: trippower_stress
+        continue-on-error: true
+        run: python3 tools/check_trippower_input_stress.py | tee reports/trippower-input-stress.json
+      - name: TripPower 9-30V first power-on VS/bootstrap screen (analytical; startup BLOCKED)
+        id: trippower_startup_window
+        continue-on-error: true
+        run: python3 tools/check_trippower_9_30v_startup.py | tee reports/trippower-9-30v-startup.json
+      - name: TripPower HISTORICAL pre-U302 EN RC model (C309 is DNP now)
+        id: trippower_startup_rc
+        continue-on-error: true
+        run: python3 tools/check_trippower_option_a_rc_precharge.py | tee reports/trippower-option-a-rc.json
+      - name: TripPower HISTORICAL 8V/6V VS_READY target (as-built U302/Q303 not modeled)
+        id: trippower_vs_ready_plan
+        continue-on-error: true
+        run: python3 tools/check_trippower_vs_ready_hysteresis.py | tee reports/trippower-vs-ready-plan.json
+      - name: TripPower U302 RESET to Q303 gated AUTO/RUN prototype (arithmetic NOT safety release)
+        id: trippower_reset_interlock
+        continue-on-error: true
+        run: python3 tools/check_trippower_reset_interlock.py | tee reports/trippower-reset-interlock.json
+      - name: TripPower RESET Q303 -40..125C worst-case (formulas pass, DESIGN BLOCKED)
+        id: trippower_reset_worstcase
+        continue-on-error: true
+        run: python3 tools/check_trippower_reset_worst_case.py | tee reports/trippower-reset-worstcase.json
+      - name: TripPower REV2 strict -40..125C and 9V evidence gate (arithmetic PASS, design BLOCKED)
+        id: trippower_rev2_evidence
+        continue-on-error: true
+        run: python3 tools/check_trippower_rev2_release_gate.py | tee reports/trippower-rev2-evidence.json
+      - name: TripPower REV3 715k 9V startup A/B RC sensitivity (not qualified)
+        id: trippower_rev3_startup
+        continue-on-error: true
+        run: python3 tools/check_trippower_rev3_12v_startup.py | tee reports/trippower-rev3-12v-startup.json
+      - name: TripPower REV4 single-source engineering BOM/limits freeze (NOT vehicle approval)
+        id: trippower_design_baseline
+        continue-on-error: true
+        run: python3 tools/check_trippower_design_baseline.py | tee reports/trippower-design-baseline.json
+      - name: TripPower independent root schematic ERC (not the TripTracer project)
+        id: trippower_erc
+        continue-on-error: true
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/trippower-erc.json hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-erc.log
+      - name: Diagnose stand-alone TripPower ERC categories
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+          p=Path('reports/trippower-erc.json')
+          if not p.exists(): print('Missing independent ERC JSON report')
+          else:
+              d=json.loads(p.read_text())
+              print('ERC JSON fields:',list(d) if isinstance(d,dict) else type(d).__name__)
+              print('ERC per-sheet violations:',[(sh.get('path'),len(sh.get('violations',[])),[(v.get('type'),v.get('severity')) for v in sh.get('violations',[])[:8]]) for sh in d.get('sheets',[])])
+              print('TripPower ERC violation detail:',[(sh.get('path'),v.get('type'),v.get('description'),v.get('items')) for sh in d.get('sheets',[]) for v in sh.get('violations',[])][:40])
+              print('ERC counts:',{k:v for k,v in d.items() if 'count' in k.lower()} if isinstance(d,dict) else '')
+          PY
+      - name: TripPower independent native netlist export
+        id: trippower_netlist
+        continue-on-error: true
+        run: |
+          kicad-cli sch export netlist -o reports/TripPower_5V2A.net \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-netlist.log
+      - name: TripPower native powerpath and VIN_PROTECTED branch assertion
+        id: trippower_path
+        continue-on-error: true
+        run: python3 tools/check_trippower_native_netlist.py reports/TripPower_5V2A.net | tee reports/trippower-powerpath.json
+      - name: TripPower standalone schematic PDF (not a PCB manufacturing release)
+        id: trippower_pdf
+        continue-on-error: true
+        run: |
+          kicad-cli sch export pdf -o reports/TripPower_5V2A.pdf \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch 2>&1 | tee reports/trippower-pdf.log
+      - name: Verify selected LM74800 MPNs and passive procurement freeze (WIP)
+        id: freeze
+        continue-on-error: true
+        run: python3 tools/check_power_frontend_design_freeze.py | tee reports/power-front-end-freeze.json
+      - name: ERC on complete root hierarchy
+        id: erc
+        continue-on-error: true
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/erc.json hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/erc.log
+      - name: Summarize ERC violations by sheet and type
+        if: always()
+        run: |
+          if test -s reports/erc.json; then
+            python3 tools/triage_kicad_erc.py reports/erc.json reports/erc-triage.md
+            cat reports/erc-triage.md | tee -a "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: DRC including schematic parity
+        id: drc
+        continue-on-error: true
+        run: |
+          kicad-cli pcb drc --severity-all --all-track-errors --schematic-parity \
+            --refill-zones --exit-code-violations --format json \
+            -o reports/drc.json hardware/kicad/TripTracer_V1.kicad_pcb 2>&1 | tee reports/drc.log
+      - name: Export native netlist
+        id: netlist
+        continue-on-error: true
+        run: |
+          kicad-cli sch export netlist -o reports/TripTracer.net \
+            hardware/kicad/TripTracer_V1.kicad_sch 2>&1 | tee reports/netlist.log
+      - name: Assert LM74800-Q1 complete power front end from native KiCad netlist
+        id: powerpath
+        continue-on-error: true
+        run: |
+          python3 tools/check_lm74800_netlist.py reports/TripTracer.net | tee reports/powerpath.log
+      - name: Assert LMR38020-Q1 buck topology from native KiCad netlist
+        id: newbuck
+        continue-on-error: true
+        run: |
+          python3 tools/check_lmr38020_netlist.py reports/TripTracer.net | tee reports/newbuck.log
+      - name: Check LMR38020 physical PCB pin nets
+        id: pcbbuck
+        continue-on-error: true
+        run: python3 tools/check_lmr38020_pcb_pads.py | tee reports/pcb-buck-pad-map.json
+      - name: Assert ACC cold-start HOLD GPIO USB-M8 priority 3V3 power path
+        id: newpowerpath
+        continue-on-error: true
+        run: |
+          python3 tools/check_triptracer_powerpath_v2.py reports/TripTracer.net | tee reports/powerpath-v2.log
+          python3 tools/check_acc_vin_startup.py | tee reports/acc-vin-startup.json
+          python3 tools/check_acc_hold_prearm.py | tee reports/acc-hold-prearm.json
+      - name: Export active LM74800 plus main power chain BOM from native netlist
+        id: powerbom
+        continue-on-error: true
+        run: |
+          python3 tools/export_power_bom_v2.py reports/TripTracer.net reports/power-bom-v2.csv | tee reports/power-bom.log
+      - name: Export complete hierarchical schematic PDF for review
+        id: schematicpdf
+        continue-on-error: true
+        run: |
+          kicad-cli sch export pdf -o reports/TripTracer-schematic.pdf hardware/kicad/TripTracer_V1.kicad_sch
+      - name: Preserve reports even when checks fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kicad10-${{ github.sha }}
+          path: reports/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Enforce failed checks
+        if: always()
+        env:
+          TRIPPOWER: ${{ steps.trippower.outcome }}
+          TRIPPOWER_STRESS: ${{ steps.trippower_stress.outcome }}
+          TRIPPOWER_STARTUP: ${{ steps.trippower_startup_window.outcome }}
+          TRIPPOWER_STARTUP_RC: ${{ steps.trippower_startup_rc.outcome }}
+          TRIPPOWER_VS_READY_PLAN: ${{ steps.trippower_vs_ready_plan.outcome }}
+          TRIPPOWER_RESET_INTERLOCK: ${{ steps.trippower_reset_interlock.outcome }}
+          TRIPPOWER_RESET_WORSTCASE: ${{ steps.trippower_reset_worstcase.outcome }}
+          TRIPPOWER_REV2_EVIDENCE: ${{ steps.trippower_rev2_evidence.outcome }}
+          TRIPPOWER_REV3_STARTUP: ${{ steps.trippower_rev3_startup.outcome }}
+          TRIPPOWER_DESIGN_BASELINE: ${{ steps.trippower_design_baseline.outcome }}
+          TRIPPOWER_ERC: ${{ steps.trippower_erc.outcome }}
+          TRIPPOWER_NETLIST: ${{ steps.trippower_netlist.outcome }}
+          TRIPPOWER_PATH: ${{ steps.trippower_path.outcome }}
+          TRIPPOWER_PDF: ${{ steps.trippower_pdf.outcome }}
+          COTS: ${{ steps.cots.outcome }}
+          FREEZE: ${{ steps.freeze.outcome }}
+          PCBBUCK: ${{ steps.pcbbuck.outcome }}
+          SCHEMATICPDF: ${{ steps.schematicpdf.outcome }}
+          ERC: ${{ steps.erc.outcome }}
+          DRC: ${{ steps.drc.outcome }}
+          NETLIST: ${{ steps.netlist.outcome }}
+          HIERARCHY: ${{ steps.hierarchy.outcome }}
+          PINOUTS: ${{ steps.pinouts.outcome }}
+          POWERPATH: ${{ steps.powerpath.outcome }}
+          NEWBUCK: ${{ steps.newbuck.outcome }}
+          NEWPOWERPATH: ${{ steps.newpowerpath.outcome }}
+          POWERBOM: ${{ steps.powerbom.outcome }}
+        run: |
+          printf '### KiCad 10 results\n\nERC: %s\n\nDRC: %s\n\nNetlist: %s\n\nNo manufacturing or vehicle approval.\n' \
+            "$ERC" "$DRC" "$NETLIST" >> "$GITHUB_STEP_SUMMARY"
+          printf '\nTripPower standalone: ERC %s | Netlist %s | PDF %s | Path %s | 9-30V analytic %s (functional startup BLOCKED)\n' "$TRIPPOWER_ERC" "$TRIPPOWER_NETLIST" "$TRIPPOWER_PDF" "$TRIPPOWER_PATH" "$TRIPPOWER_STARTUP" >> "$GITHUB_STEP_SUMMARY"
+          printf '\nHierarchy and annotation: %s\n' "$HIERARCHY" >> "$GITHUB_STEP_SUMMARY"
+          test "$TRIPPOWER" = success && test "$TRIPPOWER_STRESS" = success && test "$TRIPPOWER_STARTUP" = success && test "$TRIPPOWER_STARTUP_RC" = success && test "$TRIPPOWER_VS_READY_PLAN" = success && test "$TRIPPOWER_RESET_INTERLOCK" = success && test "$TRIPPOWER_RESET_WORSTCASE" = success && test "$TRIPPOWER_REV2_EVIDENCE" = success && test "$TRIPPOWER_REV3_STARTUP" = success && test "$TRIPPOWER_DESIGN_BASELINE" = success && test "$TRIPPOWER_ERC" = success && test "$TRIPPOWER_NETLIST" = success && test "$TRIPPOWER_PATH" = success && test "$TRIPPOWER_PDF" = success && test "$COTS" = success && test "$FREEZE" = success && test "$PCBBUCK" = success && test "$SCHEMATICPDF" = success && test "$HIERARCHY" = success && test "$PINOUTS" = success && test "$POWERPATH" = success && test "$NEWBUCK" = success && test "$NEWPOWERPATH" = success && test "$POWERBOM" = success && test "$ERC" = success && test "$DRC" = success && test "$NETLIST" = success

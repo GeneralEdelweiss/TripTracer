@@ -1,0 +1,307 @@
+{
+  "schema_version": 6,
+  "module_name": "TripPower_5V2A",
+  "target_project": "TripPower_5V2A.kicad_pro",
+  "stage": "LM74930_STANDALONE_SCHEMATIC_UNFUSED_AUX_ONE_EXTERNAL_MAIN_FUSE_PENDING_NATIVE_RECHECK",
+  "validation": "STANDALONE_SCHEMATIC_ERC_CLEAN_NETLIST_VERIFIED_NO_PCB_NO_BENCH_OR_VEHICLE_APPROVAL",
+  "created": "2026-10-14",
+  "no_manufacturing_or_vehicle_approval": true,
+  "source_policy": "AGENTS.md; COTS FIRST; source-controlled manufacturer references and deliberate gates",
+  "sources": {
+    "current_triptracer_root": "hardware/kicad/TripTracer_V1.kicad_sch",
+    "front_end": "hardware/kicad/01I_LM74800_INPUT.kicad_sch",
+    "buck": "hardware/kicad/02_5V_Buck.kicad_sch",
+    "acc_hold_external": "hardware/kicad/01H_ACC_HOLD_GATE.kicad_sch",
+    "bom": "hardware/kicad/TripTracer_5V_BUCK_SELECTED_BOM.csv"
+  },
+  "requirements": {
+    "normal_input_min_v": 9,
+    "normal_input_max_v": 30,
+    "allowed_crank_below_9v": "reset_or_turn_off_permitted; electrical safety persists",
+    "regulated_output_v": 5,
+    "continuous_output_a": 2,
+    "continuous_output_w": 10,
+    "vehicle_12_24v_compatibility": true,
+    "protection_targets": [
+      "reverse_battery",
+      "input_overvoltage_cutoff",
+      "safe_thermal_behavior",
+      "line_fuse_and_short_fault",
+      "input_output_reverse_feed_analysis",
+      "load_dump_profile_B",
+      "load_dump_profile_A_separate_unproven_requirement",
+      "ISO7637_2_separate"
+    ],
+    "envelope": {
+      "vehicle_load_dump_a_test_v": "up_to_200v_design_target_not_validated",
+      "shutdown_total_battery_target_ua": "<100 for TripTracer vehicle system; module budget not yet allocated",
+      "loss_budget_at_full_load_w": 2.5
+    },
+    "auxiliary_protected_input_voltage": "follows_fused_input_after_overvoltage_and_reverse_protection; unregulated, can collapse during cutoff; NOT 5V or fixed 15V",
+    "auxiliary_protected_max_output_current_a": 1,
+    "auxiliary_protected_output_short_circuit": "Only common upstream vehicle source fuse and shared LM74930 OCP/SCP; no separate auxiliary branch fuse, not selectively isolated. Design all copper/cables and connectors for maximum clearing I2t/time at vehicle source short circuit and LM74930 FET stuck ON.",
+    "auxiliary_protected_max_output_current_status": "1A provisional extra load design target, not a guaranteed limit. All downstream paths protected only by shared upstream vehicle main fuse and LM74930 under normal operation.",
+    "main_vehicle_fuse": {
+      "required": true,
+      "location": "vehicle harness close to source and before ALL TripTracer module power wires",
+      "shared_for_all_TripTracer_branches": true,
+      "replaceable": true,
+      "nominal_candidate_a": 3,
+      "status": "DESIGN_EXAMPLE_NOT_SELECTED: At 9V 10W/80% + 1A AUX draws 2.39A; MINI 58V 3A derates to 2A typical at 80C.",
+      "alternatives_to_check_a": [
+        4,
+        5
+      ],
+      "selection_requirements": [
+        "12V and 24V DC voltage/interruption rating",
+        "available worst-case fault current and I2t",
+        "high ambient temperature derating",
+        "9V full load including aux and inrush",
+        "cable/connector/copper withstand when LM74930 FET shorted",
+        "fault injection and thermal test"
+      ],
+      "separate_aux_branch_fuse_required": false
+    }
+  },
+  "project_boundaries": {
+    "on_module": [
+      "input_protection",
+      "buck_5v_2a",
+      "optional_local_robust_run_control",
+      "input_filtering",
+      "physical_power_terminals",
+      "testpoints",
+      "reusable_footprints_models",
+      "mandatory_VIN_PROTECTED_UNFUSED_physical_output",
+      "testpoint_VIN_PROTECTED_UNFUSED"
+    ],
+    "off_module": [
+      "ACC_to_RUN_adapter",
+      "MCU_HOLD_timeout",
+      "USB_5V_power_mux",
+      "3V3_LDO",
+      "GNSS",
+      "LCD_backlight_boost",
+      "MCU_board",
+      "vehicle_source_battery_fuses",
+      "display_current_driver_on_TripTracer_load_board",
+      "common_replaceable_vehicle_power_source_main_fuse_upstream_all_loads"
+    ],
+    "external_line_fuse_required": true,
+    "standalone_default_on": "Draft R319=0R jumper in series with R318=100k from VS_CLAMP to EN; standalone only. D305 blocks backfeed into RUN.",
+    "logic_enable_mode": "Draft 3.3/5V active-high RUN_CMD -> R317=4.7k -> D305 reverse blocker -> LM74930 EN with 100k pull-down R316. Raw ACC never directly at RUN. Behavior with VIN=0 and powered RUN needs measurement.",
+    "power_return": "Common GND; layout must protect high-current ground and switching return",
+    "output_connector_plan": "J301 VIN_FUSED/RUN_CMD/GND and J302 VIN_PROTECTED_UNFUSED/5V_OUT/GND. No F302, no auxiliary inline/PCB fuse required. Conductors subject to upstream fuse time-current and I2t.",
+    "raw_auxiliary_branch": "LM74930 switched FET path -> shared R301 5mOhm sense shunt -> VIN_PROTECTED_UNFUSED shared with U101 VIN and J302.1, deliberately without separate branch fuse.",
+    "raw_auxiliary_branch_status": "WIRED_UNFUSED_ON_STANDALONE_SCHEMATIC; no mainboard branch fuse expected; native KiCad ERC recheck open",
+    "separate_aux_fuse_required": false,
+    "main_vehicle_fuse_location": "Vehicle source close to battery/feed, before TripTracer power input cable"
+  },
+  "proposed_external_signals": [
+    {
+      "name": "VIN_FUSED",
+      "direction": "input",
+      "domain": "9_30V_normal",
+      "role": "fused positive source; not a bare battery cable"
+    },
+    {
+      "name": "GND",
+      "direction": "bidirectional",
+      "domain": "power_return",
+      "role": "input/output common negative"
+    },
+    {
+      "name": "5V_OUT",
+      "direction": "output",
+      "domain": "5V_2A",
+      "role": "regulated rail, overload behavior to be tested"
+    },
+    {
+      "name": "VIN_PROTECTED_UNFUSED",
+      "direction": "output_required",
+      "domain": "unregulated_post_protection_9_30V",
+      "role": "Physically present at J302.1. Behind LM74930 electronic shared breaker but deliberately without additional fuse. Requires entire vehicle source feed fused externally.",
+      "protection": "Main source fuse covers all wiring, connector and PCB branches when correctly sized to time-current/I2t; shared electronic OCP/SCP may switch off both outputs. No separately protected branch and no independent continuity guarantee.",
+      "current_rating_a": "1A provisional design target only",
+      "status": "WIRED_NATIVE_SCHEMATIC_RECHECK_PENDING"
+    },
+    {
+      "name": "RUN_CMD",
+      "direction": "input_optional",
+      "domain": "3p3_or_5V_logic_target_NOT_VALIDATED",
+      "role": "enable request via separate input conditioner; no BAT or VS at logic pin; floating OFF in controlled mode"
+    }
+  ],
+  "design_selection": {
+    "buck": {
+      "mpn": "LMR38020SQDDARQ1",
+      "status": "SELECTED_EXISTING_KICAD_SUBSYSTEM"
+    },
+    "protection": {
+      "mpn": "LM74930QRGERQ1",
+      "status": "LOCKED_BY_USER_FOR_STANDALONE_TRIPPOWER_DESIGN_NOT_YET_INSTALLED_IN_KICAD",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+      "design_values": "lm74930_design_v1.json",
+      "buck": "LMR38020SQDDARQ1_RETAINED"
+    },
+    "overcurrent_alternative": {
+      "mpn": "LM74930-Q1",
+      "status": "COTS_COMPARISON_ONLY_DO_NOT_SUBSTITUTE_WITHOUT_EVIDENCE"
+    },
+    "finished_module_alternative": {
+      "mpn": "RECOM R-78K5.0-2.0L",
+      "status": "COTS_COMPARISON_NO_ENABLE_MAX_36V"
+    },
+    "reference_evaluation_module": "TI LMR38020QEVM",
+    "protection_comparison": {
+      "decision": "USER_CONFIRMED_LM74930_FOR_STANDALONE_TRIPPOWER_2026_10_14",
+      "current_active_triptracer_controller": "LM74800QDRRRQ1_LEGACY_TRIPTRACER_ONLY_NEW_TRIPPOWER_HAS_LM74930_SCHEMATIC",
+      "reference": "CONTROLLER_COMPARE_LM74800_LM74930_2026-10-14.md",
+      "design_reason": "Programmable combined-load breaker plus short-circuit protection via shared shunt upstream of VIN_PROTECTED branch; LM74800 lacks OCP",
+      "recommendation_not_a_change_order": false,
+      "preferred_controller_mpn": "LM74930QRGERQ1",
+      "preferred_supplier_de_snapshot": {
+        "vendor": "Mouser Deutschland",
+        "date": "2026-10-14",
+        "stock_snapshot": 62,
+        "unit_eur_1pc": 5.39,
+        "unit_eur_10pcs": 4.13,
+        "unit_eur_100pcs": 3.47,
+        "vat_shipping": "not yet reconciled"
+      },
+      "baseline_de_snapshot": {
+        "mpn": "LM74800QDRRRQ1",
+        "vendor": "Mouser Deutschland",
+        "date": "2026-10-14",
+        "stock_snapshot": 1442,
+        "unit_eur_1pc": 2.58,
+        "unit_eur_10pcs": 1.94,
+        "unit_eur_100pcs": 1.59,
+        "vat_shipping": "not yet reconciled"
+      },
+      "open_gates": [
+        "Supplier availability sufficient for 100pc",
+        "Shunt and separate auxiliary current fault protection",
+        "9V source feed/startup",
+        "OV leakage and OFF current",
+        "FET safe operating area",
+        "RGE-24 hand solder reliability",
+        "full BOM cost incl mounting"
+      ]
+    },
+    "previous_protection": {
+      "mpn": "LM74800QDRRRQ1",
+      "status": "SELECTED_REFERENCE_DESIGN_WIP_NO_OVER_CURRENT_LIMIT",
+      "context": "CURRENT_ACTIVE_TRIPTRACER_01I_UNMODIFIED_HISTORICAL_BASELINE_NOT_FOR_NEW_MODULE"
+    },
+    "protection_settings": {
+      "model": "lm74930_design_v1.json",
+      "shunt_ohms": 0.005,
+      "r_set_ohms": 50,
+      "r_ilim_ohms": 33200,
+      "r_iscp_ohms": 470,
+      "ctmr_f": 4.7e-8,
+      "rtmr_ohms": 100000,
+      "ocp_approx_a": 3.614,
+      "scp_approx_a": 5.034,
+      "ocp_mode": "TIMED_CIRCUIT_BREAKER_LATCH_OFF",
+      "separate_aux_short_circuit_protection": "MANDATORY"
+    }
+  },
+  "stop_gates": [
+    "protection: 9V VS-chargepump dynamic startup and safe EN-off hot leakage",
+    "protection: 200V Q921 SOA, Q922 voltage, VS zener and divider pulse ratings",
+    "protection: short from fused VIN to GND BEFORE buck, FET shorted, cable fuse coordination",
+    "control: source-independent 3.3/5V RUN pin interface and power-off leakage/backfeed",
+    "manufacturing: FCH0650-150M pad drawing, exact footprints, paste and 3D",
+    "PCB: actual independent native KiCad 10 ERC, PCB parity, routed DRC and review",
+    "hardware: 9/12/24/30V 2A thermal, output ripple/EMI, short/fail-off/surge laboratory tests",
+    "economics: complete competing 1,10,100pc BOM ex shipping and assembly with live pricing",
+    "Aux VIN_PROTECTED_UNFUSED: total input/thermal budget must cover max 5V/2A and external raw-side load simultaneously; no unbounded raw output claim",
+    "Display: Riverdi constant-current 100mA LED driver from V5_SYS and USB source-current negotiation/derating; no forced 15V constant voltage source",
+    "VIN_PROTECTED_UNFUSED: all traces, cable and connectors are protected by single shared source fuse, including if FETs fail shorted, and without branch-selective separation",
+    "Main fuse 3A only initial example, 9V max loads 2.39A and 3A 58V MINI at 80C typ sustained 2A; examine 4/5A with full fault current/I2t and 12/24V rating"
+  ],
+  "cost_review": {
+    "comparisons": [
+      "LM74800+LMR38020_Q1",
+      "LM74800+RECOM_R78K",
+      "LM74930+LMR38020_Q1"
+    ],
+    "qty": [
+      1,
+      10,
+      100
+    ],
+    "prices_in_eur": "UNKNOWN_NOT_QUOTED",
+    "shipping_vat_assembly": "UNKNOWN_NOT_QUOTED",
+    "reason": "Never fabricate mixed tax or stale retailer prices",
+    "additional_required_cost_roles": [
+      "VIN_PROTECTED connector",
+      "output wiring and EMI/protection",
+      "possible copper area increase",
+      "One user-supplied external replaceable common vehicle source fuse F_MAIN (not an onboard TripPower/TripTracer component)",
+      "All downstream copper and wiring for worst-case fuse clearing I2t"
+    ]
+  },
+  "pass_status": {
+    "scope_and_COTS_first": "PASS_REVIEWED",
+    "standalone_schematic": "CREATED_2_PAGE_NATIVE_KICAD_10_DRAFT",
+    "standalone_erc": "PREVIOUS_PASS_OLDER_NETLIST_ONLY_RECHECK_AFTER_NEW_SCHEMATIC_PENDING",
+    "standalone_pcb": "NOT_CREATED",
+    "standalone_drc": "NOT_RUN_NO_PCB",
+    "bench": "NOT_TESTED",
+    "vin_protected_physical_connection": "J302.1 directly on VIN_PROTECTED_UNFUSED same common shunt net as buck; F302 removed",
+    "vin_protected_current_rating": "1A design goal, 3A source fuse unvalidated at 80C; compare 4A or 5A with wire/copper I2t",
+    "display_preference": "SELECTED_ARCHITECTURAL_CANDIDATE_NOT_BUILT",
+    "input_controller_comparison": "DECIDED_LM74930_USER_APPROVED",
+    "protection_values": "PRELIMINARY_PIN_AND_COMPONENT_DESIGN_RECALC_TEST_PENDING_OR_VALIDATION_ONLY",
+    "protection_schematic": "CREATED_01_Protection_LM74930_KICAD_SCHEMATIC_ERC_RECHECK_AFTER_UNFUSED_CHANGE",
+    "standalone_native_netlist": "PREVIOUS_PASS_OLDER_NETLIST_ONLY_RECHECK_PENDING",
+    "manufacturing_ready": false,
+    "vehicle_ready": false,
+    "standalone_pdf": "PASSED_NATIVE_KICAD10_EXPORT_3_PAGES_CI_38634029401",
+    "legacy_triptracer_project": "PREEXISTING_ROOT_ERC_33_UNCONNECTED_PINS_AND_PCB_DRC_FAIL_UNRELATED_TO_STANDALONE_TRIPPOWER"
+  },
+  "display_backlight_design": {
+    "display": "Riverdi RVT35HITNWC00-B",
+    "choice": "PREFERRED_EXTERNAL_5V_TO_LED_CONSTANT_CURRENT_BOOST_NOT_15V_LINEAR_SUPPLY",
+    "approximate_led_forward_voltage_v_typ": 15,
+    "approximate_led_forward_voltage_range_v": [
+      13.5,
+      17
+    ],
+    "nominal_led_current_ma": 100,
+    "nominal_led_power_w": 1.5,
+    "input_rail": "TripTracer V5_SYS after TPS2116 source selector when USB operation of backlight is desired; power budget and USB allowed current mandatory",
+    "driver_candidate": "TPS61165-Q1",
+    "driver_status": "FUNCTIONAL_COTS_CANDIDATE_NOT_FINAL_BOM_OR_ROUTED",
+    "source_display": "https://www.mouser.com/datasheet/2/1021/DS_RVT35HITNWC00_B_Rev_1_0-3537271.pdf",
+    "source_driver": "https://www.ti.com/product/TPS61165-Q1",
+    "input_current_5v_a_typical_at_85percent_efficiency": 0.353,
+    "input_current_5v_a_max_vf_17v_at_85percent_efficiency": 0.4,
+    "alternative_use_VIN_PROTECTED": "NOT_SELECTED; would need 9-30V-capable buck-boost constant-current driver, with own protective load branch",
+    "no_display_circuit_on_trippower_module": true
+  },
+  "project_files": {
+    "entry": "TripPower_5V2A.kicad_pro",
+    "root_schematic": "TripPower_5V2A.kicad_sch",
+    "protection_schematic": "01_Protection_LM74930.kicad_sch",
+    "buck_schematic": "02_5V_LMR38020.kicad_sch",
+    "symbol_table": "sym-lib-table",
+    "footprint_table": "fp-lib-table",
+    "additional_libs": [
+      "TripPower_Sym.kicad_sym",
+      "TripTracer_V1.kicad_sym",
+      "Tripmaster_Sym.kicad_sym",
+      "Tripmaster.pretty"
+    ],
+    "pcb": "NOT_CREATED"
+  },
+  "auxiliary_branch_fuse_candidate": {
+    "state": "CANCELLED_PER_USER",
+    "reference": "F302_REMOVED_FROM_KICAD",
+    "replacement": "external shared main vehicle feed fuse only",
+    "no_separate_aux_fuse_on_any_board": true
+  }
+}

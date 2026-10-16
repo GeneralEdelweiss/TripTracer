@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "project": "TripTracer V1",
+  "updated": "2026-10-14",
+  "scope": "Planned 200V 12/24V automotive input protection",
+  "decision": "FROZEN_FOR_NEXT_PROTOTYPE_PART_SELECTION_ONLY",
+  "status": "ACTIVE_SCHEMATIC_WIP_NOT_ERC_CLEAN_NOT_BENCH_VALIDATED",
+  "controller": "LM74800QDRRRQ1",
+  "output_buck_retained": "LMR38020SQDDARQ1",
+  "reference_documents": [
+    "https://www.ti.com/lit/ds/symlink/lm7480-q1.pdf",
+    "https://www.ti.com/lit/ug/slvubu4/slvubu4.pdf",
+    "https://e2e.ti.com/support/power-management-group/power-management/f/p/power-management-forum/1029524/lm7480-q1-200-v-unsuppressed-load-dump-protection-application-in-figure-10-25"
+  ],
+  "fixed_candidates": [
+    {
+      "role": "Controller",
+      "ref": "U_PROT",
+      "mpn": "LM74800QDRRRQ1",
+      "qty": 1,
+      "package": "WSON-12",
+      "status": "SELECTED_PLACED_ACTIVE_SCHEMATIC_FOOTPRINT_ASSIGNED_NOT_PCB_PLACED",
+      "source": "https://www.ti.com/product/LM7480-Q1"
+    },
+    {
+      "role": "High-voltage load disconnect FET",
+      "ref": "Q_HV",
+      "mpn": "STD17NF25",
+      "qty": 1,
+      "voltage": "250V",
+      "status": "SELECTED_PENDING_SOA_GATE",
+      "source": "https://www.digikey.de/de/products/detail/stmicroelectronics/STD17NF25/1852426"
+    },
+    {
+      "role": "Ideal diode FET",
+      "ref": "Q_LV",
+      "mpn": "BUK7Y4R8-60EX",
+      "qty": 1,
+      "voltage": "60V VDS, ±20V VGS",
+      "status": "SELECTED_PENDING_VDS_STRESS",
+      "source": "https://www.digikey.de/de/products/detail/nexperia-usa-inc/BUK7Y4R8-60EX/4020866"
+    },
+    {
+      "role": "A-node to VS bootstrap bypass diode (TI schematic 85V D2 = EVM D6)",
+      "ref": "D_A_VS",
+      "mpn": "1N4148WSQ-7-F",
+      "qty": 1,
+      "package": "SOD-323",
+      "voltage": "75V VRRM,150mA",
+      "status": "SELECTED_AUTOMOTIVE_AEC_Q101_NOT_YET_WIRED",
+      "alternative": "1N4148WS-7-F non-AEC, original TI EVM, Reichelt product 219385",
+      "source": "https://www.digikey.de/de/products/detail/diodes-incorporated/1N4148WSQ-7-F/5305485"
+    },
+    {
+      "role": "VS protective zener (separate from bootstrap diode)",
+      "ref": "D_VS",
+      "mpn": "1SMB5943BT3G",
+      "qty": 1,
+      "voltage": "56V, 3W",
+      "status": "SELECTED_PENDING_PULSE_THERMAL",
+      "source": "https://www.digikey.de/de/products/detail/onsemi/1SMB5943BT3G/1748969"
+    },
+    {
+      "role": "Input TVS, positive stack",
+      "ref": "D_TVS_HIGH",
+      "mpn": "SMBJ150A-13-F",
+      "qty": 1,
+      "status": "SELECTED_PENDING_ISO_PULSE",
+      "source": "https://www.digikey.de/de/products/detail/diodes-incorporated/SMBJ150A-13-F/814778"
+    },
+    {
+      "role": "Input TVS, bidirectional 33V",
+      "ref": "D_TVS_LOW",
+      "mpn": "SMBJ33CA-13-F",
+      "qty": 1,
+      "status": "SELECTED_PENDING_ISO_PULSE",
+      "source": "https://www.digikey.de/de/products/detail/diodes-incorporated/SMBJ33CA-13-F/816078"
+    },
+    {
+      "role": "VS feed series resistor",
+      "ref": "R_VS",
+      "mpn": "CRCW121010K0FKEAHP",
+      "qty": 1,
+      "value": "10kΩ 1210 0.75W",
+      "status": "SELECTED_VALUE_PULSE_0_7J_NOT_RATED",
+      "source": "https://www.digikey.de/de/products/detail/vishay-dale/CRCW121010K0FKEAHP/2567328"
+    },
+    {
+      "role": "OV divider upper half",
+      "ref": "R_OV_A",
+      "mpn": "RC1206FR-07330KL",
+      "value": "330kΩ 1% 1206",
+      "qty": 1,
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 24347,
+        "unit_price_eur_ex_vat_1pc": 0.1,
+        "unit_price_eur_ex_vat_10pcs": 0.044,
+        "notes": "OV upper section 1/2; 200V input sees ~96.6V each at ideal steady state; must check pulse voltage"
+      }
+    },
+    {
+      "role": "OV divider upper half",
+      "ref": "R_OV_B",
+      "mpn": "RC1206FR-07330KL",
+      "value": "330kΩ 1% 1206",
+      "qty": 1,
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07330KL/728823",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 24347,
+        "unit_price_eur_ex_vat_1pc": 0.1,
+        "unit_price_eur_ex_vat_10pcs": 0.044,
+        "notes": "OV upper section 2/2; used in series, not parallel"
+      }
+    },
+    {
+      "role": "OV divider lower",
+      "ref": "R_OV_BOTTOM",
+      "mpn": "RC1206FR-0723K2L",
+      "value": "23.2kΩ 1% 1206",
+      "qty": 1,
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.in/en/products/detail/yageo/RC1206FR-0723K2L/728700",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey (non-EUR lookup; DE stock unconfirmed)",
+        "url": "https://www.digikey.in/en/products/detail/yageo/RC1206FR-0723K2L/728700",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 514,
+        "unit_price_eur_ex_vat_1pc": 0.09,
+        "unit_price_eur_ex_vat_10pcs": null,
+        "notes": "DigiKey INR listing ~514 units; DigiKey IE filter previously ~2197, EU inventory and price must be rechecked at checkout"
+      }
+    },
+    {
+      "role": "VS reservoir",
+      "ref": "C_VS_A",
+      "mpn": "C1210C225K1RACTU",
+      "qty": 2,
+      "value": "2.2uF 100V X7R 1210",
+      "status": "SELECTED_EFFECTIVE_CAP_DERATING_OPEN",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1210C225K1RACTU/1950671"
+    },
+    {
+      "role": "A common-source bypass",
+      "ref": "C_A",
+      "mpn": "C1210C105K1RACTU",
+      "qty": 1,
+      "value": "1uF 100V X7R",
+      "status": "SELECTED_ELECTRICAL_MARGIN_OPEN",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1210C105K1RACTU/3471942"
+    },
+    {
+      "role": "Input bypass",
+      "ref": "C_IN",
+      "mpn": "C1210C104JARACTU",
+      "qty": 1,
+      "value": "100nF 250V",
+      "status": "SELECTED_SURGE_RATING_OPEN",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1210C104JARACTU/16680304"
+    },
+    {
+      "role": "Charge pump capacitor",
+      "ref": "C_CAP",
+      "mpn": "C1206C224K5RACTU",
+      "qty": 1,
+      "value": "220nF 50V X7R 1206",
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "KEMET",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1206C224K5RACTU/411250",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/kemet/C1206C224K5RACTU/411250",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 7931,
+        "unit_price_eur_ex_vat_1pc": 0.32,
+        "unit_price_eur_ex_vat_10pcs": 0.183,
+        "notes": "charge pump capacitor, effective capacitance and true datasheet node placement to check"
+      }
+    },
+    {
+      "role": "Power output reservoir",
+      "ref": "C_LOAD",
+      "mpn": "EEE-FK1J470P",
+      "qty": 1,
+      "value": "47uF 63V",
+      "status": "SELECTED_LOAD_HOLDUP_OPEN",
+      "source": "https://www.digikey.de/de/products/detail/panasonic-industry/EEE-FK1J470P/766199"
+    },
+    {
+      "role": "Gate slew resistor",
+      "ref": "R_SLEW",
+      "mpn": "RC1206FR-07100RL",
+      "qty": 1,
+      "value": "100Ω 1206",
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "YAGEO",
+      "source": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07100RL/731438",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/yageo/RC1206FR-07100RL/731438",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 462929,
+        "unit_price_eur_ex_vat_1pc": 0.09,
+        "unit_price_eur_ex_vat_10pcs": 0.04,
+        "notes": "TI EVM R2 100Ω; must retain gate network orientation"
+      }
+    },
+    {
+      "role": "Gate slew capacitor",
+      "ref": "C_SLEW",
+      "mpn": "C1206C103K1RACTU",
+      "qty": 1,
+      "value": "10nF 100V X7R",
+      "status": "MPN_LOCKED_SOURCED_PENDING_ELECTRICAL_QUALIFICATION",
+      "manufacturer": "KEMET",
+      "source": "https://www.digikey.de/de/products/detail/kemet/C1206C103K1RACTU/411511",
+      "procurement_status": "LISTED_STOCKED_SNAPSHOT_NOT_RESERVED",
+      "ordering": {
+        "vendor": "DigiKey DE",
+        "url": "https://www.digikey.de/de/products/detail/kemet/C1206C103K1RACTU/411511",
+        "snapshot_date": "2026-10-14",
+        "stock_snapshot": 265220,
+        "unit_price_eur_ex_vat_1pc": 0.2,
+        "unit_price_eur_ex_vat_10pcs": 0.112,
+        "notes": "TI EVM C4 10nF, EVM uses AEC Q200 0603; 1206 general-purpose candidate for prototype"
+      }
+    }
+  ],
+  "diode_resolution": {
+    "datasheet_part": "D2 85V in LM7480-Q1 Figure 10-25",
+    "evm_equivalent": "D6 1N4148WS-7-F in LM74800EVM-CS Table 6-1",
+    "electrical_function": "Forward supply from common-source midpoint A (ANODE) to VS (CATHODE) for low-voltage startup/charge pump, reverse blocks when Q1 is open",
+    "not_a_zener": true,
+    "not_gate_clamp": true,
+    "series_VS_resistor_is_not_substituted": true,
+    "chosen_automotive": "1N4148WSQ-7-F 75V/150mA SOD-323 AEC-Q101",
+    "cheaper_evm": "1N4148WS-7-F 75V/150mA SOD-323, not AEC Qualified according to manufacturer",
+    "same_part_no_added_zener": true,
+    "availability_snapshot": [
+      {
+        "part": "1N4148WS-7-F",
+        "supplier": "Reichelt",
+        "status": "in stock",
+        "price": "0.04 EUR including 19% VAT 1pc",
+        "url": "https://www.reichelt.de/de/de/shop/produkt/schalt-diode_75_v_150_ma_sod-323-219385"
+      },
+      {
+        "part": "1N4148WSQ-7-F",
+        "supplier": "DigiKey DE",
+        "status": "in stock observed ~17k, stock fluctuates",
+        "price": "0.18 EUR 1pc; 0.111 EUR/10 each (ex VAT)",
+        "url": "https://www.digikey.de/de/products/detail/diodes-incorporated/1N4148WSQ-7-F/5305485"
+      },
+      {
+        "part": "1N4148WS-7-F",
+        "supplier": "LCSC",
+        "status": "in stock; stock snapshots differ",
+        "price": "~0.025 USD/20 qty as observed (excluding shipping/taxes)",
+        "url": "https://www.lcsc.com/product-image/C60580.html"
+      }
+    ]
+  },
+  "release": {
+    "approved_for_vehicle": false,
+    "approved_for_pcb_order": false,
+    "hardware_tested": false,
+    "fully_costed": false,
+    "protection_circuit_present_in_active_kicad": true,
+    "buck_enable_vin_max_violation_resolved_in_schematic": true,
+    "acc_off_hot_leakage_proven": false,
+    "nine_volt_bootstrap_tested": false,
+    "u921_footprint_manufacturer_paste_pattern_validated": false
+  },
+  "open_gates": [
+    "9V/6V VS feed startup current and bootstrap transient with actual 10k resistor",
+    "RVS 200V/350ms pulse 0.7J + rated resistor pulse voltage and energy",
+    "56V VS zener energy/thermal and tolerance (70V VS absolute maximum)",
+    "85V D2 is 75V 1N4148 on EVM: check max reverse voltage A-to-VS across all faults, leakage and orientation",
+    "OV divider 660k + 23.2k is not TI reference: input leakage, full temperature and threshold spread; absolute pin ratings",
+    "Q_HV 250V rated SOA load dump",
+    "Q_LV 60V rating and source/drain, VGS plus surge stress",
+    "External short circuit protection: LM74800 not electronic eFuse, source fuses required",
+    "Rewire ACC / MCU HOLD/USB priority with standby <100uA and no back-feed",
+    "D902 existing 01G TVS must not be claimed replaced until real KiCad change",
+    "Full KiCad10 ERC/DRC + board parity after implementation and temperature/ISO A/B tests"
+  ],
+  "standard_passive_selection": {
+    "status": "ALL_6_PREVIOUSLY_UNSPECIFIED_POSITION_MPNS_ASSIGNED",
+    "selection_date": "2026-10-14",
+    "selected_refs": [
+      "R_OV_A",
+      "R_OV_B",
+      "R_OV_BOTTOM",
+      "C_CAP",
+      "R_SLEW",
+      "C_SLEW"
+    ],
+    "note": "One MPN serves both 330k positions; 5 distinct MPNs, six physical parts. Selected ≠ schematic present or electrically released.",
+    "reference_evm_extra_component": {
+      "ref": "C10",
+      "value": "15nF 100V X7R",
+      "mpn_candidate": "CC1206KRX7R0BB153",
+      "source": "https://www.digikey.de/de/products/detail/yageo/CC1206KRX7R0BB153/8025568",
+      "stock_snapshot": 3798,
+      "unit_price_eur_ex_vat_1pc": 0.24,
+      "status": "REFERENCE_ONLY_NOT_INSTALLED_C10_OMITTED",
+      "reason": "TI E2E states the 15nF common-source capacitor value is incorrect; TI recommends 1uF at A to GND. EVM C10 is drawn at RTN PAD13-to-GND; datasheet Table 6-1 says exposed pad RTN must float. Do not fit the EVM 15nF without clarified nodes."
+    },
+    "evm_extra_not_mapped": [
+      "EVM C10 15nF: OMITTED; 1uF C924 common-source A-GND per TI",
+      "EVM jumpers, indicator LEDs, 0R: no power-path use in TripTracer"
+    ],
+    "ov_design_calc": {
+      "vin_normal_min_v": 9,
+      "vin_normal_max_v": 30,
+      "upper_resistors_ohm": [
+        330000,
+        330000
+      ],
+      "lower_ohm": 23200,
+      "threshold_nominal_v": 36.31,
+      "ov_rising_reference_v": 1.233,
+      "divider_current_at_24v_uA": 35.13,
+      "divider_current_at_30v_uA": 43.91,
+      "each_upper_at_200v": 96.6,
+      "note": "Nominal only; 1% tolerance, input leakage up to 1uA, temperature, surge and EN/SW disconnection must be verified; do not use 36.25V from earlier rough estimate."
+    }
+  },
+  "schematic_integration": {
+    "date": "2026-10-14",
+    "path": "hardware/kicad/01I_LM74800_INPUT.kicad_sch",
+    "hierarchy_entry": "hardware/kicad/01_Eingangsschutz.kicad_sch",
+    "ref_mapping": {
+      "U_PROT": "U921",
+      "Q_HV": "Q921",
+      "Q_LV": "Q922",
+      "D_A_VS": "D924",
+      "D_VS": "D923",
+      "D_TVS_HIGH": "D921",
+      "D_TVS_LOW": "D922",
+      "R_VS": "R921",
+      "R_OV_A": "R932",
+      "R_OV_B": "R933",
+      "R_OV_BOTTOM": "R934",
+      "C_IN": "C921",
+      "C_VS_A": "C922",
+      "C_VS_B": "C923",
+      "C_A": "C924",
+      "C_CAP": "C925",
+      "C_LOAD": "C926",
+      "R_SLEW": "R925",
+      "C_SLEW": "C927"
+    },
+    "acc_enable_link": "01H Q915 emitter is sourced from LM748_VS_SAFE upstream; BUCK_ENABLE controls only U921 EN/UVLO. U101 LMR38020 EN is tied to its own HV_PROTECTED_AFTER_EFUSE/VIN to respect EN<=VIN+0.3V.",
+    "c10_15nf": "OMITTED: 1uF at common-source A-GND per TI datasheet / E2E; EVM has 15nF C10 and exposed-pad drawing conflict; RTN PAD13 left floating",
+    "remaining": "U921 TI DRR0012E footprint added to active KiCad schematic but not PCB-placed or layout/thermally qualified. 9V charge-pump startup and hot OFF leakage unproven; 200V pulse/FET SOA/TVS/current limit/fusing, ERP, PCB parity, ERC/DRC and lab/ISO tests open.",
+    "u921_footprint": "Tripmaster:TI_LM74800_Q1_DRR0012E, local exact manufacturer nominal pad centers 3x3mm, RTN13 isolated; footprint paste/PCB thermal review pending",
+    "acc_drive_parts_update": {
+      "R912": "100k RC1206FR-07100KL",
+      "R922": "100k RC1206FR-07100KL",
+      "R911": "33k RC1206FR-0733KL",
+      "R913": "47k RC1206FR-0747KL",
+      "R923": "100k surge ERJP08F1003V",
+      "R924": "100k RC1206FR-07100KL",
+      "R916": "100k surge ERJP08F1003V"
+    }
+  }
+}

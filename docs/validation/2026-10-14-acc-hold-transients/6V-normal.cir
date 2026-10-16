@@ -1,0 +1,30 @@
+Exploratory ACC HOLD transition 6V normal
+Vacc acc 0 PWL(0 0 10m 0 10.1m 6 100m 6 100.1m 0 180m 0 180.1m 6 200m 6)
+Vhold hold 0 PWL(0 0 20m 0 20.1m 2.4 130m 2.4 130.1m 0 200m 0)
+Videal5 ideal5 0 5
+SBUCK ideal5 raw5 en 0 BUCKSW
+.model BUCKSW SW(RON=0.05 ROFF=1e12 VT=0.73 VH=0.32)
+Cout raw5 0 220u IC=0
+Rload raw5 0 2.5
+Racc1 acc am 100k
+Racc2 am ac 100k
+Dz 0 ac DZ
+Dacc ac en DS
+Ren en 0 100k
+Cen en 0 10n IC=0
+Rpg raw5 pg 4.7k
+Mp pd pg raw5 raw5 PM
+Dhold pd en DS
+Rh hold hg 10k
+Rhp hg 0 100k
+Mn pg hg 0 0 NM
+.model NM NMOS(VTO=1.5 KP=0.1 RD=3 RS=3)
+.model PM PMOS(VTO=-2 KP=0.01 RD=10 RS=10)
+.model DZ D(IS=1e-14 BV=4.7 IBV=10u)
+.model DS D(IS=1e-14 N=1)
+Bpleak raw5 pd I=2u*min(1,max(v(raw5,pd)/0.1,0))
+Bnleak pg 0 I=5u*min(1,max(v(pg)/0.1,0))
+Benleak en 0 I=200n*min(1,max(v(en)/0.1,0))
+.options reltol=0.001
+.tran 50u 200m 0 50u uic
+.end

@@ -1,0 +1,458 @@
+{
+  "buck_nets": [
+    {
+      "net": "/5-V-Synchronbuck (elektrischer Entwurf)/BUCK_PGOOD",
+      "nodes": [
+        {
+          "ref": "U101",
+          "pin": "4"
+        }
+      ]
+    },
+    {
+      "net": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "nodes": [
+        {
+          "ref": "C101",
+          "pin": "1"
+        },
+        {
+          "ref": "C103",
+          "pin": "2"
+        },
+        {
+          "ref": "C104",
+          "pin": "1"
+        },
+        {
+          "ref": "C105",
+          "pin": "1"
+        },
+        {
+          "ref": "C106",
+          "pin": "2"
+        },
+        {
+          "ref": "C107",
+          "pin": "2"
+        },
+        {
+          "ref": "R102",
+          "pin": "1"
+        },
+        {
+          "ref": "U101",
+          "pin": "1"
+        },
+        {
+          "ref": "U101",
+          "pin": "9"
+        }
+      ]
+    },
+    {
+      "net": "BUCK_ENABLE",
+      "nodes": [
+        {
+          "ref": "U101",
+          "pin": "3"
+        }
+      ]
+    },
+    {
+      "net": "HV_PROTECTED_AFTER_EFUSE",
+      "nodes": [
+        {
+          "ref": "C101",
+          "pin": "2"
+        },
+        {
+          "ref": "C106",
+          "pin": "1"
+        },
+        {
+          "ref": "C107",
+          "pin": "1"
+        },
+        {
+          "ref": "U101",
+          "pin": "2"
+        }
+      ]
+    },
+    {
+      "net": "Net-(U101-BOOT)",
+      "nodes": [
+        {
+          "ref": "C102",
+          "pin": "1"
+        },
+        {
+          "ref": "U101",
+          "pin": "7"
+        }
+      ]
+    },
+    {
+      "net": "Net-(U101-FB)",
+      "nodes": [
+        {
+          "ref": "R101",
+          "pin": "1"
+        },
+        {
+          "ref": "R102",
+          "pin": "2"
+        },
+        {
+          "ref": "U101",
+          "pin": "5"
+        }
+      ]
+    },
+    {
+      "net": "Net-(U101-SW)",
+      "nodes": [
+        {
+          "ref": "C102",
+          "pin": "2"
+        },
+        {
+          "ref": "L101",
+          "pin": "1"
+        },
+        {
+          "ref": "U101",
+          "pin": "8"
+        }
+      ]
+    },
+    {
+      "net": "Net-(U101-VCC)",
+      "nodes": [
+        {
+          "ref": "C103",
+          "pin": "1"
+        },
+        {
+          "ref": "U101",
+          "pin": "6"
+        }
+      ]
+    }
+  ],
+  "footprint_files": [
+    {
+      "ref": "D111",
+      "footprint": "Tripmaster:D_SMA_SS36",
+      "exists": true
+    },
+    {
+      "ref": "K101",
+      "footprint": "Tripmaster:RLY101_Omron_G6S_2F",
+      "exists": true
+    },
+    {
+      "ref": "Q111",
+      "footprint": "Tripmaster:Q1_Diodes_DMN2056U_7",
+      "exists": true
+    },
+    {
+      "ref": "R111",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C101",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C102",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C103",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C104",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C105",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C106",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C107",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "L101",
+      "footprint": "Tripmaster:L_Bourns_SRP6030VA_100M",
+      "exists": true
+    },
+    {
+      "ref": "R101",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R102",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "U101",
+      "footprint": "Tripmaster:U3_TI_LMR36510ADDAR_DDA",
+      "exists": true
+    },
+    {
+      "ref": "C201",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C202",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C203",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "D201",
+      "footprint": "Tripmaster:D2_ST_USBLC6_2SC6",
+      "exists": true
+    },
+    {
+      "ref": "J201",
+      "footprint": "Tripmaster:J1_GCT_USB4105_GF_A_USB_C",
+      "exists": true
+    },
+    {
+      "ref": "R201",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R202",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R203",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R204",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R205",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R206",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "U201",
+      "footprint": "Tripmaster:U1_ESP32-S3-MINI-1-N8",
+      "exists": true
+    },
+    {
+      "ref": "C201",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C202",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C203",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C204",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C205",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C206",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C207",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R201",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R202",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R203",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R204",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C301",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "D301",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "exists": true
+    },
+    {
+      "ref": "D302",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "exists": true
+    },
+    {
+      "ref": "Q301",
+      "footprint": "Tripmaster:Q_SOT23_1B2E3C",
+      "exists": true
+    },
+    {
+      "ref": "Q302",
+      "footprint": "Tripmaster:Q_SOT23_1B2E3C",
+      "exists": true
+    },
+    {
+      "ref": "R301",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R302",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R303",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R304",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R305",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C501",
+      "footprint": "Tripmaster:C_1210_3225",
+      "exists": true
+    },
+    {
+      "ref": "C502",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C503",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C504",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "C505",
+      "footprint": "Tripmaster:C_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "D501",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "exists": true
+    },
+    {
+      "ref": "D502",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "exists": true
+    },
+    {
+      "ref": "R501",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R502",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R503",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "R504",
+      "footprint": "Tripmaster:R_1206_3216",
+      "exists": true
+    },
+    {
+      "ref": "U501",
+      "footprint": "Tripmaster:U_TLC555_SOIC8",
+      "exists": true
+    },
+    {
+      "ref": "U502",
+      "footprint": "Tripmaster:U_AND_SOT23_5",
+      "exists": true
+    }
+  ],
+  "pcb": {
+    "footprints": 21,
+    "nets": 1,
+    "tracks": 0,
+    "vias": 0,
+    "zones": 0
+  }
+}

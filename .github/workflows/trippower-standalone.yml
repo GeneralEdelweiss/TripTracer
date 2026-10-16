@@ -1,0 +1,72 @@
+name: TripPower standalone engineering gates (NOT fabrication)
+
+on:
+  push:
+    branches: [design/solid-state-power-v1]
+    paths:
+      - 'hardware/modules/TripPower_5V2A/**'
+      - 'tools/check_trippower_*.py'
+      - '.github/workflows/trippower-standalone.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trippower-standalone-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standalone:
+    if: ${{ !github.event.repository.private && github.ref == 'refs/heads/design/solid-state-power-v1' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up isolated KiCad 10 environment
+        run: |
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/kicad-version.txt
+          printf '%s\n' "$GITHUB_SHA" > reports/commit.txt
+          printf 'TripPower REV5: engineering coherence PASS is NOT 9V-start, 200V-load-dump, PCB/vehicle/manufacturing release.\n' > reports/STATUS.txt
+      - name: Enforce single-source REV5 BOM (57 AUTO / 58 RUN), DNP diagnostics, pin package and rating register
+        run: python3 tools/check_trippower_design_baseline.py | tee reports/rev5-baseline.json
+      - name: TI controller current limit and selected sense passives arithmetic only
+        run: python3 tools/check_trippower_lm74930_values.py | tee reports/current-sense.json
+      - name: Load dump power and MOSFET screening (NOT SOA approval)
+        run: python3 tools/check_trippower_input_stress.py | tee reports/load-dump-screen.json
+      - name: VS 9–30V initial feed arithmetic (NOT startup verification)
+        run: python3 tools/check_trippower_9_30v_startup.py | tee reports/vs-feed-screen.json
+      - name: Independent native KiCad 10 ERC
+        run: |
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/trippower-erc.json hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
+      - name: Export native KiCad 10 netlist
+        run: |
+          kicad-cli sch export netlist -o reports/TripPower_5V2A.net \
+            hardware/modules/TripPower_5V2A/TripPower_5V2A.kicad_sch
+      - name: Confirm TPS38 pin nets and dual-OD VS/RUN/EN interlock
+        run: python3 tools/check_trippower_native_netlist.py reports/TripPower_5V2A.net | tee reports/native-nets.json
+      - name: Retain standalone evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trippower-standalone-${{ github.sha }}
+          path: reports/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Mark limitations prominently
+        if: always()
+        run: |
+          printf '### TripPower REV5 stand-alone design checks\n\n' >> "$GITHUB_STEP_SUMMARY"
+          printf 'KiCad 10 standalone schematic checks and arithmetic only. **NO PCB exists**, no PCB DRC, no hot SOA, no 9V first-boot physical measurement, no manufacturing/vehicle release.\n\n' >> "$GITHUB_STEP_SUMMARY"
+          printf 'See hardware/modules/TripPower_5V2A/REV5_OPTIMIZATION_IMPLEMENTATION_2026-10-15.md and REV5_DESIGN_BASELINE.json for mandatory P01–P10 gates.\n' >> "$GITHUB_STEP_SUMMARY"

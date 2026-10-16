@@ -1,0 +1,297 @@
+{
+  "tested_commit": "30fec36737bb8d484aa98e887d434822cdab41f9",
+  "run_url": "https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38571650188",
+  "kicad_version": "10.0.6",
+  "overall_conclusion": "FAIL: existing MCU ERC and PCB DRC/parity gates remain open",
+  "erc": {
+    "total": 33,
+    "types": {
+      "pin_not_connected": 33
+    },
+    "new_supply_violations": 0,
+    "ignored_checks": [
+      {
+        "description": "Global label only appears once in the schematic",
+        "key": "single_global_label"
+      },
+      {
+        "description": "Four connection points are joined together",
+        "key": "four_way_junction"
+      },
+      {
+        "description": "SPICE model issue",
+        "key": "simulation_model_issue"
+      },
+      {
+        "description": "Assigned footprint doesn't match footprint filters",
+        "key": "footprint_filter"
+      }
+    ],
+    "no_new_project_exclusions": true
+  },
+  "drc": {
+    "violations": 5,
+    "unconnected_items": 79,
+    "schematic_parity": 80,
+    "PCB_edited": false
+  },
+  "correction_regression": {
+    "native_pin_net_mapping_unchanged": true,
+    "compared_to": "871a55f54856bf1bde85ab9111502eb40fd1ad37",
+    "pin_count": 250
+  },
+  "implementation_comparison": {
+    "base": "9215e12d44223c5d23d95e892e66a7b2420e656a",
+    "PCB_files_changed": 0
+  },
+  "native_PCB_supply_BOM_components": 55,
+  "external_BOM": {
+    "basis": "checked schematic source; native PCB export excludes offboard parts",
+    "rows": [
+      {
+        "reference": "F901",
+        "subpart": "fuse",
+        "candidate_MPN": "0997003.WXN",
+        "quantity": "1",
+        "installation": "VEHICLE_EXTERNAL",
+        "condition": "source-side fuse or qualified existing takeoff",
+        "basis": "checked schematic; not native PCB BOM"
+      },
+      {
+        "reference": "F901",
+        "subpart": "holder",
+        "candidate_MPN": "Littelfuse 0FHM0001ZXJ-RED candidate",
+        "quantity": "1",
+        "installation": "VEHICLE_EXTERNAL",
+        "condition": "only if no qualified existing fuse position",
+        "basis": "58V lot/rating and installation to verify"
+      },
+      {
+        "reference": "F902",
+        "subpart": "fuse",
+        "candidate_MPN": "0997002.WXN",
+        "quantity": "1",
+        "installation": "VEHICLE_EXTERNAL",
+        "condition": "source-side fuse or qualified existing takeoff",
+        "basis": "checked schematic; not native PCB BOM"
+      },
+      {
+        "reference": "F902",
+        "subpart": "holder",
+        "candidate_MPN": "Littelfuse 0FHM0001ZXJ-RED candidate",
+        "quantity": "1",
+        "installation": "VEHICLE_EXTERNAL",
+        "condition": "only if no qualified existing fuse position",
+        "basis": "58V lot/rating and installation to verify"
+      }
+    ]
+  },
+  "supply_harness_model": {
+    "status": "PASS electrical engineering envelope and external-fuse source graph; no vehicle release",
+    "cases": 288,
+    "worst_current": {
+      "source_V": 9.0,
+      "diode_drop_V": 1.5,
+      "loop_ohm": 0.35,
+      "load_W": 10.0,
+      "efficiency": 0.8,
+      "vin_V": 6.858616226427364,
+      "current_A": 1.8325250673503886,
+      "diode_W": 2.7487876010255827,
+      "harness_W": 1.1753518428636411,
+      "hold_en_min_V": 1.5127620942574938
+    },
+    "worst_hold": {
+      "source_V": 9.0,
+      "diode_drop_V": 1.5,
+      "loop_ohm": 0.35,
+      "load_W": 10.0,
+      "efficiency": 0.8,
+      "vin_V": 6.858616226427364,
+      "current_A": 1.8325250673503886,
+      "diode_W": 2.7487876010255827,
+      "harness_W": 1.1753518428636411,
+      "hold_en_min_V": 1.5127620942574938
+    },
+    "previous_30k1_hold_V": 1.2898166954078287,
+    "LED": {
+      "min_A_assuming_Vf_le_1p5": 0.005143371480005142,
+      "max_A_even_LED_short": 0.023612750885478158,
+      "series_resistor_short_W": 0.08500590318772137,
+      "CTR_temperature_current_transfer": "not guaranteed by this model"
+    },
+    "harness": {
+      "copper_mm2": 0.5,
+      "max_oneway_m": 2,
+      "assumed_total_loop_budget_ohm": 0.35,
+      "calculated_wire_loop_70C_ohm": 0.16751,
+      "remaining_fuse_contacts_budget_ohm": 0.18248999999999999,
+      "required_verified_wire_ampacity_A_at70C": 5,
+      "source_checked_offboard_refs": [
+        "F901",
+        "F902"
+      ]
+    },
+    "fuse_points": {
+      "BAT_3A": {
+        "2": {
+          "current_A": 6,
+          "max_s": 5,
+          "i2t_A2s": 180
+        },
+        "3.5": {
+          "current_A": 10.5,
+          "max_s": 0.5,
+          "i2t_A2s": 55.125
+        },
+        "6": {
+          "current_A": 18,
+          "max_s": 0.1,
+          "i2t_A2s": 32.4
+        }
+      },
+      "ACC_2A": {
+        "2": {
+          "current_A": 4,
+          "max_s": 5,
+          "i2t_A2s": 80
+        },
+        "3.5": {
+          "current_A": 7.0,
+          "max_s": 0.5,
+          "i2t_A2s": 24.5
+        },
+        "6": {
+          "current_A": 12,
+          "max_s": 0.1,
+          "i2t_A2s": 14.4
+        }
+      }
+    },
+    "wire_illustrative_70_to105C_adiabatic_i2t_A2s": 1364.5268316622833,
+    "diode_thermal": {
+      "max_model_dissipation_W": 2.7487876010255827,
+      "required_theta_JA_for_125C_at70C_K_W": 20.008821336169916,
+      "theta_JT_datasheet_typ_K_W": 10,
+      "theta_JA_actual": "unknown",
+      "derating_sensitivities": [
+        {
+          "assumed_theta_JA_K_W": 20.0,
+          "assumed_Vf_V": 1.15,
+          "thermal_only_5V_ceiling_A": 2.6720305482041593,
+          "system_ceiling_A": 2.0,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 20.0,
+          "assumed_Vf_V": 1.5,
+          "thermal_only_5V_ceiling_A": 2.000804444444445,
+          "system_ceiling_A": 2.0,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 30.0,
+          "assumed_Vf_V": 1.15,
+          "thermal_only_5V_ceiling_A": 1.8483285528250366,
+          "system_ceiling_A": 1.8483285528250366,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 30.0,
+          "assumed_Vf_V": 1.5,
+          "thermal_only_5V_ceiling_A": 1.371696790123457,
+          "system_ceiling_A": 1.371696790123457,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 45.0,
+          "assumed_Vf_V": 1.15,
+          "thermal_only_5V_ceiling_A": 1.2596597110784384,
+          "system_ceiling_A": 1.2596597110784384,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 45.0,
+          "assumed_Vf_V": 1.5,
+          "thermal_only_5V_ceiling_A": 0.9290543758573389,
+          "system_ceiling_A": 0.9290543758573389,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 60.0,
+          "assumed_Vf_V": 1.15,
+          "thermal_only_5V_ceiling_A": 0.9534650367569837,
+          "system_ceiling_A": 0.9534650367569837,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        },
+        {
+          "assumed_theta_JA_K_W": 60.0,
+          "assumed_Vf_V": 1.5,
+          "thermal_only_5V_ceiling_A": 0.700761975308642,
+          "system_ceiling_A": 0.700761975308642,
+          "design_Tj_C": 125,
+          "ambient_C": 70
+        }
+      ]
+    },
+    "open_gates": [
+      "TVS5800 supplier/MOQ remains blocked; no unqualified conventional substitute fitted",
+      "opto cold/hot Vf and CTR plus actual AND loaded output voltage",
+      "measured S5MC terminal/junction heat and real efficiency at9V/full load",
+      "fuse70C derating is typical; outside70C installation needs review",
+      "above600% fuse current, get maximum total clearing I2t or measure; typ I2t is not a bound",
+      "holder, M8, crimps, PCB traces and cable insulation fault qualification",
+      "actual terminal amplitude<=58V and prospective current<=1kA before fuse58V/1kA credit",
+      "TestA202V and vehicle transient/short-circuit tests remain unmet"
+    ]
+  },
+  "visual_review": {
+    "pages_rendered": 12,
+    "changed_pages_reviewed": [
+      4,
+      5
+    ],
+    "new_offboard_block": "J902 source interface and F901/F902 fit within page 4 without component overlap",
+    "remaining": [
+      "Page 5 existing net-label overlays and tightly placed transistor labels",
+      "Existing clipped/long title-block hierarchy paths",
+      "Other supply pages retain crowded net labels and edge text; overview is not a full visual acceptance"
+    ]
+  },
+  "artifact": {
+    "id": 11898476915,
+    "expires_at": "2026-10-28T13:26:17Z",
+    "sha256": "1f5edd1d8cf822a94962e57de9eebde0e8472708b0aae120402cf0eba497a8ff"
+  },
+  "file_sha256": {
+    "acc-hold-prearm.json": "d3ad1cababe9bdbb1971664e5704c91644738bb4622fb474636131db7e379990",
+    "acc-vin-startup.json": "96a3322ad2ab8ab28c75ce377b4028ab522e0089c736198baa6cd0731f6af9c3",
+    "commit.txt": "d8d9b2dc1a22fbf292537c641535409daed06fbcd5aea9c820e678ef50f1329e",
+    "drc.json": "975246088704453d06b2c6948fb615178cf5d222774c8107d5eb78da310433d1",
+    "drc.log": "2d3cebcb9983d97a94b2a4b1ca52ea1558a0d0c79f5278a344dd804e5bc05fbe",
+    "erc-triage.md": "62a0b0b98ba10b8b61ff1c03f0c937bd79848b119d9f831276aec997e5f38962",
+    "erc.json": "4574750e4a25c211f36d660513053774a85303949c916337336292d6f56bd395",
+    "erc.log": "1a66abddd1924bd93e860440a8ec50039fafd720c5cdf5ff54c4d2193d2a34d9",
+    "hierarchy.json": "30bb7b22e4edc32858404894443ab50f8d24b1f7b96df56e00bbc702e9b97cb1",
+    "input-protection-envelope.json": "68985550b9f337ef9134be25f0515d88e4f36c50a66970a37f60cd68292ff308",
+    "kicad-version.txt": "79903cfb5fce27bbddaa3cda8e3265c336d8053b799426ca9cfc835ed648c85c",
+    "netlist.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "newbuck.log": "516d630cc9387e5980b4147f633485e3b6a941c74663bd8afb0e370f2e87c8d6",
+    "power-bom-v2.csv": "12e50584ae9470983a897d8ebbd81cbde7e976431e0766835b5a8e399b7795b6",
+    "power-bom.log": "7b535531ad667e8dca94c4a8ffa526a7a653523362ef40ded3d8a744f0e0b2d3",
+    "powerpath-v2.log": "adb9a00502b39e695facd2b402ed676c21925da1f87cdbf09aa591d371513780",
+    "powerpath.log": "1a3e7e500e0f28dba303f4f0103c2c9c618697e80bad0f3a151056a0c0055de0",
+    "STATUS.txt": "8af3de7745dcf4846c448eae19d999ccafdbf7884afc00f0d7842afc8fb314d5",
+    "supply-harness.json": "690692c88d6b7a74c22ffec78a34e729ea8085c70d2f9d50c30268cbfe121f71",
+    "TripTracer-schematic.pdf": "af5be0974e3f5a07075088dd1d0e0826f146ca4952cd82584d35d0f77ad9a982",
+    "TripTracer.net": "6a229d10b825c72739f94ee5983367b11ba7867b165ebc4935268fa52042b076",
+    "vehicle-harness-candidate.csv": "99bbbba609ba2d84b9e6894122bc97b710738d0cb0ed3667d3fefd1effd26729"
+  }
+}

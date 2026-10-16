@@ -1,0 +1,75 @@
+stderr Warning: can't find the initialization file spinit.
+stdout ******
+stdout ** ngspice-46 shared library
+stdout ** Creation Date: Apr 14 2026   05:15:29
+stdout ******
+stdout ******
+stdout ** ngspice-46 : Circuit level simulation program
+stdout ** Compiled with KLU Direct Linear Solver
+stdout ** The U. C. Berkeley CAD Group
+stdout ** Copyright 1985-1994, Regents of the University of California.
+stdout ** Copyright 2001-2025, The ngspice team.
+stdout ** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html
+stdout ** Please file your bug-reports at https://ngspice.sourceforge.io/bugrep.html
+stdout ** Creation Date: Apr 14 2026   05:15:29
+stdout ******
+stdout WARNING unable to find tmodel d_custom74 for d_auff11_dff d_dff
+stdout WARNING unable to find tmodel d_custom08 for d_au1_and d_and
+stdout WARNING unable to find tmodel d_custom32 for d_au1_or d_or
+stdout WARNING unable to find tmodel d_custom04 for d_au1_inv d_inverter
+stdout expect = 61 lookahead = 58 lexer_buf ""
+stdout amatch: syntax error [    cpu = { cpu_i }    cpd = { cpd_i }    mr = { mr_i }    plbar = { plbar_i }    p0 = { p0_i }    p1 = { p1_i }    p2 = { p2_i }    p3 = { p3_i }    ipl = { ~plbar }    icl = { ~mr }    mclk = { ~(cpu & cpd) }    s0 = { ~(p0 & ipl & icl) }    r0 = { ~(s0 & ipl) & icl }    s1 = { ~(p1 & ipl & icl) }    r1 = { ~(s1 & ipl) & icl }    s2 = { ~(p2 & ipl & icl) }    r2 = { ~(s2 & ipl) & icl }    s3 = { ~(p3 & ipl & icl) }    r3 = { ~(s3 & ipl) & icl }    jk1 = { (q0bar & id) | (q0 & iu) }    jk2 = { (q0bar & q1bar & id) | (q0 & q1 & iu) }    jk3 = { (q0bar & q1bar & q2bar & id) | (q0 & q1 & q2 & iu) }    tcubar = { ~(~cpu & q3 & q2 & q1 & q0) }    tcdbar = { ~(~cpd & q3bar & q2bar & q1bar & q0bar) }]
+stderr ERROR parsing logicexp
+stderr ERROR in instance uac193log
+stderr ERROR in .subckt 74custom193 cpu_i cpd_i mr_i plbar_i p0_i p1_i p2_i p3_i  q0_o q1_o q2_o q3_o tcdbar_o tcubar_o  optional: dpwr=$g_dpwr dgnd=$g_dgnd  params: mntymxdly=0 io_level=0
+stdout Note: gnd in a subcircuit is not set to 0 automatically
+stdout Note: Compatibility modes selected: ps
+stderr warning, can't find model 'masterclock' from line
+stderr u_masterclock stim(1,1) $g_dpwr $g_dgnd masterclock io_stm io_level=0 0 0 +20ns 0 repeat forever +20ns 0 +20ns 1 endrepeat
+stderr warning, can't find model 'masterclockbar' from line
+stderr u_masterclockbar stim(1,1) $g_dpwr $g_dgnd masterclockbar io_stm io_level=0 0 0 +20ns 1 repeat forever +20ns 1 +20ns 0 endrepeat
+stderr warning, can't find model 'stl_clr' from line
+stderr u_stl_clr stim(1,1) $g_dpwr $g_dgnd stl_clr io_stm io_level=0 0 0 +10ns 1
+stderr warning, can't find model 'next_state_is_n_clr_net' from line
+stderr u_next_state_is_n_clr_net stim(1,1) $g_dpwr $g_dgnd next_state_is_n_clr_net io_stm io_level=0 0 0 +10ns 1
+stderr warning, can't find model 'masterclock' from line
+stderr u_masterclock stim(1,1) $g_dpwr $g_dgnd masterclock io_stm io_level=0 0 0 +20ns 0 repeat forever +20ns 0 +20ns 1 endrepeat
+stderr warning, can't find model 'masterclockbar' from line
+stderr u_masterclockbar stim(1,1) $g_dpwr $g_dgnd masterclockbar io_stm io_level=0 0 0 +20ns 1 repeat forever +20ns 1 +20ns 0 endrepeat
+stderr warning, can't find model 'stl_clr' from line
+stderr u_stl_clr stim(1,1) $g_dpwr $g_dgnd stl_clr io_stm io_level=0 0 0 +10ns 1
+stderr warning, can't find model 'next_state_is_n_clr_net' from line
+stderr u_next_state_is_n_clr_net stim(1,1) $g_dpwr $g_dgnd next_state_is_n_clr_net io_stm io_level=0 0 0 +10ns 1
+stderr warning, can't find model 'masterclock' from line
+stderr u_masterclock stim(1,1) $g_dpwr $g_dgnd masterclock io_stm io_level=0 0 0 +20ns 0 repeat forever +20ns 0 +20ns 1 endrepeat
+stderr warning, can't find model 'masterclockbar' from line
+stderr u_masterclockbar stim(1,1) $g_dpwr $g_dgnd masterclockbar io_stm io_level=0 0 0 +20ns 1 repeat forever +20ns 1 +20ns 0 endrepeat
+stderr warning, can't find model 'stl_clr' from line
+stderr u_stl_clr stim(1,1) $g_dpwr $g_dgnd stl_clr io_stm io_level=0 0 0 +10ns 1
+stderr warning, can't find model 'next_state_is_n_clr_net' from line
+stderr u_next_state_is_n_clr_net stim(1,1) $g_dpwr $g_dgnd next_state_is_n_clr_net io_stm io_level=0 0 0 +10ns 1
+stderr warning, can't find model 'd_auff11_dff' from line
+stderr auff11_0 d1 cp1 ~sd1bar ~cd1bar q1 q1bar d_auff11_dff
+stderr warning, can't find model 'd_au1_and' from line
+stderr au1 [ a b ] y d_au1_and
+stderr warning, can't find model 'd_au1_or' from line
+stderr au1 [ a b ] y d_au1_or
+stderr warning, can't find model 'd_au1_inv' from line
+stderr au1 a y d_au1_inv
+stderr warning, can't find model 's0' from line
+stderr u1 jkff(1) dpwr dgnd s0 r0 mclk $d_hi $d_hi q0 q0bar d0_eff io_ac
+stderr warning, can't find model 's1' from line
+stderr u2 jkff(1) dpwr dgnd s1 r1 mclk jk1 jk1 q1 q1bar d0_eff io_ac
+stderr warning, can't find model 's2' from line
+stderr u3 jkff(1) dpwr dgnd s2 r2 mclk jk2 jk2 q2 q2bar d0_eff io_ac
+stderr warning, can't find model 's3' from line
+stderr u4 jkff(1) dpwr dgnd s3 r3 mclk jk3 jk3 q3 q3bar d0_eff io_ac
+stderr warning, can't find model 'cpu' from line
+stderr u5 srff(1) dpwr dgnd cpu cpd $d_hi $d_lo $d_lo iu id d0_gff io_ac
+stderr warning, can't find model 'dgnd' from line
+stderr uac193log logicexp (18,22) dpwr dgnd cpu_i cpd_i mr_i plbar_i p0_i p1_i p2_i p3_i q0 q1 q2 q3 q0bar q1bar q2bar q3bar iu id cpu cpd mr plbar p0 p1 p2 p3 jk1 jk2 jk3 tcdbar tcubar mclk s0 r0 s1 r1 s2 r2 s3 r3 d0_gate io_ac io_level={io_level} logic: logic: cpu={ cpu_i } cpd={ cpd_i } mr={ mr_i } plbar={ plbar_i } p0={ p0_i } p1={ p1_i } p2={ p2_i } p3={ p3_i } ipl={!plbar } icl={!mr } mclk={!(cpu&&cpd)} s0={!(p0&&ipl&&icl)} r0={!(s0&&ipl)&&icl } s1={!(p1&&ipl&&icl)} r1={!(s1&&ipl)&&icl } s2={!(p2&&ipl&&icl)} r2={!(s2&&ipl)&&icl } s3={!(p3&&ipl&&icl)} r3={!(s3&&ipl)&&icl } jk1={(q0bar&&id)||(q0&&iu)} jk2={(q0bar&&q1bar&&id)||(q0&&q1&&iu)} jk3={(q0bar&&q1bar&&q2bar&&id)||(q0&&q1&&q2&&iu)} tcubar={!(!cpu&&q3&&q2&&q1&&q0)} tcdbar={!(!cpd&&q3bar&&q2bar&&q1bar&&q0bar)}
+stderr warning, can't find model 'dgnd' from line
+stderr uac193dly pindly (6,0,8) dpwr dgnd q0 q1 q2 q3 tcdbar tcubar cpu cpd plbar mr p0 p1 p2 p3 q0_o q1_o q2_o q3_o tcdbar_o tcubar_o io_ac mntymxdly={mntymxdly} io_level={io_level} boolean: updn={(changed_lh(cpu,0)||changed_lh(cpd,0))&&plbar!={0&&mr!=}1 } data={(changed(p0,0)||changed(p1,0)||changed(p2,0)||changed(p3,0))&&plbar!={1&&mr!=}1 } reset={ changed_lh(mr,0)} pindly: q0_o q1_o q2_o q3_o={ case(updn,delay(0.36ns,-1,1.27ns),changed_hl(plbar,0),delay(0.39ns,-1,1.36ns),reset,delay(0.41ns,-1,1.45ns),data,delay(0.42ns,-1,1.5ns),delay(0.42ns,-1,1.5ns))} tcdbar_o={ case(changed(cpd,0),delay(0.29ns,-1,1.02ns),reset,delay(0.47ns,-1,1.65ns),delay(0.47ns,-1,1.65ns))} tcubar_o={ case(changed(cpu,0),delay(0.29ns,-1,1.02ns),reset,delay(0.39ns,-1,1.36ns),delay(0.39ns,-1,1.36ns))} freq: node=cpu maxfreq=86meg freq: node=cpd maxfreq=97meg width: node=cpu min_lo=0.58ns min_hi=0.58ns width: node=cpd min_lo=0.50ns min_hi=0.50ns width: node=plbar min_lo=0.53ns when={ mr!={1 } width:node=mr min_hi=0.44ns setup_hold:data(1)=mr clock lh=cpu releasetime_hl=0.1ns setup_hold:data(1)=mr clock lh=cpd releasetime_hl=0.1ns setup_hold:data(1)=plbar clock lh=cpu releasetime_lh=0.44ns when={ mr!=}1 } setup_hold: data(1)=plbar clock lh=cpd releasetime_lh=0.44ns when={ mr!={1 } setup_hold:data(4)=p0 p1 p2 p3 clock lh=plbar setuptime=0.35ns holdtime=0.2ns when={ mr!=}1 }
+stdout Circuit: lm74930 nominal startup fixture - not triptracer full schematic
+stderr Too few parameters for subcircuit type "lm74930_a" (instance: xxctrl)
+Simulation not started: model import errors.

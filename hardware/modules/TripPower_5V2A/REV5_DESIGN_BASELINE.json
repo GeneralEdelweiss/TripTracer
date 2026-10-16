@@ -1,0 +1,348 @@
+{
+  "schema_version": 1,
+  "stage": "REV5_ENGINEERING_BASELINE_ONLY",
+  "module": "TripPower_5V2A",
+  "target": {
+    "VIN_at_connector_v": [
+      9,
+      30
+    ],
+    "regulated_output_v": 5,
+    "regulated_continuous_output_a": 2,
+    "raw_auxiliary_current_design_target_a": 1,
+    "allow_safe_reset_below_v": 9,
+    "separate_unsuppressed_load_dump_target": {
+      "v": 200,
+      "duration_s": 0.35
+    },
+    "temperature_ambient_target_c": [
+      -40,
+      125
+    ],
+    "f_main_external_replaceable_required": true
+  },
+  "authorization": {
+    "schematic_baseline_locked": true,
+    "automotive_released": false,
+    "manufacturing_released": false,
+    "pcb_routed": false,
+    "nine_volt_start_guaranteed": false,
+    "purpose": "Verhindere stille MPN-/Footprint-/R-Wert-Änderungen; ein technischer Lock ersetzt niemals einen Mess-/Herstellernachweis.",
+    "p02_tps38_physical_en_pin_proof": false,
+    "p02_tps38_regression_passed": false
+  },
+  "fixed_placements": {
+    "01_Protection_LM74930.kicad_sch": {
+      "U301": {
+        "value": "LM74930QRGERQ1",
+        "footprint": "Tripmaster:TI_LM74930_RGE0024T_FLOAT_EP"
+      },
+      "Q301": {
+        "value": "SQM10250E_GE3 250V CANDIDATE",
+        "mpn": "SQM10250E_GE3",
+        "footprint": "Package_TO_SOT_SMD:TO-263-3_TabPin2"
+      },
+      "R301": {
+        "value": "5mR 1% 2512 2W TA-I",
+        "mpn": "RLM25FEER005",
+        "footprint": "Resistor_SMD:R_2512_6332Metric"
+      },
+      "R307": {
+        "value": "750k 1% OV HIGH 1",
+        "mpn": "AC1206FR-07750KL",
+        "footprint": "Tripmaster:R_1206_3216"
+      },
+      "R308": {
+        "value": "750k 1% OV HIGH 2",
+        "mpn": "AC1206FR-07750KL",
+        "footprint": "Tripmaster:R_1206_3216"
+      },
+      "R310": {
+        "value": "750k UV HIGH 1",
+        "mpn": "AC1206FR-07750KL",
+        "footprint": "Tripmaster:R_1206_3216"
+      },
+      "R311": {
+        "value": "750k UV HIGH 2",
+        "mpn": "AC1206FR-07750KL",
+        "footprint": "Tripmaster:R_1206_3216"
+      },
+      "R313": {
+        "value": "3.3k 2512 PULSE CANDIDATE",
+        "mpn": "CRCW25123K30FKEGHP",
+        "footprint": "Resistor_SMD:R_2512_6332Metric"
+      },
+      "R314": {
+        "value": "3.3k 2512 PULSE CANDIDATE",
+        "mpn": "CRCW25123K30FKEGHP",
+        "footprint": "Resistor_SMD:R_2512_6332Metric"
+      },
+      "R315": {
+        "value": "3.3k 2512 PULSE CANDIDATE",
+        "mpn": "CRCW25123K30FKEGHP",
+        "footprint": "Resistor_SMD:R_2512_6332Metric"
+      },
+      "C302": {
+        "value": "1uF 100V VS CLAMP",
+        "mpn": "C1210C105K1RACAUTO",
+        "footprint": "Tripmaster:C_1210_3225"
+      },
+      "C303": {
+        "value": "470nF 100V X7R AEC-Q200",
+        "mpn": "C1206C474K1RECAUTO7210",
+        "footprint": "Capacitor_SMD:C_1206_3216Metric"
+      },
+      "C304": {
+        "value": "1uF 100V A BYPASS",
+        "mpn": "C1210C105K1RACAUTO",
+        "footprint": "Capacitor_SMD:C_1210_3225Metric"
+      },
+      "C305": {
+        "value": "100nF 250V VIN HF",
+        "mpn": "C1210C104KARACAUTO",
+        "footprint": "Tripmaster:C_1210_3225"
+      },
+      "C308": {
+        "value": "10uF 100V VS STARTUP RESERVOIR X7R REV4",
+        "mpn": "KAF55CR72A106KV",
+        "footprint": "Capacitor_SMD:C_2220_5750Metric"
+      },
+      "C312": {
+        "value": "10uF 100V VS STARTUP RESERVOIR X7R REV4",
+        "mpn": "KAF55CR72A106KV",
+        "footprint": "Capacitor_SMD:C_2220_5750Metric"
+      },
+      "R317": {
+        "value": "1M 1% RUN_CMD TO SENSE2 - RUN ONLY",
+        "mpn": "RC1206FR-071ML",
+        "footprint": "Tripmaster:R_1206_3216",
+        "dnp_default_auto": true
+      },
+      "R319": {
+        "value": "0R AUTO VS TO RUN_SENSE; DNP IN RUN",
+        "mpn": "RC1206JR-070RL",
+        "footprint": "Tripmaster:R_1206_3216"
+      },
+      "R305": {
+        "value": "6.8k RIMON",
+        "footprint": "Tripmaster:R_1206_3216",
+        "dnp_default_auto": true
+      },
+      "R321": {
+        "value": "47k 1% FLT TO 5V",
+        "footprint": "Tripmaster:R_1206_3216",
+        "dnp_default_auto": true
+      }
+    },
+    "03_VS_READY_TPS3760.kicad_sch": {
+      "U302": {
+        "value": "TPS38A010122DSKRQ1",
+        "mpn": "TPS38A010122DSKRQ1",
+        "footprint": "Tripmaster:TI_TPS38_DSK10"
+      },
+      "R330": {
+        "value": "715k 1% VS_READY VIN TOP",
+        "mpn": "CRCW1206715KFKEA",
+        "footprint": "Resistor_SMD:R_1206_3216Metric"
+      },
+      "C310": {
+        "value": "100nF 100V TPS38 VDD BYPASS",
+        "mpn": "C1206C104K1RACAUTO",
+        "footprint": "Capacitor_SMD:C_1206_3216Metric"
+      },
+      "C311": {
+        "value": "330nF 100V X7R TPS38 CTR1",
+        "mpn": "C1206C334K1RACAUTO",
+        "footprint": "Capacitor_SMD:C_1206_3216Metric"
+      },
+      "R331": {
+        "value": "100k 1% VS_READY SENSE GND",
+        "mpn": "RC1206FR-07100KL",
+        "footprint": "Resistor_SMD:R_1206_3216Metric"
+      },
+      "R332": {
+        "value": "1M 1% CTRL_EN SCHMITT FEEDBACK",
+        "mpn": "RC1206FR-071ML",
+        "footprint": "Resistor_SMD:R_1206_3216Metric"
+      },
+      "R333": {
+        "value": "1M 1% VS_CLAMP CTRL_EN PULLUP",
+        "mpn": "RC1206FR-071ML",
+        "footprint": "Resistor_SMD:R_1206_3216Metric"
+      },
+      "R341": {
+        "value": "1M 1% RUN_SENSE BLEED - RUN ONLY",
+        "mpn": "RC1206FR-071ML",
+        "footprint": "Resistor_SMD:R_1206_3216Metric",
+        "dnp_default_auto": true
+      }
+    },
+    "02_5V_LMR38020.kicad_sch": {
+      "U101": {
+        "value": "LMR38020SQDDARQ1",
+        "mpn": "LMR38020SQDDARQ1",
+        "footprint": "Tripmaster:TI_LMR38020Q1_DDA_EP"
+      },
+      "L101": {
+        "value": "15uH FCH0650-150M Isat5.5A",
+        "mpn": "FCH0650-150M",
+        "footprint": "Tripmaster:L_FANGCHENG_FCH0650_150M"
+      }
+    }
+  },
+  "provisional_stop_gates": [
+    {
+      "id": "P01",
+      "severity": "CRITICAL",
+      "item": "9V startup VS dynamic I(VS,t) and 200V pulse behavior",
+      "needed": "Supplier bound or real scope bench proof over 9–30V startup and temperature"
+    },
+    {
+      "id": "P02",
+      "severity": "CRITICAL",
+      "item": "TPS38A010122DSKRQ1 2ch wired-AND OD new hysteresis and RUN/VS startup",
+      "needed": "Manufacturer VOL <=0.300 V supports EN_OFF <=0.410 V, but EN_ON >=1.05V with leakage, feedback coupled state, VIN0/RUN HIGH and field temperature remain to be verified; native prototype tests required"
+    },
+    {
+      "id": "P03",
+      "severity": "CRITICAL",
+      "item": "Q301 250V/200V-350ms switching SOA and Q302 60V plus clamp peaks",
+      "needed": "Measured gate/drain transient and hot SOA/vds tolerance"
+    },
+    {
+      "id": "P04",
+      "severity": "CRITICAL",
+      "item": "R313–R315 2512 pulse energy and 56V D301 clamp at 200V",
+      "needed": "Manufacturer 350ms pulse-temperature curves, Zener thermal energy and VS<65V"
+    },
+    {
+      "id": "P05",
+      "severity": "CRITICAL",
+      "item": "F_MAIN 12V/24V cable fault+I²t and fault-short",
+      "needed": "Select external serviceable fuse; cable/copper/connector ratings incl worst temp"
+    },
+    {
+      "id": "P06",
+      "severity": "HIGH",
+      "item": "C308/C312 Ceff at DC bias/temperature/aging and leakage; C311 time capacitor",
+      "needed": "KYOCERA AVX SpiCat C(V,T) and KEMET K-SIM or signed minimum value. 21uF only nominal."
+    },
+    {
+      "id": "P07",
+      "severity": "HIGH",
+      "item": "C306 47uF/63V and Q302/D301 protective domain",
+      "needed": "C306 exact automotive MPN and transient withstand; Q302/TVS/Zener stress check"
+    },
+    {
+      "id": "P08",
+      "severity": "HIGH",
+      "item": "Buck/output 5V/2A thermal / inductor saturation / ripple and dynamic 0–1A RAW",
+      "needed": "Layout thermals, 9–30V transient scope 0..2A, hot current derating"
+    },
+    {
+      "id": "P09",
+      "severity": "HIGH",
+      "item": "Real standalone KiCad PCB absent: footprints, mechanical, routing, DRC",
+      "needed": "Create routed KiCad10 PCB, independent native DRC/ERC, verify solder profiles and test points"
+    },
+    {
+      "id": "P10",
+      "severity": "HIGH",
+      "item": "RUN_CMD with VIN=0, AUTO/RUN, reset timing, OFF current",
+      "needed": "No backfeed / OFF <100uA system gate / partial C311 residual-charge restart across temperature"
+    }
+  ],
+  "source_register": [
+    {
+      "ref": "YAGEO-AC1206",
+      "url": "https://yageogroup.com/component-documentation/download/specsheet/AC1206FR-07750KL",
+      "fact": "AEC-Q200, 750k 1%, 0.25W 70C, 200V continuous, 400V max overvoltage, -55..+155C"
+    },
+    {
+      "ref": "TAI-RLM25",
+      "url": "https://www.lcsc.com/de/product-detail/C185817.html",
+      "fact": "5mOhm 1%, 2W, 2512 vendor-listed; exact high-temperature derating still required"
+    },
+    {
+      "ref": "KEMET-C1210-1U",
+      "url": "https://search.kemet.com/component-documentation/download/specsheet/C1210C105K1RACAUTO",
+      "fact": "1uF 100V X7R AEC-Q200 1210; C(V,T) not guaranteed from generic data"
+    },
+    {
+      "ref": "KEMET-1206-100N",
+      "url": "https://www.digikey.de/de/products/detail/kemet/C1206C104K1RACAUTO/3314516",
+      "fact": "100nF 100V X7R AEC-Q200 1206"
+    },
+    {
+      "ref": "KEMET-1210-100N-250V",
+      "url": "https://www.mouser.de/de/ProductDetail/KEMET/C1210C104KARACAUTO",
+      "fact": "100nF 250V X7R AEC-Q200 1210"
+    },
+    {
+      "ref": "AVX-KAF55",
+      "url": "https://spicat.kyocera-avx.com/product/KAF55CR72A106KV",
+      "fact": "10uF 100V X7R 2220 FLEXITERM; DC bias curve data needed"
+    },
+    {
+      "ref": "TI-LM74930",
+      "url": "https://www.ti.com/lit/ds/symlink/lm74930-q1.pdf",
+      "fact": "VS pin operating 4..65V; VS-RVS-Zener and A->VS replenishment architecture; max EN OFF 0.41V min ON 1.05V; max I(VS,t) startup not guaranteed"
+    },
+    {
+      "ref": "TI-TPS3760",
+      "url": "https://www.ti.com/lit/ds/symlink/tps3760-q1.pdf",
+      "fact": "CTR R internal 877/1000/1147kOhm; C311/threshold timing needs real Ceff and power-cycle test"
+    },
+    {
+      "ref": "TI-200V-APP",
+      "url": "https://www.ti.com/document-viewer/lit/html/SNOAAA1/GUID-A29F6540-095F-4408-8FD4-388A1740884B",
+      "fact": "unsuppressed load dump 200V/350ms architecture, not tested on our topology"
+    }
+  ],
+  "assembly": {
+    "default_mode": "AUTO",
+    "mode_options": {
+      "AUTO": {
+        "fit": [
+          "R319"
+        ],
+        "dnp": [
+          "R317",
+          "R341",
+          "R305",
+          "R321"
+        ]
+      },
+      "RUN": {
+        "fit": [
+          "R317",
+          "R341"
+        ],
+        "dnp": [
+          "R319",
+          "R305",
+          "R321"
+        ]
+      }
+    },
+    "obsolete_ref_removed": [
+      "Q303",
+      "Q304",
+      "Q305",
+      "R316",
+      "R318",
+      "D305",
+      "C309",
+      "R336",
+      "R337",
+      "R339",
+      "R340"
+    ],
+    "verified_placement_count_change": {
+      "REV4_fit": 71,
+      "REV5_AUTO_fit_expected": 57,
+      "REV5_RUN_fit_expected": 58
+    },
+    "note": "Single-IC dual UV control replaces PNP/NPN; correct mode selection must be enforced in PCB BOM; residual USB RUN backfeed unqualified REV5 cost reduction: R305 IMON and R321 FLT pull-up are default DNP (optional diagnostic footprints only; neither channel is routed to J302). No bypass of LM74930 surge/protection and no 36V-module swap."
+  }
+}

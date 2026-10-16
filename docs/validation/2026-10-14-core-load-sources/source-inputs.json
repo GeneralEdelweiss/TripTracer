@@ -1,0 +1,48 @@
+{
+  "status": "Source-derived partial capacity inputs; NOT complete current budget or measurement",
+  "parts": [
+    {
+      "part": "ESP32-S3-MINI-1-N8",
+      "rail_V": 3.3,
+      "source_supply_capacity_min_mA": 500,
+      "measured_RF_peak_mA": 355,
+      "RF_peak_conditions": "WiFi 802.11b 1Mbps 20.5dBm, 3.3V, 25C, manufacturer measurement",
+      "guaranteed_complete_module_peak_mA": null,
+      "source": "https://www.espressif.com/sites/default/files/documentation/esp32-s3-mini-1_mini-1u_datasheet_en.pdf"
+    },
+    {
+      "part": "MAX-M10N-00B",
+      "rail_V": 3.3,
+      "source_startup_capacity_mA": 100,
+      "tracking_typ_mA_at_3V_1Hz": 10.7,
+      "acquisition_typ_mA_at_3V_1Hz": 13.2,
+      "selected_rate_Hz": 5,
+      "guaranteed_peak_at_selected_rate_mA": null,
+      "external_active_antenna_current_mA": null,
+      "source": "https://content.u-blox.com/sites/default/files/documents/MAX-M10N-00B_DataSheet_UBXDOC-963802114-13143.pdf"
+    },
+    {
+      "part": "microSD 32GB FAT32",
+      "rail_V": 3.3,
+      "manufacturer_part": null,
+      "write_peak_mA": null
+    },
+    {
+      "part": "Riverdi RVT35HITNWC00-B display logic",
+      "consumption_mA": null
+    },
+    {
+      "part": "FRAM RTC sensors wheel interfaces",
+      "peak_current_mA": null
+    }
+  ],
+  "planning_reserve_scenario_mA": 600,
+  "planning_reserve_scope": "500mA MCU supply provisioning plus 100mA GNSS startup; excludes all other loads, not measured or guaranteed aggregate current",
+  "LDO_5V_to_3p3V_loss_at_600mA_scenario_W": 1.02,
+  "open": [
+    "No selected microSD MPN or measured SD write/erase/flush transient",
+    "GNSS data currents are typical at 1Hz, not guaranteed selected 5Hz current",
+    "Active antenna, display logic, FRAM, sensors and rail quiescent loads pending",
+    "500mA ESP supply capacity requirement must not be mislabeled as measured module current"
+  ]
+}

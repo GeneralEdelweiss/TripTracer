@@ -1,0 +1,3063 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-14T00:05:24",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.6",
+    "schematic_parity": [
+        {
+            "description": "Fehlender Footprint D111 (SS36 - FLYBACK (CANDIDATE))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint K101 (G6S-2F DC5 - C16707)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint Q111 (DMN2056U-7)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R111 (100k - GATE PULLDOWN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Wert (C101) stimmt nicht mit Symbolwert (C_1210_3225) überein.",
+            "items": [
+                {
+                    "description": "Footprint C101",
+                    "pos": {
+                        "x": 51.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791e"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C101 auf F.Cu",
+                    "pos": {
+                        "x": 49.7,
+                        "y": 52.0
+                    },
+                    "uuid": "d4ace316-0b94-40cd-80a7-d1afa229ca5c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (HV_PROTECTED_AFTER_EFUSE)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C101 auf F.Cu",
+                    "pos": {
+                        "x": 52.3,
+                        "y": 52.0
+                    },
+                    "uuid": "5da480a6-b0fb-42f3-9752-eb10dfec8c5a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C102) stimmt nicht mit Symbolwert (C_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint C102",
+                    "pos": {
+                        "x": 63.0,
+                        "y": 41.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791f"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-BOOT))",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C102 auf F.Cu",
+                    "pos": {
+                        "x": 61.45,
+                        "y": 41.0
+                    },
+                    "uuid": "02927533-5f4e-473b-acbc-13fcabd9c0b0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-SW))",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C102 auf F.Cu",
+                    "pos": {
+                        "x": 64.55,
+                        "y": 41.0
+                    },
+                    "uuid": "bccaeb58-90fa-4e07-b683-7bfd628f68ab"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C103) stimmt nicht mit Symbolwert (C_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint C103",
+                    "pos": {
+                        "x": 56.0,
+                        "y": 42.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007920"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-VCC))",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C103 auf F.Cu",
+                    "pos": {
+                        "x": 54.45,
+                        "y": 42.0
+                    },
+                    "uuid": "3beca55e-1329-45e0-b00f-ebe9661f5282"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C103 auf F.Cu",
+                    "pos": {
+                        "x": 57.55,
+                        "y": 42.0
+                    },
+                    "uuid": "f41ea9e5-5745-4b16-be08-d12001f2e7a6"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C104) stimmt nicht mit Symbolwert (C_1210_3225) überein.",
+            "items": [
+                {
+                    "description": "Footprint C104",
+                    "pos": {
+                        "x": 82.0,
+                        "y": 49.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007921"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C104 auf F.Cu",
+                    "pos": {
+                        "x": 80.7,
+                        "y": 49.0
+                    },
+                    "uuid": "1afc7c20-e451-4af8-b8ba-08249e740f04"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V5_BUCK_RAW)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C104 auf F.Cu",
+                    "pos": {
+                        "x": 83.3,
+                        "y": 49.0
+                    },
+                    "uuid": "c0e6cb47-5db4-4fb7-9129-4e7e3a00e78d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C105) stimmt nicht mit Symbolwert (C_1210_3225) überein.",
+            "items": [
+                {
+                    "description": "Footprint C105",
+                    "pos": {
+                        "x": 89.0,
+                        "y": 54.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007922"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 87.7,
+                        "y": 54.0
+                    },
+                    "uuid": "6b15e892-ca81-48ba-802e-4d839eba3aa1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V5_BUCK_RAW)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C105 auf F.Cu",
+                    "pos": {
+                        "x": 90.3,
+                        "y": 54.0
+                    },
+                    "uuid": "b6292f00-938e-4ab6-95f6-c5c5451e6075"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Fehlender Footprint C106 (4.7uF 100V X7R VIN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C107 (220nF 100V X7R HF VIN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Wert (L101) stimmt nicht mit Symbolwert (L1_Bourns_SRN6045_220M) überein.",
+            "items": [
+                {
+                    "description": "Footprint L101",
+                    "pos": {
+                        "x": 74.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Tripmaster:L1_Bourns_SRN6045_220M stimmt nicht mit dem Footprint des Symbols (Tripmaster:L_Bourns_SRP6030VA_100M) überein.",
+            "items": [
+                {
+                    "description": "Footprint L101",
+                    "pos": {
+                        "x": 74.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-SW))",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von L101 auf F.Cu",
+                    "pos": {
+                        "x": 71.85,
+                        "y": 52.0
+                    },
+                    "uuid": "20c02b2e-fde4-4104-a5ab-519da5574361"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V5_BUCK_RAW)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von L101 auf F.Cu",
+                    "pos": {
+                        "x": 76.15,
+                        "y": 52.0
+                    },
+                    "uuid": "5a001484-b987-49ed-af4d-1a7332f4664a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R101) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R101",
+                    "pos": {
+                        "x": 81.0,
+                        "y": 60.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007923"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-FB))",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R101 auf F.Cu",
+                    "pos": {
+                        "x": 79.45,
+                        "y": 60.0
+                    },
+                    "uuid": "684db5a0-a44d-4a7e-9c00-e7e5c6862982"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V5_BUCK_RAW)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R101 auf F.Cu",
+                    "pos": {
+                        "x": 82.55,
+                        "y": 60.0
+                    },
+                    "uuid": "93a86023-6a3f-4b8f-98aa-a107835042ba"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R102) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R102",
+                    "pos": {
+                        "x": 86.0,
+                        "y": 64.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007924"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R102 auf F.Cu",
+                    "pos": {
+                        "x": 84.45,
+                        "y": 64.0
+                    },
+                    "uuid": "094dce10-8fa0-40df-8a65-ff780b817582"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-FB))",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R102 auf F.Cu",
+                    "pos": {
+                        "x": 87.55,
+                        "y": 64.0
+                    },
+                    "uuid": "03efecfb-dd94-4b9a-9632-598eb23e0ac5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (U101) stimmt nicht mit Symbolwert (U3_TI_LMR36510ADDAR_DDA) überein.",
+            "items": [
+                {
+                    "description": "Footprint U101",
+                    "pos": {
+                        "x": 63.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000791c"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 53.905
+                    },
+                    "uuid": "871901f5-59a3-4d3d-afc5-8f97b74705c8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (HV_PROTECTED_AFTER_EFUSE)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 52.635
+                    },
+                    "uuid": "95ed4d7a-e9e1-4425-89f7-f4035c099135"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (BUCK_ENABLE)",
+            "items": [
+                {
+                    "description": "Pad 3 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 51.365
+                    },
+                    "uuid": "d3ffe017-8f26-4fe8-aeff-fc55dba6d01d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (/5-V-Synchronbuck (elektrischer Entwurf)/BUCK_PGOOD)",
+            "items": [
+                {
+                    "description": "Pad 4 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 60.3,
+                        "y": 50.095
+                    },
+                    "uuid": "7a62f233-3754-4812-a52f-90d24847c59f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-FB))",
+            "items": [
+                {
+                    "description": "Pad 5 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 50.095
+                    },
+                    "uuid": "84ac80ec-32e1-43cd-96e8-179b25780426"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-VCC))",
+            "items": [
+                {
+                    "description": "Pad 6 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 51.365
+                    },
+                    "uuid": "b3c41886-296a-4ea4-9544-ddca3f67e8ef"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-BOOT))",
+            "items": [
+                {
+                    "description": "Pad 7 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 52.635
+                    },
+                    "uuid": "13fd54e3-742a-4602-9de9-13f3efb7b3db"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(U101-SW))",
+            "items": [
+                {
+                    "description": "Pad 8 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 65.7,
+                        "y": 53.905
+                    },
+                    "uuid": "9739fd34-48d5-40f0-9b1e-1b0be2856402"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 9 [<no net>] von U101 auf F.Cu",
+                    "pos": {
+                        "x": 63.0,
+                        "y": 52.0
+                    },
+                    "uuid": "5b5638ad-b4b8-4c20-8492-158326b3f4cd"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C201) stimmt nicht mit Symbolwert (C_1210_3225) überein.",
+            "items": [
+                {
+                    "description": "Footprint C201",
+                    "pos": {
+                        "x": 149.0,
+                        "y": 64.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000792e"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C201 auf F.Cu",
+                    "pos": {
+                        "x": 147.7,
+                        "y": 64.0
+                    },
+                    "uuid": "a804f009-eb39-4e0c-82e0-5a11d165c1aa"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V3V3_SYS)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C201 auf F.Cu",
+                    "pos": {
+                        "x": 150.3,
+                        "y": 64.0
+                    },
+                    "uuid": "0967dde6-9304-441c-9aaa-b7a9dccc125e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C202) stimmt nicht mit Symbolwert (C_1210_3225) überein.",
+            "items": [
+                {
+                    "description": "Footprint C202",
+                    "pos": {
+                        "x": 150.0,
+                        "y": 72.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000792f"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C202 auf F.Cu",
+                    "pos": {
+                        "x": 148.7,
+                        "y": 72.0
+                    },
+                    "uuid": "f547c363-f26e-4f7b-ab71-1a10e0ff8d3b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V3V3_SYS)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C202 auf F.Cu",
+                    "pos": {
+                        "x": 151.3,
+                        "y": 72.0
+                    },
+                    "uuid": "7e694253-5de2-4f80-bcd7-1172044eabde"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (C203) stimmt nicht mit Symbolwert (C_1210_3225) überein.",
+            "items": [
+                {
+                    "description": "Footprint C203",
+                    "pos": {
+                        "x": 152.0,
+                        "y": 81.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007930"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von C203 auf F.Cu",
+                    "pos": {
+                        "x": 150.7,
+                        "y": 81.0
+                    },
+                    "uuid": "7c703859-78aa-45d7-a944-c45b1bb5945f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (EN_RESET)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von C203 auf F.Cu",
+                    "pos": {
+                        "x": 153.3,
+                        "y": 81.0
+                    },
+                    "uuid": "c0bc7bea-380a-42d5-b53a-bd965c3ff7c4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (D201) stimmt nicht mit Symbolwert (D2_ST_USBLC6_2SC6) überein.",
+            "items": [
+                {
+                    "description": "Footprint D201",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 44.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007927"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DP_PORT)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 113.05,
+                        "y": 45.1
+                    },
+                    "uuid": "c279152a-6771-4190-9df9-3b861a952766"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 45.1
+                    },
+                    "uuid": "1de883e4-fe4c-428a-a48b-1f8bd5042dd1"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_PORT)",
+            "items": [
+                {
+                    "description": "Pad 3 [<no net>] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.95,
+                        "y": 45.1
+                    },
+                    "uuid": "143115e7-fb6c-425f-87a1-5fdbbaad5b52"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_PORT_ESD)",
+            "items": [
+                {
+                    "description": "Pad 4 [<no net>] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.95,
+                        "y": 42.9
+                    },
+                    "uuid": "e2eee6e2-e86d-410a-917c-9f2bc811c882"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_VBUS_RAW)",
+            "items": [
+                {
+                    "description": "Pad 5 [<no net>] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 42.9
+                    },
+                    "uuid": "0c532a72-5952-4f4a-8fe3-7cf3de398713"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(D201-IO1_OUT))",
+            "items": [
+                {
+                    "description": "Pad 6 [<no net>] von D201 auf F.Cu",
+                    "pos": {
+                        "x": 113.05,
+                        "y": 42.9
+                    },
+                    "uuid": "d24542d8-0d90-4cf7-8f3a-66b7d9a452d4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (J201) stimmt nicht mit Symbolwert (J1_GCT_USB4105_GF_A_USB_C) überein.",
+            "items": [
+                {
+                    "description": "Footprint J201",
+                    "pos": {
+                        "x": 130.0,
+                        "y": 36.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007926"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad A1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "5faf6cb2-b194-4628-9657-7371ef7bcce4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_VBUS_RAW)",
+            "items": [
+                {
+                    "description": "Pad A4 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "dec2b3d0-3654-4563-a77d-068f63a58e43"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(J201-CC1))",
+            "items": [
+                {
+                    "description": "Pad A5 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 128.75,
+                        "y": 32.32
+                    },
+                    "uuid": "741749aa-e49a-4c21-95b0-a39d6659df1f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DP_PORT)",
+            "items": [
+                {
+                    "description": "Pad A6 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 129.75,
+                        "y": 32.32
+                    },
+                    "uuid": "1f43d6fd-84b4-467d-94de-da2789c51341"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_PORT)",
+            "items": [
+                {
+                    "description": "Pad A7 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 130.25,
+                        "y": 32.32
+                    },
+                    "uuid": "4f447913-6142-46da-aaa2-4a8482ca8e00"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(J201-SBU1-PadA8))",
+            "items": [
+                {
+                    "description": "Pad A8 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 131.25,
+                        "y": 32.32
+                    },
+                    "uuid": "73022555-7e94-48ea-93c8-7722fea99daa"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_VBUS_RAW)",
+            "items": [
+                {
+                    "description": "Pad A9 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "992e6cc1-fa20-4e43-8656-074ff4e10f9a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad A12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "e7565ec5-5911-4049-83d1-e8e5e4119f3d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad B1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "4df176af-4891-4239-9d43-f0ab63459a60"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_VBUS_RAW)",
+            "items": [
+                {
+                    "description": "Pad B4 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "45bf9287-c5e9-4184-8626-8a0040187f13"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(J201-CC2))",
+            "items": [
+                {
+                    "description": "Pad B5 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 131.75,
+                        "y": 32.32
+                    },
+                    "uuid": "ff1188c7-0a8a-4fee-9c64-8ca14cff3912"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DP_PORT)",
+            "items": [
+                {
+                    "description": "Pad B6 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 130.75,
+                        "y": 32.32
+                    },
+                    "uuid": "1fba43e6-a55f-4373-81da-6cbe2115fb67"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_PORT)",
+            "items": [
+                {
+                    "description": "Pad B7 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 129.25,
+                        "y": 32.32
+                    },
+                    "uuid": "1040a564-b096-410a-84d4-a7284c6724dc"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(J201-SBU2-PadB8))",
+            "items": [
+                {
+                    "description": "Pad B8 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 128.25,
+                        "y": 32.32
+                    },
+                    "uuid": "842a1b73-4d8d-4495-ae33-5c05632cf3cc"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_VBUS_RAW)",
+            "items": [
+                {
+                    "description": "Pad B9 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "70575db2-06d5-4459-ad22-09343d225040"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad B12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "1378e9be-1c4d-4726-a75e-c145e35f555c"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [<no net>] von J201",
+                    "pos": {
+                        "x": 125.68,
+                        "y": 32.895
+                    },
+                    "uuid": "f27578bd-0dca-4b7d-af19-44a044147467"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [<no net>] von J201",
+                    "pos": {
+                        "x": 125.68,
+                        "y": 37.075
+                    },
+                    "uuid": "5b97ea79-0e43-4397-9eca-4ea035fefc39"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [<no net>] von J201",
+                    "pos": {
+                        "x": 134.32,
+                        "y": 32.895
+                    },
+                    "uuid": "6b7298c3-cb3b-42e4-95b5-54c576cf4c2e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Durchsteckpad SH [<no net>] von J201",
+                    "pos": {
+                        "x": 134.32,
+                        "y": 37.075
+                    },
+                    "uuid": "e6cd8191-53bd-4d26-9a07-ef0d0600f8c0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R201) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R201",
+                    "pos": {
+                        "x": 118.0,
+                        "y": 35.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007928"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R201 auf F.Cu",
+                    "pos": {
+                        "x": 116.45,
+                        "y": 35.0
+                    },
+                    "uuid": "d17b0bde-d714-4253-9c1a-97c943a43a89"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(J201-CC1))",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R201 auf F.Cu",
+                    "pos": {
+                        "x": 119.55,
+                        "y": 35.0
+                    },
+                    "uuid": "44488e59-247c-43b4-95b9-52b1dd6bccb5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R202) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R202",
+                    "pos": {
+                        "x": 145.0,
+                        "y": 35.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007929"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(J201-CC2))",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R202 auf F.Cu",
+                    "pos": {
+                        "x": 143.45,
+                        "y": 35.0
+                    },
+                    "uuid": "37cc65d3-983a-43fc-b0e1-e2907cf26b8f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R202 auf F.Cu",
+                    "pos": {
+                        "x": 146.55,
+                        "y": 35.0
+                    },
+                    "uuid": "6ef42d3b-3660-4a5e-822f-ce9dbca63ffe"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R203) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R203",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000792a"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (Net-(D201-IO1_OUT))",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R203 auf F.Cu",
+                    "pos": {
+                        "x": 112.45,
+                        "y": 52.0
+                    },
+                    "uuid": "ef552dd0-7c73-4f8b-9339-6e271d2f8376"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DP_MCU)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R203 auf F.Cu",
+                    "pos": {
+                        "x": 115.55,
+                        "y": 52.0
+                    },
+                    "uuid": "00e41c3c-90e6-44de-af0b-08c1b59a4874"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R204) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R204",
+                    "pos": {
+                        "x": 125.0,
+                        "y": 52.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000792b"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_PORT_ESD)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R204 auf F.Cu",
+                    "pos": {
+                        "x": 123.45,
+                        "y": 52.0
+                    },
+                    "uuid": "76e475d1-98b1-4ff8-a412-8999c0bee9d8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_MCU)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R204 auf F.Cu",
+                    "pos": {
+                        "x": 126.55,
+                        "y": 52.0
+                    },
+                    "uuid": "a23cc1ad-2138-463b-99b7-3d1b1c78fc79"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R205) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R205",
+                    "pos": {
+                        "x": 114.0,
+                        "y": 90.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000792c"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (BOOT0_RECOVERY)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R205 auf F.Cu",
+                    "pos": {
+                        "x": 112.45,
+                        "y": 90.0
+                    },
+                    "uuid": "b002ff98-ba74-4d7a-90a8-a1f1adb96e0b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V3V3_SYS)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R205 auf F.Cu",
+                    "pos": {
+                        "x": 115.55,
+                        "y": 90.0
+                    },
+                    "uuid": "fdd9235f-0c1b-4c5e-980d-e3890f47d512"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (R206) stimmt nicht mit Symbolwert (R_1206_3216) überein.",
+            "items": [
+                {
+                    "description": "Footprint R206",
+                    "pos": {
+                        "x": 152.0,
+                        "y": 90.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-00000000792d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (EN_RESET)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von R206 auf F.Cu",
+                    "pos": {
+                        "x": 150.45,
+                        "y": 90.0
+                    },
+                    "uuid": "fdb2615f-0b45-4690-ab83-51b872e6d890"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V3V3_SYS)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von R206 auf F.Cu",
+                    "pos": {
+                        "x": 153.55,
+                        "y": 90.0
+                    },
+                    "uuid": "20faea18-612c-4ea1-ae86-fc03cdf4fd35"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Wert (U201) stimmt nicht mit Symbolwert (U1_ESP32-S3-MINI-1-N8) überein.",
+            "items": [
+                {
+                    "description": "Footprint U201",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007925"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_mismatch"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 1 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 64.05
+                    },
+                    "uuid": "3182f4ba-88e2-42ff-8527-de68ecbc5866"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 2 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 64.9
+                    },
+                    "uuid": "3f1e603e-6927-44b8-81ad-a00857686a44"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (V3V3_SYS)",
+            "items": [
+                {
+                    "description": "Pad 3 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 65.75
+                    },
+                    "uuid": "3c096dc9-fdfa-4190-8a7c-44dc40c0497a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (BOOT0_RECOVERY)",
+            "items": [
+                {
+                    "description": "Pad 4 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 66.6
+                    },
+                    "uuid": "71e27151-6b9e-45a8-8b61-7e1411fa3926"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO1-Pad5))",
+            "items": [
+                {
+                    "description": "Pad 5 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 67.45
+                    },
+                    "uuid": "42961b2b-b2f0-4697-b848-5d174da0db13"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO2-Pad6))",
+            "items": [
+                {
+                    "description": "Pad 6 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 68.3
+                    },
+                    "uuid": "91f335cf-bbab-403a-a7f7-5b2562b440b4"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO3-Pad7))",
+            "items": [
+                {
+                    "description": "Pad 7 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 69.15
+                    },
+                    "uuid": "2f208afd-dbd2-45b3-b893-f8fdb92d76dc"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO4-Pad8))",
+            "items": [
+                {
+                    "description": "Pad 8 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 70.0
+                    },
+                    "uuid": "490f46d9-0204-4885-b470-6abfd067a06b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO5-Pad9))",
+            "items": [
+                {
+                    "description": "Pad 9 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 70.85
+                    },
+                    "uuid": "2b4fc4a7-77e5-4d31-b7b5-4205c7c676fa"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO6-Pad10))",
+            "items": [
+                {
+                    "description": "Pad 10 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 71.7
+                    },
+                    "uuid": "e6e5e2a1-1c9a-4a53-ac0c-f4231eea1225"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO7-Pad11))",
+            "items": [
+                {
+                    "description": "Pad 11 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 72.55
+                    },
+                    "uuid": "94ac884c-522b-4cb3-9c54-9707304c5622"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO8-Pad12))",
+            "items": [
+                {
+                    "description": "Pad 12 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 73.4
+                    },
+                    "uuid": "dd3ec203-1b36-4ad6-8401-febd7b7a8899"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO9-Pad13))",
+            "items": [
+                {
+                    "description": "Pad 13 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 74.25
+                    },
+                    "uuid": "6cd6af01-324a-46f3-b85c-68f17130bee2"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO10-Pad14))",
+            "items": [
+                {
+                    "description": "Pad 14 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 75.1
+                    },
+                    "uuid": "0044fa08-e53a-45af-9925-5501f6356c9f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO11-Pad15))",
+            "items": [
+                {
+                    "description": "Pad 15 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 75.95
+                    },
+                    "uuid": "4ac73339-9bac-4695-b522-d2afc7d7719e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO12-Pad16))",
+            "items": [
+                {
+                    "description": "Pad 16 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.05,
+                        "y": 76.95
+                    },
+                    "uuid": "2018145c-8d99-40ad-aa7c-df01dd7d5d3d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO13-Pad17))",
+            "items": [
+                {
+                    "description": "Pad 17 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.9,
+                        "y": 76.95
+                    },
+                    "uuid": "a461f8dd-6765-490e-9c83-7bc3c42ecb78"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO14-Pad18))",
+            "items": [
+                {
+                    "description": "Pad 18 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 127.75,
+                        "y": 76.95
+                    },
+                    "uuid": "ab1ac606-e715-4d9c-a2ee-1cd2a75835c6"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO15-Pad19))",
+            "items": [
+                {
+                    "description": "Pad 19 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 128.6,
+                        "y": 76.95
+                    },
+                    "uuid": "f47535dc-8241-4cc2-8c63-12579336a88d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO16-Pad20))",
+            "items": [
+                {
+                    "description": "Pad 20 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 129.45,
+                        "y": 76.95
+                    },
+                    "uuid": "70319cd4-cc7c-42b9-8a94-37bfdd80b1f9"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO17-Pad21))",
+            "items": [
+                {
+                    "description": "Pad 21 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 76.95
+                    },
+                    "uuid": "c021415b-31d4-4687-aa55-b6826aaf0cd3"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO18-Pad22))",
+            "items": [
+                {
+                    "description": "Pad 22 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 131.15,
+                        "y": 76.95
+                    },
+                    "uuid": "abe6a0c7-9644-4565-9f5b-1597c8754360"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DM_MCU)",
+            "items": [
+                {
+                    "description": "Pad 23 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 76.95
+                    },
+                    "uuid": "ddb7233b-5ab4-4d81-b2f7-cf268238a26b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (USB_DP_MCU)",
+            "items": [
+                {
+                    "description": "Pad 24 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.85,
+                        "y": 76.95
+                    },
+                    "uuid": "5468a749-f289-4ec2-bc3a-29032582a941"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO21-Pad25))",
+            "items": [
+                {
+                    "description": "Pad 25 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 76.95
+                    },
+                    "uuid": "1b5f3b09-eacd-4054-8a12-bc3740561e8e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO26-Pad26))",
+            "items": [
+                {
+                    "description": "Pad 26 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 134.55,
+                        "y": 76.95
+                    },
+                    "uuid": "ee64281f-23b0-445c-bdb7-1ee2d137caa0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO47-Pad27))",
+            "items": [
+                {
+                    "description": "Pad 27 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 135.4,
+                        "y": 76.95
+                    },
+                    "uuid": "e6111d9c-a0ec-4e2f-84a2-714f0ea4c28d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO33-Pad28))",
+            "items": [
+                {
+                    "description": "Pad 28 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 136.25,
+                        "y": 76.95
+                    },
+                    "uuid": "da37c779-9645-45ec-9427-efdbb2bed7cb"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO34-Pad29))",
+            "items": [
+                {
+                    "description": "Pad 29 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.1,
+                        "y": 76.95
+                    },
+                    "uuid": "2dc81e1d-6b13-4d6a-bf61-cd4f75a54a54"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO48-Pad30))",
+            "items": [
+                {
+                    "description": "Pad 30 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.95,
+                        "y": 76.95
+                    },
+                    "uuid": "e07f5e12-ece3-4fc3-8ff7-ff08d9344d5b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO35-Pad31))",
+            "items": [
+                {
+                    "description": "Pad 31 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 75.95
+                    },
+                    "uuid": "7a415eb5-0301-4556-ac72-f03d9677f7ea"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO36-Pad32))",
+            "items": [
+                {
+                    "description": "Pad 32 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 75.1
+                    },
+                    "uuid": "01f84c5d-e51d-440d-990d-28378990203b"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO37-Pad33))",
+            "items": [
+                {
+                    "description": "Pad 33 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 74.25
+                    },
+                    "uuid": "1e2117b0-0d64-4bf2-9ed7-5dd2b7300cec"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO38-Pad34))",
+            "items": [
+                {
+                    "description": "Pad 34 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 73.4
+                    },
+                    "uuid": "609261d1-c1fc-4eee-aa9c-ce7979ce1141"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO39-Pad35))",
+            "items": [
+                {
+                    "description": "Pad 35 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 72.55
+                    },
+                    "uuid": "17dd6902-6eda-46c0-b64d-0e8c32ebbefd"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO40-Pad36))",
+            "items": [
+                {
+                    "description": "Pad 36 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 71.7
+                    },
+                    "uuid": "e48e70c7-5190-4750-9cc6-609a5f1f0969"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO41-Pad37))",
+            "items": [
+                {
+                    "description": "Pad 37 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 70.85
+                    },
+                    "uuid": "13cfc59c-d842-4131-b80c-d1dc2770b0af"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO42-Pad38))",
+            "items": [
+                {
+                    "description": "Pad 38 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 70.0
+                    },
+                    "uuid": "4522adee-b437-4022-8016-2cd093924fc0"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-TXD0_IO43-Pad39))",
+            "items": [
+                {
+                    "description": "Pad 39 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 69.15
+                    },
+                    "uuid": "dc11c4c2-0801-412d-bb2e-dd44ad27cfe5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-RXD0_IO44-Pad40))",
+            "items": [
+                {
+                    "description": "Pad 40 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 68.3
+                    },
+                    "uuid": "631fda24-e35c-4c12-8387-09c032e40f12"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO45-Pad41))",
+            "items": [
+                {
+                    "description": "Pad 41 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 67.45
+                    },
+                    "uuid": "5e91e70e-6d42-4fd5-876b-bf8bd4056285"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 42 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 66.6
+                    },
+                    "uuid": "dd454ce8-2552-49c4-9ab4-af16d94beb58"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 43 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 65.75
+                    },
+                    "uuid": "0372684e-27a2-42f8-bd26-da92bbc9ecc8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (unconnected-(U201-IO46-Pad44))",
+            "items": [
+                {
+                    "description": "Pad 44 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 64.9
+                    },
+                    "uuid": "f8f66687-07a7-45cf-91dd-3330e6d0ae6a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (EN_RESET)",
+            "items": [
+                {
+                    "description": "Pad 45 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 64.05
+                    },
+                    "uuid": "46e2d30a-da2a-49cd-9f9a-470a10012026"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 46 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.95,
+                        "y": 63.05
+                    },
+                    "uuid": "aa5c5c1a-539d-43b7-bb7d-3fc9a882f799"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 47 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 137.1,
+                        "y": 63.05
+                    },
+                    "uuid": "4e8ced81-ac93-4f57-a9ce-78c4ebe79cee"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 48 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 136.25,
+                        "y": 63.05
+                    },
+                    "uuid": "cfc17d51-e68c-45fe-9d0c-6937195a0e92"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 49 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 135.4,
+                        "y": 63.05
+                    },
+                    "uuid": "f86750e9-53f6-442a-9550-407bb8a6a751"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 50 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 134.55,
+                        "y": 63.05
+                    },
+                    "uuid": "4f1ec635-ee68-4dfa-8a44-7522f11dd50d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 51 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 63.05
+                    },
+                    "uuid": "ea822694-c752-4034-919e-22585941b53d"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 52 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.85,
+                        "y": 63.05
+                    },
+                    "uuid": "9c92823d-ff00-4be7-a6f6-0dd5eb525a8e"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 53 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 63.05
+                    },
+                    "uuid": "21c27fad-0995-4c87-a847-c5d319130372"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 54 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 131.15,
+                        "y": 63.05
+                    },
+                    "uuid": "7d27427d-2678-45a4-a45a-065ada64ab59"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 55 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 63.05
+                    },
+                    "uuid": "7bed6c25-88fd-4302-beed-620d22617571"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 56 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 129.45,
+                        "y": 63.05
+                    },
+                    "uuid": "985ba31a-e057-4c55-911e-289a48a2da5f"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 57 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 128.6,
+                        "y": 63.05
+                    },
+                    "uuid": "d3668cde-eb73-452c-bca4-15073c145b7a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 58 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 127.75,
+                        "y": 63.05
+                    },
+                    "uuid": "a48c80b9-c3f6-4f6e-9528-af0d24968110"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 59 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.9,
+                        "y": 63.05
+                    },
+                    "uuid": "1fc9387b-7a7b-46d5-bb57-92b1c45ea523"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 60 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 126.05,
+                        "y": 63.05
+                    },
+                    "uuid": "e47baba4-8f8a-4c88-ad68-8de1ae7c7c28"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 68.3
+                    },
+                    "uuid": "6fc21324-f9d1-4184-8221-0f79696a9ed5"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 70.0
+                    },
+                    "uuid": "49141df1-6edb-407b-88c3-9a3a3b2bf373"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 130.3,
+                        "y": 71.7
+                    },
+                    "uuid": "729ac66e-35cf-415c-9610-fc3453eb34fa"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 68.3
+                    },
+                    "uuid": "3993fa10-280e-4ec7-aa29-b132102ead11"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "d01901c6-1f26-4089-b73e-1ed86cc98a77"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 71.7
+                    },
+                    "uuid": "7139e086-ddd0-47e8-abf7-30c74ab47988"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 68.3
+                    },
+                    "uuid": "381f6274-cef2-4ebd-9091-9c19c673fc33"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 70.0
+                    },
+                    "uuid": "eecc98f6-9ab7-4637-8da5-bce99f2be7bb"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 61 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 133.7,
+                        "y": 71.7
+                    },
+                    "uuid": "90f8be03-1955-4979-8418-d94a05cb72da"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 62 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 63.05
+                    },
+                    "uuid": "b87db362-d708-4c82-8039-7cc215b26fd8"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 63 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 125.05,
+                        "y": 76.95
+                    },
+                    "uuid": "50a9ca12-4217-4651-8492-bc4b673dde64"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 64 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 76.95
+                    },
+                    "uuid": "c04a88a2-d61d-40be-b057-fcde6fb81c53"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Pad fehlt Netz gemäß Schaltplan (GND)",
+            "items": [
+                {
+                    "description": "Pad 65 [<no net>] von U201 auf F.Cu",
+                    "pos": {
+                        "x": 138.95,
+                        "y": 63.05
+                    },
+                    "uuid": "14ae3e7f-f1ec-4b10-82dc-2985fbb40a2a"
+                }
+            ],
+            "severity": "warning",
+            "type": "net_conflict"
+        },
+        {
+            "description": "Fehlender Footprint C204 (22uF 16V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C205 (22uF 16V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C206 (3.3nF 50V X7R - CA)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C207 (100pF 50V C0G - CB)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C1201 (2.2uF 100V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C1202 (2.2uF 100V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C1203 (2.2nF 50V X7R - BST)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint L201 (68uH - Isat>=1.75A TO VERIFY)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1201 (316k 1% - FB TOP)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1202 (100k 1% - FB BOTTOM)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1203 (43.2k 1% - RON)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R1204 (180k 1% - RIPPLE RA)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U1201 (LM5164QDDARQ1 - AUX 5V CANDIDATE)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C301 (10nF 50V X7R)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D301 (BAT54WS ACC OR (C5251553))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D302 (BAT54WS HOLD OR (C5251553))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint Q301 (MMBT5551 (C408396))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint Q302 (MMBT5401 (C408397))",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R301 (220k ACC LIMIT)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R302 (220k BASE PULL)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R303 (47k PNP BASE)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R304 (220k PNP OFF)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R305 (100k ACC_DRIVE_OFF_PULLDOWN)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C501 (10uF 16V X7R (1210), DERATE)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C502 (10nF AC falling-edge pulse)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C503 (100nF RESET POR filter)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C504 (10nF CONT bypass)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint C505 (100nF VDD bypass)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D501 (BAT54WS TRIG positive clamp)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint D502 (BAT54WS TRIG negative clamp)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R501 (2.2M 1% - tMAX)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R502 (100k TRIG pull-up)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R503 (100k RESET pull-up)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint R504 (100k MCU hold pull-down)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U501 (TLC555QDRQ1 - MONOSTABLE 24s NOM)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U502 (SN74LVC1G08-Q1 AND)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        },
+        {
+            "description": "Fehlender Footprint U401 (TPS26631PWPT CANDIDATE - NOT CONNECTED)",
+            "items": [],
+            "severity": "warning",
+            "type": "missing_footprint"
+        }
+    ],
+    "source": "TripTracer_V1.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Freiraum-Verstoß ( Freiraum 0,2000 mm; tatsächlich 0,0000 mm)",
+            "items": [
+                {
+                    "description": "Pad A1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "5faf6cb2-b194-4628-9657-7371ef7bcce4"
+                },
+                {
+                    "description": "Pad B12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "1378e9be-1c4d-4726-a75e-c145e35f555c"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad A1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "5faf6cb2-b194-4628-9657-7371ef7bcce4"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 127.11,
+                        "y": 33.395
+                    },
+                    "uuid": "7535c998-fa38-4f0a-86a8-502652ab4eb8"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Freiraum-Verstoß ( Freiraum 0,2000 mm; tatsächlich 0,0000 mm)",
+            "items": [
+                {
+                    "description": "Pad A4 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "dec2b3d0-3654-4563-a77d-068f63a58e43"
+                },
+                {
+                    "description": "Pad B9 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "70575db2-06d5-4459-ad22-09343d225040"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad A12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "e7565ec5-5911-4049-83d1-e8e5e4119f3d"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 132.89,
+                        "y": 33.395
+                    },
+                    "uuid": "ee83e317-a3f5-4d2b-800b-5c03f93a7c01"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Freiraum-Verstoß ( Freiraum 0,2000 mm; tatsächlich 0,0000 mm)",
+            "items": [
+                {
+                    "description": "Pad A12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "e7565ec5-5911-4049-83d1-e8e5e4119f3d"
+                },
+                {
+                    "description": "Pad B1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "4df176af-4891-4239-9d43-f0ab63459a60"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad B1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "4df176af-4891-4239-9d43-f0ab63459a60"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 132.89,
+                        "y": 33.395
+                    },
+                    "uuid": "ee83e317-a3f5-4d2b-800b-5c03f93a7c01"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Freiraum-Verstoß ( Freiraum 0,2000 mm; tatsächlich 0,0000 mm)",
+            "items": [
+                {
+                    "description": "Pad B4 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "45bf9287-c5e9-4184-8626-8a0040187f13"
+                },
+                {
+                    "description": "Pad A9 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "992e6cc1-fa20-4e43-8656-074ff4e10f9a"
+                }
+            ],
+            "severity": "error",
+            "type": "clearance"
+        },
+        {
+            "description": "Loch-Freiraum-Verstoß (Einschränkungen aus Platinenkonfiguration zu Löchern Freiraum 0,2500 mm; tatsächlich 0,1944 mm)",
+            "items": [
+                {
+                    "description": "Pad B12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "1378e9be-1c4d-4726-a75e-c145e35f555c"
+                },
+                {
+                    "description": "NPTH-Pad von J201",
+                    "pos": {
+                        "x": 127.11,
+                        "y": 33.395
+                    },
+                    "uuid": "7535c998-fa38-4f0a-86a8-502652ab4eb8"
+                }
+            ],
+            "severity": "error",
+            "type": "hole_clearance"
+        },
+        {
+            "description": "Platine hat fehlerhaften Umriss (keine Kanten auf Edge.Cuts-Lage gefunden)",
+            "items": [
+                {
+                    "description": "PCB",
+                    "pos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "uuid": "f0bd0497-a44b-43de-b3c3-a494fca3f561"
+                }
+            ],
+            "severity": "error",
+            "type": "invalid_outline"
+        },
+        {
+            "description": "Vorderseitige Lötstoppöffnung über Elementen mit verschiedenen Netzen",
+            "items": [
+                {
+                    "description": "Pad B9 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "70575db2-06d5-4459-ad22-09343d225040"
+                },
+                {
+                    "description": "Pad A4 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 32.32
+                    },
+                    "uuid": "dec2b3d0-3654-4563-a77d-068f63a58e43"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Vorderseitige Lötstoppöffnung über Elementen mit verschiedenen Netzen",
+            "items": [
+                {
+                    "description": "Pad A1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "5faf6cb2-b194-4628-9657-7371ef7bcce4"
+                },
+                {
+                    "description": "Pad B12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 126.8,
+                        "y": 32.32
+                    },
+                    "uuid": "1378e9be-1c4d-4726-a75e-c145e35f555c"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Vorderseitige Lötstoppöffnung über Elementen mit verschiedenen Netzen",
+            "items": [
+                {
+                    "description": "Pad A9 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "992e6cc1-fa20-4e43-8656-074ff4e10f9a"
+                },
+                {
+                    "description": "Pad B4 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 132.4,
+                        "y": 32.32
+                    },
+                    "uuid": "45bf9287-c5e9-4184-8626-8a0040187f13"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Vorderseitige Lötstoppöffnung über Elementen mit verschiedenen Netzen",
+            "items": [
+                {
+                    "description": "Pad A12 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "e7565ec5-5911-4049-83d1-e8e5e4119f3d"
+                },
+                {
+                    "description": "Pad B1 [<no net>] von J201 auf F.Cu",
+                    "pos": {
+                        "x": 133.2,
+                        "y": 32.32
+                    },
+                    "uuid": "4df176af-4891-4239-9d43-f0ab63459a60"
+                }
+            ],
+            "severity": "error",
+            "type": "solder_mask_bridge"
+        },
+        {
+            "description": "Footprint \"U1_ESP32-S3-MINI-1-N8\" stimmt nicht mit Kopie in Bibliothek \"Tripmaster\" überein.",
+            "items": [
+                {
+                    "description": "Footprint U201",
+                    "pos": {
+                        "x": 132.0,
+                        "y": 70.0
+                    },
+                    "uuid": "a1c93062-5725-4f5b-bd3f-000000007925"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        }
+    ]
+}

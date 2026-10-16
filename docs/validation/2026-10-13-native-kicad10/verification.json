@@ -1,0 +1,451 @@
+{
+  "erc": {
+    "before": {
+      "total": 349,
+      "counts": {
+        "warning:endpoint_off_grid": 270,
+        "warning:isolated_pin_label": 4,
+        "warning:same_local_global_label": 1,
+        "error:power_pin_not_driven": 12,
+        "error:pin_not_driven": 6,
+        "error:pin_not_connected": 56
+      },
+      "sheets": 13
+    },
+    "after": {
+      "total": 347,
+      "counts": {
+        "warning:endpoint_off_grid": 270,
+        "warning:isolated_pin_label": 4,
+        "error:power_pin_not_driven": 11,
+        "error:pin_not_driven": 6,
+        "error:pin_not_connected": 56
+      },
+      "sheets": 13
+    }
+  },
+  "net_changes": [
+    {
+      "ref": "C101",
+      "pin": "1",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "C103",
+      "pin": "2",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "C104",
+      "pin": "1",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "C105",
+      "pin": "1",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "C106",
+      "pin": "2",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "C107",
+      "pin": "2",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "R102",
+      "pin": "1",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "U101",
+      "pin": "1",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    },
+    {
+      "ref": "U101",
+      "pin": "9",
+      "before": "/5-V-Synchronbuck (elektrischer Entwurf)/GND",
+      "after": "GND"
+    }
+  ],
+  "local_pin_pad_checks": [
+    {
+      "ref": "D111",
+      "footprint": "Tripmaster:D_SMA_SS36",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "K101",
+      "footprint": "Tripmaster:RLY101_Omron_G6S_2F",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "Q111",
+      "footprint": "Tripmaster:Q1_Diodes_DMN2056U_7",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R111",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C101",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C102",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C103",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C104",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C105",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C106",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C107",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "L101",
+      "footprint": "Tripmaster:L_Bourns_SRP6030VA_100M",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R101",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R102",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "U101",
+      "footprint": "Tripmaster:U3_TI_LMR36510ADDAR_DDA",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C201",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C202",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C203",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "D201",
+      "footprint": "Tripmaster:D2_ST_USBLC6_2SC6",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "J201",
+      "footprint": "Tripmaster:J1_GCT_USB4105_GF_A_USB_C",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R201",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R202",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R203",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R204",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R205",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R206",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "U201",
+      "footprint": "Tripmaster:U1_ESP32-S3-MINI-1-N8",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C201",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C202",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C203",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C204",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C205",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C206",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C207",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R201",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R202",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R203",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R204",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C301",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "D301",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "D302",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "Q301",
+      "footprint": "Tripmaster:Q_SOT23_1B2E3C",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "Q302",
+      "footprint": "Tripmaster:Q_SOT23_1B2E3C",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R301",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R302",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R303",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R304",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R305",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C501",
+      "footprint": "Tripmaster:C_1210_3225",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C502",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C503",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C504",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "C505",
+      "footprint": "Tripmaster:C_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "D501",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "D502",
+      "footprint": "Tripmaster:D_BAT54WS_SOD323",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R501",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R502",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R503",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "R504",
+      "footprint": "Tripmaster:R_1206_3216",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "U501",
+      "footprint": "Tripmaster:U_TLC555_SOIC8",
+      "missing_pads": [],
+      "extra_pads": []
+    },
+    {
+      "ref": "U502",
+      "footprint": "Tripmaster:U_AND_SOT23_5",
+      "missing_pads": [],
+      "extra_pads": []
+    }
+  ]
+}

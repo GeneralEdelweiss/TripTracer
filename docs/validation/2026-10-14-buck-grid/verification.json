@@ -1,0 +1,9 @@
+{
+  "pin_net_assignments_unchanged": true,
+  "compared_pin_count": 260,
+  "erc_before_violations": 347,
+  "erc_after_violations": 304,
+  "off_grid_before": 270,
+  "off_grid_after": 227,
+  "complete_ERC_passed": false
+}

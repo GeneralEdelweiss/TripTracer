@@ -35,7 +35,11 @@
         "diff_pair_width": 0.2,
         "diff_pair_gap": 0.2,
         "uVia_diameter": 0.3,
-        "uVia_drill": 0.1
+        "uVia_drill": 0.1,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
       }
     ]
   },

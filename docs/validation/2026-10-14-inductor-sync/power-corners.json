@@ -1,0 +1,350 @@
+{
+  "status": "design scenarios only; no lab/ISO or circuit release",
+  "power_assumption_W": 10.0,
+  "input_current_scenarios": [
+    {
+      "vin_V": 6,
+      "assumed_efficiency": 0.8,
+      "input_current_A": 2.083333333333333
+    },
+    {
+      "vin_V": 6,
+      "assumed_efficiency": 0.85,
+      "input_current_A": 1.9607843137254903
+    },
+    {
+      "vin_V": 6,
+      "assumed_efficiency": 0.9,
+      "input_current_A": 1.8518518518518516
+    },
+    {
+      "vin_V": 9,
+      "assumed_efficiency": 0.8,
+      "input_current_A": 1.3888888888888888
+    },
+    {
+      "vin_V": 9,
+      "assumed_efficiency": 0.85,
+      "input_current_A": 1.3071895424836601
+    },
+    {
+      "vin_V": 9,
+      "assumed_efficiency": 0.9,
+      "input_current_A": 1.234567901234568
+    },
+    {
+      "vin_V": 12,
+      "assumed_efficiency": 0.8,
+      "input_current_A": 1.0416666666666665
+    },
+    {
+      "vin_V": 12,
+      "assumed_efficiency": 0.85,
+      "input_current_A": 0.9803921568627452
+    },
+    {
+      "vin_V": 12,
+      "assumed_efficiency": 0.9,
+      "input_current_A": 0.9259259259259258
+    },
+    {
+      "vin_V": 24,
+      "assumed_efficiency": 0.8,
+      "input_current_A": 0.5208333333333333
+    },
+    {
+      "vin_V": 24,
+      "assumed_efficiency": 0.85,
+      "input_current_A": 0.4901960784313726
+    },
+    {
+      "vin_V": 24,
+      "assumed_efficiency": 0.9,
+      "input_current_A": 0.4629629629629629
+    },
+    {
+      "vin_V": 30,
+      "assumed_efficiency": 0.8,
+      "input_current_A": 0.4166666666666667
+    },
+    {
+      "vin_V": 30,
+      "assumed_efficiency": 0.85,
+      "input_current_A": 0.39215686274509803
+    },
+    {
+      "vin_V": 30,
+      "assumed_efficiency": 0.9,
+      "input_current_A": 0.37037037037037035
+    }
+  ],
+  "shunt_tradeoffs": [
+    {
+      "shunt_ohm": 0.002,
+      "ocp_3A_RLIM_ohm": 100000.0,
+      "scp_default_typ_A": 10.0,
+      "scp_default_low_high_A": [
+        8.613861386138613,
+        11.11111111111111
+      ],
+      "startup_scp_low_high_A": [
+        8.168316831683168,
+        12.121212121212121
+      ],
+      "shunt_power_at_3A_W": 0.018000000000000002,
+      "drop_at_3A_V": 0.006
+    },
+    {
+      "shunt_ohm": 0.005,
+      "ocp_3A_RLIM_ohm": 40000.0,
+      "scp_default_typ_A": 4.0,
+      "scp_default_low_high_A": [
+        3.4455445544554455,
+        4.444444444444444
+      ],
+      "startup_scp_low_high_A": [
+        3.2673267326732676,
+        4.848484848484849
+      ],
+      "shunt_power_at_3A_W": 0.045,
+      "drop_at_3A_V": 0.015
+    },
+    {
+      "shunt_ohm": 0.01,
+      "ocp_3A_RLIM_ohm": 20000.0,
+      "scp_default_typ_A": 2.0,
+      "scp_default_low_high_A": [
+        1.7227722772277227,
+        2.222222222222222
+      ],
+      "startup_scp_low_high_A": [
+        1.6336633663366338,
+        2.4242424242424243
+      ],
+      "shunt_power_at_3A_W": 0.09,
+      "drop_at_3A_V": 0.03
+    },
+    {
+      "shunt_ohm": 0.02,
+      "ocp_3A_RLIM_ohm": 10000.0,
+      "scp_default_typ_A": 1.0,
+      "scp_default_low_high_A": [
+        0.8613861386138614,
+        1.111111111111111
+      ],
+      "startup_scp_low_high_A": [
+        0.8168316831683169,
+        1.2121212121212122
+      ],
+      "shunt_power_at_3A_W": 0.18,
+      "drop_at_3A_V": 0.06
+    }
+  ],
+  "buck_inductor_scenarios": [
+    {
+      "vin_V": 6,
+      "load_A": 2,
+      "inductance_H": 1e-05,
+      "frequency_Hz": 400000.0,
+      "scenario": "nominal",
+      "ripple_pp_A": 0.2083333333333333,
+      "peak_A": 2.1041666666666665,
+      "rms_A": 2.0009040202238957,
+      "DCR_68mOhm_loss_25C_W": 0.27224594907407407
+    },
+    {
+      "vin_V": 6,
+      "load_A": 2,
+      "inductance_H": 8e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "initial tolerance only",
+      "ripple_pp_A": 0.3063725490196078,
+      "peak_A": 2.153186274509804,
+      "rms_A": 2.001954547827214,
+      "DCR_68mOhm_loss_25C_W": 0.2725318967864924
+    },
+    {
+      "vin_V": 6,
+      "load_A": 2,
+      "inductance_H": 6e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "assumed DC-bias sensitivity; not guaranteed",
+      "ripple_pp_A": 0.40849673202614367,
+      "peak_A": 2.204248366013072,
+      "rms_A": 2.0034734334000213,
+      "DCR_68mOhm_loss_25C_W": 0.2729455942870975
+    },
+    {
+      "vin_V": 9,
+      "load_A": 2,
+      "inductance_H": 1e-05,
+      "frequency_Hz": 400000.0,
+      "scenario": "nominal",
+      "ripple_pp_A": 0.5555555555555556,
+      "peak_A": 2.2777777777777777,
+      "rms_A": 2.0064197378936077,
+      "DCR_68mOhm_loss_25C_W": 0.2737489711934156
+    },
+    {
+      "vin_V": 9,
+      "load_A": 2,
+      "inductance_H": 8e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "initial tolerance only",
+      "ripple_pp_A": 0.8169934640522877,
+      "peak_A": 2.4084967320261437,
+      "rms_A": 2.0138577887623246,
+      "DCR_68mOhm_loss_25C_W": 0.27578237714839027
+    },
+    {
+      "vin_V": 9,
+      "load_A": 2,
+      "inductance_H": 6e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "assumed DC-bias sensitivity; not guaranteed",
+      "ripple_pp_A": 1.0893246187363834,
+      "peak_A": 2.5446623093681917,
+      "rms_A": 2.024570492001229,
+      "DCR_68mOhm_loss_25C_W": 0.2787242260415827
+    },
+    {
+      "vin_V": 12,
+      "load_A": 2,
+      "inductance_H": 1e-05,
+      "frequency_Hz": 400000.0,
+      "scenario": "nominal",
+      "ripple_pp_A": 0.7291666666666665,
+      "peak_A": 2.364583333333333,
+      "rms_A": 2.011046245692728,
+      "DCR_68mOhm_loss_25C_W": 0.2750128761574075
+    },
+    {
+      "vin_V": 12,
+      "load_A": 2,
+      "inductance_H": 8e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "initial tolerance only",
+      "ripple_pp_A": 1.0723039215686274,
+      "peak_A": 2.5361519607843137,
+      "rms_A": 2.023813143964701,
+      "DCR_68mOhm_loss_25C_W": 0.27851573563453164
+    },
+    {
+      "vin_V": 12,
+      "load_A": 2,
+      "inductance_H": 6e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "assumed DC-bias sensitivity; not guaranteed",
+      "ripple_pp_A": 1.4297385620915029,
+      "peak_A": 2.7148692810457513,
+      "rms_A": 2.042142509635642,
+      "DCR_68mOhm_loss_25C_W": 0.28358353001694514
+    },
+    {
+      "vin_V": 24,
+      "load_A": 2,
+      "inductance_H": 1e-05,
+      "frequency_Hz": 400000.0,
+      "scenario": "nominal",
+      "ripple_pp_A": 0.9895833333333333,
+      "peak_A": 2.4947916666666665,
+      "rms_A": 2.0202985582501394,
+      "DCR_68mOhm_loss_25C_W": 0.2775492259837963
+    },
+    {
+      "vin_V": 24,
+      "load_A": 2,
+      "inductance_H": 8e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "initial tolerance only",
+      "ripple_pp_A": 1.4552696078431373,
+      "peak_A": 2.7276348039215685,
+      "rms_A": 2.0436448164882584,
+      "DCR_68mOhm_loss_25C_W": 0.28400092124523424
+    },
+    {
+      "vin_V": 24,
+      "load_A": 2,
+      "inductance_H": 6e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "assumed DC-bias sensitivity; not guaranteed",
+      "ripple_pp_A": 1.9403594771241828,
+      "peak_A": 2.9701797385620914,
+      "rms_A": 2.0769568062525523,
+      "DCR_68mOhm_loss_25C_W": 0.29333497110263856
+    },
+    {
+      "vin_V": 30,
+      "load_A": 2,
+      "inductance_H": 1e-05,
+      "frequency_Hz": 400000.0,
+      "scenario": "nominal",
+      "ripple_pp_A": 1.0416666666666667,
+      "peak_A": 2.5208333333333335,
+      "rms_A": 2.0224792838750423,
+      "DCR_68mOhm_loss_25C_W": 0.2781487268518519
+    },
+    {
+      "vin_V": 30,
+      "load_A": 2,
+      "inductance_H": 8e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "initial tolerance only",
+      "ripple_pp_A": 1.5318627450980395,
+      "peak_A": 2.7659313725490198,
+      "rms_A": 2.048304247213194,
+      "DCR_68mOhm_loss_25C_W": 0.28529741966230937
+    },
+    {
+      "vin_V": 30,
+      "load_A": 2,
+      "inductance_H": 6e-06,
+      "frequency_Hz": 340000.0,
+      "scenario": "assumed DC-bias sensitivity; not guaranteed",
+      "ripple_pp_A": 2.0424836601307192,
+      "peak_A": 3.0212418300653594,
+      "rms_A": 2.085100707038331,
+      "DCR_68mOhm_loss_25C_W": 0.29563985717743896
+    }
+  ],
+  "buck_inductor_limitations": "CCM ideal ripple only; no guaranteed DC-bias/temperature inductance, core losses, short-circuit/loop/thermal or 6V dropout validation",
+  "uv_candidate_fall_V": [
+    4.726470520600447,
+    5.307520625610947
+  ],
+  "uv_candidate_rise_V": [
+    5.189521303098052,
+    5.833484457478006
+  ],
+  "ov_TI_reference_100k_1k65_rise_V": [
+    35.317675247524754,
+    39.603368044077136
+  ],
+  "ov_candidate_100k_1k58_rise_V": [
+    36.85734187241509,
+    41.3291413118527
+  ],
+  "current_continuous_input_range_V": [
+    9,
+    30
+  ],
+  "motor_start_input_target_V": 6,
+  "ov_30V_candidate_100k_1k8_rise_V": [
+    32.42163564356436,
+    36.35727070707071
+  ],
+  "vs_clamp_at_200V_scenario": {
+    "zener_V": 60,
+    "series_R_ohm": 10000,
+    "series_R_peak_power_W": 1.96,
+    "zener_peak_power_W": 0.84,
+    "constant_350ms_energy_upper_scenario_J": 0.6859999999999999
+  },
+  "open": [
+    "No guaranteed efficiency or complete load budget",
+    "OCP model needs independent gain/offset characterization; nominal RLIM is not a guaranteed current limit",
+    "RISCP cannot increase fixed LV_SCP startup threshold",
+    "VS supply/startup with 10k resistor at 6V needs validation",
+    "MOSFET SOA, pulse resistor ratings, zener tolerances, ADC protection and ACC/HOLD still pending"
+  ]
+}
