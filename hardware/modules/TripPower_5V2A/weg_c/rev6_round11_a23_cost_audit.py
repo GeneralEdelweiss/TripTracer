@@ -53,7 +53,7 @@ SOURCES = {
 
 def read_source(path):
     data = Path(path).read_bytes()
-    blob = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\\0" + data).hexdigest()
+    blob = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
     assert blob == EXPECTED_A23_BLOB, f"A23 source changed ({blob}); RE-AUDIT, do not silently reprice"
     text = data.decode("utf-8-sig")
     rows = list(csv.DictReader(text.splitlines()))
@@ -75,8 +75,8 @@ def read_source(path):
 def check_schematics(parts, protection, buck):
     if not (protection and buck):
         return "SKIPPED (no A23 .kicad_sch paths supplied)"
-    sheets = Path(protection).read_text(encoding="utf-8") + "\\n" + Path(buck).read_text(encoding="utf-8")
-    refs = re.findall(r'\\(property\\s+"Reference"\\s+"([A-Z][A-Z0-9]+)"', sheets)
+    sheets = Path(protection).read_text(encoding="utf-8") + "\n" + Path(buck).read_text(encoding="utf-8")
+    refs = re.findall(r'\(property\s+"Reference"\s+"([A-Z][A-Z0-9]+)"', sheets)
     # KiCad embeds full library symbols; count only explicit fitted references.
     actual = {ref for ref in refs if ref in EXPECTED_MPN}
     assert set(EXPECTED_MPN) <= actual, set(EXPECTED_MPN) - actual
