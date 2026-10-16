@@ -17,7 +17,7 @@ Hersteller [TI TPS2663 RevG 2024](https://www.ti.com/lit/ds/symlink/tps2663.pdf)
 | Factory OVP falling | 32.7V | 33.89V | 35.0V |
 | Factory UVLO rising | 15.1V | - | 15.9V |
 
-**NO-GO** für nur werksseitig voreingestelltes OVP: Selbst das **MIN fall 32.7V** liegt oberhalb genau32V → Ausgang kann nach OV bei stabil32V OFF bleiben. Factory UVLO rising ≥15.1V gefährdet10V-Start. **Mindestens drei extern programmierte R201/R202/R203** bleiben deshalb.
+**[ERRATUM – frühere Aussage FALSCH:]** Die werkseitige OVP ist im 32V-/36V-Fenster **geeignet**: bei Rückkehr auf stabil32V liegt IN_SYS **unter** jedem garantierten V(OVP_FALL)≥32.7V und der Regler kann wieder freigeben. Die werkseitige UVLO ist dagegen mit 15.1..15.9V für 10V ungeeignet. TI §9.4 verlangt bei Reverse-FET ≥300kΩ IN_SYS↔UVLO; die im hier dokumentierten historischen 25er-Schema verwendeten 100kΩ sind daher **nicht herstellerkonform**. Im neu angelegten isolierten 23er-Prototyp sind OVP8=GND und UVLO7=IN_SYS6 über330kΩ AEC-Q200, MODE/PGTH=GND; 25er wird als historische Referenz beibehalten.
 
 **Elektrisch geänderte 0,1%-Präzisionsteiler:** R201 Yageo `RT1206BRD07100KL`100k, R202 Panasonic `ERA-8AEB123V`12.0k, R203 Yageo `RT1206BRD074K22L`4.22k; nach Hersteller 25ppm/K für diese konkreten Kandidaten. `tools/trippower_a_rev6_limits.py` verwendet Vref rise1.176..1.224V, fall1.09..1.15V, unabhängige ±150nA UV/OV-Lecks, Rtol±0.1%, angenommen unabhängige ±25ppm/K über45K (25→70°C und 25→−20°C).
 
