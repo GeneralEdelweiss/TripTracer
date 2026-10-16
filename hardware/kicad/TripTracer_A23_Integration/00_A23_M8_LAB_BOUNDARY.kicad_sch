@@ -89,7 +89,7 @@
 (property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 254 144.78 0) (effects (font (size 1 1)) (hide yes)))
 (pin "1" (uuid "a23c7701-2026-4000-8000-000000000002"))
 (instances (project "TripTracer_A23_Integration" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000070" (reference "TP905") (unit 1)))))
-(wire (pts (xy 248.92 144.78) (xy 254 144.78)) (stroke (width 0) (type default)) (uuid "a23c7701-2026-4000-8000-000000000003"))
+
 (global_label "HOLD_TIMER_GRANTED_3V3" (shape bidirectional) (at 248.92 144.78 0) (effects (font (size 1 1)) (justify left)) (uuid "a23c7701-2026-4000-8000-000000000004"))
 (symbol (lib_id "TripPower_PGOOD:SignalPad") (at 254 170.18 0) (unit 1) (in_bom no) (on_board yes) (dnp no) (uuid "a23c7701-2026-4000-8000-000000000005")
 (property "Reference" "TP906" (at 254 154.18 0) (effects (font (size 1 1))))
@@ -97,7 +97,7 @@
 (property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 254 170.18 0) (effects (font (size 1 1)) (hide yes)))
 (pin "1" (uuid "a23c7701-2026-4000-8000-000000000006"))
 (instances (project "TripTracer_A23_Integration" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000070" (reference "TP906") (unit 1)))))
-(wire (pts (xy 248.92 170.18) (xy 254 170.18)) (stroke (width 0) (type default)) (uuid "a23c7701-2026-4000-8000-000000000007"))
+
 (global_label "PWR_OK_SINK_FAIL_RELEASE" (shape bidirectional) (at 248.92 170.18 0) (effects (font (size 1 1)) (justify left)) (uuid "a23c7701-2026-4000-8000-000000000008"))
 (embedded_fonts no)
 )
