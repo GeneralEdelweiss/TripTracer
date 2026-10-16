@@ -1,6 +1,6 @@
 # TripPower Weg D – fortlaufendes Forschungsprotokoll
 
-**Scope:** dedizierter Load-Dump-IC bzw. speziell für 200V/350ms ausgelegter passiver Schutz. Änderungen nur auf design/trippower-d-load-dump.
+**Aktiver Scope seit REV6 (16.10.2026):** einfachste wirtschaftlich und elektrisch qualifizierbare 10–32V-/zentral geklemmte 58V-Eingangsschutzarchitektur; 200V/350ms und +125°C sind **nur historische Archivforschung**. F_MAIN und Halter stets off-board, keine Schmelzsicherung oder Einmal-Thermosicherung auf TripPower. Änderungen ausschließlich auf design/trippower-d-load-dump.
 
 ## 2026-10-16 – ROUND 8: TPS26631/TPS26600/LTC4368, sichere Einsparung statt 200V-Überbau
 
@@ -21,6 +21,8 @@
 **[BOM GESAMTANFORDERUNGEN]** CSV enthält alle25 Weg-A-Teile, Variantenfrontends8 vs10 vs13 und gemeinsamen15 Buck/PG, plus fehlende Temperatur-/RAW-/mechanischen Pflichtteile als UNBEKANNT, Hauptplatinen-/Fahrzeugkosten OFFBOARD. Real bepreiste Halbleiterblöcke (EUR net pro Stück 1/10/100): **TPS31+reverse+helper7.942/5.556/4.3091**, **TPS00 3.440/2.594/2.1495**, **LTC4368+2provisional FET13.430/9.700/7.6412** ohne Kelvin-Shunt. Preisbeleg 14/25 A-Teile, EOL 3x Murata Ausgangs-MLCCs; **KEIN** vollständig bepreister fertigungsfähiger Variantenpreis. Kein Phantom-0-Euro für Temperatur, RAW, USB, Source-F_MAIN.
 
 **[FAULT/FRAM FIRST]** F_MAIN wird bei schädlichem 0.3-1A Teilfehler ggf. nicht auslösen; Temperatur-Open/Short+85°C-Gesamtschutz und RAW0.5A-Ast dürfen nicht fehlen. PWR_FAIL fail-high/hoch-Z nur wenn main5V nutzbar und passende separate Logik, RTC-Primärzelle nicht dauerhaft leeren. M8-Abziehen ohne garantierte Warnzeit; FRAM zuvor atomar sichern, SD-Recovery danach. USB darf niemals über interne FET-Bodydiode/ESD nach BAT/RAW zurückspeisen.
+
+**[CI NACHWEISKLASSE]** Workflow `.github/workflows/trippower-d-rev6-analysis.yml` auf Weg-D-Branch für arithmetische Python3.11-Testfälle hinzugefügt; damit werden selbst bei grünem CI **KEINE** nativen KiCad-10-ERC/Netlist-/PCB-DRC-, Hot-SOA- oder Labor-Ergebnisse bewiesen. Ein erfolgreicher Action-Run wurde in diesem Chat **noch nicht unabhängig verifiziert**.
 
 **[NO-GO/GO KONKRET]** TPS26600 als Standard **NO-GO** bis extrem kleine nachgewiesene Spitzenreserve/Strombudget; LTC4368 **NO-GO für unbegründeten Extra-KiCad-Entwurf**, bedingtes Safety-Upgrade bei tatsächlich gefährlichem Overshoot. TPS26631 Weg A **P0-Labortest weiterführen**; weder A ERC0 noch dieses Dokument ist eine 58V/350ms/85°C/RAW/ISO-Freigabe. Nächstes einziges technisches Gate: realer 58V/350ms-M8-Kabel-/Ein-/Ausschalt-Peak auf ALLEN Pins und 10V/2A+RAW/T60/C/RLC zusammen, Sicherungskoordination extern. Bei Peak>60V operativ/67V ABS aus TPS31 erst LTC-Alternative mit Hersteller-Fet-SOA, VOUT80 und neuen Vollkosten qualifizieren.
 
