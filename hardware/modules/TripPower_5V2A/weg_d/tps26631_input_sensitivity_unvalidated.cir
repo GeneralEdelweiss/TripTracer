@@ -1,0 +1,59 @@
+* TRIPPOWER-D-REV6 TPS26631 INPUT 32->58 V - LAB NETWORK SPICE TEMPLATE
+* ngspice syntax target; NOT RUN/VALIDATED (ngspice unavailable this session).
+* Not TI PSpice TPS2663 macro, not an automotive/compliance simulation.
+* Externals F_MAIN + holder are upstream/OFF-BOARD, never fitted to TripPower.
+* Values are explicitly HYPOTHESES, not measured cable, connector, PCB, DC bias.
+* Use TI TPS2663 PSpice Transient Model SLVMD03A.ZIP in real verification:
+* https://www.ti.com/product/TPS2663 (Design & development / Simulation model)
+* Replace BEFUSE with the true U201 macro incl VGS, UVLO, OVP, current mode.
+.title REV6 TPS26631 58V input sensitivity test
+.param RSRC=.25 RCAB=.10 RCON=.015 RPCB=.010
+.param LCAB=.8u LCON=.02u LPCB=.01u
+.param RQ201=.010 LQ201=.020u
+.param C201EFF=.5u C202EFF=.5u CBUCKEFF=3u
+.param RMLCC=.018 LMLCC=.003u
+.param EFUSE_RON=.031 IMAX=3
+* 350ms pulse remains at 58V; default short 0.5ms only.
+VVEH VEH 0 PWL(0 32 100u 32 120u 58 350120u 58 350140u 32 400m 32)
+RSOURCE VEH SCAB {RSRC}
+LCABLE SCAB CAB  {LCAB}
+RCABLE CAB CONA {RCAB}
+LCON CONA CONB {LCON}
+RCON CONB QDRAIN {RCON}
+* Reverse Q201, assuming forward ON. Source at IN_SYS. NO COSS/MOSFET model!
+RQ QDRAIN QPIN {RQ201}
+LQ QPIN INSYS {LQ201}
+RPCB INSYS IN_SYS {RPCB}
+* C201 at TPS26631 IN_SYS: true series ESR + ESL to effective X7R capacitor
+RC201 IN_SYS C201R {RMLCC}
+LC201 C201R C201L {LMLCC}
+CC201 C201L 0 {C201EFF}
+* 14us OVP-to-FLT maximum is NOT qualified switch-OFF delay.
+* For example source reaches VOVtrip34.2 at ~101.69us.
+* EXAMPLE power cutoff at 115.7us, 2us ramp: vary timing extensively.
+VCTRL EN 0 PWL(0 1 115.7u 1 117.7u 0 351m 0)
+BEFUSE IN_SYS OUT I={V(EN)*IMAX*tanh(max(V(IN_SYS)-V(OUT),0)/(IMAX*EFUSE_RON))}
+RC202 OUT C202R {RMLCC}
+LC202 C202R C202L {LMLCC}
+CC202 C202L 0 {C202EFF}
+* Buck VIN PCB connection with effective capacitor after ESR and ESL
+RBUCK OUT BUCK {0.06}
+RCBUCK BUCK CBKR {0.018}
+LCBUCK CBKR CBKL {0.003u}
+CCBUCK CBKL 0 {CBUCKEFF}
+* Positive converter input load approx 10W/85%; not a switching buck model!
+BBUCK BUCK 0 I={10/(0.85*max(7,V(BUCK)))*min(1,max(0,V(BUCK))/7)}
+* RAW0.5A shunt only when main rails active; no selective RAW-0.5A OCP.
+BRAW OUT 0 I={0.5*min(1,max(0,V(OUT))/7)}
+* Fast turnoff, MOSFET DS-short, cable hot-plug, open GND and gate/DRV
+* must be built using TI PSpice macro and real Coss, then bench-tested.
+.save V(QDRAIN) V(IN_SYS) V(OUT) V(BUCK) I(LCABLE) I(LQ)
+.tran 50n 500u 0 50n
+.control
+run
+meas tran peak_IN_SYS MAX V(IN_SYS) FROM=50u TO=500u
+meas tran peak_Q201_DRAIN MAX V(QDRAIN) FROM=50u TO=500u
+meas tran peak_TPS_OUT MAX V(OUT) FROM=50u TO=500u
+meas tran peak_BUCK_VIN MAX V(BUCK) FROM=50u TO=500u
+.endc
+.end
