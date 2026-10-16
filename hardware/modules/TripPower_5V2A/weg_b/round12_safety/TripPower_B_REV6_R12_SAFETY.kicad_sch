@@ -586,4 +586,20 @@
 (wire (pts (xy 515.62 323.85) (xy 505.46 323.85)) (stroke (width 0) (type default)) (uuid "60000000-0000-4000-8000-000000000027"))
 (label "TPS_SHDN_SAFETY" (at 505.46 323.85 180) (effects (font (size 1 1)) (justify left bottom)) (uuid "60000000-0000-4000-8000-000000000028"))
 
+
+(text "D302 clamps NPN Q301 base emitter VBE reverse under -60V pre-Q201 VIN; NO FAB." (at 33.02 272 0) (effects (font (size 0.9 0.9)) (justify left bottom)) (uuid "70000000-0000-4000-8000-000000000001"))
+(symbol (lib_id "TripPower_B:DIODE") (at 60.96 259.08 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "70000000-0000-4000-8000-000000000002")
+(property "Reference" "D302" (at 60.96 248.08 0) (effects (font (size 1 1))))
+(property "Value" "VBE_reverse_clamp_BAV21W" (at 60.96 252.08 0) (effects (font (size 1 1))))
+(property "MPN" "BAV21W-7-F" (at 60.96 259.08 0) (effects (font (size 1 1)) (hide yes)))
+(property "Manufacturer" "Diodes Incorporated" (at 60.96 259.08 0) (effects (font (size 1 1)) (hide yes)))
+(property "Footprint" "Diode_SMD:D_SOD-123" (at 60.96 259.08 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "70000000-0000-4000-8000-000000000003"))
+(pin "2" (uuid "70000000-0000-4000-8000-000000000004"))
+(instances (project "TripPower_B_REV6_R12_SAFETY" (path "/10000000-0000-4000-8000-000000000001" (reference "D302") (unit 1)))))
+(wire (pts (xy 45.72 259.08) (xy 35.56 259.08)) (stroke (width 0) (type default)) (uuid "70000000-0000-4000-8000-000000000005"))
+(label "GND" (at 35.56 259.08 180) (effects (font (size 1 1)) (justify left bottom)) (uuid "70000000-0000-4000-8000-000000000006"))
+(wire (pts (xy 76.2 259.08) (xy 86.36 259.08)) (stroke (width 0) (type default)) (uuid "70000000-0000-4000-8000-000000000007"))
+(label "BASE_KILL" (at 86.36 259.08 0) (effects (font (size 1 1)) (justify left bottom)) (uuid "70000000-0000-4000-8000-000000000008"))
+
 )
