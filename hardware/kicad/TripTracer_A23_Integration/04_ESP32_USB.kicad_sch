@@ -330,7 +330,7 @@
 (wire (pts (xy 300.99 182.88) (xy 311.15 182.88)) (stroke (width 0) (type default)) (uuid "f0580001-2026-4014-8000-000000000102"))
 
 (text "33 unused GPIOs deliberately marked NC in this LAB-only host sheet; FRAM/SD/GNSS/display circuits remain unimplemented. Not production-ready." (at 209.55 25.4 0) (effects (font (size 1.27 1.27))) (uuid "82d6f418-1a23-4000-8000-000000000099"))
-(no_connect (at 311.15 60.96) (uuid "82d6f418-1a23-4000-8000-000000000001"))
+
 (no_connect (at 311.15 66.04) (uuid "82d6f418-1a23-4000-8000-000000000002"))
 (no_connect (at 311.15 71.12) (uuid "82d6f418-1a23-4000-8000-000000000003"))
 (no_connect (at 311.15 76.20) (uuid "82d6f418-1a23-4000-8000-000000000004"))
@@ -363,4 +363,5 @@
 (no_connect (at 311.15 238.76) (uuid "82d6f418-1a23-4000-8000-000000000031"))
 (no_connect (at 311.15 243.84) (uuid "82d6f418-1a23-4000-8000-000000000032"))
 (no_connect (at 311.15 248.92) (uuid "82d6f418-1a23-4000-8000-000000000033"))
+(global_label "PWR_OK_SINK_FAIL_RELEASE" (shape input) (at 311.15 60.96 0) (effects (font (size 1.016 1.016)) (justify left)) (uuid "a23d7701-2026-4010-8000-000000000007"))
 )
