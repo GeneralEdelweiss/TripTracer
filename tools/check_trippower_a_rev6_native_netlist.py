@@ -38,6 +38,7 @@ def verify(s):
       ("TP201","1"):"VIN_FUSED",
       ("TP202","1"):"VIN_PROTECTED_UNFUSED",
       ("TP203","1"):"GND",
+      ("TP502","1"):"5V_OUT",
     }
     errors={f"{x[0]}.{x[1]}":{ "observed":pins.get(x),"required":v} for x,v in exp.items() if pins.get(x)!=v}
     assert not errors, json.dumps(errors,indent=2)
