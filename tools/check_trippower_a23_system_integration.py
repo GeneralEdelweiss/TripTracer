@@ -12,7 +12,16 @@ def verify(net,bom):
                     ("U921","12","GND"),("U921","16","GND"),
                     ("U921","18","VIN_PROTECTED_UNFUSED"),
                     ("U101","2","VIN_PROTECTED_UNFUSED"),
-                    ("TP502","1","5V_OUT"),("Q501","3","PWR_OK_SINK_FAIL_RELEASE")]:
+                    ("TP502","1","5V_OUT"),("Q501","3","PWR_OK_SINK_FAIL_RELEASE"),
+                    ("U201","5","PWR_OK_SINK_FAIL_RELEASE"),
+                    ("R907","1","V3V3_SYS"),("R907","2","PWR_OK_SINK_FAIL_RELEASE"),
+                    ("TP906","1","PWR_OK_SINK_FAIL_RELEASE"),
+                    ("TP905","1","HOLD_TIMER_GRANTED_3V3"),
+                    ("J902","1","VEHICLE_ACC_RAW"),("J902","3","GND"),("J902","4","VEHICLE_BAT_RAW"),
+                    ("J901","1","EFUSE_IN"),("J901","3","GND"),
+                    ("TP944","1","EFUSE_IN"),("TP945","1","R6_B_GATE"),
+                    ("TP946","1","R6_DRV"),("TP947","1","VIN_PROTECTED_UNFUSED"),
+                    ("TP948","1","UVLO_SENSE"),("TP949","1","R6_DVDT")]:
         assert pins.get((ref,p))==n,(ref,p,pins.get((ref,p)),n)
     assert "5V_OUT" in nets and any(ref=="U301" for ref,p in nets["5V_OUT"]),"USB mux is not actually fed from A23"
     assert any(ref=="TP502" for ref,p in nets["5V_OUT"]),"A23 Buck 5V must share USB net"
@@ -35,7 +44,10 @@ def verify(net,bom):
       "lab_bench_EFUSE_IN_source_only":True,
       "acc_hold_default_off_proven":False,"raw_selective_half_amp_proven":False,
       "ambient85_fail_safe_proven":False,"physical_m8_terminal_integration":False,
-      "PWR_FAIL_at_MCU_with_host_pullup":False,
+      "PWR_FAIL_at_MCU_with_host_pullup":True,
+      "host_status_pullup_R907_10k_AEC_Q200":True,
+      "host_M8_source_pins_present_but_deliberately_unpowered":True,
+      "measurable_A23_HV_gate_and_buck_pads":True,
       "PCB_present":False,"vehicle_fab_release":False}
 if __name__=="__main__":
     print(json.dumps(verify(*sys.argv[1:]),indent=2))

@@ -5,6 +5,7 @@ on:
     paths:
       - 'hardware/kicad/TripTracer_A23_Integration/**'
       - 'tools/check_trippower_a23_system_integration.py'
+      - 'tools/export_trippower_a23_system_bom.py'
       - '.github/workflows/trippower-a23-system-integration.yml'
   workflow_dispatch:
 permissions:
@@ -36,6 +37,7 @@ jobs:
           kicad-cli sch export netlist -o reports/a23-integrated/native.net hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch
           kicad-cli sch export bom -o reports/a23-integrated/native-bom.csv hardware/kicad/TripTracer_A23_Integration/TripTracer_A23_Integration.kicad_sch
           python3 tools/check_trippower_a23_system_integration.py reports/a23-integrated/native.net reports/a23-integrated/native-bom.csv | tee reports/a23-integrated/semantic-test.json
+          python3 tools/export_trippower_a23_system_bom.py reports/a23-integrated/native-bom.csv reports/a23-integrated/split-module-host-harness.csv reports/a23-integrated/split-bom-prices-and-missing-host-mpn.json
       - name: Artifacts even if ERC fails
         if: always()
         uses: actions/upload-artifact@v4
