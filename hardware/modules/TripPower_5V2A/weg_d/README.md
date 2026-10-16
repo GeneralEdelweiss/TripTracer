@@ -1,5 +1,17 @@
 # TripPower Weg D – dedizierter Load-Dump-Schutz
 
+> **AKTUELLER WEG-D-ENTSCHEID / REV6 ROUND 8 (2026-10-16)**: Im direkten Vergleich **TPS26631 + 100V externer Verpol-NMOS nach Weg A bevorzugt – nur als P0-Prototyp**, sofern 58V/350ms an den wirklichen IC-Pads (inkl. Ringing, Abschaltflanken und -20..+70°C) den TI-60V-Normal- und 67V-ABS-Rahmen sicher einhält. **TPS26600** spart 2 diskrete Halbleiter, hat aber nur 62V Absolute-Maximum und maximal 2.23A programmierbaren Strom; bei 58V ungeprüfter RLC-Überhöhung vorerst **NO-GO für die Standard-V1**. **LTC4368-2** bietet 100V-VIN-Fault-Reserve und Automotive-#W, aber 80V-VOUT/SENSE-Limits, 2 FETs+Kelvin-Shunt und höhere Kosten; nur bei nachgewiesenem lokalem Overshoot als zweiter Sicherheitsweg. **KEINE Schmelzsicherung, kein Halter, keine Einmal-SMD-Thermosicherung und derzeit keine PPTC auf TripPower**. Fahrzeugseitige F_MAIN/Halter ausschließlich im Fahrzeug-/Systemregister. **Keine KiCad-/PCB-/58V-/Thermik-Serienfreigabe.**
+>
+> **ZUERST LESEN (Round 8):**
+> - [Vergleich Pin-Grenzen, Fehler, Strom, Thermik und Testentscheidung](WEG_D_REV6_ROUND8_TPS26631_TPS26600_LTC4368_DECISION_2026-10-16.md)
+> - [1/10/100 Kosten und vollständige Funktionsslots](WEG_D_REV6_ROUND8_BOM_AND_COST_2026-10-16.md) sowie [Positions-CSV (inkl. Offboard-Abgrenzung)](WEG_D_REV6_ROUND8_BOM_MATRIX_2026-10-16.csv)
+> - [Rechenbeispiele](rev6_round8_compare.py) und [arithmetische Regressionstests](test_rev6_round8.py)
+> - [Fortlaufendes Findings Log](FINDINGS_LOG.md)
+>
+> Der ältere 2026-10-15-REV6-Bericht favorisierte LTC4368 als Architektur, bevor der konkrete 25-Positionen-Weg-A-Prototyp in diesen vollständigen Kosten-/Sicherheitsvergleich einbezogen wurde. **Round 8 aktualisiert die Rangfolge anhand dieses Vergleichs.**
+>
+
+
 > **Aktueller technischer Entscheidungspunkt – Round 6 (2026-10-15):** NO-GO, einen einzelnen TLD8S36AH- oder Bourns-SM8S36A-Q-TVS als **vollständigen** 200-V-/350-ms-Eingangsschutz zu benutzen, solange +125°C-Puls-SOA, worst-case Padspannung/60-65-80V-Domänen und TVS-OPEN/SHORT einschließlich F_MAIN-Total-Clearing unbelegt sind. Bourns hat ein ausdrücklich 10-Pulse-Test-A-Performance-Diagramm; Schurter SPT 0001.2509 ist ein 300VDC-Sicherungs-Forschungskandidat. LTC4366-2 bleibt ein nur bedingt laborgeeigneter, teuerer Fallback. **Keine KiCad-/Fahrzeugfreigabe.**
 >
 > **Jetzt maßgeblich:**
