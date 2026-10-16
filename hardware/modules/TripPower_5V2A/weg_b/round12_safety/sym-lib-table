@@ -1,0 +1,3 @@
+(sym_lib_table
+ (lib (name "TripPower_B")(type "KiCad")(uri "${KIPRJMOD}/TripPower_B.kicad_sym")(options "")(descr "Weg B Round12 portable native hardware safety symbols"))
+)
