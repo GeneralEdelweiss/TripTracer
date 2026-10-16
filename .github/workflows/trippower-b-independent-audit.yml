@@ -54,6 +54,12 @@ jobs:
           python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_rev6_practical_safety_model.py' -v 2>&1 | tee reports/b-rev6-practical-tests.txt
           python3 hardware/modules/TripPower_5V2A/weg_b/rev6_practical_safety_model.py > reports/b-rev6-practical-gates.json
           echo 'Historical REV5 ERC below is not REV6 58V/70C safety qualification' > reports/REV6_TEST_NOTE.txt
+      - name: REV6 independent A C D architecture restart fuse and single-fault audit
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_rev6_acd_safety_audit.py' -v 2>&1 | tee reports/b-rev6-ACD-cross-audit-tests.txt
+          python3 hardware/modules/TripPower_5V2A/weg_b/rev6_acd_safety_audit.py --output reports/b-rev6-ACD-cross-audit.json
+          echo 'A pinned sheet Git blob 85ca54d0ed41f714ddccff939b77190649076a70; no native REV6 A ERC done in this B workflow' > reports/b-REV6-ACD-source-boundary.txt
       - name: Native KiCad 10 schematic ERC
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
@@ -77,4 +83,4 @@ jobs:
         if: always()
         run: |
           echo '### Independent B: test result != automotive/fabrication qualification' >> "$GITHUB_STEP_SUMMARY"
-          echo 'All 9V startup, Q301/D301/D302/200V-350ms SOA, PCB, I2t and thermal gates remain BLOCKED.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'REV6 10-32V, 32V-restart, +60C/2A, +85C safe OFF, 58V pad, RAW, USB, fuse/cable coordination and FRAM recovery remain unqualified in hardware; historical REV5 200V tests are NOT REV6 requirements.' >> "$GITHUB_STEP_SUMMARY"
