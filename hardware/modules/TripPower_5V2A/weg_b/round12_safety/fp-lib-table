@@ -1,0 +1,3 @@
+(fp_lib_table
+ (lib (name "TripPower_B")(type "KiCad")(uri "${KIPRJMOD}/TripPower_B.pretty")(options "")(descr "Round12 custom TI DGN0008B footprint via original manufacturer drawing"))
+)
