@@ -55,7 +55,7 @@ def run(native,output,summary):
   result.append(["OFFBOARD_NOT_FITTED",ref,"0","EXTERNAL_ONLY",val,"","","","","NOT_PART_OF_ANY_PCB_BOM"])
  with open(output,"w",newline="",encoding="utf-8") as f:
   w=csv.writer(f);w.writerow(HEAD);w.writerows(result)
- prices={q:str(sum((Decimal(row[6+i]) for row in result if row[0]=="A23_CORE"),Decimal(0))) for i,q in enumerate(COST)}
+ prices={q:f"{sum((Decimal(row[6+i]) for row in result if row[0]=='A23_CORE'),Decimal(0)):.4f}" for i,q in enumerate(COST)}
  assert [prices[z] for z in COST]==["20.2570","13.5610","10.6266"],prices
  status={"A23_core_populated":23,"host_populated":len(found)-23,"offboard_not_fitted":4,
     "A23_vendor_EUR_exVAT_module_at_quantities_1_10_100":[prices[z] for z in COST],
