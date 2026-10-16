@@ -34,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           P=hardware/modules/TripPower_5V2A/weg_b/round12_safety/TripPower_B_REV6_R12_SAFETY.kicad_sch
-          kicad-cli sch erc --severity-all --exit-code-violations --format json -o reports/r12-native-erc.json "$P" 2>&1 | tee reports/r12-native-erc-console.txt
+          kicad-cli sch erc --severity-all --exit-code-violations --format json -o reports/r12-native-erc.json "$P" 2>&1 | tee reports/r12-native-erc-console.txt || { python3 -c 'import json,collections; d=json.load(open("reports/r12-native-erc.json")); print("ERC_TOP",list(d) if isinstance(d,dict) else type(d)); print("VIOLATION_SUMMARY",str(d)[:18000])'; exit 1; }
       - name: Export native KiCad netlist and BOM
         run: |
           set -euo pipefail
