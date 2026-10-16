@@ -33,5 +33,6 @@ jobs:
           path: |
             hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_INSTRUMENTATION_PIN_LIMIT_MATRIX_2026-10-16.csv
             hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_PARAMETER_PROVENANCE_2026-10-16.csv
+            hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_LAYOUT_MEASUREMENT_DNP_NET_CONTRACT_2026-10-16.csv
             hardware/modules/TripPower_5V2A/weg_d/ROUND12_A23_EMPTY_CAPTURE_MANIFEST_2026-10-16.json
             hardware/modules/TripPower_5V2A/weg_d/WEG_D_ROUND12_A23_INSTRUMENTED_PROTOTYPE_LAB_RELEASE_2026-10-16.md
