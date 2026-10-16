@@ -71,13 +71,21 @@ def check(args):
         original=sum(D(p["a23_eur_unit_"+str(n)]) for p in ledger)
         mixed=sum(D(p["vendor_index_eur_unit_"+str(n)]) for p in ledger)
         issues=[]
-        for p in ledger:
+        # All references sharing an MPN consume one distributor stock pool.
+        # E.g. at 100 modules C104-C106 need 300 pieces, not just 100.
+        for mpn in sorted({p["mpn"] for p in ledger}):
+            matching=[p for p in ledger if p["mpn"]==mpn]
+            p=matching[0]
+            assert all(x["indexed_stock_or_snapshot"]==p["indexed_stock_or_snapshot"] and
+                       x["freshness"]==p["freshness"] for x in matching)
+            refs="+".join(x["ref"] for x in matching)
+            need=n*sum(int(x["qty"]) for x in matching)
             stock=p["indexed_stock_or_snapshot"]
             if p["freshness"]!="INDEXED":reason="NOT_REFRESHED"
             elif not stock:reason="UNKNOWN"
-            elif int(stock)<n*int(p["qty"]):reason="INSUFFICIENT"
+            elif int(stock)<need:reason="INSUFFICIENT"
             else:reason=""
-            if reason:issues.append(p["ref"]+":"+p["mpn"]+":"+reason)
+            if reason:issues.append(refs+":"+mpn+":"+reason+" need="+str(need))
         assert any(x.startswith("U101:") for x in issues)
         assert any(x.startswith("Q501:") for x in issues)
         batches.append(dict(modules=n,original_A23_snapshot_unit_EUR=str(original),
