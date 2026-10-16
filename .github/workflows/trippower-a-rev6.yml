@@ -85,6 +85,8 @@ jobs:
           python3 tools/check_trippower_a_rev6_thermo_netlist.py \
             reports/rev6-a.net reports/rev6-a-67F080-research.net \
             | tee reports/rev6-thermo-native-delta.json
+          kicad-cli sch export bom -o reports/rev6-67F080-native-bom.csv \
+            reports/REV6_A_67F080_RESEARCH/TripPower_REV6_A.kicad_sch
       - name: Validate independent one-position 72V RAW resettable-PPTC research
         run: |
           cp -a hardware/modules/TripPower_REV6_A reports/REV6_A_RAW_PPTC_RESEARCH
@@ -99,6 +101,8 @@ jobs:
           python3 tools/check_trippower_a_rev6_raw_pptc_netlist.py \
             reports/rev6-a.net reports/rev6-a-raw-pptc.net \
             | tee reports/rev6-a-raw-pptc-diff.json
+          kicad-cli sch export bom -o reports/rev6-RAW-PPTC-native-bom.csv \
+            reports/REV6_A_RAW_PPTC_RESEARCH/TripPower_REV6_A.kicad_sch
       - name: Export entire true BOM for procurement (no fake totals)
         run: |
           kicad-cli sch export bom -o reports/rev6-a-entire-native-bom.csv \
