@@ -84,3 +84,10 @@ Die **definitiven Preisalternativen** sind eine Hersteller-**Soll-BOM**, die **e
 - AVX FlexTerm-to-standard AEC X7R 100V Ceff TBD: https://www.mouser.de/de/c/passive-components/capacitors/mlccs/multilayer-ceramic-capacitors-mlcc-smd-smt/?case+code+-+in=1210&product=Automotive+MLCCs&termination=Standard&voltage+rating+dc=100+VDC
 
 **Total scope rule:** TripPower-bestückt ≠ TripTracer Hauptboard (Relais/USB/backup/RTC), ≠ Fahrzeug/BAT/ACC Leitungssicherung samt Halter, ≠ optionales A26-PPTC/Temperaturschalter-Projekt. 0 on-board Einmalsicherungen / Fuseholder. Elektrische Freigabe: NO.
+
+
+## 5. Tatsächlich ausgeführte Regression/Preisprovenienz
+
+GitHub Actions erfolgreich abgeschlossen: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38867538084 , Job \`no-native-a-schematic-claims\` ID **116863723604**, Conclusion **success**; echter Log: **12/12** Unit-Tests **OK**, exakte veröffentlichte Rechenzeilen: R330k-min324739.8Ω, R330k-max335299.8Ω; 10V-UVLO-Sense min9.94970503V; A24 UVLO-Rise **6.65461..7.40745V**, UVLO-Fall **6.16440..6.96266V**. Die maschinelle BOM-Prüfung meldet A25=25, A23=23, A24=24, A23+Q201=23, A23+Q201+C101/C108=23 und die Preisstaffeln identisch zur Tabelle.
+
+**Beweislage:** Damit sind ausschließlich Arithmetik, Hersteller-Grenzwertmodell mit expliziten Annahmen und referenzierte A-BOM-Zeilenkonsistenz belegt. Weder Schaltplanumschreiben noch echter **KiCad10 ERC/Netlist für A23/A24**, BOM-Platzierung, +60C-Langlast, +85C OFF, 58V/350ms-Ringing, Last-/RevPol-/USB-/RAW-Fehlerprüfung oder Fertigungsfreigabe erfolgt. Letztlich entscheiden A-nativer Schaltplan und Messtechnik.
