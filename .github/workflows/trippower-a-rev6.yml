@@ -15,6 +15,8 @@ on:
       - 'tools/check_trippower_a_rev6_procurement.py'
       - 'tools/trippower_a_rev6_factory_ovp.py'
       - 'tools/test_trippower_a_rev6_factory_ovp.py'
+      - 'tools/trippower_a_rev6_round5_fault_policy.py'
+      - 'tools/test_trippower_a_rev6_round5_fault_policy.py'
       - 'tools/check_trippower_a_rev6_factory_native.py'
       - 'tools/check_trippower_a_rev6_factory_procurement.py'
       - 'tools/check_trippower_a_rev6_factory_delta.py'
@@ -52,6 +54,8 @@ jobs:
           python3 tools/trippower_a_rev6_buck_thermal_envelope.py > reports/rev6-5V2A-buck-coil-ripple-thermal-gate.json
           python3 -m unittest discover -s tools -p 'test_trippower_a_rev6_factory_ovp.py' -v 2>&1 | tee reports/rev6-factory-ovp-tests.log
           python3 tools/trippower_a_rev6_factory_ovp.py > reports/rev6-factory-ovp-vendor-stress.json
+          python3 -m unittest discover -s tools -p 'test_trippower_a_rev6_round5_fault_policy.py' -v 2>&1 | tee reports/rev6-a-round5-independent-regressions.log
+          python3 tools/trippower_a_rev6_round5_fault_policy.py > reports/rev6-a-round5-fault-policy.json
       - name: Early native netlist audit of power source and 5V domains
         run: |
           kicad-cli sch export netlist -o reports/rev6-a-before-ERC.net \
