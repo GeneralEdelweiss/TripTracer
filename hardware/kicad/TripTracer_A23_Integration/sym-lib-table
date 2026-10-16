@@ -3,4 +3,5 @@
  (lib (name "TripTracer_V1")(type "KiCad")(uri "${KIPRJMOD}/../TripTracer_V1.kicad_sym")(options "")(descr "Host symbols"))
  (lib (name "TripPower_REV6")(type "KiCad")(uri "${KIPRJMOD}/../../modules/TripPower_REV6_A/TripPower_REV6.kicad_sym")(options "")(descr "A23 eFuse"))
  (lib (name "TripPower_PGOOD")(type "KiCad")(uri "${KIPRJMOD}/../../modules/TripPower_REV6_A/TripPower_PGOOD.kicad_sym")(options "")(descr "A23 testpoint"))
+ (lib (name "TripPower_Sym")(type "KiCad")(uri "${KIPRJMOD}/../../modules/TripPower_REV6_A/TripPower_Sym.kicad_sym")(options "")(descr "A23 helper symbol"))
 )
