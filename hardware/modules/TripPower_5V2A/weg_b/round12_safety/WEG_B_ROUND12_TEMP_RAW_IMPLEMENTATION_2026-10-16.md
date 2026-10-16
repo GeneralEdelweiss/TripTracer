@@ -63,9 +63,9 @@ Originale ADI-R-U-V-/OV-Ladder **R401464k/R4021,5M/R403121k/R40429,4k**; Ausgang
 
 | Stückzahl | €/Schutz-Zusatzmodul | Gesamt Bestellung € netto | davon Preispositionen noch nicht quote-verifiziert |
 |---:|---:|---:|---:|
-|1|**23,8260**|23,8260|18|
-|10|**16,5530**|165,5300|18|
-|100|**13,1907**|1319,0700|18|
+|1|**23,8260**|23,8260|19|
+|10|**16,5530**|165,5300|19|
+|100|**13,1907**|1319,0700|19|
 
 **Nur additiver, hypothetischer Materialwert** bei alter A23-BOM 20,2570/13,5610/10,6266 EUR: zusammen **44,0830 / 30,1140 / 23,8173 EUR** je kompletten A23+getrennten B-Schutz-Bauteilen, **NICHT** eine integrierte oder optimierte BOM. Viele Positionen könnten bei Integration entfallen/geteilt werden (z.B. vorhandene Host-Stromversorgungs-Supervisor-Funktion) **nur nach realem Host-Netzlistennachweis**. Keine PCB-, Schablonen-, Serienmontage-, Stecker-, Kabel-/Fahrzeugsicherung-, Versand-, MwSt-, Labor-/Automotive-/System-/Layoutkosten. Reichelt/-DigiKey/-Mouser-/TME-Stückzahlen und Lieferorte vor Einkauf neu prüfen; Umsatzsteuer/Währung nicht vermischen. Beispiel bestätigte Einträge: [ADI LTC4368 DigiKey EUR 8,69/6,769/5,7627](https://www.digikey.it/en/products/detail/analog-devices-inc/LTC4368HMS-2-WPBF/12385748), [TI TPS3838 DigiKey EUR 2,77/2,073/1,7092](https://www.digikey.at/de/products/detail/texas-instruments/TPS3838K33QDBVRQ1/571409), [Vishay 50mΩ Mouser](https://www.mouser.de/de/ProductDetail/Vishay-Dale/WSL2512R0500FEA), [KEMET C403 TME](https://www.tme.eu/de/details/c1210c225k1racauto/kondensatoren-mlcc-smd/kemet/).
 
@@ -77,7 +77,7 @@ Reproduzierbare detaillierte **27-Zeilen**-Fehlerszenarien in `ROUND12_FMEA_AND_
 
 | Gate | Status | Reproduzierbarer Nachweis |
 |---|---|---|
-| **30-Positionen KiCad-Schema** | **PASS native/CI** | Native KiCad10 ERC0, XML-Schutz-Netze, native BOM 30, Projektbibliothek/Footprint vorhanden |
+| **31-Positionen KiCad-Schema** | **PASS native/CI** | Native KiCad10 ERC0, XML-Schutz-Netze, native BOM 31, Projektbibliothek/Footprint vorhanden |
 | **74°C nominal HOT/5°C Hyst** | **PASS TI-Stufen-Rechnung; OFFEN physisch** | Hersteller-TMP390-Q1 Table8-2, Wärmegradient und VDD/POR real testen |
 | **VDD0 Default-OFF NPN SHDN** | **PASS nur NETZE; OFFEN physisch** | R306 von PreQ201 VIN, Q302 Gate via R305 low, TPS SHDN-Sink; NPN V_CEsat Hot messen |
 | **Eine TMP390 stuck-high/defekter MAIN-FET** | **FAIL P0 als Einzelkanal-Schaltung** | Kein 2. Temperaturkanal, kein unabhängiger auf Host gezeichneter Serien-Cutoff |
