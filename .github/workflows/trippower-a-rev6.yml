@@ -10,6 +10,7 @@ on:
       - 'tools/test_trippower_a_rev6.py'
       - 'tools/check_trippower_a_rev6_native_netlist.py'
       - 'tools/check_trippower_a_rev6_thermo_netlist.py'
+      - 'tools/check_trippower_a_rev6_raw_pptc_netlist.py'
       - '.github/workflows/trippower-a-rev6.yml'
   workflow_dispatch:
 
@@ -84,6 +85,20 @@ jobs:
           python3 tools/check_trippower_a_rev6_thermo_netlist.py \
             reports/rev6-a.net reports/rev6-a-67F080-research.net \
             | tee reports/rev6-thermo-native-delta.json
+      - name: Validate independent one-position 72V RAW resettable-PPTC research
+        run: |
+          cp -a hardware/modules/TripPower_REV6_A reports/REV6_A_RAW_PPTC_RESEARCH
+          cp hardware/modules/TripPower_REV6_A/01_TPS26631_REV6_RAW_PPTC_RESEARCH.kicad_sch \
+            reports/REV6_A_RAW_PPTC_RESEARCH/01_TPS26631_REV6.kicad_sch
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/rev6-pptc-erc.json \
+            reports/REV6_A_RAW_PPTC_RESEARCH/TripPower_REV6_A.kicad_sch \
+            || { cat reports/rev6-pptc-erc.json; exit 1; }
+          kicad-cli sch export netlist -o reports/rev6-a-raw-pptc.net \
+            reports/REV6_A_RAW_PPTC_RESEARCH/TripPower_REV6_A.kicad_sch
+          python3 tools/check_trippower_a_rev6_raw_pptc_netlist.py \
+            reports/rev6-a.net reports/rev6-a-raw-pptc.net \
+            | tee reports/rev6-a-raw-pptc-diff.json
       - name: Export entire true BOM for procurement (no fake totals)
         run: |
           kicad-cli sch export bom -o reports/rev6-a-entire-native-bom.csv \
