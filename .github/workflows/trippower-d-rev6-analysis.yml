@@ -1,0 +1,22 @@
+name: TripPower D REV6 arithmetic checks
+on:
+  push:
+    branches:
+      - design/trippower-d-load-dump
+    paths:
+      - "hardware/modules/TripPower_5V2A/weg_d/**"
+      - ".github/workflows/trippower-d-rev6-analysis.yml"
+  workflow_dispatch:
+
+jobs:
+  static-scenarios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run bounded voltage, current and cost tests
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p "test_rev6_round8.py" -v
+      - name: Print clearly labeled illustrative scenarios
+        run: python3 hardware/modules/TripPower_5V2A/weg_d/rev6_round8_compare.py
