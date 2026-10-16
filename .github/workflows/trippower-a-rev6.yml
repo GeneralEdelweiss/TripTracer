@@ -17,6 +17,7 @@ on:
       - 'tools/test_trippower_a_rev6_factory_ovp.py'
       - 'tools/check_trippower_a_rev6_factory_native.py'
       - 'tools/check_trippower_a_rev6_factory_procurement.py'
+      - 'tools/check_trippower_a_rev6_factory_delta.py'
       - '.github/workflows/trippower-a-rev6.yml'
   workflow_dispatch:
 
@@ -133,6 +134,9 @@ jobs:
             hardware/modules/TripPower_REV6_A/TripPower_REV6_A_FACTORY_OVP.kicad_sch
           python3 tools/check_trippower_a_rev6_factory_native.py reports/rev6-a-factory-23.net \
             | tee reports/rev6-a-factory-23-native-pins.json
+          python3 tools/check_trippower_a_rev6_factory_delta.py \
+            reports/rev6-a.net reports/rev6-a-factory-23.net \
+            | tee reports/rev6-a-factory-23-pin-delta-vs-25.json
           kicad-cli sch export bom -o reports/rev6-a-factory-23-bom.csv \
             hardware/modules/TripPower_REV6_A/TripPower_REV6_A_FACTORY_OVP.kicad_sch
           python3 tools/check_trippower_a_rev6_factory_procurement.py reports/rev6-a-factory-23-bom.csv \
