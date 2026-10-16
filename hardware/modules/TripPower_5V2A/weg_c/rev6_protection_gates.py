@@ -1,3 +1,4 @@
+# HISTORICAL OVP-AUX SCREEN: falling <32 means FAIL for 32V auto-restart!
 #!/usr/bin/env python3
 """TripPower C REV6 manufacturer-rating and candidate OVLO divider sensitivity.
 NOT manufacturer calibration, validated board design or automotive lab clearance.
@@ -65,19 +66,19 @@ class Checks(unittest.TestCase):
     def test_rev6_versus_old_200v(self):
         self.assertEqual((MAIN_VIN_MIN,MAIN_VIN_MAX,LIMITED_SURGE),(10,32,58))
         self.assertEqual((SURGE_TIME_S,SURVIVAL36_S),(.35,.4))
-    def test_A_OVP_design_window_at_efuse_pins(self):
+    def test_A_OVP_rise_pass_but_32v_recovery_not_guaranteed(self):
         rise_min,rise_max,fall_max=bounds(A)
         self.assertGreater(rise_min,32)
         self.assertLess(rise_max+1.0,36) # conservatively allow 1V diode at switching current
-        self.assertLess(fall_max,32)
-    def test_B_OVP_design_window_with_precision(self):
+        self.assertLess(fall_max,32) # Old max<=32 means guaranteed restart at32 FAIL; see 2026-10-16 round9 correction
+    def test_B_OVP_rise_pass_but_32v_recovery_not_guaranteed(self):
         rise_min,rise_max,fall_max=bounds(B)
         self.assertGreater(rise_min,32)
         self.assertLess(rise_max,36)
         self.assertLess(fall_max,32)
-    def test_A_factory_ovlo_invalid_at_32v_restart(self):
+    def test_A_factory_ovlo_valid_at_32v_restart(self):
         # Even in best scenario, falling threshold >=32.7 V at TPS26631 IN.
-        self.assertGreater(32.7,32.)
+        self.assertGreater(32.7,32.) # CORRECT: falling MIN 32.7V > 32V => can reenable
     def test_B_factory_ovlo_invalid_at_32v_continuous(self):
         self.assertLess(31.,32.)
     def test_A_limited_58v_is_2v_below_recommended_ceiling(self):
