@@ -2,6 +2,22 @@
 
 **Aktiver Scope seit REV6 (16.10.2026):** einfachste wirtschaftlich und elektrisch qualifizierbare 10–32V-/zentral geklemmte 58V-Eingangsschutzarchitektur; 200V/350ms und +125°C sind **nur historische Archivforschung**. F_MAIN und Halter stets off-board, keine Schmelzsicherung oder Einmal-Thermosicherung auf TripPower. Änderungen ausschließlich auf design/trippower-d-load-dump.
 
+## 2026-10-16 – ROUND 10: offizielles TI-Modell versucht, belastbare Eingangsgrenzen getrennt
+
+**[ENTSCHEID]** TPS26631 Weg A bleibt kleinste **Laborplattform**, keine Serien-/Fahrzeugfreigabe. Hauptbericht [Round10 58V Eingangsmodell und Messplan](WEG_D_ROUND10_TPS26631_VENDOR_MODEL_58V_EVIDENCE_2026-10-16.md), [29 Pin-/Pad-Messpunkte](ROUND10_58V_PAD_STRESS_MATRIX_2026-10-16.csv), [ausgeführtes passives TI-Eq14/RLC-Modell](tps26631_ti_eq14_passive_step.py) und [Python-Tests](test_tps26631_ti_eq14_passive_step.py).
+
+**[SPICE ZUGRIFFSSTATUS]** TI TPS2663 PSpice Rev A SLVMD03A.ZIP offiziell vorhanden. Web-Download als application/zip nicht textlesbar; Container-Download scheitert, curl(6) kann www.ti.com nicht auflösen; ngspice/Xyce/PSpice/ltspice nicht installiert. **Kein offizielles TI-PSpice-Modell ausgeführt, keine konkrete Kompatibilitätsdiagnose möglich!** Später ZIP-SHA256, Simulatorversion, Subcircuit-Pinmapping, Modell-Log und Kurvendaten sichern.
+
+**[HERSTELLER UNABHÄNGIGER GEGENCHECK]** TI Rev G §9.5.1 Eq14 Vpeak≈VIN+Iload√(L/C). Hypothetisch58V+I1.75A,L0.8µH,Ceff0.5µF≈60.21V; I3A≈61.79V. L5µH,I3A,Ceff0.5µF≈67.49V. Ceff für60V in dieser idealisierten Rechnung0.613µF /1.8µF /11.25µF. **Nicht** behaupten, dass bei58V tatsächlich 3A gleichzeitig abgeschaltet werden: OVP könnte viel früher wirken.
+
+**[PASSIV-FLANKENMODELL LOKAL AUSGEFÜHRT]** Separates 2-state RK4 RLC mit Eingangsstufe bei eFuse-OFF (KEINE TI-Makromodellrechnung). M8-Bezug: Quelle ist tatsächliche maximal58V M8-Spannung, L nur ab M8 nach Q201/PCB. Lokale L0.05µH, R0.08Ω,Ceff0.5µF, Rise1µs =>59.83V; Rise0.2µs =>74.28V. Insgesamt **288 angenommene** Parameterfälle,139>60V und88≥67V, NICHT Statistik oder Messung. Vor-M8-Kabelinduktivität nicht als lokal L beim58V-M8-Quellbezug mischen. Bisheriges Round9 60/144 ist ein anderes, internes Lastabschaltmodell.
+
+**[NEUER A-STAND]** Aktuelles A-BOM R202=12.0kΩ ERA-8AEB123V **jetzt identisch** KiCad-Blatt. L101 aktuell Bourns SRP7050TA-150M 15µH / Isat6A. C201/C202 je1µF100V KEMET, Buck-C101/C108 je4.7µF100V AVX; DC-Bias-Ceff weiterhin unbekannt. **Bleibender analoge P0:** TI §9.4 empfiehlt IN_SYS–UVLO mindestens300kΩ, A-R201 ist100k. OVP falling des aktuellen100k/12k/4.22k Teilers etwa30.02..31.67V; garantierter Wiederanlauf nach 58→32V weiter **nicht belegt**.
+
+**[MESS-/SICHERHEITSGATE]** 29 kritische Pin-/FET-/MLCC-Domänen getrennt messen; U201 IN/IN_SYS 60V empfohlen und67V absolut, niedrige OVP/DRV/BGATE-Grenzen einzeln, LMR VIN80V empfohlen. M8-Fall am echten Stecker max58V inkl Ringing, Quelle10/32/36/58, Kabel-R/L, 36V400ms, 58V350ms, 10V-Volllast, Q201/U201-Short, +60C 2A/+85C safe-OFF, FRAM/USB/RAW-Fehler. Nur extern F_MAIN/Halter, keine Platinen-Schmelzsicherung/PPTC-Pflicht. **Kein echter Laborversuch.** CI-Workflow mit neuen Stdlib-Tests und JSON-Ausgabe ergänzt, noch kein bestätigter grüner Run.
+
+---
+
 ## 2026-10-16 – ROUND 9: TPS26631 58V/350ms RLC-Eingangsmodell und echte A-Schaltplanprüfung
 
 **[KONDITIONALES ENTSCHEID / NO HARDWARE RELEASE]** Weg A TPS26631 bleibt die kleine REV6-Prüf-/Laborarchitektur, nicht als 58V-Serienhardware bereits qualifiziert. Die 58V-Mess-/Eingangskondensator-/MOSFET-/OVP-Anforderungen werden präzise durch [Round9 Bericht](WEG_D_ROUND9_TPS26631_58V_RLC_EVIDENCE_2026-10-16.md), [reproduzierbares dynamisches Netzwerk](tps26631_58v_network.py), [neun Regressionstests](test_tps26631_58v_network.py) und [SPICE-RLC-Template ausdrücklich unvalidiert](tps26631_input_sensitivity_unvalidated.cir) eingegrenzt. **Keine neue LTC4368-Schaltung, keine große TVS, keine Schmelzsicherung auf TripPower.**
