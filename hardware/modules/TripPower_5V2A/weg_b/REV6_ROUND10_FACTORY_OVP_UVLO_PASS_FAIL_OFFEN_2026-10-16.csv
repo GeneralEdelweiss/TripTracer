@@ -5,7 +5,7 @@
 "R10-04","Existing A external OVP 32..36 rising","PASS","not applicable","A R201100k R20212k R2034k22 rise32.223..33.880 model, not a real dynamic OVP test","STATIC_SENSE"
 "R10-05","Guaranteed 32V postOVP restart as drawn","FAIL","PASS","A falling29.864..31.833 min below32; factory rising33.2..35.4 falling32.7..35, static min32.7 >32","VENDOR_STATIC"
 "R10-06","Factory OVP physically tied to GND with UVLO one resistor","FAIL","OFFEN","A U201.8 OVP_SENSE and R202→R203 to GND. New OVP8 GND /UV7 via330k not built, no native ERC for proposed","NATIVE_NEEDED"
-"R10-07","10V UVLO sense pass and no factory UVLO15V selection","FAIL","PASS","A violates TI reverse-FET UVLO protection despite UVLO rising below10. proposed at VIN_SYS10 UV pin>9.94V, far above1.224V comparator; default factory15 requires UVLO grounded","VENDOR_STATIC"
+"R10-07","10V UVLO sense pass and no factory UVLO15V selection","PASS","PASS","A violates TI reverse-FET UVLO protection despite UVLO rising below10. proposed at VIN_SYS10 UV pin>9.94V, far above1.224V comparator; default factory15 requires UVLO grounded","VENDOR_STATIC"
 "R10-08","Guarantee entire system starts at VIN M8=10V full2A + RAW0.5A","OFFEN","OFFEN","A actual pad/inrush/inductor/5V buck untested; proposed one330k does NOT enforce10V cutoff, input eFuse operates min4.5V","LAB_NEEDED"
 "R10-09","Factory OVP hysteresis with ripple and GND lift","OFFEN","OFFEN","need V(IN_SYS)_highest + noise<32.7V at nominal 32V return; margin0.7V, real fast pin overshoots unknown","LAB_NEEDED"
 "R10-10","OVP 36V400ms and 58V350ms immediate controlled shutdown","OFFEN","OFFEN","TI 8.5..14us measured OVP pin20mV overdrive -> FLT, not universal FET gate full isolation, local VIN <=60V unverified","LAB_NEEDED"
