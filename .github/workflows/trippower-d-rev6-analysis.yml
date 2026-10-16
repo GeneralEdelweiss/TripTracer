@@ -36,6 +36,15 @@ jobs:
         with:
           name: trippower-d-round10-passive-m8-not-vendor-spice
           path: tps26631_round10_m8_passive_sweep.json
+      - name: Verify A23 after-M8 independent IN and IN_SYS sensitivity cases (not TI SPICE)
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_tps26631_a23_linear_nodes.py' -v
+      - name: Generate A23 after-M8 three-node sweep (scenario-only NOT qualification)
+        run: python3 hardware/modules/TripPower_5V2A/weg_d/tps26631_a23_after_m8_linear_nodes.py --sweep > tps26631_a23_after_m8_linear_sweep.json
+      - name: Upload A23 local sensitivity cases
+        uses: actions/upload-artifact@v4
+        with:
+          name: trippower-d-a23-after-m8-linear-no-vendor-spice
+          path: tps26631_a23_after_m8_linear_sweep.json
       - name: Run bounded voltage, current and cost tests
         run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p "test_rev6_round8.py" -v
       - name: Print clearly labeled illustrative scenarios
