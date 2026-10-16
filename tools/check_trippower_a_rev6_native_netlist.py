@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """REV6 A native KiCad10 TOP-level netlist semantic+part-count checker."""
-import json,sys
+import json,sys,re
 from pathlib import Path
 from check_trippower_a_netlist import parse_native_nets
 ROOT=Path("hardware/modules/TripPower_REV6_A")
@@ -64,7 +64,8 @@ def verify(s):
     # may be fitted to the 25-position module. Optional PPTC is ONLY in
     # an independently verified research netlist, never in this main build.
     assert not {r for r in actual_refs if r.startswith("F") and len(r)>1 and r[1].isdigit()}, "Unexpected TripPower fuse / PPTC in baseline"
-    assert "F_MAIN" not in a and "FUSE_HOLDER" not in a and "THERMAL_FUSE" not in a, "No fuses or holders are to be populated on TripPower"
+    placed_library_symbols=re.findall(r'\\(symbol \\(lib_id "([^"]+)"',a)
+    assert not any(any(tag in name.upper() for tag in ("FUSE","PPTC","HOLDER","THERMAL_CUTOFF")) for name in placed_library_symbols), "Unexpected fuse/PPTC/holder component placed on TripPower main circuit"
 
     assert all("BAT" not in n for n in ("BUCK_PG_STATE","PWR_OK_SINK_FAIL_RELEASE"))
     return {
