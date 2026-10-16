@@ -96,17 +96,19 @@ def C_cases():
     ca=simple_divider(100e3,3.78e3,.001,(1.176,1.224),(1.09,1.15),150e-9)
     cb=simple_divider(100e3,3.74e3,.001,(1.17,1.225),(1.085,1.125),100e-9)
     return {
-       "C_TPS26631_SCHOTTKY_ADJUSTABLE":dict(ca,MPN="TPS26631PWPR",
+       "C_TPS26631_SCHOTTKY_ADJUSTABLE":dict(ca,**{
+           "MPN":"TPS26631PWPR",
            "series_Schottky_drop_NOT_guaranteed":True,
-           "inverting_32v_restart_meaning":"falling min must EXCEED VIN_after_diode",
-           "58v_PIN_operating_headroom_v":2.),
-       "C_TPS26631_SCHOTTKY_FACTORY":dict(TI26631_factory_OVP(),
-           MPN="TPS26631PWPR",requires_UVLO_independent_redesign":True,
-           "reverse_diode_max_vf_at_cold_and_recovery_proven":False),
-       "C_TPS26600_BARE_ADJUSTABLE":dict(cb,MPN="TPS26600PWPR",
-           "58v_PIN_ABS_headroom_v":4.,"integrated_limit_max_a":2.23,
+           "32v_restart_condition":"falling min must EXCEED VIN_after_diode; no fixed Vf assumed",
+           "58v_PIN_operating_headroom_v":2.}),
+       "C_TPS26631_SCHOTTKY_FACTORY":dict(TI26631_factory_OVP(),**{
+           "MPN":"TPS26631PWPR","requires_UVLO_independent_redesign":True,
+           "reverse_diode_max_vf_at_cold_and_recovery_proven":False}),
+       "C_TPS26600_BARE_ADJUSTABLE":dict(cb,**{
+           "MPN":"TPS26600PWPR","58v_PIN_ABS_headroom_v":4.,
+           "integrated_limit_max_a":2.23,
            "reverse_FET_built_in":True,
-           "real_INPUT_pads_safe_with_ringing":False)
+           "real_INPUT_pads_safe_with_ringing":False})
     }
 
 def D_LTC4368_bounds(relative=.0025,including_three_pin_leakage=True):
