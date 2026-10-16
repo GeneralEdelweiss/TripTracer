@@ -231,7 +231,7 @@
 (wire (pts (xy 279.4 147.32) (xy 284.48 147.32)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180081"))
 (global_label "ILIM_SET" (shape bidirectional) (at 284.48 147.32 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180082"))
 
-(no_connect (at 279.4 137.16) (uuid "b63a0921-7362-49b4-b250-000000191041"))
+
 
 (wire (pts (xy 279.4 111.76) (xy 284.48 111.76)) (stroke (width 0) (type default)) (uuid "b63a0921-7362-49b4-b250-000000180085"))
 (global_label "VIN_PROTECTED_UNFUSED" (shape bidirectional) (at 284.48 111.76 0) (effects (font (size 1 1)) (justify left)) (uuid "b63a0921-7362-49b4-b250-000000180086"))
@@ -371,5 +371,26 @@
 (instances (project "TripTracer_A23_Integration" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "TP949") (unit 1)))))
 (global_label "R6_DVDT" (shape bidirectional) (at 350.52 215.9 0) (effects (font (size 1 1)) (justify left)) (uuid "d61a93e0-1026-4000-8000-000000000018"))
 (text "ROUND6 LAB ONLY: these pads are not in the original 23-position A23 project; inspect probe capacitance and differential pin limits at 58V. No unqualified PCB production." (at 20.32 285.75 0) (effects (font (size 1 1))) (uuid "d61a93e0-1026-4000-8000-000000000019"))
+
+(symbol (lib_id "Tripmaster_Sym:R") (at 323.85 228.6 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "a23fa110-2026-4010-8000-000000000001")
+(property "Reference" "R950" (at 323.85 212.6 0) (effects (font (size 1 1))))
+(property "Value" "10k 1pct SHDN_LOCAL_FAILSAFE_PULLDOWN" (at 323.85 215.6 0) (effects (font (size 1 1))))
+(property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 323.85 228.6 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "AC1206FR-0710KL" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "a23fa110-2026-4010-8000-000000000002"))
+(pin "2" (uuid "a23fa110-2026-4010-8000-000000000003"))
+(instances (project "TripTracer_A23_Integration" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "R950") (unit 1)))))
+(global_label "A23_SHDN_SAFE_EN" (shape input) (at 279.4 137.16 0) (effects (font (size 1 1)) (justify left)) (uuid "a23fa110-2026-4010-8000-000000000006"))
+(global_label "A23_SHDN_SAFE_EN" (shape bidirectional) (at 312.42 228.6 0) (effects (font (size 1 1)) (justify left)) (uuid "a23fa110-2026-4010-8000-000000000007"))
+(global_label "GND" (shape bidirectional) (at 335.28 228.6 0) (effects (font (size 1 1)) (justify left)) (uuid "a23fa110-2026-4010-8000-000000000008"))
+(symbol (lib_id "TripPower_PGOOD:SignalPad") (at 355.6 228.6 0) (unit 1) (in_bom no) (on_board yes) (dnp no) (uuid "a23fa110-2026-4010-8000-000000000004")
+(property "Reference" "TP950" (at 355.6 212.6 0) (effects (font (size 1 1))))
+(property "Value" "SHDN DEBUG <=3p3V, low OFF, not vehicle release" (at 355.6 215.6 0) (effects (font (size 1 1))))
+(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm" (at 355.6 228.6 0) (effects (font (size 1 1)) (hide yes)))
+(pin "1" (uuid "a23fa110-2026-4010-8000-000000000005"))
+(instances (project "TripTracer_A23_Integration" (path "/a26d9b0c-7f10-4e5a-a65f-000000000064/a26d9b0c-7f10-4e5a-a65f-000000000065" (reference "TP950") (unit 1)))))
+(global_label "A23_SHDN_SAFE_EN" (shape bidirectional) (at 350.52 228.6 0) (effects (font (size 1 1)) (justify left)) (uuid "a23fa110-2026-4010-8000-000000000009"))
+(text "Integration clone ONLY: R950 10k locally pulls SHDN LOW by default (TI SHDN abs 5.5V), enable only with externally VALIDATED 0..3.3V HOST_RUN_SAFE. No automatic supply start until Host AON thermal/ACC interlock exists. Standalone A23 unchanged." (at 20.32 275.59 0) (effects (font (size 1 1))) (uuid "a23fa110-2026-4010-8000-000000000010"))
+
 (embedded_fonts no)
 )
