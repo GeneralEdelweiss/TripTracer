@@ -148,19 +148,21 @@ def source_installation_check(positive_connector_max_v,
         "also_requires_source_repetition_temp_and_negative_transients":True,
         "actual_installed_vehicle_pass":False}
 
-def ov_corner_gates(rising_min,rising_max,falling_max,falling_min=0.):
-    """A candidate or measured response includes tolerances/hot/cold and ramp.
-    Formal required rising_min >32 and rising_max<=36; falling_max<=32
-    to be able to resume at 32V after trip.
+def ov_corner_gates(rising_min,rising_max,falling_max,falling_min=None):
+    """Hysteretic OVP clears only AFTER VIN FALLS BELOW falling threshold.
+    To GUARANTEE restart at VIN=32V, worst-case MIN falling threshold >32V.
+    Prior B implementation wrongly tested falling_max<=32 (reversed).
+    No release if falling_min unknown. Static checks do not include delay.
     """
+    valid_fall=falling_min is not None and falling_min>32.
     return {
        "normal_32v_on_possible":rising_min>32.,
        "shutdown_by_36v":rising_max<=36.,
-       "restart_at_stable_32v":falling_max<=32.,
-       "positive_hysteresis":falling_max<rising_min,
+       "restart_at_stable_32v":valid_fall,
+       "positive_hysteresis":falling_max<rising_min if falling_min is not None else False,
        "trip_thermally_or_dynamically_proven":False,
        "all_nominal_DC_corners_consistent": bool(
-           rising_min>32 and rising_max<=36 and falling_max<=32 and
+           rising_min>32 and rising_max<=36 and valid_fall and
            falling_max<rising_min and falling_min<=falling_max)
     }
 
@@ -270,7 +272,7 @@ def report():
       "fuse_times_4a_exact_current_multipliers_only":fuse_opening_at_exact_maker_multipliers(FUSES["4A"]),
       "harness_1uH_20A_per_1us_example":harness_ringing(),
       "installed_rated_fuse_false_pass_example":source_installation_check(78.,fuse_break_v=78.,negative_min_v=-5.,measured_generator_impedance_ohm=2.,measured_harness_inductance_h=1e-6,pulse_duration_s=.35),
-      "OV_candidate_example":ov_corner_gates(32.2,35.6,31.8,30.5),
+      "OV_candidate_example":ov_corner_gates(33.2,35.4,33.0,32.7),
       "silicon_58v_100ohm_fail":failed_silicon_power(),
       "silicon_32v_100ohm_fail_continuous_hazard":failed_silicon_power(32.,seconds=10.),
       "FRAM_commit_example":fram_journal_model(100,1),
