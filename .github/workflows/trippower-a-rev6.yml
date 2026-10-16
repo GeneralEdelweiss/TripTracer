@@ -6,6 +6,7 @@ on:
     paths:
       - 'hardware/modules/TripPower_REV6_A/**'
       - 'tools/trippower_a_rev6_limits.py'
+      - 'tools/trippower_a_rev6_ringing.py'
       - 'tools/test_trippower_a_rev6.py'
       - 'tools/check_trippower_a_rev6_native_netlist.py'
       - '.github/workflows/trippower-a-rev6.yml'
@@ -38,6 +39,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tools -p 'test_trippower_a_rev6.py' -v 2>&1 | tee reports/rev6-model-tests.log
           python3 tools/trippower_a_rev6_limits.py > reports/rev6-source-bounds.json
+          python3 tools/trippower_a_rev6_ringing.py > reports/rev6-58V-input-ringing-sensitivity.json
       - name: Early native netlist audit of power source and 5V domains
         run: |
           kicad-cli sch export netlist -o reports/rev6-a-before-ERC.net \
