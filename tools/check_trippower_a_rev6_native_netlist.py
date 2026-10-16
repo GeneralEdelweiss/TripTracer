@@ -53,7 +53,7 @@ def verify(s):
     a=r.read_text()
     assert "TPS26631PWPR" in a and "SQM100N10-10_GE3" in a
     assert "RT1206BRD07100KL" in a and "ERA-8AEB123V" in a
-    assert "RT1206BRD074K22L" in a and "AC1206FR-076K04L" in a
+    assert "RT1206BRD074K22L" in a and "CRCW12066K04FKEAHP" in a
     assert "R201=100k R202=12k R203=4k22" in a
     b=(ROOT/"02_5V_LMR38020_REV6.kicad_sch").read_text()
     assert "LMR38020SQDDARQ1" in b and "BVSS123LT1G" in b
