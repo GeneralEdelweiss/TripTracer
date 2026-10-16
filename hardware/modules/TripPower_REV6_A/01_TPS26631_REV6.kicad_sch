@@ -127,9 +127,9 @@
 
 (symbol (lib_id "Tripmaster_Sym:R") (at 116.84 205.74 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "b63a0921-7362-49b4-b250-000000180033")
 (property "Reference" "R202" (at 116.84 189.74 0) (effects (font (size 1 1))))
-(property "Value" "12.0k 0.1pct 25ppm UV_MID" (at 116.84 192.74 0) (effects (font (size 1 1))))
+(property "Value" "12.0k 0.1pct 25ppm AECQ200 UV_MID" (at 116.84 192.74 0) (effects (font (size 1 1))))
 (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 116.84 205.74 0) (effects (font (size 1 1)) (hide yes)))
-(property "MPN" "RT1206BRD0712KL" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "MPN" "ERA-8AEB123V" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (pin "1" (uuid "b63a0921-7362-49b4-b250-000000180034"))
 (pin "2" (uuid "b63a0921-7362-49b4-b250-000000180035"))
 (instances (project "TripPower_REV6_A" (path "/f1512578-cc72-4c26-bf70-dbbd00000001/f1512578-cc72-4c26-bf70-dbbd00000002" (reference "R202") (unit 1)))))
