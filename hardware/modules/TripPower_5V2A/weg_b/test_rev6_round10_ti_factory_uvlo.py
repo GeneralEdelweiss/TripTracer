@@ -65,6 +65,10 @@ class TIManufacturerRound10(unittest.TestCase):
     self.assertTrue(a["factory_OVP_strap_alone_is_NO_GO"])
  def test_PGTH_ground_prevents_fast_recovery_not_normal_ovp_trip_loss(self):
     self.assertTrue(DATA["PGTH_to_GND_if_fast_recovery_unwanted"])
+    self.assertTrue(DATA["PGTH_ground_tps_PGOOD_forced_low"])
+    self.assertTrue(DATA["TI_2x_pulse_overcurrent_enabled_ONLY_after_PGOOD_high"])
+    self.assertTrue(DATA["PGTH_ground_removes_poststartup_2x_IOL_pulse_mode"])
+    self.assertTrue(DATA["PGTH_ground_short_circuit_peak_STILL_NEEDS_TEST"])
     self.assertGreater(DATA["SHDN_open_v"][0],2)
     self.assertEqual(DATA["SHDN_sinking_requirement_microa"],10)
  def test_MODE_float_latches_overload_not_normal_OVP_same_state(self):
