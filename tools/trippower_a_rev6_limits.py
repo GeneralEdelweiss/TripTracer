@@ -7,7 +7,7 @@ Ilimit R=k/I eq8, 60V operating, 67V ABS), TI LMR38020-Q1 80V operating
 Resistors Yageo RT1206 BRD 0.1% +/-25ppm/K vendor rated; independent corner model.
 """
 import json
-R1,R2,R3=100000.0,12400.0,4220.0
+R1,R2,R3=100000.0,12000.0,4220.0
 RSTOL=.001
 TCR=.000025
 LEAK=150e-9
@@ -66,11 +66,16 @@ def study():
       "authority":"TRIPPOWER REV6 2026-10-15, not REV5",
       "new_two_sheet_project":"hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch",
       "range_10_32":{k:{c:voltage_threshold(k,c) for c in ("min","typ","max")} for k in ("uvlo","ovp","ovp_falling")},
-      "R1_100k_R2_12p4k_R3_4p22k_MPN":["RT1206BRD07100KL","RT1206BRD0712K4L","RT1206BRD074K22L"],
+      "R1_100k_R2_12k_R3_4p22k_MPN":["RT1206BRD07100KL","RT1206BRD0712KL","RT1206BRD074K22L"],
       "10_32_logic":{
         "ovp_does_not_trip_at_32_on_resistor_vendor_sensitivity":voltage_threshold("ovp","min")>32,
         "ovp_trips_by_36_on_resistor_vendor_sensitivity":voltage_threshold("ovp","max")<36,
         "ovp_restart_at32_no_overshoot_sensitivity":voltage_threshold("ovp_falling","max")<32,
+        "fixed_OVP_rising_min_typ_max_v":[33.2,34.33,35.4],
+        "fixed_OVP_falling_min_typ_max_v":[32.7,33.89,35.0],
+        "fixed_OVP_guarantees_32v_restart":False,
+        "factory_UVLO_rising_min_max_v":[15.1,15.9],
+        "factory_UVLO_guarantees_10v_start":False,
         "ovp_32V_recovery_pin_margin_v":32-voltage_threshold("ovp_falling","max"),
         "restart_requires_stable_effective_IN_SYS_at_most32_no_positive_transients":True,
         "uvlo_releases_before_10_on_sensitivity":voltage_threshold("uvlo","max")<10,
