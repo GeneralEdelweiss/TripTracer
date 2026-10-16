@@ -87,6 +87,43 @@ def check(netlist,bom):
     rows=list(csv.DictReader(Path(bom).open(encoding="utf-8")))
     refs=[s.strip() for row in rows for s in row["Refs"].split(",") if s.strip()]
     assert len(refs)==30 and set(refs)==set(EXPECT)
+    # Cross-check complete procurement matrix against the 30 actual placed KiCad
+    # symbol properties, the native XML footprints, and the native BOM.
+    pricing=list(csv.DictReader((SROOT/"ROUND12_30_POSITION_BOM_ESTIMATED_EUR_2026-10-16.csv").open(encoding="utf-8")))
+    order={row["ref"]:row for row in pricing if row["ref"]!="TOTAL_30_FITTED"}
+    assert len(order)==30 and set(order)==set(EXPECT)
+    import re
+    def balanced_end(t,pos):
+        level=0; quoted=False; escape=False
+        for j in range(pos,len(t)):
+            c=t[j]
+            if escape:escape=False;continue
+            if quoted and c=="\\":escape=True;continue
+            if c=='"':quoted=not quoted;continue
+            if quoted:continue
+            if c=="(":level+=1
+            if c==")":
+                level-=1
+                if level==0:return j+1
+        raise AssertionError("unclosed schematic component")
+    placed={}
+    for match in re.finditer(r'\(symbol \(lib_id "TripPower_B:[^"]+"\)',sheet):
+        fragment=sheet[match.start():balanced_end(sheet,match.start())]
+        fields=dict(re.findall(r'\(property "(Reference|MPN|Footprint|Manufacturer|Value)" "([^"]+)"',fragment))
+        if fields.get("Reference") in EXPECT:
+            assert fields["Reference"] not in placed
+            placed[fields["Reference"]]=fields
+    assert set(placed)==set(order)
+    from decimal import Decimal
+    totals=[Decimal(0)]*3
+    for ref,entry in order.items():
+        for col,prop in (("mpn","MPN"),("manufacturer","Manufacturer"),("footprint","Footprint"),("value","Value")):
+            assert entry[col]==placed[ref][prop],(ref,col,entry[col],placed[ref][prop])
+        assert (comps[ref].findtext("footprint") or "")==entry["footprint"],ref
+        for idx,col in enumerate(("eur_exVAT_unit_at_1","eur_exVAT_unit_at_10","eur_exVAT_unit_at_100")):
+            amount=Decimal(entry[col]);assert amount>0
+            totals[idx]+=amount
+    assert totals==[Decimal("23.5460"),Decimal("16.4030"),Decimal("13.0707")],totals
     # Important conservative threshold: short circuit threshold 30mV..70mV per official ADI table, Rshunt=0.050R +/-1%
     imin=0.030/(0.05*1.01)
     imax=0.070/(0.05*.99)
@@ -103,6 +140,9 @@ def check(netlist,bom):
     result={
       "native_comp_count":len(comps),"native_pin_connections_checked":sum(map(len,EXPECT.values())),
       "native_mpn_and_resistor_value_checks":len(MPN)+len(VALUES),
+      "all_30_actual_component_MPN_and_footprints_cost_matrix_match":True,
+      "EUR_net_cost_at_1_10_100_provisional":[str(v) for v in totals],
+      "price_rows_are_mixed_quotes_and_estimates":True,
       "ti_tmp390_one_resistor_74C_5C_nominal":True,
       "safe_3v3_supply_independent_from_main_eFuse":True,
       "active_low_sensor_AND_supervisor_enable":True,
