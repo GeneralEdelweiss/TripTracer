@@ -28,6 +28,7 @@ jobs:
           mkdir -p reports "$HOME/.config"
           cp -r /home/kicad/.config/kicad "$HOME/.config/"
           kicad-cli version | tee reports/kicad-version.txt
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git rev-parse HEAD | tee reports/b-git-sha.txt
       - name: KiCad ERC on real isolated protection prototype
         run: |
