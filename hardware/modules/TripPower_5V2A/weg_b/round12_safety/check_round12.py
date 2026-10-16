@@ -43,10 +43,10 @@ MPN={
 "U303":"TPS3838K33QDBVRQ1","U401":"LTC4368HMS-2#WPBF",
 "Q301":"MMBT3904LT1G","Q302":"BSS138LT1G","Q403":"BSS123LT1G",
 "Q401":"TK11S10N1L,LQ","Q402":"TK11S10N1L,LQ",
-"D301":"BAV21W-7-F","R405":"WSL2512R0510FEA","C403":"C1210C225K1RACAUTO",
+"D301":"BAV21W-7-F","R405":"WSL2512R0500FEA","C403":"C1210C225K1RACAUTO",
 }
 VALUES={"R301":"180k","R302":"100k","R303":"24.9k","R304":"10k","R305":"100k","R306":"330k",
-"R401":"464k","R402":"1.5M","R403":"121k","R404":"29.4k","R405":"0.051R",
+"R401":"464k","R402":"1.5M","R403":"121k","R404":"29.4k","R405":"0.050R",
 "R406":"22k","R407":"100k","R408":"100k"}
 SROOT=Path("hardware/modules/TripPower_5V2A/weg_b/round12_safety")
 def check(netlist,bom):
@@ -87,9 +87,9 @@ def check(netlist,bom):
     rows=list(csv.DictReader(Path(bom).open(encoding="utf-8")))
     refs=[s.strip() for row in rows for s in row["Refs"].split(",") if s.strip()]
     assert len(refs)==30 and set(refs)==set(EXPECT)
-    # Important conservative threshold: short circuit threshold 30mV..70mV per official ADI table, Rshunt=0.051R +/-1%
-    imin=0.030/(0.051*1.01)
-    imax=0.070/(0.051*.99)
+    # Important conservative threshold: short circuit threshold 30mV..70mV per official ADI table, Rshunt=0.050R +/-1%
+    imin=0.030/(0.05*1.01)
+    imax=0.070/(0.05*.99)
     assert imin>0.50,(imin,imax)
     # Series power resistor program from official LTC4368 figure 2.
     r=[464e3,1.5e6,121e3,29.4e3]
