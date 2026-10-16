@@ -16,7 +16,7 @@ def check(original,thermal):
     }
     assert d==expected, f"expected only 3 thermal pins: {d}"
     assert len({r for r,p in a if r[0] in "UQRLC" and any(c.isdigit() for c in r)})==25
-    assert len({r for r,p in b if r[0] in "UQRLCT" and any(c.isdigit() for c in r)})==26
+    assert len({r for r,p in b if r[0] in "UQRLCT" and not r.startswith("TP") and any(c.isdigit() for c in r)})==26
     return {"native_thermal_delta_only_T201_1_2_and_SHDN13":True,
        "baseline_parts":25,"research_parts":26,
        "Sensata_67F080_local_closure_temp_c_range":[75,85],
