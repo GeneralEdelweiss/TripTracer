@@ -1,0 +1,53 @@
+name: TripPower C Round12 real A23 lab BOM sourcing and 3D gates (NO FAB)
+on:
+  push:
+    branches: ["design/trippower-c"]
+    paths:
+      - ".github/workflows/trippower-c-rev6-round12-lab-bom.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_round12_lab_bom_procurement_gate.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND12_A23_23_POSITION_PURCHASING_LEDGER_2026-10-16.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND12_D_AFTER_M8_MODEL_PARAMETER_GAPS_2026-10-16.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND12_LAB_BOM_MANUFACTURER_MODEL_HANDOFF_2026-10-16.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-pinned-procurement-and-3d-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent read-only pinned A23 checkout
+        uses: actions/checkout@v4
+        with:
+          repository: GeneralEdelweiss/TripTracer
+          ref: f30f35d404e6ba549ee6202c46d660f498c36545
+          path: a23-source
+          sparse-checkout: |
+            hardware/modules/TripPower_REV6_A/REV6_A_FACTORY_OVP_23_PART_ORDER_BOM_2026-10-16.csv
+            hardware/modules/TripPower_REV6_A/Tripmaster.pretty
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Source-pinned 23-position/17-MPN, status, 3D presence and honest missing-data checks
+        run: |
+          python3 hardware/modules/TripPower_5V2A/weg_c/rev6_round12_lab_bom_procurement_gate.py \
+            --source-bom a23-source/hardware/modules/TripPower_REV6_A/REV6_A_FACTORY_OVP_23_PART_ORDER_BOM_2026-10-16.csv \
+            --ledger hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND12_A23_23_POSITION_PURCHASING_LEDGER_2026-10-16.csv \
+            --d-matrix hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND12_D_AFTER_M8_MODEL_PARAMETER_GAPS_2026-10-16.csv \
+            --a-module a23-source/hardware/modules/TripPower_REV6_A \
+            --out-dir c-round12-audit
+      - name: Upload quantitative evidence - orderable status intentionally BLOCKED
+        uses: actions/upload-artifact@v4
+        with:
+          name: C-Round12-A23-Lab-BOM-3D-and-Procurement-Gates
+          path: c-round12-audit
+      - name: Explicit no-release boundary
+        run: |
+          echo 'No live supplier API checkout was run. Index snapshots may be stale/conflicting.'
+          echo 'No vendor-verified MLCC Ceff/ESR/ESL, SPICE files or production fit.'
+          echo 'No KiCad ERC or PCB DRC in Weg C; B Round11 native A23 evidence is separate.'
+          echo 'No on-board fuse/holder/one-shot thermal fuse; do not add B host research parts.'
+          echo 'PCB/stencil/assembly/connector/host/harness/lab costs remain UNPRICED.'
