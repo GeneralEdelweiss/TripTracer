@@ -86,6 +86,16 @@ def main(netfile, native_bom):
         assert instance_mpns[ref]==order[ref]["mpn"], (ref,instance_mpns[ref],order[ref]["mpn"])
         native_footprint=(components[ref].findtext("footprint") or "").strip()
         assert native_footprint==order[ref]["KiCad_footprint"], (ref,native_footprint,order[ref]["KiCad_footprint"])
+    # Explicitly compare every native KiCad resistor VALUE (not just resistor MPN).
+    # The seven nominal resistor values come from the actual A23 placed symbols.
+    expected_resistor_values={
+        "R201":"330k", "R204":"6.04k", "R101":"100k",
+        "R102":"24.9k", "R103":"64.9k", "R501":"100k", "R502":"1M",
+    }
+    assert {r for r in fitted if r.startswith("R")}==set(expected_resistor_values)
+    for ref, nominal in expected_resistor_values.items():
+        native_value=(components[ref].findtext("value") or "").strip()
+        assert native_value.startswith(nominal+" "), (ref,native_value,nominal)
     assert order["R201"]["mpn"]=="AC1206FR-07330KL"
     assert order["R204"]["mpn"]=="CRCW12066K04FKEAHP"
     assert order["U201"]["mpn"]=="TPS26631PWPR"
@@ -106,6 +116,7 @@ def main(netfile, native_bom):
         "basis":"native KiCad 10 XML netlist + native BOM + independently parsed A23 sheets",
         "verified_pin_to_net_relations":len(EXPECTED),
         "fit_count":len(fitted),"all_23_mpn_and_footprints_match":True,
+        "all_7_native_resistor_values_match":True,
         "no_tripPower_fuse":True,
         "mode":"GND auto retry","pgth":"GND TPS PGOOD forced low / 2x IOL not armed",
         "SHDN":"open, internal enable pullup: NOT a +85C hardware interlock",
