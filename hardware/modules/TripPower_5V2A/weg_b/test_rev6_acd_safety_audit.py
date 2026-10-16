@@ -1,5 +1,7 @@
 """Independent REV6 A/C/D regression, NOT a physical release or A-native ERC."""
 import unittest
+import csv
+from pathlib import Path
 from rev6_acd_safety_audit import (
     actual_A_values_from_sheet,A_three_resistor_bounds,TI26631_factory_OVP,
     C_cases,D_LTC4368_bounds,thermals,fault_and_fuse,statuses,report)
@@ -86,6 +88,22 @@ TPS26631PWPR'''
         self.assertEqual(len(t),3)
         self.assertGreater(t[0]["naive_all_loss_in_IC_Rtheta45_CperW_TjAt60_C"],150)
         self.assertTrue(all(not x["actual_60C_2A_PASS"] for x in t))
+    def test_committed_comparison_matrix_status_columns_are_strict_ENUM(self):
+        path=Path(__file__).with_name("REV6_ACD_PASS_FAIL_OFFEN_MATRIX_2026-10-16.csv")
+        with path.open(encoding="utf8",newline="") as fh:
+            data=list(csv.DictReader(fh))
+        self.assertGreaterEqual(len(data),18)
+        self.assertEqual(len({row["ID"] for row in data}),len(data))
+        for row in data:
+            for field in ("A TPS26631 actual 25-part KiCad",
+                          "C TPS26631/Schottky or TPS26600",
+                          "D LTC4368-2"):
+                self.assertIn(row[field],("PASS","FAIL","OFFEN"),(row["ID"],field))
+        restart=next(x for x in data if x["ID"]=="M03")
+        self.assertEqual(restart["A TPS26631 actual 25-part KiCad"],"FAIL")
+        self.assertEqual(restart["C TPS26631/Schottky or TPS26600"],"FAIL")
+        self.assertEqual(restart["D LTC4368-2"],"OFFEN")
+
     def test_pass_fail_offen_are_risk_not_automotive_certification(self):
         rows=statuses()
         self.assertGreaterEqual(len(rows),12)
