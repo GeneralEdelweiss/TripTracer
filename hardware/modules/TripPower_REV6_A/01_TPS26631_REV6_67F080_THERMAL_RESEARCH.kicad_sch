@@ -371,5 +371,5 @@
 (global_label "THERMAL_SHDN" (shape bidirectional) (at 224.79 261.62 0) (effects (font (size 1 1)) (justify left)) (uuid "067f0800-0116-4000-8000-000000000007"))
 (wire (pts (xy 252.73 261.62) (xy 257.81 261.62)) (stroke (width 0) (type default)) (uuid "067f0800-0116-4000-8000-000000000008"))
 (global_label "GND" (shape bidirectional) (at 257.81 261.62 0) (effects (font (size 1 1)) (justify left)) (uuid "067f0800-0116-4000-8000-000000000009"))
-(text "THERMAL RESEARCH ONLY: 67F080 closes 75..85C at its LOCAL temperature; SHDN internal 2.7V /1Meg means microamp contact, BELOW Sensata validated 10mA@5V low-level rating. Not a guaranteed safe-off or production BOM. Baseline 25 not changed." (at 29.21 286.0 0) (effects (font (size (1 1)))) (uuid "067f0800-0116-4000-8000-000000000010"))
+(text "THERMAL RESEARCH ONLY: 67F080 closes 75..85C at its LOCAL temperature; SHDN internal 2.7V /1Meg means microamp contact, BELOW Sensata validated 10mA@5V low-level rating. Not a guaranteed safe-off or production BOM. Baseline 25 not changed." (at 29.21 286.0 0) (effects (font (size 1 1))) (uuid "067f0800-0116-4000-8000-000000000010"))
 (embedded_fonts no))
