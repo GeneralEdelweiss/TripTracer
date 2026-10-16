@@ -15,13 +15,13 @@ Original-Herstellerinformationen: [TI TPS2663 Datenblatt Rev G](https://www.ti.c
 
 ## 2. Eigenständiger NATIVER KiCad-10-Check des tatsächlich gezeichneten A23
 
-**Ausgeführt, nicht nur von A übernommen:** GitHub Actions [B Run 38879880687](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38879880687), Job **116903775317**, B-Prüfcommit **f6b82370cc0e9c9980bfe167562d14c92ecd3fdf**, Status laut GitHub **completed/success**, vollständiges Joblog tatsächlich gelesen. Workflow .github/workflows/trippower-b-round11-a23-native.yml checkt den A23-Quell-Commit f30f35d404e6ba549ee6202c46d660f498c36545 separat nach audit-A23 aus und führt aus:
+**Ausgeführt, nicht nur von A übernommen:** GitHub Actions [B Run 38881195864](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38881195864), Job **116908064982**, B-Prüfcommit **00bfdb6c8ccdcd4d2eb076c2ab79c6879c77a68c**, Status laut GitHub **completed/success**, vollständiges Joblog tatsächlich gelesen. Workflow .github/workflows/trippower-b-round11-a23-native.yml checkt den A23-Quell-Commit f30f35d404e6ba549ee6202c46d660f498c36545 separat nach audit-A23 aus und führt aus:
 
 1. Native **KiCad 10.0.6** ERC auf echtem A23-Root mit allen Schweregraden, Exitcode bei Fehlern: **Found 0 violations**.
 2. Echter KiCad-10-Netzlistenexport als XML über die komplette A23-Hierarchie; dazu tatsächlicher nativer KiCad-BOM-CSV-Export.
-3. **Eigenes Weg-B-Prüfskript** hardware/modules/TripPower_5V2A/weg_b/rev6_round11_a23_independent_native.py ohne Import von A-Verifikationscode: **44/44 erwartete elektrische Pin-Net-Zuordnungen, 23/23 bestückte Referenzen, 23/23 Hersteller-MPN und Footprints sowohl gegen platzierte KiCad-Instanzen als auch gegen Bestellliste**, vollständige native BOM-Referenzmenge, keine bestückte Sicherung auf TripPower.
+3. **Eigenes Weg-B-Prüfskript** hardware/modules/TripPower_5V2A/weg_b/rev6_round11_a23_independent_native.py ohne Import von A-Verifikationscode: **44/44 erwartete elektrische Pin-Net-Zuordnungen, 7/7 nominelle Widerstandswerte direkt aus nativem KiCad-XML, 23/23 bestückte Referenzen, 23/23 Hersteller-MPN und Footprints sowohl gegen platzierte KiCad-Instanzen als auch gegen Bestellliste**, vollständige native BOM-Referenzmenge, keine bestückte Sicherung auf TripPower.
 4. Preise unabhängig aus CSV addiert: **20,2570 / 13,5610 / 10,6266 EUR netto je Modul** bei Stückzahlen 1/10/100 (nur diese 23 Bauteile; nicht Kosten für PCB, Montage, Stecker, Host, externe Fahrzeugfuse oder Labor).
-5. Vollständiges [A23-Evidenzartefakt ID 12036907772](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38879880687/artifacts/12036907772): ERC-JSON, native XML-Netzliste, native BOM, Pin-/MPN-Prüf-JSON, Quelle und KiCad-Version. **Kein A23-PCB, deshalb kein PCB-DRC oder optischer Pad-/EP-Nachweis**.
+5. Vollständiges [A23-Evidenzartefakt ID 12037905992](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38881195864/artifacts/12037905992): ERC-JSON, native XML-Netzliste, native BOM, Pin-/MPN-Prüf-JSON, Quelle und KiCad-Version. **Kein A23-PCB, deshalb kein PCB-DRC oder optischer Pad-/EP-Nachweis**.
 
 Fehlertransparenz: [erster B Run 38879738015](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38879738015) hatte bereits native ERC0, Netzliste und BOM exportiert, scheiterte aber an einem **B-Parserfehler**: KiCads mit unconnected- beginnende Pseudo-Netze wurden fälschlich als echte SHDN-/Diagnose-Leitungen interpretiert. Der B-eigene Parser ignoriert nun ausschließlich solche NC-Pseudo-Netze. Schaltung und KiCad-ERC-Regeln wurden dabei **nicht** verändert. Danach oben genannter unabhängiger Run erfolgreich.
 
@@ -100,7 +100,7 @@ Der **aktive** Host-Root hardware/kicad/TripTracer_V1.kicad_sch enthält 01_Eing
 
 | Anforderung | Status | Beleg / konkreter Freigabestopp |
 |---|---|---|
-| A23 native ERC, Netlist, REF/MPN/BOM | **PASS / SCHEMATIC** | B Run38879880687 KiCad10.0.6, ERC0, 44 Pin-/Netzchecks, 23/23 MPN+Footprints, Preisrechnung |
+| A23 native ERC, Netlist, REF/MPN/BOM | **PASS / SCHEMATIC** | B Run38881195864 KiCad10.0.6, ERC0, 44 Pin-/Netzchecks, 7/7 Widerstandswerte, 23/23 MPN+Footprints, Preisrechnung |
 | TI Factory OVP, ≥300k UVLO, MODE/PGTH/ILIM Verdrahtung | **PASS / SCHEMATIC** | U201 OVP8 GND, 330k min324,72k, MODE12/PGTH16 GND, R2046,04k; keine Hardwarefunktion daraus automatisch PASS |
 | 32V static OVP-Recovery, 36V OVP | **PASS NUR STATISCH** | 32<32,7V Fallmin; bei36V M8 muss IN_SYS ≥35,4V sein; dynamische Wellenform OFFEN |
 | **58V/350ms M8 und ≤60V an allen TPS-IN-Pins** | **OFFEN P0** | Ceff/RLC/Gate/Hersteller-SPICE/Labormessung fehlen |
