@@ -1,5 +1,17 @@
 # TripPower Weg D – dedizierter Load-Dump-Schutz
 
+> **AKTUELLSTER BEFUND – ROUND 9 / 16.10.2026:** **Weg-A-TPS26631 nur konditional als Laborplattform**. Der ausführbare reduzierte 58V/350ms-VIN/IN_SYS-Transientenrechner kann bei plausibel gewählten, aber **nicht gemessenen** Kabel-L/Ceff/OFF-Timing-Parametern die empfohlenen 60V und sogar 67V ABS überschreiten; kein Fahrzeug-Safe-Go. **Separat im tatsächlich aktuellen A-Schaltplan nachgewiesen:** R202 12,0kΩ/ERA-8AEB123V unterscheidet sich von A-Order-CSV R202 12,4kΩ/RT1206BRD0712K4L; die OVP-Rückschaltschwelle des gezeichneten Teilers ist bei stabil32V nach58V nicht garantiert erreicht. TI TPS2663 §9.4 empfiehlt ≥300k für UVLO–IN_SYS im Reverse-FET-Aufbau, A-R201 ist100k. Diese beiden analogen Design-/BOM-P0-Gates vor einer Leiterplattenbestellung bereinigen. **Keine Messung oder originale Hersteller-PSpice-Simulation erfolgt.**
+>
+> **ROUND9 zuerst lesen:**
+> - [Technischer Eingangsmodell-, OVP-, FMEA- und Laborbericht](WEG_D_ROUND9_TPS26631_58V_RLC_EVIDENCE_2026-10-16.md)
+> - [Dynamischer RLC-Python-Rechner](tps26631_58v_network.py) und [Regressionstests](test_tps26631_58v_network.py)
+> - [SPICE-Netzwerkschablone (ngspice NICHT ausgeführt)](tps26631_input_sensitivity_unvalidated.cir)
+> - [Historisches FINDINGS_LOG und neue Round9-Nachweise](FINDINGS_LOG.md)
+>
+> **Entscheid:** kein unbewiesenes LTC4368-Layout, keine pauschale TVS und keine Sicherung/PPTC in der Modul-BOM. Hauptsicherung/Halter ausschließlich am Fahrzeug/TripTracer-System. A zunächst korrigieren und **wirkliche** lokale PIN-Peaks +10V Start/+60°C Volllast/+85°C sicheren OFF prüfen.
+>
+
+
 > **AKTUELLER WEG-D-ENTSCHEID / REV6 ROUND 8 (2026-10-16)**: Im direkten Vergleich **TPS26631 + 100V externer Verpol-NMOS nach Weg A bevorzugt – nur als P0-Prototyp**, sofern 58V/350ms an den wirklichen IC-Pads (inkl. Ringing, Abschaltflanken und -20..+70°C) den TI-60V-Normal- und 67V-ABS-Rahmen sicher einhält. **TPS26600** spart 2 diskrete Halbleiter, hat aber nur 62V Absolute-Maximum und maximal 2.23A programmierbaren Strom; bei 58V ungeprüfter RLC-Überhöhung vorerst **NO-GO für die Standard-V1**. **LTC4368-2** bietet 100V-VIN-Fault-Reserve und Automotive-#W, aber 80V-VOUT/SENSE-Limits, 2 FETs+Kelvin-Shunt und höhere Kosten; nur bei nachgewiesenem lokalem Overshoot als zweiter Sicherheitsweg. **KEINE Schmelzsicherung, kein Halter, keine Einmal-SMD-Thermosicherung und derzeit keine PPTC auf TripPower**. Fahrzeugseitige F_MAIN/Halter ausschließlich im Fahrzeug-/Systemregister. **Keine KiCad-/PCB-/58V-/Thermik-Serienfreigabe.**
 >
 > **ZUERST LESEN (Round 8):**
