@@ -5,6 +5,19 @@ from trippower_a_rev6_limits import study,voltage_threshold,load_sensitivity,ld_
 class REV6Limits(unittest.TestCase):
  def test_32v_normal_stays_below_min_trip(self):
     self.assertGreater(voltage_threshold("ovp","min"),32)
+ def test_32v_restart_after_OVP_falling_with_precision_resistors(self):
+    self.assertLess(voltage_threshold("ovp_falling","max"),32)
+    self.assertGreater(32-voltage_threshold("ovp_falling","max"),0.05)
+ def test_wide_tolerance_historical_chain_does_not_prove_32v_restart(self):
+    r1,r2,r3=402000,49900,16500
+    scale=.01+.0001*45
+    worst=1.15*(1+(r1+r2)*(1+scale)/(r3*(1-scale)))+150e-9*(2*r1+r2)*(1+scale)
+    self.assertGreater(worst,32)
+ def test_ovp_rise_min_fall_max_and_10v_uvlo_are_separate(self):
+    self.assertGreater(voltage_threshold("ovp","min"),32)
+    self.assertLess(voltage_threshold("ovp","max"),36)
+    self.assertGreater(voltage_threshold("ovp","min"),voltage_threshold("ovp_falling","max"))
+    self.assertLess(voltage_threshold("uvlo","max"),10)
  def test_36v_is_above_max_trip(self):
     self.assertLess(voltage_threshold("ovp","max"),36)
  def test_10v_uv_start_limit(self):
