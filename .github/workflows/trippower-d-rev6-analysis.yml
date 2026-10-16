@@ -16,6 +16,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install input-network solver dependencies
+        run: python3 -m pip install numpy scipy
+      - name: Run nine TPS26631 transient-network tests
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_tps26631_58v_network.py' -v
+      - name: Generate machine-readable sweep evidence (model only)
+        run: python3 hardware/modules/TripPower_5V2A/weg_d/tps26631_58v_network.py --scenario matrix > tps26631_network_matrix.json
+      - name: Upload network matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: tps26631-58v-model-matrix-not-validated
+          path: tps26631_network_matrix.json
       - name: Run bounded voltage, current and cost tests
         run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p "test_rev6_round8.py" -v
       - name: Print clearly labeled illustrative scenarios
