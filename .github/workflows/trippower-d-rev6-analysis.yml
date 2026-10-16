@@ -27,6 +27,15 @@ jobs:
         with:
           name: tps26631-58v-model-matrix-not-validated
           path: tps26631_network_matrix.json
+      - name: Check TI equation and passive M8-local RLC step model (not vendor SPICE)
+        run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p 'test_tps26631_ti_eq14_passive_step.py' -v
+      - name: Export 288 M8-boundary passive RLC hypotheses (not hardware)
+        run: python3 hardware/modules/TripPower_5V2A/weg_d/tps26631_ti_eq14_passive_step.py --sweep > tps26631_round10_m8_passive_sweep.json
+      - name: Upload Round10 sensitivity matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: trippower-d-round10-passive-m8-not-vendor-spice
+          path: tps26631_round10_m8_passive_sweep.json
       - name: Run bounded voltage, current and cost tests
         run: python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_d -p "test_rev6_round8.py" -v
       - name: Print clearly labeled illustrative scenarios
