@@ -1,0 +1,13 @@
+# TripPower B Round9 – echter CI-Nachweis / Sicherheitsprüfung 16.10.2026
+
+**Getestete Commit-SHA** `a14f38dc5a0f590cbfe53d9ff0ce21623cda5aa3` im einzigen Arbeitsbranch `design/trippower-b`.
+
+- Original-GitHub-Actions-Run: **https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38864758121**
+- **Run ID** `38864758121`, **Job ID** `116854918476`; Live-Jobs-API: **completed / success**. Die Schritt-Resultate für `REV6 independent A C D`, **`REV6 Round9 minimal-component safety`**, geerbten nativen KiCad10 ERC, geerbten nativen KiCad10 Netlist-FMEA und Artifact Upload waren alle **success**.
+- Live-Joblog separat über API gelesen: acht Unittest-Gruppen **10+3+9+12+10+12+11+16 = 83 Tests erfolgreich**, davon **16 neue Round9-Regressionsprüfungen**, keine `FAILED`/`ERROR` für diesen Lauf. `set -euo pipefail` lässt Fehlertest im GitHub-Job nicht durch `tee` verdecken.
+- **Genuine evidence artifact** `trippower-b-independent-audit`, GitHub Artifact-ID `12030482127`: https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38864758121/artifacts/12030482127 . Darin: `b-rev6-round9-minimal-tests.txt`, `b-rev6-round9-minimal.json`, Quelle/A-Net-Snapshot-Provenienz, Round8-Cross-Audit, historische REV5-net/ERC-Artefakte.
+- **A-SPAR-/KiCad-Grenze:** A-spezifischer Hersteller-Wert- und Net-Check in B ist ein **gepinntes Snapshot-Modell** der tatsächlich von GitHub geladenen A-Hauptschaltung `01_TPS26631_REV6.kicad_sch` Git blob `7e8b2dee269628ac0bc993c448dfc34acf336a21`. **B hat keinen eigenen neuen nativen A-KiCad10-ERC/Netlist-Export** durchgeführt. A eigener aktueller [KiCad-10-ERC- und Hierarchienetzlisten-Run](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38863622329) wurde separat per GitHub-Jobs-API als `success` überprüft. Der B-Native-KiCad10-ERC betrifft nur die alte im B-Checkout enthaltene REV5-Hierarchie.
+- Die im Round9-Dokument vorgestellten **TPS26631 Werk-OVP + 100k/15k UVLO sind NICHT gezeichnet und noch nie auf A physisch gemessen**. Dies bestätigt nur die eigenständig nachvollziehbare Grenzwertrechnung mit manueller Quellprüfung und die nötigen Fehlertests.
+- **NICHT bestanden und ausdrücklich OFFEN:** 32V-Wiederanlauf im echten Gerät, reale 58V/350ms Pins, +60°C 5V/2A auf PCB, +85°C Umgebung mit MCU-Hang/Sensor-Kurz/Relaisverschweißung, RAW 0.5A Hart-/Teilshort/Kabel, externes F_MAIN DC-Lichtbogen/Einbau, USB/RTC/BAT Rückspeisung sowie FRAM/SD Power-Loss Fault-Injection. Keine Fahrzeug-, PCB-/DRC- oder Fertigungsfreigabe.
+
+Dieses Dokument wird **nach** dem getesteten Code/Review-Commit committed. Dessen eigener Dokumentations-Commit erhält ggf. einen weiteren Lauf; daher gilt die obere bestandene CI-Evidenz genau für die genannte SHA, bis der neue HEAD-Lauf separat verifiziert wurde.
