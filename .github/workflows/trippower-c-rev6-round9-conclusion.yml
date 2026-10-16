@@ -1,0 +1,55 @@
+name: TripPower C Round9 corrected falling OVP and A optimisation (NO PCB RELEASE)
+on:
+  push:
+    branches: ["design/trippower-c"]
+    paths:
+      - ".github/workflows/trippower-c-rev6-round9-conclusion.yml"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_round9_correct_ovp_physics.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_round8_full_ladder_model.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_protection_gates.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/rev6_c_round8_quantified_check.py"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND9_A25_VS_A23_FACTORY_32V_RESTART_PRICE_2026-10-16.csv"
+      - "hardware/modules/TripPower_5V2A/weg_c/REV6_ROUND9_C_NO_GO_AND_A_OPTIMIZATION_2026-10-16.md"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-physics-and-matched-BOM:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardware/modules/TripPower_5V2A/weg_c
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Corrected guaranteed OVP falling minimum, manufacturer limits, A-factory OVP
+        run: python3 -m unittest -v rev6_round9_correct_ovp_physics
+      - name: Run older C models with corrected interpretation
+        run: |
+          python3 -m unittest -v rev6_protection_gates rev6_round8_full_ladder_model rev6_c_round8_quantified_check
+      - name: Document arithmetic and factory OVP alternative
+        run: python3 rev6_round9_correct_ovp_physics.py
+      - name: Verify A25 native vs draft A23 and only module population
+        run: |
+          python3 - <<'PY'
+          import csv
+          path='REV6_ROUND9_A25_VS_A23_FACTORY_32V_RESTART_PRICE_2026-10-16.csv'
+          with open(path, encoding='utf8', newline='') as f:
+              rows=list(csv.DictReader(f))
+          for arch,expected in [('A25_NATIVE_SOURCE',25),('A23_FACTORY_OVP_PROJECTION',23)]:
+              sub=[x for x in rows if x['Option']==arch]
+              assert len(sub)==expected,(arch,len(sub))
+              assert all(x['PCB_ref'] not in ('F_MAIN','F101') for x in sub)
+              vals=[sum(float(x[f'EUR_net_unit_{i}'] or 0) for x in sub) for i in ('1','10','100')]
+              known=sum(x['EUR_net_unit_1']!='' for x in sub)
+              print(arch,'POSITIONS',expected,'PRICED',known,'PARTIAL_EUR_NET',vals)
+          assert all(x['Population_status']=='NOT a KiCad schematic' for x in rows if x['Option']=='A23_FACTORY_OVP_PROJECTION')
+          print('NO COMPLETE BOM, NO NATIVE A23 OR C KICAD ERC CLAIMED.')
+          PY
+      - name: No manufacturing-release claim
+        run: |
+          echo "TPS26600 adjustable OVLO cannot guarantee both 32V falling recovery and <=36V rising cutoff."
+          echo "A factory-OVP redesign is an unbuilt recommendation, not part of Weg A native KiCad25."
+          echo "No prototype fabrication or vehicle release."
