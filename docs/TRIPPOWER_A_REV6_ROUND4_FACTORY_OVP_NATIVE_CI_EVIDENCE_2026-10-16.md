@@ -1,0 +1,19 @@
+# TripPower Weg A REV6 Round4 – Native KiCad-10- / Hersteller-OVP-/BOM-Evidenz (16.10.2026)
+
+**Verifizierter GitHub-Actions-Lauf:** [38868611951](https://github.com/GeneralEdelweiss/TripTracer/actions/runs/38868611951) auf Commit **`78d4be9cbfb7b4002fbf8ea9a590a161cfcb5d4b`**, Job-ID **116867146753**. Die GitHub-Jobs-API meldete **`completed/success`**; **Original-Joblog** wurde anschließend ausgelesen. Dieses exakt getestete Commit umfasst die neue eigenständige 23er-Schutzschaltung, korrigierte Round3-Hysterese, 330k-R201, neue CI-Prüfung und Round4-Entwicklungsbericht. Der nachfolgende rein dokumentarische Evidence-Commit wurde nicht als neu elektrisch geprüft ausgegeben.
+
+## Tatsächlich im Log bestätigte Ergebnisse
+
+- **19/19 bestehende A-REV6-Python-Regressionen**, darunter explizit korrigierte TI-Factory-OVP-Hysterese (32 V kleiner als Factory-Falling-Minimum 32,7 V), 58V-ESL/Leitungsringing-NO-GO, 5V2A-Spulenmodell/Temperatur und offene Safety-Gates.
+- **15/15 neue eigenständige TPS26631-Factory-OVP-/330k-/UVLO-Regressionsfälle**, darunter 10V/32V/36V, 58V ohne unbekannte Überschwinger, 330k Minimum325.215kΩ, 330k+56k Alternative, NC SHDN und definiertes MODE/PGTH.
+- **4× echter nativer KiCad 10 ERC: `Found 0 violations`**: alte 25er-Grundschaltung, 26er-Sensata-Temperatur-Forschungsblatt, 26er-Bourns-RAW-PPTC-Forschungsblatt, neue getrennte 23er-Factory-OVP-Grundschaltung.
+- Native KiCad-10-Netzliste, `native_factory_OVP_pin8_ground_and_min_300k_UVLO:true`, `native_mode_auto_retry_and_pgth_gnd:true`, `root_populated_count_derived_from_native_instance_refs:23`. Original 25 und beide getrennten alten +1-Teile-Forschungsstände bleiben erhalten.
+- **Native Differenz** zwischen alter25 und neuer23: `native_differential_exactly_seven_changed_pin_connections:true`: U201 OVP8 `OVP_SENSE→GND`, MODE12 und PGTH16 von NC→GND, R202- und R203-Anschlüsse vollständig entfernt; **Buck, beide Verpol-MOSFETs, PWR_FAIL und 5V_OUT unverändert**.
+- **4× nativer KiCad BOM-Export** aus tatsächlichen getrennten Projekt-Wurzeln: `reports/rev6-a-entire-native-bom.csv` (25), `rev6-67F080-native-bom.csv` (26), `rev6-RAW-PPTC-native-bom.csv` (26) und `rev6-a-factory-23-bom.csv` (23).
+- Beschaffungsprüfer mit 23/23 exakt abgeglichenen `Reference↔MPN↔Footprint↔EUR-Staffeln`, `all_23_real_MPNs_and_supplier_EUR_price_rows_present:true`; Listenpreis der 23 bestückten TripPower-Komponenten **20,2570 / 13,5610 / 10,6266 € netto je Stück** bei 1/10/100 bestellten Modulen. Keine System-/Host-/F_MAIN-/PCB-/Fertigungs-/MwSt-/Versandkosten.
+
+**Hinweis bei Reproduktion:** Dieses Vorhaben besitzt **kein TripPower-PCB**. PCB-DRC konnte nicht ausgeführt werden. Ein erfolgreicher Herstellergrenzen-Test/ ERC/Netzlisten- und Bestelllistenvergleich **beweist nicht** reale Schutzfunktion. Insbesondere **+85°C Ambient safe-OFF**, **58V/350ms inklusive U201-IN-/IN_SYS-Pinspitzen**, **36V/400ms mit endlichem Eingangsspannungsabfall**, **10V-Volllast-Kaltstart**, **32V dynamischer Wiederanlauf**, **RAW0.5A-Kurzschlussschutz**, **USB/ACC/BAT-GND-/Primärzellen-Backfeed**, **BAT-OFF <1mA** und **5V2A bei60°C** sind weiterhin **OFFEN**.
+
+**Nächstes technisches Testgate:** Direkt an Q201 D/S/G, TPS26631 IN1–3/IN_SYS6/B_GATE4/DRV5/OUT18–20, UVLO7, OVP8/GND, Buck VIN/SW/BOOT/GND, RAW, 5VOUT, TP501, USB/ACC/BAT die Ist-Spannungen bei realem R/L/C-Source-Netz vermessen. Erst mit reproduzierbar ≤60V TPS-IC-Pins (67V absolute niemals überschreiten), gewollter Hysterese und +85°C sicheren Gesamtsystem-Hardwarepfad die Fertigungsfreigabe prüfen.
+
+**Gesamtstatus: NO FAB / NO VEHICLE / NO 58V PULSE PASS / NO +85°C PASS.** Ausführliche Architektur und Herstellerbelege: [REV6_A_ROUND4_FACTORY_OVP_300K_UVLO_NATIVE_2026-10-16.md](../hardware/modules/TripPower_REV6_A/REV6_A_ROUND4_FACTORY_OVP_300K_UVLO_NATIVE_2026-10-16.md).
