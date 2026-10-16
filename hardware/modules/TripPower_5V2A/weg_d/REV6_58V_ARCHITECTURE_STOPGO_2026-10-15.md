@@ -1,5 +1,9 @@
 # TripPower Weg D – REV6: Entscheidung 58-V-Schutz / drei einfache Architekturen (2026-10-15)
 
+> **NACHTRAG / ÜBERHOLT DURCH ROUND 8 AM 16.10.2026:** [Vergleich TPS26631 gegen TPS26600 und LTC4368](WEG_D_REV6_ROUND8_TPS26631_TPS26600_LTC4368_DECISION_2026-10-16.md) ändert die bisherige Architektur-Priorisierung: Mit dem vorhandenen, nativen Weg-A-KiCad10-Prototyp ist **TPS26631** der wirtschaftliche P0-Prüfpfad; LTC4368 nur für tatsächlich gemessenes TPS-Grenzwert-Ringing als Sicherheitsalternative. Die alte LTC-Favoritenbewertung bleibt als zeitlicher Forschungsstand nachvollziehbar und ist keine aktuelle Umstellungsentscheidung. Die kritischen +85°C-/RAW-/F_MAIN-System-/M8-Pin-Nachweise bleiben offen.
+>
+
+
 **Status:** engineering **KONDITIONALER GO für Architektur 3 (LTC4368-2)**, aber **NO-GO für Freigabe eines konkreten Hardware-/KiCad-Prototyps unter noch nicht definiertem Eingangstransienten-/Temperatur-/F_MAIN-Modell**. Dieser Bericht ersetzt für V1 das bisherige Round-6-200V/125°C-No-Go, ohne es als bestandenen 58V-Test auszugeben. REV5-baseline/KiCad/A/B/C nicht verändert. Historische 200V-Forschung bleibt rein archivisch.
 
 ## 0. Verbindliche Anforderungen und Quellen
