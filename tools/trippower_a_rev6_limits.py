@@ -66,7 +66,7 @@ def study():
       "authority":"TRIPPOWER REV6 2026-10-15, not REV5",
       "new_two_sheet_project":"hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch",
       "range_10_32":{k:{c:voltage_threshold(k,c) for c in ("min","typ","max")} for k in ("uvlo","ovp","ovp_falling")},
-      "R1_100k_R2_12k_R3_4p22k_MPN":["RT1206BRD07100KL","RT1206BRD0712KL","RT1206BRD074K22L"],
+      "R1_100k_R2_12k_R3_4p22k_MPN":["RT1206BRD07100KL","ERA-8AEB123V","RT1206BRD074K22L"],
       "10_32_logic":{
         "ovp_does_not_trip_at_32_on_resistor_vendor_sensitivity":voltage_threshold("ovp","min")>32,
         "ovp_trips_by_36_on_resistor_vendor_sensitivity":voltage_threshold("ovp","max")<36,
