@@ -60,6 +60,12 @@ def verify(s):
     # check actual instances rather than inflated parent symbol caches.
     nref=set(x for x in actual_refs if x[0] in "UQRLC" and any(c.isdigit() for c in x))
     assert len(nref)==25,sorted(nref)
+    # PWR-55: No user-replaceable fuse, fuseholder or one-shot thermal fuse
+    # may be fitted to the 25-position module. Optional PPTC is ONLY in
+    # an independently verified research netlist, never in this main build.
+    assert not {r for r in actual_refs if r.startswith("F") and len(r)>1 and r[1].isdigit()}, "Unexpected TripPower fuse / PPTC in baseline"
+    assert "F_MAIN" not in a and "FUSE_HOLDER" not in a and "THERMAL_FUSE" not in a, "No fuses or holders are to be populated on TripPower"
+
     assert all("BAT" not in n for n in ("BUCK_PG_STATE","PWR_OK_SINK_FAIL_RELEASE"))
     return {
         "native_REV6_protection_pinout_correct":True,
@@ -67,6 +73,7 @@ def verify(s):
         "native_PGOOD_external_fail_high_no_main_backfeed":True,
         "root_populated_count_derived_from_native_instance_refs":len(nref),
         "expected_auto_and_run_count":25,
+        "no_replaceable_or_one_shot_fuse_or_holder_on_tripPower":True,
         "REV5_HV_controller_and_250V_FET_removed":True,
         "temperature_at_85C_safe_off_qualified":False,
         "surge_ESD_58V_SOC_validated":False,
