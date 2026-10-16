@@ -50,6 +50,8 @@ def main(netfile, native_bom):
     pins={}
     for net in tree.findall("./nets/net"):
         name=net.attrib["name"].split("/")[-1]
+        if name.startswith("unconnected-"):
+            continue  # KiCad encodes deliberately NC pins as individual pseudo-nets
         for node in net.findall("node"):
             k=(node.get("ref"),node.get("pin"))
             assert k not in pins, ("pin in multiple nets",k)
