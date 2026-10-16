@@ -75,7 +75,7 @@ def study():
         "fixed_OVP_falling_min_typ_max_v":[32.7,33.89,35.0],
         "fixed_OVP_guarantees_32v_restart":True,
         "fixed_OVP_restart_logic":"falling minimum 32.7V > stable32.0V; lower means output can release, not remain latched",
-        "fixed_OVP_recovery_static_min_margin_v":32.7-32,,
+        "fixed_OVP_recovery_static_min_margin_v":32.7-32,
         "factory_UVLO_rising_min_max_v":[15.1,15.9],
         "factory_UVLO_guarantees_10v_start":False,
         "ovp_32V_recovery_pin_margin_v":32-voltage_threshold("ovp_falling","max"),
