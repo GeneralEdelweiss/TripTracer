@@ -1,0 +1,65 @@
+name: TripPower B Round11 pinned A23 independent KiCad10 ERC BOM gate - NO FAB
+on:
+  push:
+    branches: [design/trippower-b]
+    paths:
+      - "hardware/modules/TripPower_5V2A/weg_b/rev6_round11_a23_independent_native.py"
+      - "hardware/modules/TripPower_5V2A/weg_b/WEG_B_ROUND11_A23_INDEPENDENT_SAFETY_2026-10-16.md"
+      - ".github/workflows/trippower-b-round11-a23-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  b-independent-A23-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: kicad/kicad:10.0
+      options: --user root
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout B independent scripts
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout SOURCE-PINNED actual A23 (not historic A25)
+        uses: actions/checkout@v4
+        with:
+          ref: f30f35d404e6ba549ee6202c46d660f498c36545
+          path: audit-A23
+          persist-credentials: false
+      - name: Native KiCad10 A23 ERC, XML netlist, and BOM
+        run: |
+          set -euo pipefail
+          mkdir -p reports "$HOME/.config"
+          cp -r /home/kicad/.config/kicad "$HOME/.config/"
+          kicad-cli version | tee reports/b-round11-kicad-version.txt
+          printf 'A23 source commit: f30f35d404e6ba549ee6202c46d660f498c36545\n' | tee reports/b-round11-source-pin.txt
+          AROOT=audit-A23/hardware/modules/TripPower_REV6_A/TripPower_REV6_A_FACTORY_OVP.kicad_sch
+          kicad-cli sch erc --severity-all --exit-code-violations --format json \
+            -o reports/b-round11-A23-erc.json "$AROOT" \
+            2>&1 | tee reports/b-round11-erc-console.txt
+          kicad-cli sch export netlist --format kicadxml \
+            -o reports/b-round11-A23-native.xml "$AROOT"
+          kicad-cli sch export bom \
+            -o reports/b-round11-A23-native-BOM.csv "$AROOT"
+          python3 hardware/modules/TripPower_5V2A/weg_b/rev6_round11_a23_independent_native.py \
+            reports/b-round11-A23-native.xml reports/b-round11-A23-native-BOM.csv \
+            | tee reports/b-round11-A23-independent-validation.json
+          printf 'SCHEMATIC ONLY; NO PCB DRC; 58V / +85C / RAW / HOST / AUTO-RETRY THERMAL STILL UNQUALIFIED\n' \
+            | tee reports/RELEASE_BLOCKED.txt
+      - name: Store full native evidence including on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B-Round11-A23-independent-KiCad10
+          path: reports/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Explicit no-fabrication boundary
+        if: always()
+        run: |
+          echo '## B Round11 -- pinned actual A23 KiCad10 (not A25)' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Green ERC and netlist do not qualify 58V pad stress, repeated retry thermal, RAW fault, +85C hardware safe-off, full host power-path or vehicle installation.' >> "$GITHUB_STEP_SUMMARY"
