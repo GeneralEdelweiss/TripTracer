@@ -1,13 +1,26 @@
 #!/usr/bin/env python3
 """Produce native integration parts ledger split into A23 core, host and offboard.
 No fabricated host prices, NO FAB. Native BOM from KiCad 10 is sole source for fitted parts."""
-import csv,sys,json
+import csv,sys,json,re
 from pathlib import Path
 from decimal import Decimal
 VENDOR=Path("hardware/modules/TripPower_REV6_A/REV6_A_FACTORY_OVP_23_PART_ORDER_BOM_2026-10-16.csv")
 MAPPING={"U201":"U921","Q201":"Q941","Q202":"Q942","R201":"R941","R204":"R944","C201":"C941","C202":"C942","C203":"C943"}
 HEAD=("category","ref","qty","manufacturer","mpn","footprint","eur_exVAT_1","eur_exVAT_10","eur_exVAT_100","status")
 COST=["eur_exVAT_1","eur_exVAT_10","eur_exVAT_100"]
+SHEETS=[Path("hardware/kicad/TripTracer_A23_Integration/01_TPS26631_A23_INTEGRATED.kicad_sch"),
+        Path("hardware/kicad/TripTracer_A23_Integration/02_5V_A23_INTEGRATED.kicad_sch")]
+def source_mpn(ref):
+    for sheet in SHEETS:
+        s=sheet.read_text(encoding="utf-8")
+        start=s.find('(property "Reference" "'+ref+'"')
+        if start<0:continue
+        end=s.find('(instances ',start)
+        if end<0 or end-start>3000:raise AssertionError(("cannot bound native placed symbol",ref,sheet))
+        field=re.search(r'\(property "MPN" "([^"]+)"',s[start:end])
+        if not field:raise AssertionError(("placed A23 component missing MPN",ref,str(sheet)))
+        return field.group(1)
+    raise AssertionError(("A23 placed component not found",ref))
 def run(native,output,summary):
  with open(VENDOR,newline="",encoding="utf-8") as f: old=list(csv.DictReader(f))
  source={MAPPING.get(p["ref"],p["ref"]):p for p in old if p["ref"]!="SUMMARY_23_FITTED"}
@@ -23,7 +36,12 @@ def run(native,output,summary):
    if ref in source:
     v=source[ref]
     # KiCad is authority, do not tolerate MPN substitution
-    assert v["mpn"] in str(item),("native A23 MPN missing/mismatched",ref,v["mpn"],item)
+    assert source_mpn(ref)==v["mpn"],("placed source MPN vs order list",ref,source_mpn(ref),v["mpn"])
+    native_footprint=item["Footprint"]
+    expected=v["KiCad_footprint"]
+    if ref=="U921":expected="TripPowerFP:TI_TPS26631_PWP_EP"
+    if ref=="L101":expected="TripPowerFP:L_Bourns_SRP7050TA_150M"
+    assert native_footprint==expected,("native KiCad Footprint mismatch",ref,native_footprint,expected)
     result.append(["A23_CORE",ref,"1",v["manufacturer"],v["mpn"],v["KiCad_footprint"],*[v[z] for z in COST],"A23_VENDOR_QUOTE_NOT_FAB"])
    else:
     v={key:str(value) for key,value in item.items()}
