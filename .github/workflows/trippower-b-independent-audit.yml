@@ -60,6 +60,12 @@ jobs:
           python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_rev6_acd_safety_audit.py' -v 2>&1 | tee reports/b-rev6-ACD-cross-audit-tests.txt
           python3 hardware/modules/TripPower_5V2A/weg_b/rev6_acd_safety_audit.py --output reports/b-rev6-ACD-cross-audit.json
           echo 'A pinned sheet Git blob 85ca54d0ed41f714ddccff939b77190649076a70; no native REV6 A ERC done in this B workflow' > reports/b-REV6-ACD-source-boundary.txt
+      - name: REV6 Round9 minimal-component safety, live A net snapshot and RAW thermal regressions
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s hardware/modules/TripPower_5V2A/weg_b -p 'test_rev6_round9_minimal_safety.py' -v 2>&1 | tee reports/b-rev6-round9-minimal-tests.txt
+          python3 hardware/modules/TripPower_5V2A/weg_b/rev6_round9_minimal_safety.py > reports/b-rev6-round9-minimal.json
+          echo 'Source-pinned actual A sheet only: 7e8b2dee269628ac0bc993c448dfc34acf336a21; direct B native ERC is inherited REV5. No independent A KiCad export in B checkout.' > reports/b-rev6-round9-provenance.txt
       - name: Native KiCad 10 schematic ERC
         run: |
           kicad-cli sch erc --severity-all --exit-code-violations --format json \
