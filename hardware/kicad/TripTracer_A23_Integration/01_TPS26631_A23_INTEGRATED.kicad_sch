@@ -22,7 +22,7 @@
 (symbol "TripPower_REV6:TPS26631_PWP20" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
 (property "Reference" "U" (at 0 40.64 0) (effects (font (size 1.27 1.27))))
 (property "Value" "TPS26631PWPR" (at 0 -40.64 0) (effects (font (size 1.27 1.27))))
-(property "Footprint" "TripPowerFP:TI_TPS26631_PWP_EP" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
+(property "Footprint" "Tripmaster:TI_TPS26631_PWP_EP" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps2663.pdf" (at 0 0 0) (effects (font (size 1 1)) (hide yes)))
 (symbol "TPS26631_PWP20_0_1" (rectangle (start -25.4 35.56) (end 25.4 -35.56) (stroke (width 0.254) (type default)) (fill (type background))))
 (symbol "TPS26631_PWP20_1_1"
