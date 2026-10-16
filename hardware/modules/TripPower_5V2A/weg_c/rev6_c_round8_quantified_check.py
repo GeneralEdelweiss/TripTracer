@@ -70,16 +70,16 @@ def die_temp_at_60(loss_w,thermal_resistance=38.6):
 class Tests(unittest.TestCase):
     def test_specs_exact(self):
         self.assertEqual((C00.V_oper,C00.V_abs,C31.V_abs),(60.,62.,67.))
-    def test_c00_divider_precision_0p1pct_static(self):
+    def test_c00_divider_precision_0p1pct_still_fails_32v_restart(self):
         rmin,rmax,_fmin,fmax=worst_ovp(C00)
         self.assertGreater(rmin,32.)
         self.assertLess(rmax,36.)
-        self.assertLess(fmax,32.)
-    def test_c31_divider_precision_0p1pct_only_at_ic(self):
+        self.assertLess(fmax,32.) # CORRECTION: this is an automatic FAIL for 32V re-enable, not PASS
+    def test_c31_divider_precision_0p1pct_still_fails_32v_restart(self):
         rmin,rmax,_fmin,fmax=worst_ovp(C31)
         self.assertGreater(rmin,32.)
         self.assertLess(rmax,36.)
-        self.assertGreater(fmax,31.5)
+        self.assertGreater(fmax,31.5) # MIN falling may be far lower; cannot infer restart
         self.assertLess(fmax,32.)
     def test_1percent_tolerance_c00_does_not_guarantee_32vin_operating(self):
         self.assertLess(worst_ovp(C00,tolerance=.01)[0],32.)
