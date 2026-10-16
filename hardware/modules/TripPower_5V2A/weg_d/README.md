@@ -1,5 +1,9 @@
 # TripPower Weg D – dedizierter Load-Dump-Schutz
 
+> **NEUE ROUND10 PRÜFUNG – 16.10.2026:** Maßgeblich ist [Round10: TI-Originalmodell und TPS26631/58V-Grenzen](WEG_D_ROUND10_TPS26631_VENDOR_MODEL_58V_EVIDENCE_2026-10-16.md). Die offizielle TI-PSpice-Datei **SLVMD03A.ZIP** ist online identifiziert, aber in der Ausführungsumgebung nicht als ZIP ladbar; kein PSpice-/ngspice-Herstellerlauf erfolgt. Die TI-Abschaltspitzenformel ist separat gegen ein **lokal getestetes passives 58V-M8-RLC-Flankenmodell** abgeglichen; beide bleiben ausdrücklich Hypothesen und ohne Hardwarefreigabe. [Modell](tps26631_ti_eq14_passive_step.py), [Rechentests](test_tps26631_ti_eq14_passive_step.py), [29-Pin-Messmatrix](ROUND10_58V_PAD_STRESS_MATRIX_2026-10-16.csv), [FINDINGS_LOG](FINDINGS_LOG.md). **Aktuelle A-Korrektur:** R202 BOM12k stimmt jetzt mit Schaltplan überein, L101 ist nun Bourns SRP7050TA-150M. P0 offen bleiben TPS26631-IN_SYS Peak, TI-300k-IN_SYS/UVLO-Empfehlung sowie garantierter 32V-Restart. **Konditionaler GO nur Weg-A-Labor; keine zusätzliche TVS/LTC-Karte und keine PCB-/Fertigungsfreigabe.**
+>
+
+
 > **AKTUELLSTER BEFUND – ROUND 9 / 16.10.2026:** **Weg-A-TPS26631 nur konditional als Laborplattform**. Der ausführbare reduzierte 58V/350ms-VIN/IN_SYS-Transientenrechner kann bei plausibel gewählten, aber **nicht gemessenen** Kabel-L/Ceff/OFF-Timing-Parametern die empfohlenen 60V und sogar 67V ABS überschreiten; kein Fahrzeug-Safe-Go. **Separat im tatsächlich aktuellen A-Schaltplan nachgewiesen:** R202 12,0kΩ/ERA-8AEB123V unterscheidet sich von A-Order-CSV R202 12,4kΩ/RT1206BRD0712K4L; die OVP-Rückschaltschwelle des gezeichneten Teilers ist bei stabil32V nach58V nicht garantiert erreicht. TI TPS2663 §9.4 empfiehlt ≥300k für UVLO–IN_SYS im Reverse-FET-Aufbau, A-R201 ist100k. Diese beiden analogen Design-/BOM-P0-Gates vor einer Leiterplattenbestellung bereinigen. **Keine Messung oder originale Hersteller-PSpice-Simulation erfolgt.**
 >
 > **ROUND9 zuerst lesen:**
