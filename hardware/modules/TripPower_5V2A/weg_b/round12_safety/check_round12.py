@@ -13,6 +13,7 @@ EXPECT={
 "Q301":{1:"BASE_KILL",2:"GND",3:"TPS_SHDN_SAFETY"},
 "Q302":{1:"TEMP_OK_OD",2:"GND",3:"BASE_KILL"},
 "D301":{1:"VIN_SAFETY_FUSED",2:"SAFE_HV"},
+"D302":{1:"GND",2:"BASE_KILL"},
 "R301":{1:"SAFE_3V3",2:"LDO_FB"},
 "R302":{1:"LDO_FB",2:"GND"},
 "R303":{1:"TEMP_SET",2:"GND"},
@@ -43,7 +44,7 @@ MPN={
 "U303":"TPS3838K33QDBVRQ1","U401":"LTC4368HMS-2#WPBF",
 "Q301":"MMBT3904LT1G","Q302":"BSS138LT1G","Q403":"BSS123LT1G",
 "Q401":"TK11S10N1L,LQ","Q402":"TK11S10N1L,LQ",
-"D301":"BAV21W-7-F","R405":"WSL2512R0500FEA","C403":"C1210C225K1RACAUTO",
+"D301":"BAV21W-7-F","D302":"BAV21W-7-F","R405":"WSL2512R0500FEA","C403":"C1210C225K1RACAUTO",
 }
 VALUES={"R301":"180k","R302":"100k","R303":"24.9k","R304":"10k","R305":"100k","R306":"330k",
 "R401":"464k","R402":"1.5M","R403":"121k","R404":"29.4k","R405":"0.050R",
@@ -52,7 +53,7 @@ SROOT=Path("hardware/modules/TripPower_5V2A/weg_b/round12_safety")
 def check(netlist,bom):
     doc=ET.parse(netlist).getroot()
     comps={c.get("ref"):c for c in doc.findall("./components/comp") if __import__("re").fullmatch(r"[UQRCD]\d+",c.get("ref") or "")}
-    assert len(comps)==len(EXPECT)==30,(len(comps),len(EXPECT))
+    assert len(comps)==len(EXPECT)==31,(len(comps),len(EXPECT))
     assert set(comps)==set(EXPECT), sorted(set(comps)^set(EXPECT))
     pins={}
     for net in doc.findall("./nets/net"):
@@ -71,6 +72,7 @@ def check(netlist,bom):
     assert pins[("U401",9)]!=pins[("U401",8)],"No current sense shunt!"
     assert pins[("U302",6)]==pins[("U303",4)]==pins[("Q302",1)],"Sensor + supervisor must pull same gate low"
     assert pins[("R306",1)]=="VIN_SAFETY_FUSED","Default-on NPN power source must be BEFORE Q201"
+    assert pins[("D302",1)]=="GND" and pins[("D302",2)]=="BASE_KILL","Pre-Q201 -60V must not avalanche NPN VBE"
     assert pins[("Q301",3)]=="TPS_SHDN_SAFETY"
     assert pins[("U401",4)]=="GND","RAW controller must latch"
     assert pins[("U401",6)]==pins[("Q403",3)]
@@ -86,12 +88,12 @@ def check(netlist,bom):
         assert (comps[ref].findtext("value") or "")==val,(ref,comps[ref].findtext("value"),val)
     rows=list(csv.DictReader(Path(bom).open(encoding="utf-8")))
     refs=[s.strip() for row in rows for s in row["Refs"].split(",") if s.strip()]
-    assert len(refs)==30 and set(refs)==set(EXPECT)
+    assert len(refs)==31 and set(refs)==set(EXPECT)
     # Cross-check complete procurement matrix against the 30 actual placed KiCad
     # symbol properties, the native XML footprints, and the native BOM.
-    pricing=list(csv.DictReader((SROOT/"ROUND12_30_POSITION_BOM_ESTIMATED_EUR_2026-10-16.csv").open(encoding="utf-8")))
-    order={row["ref"]:row for row in pricing if row["ref"]!="TOTAL_30_FITTED"}
-    assert len(order)==30 and set(order)==set(EXPECT)
+    pricing=list(csv.DictReader((SROOT/"ROUND12_31_POSITION_BOM_ESTIMATED_EUR_2026-10-16.csv").open(encoding="utf-8")))
+    order={row["ref"]:row for row in pricing if row["ref"]!="TOTAL_31_FITTED"}
+    assert len(order)==31 and set(order)==set(EXPECT)
     import re
     def balanced_end(t,pos):
         level=0; quoted=False; escape=False
@@ -123,7 +125,7 @@ def check(netlist,bom):
         for idx,col in enumerate(("eur_exVAT_unit_at_1","eur_exVAT_unit_at_10","eur_exVAT_unit_at_100")):
             amount=Decimal(entry[col]);assert amount>0
             totals[idx]+=amount
-    assert totals==[Decimal("23.5460"),Decimal("16.4030"),Decimal("13.0707")],totals
+    assert totals==[Decimal("23.8260"),Decimal("16.5530"),Decimal("13.1907")],totals
     # Important conservative threshold: short circuit threshold 30mV..70mV per official ADI table, Rshunt=0.050R +/-1%
     imin=0.030/(0.05*1.01)
     imax=0.070/(0.05*.99)
@@ -140,7 +142,7 @@ def check(netlist,bom):
     result={
       "native_comp_count":len(comps),"native_pin_connections_checked":sum(map(len,EXPECT.values())),
       "native_mpn_and_resistor_value_checks":len(MPN)+len(VALUES),
-      "all_30_actual_component_MPN_and_footprints_cost_matrix_match":True,
+      "all_31_actual_component_MPN_and_footprints_cost_matrix_match":True,
       "EUR_net_cost_at_1_10_100_provisional":[str(v) for v in totals],
       "price_rows_are_mixed_quotes_and_estimates":True,
       "ti_tmp390_one_resistor_74C_5C_nominal":True,
