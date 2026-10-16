@@ -11,6 +11,7 @@ on:
       - 'tools/check_trippower_a_rev6_native_netlist.py'
       - 'tools/check_trippower_a_rev6_thermo_netlist.py'
       - 'tools/check_trippower_a_rev6_raw_pptc_netlist.py'
+      - 'tools/check_trippower_a_rev6_procurement.py'
       - '.github/workflows/trippower-a-rev6.yml'
   workflow_dispatch:
 
@@ -109,6 +110,9 @@ jobs:
             hardware/modules/TripPower_REV6_A/TripPower_REV6_A.kicad_sch
           echo 'Native KiCad BOM lines:'
           cat reports/rev6-a-entire-native-bom.csv
+          python3 tools/check_trippower_a_rev6_procurement.py \
+            reports/rev6-a-entire-native-bom.csv \
+            | tee reports/rev6-a-exact-MPN-euro-procurement.json
       - name: Preserve detailed source & ERC evidence
         if: always()
         uses: actions/upload-artifact@v4
