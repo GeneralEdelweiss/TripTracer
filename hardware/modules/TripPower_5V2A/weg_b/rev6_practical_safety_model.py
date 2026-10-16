@@ -159,11 +159,11 @@ def ov_corner_gates(rising_min,rising_max,falling_max,falling_min=None):
        "normal_32v_on_possible":rising_min>32.,
        "shutdown_by_36v":rising_max<=36.,
        "restart_at_stable_32v":valid_fall,
-       "positive_hysteresis":falling_max<rising_min if falling_min is not None else False,
+       "independent_corner_fall_max_below_rise_min_SUFFICIENT_NOT_NECESSARY":falling_max<rising_min if falling_min is not None else False,
        "trip_thermally_or_dynamically_proven":False,
        "all_nominal_DC_corners_consistent": bool(
            rising_min>32 and rising_max<=36 and valid_fall and
-           falling_max<rising_min and falling_min<=falling_max)
+           falling_min<=falling_max)
     }
 
 def failed_silicon_power(v_source=58.,r_supply=5.,r_fault=100.,seconds=.350):
