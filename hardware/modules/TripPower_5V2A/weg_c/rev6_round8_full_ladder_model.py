@@ -87,18 +87,18 @@ class Checks(unittest.TestCase):
         self.assertLess(ov,34)
         self.assertGreater(uv,8)
         self.assertLess(uv,10)
-    def test_full_ladder_0p1pct_32on_36off_and_under10reset(self):
+    def test_full_ladder_0p1pct_uv_and_ov_rise_pass_but_recovery_fails(self):
         l=limits()
         self.assertGreater(l["OV_rise"][0],32.)
         self.assertLess(l["OV_rise"][1],36.)
-        self.assertLess(l["OV_fall"][1],32.)
+        self.assertLess(l["OV_fall"][0],32.) # CORRECT: min falling<32 => cannot guarantee ON at 32 on falling VIN
         self.assertLess(l["UV_rise"][1],10.)
-    def test_one_percent_ladder_is_not_guaranteed_32v_restart(self):
-        self.assertGreater(limits(.01)["OV_fall"][1],32.)
+    def test_one_percent_ladder_is_not_guaranteed_32v_restart_either(self):
+        self.assertLess(limits(.01)["OV_fall"][0],32.) # even 0.1pct cannot guarantee 32V recovery
     def test_nonzero_voltage_dropout_eFuse0_a_not_limited_by_rising_uv(self):
         self.assertLess(limits()["UV_rise"][1],10.)
-    def test_c31_schottky_32v_ov_restart_not_guaranteed(self):
-        self.assertLess(c31_recovery_margin(.4),0.)
+    def test_c31_schottky_old_divider_needs_min_falling_correction(self):
+        self.assertLess(c31_recovery_margin(.4),0.) # MAX falling is NOT sufficient; this diagnostic does not prove restart
     def test_58v_tps26600_abs_cross_with_l_and_ceff(self):
         self.assertGreater(ti_input_spike(),62)
     def test_abs_with_1u_ceff_does_not_equal_operating_limit(self):
